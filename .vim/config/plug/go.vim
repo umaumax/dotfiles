@@ -1,0 +1,32 @@
+"[vim-goをインストールしてみた（所要時間：15分） - Qiita](http://qiita.com/luckyriver0/items/e4f21c507d3fd2c0ffe9)
+"[VimでGo言語 - Humanity](http://tyru.hatenablog.com/entry/2015/07/09/010239)
+"[vimのGolang環境設定 - プログラミングメモ](http://yukirinmk2.hatenablog.com/entry/2015/04/29/000344)
+
+Plug 'fatih/vim-go'
+let g:go_disable_autoinstall = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_interfaces = 1
+":he go-settings
+" Highlights commonly used library types (io.Reader, etc.).
+let g:go_highlight_extra_types = 1
+
+let g:go_fmt_autosave = 1
+" ***. の表記があるとその"***"パッケージを自動で探しに行くので保存が遅くなるので注意
+let g:go_fmt_command = "gofmt"
+
+"let g:go_lint_autosave = 0
+"let g:go_lint_command = "golint"
+
+let g:molokai_original = 1
+let g:rehash256 = 1
+au BufRead,BufNewFile *.go colorscheme molokai
+
+" [Highlight go extra vars]( http://esola.co/posts/2016/highlight-go-extra-vars )
+autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136
+autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
+
+Plug 'zchee/vim-goiferr'
