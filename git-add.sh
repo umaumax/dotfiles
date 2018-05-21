@@ -10,3 +10,5 @@ git add .gitignore
 git add .vimrc
 git add .vim/config/init
 git add .vim/config/plug
+
+git add karabiner

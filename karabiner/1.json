@@ -1,0 +1,43 @@
+{
+  "description": "Change Ctrl+m to Enter Key",
+  "manipulators": [
+    {
+      "from": {
+        "key_code": "m",
+        "modifiers": {
+          "mandatory": [
+            "left_control"
+          ],
+          "optional": [
+            "any"
+          ]
+        }
+      },
+      "to": [
+        {
+          "key_code": "return_or_enter"
+        }
+      ],
+      "type": "basic"
+    },
+    {
+      "from": {
+        "key_code": "m",
+        "modifiers": {
+          "mandatory": [
+            "right_control"
+          ],
+          "optional": [
+            "any"
+          ]
+        }
+      },
+      "to": [
+        {
+          "key_code": "return_or_enter"
+        }
+      ],
+      "type": "basic"
+    }
+  ]
+}
