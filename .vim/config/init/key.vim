@@ -1,7 +1,3 @@
-" for seamless line movement
-nnoremap h <Left>
-nnoremap l <Right>
-
 inoremap {} {}<Left>
 inoremap [] []<Left>
 inoremap () ()<Left>
@@ -20,11 +16,24 @@ inoremap <C-l> <Right>
 inoremap <C-d> <Delete>
 inoremap <C-f> <BS>
 
+" for seamless line movement
+nnoremap h <Left>
+nnoremap l <Right>
 " zz: set cursor center
-nnoremap k kzz
-nnoremap j jzz
+" nnoremap k kzz
+" nnoremap j jzz
 nnoremap <Down> gj
 nnoremap <Up>   gk
+
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
+cnoremap <C-k> <Up>
+cnoremap <C-j> <Down>
+
+function! s:yank_pwd()
+	let @* = expand('%:h')
+endfunction
+nnoremap wd :call <SID>yank_pwd()<CR>
 
 " visual mode
 " word copy
@@ -42,11 +51,19 @@ inoremap <C-r> <Esc><C-r>i
 " nnoremap [ <PageUp>
 " nnoremap ] <PageDown>
 
+" #### mark {{{{
 " Mark & Start
+" nnoremap ms this means mark as 's' register
 " Mark & Yank
 nnoremap my y's
 " Mark & Cut
 nnoremap mc d's
+
+" goto middle line of window
+nnoremap MM M
+" goto any marks[a~zA~Z]
+nnoremap M '
+" #### mark }}}}
 
 " yy copy command in visual mode
 vnoremap yy :!pbcopy;pbpaste<CR>
@@ -121,15 +138,35 @@ nnoremap src :source ~/.vimrc<CR>
 " auto toggle
 " e.g. md    -> '* xxx'
 "      c,cpp -> 'xxx:'
+function! Substitute(pat, sub, flags) range
+	for l:n in range(a:firstline, a:lastline)
+		let l:line=getline(l:n)
+		let l:ret=substitute(l:line, a:pat, a:sub, a:flags)
+		call setline(l:n, l:ret)
+	endfor
+	call cursor(a:lastline+1, 1)
+endfunction
+command! -nargs=0 -range SetMarkdownHead <line1>,<line2>call Substitute('^\([^*].*\)$', '* \1', '')
+command! -nargs=0 -range SetCBottom      <line1>,<line2>call Substitute('\(^.*[^;]\+\)\s*$', '\1;', '')
 augroup file_detection_for_toggle
 	autocmd!
-	au BufNewFile,BufRead *.md nnoremap <silent> @  :s/^\([^*].*\)$/* \1/<CR>:noh<CR>
-	au BufNewFile,BufRead *.{c,cpp} nnoremap <silent> @ :s/\(^.*[^;]\+\)\s*$/\1;/<CR>:noh<CR>
+	au BufNewFile,BufRead *.md      nnoremap <silent> @ :SetMarkdownHead<CR>
+	au BufNewFile,BufRead *.{c,cpp} nnoremap <silent> @ :SetCBottom<CR>
 augroup END
 
 " no yank by x or s
 nnoremap x "_x
 nnoremap s "_s
+
+" English search
+function! SearchEnglishWord()
+	let l:buf = @+
+	" 	let l:ret = system('p | trans -b -sl=en -tl=ja')
+	let l:ret = system('p | trans -b')
+	call Window('english', 'open', split(l:buf."\n=>".l:ret, "\n"))
+endfunction
+nnoremap <Space><Space> viwv:call SearchEnglishWord()<CR>
+vnoremap <Space><Space> v:call SearchEnglishWord()<CR>
 
 " tab
 nnoremap <Tab> >>
@@ -150,3 +187,10 @@ vnoremap s_ c____<Left><Left><ESC>p
 nnoremap Q <Nop>
 " to avoid entering command line window mode
 nnoremap q: <Nop>
+" to avoid entering recoding mode
+" [What is vim recording and how can it be disabled? \- Stack Overflow]( https://stackoverflow.com/questions/1527784/what-is-vim-recording-and-how-can-it-be-disabled )
+nnoremap q <Nop>
+nnoremap r q
+
+" for external command
+nnoremap ! :! 

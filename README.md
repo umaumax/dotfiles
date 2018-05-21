@@ -16,3 +16,6 @@ git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 
 open vim and puts `:PlugInstall`
 
+## Karabiner-Element for Mac
+`~/.config/karabiner/assets/complex_modifications`
+[Karabiner\-Elementsの設定項目をまとめました]( https://qiita.com/s-show/items/a1fd228b04801477729c )

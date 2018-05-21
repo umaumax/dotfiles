@@ -1,10 +1,58 @@
 filetype off | filetype plugin indent off " temporarily disable
 
+" [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
+if filereadable(glob('~/.bashenv'))
+	let $BASH_ENV=expand('~/.bashenv')
+endif
+" [dotfiles/dot\.zshenv at master · poppen/dotfiles]( https://github.com/poppen/dotfiles/blob/master/dot.zshenv )
+if filereadable(glob('~/.zshenv'))
+	let $ZSH_ENV=expand('~/.zshenv')
+endif
+
+" [not work on Mac OSX Mavericks · Issue \#41 · suan/vim\-instant\-markdown]( https://github.com/suan/vim-instant-markdown/issues/41 )
+" 上記の!コマンドでaliasを利用するときとの相性が悪い
+" set shell=bash\ -i
+
+let s:local_vimrc = expand('~/.local.vim')
+
+
 call plug#begin('~/.vim/plugged')
 runtime! config/plug/*.vim
 
+Plug 'umaumax/autoread-vim'
 Plug 'umaumax/skeleton-vim'
 Plug 'umaumax/comment-vim'
+
+" tab for completion
+Plug 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<c-n>"
+" let g:SuperTabDefaultCompletionType = "context"
+
+" mark viewer
+Plug 'jeetsukumaran/vim-markology'
+" normal modeでddすると表示が一時的にずれる
+" Plug 'kshenoy/vim-signature'
+" highlight SignColumn ctermbg=Black guibg=#000000
+
+" 本体close時にbarがcloseしない...
+" Plug 'hisaknown/nanomap.vim'
+" " More scrollbar-ish behavior
+" let g:nanomap_auto_realign = 1
+" let g:nanomap_auto_open_close = 1
+" let g:nanomap_highlight_delay = 100
+
+Plug 'reireias/vim-cheatsheet'
+" TODO:拡張子によって，ファイルを変更する? or all for vim?
+let g:cheatsheet#cheat_file = expand('~/.cheatsheet.md')
+
+" status line
+Plug 'vim-airline/vim-airline'
+
+" required
+" npm -g install instant-markdown-d
+" Plug 'suan/vim-instant-markdown'
+" :InstantMarkdownPreview
+" let g:instant_markdown_autostart = 0
 
 " [vim で JavaScript の開発するときに最近いれた設定やプラグインとか - 憧れ駆動開発](http://atasatamatara.hatenablog.jp/entry/2013/03/09/211908)
 Plug 'vim-scripts/JavaScript-Indent'
@@ -75,11 +123,10 @@ let g:quickhl_manual_enable_at_startup = 1
 let g:quickhl_manual_keywords = [
 			\ {"pattern": 'NOTE\c', "regexp": 1 },
 			\ {"pattern": 'TODO\c', "regexp": 1 },
-			\ {"pattern": 'DONE\c', "regexp": 1 },
+			\ {"pattern": 'MEMO\c', "regexp": 1 },
 			\ {"pattern": 'FIX\c', "regexp": 1 },
 			\ {"pattern": 'FYI\c', "regexp": 1 },
 			\ {"pattern": 'WARN\c', "regexp": 1 },
-			\ {"pattern": 'MEMO\c', "regexp": 1 },
 			\ {"pattern": 'INFO\c', "regexp": 1 },
 			\ ]
 
@@ -157,25 +204,6 @@ set backspace=indent,eol,start
 set nocompatible | set noswapfile | set nobackup
 augroup reopen_cursor_position
 	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
-
-
-" [How does Vim's autoread work? - Stack Overflow]( https://stackoverflow.com/questions/2490227/how-does-vims-autoread-work )
-set autoread
-augroup file_autoread_checktime
-	au!
-	if !has("gui_running")
-		"silent! necessary otherwise throws errors when using command
-		"line window.
-		autocmd BufEnter        * silent! checktime
-		autocmd CursorHold      * silent! checktime
-		autocmd CursorHoldI     * silent! checktime
-		"these two _may_ slow things down. Remove if they do.
-		autocmd CursorMoved     * silent! checktime
-		autocmd CursorMovedI    * silent! checktime
-		au FocusLost,WinLeave * :silent! noautocmd w
-		au FocusLost,WinLeave * :silent! w
-	endif
 augroup END
 
 " vim file open log
@@ -273,7 +301,11 @@ if IsPrivateWork()
 		auto BufWritePre *.sh :call s:format_file()
 		auto BufWritePre *.{vim,vimrc} :call s:format_file()
 		auto BufWritePre *.bashrc :call s:format_file()
+		auto BufWritePre *.bashenv :call s:format_file()
 		auto BufWritePre *.bash_profile :call s:format_file()
+		auto BufWritePre *.zshrc :call s:format_file()
+		auto BufWritePre *.zshenv :call s:format_file()
+		auto BufWritePre *.zprofile :call s:format_file()
 	augroup END
 endif
 augroup set_filetype
@@ -283,6 +315,13 @@ augroup set_filetype
 	au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
 	" 	au BufRead,BufNewFile *.py let g:indent_guides_enable_on_vim_startup=1 | let g:indent_guides_guide_size=2
 augroup END
+
+" not use interactive command (e.g. peco) in this function
+function! s:pipe(...) abort
+	let @+ = system(join(a:000,' '))
+endfunction
+command! -nargs=* -complete=command Pipe call s:pipe(<f-args>)
+command! -nargs=* -complete=command P call s:pipe(<f-args>)
 " ################ playground ######################
 
 "#### END ####
@@ -292,3 +331,7 @@ syntax on "コードの色分け
 " seamless line movement
 " [vim のカーソル移動で欲しかったアレ \- Cat of AZ]( http://fisto.hatenablog.com/entry/2012/11/16/181349 )
 set whichwrap=b,s,[,],<,>
+
+if filereadable(s:local_vimrc)
+	execute 'source' s:local_vimrc
+endif
