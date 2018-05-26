@@ -66,6 +66,8 @@ Plug 'umaumax/vim-shfmt'
 " #### my plugin ####
 " ###################
 
+Plug 'Shougo/unite.vim'
+
 " :ShebangInsert
 Plug 'sbdchd/vim-shebang'
 Plug 'mhinz/vim-startify'
@@ -114,7 +116,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " let g:SuperTabDefaultCompletionType = "context"
 
 " mark viewer
+" 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
 Plug 'jeetsukumaran/vim-markology'
+let g:markology_enable=0
 " normal modeでddすると表示が一時的にずれる
 " Plug 'kshenoy/vim-signature'
 " highlight SignColumn ctermbg=Black guibg=#000000
@@ -201,7 +205,8 @@ Plug '5t111111/neat-json.vim', {'for': 'json'}
 " to use this lib, you have to set filetype=gnuplot by autocmd
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
-Plug 'Shougo/unite.vim'
+Plug 'airblade/vim-gitgutter'
+let g:gitgutter_highlight_lines = 1
 call plug#end()
 " #### plug ####
 " ##############
@@ -233,6 +238,7 @@ set wildmenu wildmode=list:full "入力補完機能
 set nohlsearch   "検索キーワードハイライト無効
 set cursorline   "カーソル行ハイライト
 set laststatus=2 "常に編集中ファイル名表示
+set updatetime=250
 
 " completion menu color setting
 highlight Pmenu ctermfg=white ctermbg=black
@@ -322,3 +328,6 @@ elseif s:colorscheme == 'tender'
 	" set airline theme
 	let g:airline_theme = 'tender'
 endif
+
+" for 'airblade/vim-gitgutter'
+highlight GitGutterChangeLine cterm=bold ctermfg=7 ctermbg=16 gui=bold guifg=#ffffff guibg=#2c4f1f

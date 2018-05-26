@@ -1,27 +1,22 @@
 " [Vimのマーク機能、使い方まとめ \- Qiita]( https://qiita.com/syui/items/442fd0905a1f2005c10e )
-Plug 'Shougo/unite.vim'
 Plug 'tacroe/unite-mark'
-Plug 'zhisheng/visualmark.vim'
-
-" viminfo
-" http://vimwiki.net/?%27viminfo%27
-" set viminfo='50,\"1000,:0,n~/.vim/viminfo
-
 " unite mark
 " https://github.com/tacroe/unite-mark
 " http://d.hatena.ne.jp/tacroe/20101119/1290115586
 nnoremap <silent> m<Space> :Unite mark<CR>
+Plug 'zhisheng/visualmark.vim'
 
 " mark auto reg
 " http://saihoooooooo.hatenablog.com/entry/2013/04/30/001908
 if !exists('g:markrement_char')
-	" 's'
+	" 'm', 's', 't'
 	let g:markrement_char = [
-				\     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-				\     'n', 'o', 'p', 'q', 'r', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+				\     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+				\     'n', 'o', 'p', 'q', 'r', 'u', 'v', 'w', 'x', 'y', 'z'
 				\ ]
 endif
 nnoremap <silent>mm :<C-u>call <SID>AutoMarkrement()<CR>
+nnoremap <silent>mt :MarkologyToggle<CR>
 function! s:AutoMarkrement()
 	if !exists('b:markrement_pos')
 		let b:markrement_pos = 0
