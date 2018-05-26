@@ -3,6 +3,7 @@ augroup QfAutoCommands
 	autocmd!
 	" Auto-close quickfix window
 	autocmd WinEnter * if (winnr('$') == 1) && (getbufvar(winbufnr(0), '&buftype')) == 'quickfix' | quit | endif
+	autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 " TODO: only for quickfix setting
 augroup quickfix_color_group
@@ -15,3 +16,13 @@ augroup quickfix_color_group
 	" 	autocmd FileType qf
 	autocmd WinEnter,WinLeave,BufRead,BufNew,BufEnter,Syntax * call matchadd('QuickhlManual12','||\s\+[0-9]\+\s.*$')
 augroup END
+
+" for vimgrep quickfix
+" nnoremap gn :cnext<CR>
+" nnoremap gN :cprev<CR>
+nmap gn :cnext<CR>
+nmap gN :cprev<CR>
+call submode#enter_with('vimgrep', 'n', '', 'gn', ':cnext<CR>')
+call submode#enter_with('vimgrep', 'n', '', 'gN', ':cprev<CR>')
+call submode#map('vimgrep', 'n', '', 'n', ':cnext<CR>')
+call submode#map('vimgrep', 'n', '', 'N', ':cprev<CR>')

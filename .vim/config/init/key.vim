@@ -183,7 +183,9 @@ endfunction
 inoremap <C-v> <ESC>:call <SID>paste_at_cursor()<CR>i
 
 " dynamic highlight search
-nnoremap / :set hlsearch<CR>/
+" very magic
+" [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
+nnoremap / :set hlsearch<CR>:set incsearch<CR>/\v
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " [俺的にはずせない【Vim】こだわりのmap（説明付き） \- Qiita]( https://qiita.com/itmammoth/items/312246b4b7688875d023 )

@@ -1,5 +1,6 @@
 " 自動補完有効化
 set completeopt=menuone
+" `\zs`:どこにでもマッチしてマッチの開始地点を設定する
 "for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.",'\zs')
 "  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
 "endfor
