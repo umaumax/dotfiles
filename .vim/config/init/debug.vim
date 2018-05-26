@@ -1,5 +1,3 @@
-" set splitbelow
-
 " name: window name
 " command: 'open', 'close'
 " lines: []
@@ -51,3 +49,5 @@ function! Window(name, command, lines)
 		execute 'au BufWinLeave <buffer> silent! call Window("' . l:name . '", "close", [])'
 	augroup END
 endfunction
+
+" set splitbelow

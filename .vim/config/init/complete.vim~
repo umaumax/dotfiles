@@ -5,7 +5,7 @@ set completeopt=menuone
 "endfor
 
 for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_.",'\zs')
-exec "imap " . k . " " . k . "<C-N><C-P>"
+	exec "imap " . k . " " . k . "<C-N><C-P>"
 endfor
 
 function! OmniDotSet()
@@ -31,6 +31,6 @@ endfunction
 " 拡張子ごとにOmni補完のタイミングを調整
 augroup filetypedetect
 	au BufNewFile,BufRead *.{go,c,cpp,h,hpp} :call OmniDotSet()
-	au BufNewFile,BufRead *.{c,cpp,cu,h,hpp}    :call OmniCSet()
-	au BufNewFile,BufRead *.{cs}    :call OmniCSet()
+	au BufNewFile,BufRead *.{c,cpp,cu,h,hpp} :call OmniCSet()
+	au BufNewFile,BufRead *.{cs}             :call OmniCSet()
 augroup END

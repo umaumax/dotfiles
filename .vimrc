@@ -1,4 +1,18 @@
-filetype off | filetype plugin indent off " temporarily disable
+" old seting?
+" filetype off | filetype plugin indent off " temporarily disable
+" set nocompatible
+
+" NOTE: doctor mode
+" VIM_DOCTOR='on' vim
+
+" let s:colorscheme = 'default'
+let s:colorscheme = 'molokai'
+" let s:colorscheme = 'moonfly'
+" difficult to see visual mode
+" let s:colorscheme = 'tender'
+
+" save cwd
+let s:cwd = getcwd()
 
 " [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
 if filereadable(glob('~/.bashenv'))
@@ -13,15 +27,86 @@ endif
 " 上記の!コマンドでaliasを利用するときとの相性が悪い
 " set shell=bash\ -i
 
-let s:local_vimrc = expand('~/.local.vim')
+let s:local_vimrc = expand('~/.local.vimrc')
 
+function! Docter(plugin_name, cmd, description)
+	if !executable(a:cmd)
+		if $VIM_DOCTOR != ''
+			echo 'Require:'. a:cmd. ' for '. a:plugin_name
+			echo '    ' . a:description
+		endif
+	endif
+endfunction
 
+augroup set_filetype
+	autocmd!
+	au BufRead,BufNewFile *.{gp,gnu,plt,gnuplot} set filetype=gnuplot
+	au BufNewFile,BufRead *.md :set syntax=markdown | :set filetype=markdown
+	au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
+	au BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile} set ft=sh
+	au BufRead,BufNewFile *.{zsh,zshrc,zshenv,zprofile} set ft=zsh
+	" 	au BufRead,BufNewFile *.py let g:indent_guides_enable_on_vim_startup=1 | let g:indent_guides_guide_size=2
+augroup END
+
+" ##############
+" #### plug ####
 call plug#begin('~/.vim/plugged')
 runtime! config/plug/*.vim
 
+" ###################
+" #### my plugin ####
 Plug 'umaumax/autoread-vim'
 Plug 'umaumax/skeleton-vim'
 Plug 'umaumax/comment-vim'
+" :BenchVimrc
+Plug 'umaumax/benchvimrc-vim'
+" fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
+Plug 'umaumax/vim-shfmt'
+" let g:shfmt_fmt_on_save = 1
+" #### my plugin ####
+" ###################
+
+" :ShebangInsert
+Plug 'sbdchd/vim-shebang'
+Plug 'mhinz/vim-startify'
+" startifyのヘッダー部分に表示する文字列をdateの結果に設定する
+let g:startify_custom_header =''
+" set file key short cut (i:insert, e:empty, q:quit)
+let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
+let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
+" bookmark example
+let g:startify_bookmarks = [
+			\ '~/.vimrc',
+			\ ]
+
+" high light word when replacing
+" command line window modeでの動作しない?
+" Plug 'osyo-manga/vim-over'
+
+" for correct shell format
+" Plug 'z0mbix/vim-shfmt'
+" let g:shfmt_fmt_on_save = 1
+" [シェルスクリプトを簡単にチェックできるShellCheck, Vimでも使える]( http://rcmdnk.github.io/blog/2014/11/26/computer-bash-zsh/ )
+" with shellcheck (brew install shellcheck)
+if Docter('vim-syntastic/syntastic', 'shellcheck2', 'apt-get install shellcheck || brew install shellcheck')
+	Plug 'vim-syntastic/syntastic', {'for': ['sh','zsh']}
+endif
+
+" input helper
+Plug 'kana/vim-smartinput'
+
+" auto auto type detector
+" this takes a little time to install
+" Plug 'rhysd/libclang-vim'
+" Plug 'libclang-vim/clang-type-inspector.vim'
+
+" too late
+" Plug 'Valloric/YouCompleteMe'
+" let g:ycm_filetype_blacklist = {'go': 1}
+" let g:ycm_global_ycm_extra_conf = expand('~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py')
+
+" A comprehensive Vim utility functions for Vim plugins
+Plug 'vim-jp/vital.vim', {'for': ['vi', 'vim']}
 
 " tab for completion
 Plug 'ervandew/supertab'
@@ -46,6 +131,7 @@ Plug 'reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = expand('~/.cheatsheet.md')
 
 " status line
+" NOTE:エラー表示がこのプラグインですぐに消えてしまって見えなくなっているかもしれない
 Plug 'vim-airline/vim-airline'
 
 " required
@@ -55,23 +141,30 @@ Plug 'vim-airline/vim-airline'
 " let g:instant_markdown_autostart = 0
 
 " [vim で JavaScript の開発するときに最近いれた設定やプラグインとか - 憧れ駆動開発](http://atasatamatara.hatenablog.jp/entry/2013/03/09/211908)
-Plug 'vim-scripts/JavaScript-Indent'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'kchmck/vim-coffee-script'
-Plug 'felixge/vim-nodejs-errorformat'
-Plug 'othree/html5.vim'
+Plug 'vim-scripts/JavaScript-Indent', {'for': 'javascript'}
+Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
+Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
+Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 
-Plug 'davidhalter/jedi-vim'
-let g:jedi#auto_initialization = 1
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#popup_on_dot = 1
+" color sheme
+if s:colorscheme == 'molokai'
+	Plug 'tomasr/molokai'
+elseif s:colorscheme == 'moonfly'
+	Plug 'bluz71/vim-moonfly-colors'
+elseif s:colorscheme == 'tender'
+	Plug 'jacoborus/tender.vim'
+endif
 
 " auto chmod +x
 Plug 'tyru/autochmodx.vim'
+" file manager
 Plug 'scrooloose/nerdtree'
+let g:NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 Plug 'tpope/vim-surround'
+" for consecutive shortcut input
 Plug 'kana/vim-submode'
 " :S/{pattern}/{string}/[flags]
 " crs	"SnakeCase" → "snake_case"
@@ -79,20 +172,20 @@ Plug 'kana/vim-submode'
 " crc	"camel_case" → "camelCase"
 " cru	"upper_case" → "UPPER_CASE"
 Plug 'tpope/vim-abolish'
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', {'for': 'tex'}
 " css
-Plug 'lilydjwg/colorizer'
+Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'javascript']}
 " this plugin fix vim's awk bugs
-Plug 'vim-scripts/awk.vim'
+Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 
 " for ascii color code
-Plug 'vim-scripts/AnsiEsc.vim'
+" Plug 'vim-scripts/AnsiEsc.vim'
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 Plug 'bronson/vim-trailing-whitespace'
 
-Plug 'gabrielelana/vim-markdown'
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
+Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
 let g:table_mode_corner="|"
 
@@ -100,64 +193,29 @@ let g:table_mode_corner="|"
 " Plug 'vim-scripts/L9'
 " Plug 'othree/vim-autocomplpop'
 
-Plug 'elzr/vim-json'
+Plug 'elzr/vim-json', {'for': 'json'}
 " :NeatJson			Format
 " :NeatRawJson		EncodedFormat
-Plug '5t111111/neat-json.vim'
+Plug '5t111111/neat-json.vim', {'for': 'json'}
 
 " to use this lib, you have to set filetype=gnuplot by autocmd
-Plug 'vim-scripts/gnuplot.vim'
+Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
-" [シェルスクリプトを簡単にチェックできるShellCheck, Vimでも使える]( http://rcmdnk.github.io/blog/2014/11/26/computer-bash-zsh/ )
-" with shellcheck (brew install shellcheck)
-Plug 'vim-syntastic/syntastic'
-
-" highlight word (on cursor)
-Plug 't9md/vim-quickhl'
-nmap <Space>m <Plug>(quickhl-manual-this)
-xmap <Space>m <Plug>(quickhl-manual-this)
-nmap <Space>M <Plug>(quickhl-manual-reset)
-xmap <Space>M <Plug>(quickhl-manual-reset)
-" [Neovimで複数の単語をハイライト\(vim\-quickhl\.vim\) @Windows10 \- ぱちコマな日々]( http://pachicoma.hateblo.jp/entry/2017/03/08/Neovim%E3%81%A7%E8%A4%87%E6%95%B0%E3%81%AE%E5%8D%98%E8%AA%9E%E3%82%92%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88%28vim-quickhl_vim%29_%40Windows10 )
-let g:quickhl_manual_enable_at_startup = 1
-let g:quickhl_manual_keywords = [
-			\ {"pattern": 'NOTE\c', "regexp": 1 },
-			\ {"pattern": 'TODO\c', "regexp": 1 },
-			\ {"pattern": 'MEMO\c', "regexp": 1 },
-			\ {"pattern": 'FIX\c', "regexp": 1 },
-			\ {"pattern": 'FYI\c', "regexp": 1 },
-			\ {"pattern": 'WARN\c', "regexp": 1 },
-			\ {"pattern": 'INFO\c', "regexp": 1 },
-			\ ]
-
-" " for fatih/vim-go
-" let g:go_asmfmt_autosave=0
-" " .s -> Plan9形式でのformatとする
-" "Plug 'vim-scripts/asm8051.vim'
-" Plug 'Shirk/vim-gas'
-" augroup filetypedetect
-" 	au BufNewFile,BufRead *.s,*.inc,*.asm,*.S,*.ASM,*.INC,*.plan9,*.as,*.AS set ft=gas
-" augroup END
-
+Plug 'Shougo/unite.vim'
 call plug#end()
-
-" GNU Global
-" ソースファイル中に定義されている関数一覧
-" nnoremap gf :Gtags -f %<CR>
-" grep
-" nnoremap gr :Gtags -g
-" 現在のカーソル下の宣言部にjmp
-" nnoremap gc :GtagsCursor<CR>
-" next/pre
-" nnoremap gn :cn<CR>
-" nnoremap gp :cp<CR>
+" #### plug ####
+" ##############
 
 runtime! config/init/*.vim
 
 " #### 表示設定 ####
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
 set t_Co=256
-set encoding=utf8
-set fileencoding=utf-8
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors")) | set termguicolors | endif
+set background=dark
 set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する
 set wrap  " ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
@@ -175,6 +233,10 @@ set wildmenu wildmode=list:full "入力補完機能
 set nohlsearch   "検索キーワードハイライト無効
 set cursorline   "カーソル行ハイライト
 set laststatus=2 "常に編集中ファイル名表示
+
+" completion menu color setting
+highlight Pmenu ctermfg=white ctermbg=black
+highlight PmenuSel ctermfg=white ctermbg=gray
 
 " 全角スペースに色を付加
 hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue " 全角スペースの定義
@@ -200,138 +262,63 @@ set history=10000 " コマンド、検索パターンを10000個まで履歴に�
 " [vimで文字が削除出来ないと思ったらバックスペースが効かなくなった - Qiita]( http://qiita.com/omega999/items/23aec6a7f6d6735d033f )
 set backspace=indent,eol,start
 
-" #### file setting ####
-set nocompatible | set noswapfile | set nobackup
-augroup reopen_cursor_position
-	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
-
-" vim file open log
-let s:full_path = expand("%:p")
-let s:vim_edit_log_path = "$HOME/.vim_edit_log"
-let s:now = localtime()
-let s:time_str = strftime("%Y/%m/%d %H:%M:%S", s:now)
-execute ":redir! >> " . s:vim_edit_log_path
-silent! echon s:time_str . " " . s:full_path . "\n"
-redir END
-
-" ################ playground ######################
-" 現在の行の中央へ移動
-" [vimで行の中央へ移動する - Qiita]( http://qiita.com/masayukiotsuka/items/683ffba1e84942afbb97?utm_campaign=popular_items&utm_medium=referral&utm_source=popular_items )
-" go to center
-nnoremap gc :call cursor(0,strlen(getline("."))/2)<CR>
-
-" #### spell check ####
-" [Vim のスペルチェッカ早わかり - Alone Like a Rhinoceros Horn]( http://d.hatena.ne.jp/h1mesuke/20100803/p1 )
-" ]s : next (zn)
-" [s : back (zN)
-" z= : list(fix)
-" zg : good
-" zw : wrong
-" cjk disable asian language check
-" f:fix
-nnoremap zf z=
-set spelllang=en,cjk
-set spell
-" [Vimのスペルチェックのハイライトを止めて下線だけにする方法 - ジャバ・ザ・ハットリの日記]( http://tango-ruby.hatenablog.com/entry/2015/09/04/175729 )
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=9
-" [Toggle spellcheck on/off in vim]( https://gist.github.com/brandonpittman/9d15134057c7267a88a8 )
-function! ToggleSpellCheck()
-	set spell!
-	if &spell
-		set spell
-	else
-		set nospell
-	endif
-endfunction
-" English Check
-nnoremap <silent> ec :call ToggleSpellCheck()<CR>
-
-call submode#enter_with('bufmove', 'n', '', 'zn', ']s')
-call submode#map       ('bufmove', 'n', '',  'n', ']s')
-call submode#enter_with('bufmove', 'n', '', 'zN', '[s')
-call submode#map       ('bufmove', 'n', '',  'N', '[s')
-
-" git logのauthorが自分と一致する場合はプライベートなファイルであると仮定する
-function! IsPrivateWork(...)
-	let l:dir_path = get(a:, 1, expand('%:p:h'))
-	let l:author = system("git config user.name")
-	let l:authors = system("cd " . l:dir_path . " && git log | grep 'Author' | cut -d' ' -f2 | sort | uniq")
-	return l:authors == "" || l:authors == "fatal: not a git repository (or any of the parent directories): .git\n" || l:authors == l:author
-endfunction
-
-" [Vim:カーソル位置を移動せずにファイル全体を整形する \- ぼっち勉強会]( http://kannokanno.hatenablog.com/entry/2014/03/16/160109 )
-function! s:format_file()
-	let view = winsaveview()
-	normal gg=G
-	silent call winrestview(view)
-endfunction
-
-" (force) format
-nnoremap fm :call <SID>format_file()<CR>
-
-" [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
-if IsPrivateWork()
-	augroup auto_compile
-		autocmd!
-		if executable('clang-format')
-			autocmd BufWrite,FileWritePre,FileAppendPre *.[ch] :on
-			autocmd BufWinEnter *.[ch] :ClangFormatAutoEnable
-			autocmd BufWinEnter *.[ch]pp :ClangFormatAutoEnable
-			autocmd BufWinEnter *.m :ClangFormatAutoEnable
-		endif
-		" tex auto compile
-		if executable('latexmk')
-			autocmd BufWritePost *.tex :!latexmk %
-		endif
-
-		if executable('jq')
-			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
-		endif
-
-		auto BufWritePre *.html :call s:format_file()
-		auto BufWritePre *.css :setf css | call s:format_file()
-		auto BufWritePre *.js :call s:format_file()
-		auto BufWritePre *.tex :call s:format_file()
-		auto BufWritePre *.cs :OmniSharpCodeFormat
-
-		" vimのデフォルトのawkコマンドはバグがあるので required:Plug 'vim-scripts/awk.vim'
-		auto BufWritePre *.awk :call s:format_file()
-		auto BufWritePre *.sh :call s:format_file()
-		auto BufWritePre *.{vim,vimrc} :call s:format_file()
-		auto BufWritePre *.bashrc :call s:format_file()
-		auto BufWritePre *.bashenv :call s:format_file()
-		auto BufWritePre *.bash_profile :call s:format_file()
-		auto BufWritePre *.zshrc :call s:format_file()
-		auto BufWritePre *.zshenv :call s:format_file()
-		auto BufWritePre *.zprofile :call s:format_file()
-	augroup END
-endif
-augroup set_filetype
-	autocmd!
-	au BufRead,BufNewFile *.{gp,gnu,plt,gnuplot} set filetype=gnuplot
-	au BufNewFile,BufRead *.md :set syntax=markdown | :set filetype=markdown
-	au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
-	" 	au BufRead,BufNewFile *.py let g:indent_guides_enable_on_vim_startup=1 | let g:indent_guides_guide_size=2
-augroup END
-
-" not use interactive command (e.g. peco) in this function
-function! s:pipe(...) abort
-	let @+ = system(join(a:000,' '))
-endfunction
-command! -nargs=* -complete=command Pipe call s:pipe(<f-args>)
-command! -nargs=* -complete=command P call s:pipe(<f-args>)
-" ################ playground ######################
-
-"#### END ####
-filetype plugin indent on " enable
-syntax on "コードの色分け
-
 " seamless line movement
 " [vim のカーソル移動で欲しかったアレ \- Cat of AZ]( http://fisto.hatenablog.com/entry/2012/11/16/181349 )
 set whichwrap=b,s,[,],<,>
 
-if filereadable(s:local_vimrc)
-	execute 'source' s:local_vimrc
+" #### file setting ####
+set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
+set noswapfile | set nobackup
+augroup reopen_cursor_position
+	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
+
+" NOTE: use .viminfo
+" vim file open log
+" let s:full_path = expand("%:p")
+" let s:vim_edit_log_path = "$HOME/.vim_edit_log"
+" let s:now = localtime()
+" let s:time_str = strftime("%Y/%m/%d %H:%M:%S", s:now)
+" execute ":redir! >> " . s:vim_edit_log_path
+" silent! echon s:time_str . " " . s:full_path . "\n"
+" redir END
+
+"#### END ####
+" old setting?
+" filetype plugin indent on " enable
+" syntax on "コードの色分け
+
+" ################ playground ######################
+
+" ################ playground ######################
+
+" load local setting file if exist
+" e.g,
+" " for 'zchee/deoplete-jedi'
+" " pip install neovimをしたpythonのbinへのpathを設定すること
+" let g:python_host_prog  = '/usr/local/bin/python2'
+" let g:python3_host_prog = '/usr/local/bin/python3'
+"
+" " [deoplete\-clangで快適C\+\+エディット！！！ \- Qiita]( https://qiita.com/musou1500/items/3f0b139d37d78a18786f )
+" " for 'zchee/deoplete-clang'
+" let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.dylib'
+" let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+if filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
+
+" ################ end of setting ################
+
+" load cwd
+execute("lcd " . s:cwd)
+
+" colorscheme
+if s:colorscheme == 'molokai'
+	colorscheme molokai
+	" for terminal transparent background color
+	highlight Normal ctermbg=none
+elseif s:colorscheme == 'moonfly'
+	colorscheme moonfly
+elseif s:colorscheme == 'tender'
+	colorscheme tender
+	" set airline theme
+	let g:airline_theme = 'tender'
 endif

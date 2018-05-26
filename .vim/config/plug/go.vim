@@ -2,7 +2,7 @@
 "[VimでGo言語 - Humanity](http://tyru.hatenablog.com/entry/2015/07/09/010239)
 "[vimのGolang環境設定 - プログラミングメモ](http://yukirinmk2.hatenablog.com/entry/2015/04/29/000344)
 
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 let g:go_disable_autoinstall = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -30,3 +30,13 @@ autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136
 autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
 
 Plug 'zchee/vim-goiferr'
+
+" " for fatih/vim-go
+" let g:go_asmfmt_autosave=0
+" " .s -> Plan9形式でのformatとする
+" "Plug 'vim-scripts/asm8051.vim'
+" Plug 'Shirk/vim-gas'
+" augroup filetypedetect
+" 	au BufNewFile,BufRead *.s,*.inc,*.asm,*.S,*.ASM,*.INC,*.plan9,*.as,*.AS set ft=gas
+" augroup END
+

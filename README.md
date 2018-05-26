@@ -1,7 +1,6 @@
 # dotfiles
 
 ## TODO
-`.gitignore`の設定がうまくいかないので書き直す
 
 ## install
 ```
