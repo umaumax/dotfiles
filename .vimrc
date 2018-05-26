@@ -118,7 +118,6 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " mark viewer
 " 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
 Plug 'jeetsukumaran/vim-markology'
-let g:markology_enable=0
 " normal modeでddすると表示が一時的にずれる
 " Plug 'kshenoy/vim-signature'
 " highlight SignColumn ctermbg=Black guibg=#000000
@@ -207,6 +206,17 @@ Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_highlight_lines = 1
+let g:markology_enable=0
+let mapleader = "\<Space>"
+" hunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+" stage, unstage, preview
+" NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
+nmap <Leader>sh <Plug>GitGutterStageHunk
+" NOTE: how to use undo hunk?
+nmap <Leader>uh <Plug>GitGutterUndoHunk
+nmap <Leader>ph <Plug>GitGutterPreviewHunk
 call plug#end()
 " #### plug ####
 " ##############
@@ -330,4 +340,8 @@ elseif s:colorscheme == 'tender'
 endif
 
 " for 'airblade/vim-gitgutter'
+call submode#enter_with('bufgit', 'n', 'r', 'gh', '<Plug>GitGutterNextHunk')
+call submode#enter_with('bufgit', 'n', 'r', 'gH', '<Plug>GitGutterPrevHunk')
+call submode#map('bufgit', 'n', 'r', 'h', '<Plug>GitGutterNextHunk')
+call submode#map('bufgit', 'n', 'r', 'H', '<Plug>GitGutterPrevHunk')
 highlight GitGutterChangeLine cterm=bold ctermfg=7 ctermbg=16 gui=bold guifg=#ffffff guibg=#2c4f1f
