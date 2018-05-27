@@ -121,6 +121,7 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " mark viewer
 " 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
 Plug 'jeetsukumaran/vim-markology'
+let g:markology_enable=0
 " normal modeでddすると表示が一時的にずれる
 " Plug 'kshenoy/vim-signature'
 " highlight SignColumn ctermbg=Black guibg=#000000
@@ -212,8 +213,8 @@ Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_highlight_lines = 1
-let g:markology_enable=0
 let mapleader = "\<Space>"
+nnoremap gt :GitGutterToggle<CR>
 " hunk
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk

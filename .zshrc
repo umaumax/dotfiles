@@ -429,39 +429,41 @@ function cat-all() {
 	find . -name "$1" -exec awk '{ if (FNR==1) print "####################\n",FILENAME,"\n####################"; print $0}' {} +
 }
 
+# NOTE: grepに対して任意のオプションを渡せる状態?
 function xargs-grep() {
 	[[ $# == 0 ]] && echo 'grep_keyword' && return
-	local keyword="$1"
+	local keyword=(${@:1})
 	local grep_cmd='grep'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	xargs -n 1 -I{} $grep_cmd --color=auto -H {} -n -e "$keyword"
+	xargs -n 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
 }
+# そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
 	[[ $# == 1 ]] && echo '[root_dir_path] grep_keyword' && return
 	local find_name="$1"
 	local root='.'
-	local keyword="$2"
+	local keyword=(${@:2})
 	if [[ $# -ge 3 ]]; then
 		local root="$2"
-		local keyword="$3"
+		local keyword=(${@:3})
 	fi
-	find $root -type f -name $find_name | xargs-grep "$keyword"
+	find $root -type f -name $find_name | xargs-grep ${keyword[@]}
 }
-# FIX
+# FIX: merge with funtion
 function fgrep2() {
 	[[ $# == 2 ]] && echo '[root_dir_path] grep_keyword' && return
 	local find_name1="$1"
 	local find_name2="$2"
 	local root='.'
-	local keyword="$3"
+	local keyword=(${@:3})
 	if [[ $# -ge 4 ]]; then
 		local root="$3"
-		local keyword="$4"
+		local keyword=(${@:4})
 	fi
-	find $root -type f -name $find_name1 -o -name $find_name2 | xargs-grep "$keyword"
+	find $root -type f -name $find_name1 -o -name $find_name2 | xargs-grep ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
-alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/vim/" -type f -name "*.vim" | xargs-grep $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" | xargs-grep $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" | xargs-grep $@'
 alias fg.go='fgrep "*.go" $@'
 alias fg.py='fgrep "*.py" $@'
