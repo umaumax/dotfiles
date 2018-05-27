@@ -153,7 +153,8 @@ Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
 Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
 Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
-Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'}
+" NOTE: npm js-beautify is builtin this package
+Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
 
 " color sheme
 if s:colorscheme == 'molokai'
@@ -195,6 +196,7 @@ Plug 'bronson/vim-trailing-whitespace'
 " ```のあとで<CR>するとindentされてしまう問題がある
 " Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+let g:vim_markdown_folding_disabled = 1
 " Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use

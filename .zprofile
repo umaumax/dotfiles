@@ -147,7 +147,7 @@ export GREP_COLORS='sl=0:cx=1;32:mt=1;31:ms=4;1;31:mc=1;31:fn=1;32:ln=34:bn=36:s
 # X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
 [[ -n $_Ubuntu && -z $DISPLAY ]] && export DISPLAY=":0"
 
-cmdcheck micro && export EDITOR='micro' && export VISUAL=$EDITOR
+# cmdcheck micro && export EDITOR='micro' && export VISUAL=$EDITOR
 
 if [[ -s "${ZDOTDIR:-$HOME}/.local.zprofile" ]]; then
 	source "${ZDOTDIR:-$HOME}/.local.zprofile"

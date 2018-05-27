@@ -63,13 +63,15 @@ if IsPrivateWork()
 		" 		auto BufWritePre *.cs :OmniSharpCodeFormat
 		" 'maksimr/vim-jsbeautify'
 		auto BufWritePre *.js   :call JsBeautify()
+		" 		if executable('js-beautify')
 		auto BufWritePre *.json :call JsonBeautify()
-		auto BufWritePre *.jsx  :call JsxBeautify()
+		" 			auto BufWritePre *.jsx  :call JsxBeautify()
 		auto BufWritePre *.html :call HtmlBeautify()
 		auto BufWritePre *.css  :call CSSBeautify()
-" 		if executable('jq')
-" 			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
-" 		endif
+		" 		endif
+		" 		if executable('jq')
+		" 			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
+		" 		endif
 
 		" vimのデフォルトのawkコマンドはバグがあるので required:Plug 'vim-scripts/awk.vim'
 		auto BufWritePre *.awk :call s:format_file()

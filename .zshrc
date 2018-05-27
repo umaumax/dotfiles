@@ -270,6 +270,9 @@ function vim() {
 	command vim $@
 }
 
+alias dotfiles='cd ~/dotfiles'
+
+alias v='vim'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
