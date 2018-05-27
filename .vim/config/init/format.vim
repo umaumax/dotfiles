@@ -2,7 +2,6 @@
 function! IsPrivateWork(...)
 	let l:dir_path = get(a:, 1, expand('%:p:h'))
 	" 	let l:author = system("git config user.name")
-
 	" TODO: create function
 	" cache data
 	let l:tempfilename = 'git.config.user.name'
@@ -22,7 +21,7 @@ function! IsPrivateWork(...)
 		endif
 	endif
 
-	let l:authors = system("cd " . l:dir_path . " && git log | grep 'Author' | cut -d' ' -f2 | sort | uniq")
+	let l:authors = system("cd " . l:dir_path . " && git log | grep 'Author' | cut -d' ' -f2 | sort | uniq | tr -d '\n'")
 	return l:authors == "" || l:authors == "fatal: not a git repository (or any of the parent directories): .git\n" || l:authors == l:author
 endfunction
 
@@ -50,10 +49,7 @@ if IsPrivateWork()
 		if executable('latexmk')
 			autocmd BufWritePost *.tex :!latexmk %
 		endif
-
-		if executable('jq')
-			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
-		endif
+		auto BufWritePre *.tex :call s:format_file()
 
 		" python formatter
 		" pip install yapf
@@ -61,11 +57,19 @@ if IsPrivateWork()
 			autocmd FileType python autocmd BufWritePre <buffer> :0,$!yapf
 		endif
 
-		auto BufWritePre *.html :call s:format_file()
-		auto BufWritePre *.css :setf css | call s:format_file()
-		auto BufWritePre *.js :call s:format_file()
-		auto BufWritePre *.tex :call s:format_file()
-		auto BufWritePre *.cs :OmniSharpCodeFormat
+		" 		auto BufWritePre *.html :call s:format_file()
+		" 		auto BufWritePre *.css :setf css | call s:format_file()
+		" 		auto BufWritePre *.js :call s:format_file()
+		" 		auto BufWritePre *.cs :OmniSharpCodeFormat
+		" 'maksimr/vim-jsbeautify'
+		auto BufWritePre *.js   :call JsBeautify()
+		auto BufWritePre *.json :call JsonBeautify()
+		auto BufWritePre *.jsx  :call JsxBeautify()
+		auto BufWritePre *.html :call HtmlBeautify()
+		auto BufWritePre *.css  :call CSSBeautify()
+" 		if executable('jq')
+" 			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
+" 		endif
 
 		" vimのデフォルトのawkコマンドはバグがあるので required:Plug 'vim-scripts/awk.vim'
 		auto BufWritePre *.awk :call s:format_file()

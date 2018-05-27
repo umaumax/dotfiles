@@ -153,6 +153,7 @@ Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
 Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
 Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
+Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'}
 
 " color sheme
 if s:colorscheme == 'molokai'
