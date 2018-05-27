@@ -305,7 +305,6 @@ augroup END
 " syntax on "コードの色分け
 
 " ################ playground ######################
-
 " ################ playground ######################
 
 " load local setting file if exist

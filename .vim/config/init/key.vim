@@ -23,6 +23,14 @@ cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 
+" for function movement
+" in insert mode <C-o> + below key
+nnoremap , f,
+nnoremap < F(
+nnoremap > f)
+nnoremap ( f(
+nnoremap ) F)
+
 " for search
 nnoremap n nzz
 nnoremap N Nzz
