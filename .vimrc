@@ -88,11 +88,6 @@ let g:startify_bookmarks = [
 " for correct shell format
 " Plug 'z0mbix/vim-shfmt'
 " let g:shfmt_fmt_on_save = 1
-" [シェルスクリプトを簡単にチェックできるShellCheck, Vimでも使える]( http://rcmdnk.github.io/blog/2014/11/26/computer-bash-zsh/ )
-" with shellcheck (brew install shellcheck)
-if Docter('vim-syntastic/syntastic', 'shellcheck2', 'apt-get install shellcheck || brew install shellcheck')
-	Plug 'vim-syntastic/syntastic', {'for': ['sh','zsh']}
-endif
 
 " input helper
 Plug 'kana/vim-smartinput'

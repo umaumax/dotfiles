@@ -7,3 +7,4 @@ ln -sf ~/dotfiles/.clang-format ~/
 ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
+ln -sf ~/dotfiles/.zpreztorc ~/

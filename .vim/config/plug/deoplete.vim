@@ -19,6 +19,13 @@ if has('python3')
 	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
 	Plug 'zchee/deoplete-jedi', {'for':'python'}
 
+	" ある程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時)
+"  	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
+" 	let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
+
+	" syntax check
+	Plug 'neomake/neomake'
+
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
 	Plug 'Shougo/neco-syntax'
@@ -49,4 +56,10 @@ elseif
 	let g:jedi#auto_initialization = 1
 	let g:jedi#rename_command = "<leader>r"
 	let g:jedi#popup_on_dot = 1
+
+	" [シェルスクリプトを簡単にチェックできるShellCheck, Vimでも使える]( http://rcmdnk.github.io/blog/2014/11/26/computer-bash-zsh/ )
+	" with shellcheck (brew install shellcheck)
+	if Docter('vim-syntastic/syntastic', 'shellcheck', 'apt-get install shellcheck || brew install shellcheck')
+		Plug 'vim-syntastic/syntastic', {'for': ['sh','zsh']}
+	endif
 endif

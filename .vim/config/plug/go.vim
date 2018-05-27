@@ -1,8 +1,9 @@
+if 0
 "[vim-goをインストールしてみた（所要時間：15分） - Qiita](http://qiita.com/luckyriver0/items/e4f21c507d3fd2c0ffe9)
 "[VimでGo言語 - Humanity](http://tyru.hatenablog.com/entry/2015/07/09/010239)
 "[vimのGolang環境設定 - プログラミングメモ](http://yukirinmk2.hatenablog.com/entry/2015/04/29/000344)
 
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 let g:go_disable_autoinstall = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -40,3 +41,4 @@ Plug 'zchee/vim-goiferr'
 " 	au BufNewFile,BufRead *.s,*.inc,*.asm,*.S,*.ASM,*.INC,*.plan9,*.as,*.AS set ft=gas
 " augroup END
 
+endif

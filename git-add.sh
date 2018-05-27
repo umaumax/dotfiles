@@ -9,6 +9,7 @@ git add .gitignore
 git add .zshrc
 git add .zprofile
 git add .zshenv
+git add .zpreztorc
 
 git add .vimrc
 git add .vim/config/init
