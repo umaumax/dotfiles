@@ -141,7 +141,7 @@ inoremap <C-e> <C-o>$
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
 	let l:flag=0
-	if &bt != 'quickfix'
+	if &ft != 'vim' && &bt != 'quickfix'
 		let save_winnr = winnr()
 		windo if !l:flag && &bt=='quickfix' | let l:flag=1 | endif
 	exe save_winnr. 'wincmd w'
@@ -165,11 +165,12 @@ endfunction
 " save and quit
 nnoremap wq :wq<CR>
 nnoremap ww :w<CR>
-"nnoremap qq :q<CR>
+" nnoremap qq :q<CR>
 nnoremap qq :call <SID>close(0)<CR>
 "nnoremap q! :q!<CR>
 nnoremap q! :call <SID>close(1)<CR>
 " sudo save
+nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " psate
