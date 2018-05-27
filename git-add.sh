@@ -6,9 +6,13 @@ git add git-add.sh
 git add .tmux.conf
 git add .clang-format
 git add .gitignore
+git add .zshrc
+git add .zprofile
+git add .zshenv
 
 git add .vimrc
 git add .vim/config/init
 git add .vim/config/plug
 
 git add karabiner
+
