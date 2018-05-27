@@ -42,12 +42,15 @@ call smartinput#define_rule({
 " 			\   'char'  : '<BS>',
 " 			\   'input' : '<Del><BS>',
 " 			\   })
+
+" override default rules
 for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 	let s:left=s:set[:len(s:set)/2-1]
 	let s:right=s:set[len(s:set)/2:]
 	call smartinput#define_rule({'at': s:left.'\%#'.s:right, 'char': '<BS>', 'input': '<BS>'})
 	call smartinput#define_rule({'at': s:set.'\%#',          'char': '<BS>', 'input': '<BS>'})
 endfor
+call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><CR>'})
 " 改行時に行末のスペース除去
 call smartinput#define_rule({
 			\   'at': '\s\+\%#',

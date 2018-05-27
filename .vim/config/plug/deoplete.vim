@@ -19,9 +19,8 @@ if has('python3')
 	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
 	Plug 'zchee/deoplete-jedi', {'for':'python'}
 
-	" ある程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時)
-"  	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
-" 	let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
+	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
+	let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
 
 	" syntax check
 	Plug 'neomake/neomake'
@@ -42,9 +41,13 @@ if has('python3')
 	let g:deoplete#enable_smart_case = 1
 	let g:deoplete#file#enable_buffer_path = 1
 	let g:deoplete#max_list = 10000
-	inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-				\ neosnippet#expandable_or_jumpable() ?
-				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+	" disable preview window(このウィンドウの影響である程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時))
+	set completeopt-=preview
+	" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+	" " inoremapのtabはmappingできないのでは?"
+	"  	inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+	"  				\ neosnippet#expandable_or_jumpable() ?
+	"  				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 elseif
 	Plug 'Shougo/neocomplete.vim'
 	if !exists('g:neocomplete#force_omni_input_patterns')

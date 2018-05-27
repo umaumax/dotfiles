@@ -461,6 +461,8 @@ function fgrep2() {
 	find $root -type f -name $find_name1 -o -name $find_name2 | xargs-grep "$keyword"
 }
 alias fg.vim='fgrep "*.vim" $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/vim/" -type f -name "*.vim" | xargs-grep $@'
+alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" | xargs-grep $@'
 alias fg.go='fgrep "*.go" $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'

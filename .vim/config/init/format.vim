@@ -7,7 +7,7 @@ function! IsPrivateWork(...)
 	" cache data
 	let l:tempfilename = 'git.config.user.name'
 	" 	let l:tempfilepath = fnamemodify(tempname(), ":p") . l:tempfilename
-	let l:tempfiledir = expand('~/.vim/tmp')
+	let l:tempfiledir = expand('~/.vim/cache')
 	call mkdir(l:tempfiledir, "p")
 	let l:tempfilepath = l:tempfiledir . '/' . l:tempfilename
 
@@ -38,7 +38,7 @@ nnoremap fm :call <SID>format_file()<CR>
 
 " [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
 if IsPrivateWork()
-	augroup auto_compile
+	augroup auto_format
 		autocmd!
 		if executable('clang-format')
 			autocmd BufWrite,FileWritePre,FileAppendPre *.[ch] :on
@@ -71,5 +71,7 @@ if IsPrivateWork()
 		auto BufWritePre *.awk :call s:format_file()
 		auto BufWritePre *.{vim,vimrc} :call s:format_file()
 		auto BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} :Shfmt
+
+		auto BufWritePre *.go let g:go_fmt_autosave = 1
 	augroup END
 endif

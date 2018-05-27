@@ -8,8 +8,15 @@
 " let s:colorscheme = 'default'
 let s:colorscheme = 'molokai'
 " let s:colorscheme = 'moonfly'
-" difficult to see visual mode
-" let s:colorscheme = 'tender'
+" let s:colorscheme = 'tender' " difficult to see visual mode
+
+" [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
+let s:tempfiledir = expand('~/.vim/tmp')
+call mkdir(s:tempfiledir, "p")
+
+" VimのUndoを永続化する（ファイルの変更を記録します）
+set undofile
+execute('set undodir=' . s:tempfiledir)
 
 " save cwd
 let s:cwd = getcwd()
@@ -68,6 +75,11 @@ Plug 'umaumax/vim-shfmt'
 
 Plug 'Shougo/unite.vim'
 
+" no dependency on vim swapfile option
+Plug 'LeafCage/autobackup.vim'
+let g:autobackup_backup_dir = s:tempfiledir
+let g:autobackup_backup_limit = 1024
+
 " :ShebangInsert
 Plug 'sbdchd/vim-shebang'
 Plug 'mhinz/vim-startify'
@@ -84,10 +96,6 @@ let g:startify_bookmarks = [
 " high light word when replacing
 " command line window modeでの動作しない?
 " Plug 'osyo-manga/vim-over'
-
-" for correct shell format
-" Plug 'z0mbix/vim-shfmt'
-" let g:shfmt_fmt_on_save = 1
 
 " input helper
 Plug 'kana/vim-smartinput'
@@ -182,7 +190,10 @@ Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 Plug 'bronson/vim-trailing-whitespace'
 
-Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
+" ```のあとで<CR>するとindentされてしまう問題がある
+" Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+" Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
 let g:table_mode_corner="|"

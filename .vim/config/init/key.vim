@@ -15,8 +15,24 @@ nnoremap l <Right>
 " zz: set cursor center
 " nnoremap k kzz
 " nnoremap j jzz
-nnoremap <Down> gj
 nnoremap <Up>   gk
+nnoremap <Down> gj
+
+" pumvisible(): completion list?
+function! s:Up()
+	if pumvisible() == 0
+		normal! gk
+	endif
+endfunction
+function! s:Down()
+	if pumvisible() == 0
+		normal! gj
+	endif
+endfunction
+imap <Up> <ESC>:call <SID>Up()<CR>i
+imap <Down> <ESC>:call <SID>Down()<CR>i
+" Enterで補完決定(no additional <CR>)
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
@@ -149,7 +165,8 @@ inoremap <C-e> <C-o>$
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
 	let l:flag=0
-	if &ft != 'vim' && &bt != 'quickfix'
+" 	if &ft != 'vim' && &bt != 'quickfix'
+	if &bt != 'quickfix'
 		let save_winnr = winnr()
 		windo if !l:flag && &bt=='quickfix' | let l:flag=1 | endif
 	exe save_winnr. 'wincmd w'
