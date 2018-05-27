@@ -563,6 +563,16 @@ function when() { ps -eo lstart,pid,args | grep -v grep; }
 # [bashのalias に引数を渡すには？ - それマグで！](http://takuya-1st.hatenablog.jp/entry/2015/12/15/030119)
 function tree() { if [ -p /dev/stdout ]; then command tree "$@"; else command tree -C "$@"; fi; }
 
+# auto zstyle ':prezto:load' pmodule function
+# e.g.
+# zploadadd homebrew osx git rails syntax-highlighting history-substring-search
+# [sed でシンボリックリンクのファイルを書き換えると、実体ファイルに変わる – Tower of Engineers]( https://toe.bbtower.co.jp/20160915/136/ )
+cmdcheck gsed && function zploadadd() {
+	for package in $@; do
+		gsed -i --follow-symlinks -e '/^zstyle.*pmodule \\$/a '\'$package\'' \\' ~/.zpreztorc
+	done
+}
+
 # 文献消失
 COLORRED="\e[91m"
 COLORGREEN="\e[92m"
