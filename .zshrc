@@ -71,8 +71,20 @@ alias hgrep='h | grep'
 alias type='type -af'
 # cd
 alias dl='cd ~/Downloads/'
-alias desktop='cd ~/Desktop/'
+alias downloads='cd ~/Downloads/'
 alias ds='cd ~/Desktop/'
+alias desktop='cd ~/Desktop/'
+alias u='cd ..'
+alias uu='cd ../..'
+alias uuu='cd ../../..'
+alias uuuu='cd ../../../..'
+alias uuuuu='cd ../../../../..'
+alias 1u='u'
+alias 2u='uu'
+alias 3u='uuu'
+alias 4u='uuuu'
+alias 5u='uuuuu'
+
 if [[ -n $_Darwin ]]; then
 	# cmds
 	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
@@ -121,7 +133,22 @@ if [[ -n $_Ubuntu ]]; then
 		alias pbpaste='xsel --clipboard --output'
 	fi
 	alias gsed='sed'
+	alias open='xdg-open &>/dev/null'
 fi
+
+# window path -> unix path
+alias w2upath='sed "s:\\\:/:g"'
+alias w2p='p|w2upath|c'
+
+alias relogin='exec $SHELL -l'
+
+function range() {
+	[[ $# < 3 ]] && echo "$0 filepath start-line-no end-line-no" && return
+	name=$1
+	start=$2
+	end=$3
+	cat -n $name | sed -n ${start},${end}p
+}
 
 # http servers
 alias ascii='man ascii'
