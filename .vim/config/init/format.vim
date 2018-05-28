@@ -7,7 +7,9 @@ function! IsPrivateWork(...)
 	let l:tempfilename = 'git.config.user.name'
 	" 	let l:tempfilepath = fnamemodify(tempname(), ":p") . l:tempfilename
 	let l:tempfiledir = expand('~/.vim/cache')
-	call mkdir(l:tempfiledir, "p")
+	if !isdirectory(l:tempfiledir)
+		call mkdir(l:tempfiledir, "p")
+	endif
 	let l:tempfilepath = l:tempfiledir . '/' . l:tempfilename
 
 	if filereadable(l:tempfilepath)

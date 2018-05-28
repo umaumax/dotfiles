@@ -27,6 +27,10 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
+'archive' \
+'rsync' \
+'tmux' \
+'ssh' \
 'history-substring-search' \
 'syntax-highlighting' \
 'rails' \

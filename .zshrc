@@ -62,8 +62,10 @@ fi
 ################
 # ls
 alias ls='ls -G'
+alias lat='ls -altG'
+alias lsat='ls -altG'
 alias lsal='ls -alG'
-alias lat='ls -altrG'
+alias lsalt='ls -altG'
 alias h='history'
 alias hgrep='h | grep'
 alias type='type -af'
@@ -118,6 +120,7 @@ if [[ -n $_Ubuntu ]]; then
 		alias pbcopy='xsel --clipboard --input'
 		alias pbpaste='xsel --clipboard --output'
 	fi
+	alias gsed='sed'
 fi
 
 # http servers
@@ -293,6 +296,7 @@ alias vimzp='vim ~/.zprofile'
 # for ssh
 alias vissh='vim ~/.ssh/config'
 alias vimssh='vim ~/.ssh/config'
+alias sshconfig='vim ~/.ssh/config'
 
 # show path each line
 alias path='echo $PATH | sed "s/:/\n/g"'
@@ -569,6 +573,7 @@ function tree() { if [ -p /dev/stdout ]; then command tree "$@"; else command tr
 # auto zstyle ':prezto:load' pmodule function
 # e.g.
 # zploadadd homebrew osx git rails syntax-highlighting history-substring-search
+# zploadadd ssh tmux rsync archive
 # [sed でシンボリックリンクのファイルを書き換えると、実体ファイルに変わる – Tower of Engineers]( https://toe.bbtower.co.jp/20160915/136/ )
 cmdcheck gsed && function zploadadd() {
 	for package in $@; do
@@ -648,10 +653,23 @@ alias -s php='php -f'
 alias -s gp='gnuplot'
 alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source "/usr/local/opt/zsh-git-prompt/zshrc.sh"
+#  if [[ -n $_Darwin ]]; then
+# 	# brew install zsh-autosuggestions zsh-history-substring-search zsh-git-prompt zsh-completions
+# 	source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# 	source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+# # 	# 	source /usr/local/opt/zsh-git-prompt/zshrc.sh
+# 	fpath=(/usr/local/share/zsh-completions $fpath)
+# fi
+# if [[ -n $_Ubuntu ]]; then
+zshdir=~/.zsh
+[[ ! -e $zshdir ]] && mkdir -p $zshdir
+[[ ! -e $zshdir/zsh-completions ]] && git clone git://github.com/zsh-users/zsh-completions.git $zshdir/zsh-completions
+fpath=($zshdir/zsh-completions/src $fpath)
+[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
+source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
+source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
+# fi
 
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)

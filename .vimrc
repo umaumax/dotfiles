@@ -12,7 +12,9 @@ let s:colorscheme = 'molokai'
 
 " [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let s:tempfiledir = expand('~/.vim/tmp')
-call mkdir(s:tempfiledir, "p")
+if !isdirectory(s:tempfiledir)
+	call mkdir(s:tempfiledir, "p")
+endif
 
 " VimのUndoを永続化する（ファイルの変更を記録します）
 set undofile
@@ -87,7 +89,9 @@ Plug 'mhinz/vim-startify'
 let g:startify_custom_header =''
 " set file key short cut (i:insert, e:empty, q:quit)
 let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
-let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
+if v:version >= 800
+	let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
+endif
 " bookmark example
 let g:startify_bookmarks = [
 			\ '~/.vimrc',
@@ -159,6 +163,12 @@ Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
 " color sheme
 if s:colorscheme == 'molokai'
 	Plug 'tomasr/molokai'
+	if !isdirectory(expand('~/.vim/colors'))
+		call mkdir(expand('~/.vim/colors'), "p")
+	endif
+	if !filereadable(expand('~/.vim/colors/molokai.vim'))
+		call system('ln -s ~/.vim/plugged/molokai/colors/molokai.vim ~/.vim/colors/molokai.vim')
+	endif
 elseif s:colorscheme == 'moonfly'
 	Plug 'bluz71/vim-moonfly-colors'
 elseif s:colorscheme == 'tender'
@@ -239,7 +249,8 @@ set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 set t_Co=256
 " If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors")) | set termguicolors | endif
+" vimが対応していても，terminalの方が非対応である可能性がある
+" if (has("termguicolors")) | set termguicolors | endif
 set background=dark
 set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する

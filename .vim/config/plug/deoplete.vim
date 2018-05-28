@@ -3,7 +3,7 @@
 " [vim-hug-neovim-rpc] Vim(pythonx):Traceback (most recent call last):
 " [deoplete] [vim-hug-neovim-rpc] requires `:pythonx import neovim` command to work
 " ===> pip3 install --upgrade neovim
-if has('python3')
+if v:version >= 800 && has('python3')
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	else
