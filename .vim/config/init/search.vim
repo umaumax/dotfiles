@@ -3,6 +3,7 @@ function! s:SearchWord(cmd, ...)
 	let l:args = @+
 	execute(':AsyncRun ' . a:cmd . ' ' . l:args)
 endfunction
+" brew install translate-shell || sudo apt-get install translate-shell
 command! -nargs=? En call s:SearchWord('trans :en', <f-args>)
 command! -nargs=? Ja call s:SearchWord('trans :ja', <f-args>)
 command! -nargs=? S  call s:SearchWord('s', <f-args>)

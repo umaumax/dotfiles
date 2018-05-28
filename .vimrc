@@ -157,10 +157,12 @@ Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
 Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
 Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
+" Require: node?
 " NOTE: npm js-beautify is builtin this package
 Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
 
 " color sheme
+" NOTE: if文を使用していると，Plugで一括installができない
 if s:colorscheme == 'molokai'
 	Plug 'tomasr/molokai'
 	if !isdirectory(expand('~/.vim/colors'))

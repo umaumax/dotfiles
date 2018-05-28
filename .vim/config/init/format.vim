@@ -71,6 +71,7 @@ if IsPrivateWork()
 		auto BufWritePre *.html :call HtmlBeautify()
 		auto BufWritePre *.css  :call CSSBeautify()
 		" 		endif
+		" " sudo apt-get install jq
 		" 		if executable('jq')
 		" 			autocmd BufWrite,FileWritePre,FileAppendPre *.json :Jq
 		" 		endif
