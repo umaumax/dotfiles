@@ -250,7 +250,7 @@ set fileformats=unix,dos,mac
 set t_Co=256
 " If you have vim >=8.0 or Neovim >= 0.1.5
 " vimが対応していても，terminalの方が非対応である可能性がある
-" if (has("termguicolors")) | set termguicolors | endif
+if ($TERM_PROGRAM=="iTerm.app" && has("termguicolors")) | set termguicolors | endif
 set background=dark
 set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する
@@ -351,6 +351,7 @@ if s:colorscheme == 'molokai'
 	colorscheme molokai
 	" for terminal transparent background color
 	highlight Normal ctermbg=none
+	" 	highlight Normal ctermbg=235
 elseif s:colorscheme == 'moonfly'
 	colorscheme moonfly
 elseif s:colorscheme == 'tender'
