@@ -61,11 +61,16 @@ fi
 ####  Mac   ####
 ################
 # ls
-alias ls='ls -G'
-alias lat='ls -altG'
-alias lsat='ls -altG'
-alias lsal='ls -alG'
-alias lsalt='ls -altG'
+if [[ -n $_Darwin ]]; then
+	alias ls='ls -G'
+fi
+if [[ -n $_Ubuntu ]]; then
+	alias ls='ls --color=auto'
+fi
+alias lat='ls -alt'
+alias lsat='ls -alt'
+alias lsal='ls -al'
+alias lsalt='ls -alt'
 alias h='history'
 alias hgrep='h | grep'
 alias type='type -af'
@@ -163,6 +168,8 @@ alias q!='exit'
 
 # NOTE:googler
 # NOTE:peco
+# alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
+alias pvim='vim -'
 alias g='googler -n 5'
 alias viminfogrep="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then
@@ -172,7 +179,9 @@ if cmdcheck peco; then
 	alias pe='peco'
 	alias hpeco='history | peco | c'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
+	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
+	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
+	alias rvim="viminfogrep | peco | tee $(tty) | pvim"
 	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
@@ -289,6 +298,13 @@ cmdcheck terminal-notifier && function timer() {
 cmdcheck vim && alias vi='vim'
 # 行番号指定で開く
 function vim() {
+	if [[ $1 == - ]]; then
+		shift
+		cat | while read file_path; do
+			vim "$file_path" $@ </dev/tty >/dev/tty
+		done
+		return
+	fi
 	if [[ $# == 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"
 		local line_no=$(echo "$1" | cut -d":" -f2)
@@ -303,6 +319,9 @@ function vim() {
 alias dotfiles='cd ~/dotfiles'
 
 alias v='vim'
+# don't use .viminfo file option
+# alias tvim='vim -c "set viminfo="'
+alias tvim='vim -i NONE'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
@@ -512,7 +531,8 @@ function xargs-grep() {
 	local keyword=(${@:1})
 	local grep_cmd='grep'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	xargs -n 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
+	# 	xargs -n 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
+	xargs -L 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
@@ -551,6 +571,10 @@ alias fg.c='fgrep "*.c" $@'
 alias fg.h='fgrep "*.h" $@'
 alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
+alias fg.md='fgrep "*.md" $@'
+alias fg.my.md='find "$HOME/md" -type f -name "*.md" | xargs-grep $@'
+alias rf='sudo find / \( -type d -name home -prune \) -o'
+alias hf='find ~'
 
 alias jagrep="grep -P '\p{Hiragana}'"
 
@@ -733,7 +757,7 @@ alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコ
 # if [[ -n $_Ubuntu ]]; then
 zshdir=~/.zsh
 [[ ! -e $zshdir ]] && mkdir -p $zshdir
-[[ ! -e $zshdir/zsh-completions ]] && git clone git://github.com/zsh-users/zsh-completions.git $zshdir/zsh-completions
+[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
 fpath=($zshdir/zsh-completions/src $fpath)
 [[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
 source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh

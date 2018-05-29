@@ -69,7 +69,7 @@ vnoremap j iwv
 vnoremap k iwc<ESC>
 
 " undo
-inoremap <C-z> <Esc>ui
+inoremap <C-u> <Esc>ui
 " reduo
 inoremap <C-r> <Esc><C-r>i
 
@@ -165,7 +165,7 @@ inoremap <C-e> <C-o>$
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
 	let l:flag=0
-" 	if &ft != 'vim' && &bt != 'quickfix'
+	" 	if &ft != 'vim' && &bt != 'quickfix'
 	if &bt != 'quickfix'
 		let save_winnr = winnr()
 		windo if !l:flag && &bt=='quickfix' | let l:flag=1 | endif
@@ -242,7 +242,6 @@ nnoremap <C-o> mzO<ESC>`z
 
 " tab
 nnoremap <Tab> >>
-imap <Tab> >>
 nnoremap <S-Tab> <<
 
 " quote

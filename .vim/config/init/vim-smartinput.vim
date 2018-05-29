@@ -84,7 +84,7 @@ let s:replace_map = {
 			\ '^': ['ha', 'hat'],
 			\ '| ': ['pp', 'pipe'],
 			\ '\': ['bsl', 'backs'],
-			\ '_': ['un', 'ub'],
+			\ '_': ['un', 'und', 'ub'],
 			\ '{': ['br', 'brs', 'mp' ,'mps','brace'],
 			\ '}': [      'bre',       'mpe', 'brace'],
 			\ '[': ['sb', 'sbs', 'ary', 'arys'],
@@ -134,10 +134,10 @@ for s:key in keys(s:replace_map)
 		let s:at = s:src
 		let s:trigger = s:gtrigger
 		" [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt#L221 )
-" 		" 		for s:mode in split('i.:./.?', '.')
-"  		for s:mode in split('i', '.')
-" 			call smartinput#map_to_trigger(s:mode, s:trigger, s:trigger, s:trigger)
-" 		endfor
+		" 		" 		for s:mode in split('i.:./.?', '.')
+		"  		for s:mode in split('i', '.')
+		" 			call smartinput#map_to_trigger(s:mode, s:trigger, s:trigger, s:trigger)
+		" 		endfor
 		call smartinput#define_rule({'at': s:at.'\%#', 'char': s:trigger, 'input': repeat('<BS>', s:n).s:dst})
 	endfor
 endfor

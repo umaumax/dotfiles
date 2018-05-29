@@ -12,5 +12,6 @@ elseif OSTYPE == "Linux\n"
 	" ubuntu
 	set clipboard=unnamedplus
 	" ubuntu上でvisual modeで選択したものをyankする
-	command VV :let @*=@"  "最後にyank or 削除した内容をクリップボードに入れる
+	vnoremap v y
+	" 	command VV :let @*=@"  "最後にyank or 削除した内容をクリップボードに入れる
 endif

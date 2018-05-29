@@ -84,6 +84,10 @@ append_path() {
 	local p="$1"
 	[[ -d $p ]] && export PATH=$PATH:$p
 }
+exist() {
+	var=$1
+	[[ -e $var ]]
+}
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
 
@@ -99,10 +103,10 @@ fi
 
 # python
 ## pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
 if cmdcheck pyenv; then
-	export PYENV_ROOT="${HOME}/.pyenv"
-	export PATH=${PYENV_ROOT}/bin:$PATH
-	export PYTHONPATH=~/python/lib/
+	exist ~/python/lib/ && export PYTHONPATH=$var
 	## for blender add-ons
 	append_any_path PYTHONPATH /Applications/blender.app/Contents/Resources/2.78/scripts/addons
 	eval "$(pyenv init -)"
