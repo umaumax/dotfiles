@@ -90,6 +90,8 @@ alias 3u='uuu'
 alias 4u='uuuu'
 alias 5u='uuuuu'
 
+# history
+alias history='history 1'
 if [[ -n $_Darwin ]]; then
 	# cmds
 	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
@@ -117,9 +119,6 @@ if [[ -n $_Darwin ]]; then
 	# 要検証
 	#	[[ -e /Applications/MacVim.app/Contents/MacOS/Vim ]] && alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
-	# history
-	alias history='history 1'
-
 	# base64
 	alias b64e='base64'
 	alias b64d='base64 -D'
@@ -139,7 +138,16 @@ if [[ -n $_Ubuntu ]]; then
 	fi
 	alias gsed='sed'
 	alias open='xdg-open &>/dev/null'
+
+	alias apt-upgrade='sudo apt-get upgrade'
+	alias apt-update='sudo apt-get update'
+	alias apt-install='sudo apt-get install'
+	alias apt-search='apt-cache search'
+	alias apt-show='apt-cache show'
 fi
+
+# copy prev command
+alias cpc='echo !! | c'
 
 # window path -> unix path
 alias w2upath='sed "s:\\\:/:g"'
@@ -173,6 +181,7 @@ alias pvim='vim -'
 alias g='googler -n 5'
 alias viminfogrep="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then
+	alias pecovim='peco | vim -'
 	# peco copy
 	alias pc='peco | c'
 	alias pecopy='peco | c'
@@ -190,8 +199,19 @@ if cmdcheck peco; then
 	alias rcd="cd \$(cat ~/.cdinfo | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
+	alias up='cd `_up | peco`/.'
 fi
 alias rvgrep="viminfogrep | xargs-grep"
+
+function _up() {
+	dir="$PWD"
+	while [[ $dir != / ]]; do
+		echo $dir
+		dir=${dir%/*}
+		[[ $dir == '' ]] && break
+	done
+	echo /
+}
 
 # [pecoでcdを快適にした｜bashでもpeco \- マクロ生物学徒の備忘録]( http://bio-eco-evo.hatenablog.com/entry/2017/04/30/044703 )
 function peco-cd() {
@@ -311,9 +331,14 @@ function vim() {
 		# "" => 0
 		line_no=$((line_no))
 		command vim -c $line_no $file_path
-		return $?
+		local code=$?
+		set-dirname-title
+		return $code
 	fi
 	command vim $@
+	local code=$?
+	set-dirname-title
+	return $code
 }
 
 alias dotfiles='cd ~/dotfiles'
@@ -709,6 +734,16 @@ alias upper="tr '[:lower:]' '[:upper:]'"
 alias jobs='jobs -l'
 # [裏と表のジョブを使い分ける \- ザリガニが見ていた\.\.\.。]( http://d.hatena.ne.jp/zariganitosh/20141212/fore_back_ground_job )
 alias stop='kill -TSTP'
+
+# [command line \- Print a 256\-color test pattern in the terminal \- Ask Ubuntu]( https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal )
+function full-color-test() {
+	for i in {0..255}; do
+		printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+		if ((i == 15)) || ((i > 15)) && (((i - 15) % 6 == 0)); then
+			printf "\n"
+		fi
+	done
+}
 
 # [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
 # Ctrl-Zを使ってVimにスイッチバックする

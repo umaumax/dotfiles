@@ -73,6 +73,9 @@ inoremap <C-u> <Esc>ui
 " reduo
 inoremap <C-r> <Esc><C-r>i
 
+" bg
+inoremap <C-z> <ESC><C-z>
+
 " nnoremap { <PageUp>
 " nnoremap } <PageDown>
 " nnoremap [ <PageUp>

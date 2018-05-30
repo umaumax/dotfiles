@@ -250,7 +250,8 @@ runtime! config/init/*.vim
 
 " #### 表示設定 ####
 set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+"set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 set t_Co=256
 " If you have vim >=8.0 or Neovim >= 0.1.5

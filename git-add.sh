@@ -10,10 +10,11 @@ git add .zshrc
 git add .zprofile
 git add .zshenv
 git add .zpreztorc
+git add .gitconfig
+git add .local.gitconfig.tmpl
 
 git add .vimrc
 git add .vim/config/init
 git add .vim/config/plug
 
 git add karabiner
-

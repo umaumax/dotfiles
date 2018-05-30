@@ -1,0 +1,38 @@
+[core]
+	editor = vim
+	# for japanese chars
+	quotepath = false
+[push]
+	default = simple
+[alias]
+	a = add
+	b = branch
+	c = commit
+	co = checkout
+	m = merge
+	d = diff
+	s = status
+	st = status
+	cm = commit
+	pu  = push -u origin # push origin and set upstream
+	# [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
+	ls = ~/local/bin/git-ls
+	amend = commit --amend --no-edit
+	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
+	graph = log --oneline --decorate --graph --branches --tags --remotes
+	l = log
+	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[color]
+	# Use colors in Git commands that are capable of colored output when
+	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+	ui = auto
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+[url "github:"]
+	InsteadOf = https://github.com/
+	InsteadOf = git@github.com:
