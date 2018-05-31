@@ -29,7 +29,7 @@ if v:version >= 800 && has('python3')
 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
 	Plug 'Shougo/neco-syntax'
 	" for look command
-	Plug 'ujihisa/neco-look', {'for': 'markdown'}
+	Plug 'ujihisa/neco-look', {'for': ['markdown', 'gitcommit']}
 	Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake']}
 	" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
 	let g:deoplete#enable_at_startup = 1
