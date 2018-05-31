@@ -356,7 +356,7 @@ execute("lcd " . s:cwd)
 if s:colorscheme == 'molokai'
 	colorscheme molokai
 	" for terminal transparent background color
-	highlight Normal ctermbg=none
+	" 	highlight Normal ctermbg=none
 	" 	highlight Normal ctermbg=235
 elseif s:colorscheme == 'moonfly'
 	colorscheme moonfly

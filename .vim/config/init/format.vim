@@ -83,4 +83,10 @@ if IsPrivateWork()
 
 		auto BufWritePre *.go let g:go_fmt_autosave = 1
 	augroup END
+else
+	augroup auto_format_non_private
+		autocmd!
+		autocmd ColorScheme,BufWinEnter * highlight Normal ctermbg=58 guibg=#320000
+		autocmd ColorScheme,BufWinEnter * highlight LineNr ctermbg=34 guibg=#650000
+	augroup END
 endif
