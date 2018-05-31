@@ -39,6 +39,9 @@ nnoremap fm :call <SID>format_file()<CR>
 " register format command
 augroup auto_format_setting
 	autocmd!
+	" default format command
+	autocmd BufWinLeave * nnoremap fm :call <SID>format_file()<CR>
+
 	if executable('clang-format')
 		" :ClangFormatAutoEnable
 		autocmd BufWinEnter *.{c,h,cc,cpp,hpp} nnoremap fm :ClangFormat<CR>
@@ -65,8 +68,8 @@ augroup auto_format_setting
 
 	autocmd BufWinEnter *.awk nnoremap fm :g:format_file()<CR>
 	autocmd BufWritePre *.awk        :call g:format_file()
-	autocmd BufWinEnter *.{vim,vimrc} nnoremap fm :g:format_file()<CR>
-	autocmd BufWritePre *.{vim,vimrc}        :call g:format_file()
+	" default format
+	" *.{vim,vimrc} *.tex
 	autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} nnoremap fm :Shfmt<CR>
 	autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile}             :Shfmt
 
@@ -75,6 +78,8 @@ augroup auto_format_setting
 	autocmd BufWritePre *.go             :GoFmt
 augroup END
 
+" NOTE:
+" 本来はautocmdでプライベート判定をするべきであるが，基本的に複数のgitをまたがなければ大丈夫
 " [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
 if IsPrivateWork()
 	augroup private_write_post
