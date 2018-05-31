@@ -77,11 +77,6 @@ augroup END
 
 " [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
 if IsPrivateWork()
-	" 	augroup private_write_pre
-	" 		autocmd!
-	" 		execute 'autocmd BufWritePre * ' . g:format_cmd
-	" 		autocmd BufWritePre * execute 'g:format_cmd
-	" 	augroup END
 	augroup private_write_post
 		autocmd!
 		" tex auto compile
