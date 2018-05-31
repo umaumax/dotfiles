@@ -790,6 +790,7 @@ alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコ
 # 	fpath=(/usr/local/share/zsh-completions $fpath)
 # fi
 # if [[ -n $_Ubuntu ]]; then
+# git://の方ではproxyの設定が反映されないので，https://形式
 zshdir=~/.zsh
 [[ ! -e $zshdir ]] && mkdir -p $zshdir
 [[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions

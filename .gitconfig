@@ -33,6 +33,9 @@
 	branch = auto
 	interactive = auto
 	grep = auto
+# for proxy env git:// -> https://
+[url "https://"]
+	insteadOf = git://
 [url "github:"]
 	InsteadOf = https://github.com/
 	InsteadOf = git@github.com:
