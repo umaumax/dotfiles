@@ -736,13 +736,28 @@ alias jobs='jobs -l'
 alias stop='kill -TSTP'
 
 # [command line \- Print a 256\-color test pattern in the terminal \- Ask Ubuntu]( https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal )
-function full-color-test() {
+function color-test-256() {
 	for i in {0..255}; do
 		printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
 		if ((i == 15)) || ((i > 15)) && (((i - 15) % 6 == 0)); then
 			printf "\n"
 		fi
 	done
+}
+function color-test-full() {
+	awk 'BEGIN{
+	s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+	for (colnum = 0; colnum<77; colnum++) {
+		r = 255-(colnum*255/76);
+		g = (colnum*510/76);
+		b = (colnum*255/76);
+		if (g>255) g = 510-g;
+		printf "\033[48;2;%d;%d;%dm", r,g,b;
+		printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+		printf "%s\033[0m", substr(s,colnum+1,1);
+	}
+	printf "\n";
+}'
 }
 
 # [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
