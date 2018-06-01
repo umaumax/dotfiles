@@ -8,3 +8,6 @@ ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
+
+[[ ! -d ~/.config/peco ]] && mkdir -p ~/.config/peco
+ln -sf ~/dotfiles/peco.config.json ~/.config/peco/config.json

@@ -13,6 +13,8 @@ git add .zpreztorc
 git add .gitconfig
 git add .local.gitconfig.tmpl
 
+git add peco.config.json
+
 git add .vimrc
 git add .vim/config/init
 git add .vim/config/plug
