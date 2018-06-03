@@ -1,0 +1,5 @@
+stdco\S*$
+	std::cout << {{_cursor_}} << std::endl;
+
+stdce\S*$
+	std::cerr << {{_cursor_}} << std::endl;

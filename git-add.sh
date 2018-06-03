@@ -1,22 +1,30 @@
 #!/bin/bash
-git add README.md
-git add link.sh
-git add git-add.sh
+git add -f README.md
+git add -f link.sh
+git add -f git-add.sh
 
-git add .tmux.conf
-git add .clang-format
-git add .gitignore
-git add .zshrc
-git add .zprofile
-git add .zshenv
-git add .zpreztorc
-git add .gitconfig
-git add .local.gitconfig.tmpl
+git add -f .tmux.conf
+git add -f .clang-format
+git add -f .gitignore
+git add -f .zshrc
+git add -f .zprofile
+git add -f .zshenv
+git add -f .zpreztorc
+git add -f .gitconfig
+git add -f .local.gitconfig.tmpl
 
-git add peco.config.json
+git add -f peco.config.json
 
-git add .vimrc
-git add .vim/config/init
-git add .vim/config/plug
+git add -f .vimrc
+git add -f .vim/config/package_manager
+git add -f .vim/config/plugin
+git add -f .vim/config/setting-start
+git add -f .vim/config/setting
+git add -f .vim/config/setting-end
 
-git add karabiner
+git add -f karabiner
+
+git add -f .minimal.vimrc
+git add -f cheatsheets/
+git add -f snippets/
+git add -f template/

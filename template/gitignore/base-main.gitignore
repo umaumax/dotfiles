@@ -1,0 +1,15 @@
+*
+!*.*
+!*/
+*.exe
+
+*.o
+*.a
+
+.ninja*
+
+.DS_Store
+Thumbs.db
+
+# Office specific
+~$*

@@ -1,0 +1,6 @@
+aug\S*$
+	augroup {{_input_:augroup name}}
+		autocmd!
+		{{_cursor_}}
+	augroup END
+

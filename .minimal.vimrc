@@ -1,0 +1,25 @@
+" vi互換を切る
+set nocompatible
+" 新しい行のインデントを現在の行と同じにする
+set autoindent
+" タブの代わりに空白文字を挿入する
+set expandtab
+set incsearch
+set number
+set shiftwidth=4
+" 対応する括弧を表示する
+set showmatch
+" 検索時に大文字を含んでいたら大/小を区別
+set smartcase
+set smartindent
+set smarttab
+set tabstop=4
+set whichwrap=b,s,h,l,<,>,[,]
+set t_Co=256
+colorscheme desert
+" 前回編集終了位置からの再開
+augroup vimrcExtend
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+augroup END
+set encoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,cp932,sjis,euc-jp

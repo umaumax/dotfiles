@@ -1,8 +1,21 @@
 {
+    "Action": {
+        "selectAllAndFinish": [
+            "peco.SelectAll",
+            "peco.Finish"
+        ]
+    },
     "keymap": {
         "C-j": "peco.SelectDown",
         "C-k": "peco.SelectUp",
         "C-f": "peco.ScrollPageDown",
-        "C-b": "peco.ScrollPageUp"
+        "C-b": "peco.ScrollPageUp",
+        "Tab": "peco.SelectDown",
+        "M-[,Z": "peco.SelectUp",
+        "C-a": "selectAllAndFinish",
+        "C-d": "peco.DeleteForwardChar",
+        "C-f": "peco.DeleteBackwardChar",
+        "ArrowLeft": "peco.BackwardChar",
+        "ArrowRight": "peco.ForwardChar"
     }
 }

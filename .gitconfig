@@ -13,6 +13,7 @@
 	d = diff
 	s = status
 	st = status
+	st-all = status --ignored
 	cm = commit
 	pu  = push -u origin # push origin and set upstream
 	# [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
@@ -24,6 +25,7 @@
 	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	url = remote -v
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
@@ -33,9 +35,10 @@
 	branch = auto
 	interactive = auto
 	grep = auto
-# for proxy env git:// -> https://
+	# for proxy env git:// -> https://
 [url "https://"]
 	insteadOf = git://
 [url "github:"]
-	InsteadOf = https://github.com/
+	# cannnot through proxy
+	# 	InsteadOf = https://github.com/
 	InsteadOf = git@github.com:

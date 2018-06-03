@@ -1,0 +1,21 @@
+CXX = g++
+CXX_FLAG = -std=c++11 -Wall -O2
+CXX_SHARED_LIB_FLAG = $CXX_FLAG -fPIC -shared -ldl
+
+rule app
+    command = $CXX $CXX_FLAG $in -o $out
+    description = building app: $out
+rule obj
+    command = $CXX $CXX_FLAG -c $in -o $out
+    description = building obj: $out
+rule lib
+    command = ar r $out $in
+    description = building lib $out
+rule shared_lib
+    command = $CXX $CXX_SHARED_LIB_FLAG $in -o $out
+    description = building shared lib: $out
+
+build always: phony
+
+build a.out: app main.cpp
+# build a.out: app main.cpp | phony

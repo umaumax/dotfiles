@@ -45,40 +45,53 @@ exportf cmdcheck
 exportf alias_if_exist
 
 # [iandeth. - bashにて複数端末間でコマンド履歴(history)を共有する方法]( http://iandeth.dyndns.org/mt/ian/archives/000651.html )
-share_history() {
-	history -a
-	history -c
-	history -r
+function share_history() {
+	history -a # .bash_historyに前回コマンドを1行追記
+	history -c # 端末ローカルの履歴を一旦消去
+	history -r # .bash_historyから履歴を読み込み直す
 }
 if [[ -n $BASH ]]; then
-	PROMPT_COMMAND='share_history'
-	shopt -u histappend
+	PROMPT_COMMAND='share_history' # 上記関数をプロンプト毎に自動実施
+	shopt -u histappend            # .bash_history追記モードは不要なのでOFFに
 else
+	# zsh
 	unset share_history
+	setopt share_history # シェルのプロセスごとに履歴を共有
 fi
 
 ################
 ####  Mac   ####
 ################
+
 # ls
-if [[ -n $_Darwin ]]; then
-	alias ls='ls -G'
-fi
-if [[ -n $_Ubuntu ]]; then
-	alias ls='ls --color=auto'
-fi
+[[ -n $_Darwin ]] && alias ls='ls -G'
+[[ -n $_Ubuntu ]] && alias ls='ls --color=auto'
+
+alias l='ls'
+alias la='ls -al'
+alias lal='ls -al'
 alias lat='ls -alt'
-alias lsat='ls -alt'
+alias latr='ls -altr'
+alias lalt='ls -alt'
+alias laltr='ls -altr'
+alias lsa='ls -al'
 alias lsal='ls -al'
+alias lsat='ls -alt'
+alias lsatr='ls -altr'
 alias lsalt='ls -alt'
-alias h='history'
-alias hgrep='h | grep'
-alias type='type -af'
+alias lsaltr='ls -altr'
+cmdcheck 'git-ls' && alias gls='git-ls'
+
 # cd
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
 alias ds='cd ~/Desktop/'
 alias desktop='cd ~/Desktop/'
+
+[[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
+[[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
+[[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
+
 alias u='cd ..'
 alias uu='cd ../..'
 alias uuu='cd ../../..'
@@ -92,6 +105,15 @@ alias 5u='uuuuu'
 
 # history
 alias history='history 1'
+alias h='history'
+alias hgrep='h | grep'
+
+# exit
+alias q!='exit'
+alias qq='exit'
+alias qqq='exit'
+
+alias type='type -af'
 if [[ -n $_Darwin ]]; then
 	# cmds
 	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
@@ -132,7 +154,10 @@ fi
 #### Ubuntu ####
 ################
 if [[ -n $_Ubuntu ]]; then
-	if cmdcheck xsel; then
+	if cmdcheck xclip; then
+		alias pbcopy='xclip -sel clip'
+		alias pbpaste='xclip -o -sel clip'
+	elif cmdcheck xsel; then
 		alias pbcopy='xsel --clipboard --input'
 		alias pbpaste='xsel --clipboard --output'
 	fi
@@ -144,6 +169,15 @@ if [[ -n $_Ubuntu ]]; then
 	alias apt-install='sudo apt-get install'
 	alias apt-search='apt-cache search'
 	alias apt-show='apt-cache show'
+
+	# [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
+	function peco-apt() {
+		if [ -z "$1" ]; then
+			echo "Usage: peco-apt <initial search string> - select packages on peco and they will be installed"
+		else
+			sudo apt-cache search $1 | peco | awk '{ print $1 }' | tr "\n" " " | xargs -- sudo apt-get install
+		fi
+	}
 fi
 
 # copy prev command
@@ -155,7 +189,7 @@ alias w2p='p|w2upath|c'
 
 alias relogin='exec $SHELL -l'
 
-function range() {
+function sed-range() {
 	[[ $# < 3 ]] && echo "$0 filepath start-line-no end-line-no" && return
 	name=$1
 	start=$2
@@ -163,16 +197,13 @@ function range() {
 	cat -n $name | sed -n ${start},${end}p
 }
 
-# http servers
 alias ascii='man ascii'
+# http servers
 alias httpserver='httpserver.python2'
 alias httpserver.python2='python -m SimpleHTTPServer'
 alias httpserver.python3='python3 -m http.server'
 alias httpserver.ruby='ruby -run -e httpd . -p 8000'
 alias httpserver.php='php -S localhost:3000'
-
-alias qq='exit'
-alias q!='exit'
 
 # NOTE:googler
 # NOTE:peco
@@ -186,7 +217,12 @@ if cmdcheck peco; then
 	alias pc='peco | c'
 	alias pecopy='peco | c'
 	alias pe='peco'
-	alias hpeco='history | peco | c'
+	alias hpeco='builtin history -nr 1 | peco | tee $(tty) | c'
+	alias apeco='alias | peco'
+	alias fpeco='local zzz(){ local f=`cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
+	alias epeco='env | peco | tee $(tty) | c'
+	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
+	alias pecokill='local xxx(){ pgrep -lf $1 | peco | cut -d' ' -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
@@ -245,6 +281,46 @@ function peco-cd() {
 	done
 }
 alias sd='peco-cd'
+
+# <C-R>
+# [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
+function _peco-select-history() {
+	# historyを番号なし、逆順、最初から表示。
+	# 順番を保持して重複を削除。
+	# カーソルの左側の文字列をクエリにしてpecoを起動
+	# \nを改行に変換
+	BUFFER="$(builtin history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+	CURSOR=$#BUFFER # カーソルを文末に移動
+	zle -R -c       # refresh
+}
+zle -N _peco-select-history
+bindkey '^R' _peco-select-history
+
+# <C-X><C-S>
+function _peco-snippets() {
+	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | sed 's:'$HOME/dotfiles/snippets/'::g' | peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
+	CURSOR=$#BUFFER
+	zle -R -c # refresh
+}
+zle -N _peco-snippets
+bindkey '^x^s' _peco-snippets
+
+function cheat() {
+	# below commands enable alias
+	# for 高速vim起動
+	# vim -u NONE -N
+	export VIM_FAST_MODE='on'
+	local cheat_root="$HOME/dotfiles/cheatsheets/"
+	local _=$(grep -rns "" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | vim -)
+	unset VIM_FAST_MODE
+}
+
+function _sed_check_test() {
+	echo '# in function (alias is disable)'
+	sed --version
+	echo '# in $() in function (alias is enable)'
+	echo $(sed --version)
+}
 
 # 各行に同じテキストを挿入する
 ## md表記の"> "追加などに役立つ
@@ -321,16 +397,18 @@ function vim() {
 	if [[ $1 == - ]]; then
 		shift
 		cat | while read file_path; do
+			# recursive call
 			vim "$file_path" $@ </dev/tty >/dev/tty
 		done
 		return
 	fi
-	if [[ $# == 1 ]] && [[ $1 =~ : ]]; then
+	if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"
 		local line_no=$(echo "$1" | cut -d":" -f2)
 		# "" => 0
 		line_no=$((line_no))
-		command vim -c $line_no $file_path
+		shift
+		command vim -c $line_no $file_path $@
 		local code=$?
 		set-dirname-title
 		return $code
@@ -364,6 +442,12 @@ alias vizrc='vim ~/.zshrc'
 alias vimzrc='vim ~/.zshrc'
 alias vizp='vim ~/.zprofile'
 alias vimzp='vim ~/.zprofile'
+alias zp='vim ~/.zprofile'
+alias zrc='vim ~/.zshrc'
+alias lzp='[[ -f ~/.local.zprofile ]] && vim ~/.local.zprofile'
+alias lzrc='[[ -f ~/.local.zshrc ]]vim ~/.local.zshrc'
+alias lvrc='[[ -f ~/.local.vimrc ]]vim ~/.local.vimrc'
+
 # for ssh
 alias vissh='vim ~/.ssh/config'
 alias vimssh='vim ~/.ssh/config'
@@ -433,8 +517,9 @@ cmdcheck pygmentize && alias ccat='pygmentize -g -O style=colorful,linenos=1'
 
 # for mac
 cmdcheck gsed && alias sed='gsed'
-alias grep='grep --color=auto'
-cmdcheck ggrep && alias grep='ggrep --color=auto'
+# -s: suppress 'Is a directory'
+alias grep='grep -s --color=auto'
+cmdcheck ggrep && alias grep='ggrep -s --color=auto'
 cmdcheck tac || alias tac='tail -r'
 
 # mac: brew install translate-shell
@@ -494,6 +579,8 @@ function set-dirname-title() {
 # when cd
 function chpwd() {
 	ls_abbrev
+	# NOTE: cdr
+	# [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366#cdr%E3%81%A7peco%E3%82%8B )
 	echo $PWD >>"$HOME/.cdinfo"
 	set-dirname-title
 }
@@ -588,6 +675,8 @@ alias fg.vim='fgrep "*.vim" $@'
 alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" | xargs-grep $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" | xargs-grep $@'
 alias fg.go='fgrep "*.go" $@'
+alias fg.my.go='find $(echo $GOPATH | cut -d":" -f2) -type f -name "*.go" | xargs-grep $@'
+alias fg.3rd.go='find $(echo $GOPATH | cut -d":" -f1) -type f -name "*.go" | xargs-grep $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'
 alias fg.cpp='fgrep "*.c[px][px]" $@'
@@ -745,6 +834,7 @@ function color-test-256() {
 	done
 }
 function color-test-full() {
+	# [True Colour \(16 million colours\) support in various terminal applications and terminals]( https://gist.github.com/XVilka/8346728 )
 	awk 'BEGIN{
 	s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
 	for (colnum = 0; colnum<77; colnum++) {
@@ -758,6 +848,43 @@ function color-test-full() {
 	}
 	printf "\n";
 }'
+}
+
+function cterms() {
+	# [ターミナルで使える色と色番号を一覧にする \- Qiita]( https://qiita.com/tmd45/items/226e7c380453809bc62a )
+	local PROGRAM=$(
+		cat <<EOF
+# -*- coding: utf-8 -*-
+
+@fg = "\x1b[38;5;"
+@bg = "\x1b[48;5;"
+@rs = "\x1b[0m"
+
+def color(code)
+  number = '%3d' % code
+  "#{@bg}#{code}m #{number}#{@rs}#{@fg}#{code}m #{number}#{@rs} "
+end
+
+256.times do |n|
+  print color(n)
+  print "\n" if (n + 1).modulo(8).zero?
+end
+print "\n"
+EOF
+	)
+	ruby -e "$PROGRAM"
+}
+
+# required: gdrive
+function gsync() {
+	local ID=$1
+	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(cat .gdrive | tr -d '\n')
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	echo "ID:$ID"
+	echo "# downloading..."
+	gdrive sync download $ID .
+	echo "# uploading..."
+	gdrive sync upload . $ID
 }
 
 # [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
@@ -789,23 +916,23 @@ setopt clobber
 SAVEHIST=100000
 [[ -x $(which direnv) ]] && eval "$(direnv hook zsh)"
 
-# [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
-alias -s txt='cat'
-alias -s rb='ruby'
-alias -s py='python'
-alias -s php='php -f'
-alias -s gp='gnuplot'
-alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
+if [[ $ZSH_NAME == zsh ]]; then
+	# [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
+	alias -s txt='cat'
+	alias -s rb='ruby'
+	alias -s py='python'
+	alias -s php='php -f'
+	alias -s gp='gnuplot'
+	alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
 
-#  if [[ -n $_Darwin ]]; then
-# 	# brew install zsh-autosuggestions zsh-history-substring-search zsh-git-prompt zsh-completions
-# 	source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# 	source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-# # 	# 	source /usr/local/opt/zsh-git-prompt/zshrc.sh
-# 	fpath=(/usr/local/share/zsh-completions $fpath)
-# fi
-# if [[ -n $_Ubuntu ]]; then
-# git://の方ではproxyの設定が反映されないので，https://形式
+	# option for completion
+	setopt magic_equal_subst              # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+	setopt GLOB_DOTS                      # 明確なドットの指定なしで.から始まるファイルをマッチ
+	zstyle ':completion:*' use-cache true # apt-getとかdpkgコマンドをキャッシュを使って速くする
+	setopt list_packed                    # 保管結果をできるだけ詰める
+fi
+
+# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
 zshdir=~/.zsh
 [[ ! -e $zshdir ]] && mkdir -p $zshdir
 [[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
@@ -814,7 +941,6 @@ fpath=($zshdir/zsh-completions/src $fpath)
 source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
 source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
-# fi
 
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
