@@ -6,6 +6,7 @@
 	default = simple
 [alias]
 	a = add
+	add-deleted = add . --update
 	b = branch
 	c = commit
 	co = checkout
