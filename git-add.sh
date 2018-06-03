@@ -12,6 +12,7 @@ git add -f .zshenv
 git add -f .zpreztorc
 git add -f .gitconfig
 git add -f .local.gitconfig.tmpl
+git add -f .xremap
 
 git add -f peco.config.json
 

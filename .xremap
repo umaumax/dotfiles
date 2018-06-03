@@ -1,0 +1,46 @@
+# Simulate macOS's command key
+%w[a z x c v w t f n].each do |key|
+	remap "Super-#{key}", to: "C-#{key}"
+end
+window class: 'terminal' do
+	remap "Super-c", to: "Ctrl-Shift-c"
+end
+
+remap 'C-m',    to: 'Enter'
+remap 'C-Up',   to: 'Home'
+remap 'C-Down', to: 'End'
+
+# emacs-like bindings
+window class: 'atom' do
+	remap 'C-a', to: 'Home'
+	remap 'C-e', to: 'End'
+
+	remap 'C-d', to: 'Delete'
+	remap 'C-f', to: 'BackSpace'
+
+	remap 'C-h', to: 'Left'
+	remap 'C-k', to: 'Up'
+	remap 'C-l', to: 'Right'
+	remap 'C-j', to: 'Down'
+end
+
+(0..9).each do |key|
+	remap "Super-#{key}", to: "C-#{key}"
+end
+
+# remap 'Ctrl-Space', execute('$HOME/.config/xremap/ctrl-space.sh')
+# remap 'Alt-Space', execute('$HOME/.config/xremap/alt-space.sh')
+# remap 'Ctrl-Alt-Space', execute('$HOME/.config/xremap/ctrl-alt-space.sh')
+# remap 'M-Space', execute('$HOME/.config/xremap/m-space.sh')
+
+# define :activate do |wm_class, command|
+#   execute("wmctrl -x -a #{wm_class.shellescape} || #{command.shellescape}")
+# end
+# 
+# # Check WM_CLASS by wmctrl -x -l
+# remap 'C-o', to: activate('nocturn.Nocturn', '/usr/share/nocturn/Nocturn')
+# remap 'C-u', to: activate('google-chrome.Google-chrome', '/opt/google/chrome/chrome')
+# remap 'C-h', to: activate('urxvt.URxvt', 'urxvt')
+
+# window class_not: 'urxvt' do
+# end
