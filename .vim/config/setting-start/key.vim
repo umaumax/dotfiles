@@ -229,12 +229,11 @@ nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " [俺的にはずせない【Vim】こだわりのmap（説明付き） \- Qiita]( https://qiita.com/itmammoth/items/312246b4b7688875d023 )
 " カーソル下の単語をハイライトしてから置換する
-nnoremap grep "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
-nnoremap sed "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>:%s/<C-r>///gc<Left><Left>
-vnoremap sed v:let @/ = '\<' . @+ . '\>'<CR>:set hlsearch<CR>:%s/<C-r>///gc<Left><Left>
-" > Shift + Enterで下に、Shift + Ctrl + Enterで上に空行を挿入します。
-" inoremap <S-CR> <End><CR>
-" inoremap <C-S-CR> <Up><End><CR>
+" `"z`でzレジスタに登録してからsearch
+nnoremap grep "zyiw:let @/='\<'.@z.'\>'<CR>:set hlsearch<CR>
+vnoremap grep "zy:let @/=@z<CR>:set hlsearch<CR>
+nnoremap sed :set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
+vnoremap sed "zy:let @/ = @z<CR>:set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
 
 nnoremap src :source ~/.vimrc<CR>
 " :Src

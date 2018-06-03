@@ -7,7 +7,8 @@ if OSTYPE == "Darwin\n"
 	" for cui vim
 	" 	set clipboard=unnamed,autoselect
 	" for gvim and cui vim
-	set clipboard=unnamed,unnamedplus | vnoremap v y
+	set clipboard=unnamed,unnamedplus
+	vnoremap v y
 elseif OSTYPE == "Linux\n"
 	" ubuntu
 	set clipboard=unnamedplus
