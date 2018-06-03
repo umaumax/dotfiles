@@ -115,6 +115,7 @@ alias qqq='exit'
 
 alias type='type -af'
 if [[ -n $_Darwin ]]; then
+	export LSCOLORS=gxfxcxdxbxegexabagacad
 	# cmds
 	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 	alias sysinfo='system_profiler SPSoftwareDataType'
