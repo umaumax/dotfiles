@@ -26,10 +26,12 @@ set laststatus=2 "常に編集中ファイル名表示
 set updatetime=250
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 
-" these value are maybe ignored by 'tpope/vim-sleuth'
-set tabstop=4   "インデントをスペース4つ分に設定
-set shiftwidth=4 "自動的に挿入されるインデント
-set smartindent  "オートインデント
+" these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
+augroup tab_setting
+	autocmd!
+	autocmd BufWinEnter * set tabstop=4 | set shiftwidth=4
+augroup END
+set smartindent
 
 " VimのUndoを永続化する（ファイルの変更を記録します）
 set undofile
