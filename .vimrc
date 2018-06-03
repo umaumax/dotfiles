@@ -25,6 +25,7 @@ let s:cwd = getcwd()
 if $VIM_FAST_MODE == ''
 	runtime! config/package_manager/*.vim
 endif
+command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 if filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
