@@ -390,6 +390,21 @@ cmdcheck terminal-notifier && function timer() {
 	sleep $1 && terminal-notifier -sound Basso -message $2
 }
 
+# below command are accepted
+# got github.com/BurntSushi/toml
+# got https://github.com/BurntSushi/toml
+# got go get https://github.com/BurntSushi/toml
+cmdcheck 'go' && function got() {
+	[[ $1 == go ]] && shift
+	[[ $1 == get ]] && shift
+	local args=()
+	for arg in ${@}; do
+		arg=${arg#https://}
+		args+=$arg
+	done
+	go get ${args}
+}
+
 # cmd alias
 cmdcheck vim && alias vi='vim'
 # 行番号指定で開く
