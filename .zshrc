@@ -34,8 +34,14 @@ function exportf() {
 [[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
 # ----------------
 
+doctor() {echo $_NO_CMD}
 funccheck() { declare -f "$1" >/dev/null; }
-cmdcheck() { type "$1" >/dev/null 2>&1; }
+cmdcheck() {
+	type "$1" >/dev/null 2>&1
+	local code=$?
+	[[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
+	return $code
+}
 alias_if_exist() {
 	local tmp="${@:3:($# - 2)}"
 	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"

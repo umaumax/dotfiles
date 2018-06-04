@@ -69,8 +69,13 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 [[ $(uname -a) =~ 'Ubuntu' ]] && export _Ubuntu=1
 [[ $(uname) == 'Linux' ]] && export _Linux=1
 
-function funccheck() { declare -f "$1" >/dev/null; }
-function cmdcheck() { type "$1" >/dev/null 2>&1; }
+funccheck() { declare -f "$1" >/dev/null; }
+cmdcheck() {
+	type "$1" >/dev/null 2>&1
+	local code=$?
+	[[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
+	return $code
+}
 
 #alias cmdcheck='type > /dev/null 2>&1'
 #alias funccheck='declare -f > /dev/null'
