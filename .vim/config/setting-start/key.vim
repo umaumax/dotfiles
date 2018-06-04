@@ -42,7 +42,7 @@ cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 
-" for function movement
+" for function args movement
 " in insert mode <C-o> + below key
 nnoremap , f,
 nnoremap < F(
@@ -79,6 +79,8 @@ vnoremap k iwc<ESC>
 inoremap <C-u> <Esc>ui
 " reduo
 inoremap <C-r> <Esc><C-r>i
+
+inoremap <C-x><C-e> <ESC>
 
 " bg
 inoremap <C-z> <ESC><C-z>
@@ -264,7 +266,7 @@ vnoremap s< c<><Left><ESC>p
 vnoremap s( c()<Left><ESC>p
 vnoremap s[ c[]<Left><ESC>p
 vnoremap s{ c{}<Left><ESC>p
-vnoremap s` c``````<Left><Left><Left><ESC>p
+vnoremap s` c``<Left><ESC>p
 vnoremap s_ c____<Left><Left><ESC>p
 
 " to avoid entering ex mode

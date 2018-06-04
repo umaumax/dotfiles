@@ -105,7 +105,7 @@ let s:replace_map = {
 			\ '[[  ]]<Left><Left><Left>': ['shif'],
 			\ '`': ['bq'],
 			\ '``<Left>': ['dbq'],
-			\ '```': ['tbq'],
+			\ '```': ['tbq', 'cd', 'code'],
 			\ '@': ['att','atm'],
 			\ '*': ['ast', 'asterisk'],
 			\ '+': ['pl', 'plus'],
