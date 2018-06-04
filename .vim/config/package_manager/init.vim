@@ -41,6 +41,10 @@ let g:sonictemplate_vim_template_dir = [
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 Plug 'rbtnn/vimconsole.vim'
 
+" vim lint
+" pip install vim-vint
+Plug 'Kuniwak/vint', {'do': 'pip install vim-vint'}
+
 " auto indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 Plug 'tpope/vim-sleuth'
