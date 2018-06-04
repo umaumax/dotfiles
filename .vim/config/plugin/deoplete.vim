@@ -4,6 +4,7 @@
 " [deoplete] [vim-hug-neovim-rpc] requires `:pythonx import neovim` command to work
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
+	" <C-x>,<C-v>
 	if has('nvim')
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	else
