@@ -33,7 +33,8 @@ let g:ale_keep_list_window_open = 0
 let g:ale_linters = {
 			\   'python': ['flake8'],
 			\   'json': ['jsonlint'],
-			\   'bash': ['shellcheck']
+			\   'bash': ['shellcheck'],
+			\   'vim': ['vint'],
 			\}
 
 " ALE用プレフィックス

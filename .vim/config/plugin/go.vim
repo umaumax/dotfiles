@@ -1,3 +1,6 @@
+if !Doctor('go','fatih/vim-go')
+	finish
+endif
 " NOTE:
 " vim-goとdeopleteが混ざっているが，...
 " golang

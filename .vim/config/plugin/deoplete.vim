@@ -19,30 +19,34 @@ if v:version >= 800 && has('python3')
 	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
 	Plug 'zchee/deoplete-jedi', {'for':'python'}
 
-	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
-	let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
+	if Doctor('go','zchee/deoplete-go')
+		Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
+		let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
+	endif
 
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
 	Plug 'Shougo/neco-syntax'
-	Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake']}
-	" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
-	let g:deoplete#enable_at_startup = 1
-	let g:deoplete#auto_complete_delay = 100
-	let g:deoplete#auto_complete_start_length = 1
-	let g:deoplete#enable_camel_case = 0
-	let g:deoplete#enable_ignore_case = 0
-	let g:deoplete#enable_refresh_always = 0
-	let g:deoplete#enable_smart_case = 1
-	let g:deoplete#file#enable_buffer_path = 1
-	let g:deoplete#max_list = 10000
-	" disable preview window(このウィンドウの影響である程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時))
-	set completeopt-=preview
-	" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-	" " inoremapのtabはmappingできないのでは?"
-	"  	inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-	"  				\ neosnippet#expandable_or_jumpable() ?
-	"  				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+	if Doctor('clang','zchee/deoplete-clang')
+		Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake']}
+		" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
+		let g:deoplete#enable_at_startup = 1
+		let g:deoplete#auto_complete_delay = 100
+		let g:deoplete#auto_complete_start_length = 1
+		let g:deoplete#enable_camel_case = 0
+		let g:deoplete#enable_ignore_case = 0
+		let g:deoplete#enable_refresh_always = 0
+		let g:deoplete#enable_smart_case = 1
+		let g:deoplete#file#enable_buffer_path = 1
+		let g:deoplete#max_list = 10000
+		" disable preview window(このウィンドウの影響である程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時))
+		set completeopt-=preview
+		" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+		" " inoremapのtabはmappingできないのでは?"
+		"  	inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+		"  				\ neosnippet#expandable_or_jumpable() ?
+		"  				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+	endif
 elseif
 	Plug 'Shougo/neocomplete.vim'
 	if !exists('g:neocomplete#force_omni_input_patterns')
@@ -58,4 +62,6 @@ endif
 
 " for look command
 " require: lock command
-Plug 'ujihisa/neco-look' " , {'for': [ 'markdown', 'gitrebase', 'gitcommit', 'text', 'help', 'tex']}
+if Doctor('look','ujihisa/neco-look')
+	Plug 'ujihisa/neco-look' " , {'for': [ 'markdown', 'gitrebase', 'gitcommit', 'text', 'help', 'tex']}
+endif

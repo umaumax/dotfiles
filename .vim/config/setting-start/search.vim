@@ -14,17 +14,25 @@ endfunction
 "
 " [jarun/googler: Google from the terminal]( https://github.com/jarun/googler )
 " googler: brew install googler || sudo apt-get install googler
-command! -nargs=? En call s:SearchWord('trans :en', <f-args>)
-command! -nargs=? Ja call s:SearchWord('trans :ja', <f-args>)
-command! -nargs=? S  call s:SearchWord('s', <f-args>)
-command! -nargs=? Go call s:SearchWord('echo q | googler --nocolor -n 10', <f-args>)
-nnoremap <Space>en viwv:En<CR>
-nnoremap <Space>ja viwv:Ja<CR>
-nnoremap <Space>s  viwv:S<CR>
-nnoremap <Space>ss viwv:S<CR>
-nnoremap <Space>go viwv:Go<CR>
-vnoremap <Space>en v:En<CR>
-vnoremap <Space>ja v:Ja<CR>
-vnoremap <Space>s  v:S<CR>
-" vnoremap <Space>ss v:S<CR>
-vnoremap <Space>go v:Go<CR>
+
+if Doctor('trans','soimort/translate')
+	command! -nargs=? En call s:SearchWord('trans :en', <f-args>)
+	command! -nargs=? Ja call s:SearchWord('trans :ja', <f-args>)
+	nnoremap <Space>en viwv:En<CR>
+	nnoremap <Space>ja viwv:Ja<CR>
+	vnoremap <Space>en v:En<CR>
+	vnoremap <Space>ja v:Ja<CR>
+endif
+if Doctor('s', 'zquestz/s')
+	command! -nargs=? S  call s:SearchWord('s', <f-args>)
+	nnoremap <Space>s  viwv:S<CR>
+	nnoremap <Space>ss viwv:S<CR>
+	vnoremap <Space>s  v:S<CR>
+	" vnoremap <Space>ss v:S<CR>
+endif
+"
+if Doctor('googler', 'jarun/googler')
+	command! -nargs=? Go call s:SearchWord('echo q | googler --nocolor -n 10', <f-args>)
+	nnoremap <Space>go viwv:Go<CR>
+	vnoremap <Space>go v:Go<CR>
+endif

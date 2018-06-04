@@ -1,16 +1,45 @@
 " TODO: add cmds and description for install
 let s:doctor_map={
+			\'clang':'',
+			\'cmigemo':'brew install cmigemo || sudo apt install cmigemo',
+			\'clang-format':'',
+			\'files':'go get -u github.com/mattn/files',
+			\'git':'',
+			\'go':'',
+			\'gofmt':'',
+			\'googler':'brew install googler || sudo apt-get install googler',
+			\'look':'maybe default command',
+			\'npm':'install node',
+			\'s':'brew install s-search',
+			\'trans':'brew install translate-shell || sudo apt-get install translate-shell',
 			\'shellcheck':'apt-get install shellcheck || brew install shellcheck',
-			\'files':'go get github.com/mattn/files',
+			\'shfmt':'go get -u mvdan.cc/sh/cmd/shfmt',
+			\'vint':'pip install vim-vint',
+			\'yapf':'pip install yapf',
 			\}
+let s:no_cmd_map={}
 function! Doctor(cmd, description)
 	if !executable(a:cmd)
 		if $VIM_DOCTOR != ''
 			echomsg 'Require:[' . a:cmd . '] for [' . a:description . ']'
 			echomsg '    ' . s:doctor_map[a:cmd]
 		endif
+		if !has_key(s:no_cmd_map,a:cmd)
+			let s:no_cmd_map[a:cmd]=''
+		endif
+		let s:no_cmd_map[a:cmd].=a:description.' '
+		return 0
 	endif
+	return 1
 endfunction
+function! s:print_doctor_result()
+	for s:key in keys(s:no_cmd_map)
+		let s:val = s:no_cmd_map[s:key]
+		echomsg 'Require:[' . s:key . '] for [' . s:val . ']'
+		echomsg '    ' . s:doctor_map[s:key]
+	endfor
+endfunction
+command! Doctor call <SID>print_doctor_result()
 
 " ##############
 " #### plug ####
@@ -25,7 +54,9 @@ Plug 'umaumax/comment-vim'
 " :BenchVimrc
 Plug 'umaumax/benchvimrc-vim'
 " fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
-Plug 'umaumax/vim-shfmt'
+if Doctor('shfmt', 'umaumax/vim-shfmt')
+	Plug 'umaumax/vim-shfmt'
+endif
 " let g:shfmt_fmt_on_save = 1
 
 " Plug 'mattn/sonictemplate-vim'
@@ -43,6 +74,8 @@ Plug 'rbtnn/vimconsole.vim'
 
 " vim lint
 " pip install vim-vint
+if Doctor('vint', 'Kuniwak/vint')
+endif
 Plug 'Kuniwak/vint', {'do': 'pip install vim-vint'}
 
 " auto indent detector
@@ -157,7 +190,9 @@ Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
 Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
-Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
+if Doctor('npm', 'maksimr/vim-jsbeautify')
+	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
+endif
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
@@ -244,19 +279,21 @@ Plug '5t111111/neat-json.vim', {'for': 'json'}
 " to use this lib, you have to set filetype=gnuplot by autocmd
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_highlight_lines = 1
-let mapleader = "\<Space>"
-nnoremap <Space>g :GitGutterToggle<CR>
-" hunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
-" stage, unstage, preview
-" NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
-nmap <Leader>sh <Plug>GitGutterStageHunk
-" NOTE: how to use undo hunk?
-nmap <Leader>uh <Plug>GitGutterUndoHunk
-nmap <Leader>ph <Plug>GitGutterPreviewHunk
+if Doctor('git', 'airblade/vim-gitgutter')
+	Plug 'airblade/vim-gitgutter'
+	let g:gitgutter_highlight_lines = 1
+	let mapleader = "\<Space>"
+	nnoremap <Space>g :GitGutterToggle<CR>
+	" hunk
+	nmap ]h <Plug>GitGutterNextHunk
+	nmap [h <Plug>GitGutterPrevHunk
+	" stage, unstage, preview
+	" NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
+	nmap <Leader>sh <Plug>GitGutterStageHunk
+	" NOTE: how to use undo hunk?
+	nmap <Leader>uh <Plug>GitGutterUndoHunk
+	nmap <Leader>ph <Plug>GitGutterPreviewHunk
+endif
 call plug#end()
 " #### plug ####
 " ##############
