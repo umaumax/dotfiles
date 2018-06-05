@@ -97,6 +97,8 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
 [[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
+[[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
+[[ -d ~/.config ]] && alias config='cd ~/.config'
 
 alias u='cd ..'
 alias uu='cd ../..'
@@ -190,9 +192,15 @@ fi
 # copy prev command
 alias cpc='echo !! | c'
 
+alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
+alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
+
 # window path -> unix path
 alias w2upath='sed "s:\\\:/:g"'
 alias w2p='p|w2upath|c'
+
+alias git-diff='git diff --color-words'
+alias git-log-peco='cat ~/.git-logs/*.log | peco'
 
 alias relogin='exec $SHELL -l'
 
@@ -217,29 +225,30 @@ alias httpserver.php='php -S localhost:3000'
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
 alias pvim='vim -'
 alias g='googler -n 5'
+alias xargs-vim='_xargs-vim -'
 alias viminfogrep="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then
-	alias pecovim='peco | vim -'
+	alias pecovim='peco | xargs-vim'
 	# peco copy
 	alias pc='peco | c'
 	alias pecopy='peco | c'
 	alias pe='peco'
 	alias hpeco='builtin history -nr 1 | peco | tee $(tty) | c'
 	alias apeco='alias | peco'
-	alias fpeco='local zzz(){ local f=`cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
+	alias fpeco='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 	alias epeco='env | peco | tee $(tty) | c'
 	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 	alias pecokill='local xxx(){ pgrep -lf $1 | peco | cut -d' ' -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
-	alias rvim="viminfogrep | peco | tee $(tty) | pvim"
+	alias rvim="viminfogrep | peco | tee $(tty) | xargs-vim"
 	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
 	alias rvcd="cd \$(viminfogrep | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
 	# TODO: duplicate dirs
-	alias rcd="cd \$(cat ~/.cdinfo | peco | sed 's:$:/:g')./"
+	alias rcd="cd \$(command cat ~/.cdinfo | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
 	alias up='cd `_up | peco`/.'
@@ -416,14 +425,6 @@ cmdcheck 'go' && function got() {
 cmdcheck vim && alias vi='vim'
 # 行番号指定で開く
 function vim() {
-	if [[ $1 == - ]]; then
-		shift
-		cat | while read file_path; do
-			# recursive call
-			vim "$file_path" $@ </dev/tty >/dev/tty
-		done
-		return
-	fi
 	if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"
 		local line_no=$(echo "$1" | cut -d":" -f2)
@@ -439,6 +440,17 @@ function vim() {
 	local code=$?
 	set-dirname-title
 	return $code
+}
+function _xargs-vim() {
+	if [[ $1 == - ]]; then
+		shift
+		cat | while read file_path; do
+			# recursive call
+			vim "$file_path" $@ </dev/tty >/dev/tty
+		done
+		return
+	fi
+	vim $@
 }
 
 alias dotfiles='cd ~/dotfiles'
@@ -534,9 +546,11 @@ else
 fi
 
 # install command: `brew install ccat` or `go get github.com/jingweno/ccat`
-cmdcheck ccat && alias cat='ccat'
-cmdcheck pygmentize && alias ccat='pygmentize -g -O style=colorful,linenos=1'
-
+if cmdcheck ccat; then
+	alias cat='ccat'
+else
+	cmdcheck pygmentize && alias ccat='pygmentize -g -O style=colorful,linenos=1'
+fi
 # for mac
 cmdcheck gsed && alias sed='gsed'
 # -s: suppress 'Is a directory'
@@ -875,7 +889,7 @@ function color-test-full() {
 function cterms() {
 	# [ターミナルで使える色と色番号を一覧にする \- Qiita]( https://qiita.com/tmd45/items/226e7c380453809bc62a )
 	local PROGRAM=$(
-		cat <<EOF
+		command cat <<EOF
 # -*- coding: utf-8 -*-
 
 @fg = "\x1b[38;5;"
@@ -900,7 +914,7 @@ EOF
 # required: gdrive
 function gsync() {
 	local ID=$1
-	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(cat .gdrive | tr -d '\n')
+	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
 	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
 	echo "ID:$ID"
 	echo "# downloading..."

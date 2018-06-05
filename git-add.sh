@@ -16,6 +16,8 @@ git add -f .xremap
 
 git add -f peco.config.json
 
+git add -f git-logs/
+
 git add -f .vimrc
 git add -f .vim/config/package_manager
 git add -f .vim/config/plugin

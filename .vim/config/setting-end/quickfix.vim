@@ -12,7 +12,7 @@ augroup quickfix_color_group
 	" 	highlight default QuickhlURL    ctermfg = Green   cterm = none
 	" [Vim\-formatted regular expression to match a URL for syntax highlighting]( https://gist.github.com/tobym/584909 )
 	" 	autocmd FileType qf
-	if &rtp =~ 't9md/vim-quickhl'
+	if &rtp =~ 'vim-quickhl'
 		autocmd WinEnter,WinLeave,BufRead,BufNew,BufEnter,Syntax * call matchadd('QuickhlManual10', 'https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*')
 		" 	autocmd FileType qf
 		autocmd WinEnter,WinLeave,BufRead,BufNew,BufEnter,Syntax * call matchadd('QuickhlManual12','||\s\+[0-9]\+\s.*$')

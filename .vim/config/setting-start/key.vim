@@ -80,6 +80,7 @@ inoremap <C-u> <Esc>ui
 " reduo
 inoremap <C-r> <Esc><C-r>i
 
+inoremap <C-x>e <ESC>
 inoremap <C-x><C-e> <ESC>
 
 " bg
@@ -247,6 +248,9 @@ function! s:source(...)
 endfunction
 command! -nargs=? Src call s:source(<f-args>)
 
+command! FileName :let @+ = expand('%:t') | echo 'copyed:' . expand('%:t')
+command! FilePath :let @+ = expand('%:p') | echo 'cooyed' . expand('%:p')
+
 " [TabとCtrl\-iどちらを入力されたか区別する\(Linux限定\) \- Qiita]( https://qiita.com/norio13/items/9c05412796a7dea5cd91 )
 " <Tab> == <C-i>
 " insert new line at pre line
@@ -268,6 +272,18 @@ vnoremap s[ c[]<Left><ESC>p
 vnoremap s{ c{}<Left><ESC>p
 vnoremap s` c``<Left><ESC>p
 vnoremap s_ c____<Left><Left><ESC>p
+vnoremap ssq c''<Left><ESC>p
+vnoremap sdq c""<Left><ESC>p
+vnoremap slt c<><Left><ESC>p
+vnoremap spa c()<Left><ESC>p
+vnoremap sbr c[]<Left><ESC>p
+vnoremap sary c[]<Left><ESC>p
+vnoremap ssb c{}<Left><ESC>p
+vnoremap sfunc c{}<Left><ESC>p
+vnoremap sbq c``<Left><ESC>p
+vnoremap sus c____<Left><Left><ESC>p
+vnoremap sud c____<Left><Left><ESC>p
+vnoremap sfold c____<Left><Left><ESC>p
 
 " to avoid entering ex mode
 nnoremap Q <Nop>

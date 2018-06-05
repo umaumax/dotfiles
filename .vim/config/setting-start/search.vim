@@ -18,21 +18,21 @@ endfunction
 if Doctor('trans','soimort/translate')
 	command! -nargs=? En call s:SearchWord('trans :en', <f-args>)
 	command! -nargs=? Ja call s:SearchWord('trans :ja', <f-args>)
-	nnoremap <Space>en viwv:En<CR>
-	nnoremap <Space>ja viwv:Ja<CR>
-	vnoremap <Space>en v:En<CR>
-	vnoremap <Space>ja v:Ja<CR>
+	nnoremap <Space>en "zviwy:En<CR>
+	nnoremap <Space>ja "zviwy:Ja<CR>
+	vnoremap <Space>en "zy:En<CR>
+	vnoremap <Space>ja "zy:Ja<CR>
 endif
 if Doctor('s', 'zquestz/s')
 	command! -nargs=? S  call s:SearchWord('s', <f-args>)
-	nnoremap <Space>s  viwv:S<CR>
-	nnoremap <Space>ss viwv:S<CR>
-	vnoremap <Space>s  v:S<CR>
+	nnoremap <Space>s  "zviwy:S<CR>
+	nnoremap <Space>ss "zviwy:S<CR>
+	vnoremap <Space>s  "zy:S<CR>
 	" vnoremap <Space>ss v:S<CR>
 endif
 "
 if Doctor('googler', 'jarun/googler')
 	command! -nargs=? Go call s:SearchWord('echo q | googler --nocolor -n 10', <f-args>)
-	nnoremap <Space>go viwv:Go<CR>
-	vnoremap <Space>go v:Go<CR>
+	nnoremap <Space>go "zviwy:Go<CR>
+	vnoremap <Space>go "zy:Go<CR>
 endif

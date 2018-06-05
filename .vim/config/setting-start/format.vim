@@ -112,7 +112,7 @@ if IsPrivateWork()
 else
 	augroup non_private
 		autocmd!
-		autocmd ColorScheme,BufWinEnter * highlight Normal ctermbg=88 guibg=#320000
-		autocmd ColorScheme,BufWinEnter * highlight LineNr ctermbg=52 guibg=#650000
+		autocmd ColorScheme,BufWinEnter * highlight Normal ctermbg=0 guibg=#320000
+		autocmd ColorScheme,BufWinEnter * highlight LineNr ctermbg=167 guibg=#650000
 	augroup END
 endif
