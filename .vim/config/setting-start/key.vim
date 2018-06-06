@@ -137,6 +137,8 @@ nnoremap 2T :%s/^\( *\)\t/\1  /g<CR>
 nnoremap 3T :%s/^\( *\)\t/\1   /g<CR>
 nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
 
+vnoremap <S-Space> iwy
+
 " vim tab control
 nnoremap ? :tabnew<CR>
 nnoremap > :tabn<CR>
@@ -177,6 +179,8 @@ imap <Nul> <C-x><C-o>
 " [\[Vim\] インサートモードで行頭や行末へ移動する方法 ~ 0から始めるvim ~]( https://qiita.com/ymiyamae/items/cea5103c65184f55d62e )
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
+vnoremap <C-a> ^
+vnoremap <C-e> $
 
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
@@ -276,6 +280,7 @@ vnoremap ssq c''<Left><ESC>p
 vnoremap sdq c""<Left><ESC>p
 vnoremap slt c<><Left><ESC>p
 vnoremap spa c()<Left><ESC>p
+vnoremap skakko c()<Left><ESC>p
 vnoremap sbr c[]<Left><ESC>p
 vnoremap sary c[]<Left><ESC>p
 vnoremap ssb c{}<Left><ESC>p

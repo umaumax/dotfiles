@@ -30,8 +30,16 @@ let g:ale_keep_list_window_open = 0
 
 " 有効にするlinter
 " npm install jsonlint -g
+if Doctor('pylint', 'python linter')
+endif
+if Doctor('jsonlint', 'json linter')
+endif
+if Doctor('shellcheck', 'shell linter')
+endif
+if Doctor('vint', 'vim linter')
+endif
 let g:ale_linters = {
-			\   'python': ['flake8'],
+			\   'python': ['pylint'],
 			\   'json': ['jsonlint'],
 			\   'bash': ['shellcheck'],
 			\   'vim': ['vint'],

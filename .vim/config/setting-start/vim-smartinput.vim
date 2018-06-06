@@ -60,6 +60,9 @@ call smartinput#define_rule({
 			\   'char': '<CR>',
 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
 			\   })
+call smartinput#map_to_trigger('i', '>', '>', '>')
+" <>_ ===> <_>
+call smartinput#define_rule({'at': '<\%#', 'char': '>', 'input': '><Left>'})
 
 " NOTE: 置き換え時に特殊キーに注意
 " '\<': 単語境界でなければならない

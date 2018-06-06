@@ -24,4 +24,7 @@ augroup textobj
 	" file path
 	autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./ ~$_]\+')
 	autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./ ~$_]\+')
+	" url (not complete regexp for comfortableness)
+	autocmd VimEnter * omap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_:?=%!*()<>#:@&]\+')
+	autocmd VimEnter * xmap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_:?=%!*()<>#:@&]\+')
 augroup END

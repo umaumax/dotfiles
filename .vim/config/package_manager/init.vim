@@ -1,46 +1,3 @@
-" TODO: add cmds and description for install
-let s:doctor_map={
-			\'clang':'',
-			\'cmigemo':'brew install cmigemo || sudo apt install cmigemo',
-			\'clang-format':'',
-			\'files':'go get -u github.com/mattn/files',
-			\'git':'',
-			\'go':'',
-			\'gofmt':'',
-			\'googler':'brew install googler || sudo apt-get install googler',
-			\'look':'maybe default command',
-			\'npm':'install node',
-			\'s':'brew install s-search',
-			\'trans':'brew install translate-shell || sudo apt-get install translate-shell',
-			\'shellcheck':'apt-get install shellcheck || brew install shellcheck',
-			\'shfmt':'go get -u mvdan.cc/sh/cmd/shfmt',
-			\'vint':'pip install vim-vint',
-			\'yapf':'pip install yapf',
-			\}
-let s:no_cmd_map={}
-function! Doctor(cmd, description)
-	if !executable(a:cmd)
-		if $VIM_DOCTOR != ''
-			echomsg 'Require:[' . a:cmd . '] for [' . a:description . ']'
-			echomsg '    ' . s:doctor_map[a:cmd]
-		endif
-		if !has_key(s:no_cmd_map,a:cmd)
-			let s:no_cmd_map[a:cmd]=''
-		endif
-		let s:no_cmd_map[a:cmd].=a:description.' '
-		return 0
-	endif
-	return 1
-endfunction
-function! s:print_doctor_result()
-	for s:key in keys(s:no_cmd_map)
-		let s:val = s:no_cmd_map[s:key]
-		echomsg 'Require:[' . s:key . '] for [' . s:val . ']'
-		echomsg '    ' . s:doctor_map[s:key]
-	endfor
-endfunction
-command! Doctor call <SID>print_doctor_result()
-
 " ##############
 " #### plug ####
 call plug#begin('~/.vim/plugged')
@@ -71,6 +28,10 @@ let g:sonictemplate_vim_template_dir = [
 
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 Plug 'rbtnn/vimconsole.vim'
+
+" python formatter
+" error表示のwindowの制御方法が不明
+" Plug 'tell-k/vim-autopep8'
 
 " vim lint
 " pip install vim-vint

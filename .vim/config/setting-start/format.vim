@@ -57,13 +57,19 @@ augroup auto_format_setting
 	if Doctor('clang-format', 'clang format')
 		" :ClangFormatAutoEnable
 		autocmd BufWinEnter *.{c,h,cc,cpp,hpp} command! Format ClangFormat
-		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsPrivateWork() | :ClangFormat | endif
+		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsPrivateWork() | call clang_format#replace(1, line('$')) | endif
 	endif
 	" python formatter
 	" pip install yapf
-	if Doctor('yapf', 'python format')
-		autocmd BufWinEnter *.py command! Format 0,$!yapf
-		autocmd BufWritePre *.py                :0,$!yapf
+	" 	if Doctor('yapf', 'python format')
+	" 		autocmd BufWinEnter *.py command! Format 0,$!yapf
+	" 		autocmd BufWritePre *.py                :0,$!yapf
+	" 	endif
+	" python formatter
+	" pip install yapf
+	if Doctor('autopep8', 'python format')
+		autocmd BufWinEnter *.py command! Format call Autopep8()
+		autocmd BufWritePre *.py                :call Autopep8()
 	endif
 
 	" 'maksimr/vim-jsbeautify'
@@ -97,6 +103,32 @@ augroup auto_format_setting
 		autocmd BufWritePre *.go                :GoFmt
 	endif
 augroup END
+
+" error表示のwindowの制御方法が不明
+" Plug 'tell-k/vim-autopep8'
+function! Preserve(command)
+	" Save the last search.
+	let search = @/
+	" Save the current cursor position.
+	let cursor_position = getpos('.')
+	" Save the current window position.
+	normal! H
+	let window_position = getpos('.')
+	call setpos('.', cursor_position)
+	" Execute the command.
+	execute a:command
+	" Restore the last search.
+	let @/ = search
+	" Restore the previous window position.
+	call setpos('.', window_position)
+	normal! zt
+	" Restore the previous cursor position.
+	call setpos('.', cursor_position)
+endfunction
+
+function! Autopep8()
+	call Preserve(':silent %!autopep8 -')
+endfunction
 
 " NOTE:
 " 本来はautocmdでプライベート判定をするべきであるが，基本的に複数のgitをまたがなければ大丈夫
