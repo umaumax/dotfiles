@@ -327,7 +327,7 @@ function cheat() {
 	# vim -u NONE -N
 	export VIM_FAST_MODE='on'
 	local cheat_root="$HOME/dotfiles/cheatsheets/"
-	local _=$(grep -rns "" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | vim -)
+	local _=$(grep -rns "" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
 	unset VIM_FAST_MODE
 }
 
@@ -366,7 +366,7 @@ cmdcheck ninja && alias ncn='ninja -t clean && ninja'
 ## 要検証
 if cmdcheck docker; then
 	# [dockerでコンテナにログインするのを省力化してみる - Qiita]( http://qiita.com/taichi0529/items/1550a276c90c780494ca )
-	function dlogin() {
+	function docker-login() {
 		SHELL='bash'
 		if [ $# -gt 0 ]; then
 			SHELL=$1
@@ -397,7 +397,16 @@ if cmdcheck docker; then
 			return 0
 		done
 	}
+	alias docker-remove-all-container='docker rm $(docker ps -aq)'
+	alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 echo docker rmi'
 fi
+
+# to avoid xargs no args error on ubuntu
+function pipecheck() {
+	local val=$(cat)
+	[[ -z $val ]] && return 1
+	echo $val | $@
+}
 
 # n秒後に通知する
 function timer() { echo "required:terminal-notifier"; }
