@@ -1,0 +1,2 @@
+printf\S*$
+	print('{{_cursor_}}'.format(), end="")

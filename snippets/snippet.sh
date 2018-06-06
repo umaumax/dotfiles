@@ -21,3 +21,6 @@ netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lso
 
 du -s *
 df -h
+
+docker run built -t "image" .
+docker run --rm -it "image" /bin/bash

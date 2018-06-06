@@ -21,7 +21,7 @@ endif
 
 " [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt )
 " [vim\-smartinput のスマートか分からない設定 \- はやくプログラムになりたい]( https://rhysd.hatenablog.com/entry/20121017/1350444269 )
-" orignal trigger <BS>, <CR>
+" orignal trigger <BS>
 call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
 " BUG: (sample)(test) -> ( sample)(test )
 call smartinput#define_rule({
@@ -50,16 +50,26 @@ call smartinput#define_rule({
 for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 	let s:left=s:set[:len(s:set)/2-1]
 	let s:right=s:set[len(s:set)/2:]
-	call smartinput#define_rule({'at': s:left.'\%#'.s:right, 'char': '<BS>', 'input': '<BS>'})
+	call smartinput#define_rule({'at': s:left.'\%#'.s:right, 'char': '<BS>', 'input': '<Right><BS>'})
 	call smartinput#define_rule({'at': s:set.'\%#',          'char': '<BS>', 'input': '<BS>'})
 endfor
 call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><CR>'})
 " 改行時に行末のスペース除去
+call smartinput#map_to_trigger('i', '<CR>', '<CR>', '<CR>')
 call smartinput#define_rule({
 			\   'at': '\s\+\%#',
 			\   'char': '<CR>',
 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
 			\   })
+" 			\   'at': 'def.*[^:]\%#',
+" 			\   'at': 'def.*\%#',
+call smartinput#define_rule({
+			\   'at': '\(for\|if\|def\|while\).*[^:]\%#$',
+			\   'char': '<CR>',
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '$', ':', ''))<CR><C-o>$<CR>",
+			\   'filetype': ['python'],
+			\   })
+
 call smartinput#map_to_trigger('i', '>', '>', '>')
 " <>_ ===> <_>
 call smartinput#define_rule({'at': '<\%#', 'char': '>', 'input': '><Left>'})

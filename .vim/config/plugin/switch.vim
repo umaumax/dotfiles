@@ -3,6 +3,10 @@
 Plug 'AndrewRadev/switch.vim'
 let g:switch_custom_definitions =
 			\ [
+			\   {'#include <\(\k\+\)>' : '#include "\1"', '#include "\(\k\+\)"' : '#include <\1>'},
+			\   {"'\\([^']*\\)'" : '"\1"', '"\([^"]*\)"' : "'\\1'"},
+			\   {"\\([^']\\|^\\)'\\([^']\\|$\\)" :   '\1"\2', '\([^"]\|^\)"\([^"]\|$\)'   : "\\1'\\2"},
+			\   {"\\([^`]\\|^\\)`\\([^`]\\|$\\)" : '\1```\2', '\([^`]\|^\)```\([^`]\|$\)' : "\\1`\\2"},
 			\   ['Nanoha', 'Fate', 'Hayate'],
 			\   ['nanoha', 'fate', 'hayate'],
 			\   ['foo', 'bar', 'baz'],
@@ -15,7 +19,6 @@ let g:switch_custom_definitions =
 			\   ['<', '>'],
 			\   ['->', '.'],
 			\   ['python', 'python2', 'python3'],
-			\   ["'", '"', '`'],
 			\   ['(', '[', '{'],
 			\   [')', ']', '}'],
 			\   ['get', 'set'],
@@ -29,8 +32,6 @@ let g:switch_custom_definitions =
 			\   ['noremap', 'cnoremap', 'inoremap', 'nnoremap', 'vnoremap'],
 			\   ['map', 'cmap', 'imap', 'nmap', 'vmap'],
 			\   ['float', 'double'],
-			\   {'#include <\(\k\+\)>' : '#include "\1"', '#include "\(\k\+\)"' : '#include <\1>'},
-			\   {"'\\([^']\\+\\)'" : '"\1"', '"\([^"]\+\)"' : "'\\1'"},
 			\ ]
 function! s:toggle(value)
 	let opt= a:value >= 0 ? {} : {'reverse': a:value}

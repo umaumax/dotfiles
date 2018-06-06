@@ -27,6 +27,13 @@ function! s:UnTab()
 		call cursor('.', col('.')-1)
 		return ''
 	endif
+	if strlen(line) >= &tabstop && line[:&tabstop-1] == repeat(' ', &tabstop)
+		let line = line[&tabstop:]
+		" 移動してから削除すること(末尾にカーソルがある場合を考慮)
+		call cursor('.', col('.')-&tabstop)
+		call setline('.', line)
+		return ''
+	endif
 	return ''
 endfunction
 " simple version

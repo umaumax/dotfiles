@@ -30,6 +30,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 augroup tab_setting
 	autocmd!
 	autocmd BufWinEnter * set tabstop=4 | set shiftwidth=4
+	autocmd BufWinEnter *.py exec 'set softtabstop='.&tabstop
 augroup END
 set smartindent
 

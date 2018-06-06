@@ -97,6 +97,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
 [[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
+[[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 [[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
 
@@ -965,7 +966,7 @@ if [[ $ZSH_NAME == zsh ]]; then
 	# [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
 	alias -s txt='cat'
 	alias -s rb='ruby'
-	alias -s py='python'
+	# 	alias -s py='python' # for python2 and python3
 	alias -s php='php -f'
 	alias -s gp='gnuplot'
 	alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
