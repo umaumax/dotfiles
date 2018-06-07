@@ -1,7 +1,7 @@
 " cursor movement in insert mode
 inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
+inoremap <C-j> <ESC>:call <SID>Down()<CR>i
+inoremap <C-k> <ESC>:call <SID>Up()<CR>i
 inoremap <C-l> <Right>
 
 " Delete and Backspace key

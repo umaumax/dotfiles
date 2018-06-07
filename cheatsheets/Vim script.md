@@ -23,5 +23,6 @@ inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 append
 ```
 ['a', 'b'] + ['c']
+add(['a', 'b'], 'c')
 ```
 listに対して，`+=`は使えないが，通常の演算では使用可能

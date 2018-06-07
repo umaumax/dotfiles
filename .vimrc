@@ -32,7 +32,7 @@ let s:doctor_map={
 			\'go':'',
 			\'gofmt':'',
 			\'googler':'brew install googler || sudo apt-get install googler',
-			\'jsonlint':'',
+			\'jsonlint':'npm install jsonlint -g',
 			\'look':'maybe default command',
 			\'npm':'install node',
 			\'pylint':'pip install pylint',

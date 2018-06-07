@@ -127,7 +127,8 @@ function! Preserve(command)
 endfunction
 
 function! Autopep8()
-	call Preserve(':silent %!autopep8 -')
+	" [vimでpythonのコーディングスタイルを自動でチェック&自動修正する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/26/vim-python-style-check-and-fix/ )
+	call Preserve(':silent %!autopep8 --ignore=E501 -')
 endfunction
 
 " NOTE:

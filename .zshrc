@@ -236,7 +236,9 @@ if cmdcheck peco; then
 	alias pe='peco'
 	alias hpeco='builtin history -nr 1 | peco | tee $(tty) | c'
 	alias apeco='alias | peco'
-	alias fpeco='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
+	alias funcpeco='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
+	alias fpeco='find . -type f | peco'
+	alias fvim='find . -type f | pecovim'
 	alias epeco='env | peco | tee $(tty) | c'
 	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 	alias pecokill='local xxx(){ pgrep -lf $1 | peco | cut -d' ' -f1 | xargs kill -KILL } && xxx'
@@ -248,8 +250,7 @@ if cmdcheck peco; then
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
 	alias rvcd="cd \$(viminfogrep | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
-	# TODO: duplicate dirs
-	alias rcd="cd \$(command cat ~/.cdinfo | peco | sed 's:$:/:g')./"
+	alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
 	alias up='cd `_up | peco`/.'

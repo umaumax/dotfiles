@@ -23,6 +23,9 @@ let g:sonictemplate_postfix_key='<C-x><C-p>'
 let g:sonictemplate_vim_template_dir = [
 			\ '~/dotfiles/template'
 			\]
+" if you want to add element, do like below
+" let g:sonictemplate_vim_template_dir = g:sonictemplate_vim_template_dir + ['~/template']
+
 " #### my plugin ####
 " ###################
 
