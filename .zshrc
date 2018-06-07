@@ -160,6 +160,10 @@ if [[ -n $_Darwin ]]; then
 	alias strace='sudo dtruss -f sudo -u $(id -u -n)'
 fi
 
+# brew install fzf
+# git clone https://github.com/junegunn/fzf.git
+cmdcheck fzf && alias peco='fzf --ansi --reverse'
+
 ################
 #### Ubuntu ####
 ################
@@ -316,7 +320,9 @@ bindkey '^R' _peco-select-history
 
 # <C-X><C-S>
 function _peco-snippets() {
-	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | sed 's:'$HOME/dotfiles/snippets/'::g' | peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
+	local color_cmd=('cat')
+	cmdcheck ccat && color_cmd=('ccat' '--color=always')
+	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
 	CURSOR=$#BUFFER
 	zle -R -c # refresh
 }
@@ -691,9 +697,10 @@ function xargs-grep() {
 	[[ $# == 0 ]] && echo 'grep_keyword' && return
 	local keyword=(${@:1})
 	local grep_cmd='grep'
+	local color_opt='--color=auto'
+	cmdcheck fzf && color_opt='--color=always'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	# 	xargs -n 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
-	xargs -L 1 -IXXX find XXX -exec $grep_cmd --color=auto -H -n ${keyword[@]} {} +
+	xargs -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
@@ -871,7 +878,7 @@ alias upper="tr '[:lower:]' '[:upper:]'"
 
 alias jobs='jobs -l'
 # [裏と表のジョブを使い分ける \- ザリガニが見ていた\.\.\.。]( http://d.hatena.ne.jp/zariganitosh/20141212/fore_back_ground_job )
-alias stop='kill -TSTP'
+cmdcheck stop || alias stop='kill -TSTP'
 
 # [command line \- Print a 256\-color test pattern in the terminal \- Ask Ubuntu]( https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal )
 function color-test-256() {
