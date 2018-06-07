@@ -50,7 +50,7 @@ define_keymap(None, {
     K("Win-i"): K("C-i"),
     K("Win-j"): K("C-j"),
     K("Win-k"): K("C-k"),
-    K("Win-l"): K("C-l"),
+    #     K("Win-l"): K("C-l"),
     K("Win-m"): K("C-m"),
     K("Win-n"): K("C-n"),
     K("Win-o"): K("C-o"),
@@ -66,7 +66,10 @@ define_keymap(None, {
     K("Win-y"): K("C-y"),
     K("Win-z"): K("C-z"),
 
-    K("Alt-l"): K("Win-l"),
+    K("Win-tab"): K("Alt-tab"),
+    K("Win-Shift-tab"): K("Alt-Shift-tab"),
+
+    #     K("Alt-l"): K("Win-l"),
 }, "Anywhere")
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
@@ -95,8 +98,8 @@ define_keymap(lambda wm_class: wm_class in terms, {
 define_keymap(lambda wm_class: wm_class not in terms, {
     K("C-e"): K("end"),
     K("C-a"): K("home"),
-    K("Win-e"): K("end"),
-    K("Win-a"): K("home"),
+    #     K("Win-e"): K("end"),
+    #     K("Win-a"): K("home"),
     K("Win-c"): K("Shift-Ctrl-c"),
     K("Win-v"): K("Ctrl-Shift-v"),
     #     K("C-x"): {
