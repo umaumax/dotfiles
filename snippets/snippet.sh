@@ -16,7 +16,7 @@ NIC= && sudo ifup $NIC && sudo ifdown $NIC
 tar zxvf
 tar zxvf xxxx.tar.gz # 解凍
 tar zcvf
-tar -zcvf xxxx.tar.gz directory # 圧縮
+tar zcvf xxxx.tar.gz directory # 圧縮
 
 perl -nle '$_=~/([0-9]+)/;print $1;'
 
@@ -32,3 +32,6 @@ cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
 
 timeout -sKILL
 timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
+
+sudo gdebi
+sudo gdebi ./google-chrome-stable_current_amd64.deb
