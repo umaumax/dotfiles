@@ -15,6 +15,7 @@ git add -f .local.gitconfig.tmpl
 git add -f .xremap
 
 git add -f .config/peco/config.json
+git add -f .config/xkeysnail/config.py
 
 git add -f git-logs/
 

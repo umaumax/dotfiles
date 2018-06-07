@@ -14,6 +14,11 @@ ln -sf ~/dotfiles/.xremap ~/
 [[ ! -d ~/.config/peco ]] && mkdir -p ~/.config/peco
 ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 
+if [[ $(uname) == "Linux\n" ]]; then
+	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
+	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
+fi
+
 if [[ -n $XDG_CONFIG_HOME ]]; then
 	ln -sf ~/dotfiles/.config/pep8 ~/"$XDG_CONFIG_HOME"/pep8
 else
