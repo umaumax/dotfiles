@@ -568,6 +568,8 @@ cmdcheck gsed && alias sed='gsed'
 alias grep='grep -s --color=auto'
 cmdcheck ggrep && alias grep='ggrep -s --color=auto'
 cmdcheck tac || alias tac='tail -r'
+# brew install coreutils
+cmdcheck gtimeout && alias timeout='gtimeout'
 
 # mac: brew install translate-shell
 # [LinuxのCUIを使ってgoogle翻訳を実行する - Qiita]( http://qiita.com/YuiM/items/1287286386b8efd58147 )
