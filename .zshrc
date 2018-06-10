@@ -789,6 +789,11 @@ alias fg.my.md='find "$HOME/md" -type f -name "*.md" | xargs-grep $@'
 alias rf='sudo find / -not -iwholename "$HOME/*" '
 alias hf='find ~'
 
+function rgrep() {
+	# to expand alias
+	local _=$(viminfogrep | xargs-grep $@ | pecovim)
+}
+
 # [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
 function find() {
 	$(command which find) "$@" -not -iwholename '*/.git/*'

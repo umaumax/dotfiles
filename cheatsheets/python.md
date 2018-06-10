@@ -10,6 +10,13 @@ entire = sys.stdin.read()
 [raw_input() for _ in range(<number>)]
 ```
 
+## sys.args
+```
+import sys
+argvs = sys.argv
+argc = len(argvs)
+```
+
 ## bool
 ```
 True, False
