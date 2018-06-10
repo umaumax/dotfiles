@@ -24,7 +24,7 @@ function! s:UnTab()
 	if line[0] == "\t"
 		let line = line[1:]
 		call setline('.', line)
-		call cursor('.', col('.')-1)
+		call cursor('.', col('.'))
 		return ''
 	endif
 	if strlen(line) >= &tabstop && line[:&tabstop-1] == repeat(' ', &tabstop)

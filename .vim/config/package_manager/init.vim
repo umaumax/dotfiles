@@ -69,19 +69,19 @@ Plug 'sbdchd/vim-shebang'
 " override
 let g:shebang#shebangs = {'sh':'#!/usr/bin/env bash'}
 
-" start screen
-Plug 'mhinz/vim-startify'
-" startifyのヘッダー部分に表示する文字列をdateの結果に設定する
-let g:startify_custom_header =''
-" set file key short cut (i:insert, e:empty, q:quit)
-let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
-if v:version >= 800
-	let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
-endif
-" bookmark example
-let g:startify_bookmarks = [
-			\ '~/.vimrc',
-			\ ]
+" " start screen
+" Plug 'mhinz/vim-startify'
+" " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
+" let g:startify_custom_header =''
+" " set file key short cut (i:insert, e:empty, q:quit)
+" let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
+" if v:version >= 800
+" 	let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
+" endif
+" " bookmark example
+" let g:startify_bookmarks = [
+" 			\ '~/.vimrc',
+" 			\ ]
 
 " high light word when replacing
 " command line window modeでの動作しない?
@@ -96,6 +96,9 @@ Plug 'kana/vim-smartinput'
 " :VCoolIns h		" For hsl color insertion
 " :VCoolIns ra	" For rgba color insertion
 Plug 'KabbAmine/vCoolor.vim'
+
+" IMEがOFFにならない...
+" Plug 'fuenor/im_control.vim'
 
 " quickly select the closest text object plugin
 " Plug 'gcmt/wildfire.vim'
@@ -211,7 +214,7 @@ Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'javascript', 'vim']}
 Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 
 " for ascii color code
-" Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'vim-scripts/AnsiEsc.vim'
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 Plug 'bronson/vim-trailing-whitespace'

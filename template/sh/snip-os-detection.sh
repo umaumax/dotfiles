@@ -1,4 +1,4 @@
-if [[ $(uname) == "Linux\n" ]]; then
+if [[ $(uname) == "Linux" ]]; then
 fi
-if [[ $(uname) == "Darwin\n" ]]; then
+if [[ $(uname) == "Darwin" ]]; then
 fi

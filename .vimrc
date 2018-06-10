@@ -78,7 +78,7 @@ if filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
 " load cwd
 execute("lcd " . s:cwd)
 " manly for colorscheme
-runtime! config/setting-end/*.vim
+" runtime! config/setting-end/*.vim
 
 " ################ playground ######################
 

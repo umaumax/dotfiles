@@ -1,13 +1,20 @@
-" cursor movement in insert mode
+" " cursor movement in insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <ESC>:call <SID>Down()<CR>i
 inoremap <C-k> <ESC>:call <SID>Up()<CR>i
 inoremap <C-l> <Right>
 
+" NOTE: デフォルト割当のwindow移動を書き換え
 " Delete and Backspace key
 " inoremap <C-d> <Esc>lxi
 inoremap <C-d> <Delete>
 inoremap <C-f> <BS>
+nnoremap <C-d> <Delete>
+nnoremap <C-f> <BS>
+vnoremap <C-d> <Delete>
+vnoremap <C-f> <BS>
+cnoremap <C-d> <Delete>
+cnoremap <C-f> <BS>
 
 " for seamless line movement
 nnoremap h <Left>
@@ -75,6 +82,16 @@ vnoremap j iwv
 " word cut
 vnoremap k iwc<ESC>
 
+vnoremap <C-h> <Left>
+vnoremap <C-j> <Down>
+vnoremap <C-k> <Up>
+vnoremap <C-l> <Right>
+
+nnoremap <C-h> <Left>
+nnoremap <C-j> <Down>
+nnoremap <C-k> <Up>
+nnoremap <C-l> <Right>
+
 " undo
 inoremap <C-u> <Esc>ui
 " reduo
@@ -88,6 +105,8 @@ inoremap <C-z> <ESC><C-z>
 
 " toggle relativenumber
 nnoremap <Space>l :<C-u>setlocal relativenumber!<CR>
+" toggle AnsiView
+nnoremap <Space>a :AnsiEsc<CR>
 
 " nnoremap { <PageUp>
 " nnoremap } <PageDown>
@@ -140,9 +159,9 @@ nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
 vnoremap <S-Space> iwy
 
 " vim tab control
-nnoremap ? :tabnew<CR>
-nnoremap > :tabn<CR>
-nnoremap < :tabp<CR>
+" nnoremap ? :tabnew<CR>
+" nnoremap > :tabn<CR>
+" nnoremap < :tabp<CR>
 
 " vim window control
 " :sp	水平分割
@@ -227,12 +246,71 @@ function! s:paste_at_cursor()
 	let @+=l:tmp
 endfunction
 inoremap <C-v> <ESC>:call <SID>paste_at_cursor()<CR>i
+function! s:paste_at_cmdline()
+	let clipboard=@+
+	let clipboard=substitute(clipboard, '\n', ' ', '')
+	" [gvim \- How to remove this symbol "^@" with vim? \- Super User]( https://superuser.com/questions/75130/how-to-remove-this-symbol-with-vim )
+	let clipboard=substitute(clipboard, '\%x00', '', '')
+	let cmd = getcmdline() . clipboard
+	call setcmdpos(strlen(cmd)+1)
+	return cmd
+endfunction
+" [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-\_e )
+cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
+
+function! s:has_prefix(str, prefix)
+	return a:str[:strlen(a:prefix)-1] == a:prefix
+endfunction
+" NOTE: 検索時の'/'は含まれないため，
+" ':'のときには適切な挙動にはならない
+function! s:to_search()
+	" 	let cmd = getcmdline()
+	let cmd = g:cmd_tmp
+	if s:has_prefix(cmd, '%smagic/')
+		let cmd = '\v'.cmd[8:]
+	elseif s:has_prefix(cmd, '%s/')
+		let cmd = ''.cmd[3:]
+	endif
+	call setcmdpos(strlen(cmd)+1)
+	return cmd
+endfunction
+" NOTE: 以前の検索対象のみがハイライトされる
+function! s:to_replace()
+	let cmd = g:cmd_tmp
+	if s:has_prefix(cmd, '\v')
+		let cmd = '%smagic/'.cmd[2:]
+	elseif !s:has_prefix(cmd, '%s/') && !s:has_prefix(cmd, '%smagic/')
+		let cmd = '%s/'.cmd[0:]
+	endif
+	call setcmdpos(strlen(cmd)+1)
+	return cmd
+endfunction
+function! s:cmd_copy()
+	let g:cmd_tmp = getcmdline()
+	let @/='' " to avoid no hit error
+	return ""
+endfunction
+cnoremap <C-o>f     <C-\>e<SID>cmd_copy()<CR><ESC>/<C-\>e<SID>to_search()<CR>
+cnoremap <C-o><C-f> <C-\>e<SID>cmd_copy()<CR><ESC>/<C-\>e<SID>to_search()<CR>
+cnoremap <C-o>r     <C-\>e<SID>cmd_copy()<CR><ESC>:<C-\>e<SID>to_replace()<CR>
+cnoremap <C-o><C-r> <C-\>e<SID>cmd_copy()<CR><ESC>:<C-\>e<SID>to_replace()<CR>
+
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
 " dynamic highlight search
 " very magic
 " [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
 nnoremap / :set hlsearch<CR>:set incsearch<CR>/\v
+nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\v
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
+" [Simplifying regular expressions using magic and no\-magic \| Vim Tips Wiki \| FANDOM powered by Wikia]( http://vim.wikia.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic )
+cnoremap %s %smagic/
+cnoremap \>s/ \>smagic/
+nnoremap g/ :g/\v
+cnoremap g/ g/\v
+" nnoremap :g// :g//
 
 " [俺的にはずせない【Vim】こだわりのmap（説明付き） \- Qiita]( https://qiita.com/itmammoth/items/312246b4b7688875d023 )
 " カーソル下の単語をハイライトしてから置換する
@@ -241,6 +319,9 @@ nnoremap grep "zyiw:let @/='\<'.@z.'\>'<CR>:set hlsearch<CR>
 vnoremap grep "zy:let @/=@z<CR>:set hlsearch<CR>
 nnoremap sed :set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
 vnoremap sed "zy:let @/ = @z<CR>:set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
+
+cnoremap <C-n>  <Down>
+cnoremap <C-p>  <Up>
 
 nnoremap src :source ~/.vimrc<CR>
 " :Src
@@ -265,6 +346,9 @@ command! FilePath :let @+ = expand('%:p') | echo 'cooyed' . expand('%:p')
 " tab
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
+
+vnoremap <Tab> >>
+vnoremap <S-Tab> <<
 
 " quote
 " s means surround

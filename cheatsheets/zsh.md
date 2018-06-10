@@ -27,3 +27,9 @@ ${parameter##パターン}	$parameterの先頭からパターンにマッチす�
 trim_prefix
 ${#https://}
 ```
+
+## trim
+```
+function trim_prefix() { echo ${1##$2}; }
+function trim_suffix() { echo ${1%%$2}; }
+```

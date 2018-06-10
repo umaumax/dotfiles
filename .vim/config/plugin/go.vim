@@ -35,7 +35,9 @@ let g:rehash256 = 1
 augroup go_setting
 	autocmd!
 	" require 'tomasr/molokai'
-	au BufRead,BufNewFile *.go colorscheme molokai
+	" NOTE:
+	" colorschemeの設定タイミングによって't9md/vim-quickhl'が正常に反映されない
+	" 	au BufRead,BufNewFile *.go colorscheme molokai
 
 	" [Highlight go extra vars]( http://esola.co/posts/2016/highlight-go-extra-vars )
 	autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136

@@ -20,11 +20,19 @@ set showmatch   "括弧入力時の対応する括弧を表示
 set incsearch    "インクリメント検索(リアルタイム検索)
 set wildmenu wildmode=list:full "入力補完機能
 set nohlsearch   "検索キーワードハイライト無効
-set cursorline   "カーソル行ハイライト
-set cursorcolumn "カーソル列ハイライト
 set laststatus=2 "常に編集中ファイル名表示
-set updatetime=250
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
+
+"['cursorline' を必要な時にだけ有効にする \- 永遠に未完成]( https://thinca.hatenablog.com/entry/20090530/1243615055 ) 
+" > CursorHold イベントは 'updatetime' オプションで発生するまでの時間を調節できる。ただし、'updatetime' は本来スワップファイルが更新されるまでの時間なので、設定する際は注意。
+" set cursorline   "カーソル行ハイライト
+" set cursorcolumn "カーソル列ハイライト
+set updatetime=500 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
+augroup vimrc-auto-cursorline
+	autocmd!
+	" 	autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline | setlocal nocursorcolumn | syntax off
+	" 	autocmd CursorHold,CursorHoldI * setlocal cursorline | setlocal cursorcolumn | syntax on
+augroup END
 
 " these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
 augroup tab_setting

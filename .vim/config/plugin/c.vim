@@ -22,3 +22,5 @@ if Doctor('clang-format', 'rhysd/vim-clang-format')
 				\ }
 	let g:clang_format#code_style = "Google"
 endif
+
+Plug 'Shougo/neoinclude.vim'

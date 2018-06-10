@@ -27,6 +27,8 @@ if v:version >= 800 && has('python3')
 
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
+	" filetypeのsyntaxファイルの中にある記述を見て 補完候補を追加
+	" NOTE: カーソル移動速度低下の要因
 	Plug 'Shougo/neco-syntax'
 	if Doctor('clang','zchee/deoplete-clang')
 		Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake']}
@@ -43,12 +45,11 @@ if v:version >= 800 && has('python3')
 		" disable preview window(このウィンドウの影響である程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時))
 		set completeopt-=preview
 		" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-		" " inoremapのtabはmappingできないのでは?"
-		"  	inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-		"  				\ neosnippet#expandable_or_jumpable() ?
-		"  				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+		inoremap <expr><C-x><C-v> pumvisible() ? "\<C-n>" :
+					\ neosnippet#expandable_or_jumpable() ?
+					\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 	endif
-elseif
+else
 	Plug 'Shougo/neocomplete.vim'
 	if !exists('g:neocomplete#force_omni_input_patterns')
 		let g:neocomplete#force_omni_input_patterns = {}

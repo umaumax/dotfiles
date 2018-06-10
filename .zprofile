@@ -132,6 +132,9 @@ fi
 prepend_path /usr/local/bin
 prepend_path ~/local/bin
 
+# for vim
+prepend_path /Applications/MacVim.app/Contents/bin/
+
 # for color output
 ## easy color output
 export BLACK="\033[0;30m"
@@ -155,6 +158,10 @@ export GREP_COLORS='sl=0:cx=1;32:mt=1;31:ms=4;1;31:mc=1;31:fn=1;32:ln=34:bn=36:s
 
 # X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
 [[ -n $_Ubuntu && -z $DISPLAY ]] && export DISPLAY=":0"
+
+export MDROOT="$HOME/md"
+export MDLINK="$HOME/md/link"
+[[ -d $MDROOT ]] && [[ ! -d $MDLINK ]] && mkdir -p $MDLINK
 
 # cmdcheck micro && export EDITOR='micro' && export VISUAL=$EDITOR
 

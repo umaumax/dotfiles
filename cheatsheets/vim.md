@@ -149,3 +149,8 @@ vnoremap <Space> <Right>o<Left>o
 :echo &rtp
 :echo &enc
 ```
+
+## tips
+```
+:%d # delete all in this file
+```

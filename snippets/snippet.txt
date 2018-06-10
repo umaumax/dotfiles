@@ -11,7 +11,7 @@ cd /usr/share/applications
 
 sudo service networking restart
 sudo ip addr flush
-NIC= && sudo ifup $NIC && sudo ifdown $NIC
+NIC= && sudo ifdown $NIC && sudo ifup $NIC
 
 tar zxvf
 tar zxvf xxxx.tar.gz # 解凍
@@ -25,6 +25,8 @@ netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lso
 du -s *
 df -h
 
+echo !! | c # copy prev command(except for '|')
+
 docker run built -t "image" .
 docker run --rm -it "image" /bin/bash
 
@@ -35,3 +37,7 @@ timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
 sudo gdebi
 sudo gdebi ./google-chrome-stable_current_amd64.deb
+
+git push -u origin master # normal push
+git push -u --force origin master # force push
+git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD # force update of author and email for all commits

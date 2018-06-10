@@ -121,6 +121,8 @@ alias hgrep='h | grep'
 alias q!='exit'
 alias qq='exit'
 alias qqq='exit'
+alias qqqq='exit'
+alias quit='exit'
 
 alias type='type -af'
 if [[ -n $_Darwin ]]; then
@@ -148,9 +150,6 @@ if [[ -n $_Darwin ]]; then
 	# brew
 	alias cellar='cd /usr/local/Cellar'
 
-	# 要検証
-	#	[[ -e /Applications/MacVim.app/Contents/MacOS/Vim ]] && alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-
 	# base64
 	alias b64e='base64'
 	alias b64d='base64 -D'
@@ -158,11 +157,15 @@ if [[ -n $_Darwin ]]; then
 	alias mactext='p | nkf -w --ic=utf8-mac | c'
 	# [MacOSXでstraceが欲しいけどdtrace意味わからん→dtruss使おう]( https://qiita.com/hnw/items/269f8eb44614556bd6bf )
 	alias strace='sudo dtruss -f sudo -u $(id -u -n)'
+
+	alias gvim='mvim'
+	alias mvim='mvim --remote-tab-silent'
 fi
 
-# brew install fzf
-# git clone https://github.com/junegunn/fzf.git
-cmdcheck fzf && alias peco='fzf --ansi --reverse'
+function mvim() {
+	[[ $# == 1 ]] && [[ $1 == "--remote-tab-silent" ]] && $(command which mvim) && return $?
+	$(command which mvim) $@
+}
 
 ################
 #### Ubuntu ####
@@ -183,6 +186,11 @@ if [[ -n $_Ubuntu ]]; then
 	alias apt-install='sudo apt-get install'
 	alias apt-search='apt-cache search'
 	alias apt-show='apt-cache show'
+	alias dpkg-list='sudo dpkg -l'
+	function dpkg-executable-list() {
+		[[ $# == 0 ]] && echo '<package name>' && return 1
+		dpkg -L $1 | executable_filter
+	}
 
 	# [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
 	function peco-apt() {
@@ -194,8 +202,10 @@ if [[ -n $_Ubuntu ]]; then
 	}
 fi
 
-# copy prev command
-alias cpc='echo !! | c'
+pipe-EOF-do() {
+	local v=$(cat)
+	echo $v | ${@}
+}
 
 alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
 alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
@@ -225,6 +235,35 @@ alias httpserver.python3='python3 -m http.server'
 alias httpserver.ruby='ruby -run -e httpd . -p 8000'
 alias httpserver.php='php -S localhost:3000'
 
+executable_filter() {
+	while read line; do
+		[[ -x $line ]] && echo $line
+	done
+}
+readable_filter() {
+	while read line; do
+		[[ -r $line ]] && echo $line
+	done
+}
+writable_filter() {
+	while read line; do
+		[[ -w $line ]] && echo $line
+	done
+}
+
+#       sudo ansi-color
+# fzf:  NG   OK
+# peco: OK   NG
+# [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
+# -> USE: pipe-EOF-do
+# brew install fzf
+# git clone https://github.com/junegunn/fzf.git
+# git clone --depth 1 https://github.com/junegunn/fzf.git
+# cd fzf
+# ./install
+# cp bin/fzf ~/local/bin/fzf
+cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
+
 # NOTE:googler
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
@@ -240,12 +279,13 @@ if cmdcheck peco; then
 	alias pe='peco'
 	alias hpeco='builtin history -nr 1 | peco | tee $(tty) | c'
 	alias apeco='alias | peco'
-	alias funcpeco='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 	alias fpeco='find . -type f | peco'
+	alias fpecovim='find . -type f | pecovim'
 	alias fvim='find . -type f | pecovim'
 	alias epeco='env | peco | tee $(tty) | c'
-	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
-	alias pecokill='local xxx(){ pgrep -lf $1 | peco | cut -d' ' -f1 | xargs kill -KILL } && xxx'
+	alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
+	alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
+	alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
 	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
@@ -321,7 +361,7 @@ bindkey '^R' _peco-select-history
 # <C-X><C-S>
 function _peco-snippets() {
 	local color_cmd=('cat')
-	cmdcheck ccat && color_cmd=('ccat' '--color=always')
+	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
 	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
 	CURSOR=$#BUFFER
 	zle -R -c # refresh
@@ -354,8 +394,10 @@ function suffix() { while read n; do echo "${n}${@}"; done; }
 # which
 ## which -a $COMMAND_NAME 完全一致のみ
 ## `which -a` means `where`?
-## $PATH上に存在するコマンドのgrep
-alias which2="echo $PATH | sed 's/:/\n/g' | xargs -J % find % -maxdepth 1 | grep "
+# for GNU
+# alias which-all="echo $PATH | sed 's/:/\n/g' | xargs -J % find % -executable -type f -maxdepth 1"
+# for BSD
+alias which-all="echo $PATH | sed 's/:/\n/g' | xargs -J % find % -type f -perm +111 -maxdepth 1"
 
 # awk
 # n~m列のみを表示(省略時には先頭または最後となる)
@@ -730,9 +772,10 @@ function fgrep2() {
 alias fg.vim='fgrep "*.vim" $@'
 alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" | xargs-grep $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" | xargs-grep $@'
-alias fg.go='fgrep "*.go" $@'
-alias fg.my.go='find $(echo $GOPATH | cut -d":" -f2) -type f -name "*.go" | xargs-grep $@'
-alias fg.3rd.go='find $(echo $GOPATH | cut -d":" -f1) -type f -name "*.go" | xargs-grep $@'
+# alias fg.go='fgrep "*.go" $@'
+alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep'
+alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep $@'
+alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'
 alias fg.cpp='fgrep "*.c[px][px]" $@'
@@ -743,8 +786,13 @@ alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
 alias fg.md='fgrep "*.md" $@'
 alias fg.my.md='find "$HOME/md" -type f -name "*.md" | xargs-grep $@'
-alias rf='sudo find / \( -type d -name home -prune \) -o'
+alias rf='sudo find / -not -iwholename "$HOME/*" '
 alias hf='find ~'
+
+# [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
+function find() {
+	$(command which find) "$@" -not -iwholename '*/.git/*'
+}
 
 alias jagrep="grep -P '\p{Hiragana}'"
 
@@ -788,6 +836,30 @@ alias remove-blank-line='awk "NF > 0"'
 alias cl='clear'
 alias t='touch'
 
+alias ty='type'
+alias wh='which'
+
+alias cmake-touch='touch CMakeLists.txt'
+
+# 2nd arg is symbolic link: default
+function mdlink() {
+	[[ $# == 0 ]] && echo "$0 <target> [<link name>]" && return 1
+	local file_path="$1"
+	# 	local abspathdir=$(cd $(dirname $file_path) && pwd)
+	local abspathfile="${PWD%/}/$file_path"
+	local link_name=$2
+	[[ -z $link_name ]] && link_name=$abspathfile
+	function trim_prefix() { echo ${1##$2}; }
+	function trim_suffix() { echo ${1%%$2}; }
+	echo $link_name $HOME
+	link_name=$(trim_prefix "$link_name" "$HOME/")
+	link_name=$(trim_suffix "$link_name" "/.")
+	link_name=$(echo $link_name | sed 's:/:-:g')
+	[[ ! -e $file_path ]] && echo "$file_path does not exist!" && return 2
+	echo ln -sf "$abspathfile" "$MDLINK/$link_name"
+	ln -sf "$abspathfile" "$MDLINK/$link_name"
+}
+
 # 特定の文字で挟み込む
 function sand() {
 	local B=${1:-\"}
@@ -801,7 +873,7 @@ function sand() {
 	[[ $B == "\\" ]] && B="\\\\"
 	[[ $E == \" ]] && E=\\\"
 	[[ $E == "\\" ]] && E="\\\\"
-	awk '{printf "'$B'%s'$E'", $0}'
+	awk '{printf "'$B'%s'$E'\n", $0}'
 }
 function line() {
 	local C=${1:-=} seq -f "$C" -s '' $(($(tput cols) / $(printf "%s" "$C" | wc -m)))
@@ -845,14 +917,22 @@ cmdcheck gsed && function zploadadd() {
 	done
 }
 
-# 文献消失
-COLORRED="\e[91m"
-COLORGREEN="\e[92m"
-COLORYELLOW="\e[93m"
-COLOREND="\e[m"
-alias ifconfig="ifconfig | perl -pe 's/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLORYELLOW}$&${COLOREND}/g' | \
-	perl -pe 's/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLORGREEN}$&${COLOREND}/g' | \
-	perl -pe 's/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLORRED}$&${COLOREND}/g'"
+{
+	local COLOR_RED="\e[91m"
+	local COLOR_GREEN="\e[92m"
+	local COLOR_YELLOW="\e[93m"
+	local COLOR_BLUE="\e[94m"
+	local COLOR_END="\e[m"
+	# `inet `: mac
+	# `inet addr:`: ubuntu
+	alias ifconfig_color_filter="
+	perl -pe 's/^(\w)+/${COLOR_BLUE}"'$&'"${COLOR_END}/g' | \
+	perl -pe 's/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}"'$&'"${COLOR_END}/g' | \
+	perl -pe 's/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}"'$&'"${COLOR_END}/g' | \
+	perl -pe 's/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}"'$&'"${COLOR_END}/g' | \
+	perl -pe 's/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}"'$&'"${COLOR_END}/g'"
+	alias ifconfig='ifconfig | ifconfig_color_filter'
+}
 
 function off() { printf "\e[0;m$*\e[m"; }
 function bold() { printf "\e[1;m$*\e[m"; }

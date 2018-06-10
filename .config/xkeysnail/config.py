@@ -3,14 +3,18 @@ from xkeysnail.transform import *
 
 # [xkeysnailでキーリマップする]( https://qiita.com/miy4/items/dd0e2aec388138f803c5 )
 # ideal key map
-# MUHENKAN -> Super
-# MUHENKANx2 -> MUHENKAN
-# HENKAN -> Super
-# HENKANx2 -> HENKAN
+# MUHENKAN -> Super: 現状、単体で押して離した時に入力が切り替わってしまっている
+# MUHENKANx2 -> MUHENKAN: 擬似的に満たしている
+# HENKAN -> Super: 現状、単体で押して離した時に入力が切り替わってしまっている
+# HENKANx2 -> HENKAN: 擬似的に満たしている
 define_multipurpose_modmap({
     Key.CAPSLOCK: [Key.ESC, Key.RIGHT_CTRL],
     Key.MUHENKAN: [Key.MUHENKAN, Key.LEFT_CTRL],
     Key.HENKAN: [Key.HENKAN, Key.RIGHT_CTRL],
+    # Require:
+    # by compizconfig-settings-manager
+    # Key to show the launcher: Super -> Super + Space
+    Key.LEFT_META: [Key.ESC, Key.RIGHT_META],
 })
 define_keymap(None, {
     # APOSTROPHE is ':'
@@ -23,21 +27,35 @@ define_keymap(None, {
     K("Win-Down"): K("End"),
     K("Win-Shift-Left"): K("Ctrl-Shift-Left"),
     K("Win-Shift-Right"): K("Ctrl-Shift-Right"),
-    K("Win-Left"): K("Ctrl-Left"),
-    K("Win-Right"): K("Ctrl-Right"),
+    #     K("Win-Left"): K("Ctrl-Left"),
+    #     K("Win-Right"): K("Ctrl-Right"),
+    K("Super-Left"): K("Ctrl-Left"),
+    K("Super-Right"): K("Ctrl-Right"),
 
     K("Win-Ctrl-d"): K("Win-d"),
     K("Win-Ctrl-s"): K("Win-s"),
 
-    K("Win-Ctrl-f"): K("Win-Alt-tenkey-5"),
-    K("Win-Ctrl-1"): K("Win-Alt-tenkey-1"),
-    K("Win-Ctrl-2"): K("Win-Alt-tenkey-3"),
-    K("Win-Ctrl-3"): K("Win-Alt-tenkey-7"),
-    K("Win-Ctrl-4"): K("Win-Alt-tenkey-9"),
-    K("Win-Ctrl-Left"): K("Win-Alt-tenkey-4"),
-    K("Win-Ctrl-Up"): K("Win-Alt-tenkey-2"),
-    K("Win-Ctrl-Right"): K("Win-Alt-tenkey-6"),
-    K("Win-Ctrl-Down"): K("Win-Alt-tenkey-8"),
+    # tenkey: KP<number>
+    K("Win-Ctrl-f"): K("Ctrl-Alt-KP5"),
+    K("Win-Ctrl-KEY_1"): K("Ctrl-Alt-KP7"),
+    K("Win-Ctrl-KEY_2"): K("Ctrl-Alt-KP9"),
+    K("Win-Ctrl-KEY_3"): K("Ctrl-Alt-KP1"),
+    K("Win-Ctrl-KEY_4"): K("Ctrl-Alt-KP3"),
+    K("Win-Ctrl-Left"): K("Ctrl-Alt-KP4"),
+    K("Win-Ctrl-Up"): K("Ctrl-Alt-KP8"),
+    K("Win-Ctrl-Right"): K("Ctrl-Alt-KP6"),
+    K("Win-Ctrl-Down"): K("Ctrl-Alt-KP2"),
+
+    K("Win-KEY_1"): K("Ctrl-KEY_1"),
+    K("Win-KEY_2"): K("Ctrl-KEY_2"),
+    K("Win-KEY_3"): K("Ctrl-KEY_3"),
+    K("Win-KEY_4"): K("Ctrl-KEY_4"),
+    K("Win-KEY_5"): K("Ctrl-KEY_5"),
+    K("Win-KEY_6"): K("Ctrl-KEY_6"),
+    K("Win-KEY_7"): K("Ctrl-KEY_7"),
+    K("Win-KEY_8"): K("Ctrl-KEY_8"),
+    K("Win-KEY_9"): K("Ctrl-KEY_9"),
+    K("Win-KEY_0"): K("Ctrl-KEY_0"),
 
     K("Win-a"): K("C-a"),
     K("Win-b"): K("C-b"),
@@ -56,7 +74,7 @@ define_keymap(None, {
     K("Win-o"): K("C-o"),
     K("Win-p"): K("C-p"),
     K("Win-q"): K("C-q"),
-    K("Win-r"): K("C-r"),
+    K("Super-r"): K("C-r"),
     K("Win-s"): K("C-s"),
     K("Win-t"): K("C-t"),
     K("Win-u"): K("C-u"),
@@ -66,6 +84,10 @@ define_keymap(None, {
     K("Win-y"): K("C-y"),
     K("Win-z"): K("C-z"),
 
+    # COMPOSE: show right clock menu
+    #     K("KATAKANAHIRAGANA"): K("COMPOSE"),
+
+    # 理由は不明だがicon menuがでない
     K("Win-tab"): K("Alt-tab"),
     K("Win-Shift-tab"): K("Alt-Shift-tab"),
 
@@ -90,17 +112,17 @@ define_keymap(re.compile("Atom"), {
 }, "Atom")
 
 terms = ("URxvt", "Terminator", "Tilda", "Gnome-terminal")
-define_keymap(lambda wm_class: wm_class in terms, {
-    K("Win-c"): K("C-c"),
-    K("Win-v"): K("C-v"),
-    K("Win-SPACE"): K("Win"),
-}, "Non Term")
 define_keymap(lambda wm_class: wm_class not in terms, {
     K("C-e"): K("end"),
     K("C-a"): K("home"),
+    K("Win-c"): K("C-c"),
+    K("Win-v"): K("C-v"),
+    #     K("Win-SPACE"): K("Win"),
+}, "Non Term")
+define_keymap(lambda wm_class: wm_class in terms, {
     #     K("Win-e"): K("end"),
     #     K("Win-a"): K("home"),
-    K("Win-c"): K("Shift-Ctrl-c"),
+    K("Win-c"): K("Ctrl-Shift-c"),
     K("Win-v"): K("Ctrl-Shift-v"),
     #     K("C-x"): {
     #         # C-x h (select all)

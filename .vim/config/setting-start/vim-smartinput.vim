@@ -24,16 +24,16 @@ endif
 " orignal trigger <BS>
 call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
 " BUG: (sample)(test) -> ( sample)(test )
-call smartinput#define_rule({
-			\   'at'    : '(\%#.*)',
-			\   'char'  : '<Space>',
-			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '(\\(.*\\))', '( \\1 )', ''))<CR>",
-			\   })
-call smartinput#define_rule({
-			\   'at'    : '( \%#.* )',
-			\   'char'  : '<BS>',
-			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '( \\(.*\\) )', '(\\1)', ''))<CR>",
-			\   })
+" call smartinput#define_rule({
+" 			\   'at'    : '(\%#.*)',
+" 			\   'char'  : '<Space>',
+" 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '(\\(.*\\))', '( \\1 )', ''))<CR>",
+" 			\   })
+" call smartinput#define_rule({
+" 			\   'at'    : '( \%#.* )',
+" 			\   'char'  : '<BS>',
+" 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '( \\(.*\\) )', '(\\1)', ''))<CR>",
+" 			\   })
 " no bug but, only for no string between ()
 " call smartinput#define_rule({
 " 			\   'at'    : '(\%#)',
@@ -53,7 +53,8 @@ for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 	call smartinput#define_rule({'at': s:left.'\%#'.s:right, 'char': '<BS>', 'input': '<Right><BS>'})
 	call smartinput#define_rule({'at': s:set.'\%#',          'char': '<BS>', 'input': '<BS>'})
 endfor
-call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><CR>'})
+call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><ESC>O'})
+
 " 改行時に行末のスペース除去
 call smartinput#map_to_trigger('i', '<CR>', '<CR>', '<CR>')
 call smartinput#define_rule({

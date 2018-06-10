@@ -17,6 +17,8 @@ function! s:humanreadable()
 		let l:n = l:w
 		let l:hex = printf('%x', l:n)
 		let l:decimal = l:w
+		" Fix: binary expression
+		" [Vim 8\.0 Advent Calendar 9 日目 2 進数のサポート \- Qiita]( https://qiita.com/thinca/items/9343437440898c54d2be )
 		let l:binary = s:nr2bin(l:n)
 		let l:ret = l:decimal . ', ' . l:hex . ', 0b' . l:binary
 	endif
