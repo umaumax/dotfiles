@@ -19,10 +19,17 @@ call setpos('.', pos)
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 ```
 
+## for-range
+```
+for i range(1,10)
+	echo i
+endfor
+```
+
 ## array
 append
 ```
 ['a', 'b'] + ['c']
 add(['a', 'b'], 'c')
 ```
-listに対して，`+=`は使えないが，通常の演算では使用可能
+__listに対して，`+=`は使えないが，通常の演算では使用可能__

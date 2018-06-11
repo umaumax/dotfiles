@@ -991,6 +991,12 @@ function color-test-full() {
 }'
 }
 
+function xargs-printf() {
+	while read line || [ -n "${line}" ]; do
+		printf "$@" $line
+	done
+}
+
 function cterms() {
 	# [ターミナルで使える色と色番号を一覧にする \- Qiita]( https://qiita.com/tmd45/items/226e7c380453809bc62a )
 	local PROGRAM=$(
