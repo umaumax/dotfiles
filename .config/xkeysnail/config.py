@@ -20,6 +20,8 @@ define_keymap(None, {
     # APOSTROPHE is ':'
     K("C-m"): K("ENTER"),
     K("C-semicolon"): [K("esc"), K("MUHENKAN"), set_mark(False)],
+    # KPPLUS is ten key '+'
+    K("C-Shift-semicolon"): [K("C-KPPLUS"), set_mark(False)],
     K("C-APOSTROPHE"): [K("esc"), K("MUHENKAN"), set_mark(False)],
     K("KATAKANAHIRAGANA"): [K("C-x"), K("C-x"), set_mark(False)],
 

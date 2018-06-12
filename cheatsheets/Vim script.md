@@ -5,11 +5,12 @@
 let wordUnderCursor = expand("<cword>")
 let currentLine = getline(".")
 let currentCol = col(".")
-let currentRow = row(".")
+" let currentRow = row(".") " not exist this function!
 
 call setline('.', line)
 call cursor(row, col)
 
+let [buf, row, col, off] = getpos(".") 
 let pos = getpos(".")
 call setpos('.', pos)
 ```

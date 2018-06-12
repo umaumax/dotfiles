@@ -249,6 +249,7 @@ Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 if Doctor('git', 'airblade/vim-gitgutter')
 	Plug 'airblade/vim-gitgutter'
 	let g:gitgutter_highlight_lines = 1
+	let g:gitgutter_enabled=0
 	let mapleader = "\<Space>"
 	nnoremap <Space>g :GitGutterToggle<CR>
 	" hunk
