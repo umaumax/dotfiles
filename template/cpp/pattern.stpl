@@ -1,5 +1,6 @@
-stdco\S*$
-	std::cout << {{_cursor_}} << std::endl;
+\s*\(.\{-,}\);\{,1}\s*stdcout$
+	std::cout << {{$1}}{{_cursor_}} << std::endl;
 
-stdce\S*$
-	std::cerr << {{_cursor_}} << std::endl;
+\s*\(.\{-,}\);\{,1}\s*stdcerr$
+	std::cerr << {{$1}}{{_cursor_}} << std::endl;
+
