@@ -742,7 +742,7 @@ function xargs-grep() {
 	local color_opt='--color=auto'
 	cmdcheck fzf && color_opt='--color=always'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	xargs -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
+	xargs -0 -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
@@ -754,7 +754,7 @@ function fgrep() {
 		local root="$2"
 		local keyword=(${@:3})
 	fi
-	find $root -type f -name $find_name | xargs-grep ${keyword[@]}
+	find $root -type f -name $find_name -print0 | xargs-grep ${keyword[@]}
 }
 # FIX: merge with funtion
 function fgrep2() {
@@ -767,15 +767,15 @@ function fgrep2() {
 		local root="$3"
 		local keyword=(${@:4})
 	fi
-	find $root -type f -name $find_name1 -o -name $find_name2 | xargs-grep ${keyword[@]}
+	find $root -type f -name $find_name1 -o -name $find_name2 -print0 | xargs-grep ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
-alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" | xargs-grep $@'
-alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" | xargs-grep $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" -print0 | xargs-grep $@'
+alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep $@'
 # alias fg.go='fgrep "*.go" $@'
-alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep'
-alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep $@'
-alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" | xargs-grep $@'
+alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep'
+alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep $@'
+alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'
 alias fg.cpp='fgrep "*.c[px][px]" $@'
@@ -785,7 +785,7 @@ alias fg.h='fgrep "*.h" $@'
 alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
 alias fg.md='fgrep "*.md" $@'
-alias fg.my.md='find "$HOME/md" -type f -name "*.md" | xargs-grep $@'
+alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep $@'
 alias rf='sudo find / -not -iwholename "$HOME/*" '
 alias hf='find ~'
 
