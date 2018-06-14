@@ -95,6 +95,9 @@ exist() {
 }
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
 
 # ----
 
