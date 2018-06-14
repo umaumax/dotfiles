@@ -44,6 +44,12 @@ endfunction
 "nnoremap fm :call <SID>format_file()<CR>
 command! Format call <SID>format_file()
 
+function! IsAutoFormat()
+	return g:auto_format_flag == 1
+endfunction
+let g:auto_format_flag=1
+command! NonAutoFormat let g:auto_format_flag=0
+
 " 下記のautocmdの統合は案外難しい
 " FYI
 " [vim\-codefmt/yapf\.vim at 5ede026bb3582cb3ca18fd4875bec76b98ce9a12 · google/vim\-codefmt]( https://github.com/google/vim-codefmt/blob/5ede026bb3582cb3ca18fd4875bec76b98ce9a12/autoload/codefmt/yapf.vim#L22 )
@@ -57,7 +63,7 @@ augroup auto_format_setting
 	if Doctor('clang-format', 'clang format')
 		" :ClangFormatAutoEnable
 		autocmd BufWinEnter *.{c,h,cc,cpp,hpp} command! Format ClangFormat
-		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsPrivateWork() | call clang_format#replace(1, line('$')) | endif
+		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsAutoFormat() && IsPrivateWork() | call clang_format#replace(1, line('$')) | endif
 	endif
 	" python formatter
 	" pip install yapf
@@ -69,7 +75,7 @@ augroup auto_format_setting
 	" pip install yapf
 	if Doctor('autopep8', 'python format')
 		autocmd BufWinEnter *.py command! Format call Autopep8()
-		autocmd BufWritePre *.py                :call Autopep8()
+		autocmd BufWritePre *.py if IsAutoFormat() |:call Autopep8() | endif
 	endif
 
 	" 'maksimr/vim-jsbeautify'
@@ -79,28 +85,28 @@ augroup auto_format_setting
 		autocmd BufWinEnter *.jsx  command! Format JsxBeautify()
 		autocmd BufWinEnter *.html command! Format HtmlBeautify()
 		autocmd BufWinEnter *.css  command! Format CSSBeautify()
-		autocmd BufWritePre *.js   :call JsBeautify()
-		autocmd BufWritePre *.json :call JsonBeautify()
-		autocmd BufWritePre *.jsx  :call JsxBeautify()
-		autocmd BufWritePre *.html :call HtmlBeautify()
-		autocmd BufWritePre *.css  :call CSSBeautify()
+		autocmd BufWritePre *.js   if IsAutoFormat() | :call JsBeautify() | endif
+		autocmd BufWritePre *.json if IsAutoFormat() | :call JsonBeautify() | endif
+		autocmd BufWritePre *.jsx  if IsAutoFormat() | :call JsxBeautify() | endif
+		autocmd BufWritePre *.html if IsAutoFormat() | :call HtmlBeautify() | endif
+		autocmd BufWritePre *.css  if IsAutoFormat() | :call CSSBeautify() | endif
 	endif
 
 	autocmd BufWinEnter *.awk command! Format <SID>format_file()
-	autocmd BufWritePre *.awk           :call <SID>format_file()
+	autocmd BufWritePre *.awk if IsAutoFormat() | :call <SID>format_file() | endif
 	" default format
-	autocmd BufWritePre *.vim  if IsPrivateWork() | :call <SID>format_file() | endif
-	autocmd BufWritePre *vimrc :call <SID>format_file()
-	autocmd BufWritePre *.tex  :call <SID>format_file()
+	autocmd BufWritePre *.vim if IsPrivateWork() | :call <SID>format_file() | endif
+	autocmd BufWritePre *vimrc if IsAutoFormat() | :call <SID>format_file() | endif
+	autocmd BufWritePre *.tex  if IsAutoFormat() | :call <SID>format_file() | endif
 	if Doctor('shfmt', 'shell format')
 		autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! Format Shfmt
-		autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile}                :Shfmt
+		autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
 	endif
 
 	if Doctor('gofmt', 'go format')
 		" let g:go_fmt_autosave = 1
 		autocmd BufWinEnter *.go command! Format GoFmt
-		autocmd BufWritePre *.go                :GoFmt
+		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmt | endif
 	endif
 augroup END
 
