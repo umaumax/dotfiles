@@ -25,9 +25,14 @@ augroup textobj
 	autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
 	autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
 	" url (not complete regexp for comfortableness)
-	autocmd VimEnter * omap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_:?=%!*()<>#:@&]\+')
-	autocmd VimEnter * xmap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_:?=%!*()<>#:@&]\+')
+	autocmd VimEnter * omap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
+	autocmd VimEnter * xmap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
 	" regexp
 	autocmd VimEnter * omap <expr> ir textobj#from_regexp#mapexpr('/.*/')
 	autocmd VimEnter * xmap <expr> ir textobj#from_regexp#mapexpr('/.*/')
+	" message
+	" ()内の`|`は\\が必要みたい
+	" つまり，`|`を使いたいときには`'\(xxx\\|yyy\)'`
+	autocmd VimEnter * omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+	autocmd VimEnter * xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
 augroup END

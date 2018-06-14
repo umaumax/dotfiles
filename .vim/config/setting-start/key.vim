@@ -49,6 +49,17 @@ cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 
+" NOTE: dやc始まりだと，カーソル下の字が消去されない
+" mainly for cpp
+" `.`: period
+" `->`: arrow
+nnoremap dp vf.da.
+nnoremap dP vF.da.
+nnoremap da vf-da->
+nnoremap dA vF-da->
+
+command! -nargs=0 TrimSpace :s/^\s*\(.\{-}\)\s*$/\1/
+
 " for function args movement
 " in insert mode <C-o> + below key
 nnoremap , f,
@@ -134,6 +145,10 @@ vnoremap yy :!pbcopy;pbpaste<CR>
 " no yank by x or s
 nnoremap x "_x
 nnoremap s "_s
+vnoremap x "_x
+vnoremap d "_d
+vnoremap s "_s
+vnoremap p "_x:call <SID>paste_at_cursor(1)<CR>
 
 function! s:yank_pwd()
 	let @+ = '.' " default value
@@ -238,14 +253,18 @@ nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " psate
-function! s:paste_at_cursor()
+function! s:paste_at_cursor(Pflag)
 	let l:tmp=@+
 	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
 	let @+=substitute(@+, '\n*$', '', '')
-	normal! p
+	if a:Pflag
+		normal! P
+	else
+		normal! p
+	endif
 	let @+=l:tmp
 endfunction
-inoremap <C-v> <ESC>:call <SID>paste_at_cursor()<CR>i
+inoremap <C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
 function! s:paste_at_cmdline()
 	let clipboard=@+
 	let clipboard=substitute(clipboard, '\n', ' ', '')
@@ -359,6 +378,7 @@ vnoremap s( c()<Left><ESC>p
 vnoremap s[ c[]<Left><ESC>p
 vnoremap s{ c{}<Left><ESC>p
 vnoremap s` c``<Left><ESC>p
+vnoremap scode c```<CR>```<ESC><Up>p<ESC>
 vnoremap s_ c____<Left><Left><ESC>p
 vnoremap ssq c''<Left><ESC>p
 vnoremap sdq c""<Left><ESC>p

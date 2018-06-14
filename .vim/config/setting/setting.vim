@@ -23,6 +23,9 @@ set nohlsearch   "検索キーワードハイライト無効
 set laststatus=2 "常に編集中ファイル名表示
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 
+" default 1000, -1
+set timeout timeoutlen=500 ttimeoutlen=50
+
 "['cursorline' を必要な時にだけ有効にする \- 永遠に未完成]( https://thinca.hatenablog.com/entry/20090530/1243615055 ) 
 " > CursorHold イベントは 'updatetime' オプションで発生するまでの時間を調節できる。ただし、'updatetime' は本来スワップファイルが更新されるまでの時間なので、設定する際は注意。
 " set cursorline   "カーソル行ハイライト
