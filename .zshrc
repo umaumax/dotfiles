@@ -361,8 +361,8 @@ bindkey '^R' _peco-select-history
 # <C-X><C-S>
 function _peco-snippets() {
 	local color_cmd=('cat')
-	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
-	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
+	# 	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
+	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | command peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
 	CURSOR=$#BUFFER
 	zle -R -c # refresh
 }
