@@ -10,6 +10,7 @@ let g:switch_custom_definitions =
 			\   ['Nanoha', 'Fate', 'Hayate'],
 			\   ['nanoha', 'fate', 'hayate'],
 			\   ['foo', 'bar', 'baz'],
+			\   ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 			\   ['hoge', 'piyo'],
 			\   ['Hoge', 'Piyo'],
 			\   ['Left', 'Up', 'Right', 'Down'],

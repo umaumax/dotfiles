@@ -375,7 +375,7 @@ function cheat() {
 	# vim -u NONE -N
 	export VIM_FAST_MODE='on'
 	local cheat_root="$HOME/dotfiles/cheatsheets/"
-	local _=$(grep -rns "" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
+	local _=$(grep -rns ".\+" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
 	unset VIM_FAST_MODE
 }
 
@@ -770,7 +770,7 @@ function fgrep2() {
 	find $root -type f -name $find_name1 -o -name $find_name2 -print0 | xargs-grep ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
-alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f -name "*.vim" -o -name "*.vimrc" -print0 | xargs-grep $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep $@'
 # alias fg.go='fgrep "*.go" $@'
 alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep'

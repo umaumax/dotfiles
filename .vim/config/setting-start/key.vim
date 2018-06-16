@@ -369,6 +369,8 @@ nnoremap <S-Tab> <<
 vnoremap <Tab> >>
 vnoremap <S-Tab> <<
 
+nnoremap Y y$
+
 " quote
 " s means surround
 vnoremap s' c''<Left><ESC>p
@@ -379,6 +381,7 @@ vnoremap s[ c[]<Left><ESC>p
 vnoremap s{ c{}<Left><ESC>p
 vnoremap s` c``<Left><ESC>p
 vnoremap scode c```<CR>```<ESC><Up>p<ESC>
+vnoremap stbq c```<CR>```<ESC><Up>p<ESC>
 vnoremap s_ c____<Left><Left><ESC>p
 vnoremap ssq c''<Left><ESC>p
 vnoremap sdq c""<Left><ESC>p

@@ -16,6 +16,10 @@ if Doctor('shfmt', 'umaumax/vim-shfmt')
 endif
 " let g:shfmt_fmt_on_save = 1
 
+" input helper
+" Plug 'kana/vim-smartinput'
+Plug 'umaumax/vim-smartinput'
+
 " Plug 'mattn/sonictemplate-vim'
 Plug 'umaumax/sonictemplate-vim'
 " :Template
@@ -86,9 +90,6 @@ let g:shebang#shebangs = {'sh':'#!/usr/bin/env bash'}
 " high light word when replacing
 " command line window modeでの動作しない?
 " Plug 'osyo-manga/vim-over'
-
-" input helper
-Plug 'kana/vim-smartinput'
 
 " color picker
 " :VCoolor

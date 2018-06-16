@@ -97,3 +97,9 @@ rightmost = re.compile('^Path=').sub('', full_path)
 if line.startswith("Path="):
     return line[5:]
 ```
+
+## bytes to string
+単純な`str()`だけではstrに変換する際に`b''`に挟まれるため，エンコーディングを指定する必要がある
+```
+<bytes>.decode('utf-8')
+```

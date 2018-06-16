@@ -19,6 +19,9 @@ endif
 " inoremap '' ''<C-g>U<Left>
 " inoremap <> <><C-g>U<Left>
 
+" NOTE: [対応する括弧等を入力する生活に疲れた\(Vim 編\) \- TIM Labs]( http://labs.timedia.co.jp/2012/09/vim-smartinput.html )
+" >  競合時の優先度: 基本的には「 at がやたら長いものはそれだけ複雑な文脈の指定になっている」という前提で at の長いルールの優先度が高くなるように設定されています。
+
 " [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt )
 " [vim\-smartinput のスマートか分からない設定 \- はやくプログラムになりたい]( https://rhysd.hatenablog.com/entry/20121017/1350444269 )
 " orignal trigger <BS>
@@ -54,6 +57,17 @@ for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 	call smartinput#define_rule({'at': s:set.'\%#',          'char': '<BS>', 'input': '<BS>'})
 endfor
 call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><ESC>O'})
+
+" NOTE: 下記の方法では相殺できなかったため，cloneして改変する方法に
+" override default rule
+" call smartinput#define_rule({'at': '\%#\_s*)', 'char': ')', 'input': ')'})
+" call smartinput#define_rule({'at': '\%#\_s*\]', 'char': ']', 'input': ']'})
+call smartinput#map_to_trigger('i', ']', ']', ']')
+call smartinput#map_to_trigger('i', ')', ')', ')')
+call smartinput#map_to_trigger('i', '}', '}', '}')
+call smartinput#define_rule({'at': '\[\%#\]', 'char': ']', 'input': '<Right>'})
+call smartinput#define_rule({'at': '(\%#)', 'char': ')', 'input': '<Right>'})
+call smartinput#define_rule({'at': '{\%#}', 'char': '}', 'input': '<Right>'})
 
 " 改行時に行末のスペース除去
 call smartinput#map_to_trigger('i', '<CR>', '<CR>', '<CR>')
