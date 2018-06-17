@@ -219,6 +219,8 @@ alias git-log-peco='cat ~/.git-logs/*.log | peco'
 
 alias relogin='exec $SHELL -l'
 
+alias add-ast="'sed 's/\(^\|\s*\)/\1* /g'"
+
 function sed-range() {
 	[[ $# < 3 ]] && echo "$0 filepath start-line-no end-line-no" && return
 	name=$1
