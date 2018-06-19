@@ -88,7 +88,7 @@ set whichwrap=b,s,[,],<,>
 set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
 set noswapfile | set nobackup
 augroup reopen_cursor_position
-	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 " NOTE: use .viminfo

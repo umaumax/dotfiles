@@ -523,6 +523,8 @@ alias tvim='vim -i NONE'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
+alias lastvim="vim -c \"normal '0\""
+
 # for bash
 # alias vibrc='vi ~/.bashrc'
 # alias vibp='vi ~/.bash_profile'
