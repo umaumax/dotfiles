@@ -81,5 +81,4 @@ execute("lcd " . s:cwd)
 " runtime! config/setting-end/*.vim
 
 " ################ playground ######################
-
 " ################ playground ######################

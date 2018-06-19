@@ -9,6 +9,7 @@ ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
 ln -sf ~/dotfiles/.xremap ~/
+ln -sf ~/dotfiles/.xbindkeysrc ~/
 
 [[ ! -d ~/.config/ ]] && mkdir -p ~/.config
 [[ ! -d ~/.config/peco ]] && mkdir -p ~/.config/peco
