@@ -769,7 +769,7 @@ function fgrep2() {
 		local root="$3"
 		local keyword=(${@:4})
 	fi
-	find $root -type f -name $find_name1 -o -name $find_name2 -print0 | xargs-grep ${keyword[@]}
+	find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
 alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep $@'
