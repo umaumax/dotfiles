@@ -223,8 +223,12 @@ Plug 'bronson/vim-trailing-whitespace'
 " ```のあとで<CR>するとindentされてしまう問題がある
 " Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
 
-" table formatter...
+" table formatter
+" カーソル下のテーブルが対象
+" :Tabularize /|/r<# of space of right side>
+" :TableFormat
 Plug 'godlygeek/tabular', {'for': 'markdown'} " The tabular plugin must come before vim-markdown.
+command! -nargs=0 TF :TableFormat
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 let g:vim_markdown_folding_disabled = 1
 " Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}

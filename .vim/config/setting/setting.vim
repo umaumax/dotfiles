@@ -10,7 +10,8 @@ if ($TERM_PROGRAM=="iTerm.app" && has("termguicolors")) | set termguicolors | en
 set background=dark
 set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する
-set wrap  " ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
+" set wrap  " ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
+set nowrap
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲ " 不可視文字を表示
 set showcmd " コマンドを画面最下部に表示する
 set shortmess+=I " 起動時のメッセージを消す
@@ -41,9 +42,10 @@ augroup vimrc-auto-cursorline
 augroup END
 
 " these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
+" if textwidth == 0 no auto new line
 augroup tab_setting
 	autocmd!
-	autocmd BufWinEnter * set tabstop=4 | set shiftwidth=4
+	autocmd BufWinEnter * set tabstop=4 | set shiftwidth=4 | set textwidth=0
 	autocmd BufWinEnter *.py exec 'set softtabstop='.&tabstop
 augroup END
 set smartindent
@@ -74,7 +76,6 @@ set wrapscan   "検索時に最後まで行ったら最初に戻る
 
 " #### 動作設定 ####
 set mouse=a " マウスの設定をすべて有効にする
-set textwidth=0 " 自動改行解除
 set history=10000 " コマンド、検索パターンを10000個まで履歴に残す
 
 " [vimで文字が削除出来ないと思ったらバックスペースが効かなくなった - Qiita]( http://qiita.com/omega999/items/23aec6a7f6d6735d033f )

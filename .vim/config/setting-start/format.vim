@@ -48,7 +48,8 @@ function! IsAutoFormat()
 	return g:auto_format_flag == 1
 endfunction
 let g:auto_format_flag=1
-command! NonAutoFormat let g:auto_format_flag=0
+command! AutoFormatOFF let g:auto_format_flag=0
+command! AutoFormatON let g:auto_format_flag=1
 
 " 下記のautocmdの統合は案外難しい
 " FYI
@@ -63,7 +64,7 @@ augroup auto_format_setting
 	if Doctor('clang-format', 'clang format')
 		" :ClangFormatAutoEnable
 		autocmd BufWinEnter *.{c,h,cc,cpp,hpp} command! Format ClangFormat
-		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsAutoFormat() && IsPrivateWork() | call clang_format#replace(1, line('$')) | endif
+		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
 	endif
 	" python formatter
 	" pip install yapf
@@ -95,7 +96,7 @@ augroup auto_format_setting
 	autocmd BufWinEnter *.awk command! Format <SID>format_file()
 	autocmd BufWritePre *.awk if IsAutoFormat() | :call <SID>format_file() | endif
 	" default format
-	autocmd BufWritePre *.vim if IsPrivateWork() | :call <SID>format_file() | endif
+	autocmd BufWritePre *.vim if IsAutoFormat() | :call <SID>format_file() | endif
 	autocmd BufWritePre *vimrc if IsAutoFormat() | :call <SID>format_file() | endif
 	autocmd BufWritePre *.tex  if IsAutoFormat() | :call <SID>format_file() | endif
 	if Doctor('shfmt', 'shell format')
@@ -140,18 +141,28 @@ endfunction
 " NOTE:
 " 本来はautocmdでプライベート判定をするべきであるが，基本的に複数のgitをまたがなければ大丈夫
 " [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
-if IsPrivateWork()
-	augroup private_write_post
-		autocmd!
-		" tex auto compile
-		if executable('latexmk')
-			autocmd BufWritePost *.tex :!latexmk %
-		endif
-	augroup END
-else
-	augroup non_private
-		autocmd!
-		autocmd ColorScheme,BufWinEnter * highlight Normal ctermbg=0 guibg=#320000
-		autocmd ColorScheme,BufWinEnter * highlight LineNr ctermbg=167 guibg=#650000
-	augroup END
-endif
+
+function! s:work_setting()
+	exe('colorscheme '.g:colors_name)
+	if IsPrivateWork()
+		let g:auto_format_flag=1
+		augroup non_private
+			autocmd!
+		augroup END
+	else
+		let g:auto_format_flag=0
+		" NOTE: BufWinEnterによってこの関数が呼び出され，その後にColorSchemeが呼ばれないため
+		" 		augroup non_private
+		" 			autocmd!
+		" 			autocmd ColorScheme,BufWinEnter * highlight Normal ctermbg=0 guibg=#320000
+		" 			autocmd ColorScheme,BufWinEnter * highlight LineNr ctermbg=167 guibg=#650000
+		" 		augroup END
+		highlight Normal ctermbg=0 guibg=#320000
+		highlight LineNr ctermbg=167 guibg=#650000
+	endif
+endfunction
+
+augroup private_or_public_work
+	autocmd!
+	autocmd BufWinEnter * :call <SID>work_setting()
+augroup END

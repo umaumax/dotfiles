@@ -1,4 +1,4 @@
-aug(r|ro|rou|roup)\s*$
+aug\(\|r\|ro\|rou\|roup\)\s*$
 	augroup {{_input_:augroup name}}
 		autocmd!
 		autocmd {{_cursor_}}
