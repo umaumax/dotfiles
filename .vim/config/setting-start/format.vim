@@ -107,9 +107,12 @@ augroup auto_format_setting
 	if Doctor('gofmt', 'go format')
 		" let g:go_fmt_autosave = 1
 		autocmd BufWinEnter *.go command! Format GoFmt
-		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmt | endif
+		" 		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmt | endif
+		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
 	endif
 augroup END
+" NOTE: original GoFmt has no '-bar' option
+command! -bar GoFmtWrapper :GoFmt
 
 " error表示のwindowの制御方法が不明
 " Plug 'tell-k/vim-autopep8'
