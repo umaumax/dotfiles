@@ -272,7 +272,7 @@ cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe
 alias pvim='vim -'
 alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
-alias viminfogrep="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
+alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then
 	alias pecovim='peco | xargs-vim'
 	# peco copy
@@ -289,19 +289,19 @@ if cmdcheck peco; then
 	alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 	alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs -o vim"
-	# 	alias rvim="viminfogrep | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
-	alias rvim="viminfogrep | peco | tee $(tty) | xargs-vim"
+	# 	alias rvim="viminfo-ls | peco | tee $(tty) | xargs -o vim"
+	# 	alias rvim="viminfo-ls | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
+	alias rvim="viminfo-ls | peco | tee $(tty) | xargs-vim"
 	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
-	alias rvcd="cd \$(viminfogrep | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
+	alias rvcd="cd \$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
 	alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
 	alias up='cd `_up | peco`/.'
 fi
-alias rvgrep="viminfogrep | xargs-grep"
+alias rvgrep="viminfo-ls | xargs-grep"
 
 function _up() {
 	dir="$PWD"
@@ -739,7 +739,7 @@ function cat-all() {
 }
 
 # NOTE: grepに対して任意のオプションを渡せる状態?
-function xargs-grep() {
+function xargs-grep-0() {
 	[[ $# == 0 ]] && echo 'grep_keyword' && return
 	local keyword=(${@:1})
 	local grep_cmd='grep'
@@ -747,6 +747,15 @@ function xargs-grep() {
 	cmdcheck fzf && color_opt='--color=always'
 	cmdcheck ggrep && local grep_cmd='ggrep'
 	xargs -0 -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
+}
+function xargs-grep() {
+	[[ $# == 0 ]] && echo 'grep_keyword' && return
+	local keyword=(${@:1})
+	local grep_cmd='grep'
+	local color_opt='--color=auto'
+	cmdcheck fzf && color_opt='--color=always'
+	cmdcheck ggrep && local grep_cmd='ggrep'
+	xargs -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
@@ -758,7 +767,7 @@ function fgrep() {
 		local root="$2"
 		local keyword=(${@:3})
 	fi
-	find $root -type f -name $find_name -print0 | xargs-grep ${keyword[@]}
+	find $root -type f -name $find_name -print0 | xargs-grep-0 ${keyword[@]}
 }
 # FIX: merge with funtion
 function fgrep2() {
@@ -771,15 +780,15 @@ function fgrep2() {
 		local root="$3"
 		local keyword=(${@:4})
 	fi
-	find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep ${keyword[@]}
+	find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep-0 ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
-alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep $@'
-alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0 $@'
+alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep-0 $@'
 # alias fg.go='fgrep "*.go" $@'
-alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep'
-alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep $@'
-alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep $@'
+alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0'
+alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0 $@'
+alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0 $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'
 alias fg.cpp='fgrep "*.c[px][px]" $@'
@@ -789,13 +798,13 @@ alias fg.h='fgrep "*.h" $@'
 alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
 alias fg.md='fgrep "*.md" $@'
-alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep $@'
+alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep-0 $@'
 alias rf='sudo find / -not -iwholename "$HOME/*" '
 alias hf='find ~'
 
 function rgrep() {
 	# to expand alias
-	local _=$(viminfogrep | xargs-grep $@ | pecovim)
+	local _=$(viminfo-ls | xargs-grep $@ | pecovim)
 }
 
 # [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
