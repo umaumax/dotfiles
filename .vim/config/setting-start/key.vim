@@ -84,8 +84,48 @@ vnoremap <Space><Space> <Right>o<Left>o
 
 " 現在の行の中央へ移動
 " [vimで行の中央へ移動する - Qiita]( http://qiita.com/masayukiotsuka/items/683ffba1e84942afbb97?utm_campaign=popular_items&utm_medium=referral&utm_source=popular_items )
-" go to center
-nnoremap gc :call cursor(0,strlen(getline("."))/2)<CR>
+" middle
+" scorll-horizontal
+" zs,ze
+function! s:scroll_to_center(center)
+	normal! 00
+	let zl_cnt=a:center-s:get_window_width()/2
+	if zl_cnt>0
+		call s:zl(zl_cnt)
+	endif
+	call cursor('.', a:center)
+endfunction
+nnoremap zm :call <SID>scroll_to_center(strlen(getline("."))/2)<CR>
+nnoremap zM :call <SID>scroll_to_center(col('.'))<CR>
+function! s:get_window_width()
+	let tmp=&virtualedit
+	set virtualedit=all
+	let pos=getpos('.')
+	norm! g$
+	let width=virtcol('.')
+	call setpos('.', pos)
+	execute('set virtualedit='.tmp)
+	return width
+endfunction
+function! s:zh(number)
+	execute('normal! '.a:number.'zh')
+endfunction
+function! s:zl(number)
+	execute('normal! '.a:number.'zl')
+endfunction
+function! s:zH()
+	let half_window_width=s:get_window_width()/2
+	call s:zh(half_window_width)
+endfunction
+function! s:zL()
+	let half_window_width=s:get_window_width()/2
+	call s:zl(half_window_width)
+endfunction
+" zH, zLでは中心に移動できない
+nnoremap zh :call <SID>zH()<CR>
+nnoremap zl :call <SID>zL()<CR>
+nnoremap zH :call <SID>zh(1)<CR>
+nnoremap zL :call <SID>zl(1)<CR>
 
 " visual mode
 " word copy
