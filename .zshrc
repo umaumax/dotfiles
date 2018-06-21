@@ -1039,6 +1039,26 @@ EOF
 	ruby -e "$PROGRAM"
 }
 
+# [\`git remote add upstream\`を楽にする \| Tomorrow Never Comes\.]( http://blog.sgr-ksmt.org/2016/03/04/git_remote_add_upstream/ )
+git-remote-add-upstream() {
+	if ! type jq >/dev/null 2>&1; then
+		echo "'jq' is not installed." >&2
+		return 1
+	fi
+	local repo=$(git config user.name)/$(basename $PWD)
+	if [ $# -ge 1 ]; then
+		local repo="$1"
+	fi
+	echo "repo: $repo"
+	local upstream=$(curl -L "https://api.github.com/repos/$repo" | jq -r '.parent.full_name')
+	if [ "$upstream" = "null" ]; then
+		echo "upstream not found." >&2
+		return 1
+	fi
+	echo git remote add upstream "git@github.com:${upstream}.git"
+	git remote add upstream "git@github.com:${upstream}.git"
+}
+
 # required: gdrive
 function gsync() {
 	local ID=$1

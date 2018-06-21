@@ -6,12 +6,16 @@
 	default = simple
 [alias]
 	a = add
-	add-deleted = add . --update
+	add-changed-deleted = add . --update
+	add-all = add . --all
 	b = branch
 	c = commit
 	co = checkout
+	checkout-new-branch = checkout -b
 	m = merge
+	mt = mergetool
 	d = diff
+	dt = difftool
 	s = status
 	st = status
 	st-all = status --ignored
@@ -26,7 +30,15 @@
 	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	pull-rebase-upstream-master = pull --rebase upstream master
+	pull-rebase-origin-master = pull --rebase origin master
 	url = remote -v
+	unstage = reset HEAD
+	conflicts = !git ls-files -u | cut -f 2 | sort -u
+	rebase-undo-from-pre-commit = reset --hard HEAD
+	rebase-undo-from-post-commit = reset --hard ORIG_HEAD
+	merge-undo-from-pre-commit = reset --hard HEAD
+	merge-undo-from-post-commit = reset --hard ORIG_HEAD
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
@@ -37,6 +49,17 @@
 	interactive = auto
 	grep = auto
 	# for proxy env git:// -> https://
+[merge]
+	tool = vimdiff
+# 	conflictstyle = diff3
+[mergetool]
+	# [version control \- Git mergetool generates unwanted \.orig files \- Stack Overflow]( https://stackoverflow.com/questions/1251681/git-mergetool-generates-unwanted-orig-files )
+#  	keepBackup = false
+	prompt = false
+	trustExitCode = false
+[rerere]
+	# [git\-rerereのメモ \- unpushの日記]( http://d.hatena.ne.jp/unpush/20091010/1255186302 )
+	enabled = true
 [url "https://"]
 	insteadOf = git://
 [url "github:"]
