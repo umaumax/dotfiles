@@ -49,6 +49,10 @@ cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 
+" NOTE: dangerous exit commands
+nnoremap ZZ <nop>
+nnoremap ZQ <nop>
+
 " NOTE: dやc始まりだと，カーソル下の字が消去されない
 " mainly for cpp
 " `.`: period
