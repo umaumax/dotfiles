@@ -19,13 +19,9 @@ endif
 " inoremap '' ''<C-g>U<Left>
 " inoremap <> <><C-g>U<Left>
 
-" NOTE: [対応する括弧等を入力する生活に疲れた\(Vim 編\) \- TIM Labs]( http://labs.timedia.co.jp/2012/09/vim-smartinput.html )
-" >  競合時の優先度: 基本的には「 at がやたら長いものはそれだけ複雑な文脈の指定になっている」という前提で at の長いルールの優先度が高くなるように設定されています。
-
 " [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt )
 " [vim\-smartinput のスマートか分からない設定 \- はやくプログラムになりたい]( https://rhysd.hatenablog.com/entry/20121017/1350444269 )
 " orignal trigger <BS>
-call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
 " BUG: (sample)(test) -> ( sample)(test )
 " call smartinput#define_rule({
 " 			\   'at'    : '(\%#.*)',
@@ -48,6 +44,19 @@ call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
 " 			\   'char'  : '<BS>',
 " 			\   'input' : '<Del><BS>',
 " 			\   })
+
+call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+" NOTE: [対応する括弧等を入力する生活に疲れた\(Vim 編\) \- TIM Labs]( http://labs.timedia.co.jp/2012/09/vim-smartinput.html )
+" >  競合時の優先度: 基本的には「 at がやたら長いものはそれだけ複雑な文脈の指定になっている」という前提で at の長いルールの優先度が高くなるように設定されています。
+call smartinput#define_rule({
+			\'at': '\[\[\%#\]\]', 'char': '<Space>', 'input': '<Space><Space><left>',
+			\ 'filetype': ['sh','bash','zsh'],
+			\})
+call smartinput#define_rule({
+			\'at': 'if \[\[\%#\]\]', 'char': '<Space>',
+			\ 'input': "<Space><Space><Left><C-o>:call setline('.', substitute(getline('.'), '$', '; then', ''))<CR>",
+			\ 'filetype': ['sh','bash','zsh'],
+			\})
 
 " override default rules
 for s:set in ['()','\[\]','{}','``','``````','""',"''"]

@@ -69,5 +69,5 @@ endif
 " for look command
 " require: lock command
 if Doctor('look','ujihisa/neco-look')
-	Plug 'ujihisa/neco-look' " , {'for': [ 'markdown', 'gitrebase', 'gitcommit', 'text', 'help', 'tex']}
+	Plug 'ujihisa/neco-look', {'for': [ 'markdown', 'gitrebase', 'gitcommit', 'text', 'help', 'tex']}
 endif

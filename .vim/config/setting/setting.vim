@@ -22,7 +22,7 @@ set matchtime=1 " 0.n sec 対応するカッコにカーソルが移動する
 set pumheight=10 " 補完候補の表示数
 set incsearch    "インクリメント検索(リアルタイム検索)
 set wildmenu wildmode=list:full "入力補完機能
-set nohlsearch   "検索キーワードハイライト無効
+" set nohlsearch   "検索キーワードハイライト無効
 set laststatus=2 "常に編集中ファイル名表示
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )

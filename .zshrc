@@ -200,6 +200,10 @@ if [[ -n $_Ubuntu ]]; then
 			sudo apt-cache search $1 | peco | awk '{ print $1 }' | tr "\n" " " | xargs -- sudo apt-get install
 		fi
 	}
+	function xdotool-infos() {
+		[[ $# == 0 ]] && echo "$0 <class>" && return 1
+		xdotool search --class "$1" | xargs -L 1 xwininfo -id
+	}
 fi
 
 pipe-EOF-do() {
