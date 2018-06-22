@@ -45,7 +45,7 @@
 # toggle terminator
 # wget https://raw.githubusercontent.com/umaumax/window-toggle/master/window-toggle.sh -P ~/local/bin/
 "~/local/bin/window-toggle.sh Terminator terminator"
-	Control + space
+	Alt + space
 
 "~/local/bin/window-toggle.sh Hyper hyper"
 	Control+Alt + space
