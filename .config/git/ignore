@@ -1,0 +1,56 @@
+*
+!*.*
+!*/
+
+.*
+
+~*
+*~
+
+# for git mergetool
+*.orig
+
+*.exe
+*.o
+*.d
+*.a
+*.so
+*.tar.gz
+*.dylib
+*.out
+core.[0-9]+
+
+.ninja*
+# .stdafx.c++.pch
+*.pch
+.tags
+.tags[0-9]*
+
+# to avoid password leakage
+.envrc
+
+# for Mac OS X
+.DS_Store
+Thumbs.db
+*.dSYM/
+
+# Office specific
+~$*
+
+# gnu global files
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+
+# git files
+!.gitignore
+!.gitattributes
+
+# generated files
+GPL/include/vpu/autoconf.h
+GPL/include/vpu/version.h
+
+# local setting
+# build/
+# bin/

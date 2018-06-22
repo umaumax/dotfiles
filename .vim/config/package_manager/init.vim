@@ -22,7 +22,8 @@ Plug 'umaumax/vim-smartinput'
 
 " Plug 'mattn/sonictemplate-vim'
 Plug 'umaumax/sonictemplate-vim'
-" :Template
+" NOTE: :Template -> :T
+let g:sonictemplate_commandname='T'
 let g:sonictemplate_postfix_key='<C-x><C-p>'
 let g:sonictemplate_vim_template_dir = [
 			\ '~/dotfiles/template'

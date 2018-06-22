@@ -57,12 +57,14 @@ nnoremap ZQ <nop>
 " mainly for cpp
 " `.`: period
 " `->`: arrow
-nnoremap dp vf.da.
-nnoremap dP vF.da.
-nnoremap da vf-da->
-nnoremap dA vF-da->
+" nnoremap dp vf.da.
+" nnoremap dP vF.da.
+" nnoremap da vf-da->
+" nnoremap dA vF-da->
 
-command! -nargs=0 TrimSpace :s/^\s*\(.\{-}\)\s*$/\1/
+command! -nargs=0 -range TrimSpace <line1>,<line2>:s/^\s*\(.\{-}\)\s*$/\1/ | nohlsearch
+command! -nargs=0 -range TrimLeftSpace <line1>,<line2>:s/^\s*\(.\{-}\)$/\1/ | nohlsearch
+command! -nargs=0 -range TrimRightSpace <line1>,<line2>:s/^\(.\{-}\)\s*$/\1/ | nohlsearch
 
 " for function args movement
 " in insert mode <C-o> + below key

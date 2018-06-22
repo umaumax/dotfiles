@@ -12,7 +12,7 @@ let g:colorscheme = 'molokai'
 " let g:colorscheme = 'moonfly'
 " let g:colorscheme = 'tender' " difficult to see visual mode
 
-let s:local_vimrc = expand('~/.local.vimrc')
+let s:user_local_vimrc = expand('~/.local.vimrc')
 
 " [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let g:tempfiledir = expand('~/.vim/tmp')
@@ -74,7 +74,17 @@ endif
 command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
-if filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
+
+if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
+let s:local_vimrc=expand('%:p:h').'/.local.vimrc'
+" NOTE: fileが存在するディレクトリのlocal vimrc
+if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
+" e.g. .local.vimrc
+" let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
+" let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
+" let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
+" let g:ale_cpp_gcc_options = "-std=c++14 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
+
 " load cwd
 execute("lcd " . s:cwd)
 " manly for colorscheme

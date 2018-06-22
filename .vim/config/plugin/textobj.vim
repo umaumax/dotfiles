@@ -35,4 +35,7 @@ augroup textobj
 	" つまり，`|`を使いたいときには`'\(xxx\\|yyy\)'`
 	autocmd VimEnter * omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
 	autocmd VimEnter * xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+	" space
+	autocmd VimEnter * omap <expr> is textobj#from_regexp#mapexpr('\S\+')
+	autocmd VimEnter * xmap <expr> is textobj#from_regexp#mapexpr('\S\+')
 augroup END

@@ -21,6 +21,7 @@ git add -f .config/xkeysnail/config.py
 git add -f git-logs/
 
 git add -f .config
+git add -f .config/git/ignore
 
 git add -f .vimrc
 git add -f .vim/config/package_manager

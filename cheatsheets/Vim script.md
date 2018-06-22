@@ -2,12 +2,14 @@
 
 ## cursor
 ```
+" ".", "'<", "'>"
 let wordUnderCursor = expand("<cword>")
 let currentLine = getline(".")
 let currentCol = col(".")
 " let currentRow = row(".") " not exist this function!
 
 call setline('.', line)
+" call setpos(',', [<same buf>, row, col, <same off>])
 call cursor(row, col)
 
 let [buf, row, col, off] = getpos(".") 

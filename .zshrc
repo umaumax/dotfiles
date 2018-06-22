@@ -803,7 +803,7 @@ alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
 alias fg.md='fgrep "*.md" $@'
 alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep-0 $@'
-alias rf='sudo find / -not -iwholename "$HOME/*" '
+alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker" \)'
 alias hf='find ~'
 
 function rgrep() {

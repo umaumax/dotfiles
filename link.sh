@@ -15,6 +15,10 @@ ln -sf ~/dotfiles/.xbindkeysrc ~/
 [[ ! -d ~/.config/peco ]] && mkdir -p ~/.config/peco
 ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 
+[[ ! -d ~/.config/git ]] && mkdir -p ~/.config/git
+ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
+ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
+
 if [[ $(uname) == "Linux" ]]; then
 	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
 	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py

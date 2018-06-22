@@ -45,6 +45,7 @@ let g:ale_linters = {
 			\   'json': ['jsonlint'],
 			\   'bash': ['shellcheck'],
 			\   'vim': ['vint'],
+			\   'cpp': ['clangcheck', 'clangtidy','clang'],
 			\}
 
 " ALE用プレフィックス

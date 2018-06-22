@@ -48,8 +48,9 @@ function! IsAutoFormat()
 	return g:auto_format_flag == 1
 endfunction
 let g:auto_format_flag=1
-command! AutoFormatOFF let g:auto_format_flag=0
-command! AutoFormatON let g:auto_format_flag=1
+" NOTE: if command name startswith AutoFormat, there are many similar command to complete
+command! NoAutoFormat let g:auto_format_flag=0
+command! AutoFormat let g:auto_format_flag=1
 
 " 下記のautocmdの統合は案外難しい
 " FYI
