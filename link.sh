@@ -1,6 +1,5 @@
 #!/bin/bash
 set -x
-ln -sf ~/dotfiles/.vim ~/
 ln -sf ~/dotfiles/.vimrc ~/
 ln -sf ~/dotfiles/.tmux.conf ~/
 ln -sf ~/dotfiles/.clang-format ~/
@@ -8,8 +7,9 @@ ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
-ln -sf ~/dotfiles/.xremap ~/
-ln -sf ~/dotfiles/.xbindkeysrc ~/
+
+[[ ! -d ~/.vim/ ]] && mkdir -p ~/.vim
+ln -fs ~/dotfiles/.vim/config ~/.vim/
 
 [[ ! -d ~/.config/ ]] && mkdir -p ~/.config
 [[ ! -d ~/.config/peco ]] && mkdir -p ~/.config/peco
@@ -20,6 +20,8 @@ ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
 ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 
 if [[ $(uname) == "Linux" ]]; then
+	ln -sf ~/dotfiles/.xremap ~/
+	ln -sf ~/dotfiles/.xbindkeysrc ~/
 	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
 	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
 fi
