@@ -1,3 +1,4 @@
+source $VIMRUNTIME/defaults.vim
 " old seting?
 " filetype off | filetype plugin indent off " temporarily disable
 " set nocompatible
