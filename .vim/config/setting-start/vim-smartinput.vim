@@ -158,6 +158,7 @@ let s:replace_map = {
 			\ '>': ['gt'],
 			\ '>>': ['dgt'],
 			\ '> ': ['quote'],
+			\ '<><Left>': ['te', 'temp', 'tmpl'],
 			\ '<=': ['le'],
 			\ '>=': ['ge'],
 			\ '.': ['\<d', 'dot', 'pe', 'period'],

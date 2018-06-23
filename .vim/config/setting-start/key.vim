@@ -84,7 +84,9 @@ vnoremap N Nzz
 vnoremap * *zz
 vnoremap # #zz
 
+" NOTE: カーソル位置によってはexapnd or shrink
 " expand range one char both side
+vnoremap m <Right>o<Left>o
 vnoremap <Space> <Right>o<Left>o
 vnoremap <Space><Space> <Right>o<Left>o
 
@@ -150,9 +152,9 @@ nnoremap <C-k> <Up>
 nnoremap <C-l> <Right>
 
 " undo
-inoremap <C-u> <Esc>ui
-" reduo
-inoremap <C-r> <Esc><C-r>i
+inoremap <C-u> <C-o>u
+" redo
+inoremap <C-r> <C-o><C-r>
 
 inoremap <C-x>e <ESC>
 inoremap <C-x><C-e> <ESC>
@@ -186,8 +188,6 @@ nnoremap M '
 " #### mark ####
 " ##############
 
-" yy copy command in visual mode
-vnoremap yy :!pbcopy;pbpaste<CR>
 " no yank by x or s
 nnoremap x "_x
 nnoremap s "_s
@@ -216,8 +216,6 @@ nnoremap 1T :%s/^\( *\)\t/\1 /g<CR>
 nnoremap 2T :%s/^\( *\)\t/\1  /g<CR>
 nnoremap 3T :%s/^\( *\)\t/\1   /g<CR>
 nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
-
-vnoremap <S-Space> iwy
 
 " vim tab control
 " nnoremap ? :tabnew<CR>
@@ -419,29 +417,50 @@ nnoremap Y y$
 
 " quote
 " s means surround
-vnoremap s' c''<Left><ESC>p
-vnoremap s" c""<Left><ESC>p
-vnoremap s< c<><Left><ESC>p
-vnoremap s( c()<Left><ESC>p
-vnoremap s[ c[]<Left><ESC>p
-vnoremap s{ c{}<Left><ESC>p
-vnoremap s` c``<Left><ESC>p
-vnoremap scode c```<CR>```<ESC><Up>p<ESC>
-vnoremap stbq c```<CR>```<ESC><Up>p<ESC>
-vnoremap s_ c____<Left><Left><ESC>p
-vnoremap ssq c''<Left><ESC>p
-vnoremap sdq c""<Left><ESC>p
-vnoremap slt c<><Left><ESC>p
-vnoremap spa c()<Left><ESC>p
-vnoremap skakko c()<Left><ESC>p
-vnoremap sbr c[]<Left><ESC>p
-vnoremap sary c[]<Left><ESC>p
-vnoremap ssb c{}<Left><ESC>p
-vnoremap sfunc c{}<Left><ESC>p
-vnoremap sbq c``<Left><ESC>p
-vnoremap sus c____<Left><Left><ESC>p
-vnoremap sud c____<Left><Left><ESC>p
-vnoremap sfold c____<Left><Left><ESC>p
+vnoremap s<Space> c  <Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s'     c''<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap ssq    c''<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s"     c""<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sdq    c""<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s<     c<><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap slt    c<><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s(     c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap spa    c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap skakko c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s[     c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sbr    c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sary   c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap slist  c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s{     c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap ssb    c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sdict  c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap smap   c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sfunc  c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s`     c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sbq    c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap scode  c```<CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
+vnoremap stbq   c```<CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
+vnoremap s_     c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sus    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sud    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sub    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+vnoremap sfold  c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+
+" [visual \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/visual.html )
+vnoremap ikakko ib
+vnoremap akakko ab
+vnoremap iary i]
+vnoremap aary a[
+vnoremap ielem i]
+vnoremap aelem a[
+vnoremap ielem i]
+vnoremap aelem a[
+vnoremap idq i"
+vnoremap adq a"
+vnoremap isq i'
+vnoremap asq a'
+vnoremap ibq i`
+vnoremap abq a`
 
 " to avoid entering ex mode
 nnoremap Q <Nop>

@@ -36,6 +36,6 @@ augroup textobj
 	autocmd VimEnter * omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
 	autocmd VimEnter * xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
 	" space
-	autocmd VimEnter * omap <expr> is textobj#from_regexp#mapexpr('\S\+')
-	autocmd VimEnter * xmap <expr> is textobj#from_regexp#mapexpr('\S\+')
+	autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
+	autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
 augroup END

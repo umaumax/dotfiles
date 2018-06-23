@@ -11,7 +11,7 @@ augroup gui_vim
 		autocmd BufWinEnter * set guioptions=egm
 		if has('gui_macvim') && has('kaoriya')
 			autocmd BufWinEnter * set guifont=Monaco:h12 | set guifontwide=Monaco:h12
-			autocmd BufWinEnter * set transparency=10
+			" 			autocmd BufWinEnter * set transparency=10
 		endif
 	endif
 augroup END
