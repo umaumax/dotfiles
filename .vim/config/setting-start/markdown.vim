@@ -1,6 +1,6 @@
 " tableの項目を各行毎にの項目の前後に" "のみとなるようにformat
 " 自動formatで変更されうる"----"は':'と合わせて4個となるように
-function s:table_format_of_each_line()
+function! s:table_format_of_each_line()
 	let firstline = 1
 	let lastline = line("$")
 	for n in range(firstline, lastline)

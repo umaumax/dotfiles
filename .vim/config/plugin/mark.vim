@@ -4,6 +4,7 @@ Plug 'tacroe/unite-mark'
 " https://github.com/tacroe/unite-mark
 " http://d.hatena.ne.jp/tacroe/20101119/1290115586
 nnoremap <silent> <Space>u :Unite mark<CR>
+command! Marks :Unite mark
 Plug 'zhisheng/visualmark.vim'
 
 " mark auto reg

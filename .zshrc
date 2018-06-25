@@ -202,7 +202,7 @@ if [[ -n $_Ubuntu ]]; then
 	}
 	function xdotool-infos() {
 		[[ $# == 0 ]] && echo "$0 <class>" && return 1
-		xdotool search --class "$1" | xargs -L 1 xwininfo -id
+		xdotool search --class "$1" | xargs -L 1 sh -c 'printf "# $0"; xwininfo -id $0'
 	}
 fi
 
@@ -283,19 +283,19 @@ if cmdcheck peco; then
 	alias pc='peco | c'
 	alias pecopy='peco | c'
 	alias pe='peco'
-	alias hpeco='builtin history -nr 1 | peco | tee $(tty) | c'
+	alias hpeco='builtin history -nr 1 | peco | tee /dev/tty | c'
 	alias apeco='alias | peco'
 	alias fpeco='find . -type f | peco'
 	alias fpecovim='find . -type f | pecovim'
 	alias fvim='find . -type f | pecovim'
-	alias epeco='env | peco | tee $(tty) | c'
+	alias epeco='env | peco | tee /dev/tty | c'
 	alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 	alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 	alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-	# 	alias rvim="viminfo-ls | peco | tee $(tty) | xargs -o vim"
-	# 	alias rvim="viminfo-ls | peco | tee $(tty) | xargs sh -c 'vim \$1 < /dev/tty' -"
-	alias rvim="viminfo-ls | peco | tee $(tty) | xargs-vim"
+	# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs -o vim"
+	# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs sh -c 'vim \$1 < /dev/tty' -"
+	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
 	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
