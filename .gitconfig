@@ -34,6 +34,7 @@
 	pull-rebase-origin-master = pull --rebase origin master
 	url = remote -v
 	unstage = reset HEAD
+	unstage-permanent = rm --cached -r
 	conflicts = !git ls-files -u | cut -f 2 | sort -u
 	rebase-undo-from-pre-commit = reset --hard HEAD
 	rebase-undo-from-post-commit = reset --hard ORIG_HEAD

@@ -17,6 +17,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.ESC, Key.RIGHT_META],
 })
 define_keymap(None, {
+    K("INSERT"): None,
     # APOSTROPHE is ':'
     K("C-m"): K("ENTER"),
     K("C-semicolon"): [K("esc"), K("MUHENKAN"), set_mark(False)],

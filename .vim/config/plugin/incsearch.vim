@@ -25,7 +25,7 @@ endfunction
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 " 日本語をローマ字で検索可能
-Plug 'rhysd/migemo-search.vim'
-if Doctor('cmigemo','rhysd/migemo-search.vim')
-	cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
-endif
+" Plug 'rhysd/migemo-search.vim'
+" if Doctor('cmigemo','rhysd/migemo-search.vim')
+" 	cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+" endif

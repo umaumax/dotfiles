@@ -136,7 +136,7 @@ prepend_path /usr/local/bin
 prepend_path ~/local/bin
 
 # for vim
-prepend_path /Applications/MacVim.app/Contents/bin/
+# prepend_path /Applications/MacVim.app/Contents/bin/
 
 # for color output
 ## easy color output

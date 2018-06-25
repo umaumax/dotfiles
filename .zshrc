@@ -727,6 +727,13 @@ ls_abbrev() {
 	fi
 }
 
+clean-cdinfo() {
+	local tmpfile=$(mktemp)
+	command cp ~/.cdinfo "$tmpfile"
+	cat "$tmpfile" | sort | uniq | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
+	rm -f "$tmpfile"
+}
+
 # ディレクトリ作成及び移動
 mk() {
 	mkdir -p "$1"
@@ -787,7 +794,7 @@ function fgrep2() {
 	find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep-0 ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim" $@'
-alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" -type f \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0 $@'
+alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0 $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep-0 $@'
 # alias fg.go='fgrep "*.go" $@'
 alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0'

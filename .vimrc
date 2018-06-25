@@ -84,7 +84,7 @@ if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 
 " let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
-" let g:ale_cpp_gcc_options = "-std=c++14 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
+" let g:ale_cpp_gcc_options = "-std=c++11 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
 
 " load cwd
 execute("lcd " . s:cwd)
