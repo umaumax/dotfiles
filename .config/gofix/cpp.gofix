@@ -1,0 +1,6 @@
+define
+include
+return
+cstdio
+cstdlib
+int

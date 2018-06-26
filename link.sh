@@ -19,6 +19,9 @@ ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
 ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 
+[[ ! -d ~/.config/gofix ]] && mkdir -p ~/.config/gofix
+ln -sf ~/dotfiles/.config/gofix/*.gofix ~/.config/gofix/
+
 if [[ $(uname) == "Linux" ]]; then
 	ln -sf ~/dotfiles/.xremap ~/
 	ln -sf ~/dotfiles/.xbindkeysrc ~/
