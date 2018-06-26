@@ -23,4 +23,10 @@ if &rtp =~ 'vim-submode'
 	call submode#map('goto_buffer', 'n', '', 'gi', ':bn<CR>')
 	call submode#map('goto_buffer', 'n', '', 'o', ':bN<CR>')
 	call submode#map('goto_buffer', 'n', '', 'go', ':bN<CR>')
+
+	" NOTE: <C-i>はtabになるため，直接取得不可能
+	call submode#enter_with('jump-motions', 'n', '', '<C-o>', '<C-o>')
+	call submode#map('jump-motions', 'n', '', '<C-o>', '<C-o>')
+	call submode#map('jump-motions', 'n', '', 'o', '<C-o>')
+	call submode#map('jump-motions', 'n', '', 'i', '<C-i>')
 endif

@@ -133,7 +133,7 @@ if [[ -n $_Darwin ]]; then
 	alias js='osascript -l JavaScript'
 	alias_if_exist jsc '/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 	alias_if_exist vmrun '/Applications/VMware Fusion.app/Contents/Library/vmrun'
-	alias_if_exist subl '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+	# 	alias_if_exist subl '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
 
 	# browser
 	alias safari='open -a /Applications/Safari.app'
@@ -160,6 +160,11 @@ if [[ -n $_Darwin ]]; then
 
 	alias gvim='mvim'
 	alias mvim='mvim --remote-tab-silent'
+
+	function code() {
+		VSCODE_CWD="$PWD"
+		open -n -b "com.microsoft.VSCode" --args $*
+	}
 fi
 
 function mvim() {
@@ -223,7 +228,10 @@ alias git-log-peco='cat ~/.git-logs/*.log | peco'
 
 alias relogin='exec $SHELL -l'
 
+# add ast prefix
 alias add-ast="'sed 's/\(^\|\s*\)/\1* /g'"
+
+alias filter-exist-line="awk '/.+/{print "'$0'"}'"
 
 function sed-range() {
 	[[ $# < 3 ]] && echo "$0 filepath start-line-no end-line-no" && return
@@ -519,6 +527,7 @@ function _xargs-vim() {
 }
 
 alias dotfiles='cd ~/dotfiles'
+alias plugged='cd ~/.vim/plugged'
 
 alias v='vim'
 # don't use .viminfo file option
@@ -797,9 +806,9 @@ alias fg.vim='fgrep "*.vim" $@'
 alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0 $@'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep-0 $@'
 # alias fg.go='fgrep "*.go" $@'
-alias fg.go='find "." -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0'
-alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0 $@'
-alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) -not -name "bindata_assetfs.go" -type f -name "*.go" -print0 | xargs-grep-0 $@'
+alias fg.go='find "." \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
+alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0 $@'
+alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0 $@'
 alias fg.py='fgrep "*.py" $@'
 alias fg.sh='fgrep "*.sh" $@'
 alias fg.cpp='fgrep "*.c[px][px]" $@'
@@ -1074,6 +1083,22 @@ function gsync() {
 	echo "ID:$ID"
 	echo "# downloading..."
 	gdrive sync download $ID .
+	echo "# uploading..."
+	gdrive sync upload . $ID
+}
+function gsync-download() {
+	local ID=$1
+	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	echo "ID:$ID"
+	echo "# downloading..."
+	gdrive sync download $ID .
+}
+function gsync-upload() {
+	local ID=$1
+	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	echo "ID:$ID"
 	echo "# uploading..."
 	gdrive sync upload . $ID
 }

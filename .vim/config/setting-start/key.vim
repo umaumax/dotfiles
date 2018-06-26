@@ -196,6 +196,19 @@ vnoremap d "_d
 vnoremap s "_s
 vnoremap p "_x:call <SID>paste_at_cursor(1)<CR>
 
+" delete all lines at buffer without copy
+command! -nargs=0 Delete normal ggVGx
+
+" NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
+function! OpenURL()
+	let line = getline(".")
+	let url = matchstr(line, '\(http\(s\)\?://[^ ]\+\)', 0)
+	call system("xdg-open &>/dev/null ".url)
+endfunction
+if !has('mac') && !has('win')
+	nnoremap gx :call OpenURL()<CR>
+endif
+
 function! s:yank_pwd()
 	let @+ = '.' " default value
 	let @+ = expand('%:p:h')

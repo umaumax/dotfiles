@@ -10,7 +10,7 @@ function! s:has_vimproc() abort
 	endif
 	return s:exists_vimproc
 endfunction
-function! s:success(result) abort
+function! s:success() abort
 	let l:exit_success = (s:has_vimproc() ? vimproc#get_last_status() : v:shell_error) == 0
 	return l:exit_success
 endfunction

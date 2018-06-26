@@ -169,4 +169,5 @@ endfunction
 augroup private_or_public_work
 	autocmd!
 	autocmd BufWinEnter * :call <SID>work_setting()
+	autocmd BufWinEnter *.go :let g:auto_format_flag=1
 augroup END

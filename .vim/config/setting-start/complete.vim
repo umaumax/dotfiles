@@ -44,7 +44,7 @@ func! ClangLibToolingComp() abort
 		endif
 		return s:exists_vimproc
 	endfunction
-	function! s:success(result) abort
+	function! s:success() abort
 		let l:exit_success = (s:has_vimproc() ? vimproc#get_last_status() : v:shell_error) == 0
 		return l:exit_success
 	endfunction
@@ -58,7 +58,7 @@ func! ClangLibToolingComp() abort
 	endfunction
 
 	let l:cmd_output = system(l:cmd)
-	if s:success(l:cmd)
+	if s:success()
 		for l:line in split(l:cmd_output, '\n')
 			call add(l:comp_list, {'word': l:line, 'menu': 'menu'})
 		endfor

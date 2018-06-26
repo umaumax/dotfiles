@@ -106,7 +106,7 @@ let s:replace_map = {
 			\ '~/': ['hd'],
 			\ '~/.': ['hdd'],
 			\ 'boost::': ['b::','b;;'],
-			\ 'std::': ['s::','s;;'],
+			\ 'std::': ['s::','s;;', 'std'],
 			\ '=~': ['req','regeq'],
 			\ "{'':''}<Left><Left><Left><Left><Left>": ['dict'],
 			\ ''':': ['key'],
@@ -184,21 +184,26 @@ let s:replace_map = {
 " let s:gtrigger = '<Nul>'
 let s:gtrigger = '<C-x><C-x>'
 " let s:gtrigger = '<S-Down>'
-for s:key in keys(s:replace_map)
-	let s:srcs=s:replace_map[s:key]
-	let s:dst=s:key
-	for s:src in s:srcs
-		let s:n = len(substitute(s:src,'^\\<', '', ''))
-		let s:at = s:src
-		let s:trigger = s:gtrigger
-		" [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt#L221 )
-		" 		" 		for s:mode in split('i.:./.?', '.')
-		"  		for s:mode in split('i', '.')
-		" 			call smartinput#map_to_trigger(s:mode, s:trigger, s:trigger, s:trigger)
-		" 		endfor
-		call smartinput#define_rule({'at': s:at.'\%#', 'char': s:trigger, 'input': repeat('<BS>', s:n).s:dst})
+
+function! RegisterSmartinputRules(replace_map)
+	for s:key in keys(a:replace_map)
+		let s:srcs=s:replace_map[s:key]
+		let s:dst=s:key
+		for s:src in s:srcs
+			let s:n = len(substitute(s:src,'^\\<', '', ''))
+			let s:at = s:src
+			let s:trigger = s:gtrigger
+			" [vim\-smartinput/smartinput\.txt at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/doc/smartinput.txt#L221 )
+			" 		" 		for s:mode in split('i.:./.?', '.')
+			"  		for s:mode in split('i', '.')
+			" 			call smartinput#map_to_trigger(s:mode, s:trigger, s:trigger, s:trigger)
+			" 		endfor
+			call smartinput#define_rule({'at': s:at.'\%#', 'char': s:trigger, 'input': repeat('<BS>', s:n).s:dst})
+		endfor
 	endfor
-endfor
+endfunction
+call RegisterSmartinputRules(s:replace_map)
+
 " NOTE:登録済のトリガを大量に登録すると反応しないので注意
 call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, s:gtrigger)
 " call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, '<C-i>')

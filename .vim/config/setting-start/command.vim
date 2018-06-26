@@ -29,10 +29,16 @@ function! s:p(text)
 	let @a = tmp
 endfunction
 
+" for visual mode
 function! CR() range
 	let selected = s:delete_visual_selection()
 	execute "normal! i\<CR>\<CR>\<Up>\<ESC>"
 	call s:p(selected)
 endfunction
 command! -nargs=0 -range CR <line1>,<line2>call CR()
-
+" NOTE: for c++
+" 1行にまとまってしまった関数ボディの改行
+function! CRBody()
+	execute "normal 00f{\<Right>vt}:CR\<CR>"
+endfunction
+command! -nargs=0 CRBody <line1>,<line2>call CRBody()

@@ -208,6 +208,20 @@ Plug 'tpope/vim-surround'
 " crm	"mixed_case" → "MixedCase"
 " crc	"camel_case" → "camelCase"
 " cru	"upper_case" → "UPPER_CASE"
+" call extend(Abolish.Coercions, {
+"       \ 'c': Abolish.camelcase,
+"       \ 'm': Abolish.mixedcase,
+"       \ 's': Abolish.snakecase,
+"       \ '_': Abolish.snakecase,
+"       \ 'u': Abolish.uppercase,
+"       \ 'U': Abolish.uppercase,
+"       \ '-': Abolish.dashcase,
+"       \ 'k': Abolish.dashcase,
+"       \ '.': Abolish.dotcase,
+"       \ ' ': Abolish.spacecase,
+"       \ 't': Abolish.titlecase,
+"       \ "function missing": s:function("s:unknown_coercion")
+"       \}, "keep")
 Plug 'tpope/vim-abolish'
 Plug 'lervag/vimtex', {'for': 'tex'}
 " css

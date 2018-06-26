@@ -1,5 +1,6 @@
 " [カレントファイルにインクルードガードを書き込むvimスクリプト - Qiita](http://qiita.com/xeno1991/items/27d9aaf0501c41116aec)
 " Insert include guard to the current file
+" head, foot: list(["", ""]) or string
 function! IncludeGuard(head, foot)
 	let l:view = winsaveview()
 	silent! execute '1s/^/\=a:head'
