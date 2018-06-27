@@ -1,6 +1,21 @@
 define
+class
+struct
+namespace
+enum
+stringstream
+iostream
+char
+string
+template
+vector
+array
 include
 return
 cstdio
 cstdlib
 int
+:: ;;
+std::cout std::out sout
+std::cerr std::err serr
+std::clog std::log slog
