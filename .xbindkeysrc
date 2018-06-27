@@ -50,6 +50,9 @@
 "~/local/bin/window-toggle.sh Hyper hyper"
 	Control+Alt + space
 
+"~/local/bin/window-toggle.sh Gnome-terminal gnome-terminal"
+	Control + space
+
 # set directly keycode (here control + f with my keyboard)
 #"xterm"
 #  c:41 + m:0x4

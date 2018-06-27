@@ -39,8 +39,8 @@ function! s:Down()
 		normal! gj
 	endif
 endfunction
-imap <Up> <ESC>:call <SID>Up()<CR>a
-imap <Down> <ESC>:call <SID>Down()<CR>a
+imap <Up> <C-o>:call <SID>Up()<CR>
+imap <Down> <C-o>:call <SID>Down()<CR>
 " Enterで補完決定(no additional <CR>)
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 

@@ -15,6 +15,11 @@
 	m = merge
 	mt = mergetool
 	d = diff
+	diff-head = diff HEAD
+	diff-head1 = diff HEAD~
+	diff-head2 = diff HEAD~~
+	diff-head3 = diff HEAD~~~
+	diff-head4 = diff HEAD~~~~
 	dt = difftool
 	s = status
 	st = status

@@ -98,6 +98,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
+[[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
 [[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
 

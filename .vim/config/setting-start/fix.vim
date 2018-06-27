@@ -37,6 +37,7 @@ if Doctor('gofix', 'wrong word fixer')
 	endfunction
 	" 	nnoremap <expr> <C-x>f FixLine()
 	" 	inoremap <expr> <C-x>f FixLine()
-	nnoremap <C-x>f :call FixLine()<CR>
+	" 	nnoremap <C-x>f :call FixLine()<CR>
+	command! FixLine :call FixLine()
 	inoremap <C-x>f <C-o>:call FixLine()<CR>
 endif

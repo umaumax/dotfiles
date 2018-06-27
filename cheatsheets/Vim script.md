@@ -34,5 +34,15 @@ append
 ```
 ['a', 'b'] + ['c']
 add(['a', 'b'], 'c')
+
+let array=[1,2,3]
+let array+=[4,5,6]
 ```
-__listに対して，`+=`は使えないが，通常の演算では使用可能__
+
+## regexp
+```
+let url = matchstr(test, '\ca href=\([''"]\)\zs.\{-}\ze\1')
+if empty(url) 
+   throw "no url recognized into ``".test."''"
+endif
+```

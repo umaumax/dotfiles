@@ -1,21 +1,26 @@
-define
-class
-struct
-namespace
-enum
-stringstream
-iostream
-char
-string
-template
-vector
+# int
+:: ;;
+argc
+argv
 array
-include
-return
+char
+class
 cstdio
 cstdlib
-int
-:: ;;
-std::cout std::out sout
+define
+enum
+include
+iostream
+namespace
+return
+shared_ptr
 std::cerr std::err serr
 std::clog std::log slog
+std::cout std::out sout
+string
+stringstream
+struct
+template
+uintptr_t
+unique_ptr
+vector
