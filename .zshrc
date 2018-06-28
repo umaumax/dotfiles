@@ -287,6 +287,7 @@ alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
 alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then
+	alias cpeco='command peco'
 	alias pecovim='peco | xargs-vim'
 	# peco copy
 	alias pc='peco | c'

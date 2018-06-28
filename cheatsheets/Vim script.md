@@ -46,3 +46,10 @@ if empty(url)
    throw "no url recognized into ``".test."''"
 endif
 ```
+
+## file
+```
+let outputfile = "$HOME/test.txt"
+let lines = [ "line 1", "line 2", "line 3", "line 4" ]
+call writefile(lines, outputfile)
+```

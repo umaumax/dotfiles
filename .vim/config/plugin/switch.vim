@@ -32,6 +32,7 @@ let g:switch_custom_definitions =
 			\   ['X', 'Y', 'Z'],
 			\   ['int', 'int32_t', 'uint32_t'],
 			\   ['long', 'int64_t', 'uint64_t', 'size_t'],
+			\   ['dynamic_cast', 'static_cast', 'const_cast', 'reinterpret_cast'],
 			\   ['cout', 'cerr'],
 			\   ['let', 'var'],
 			\   ['noremap', 'cnoremap', 'inoremap', 'nnoremap', 'vnoremap'],

@@ -4,3 +4,6 @@ function
 Plug PLug
 elseif elif
 substitute
+endfor
+range
+pumvisible

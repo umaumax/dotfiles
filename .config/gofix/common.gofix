@@ -5,3 +5,6 @@ type tpe
 sample
 example
 config
+cursor
+search
+focus
