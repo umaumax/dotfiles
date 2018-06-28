@@ -139,7 +139,7 @@ if [[ -n $_Darwin ]]; then
 	# browser
 	alias safari='open -a /Applications/Safari.app'
 	alias firefox='open -a /Applications/Firefox.app'
-	alias chrome='open -a /Applications/Google Chrome.app'
+	alias chrome='open -a /Applications/Google\ Chrome.app'
 
 	# image
 	# 	alias imgshow='qlmanage -p "$@" >& /dev/null'
@@ -315,6 +315,8 @@ if cmdcheck peco; then
 	alias up='cd `_up | peco`/.'
 fi
 alias rvgrep="viminfo-ls | xargs-grep"
+
+alias ls-non-dotfiles="find . -name '*' -maxdepth 1 | sed 's:^\./::g' | grep -E -v '\..*'"
 
 function _up() {
 	dir="$PWD"

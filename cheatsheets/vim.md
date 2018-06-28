@@ -90,8 +90,9 @@ map gw       <Plug>(easymotion-overwin-w)
 
 ----
 
-# visual mod
+# visual mode
 `o`: toggle cursor
+`gv`: relelected the last block (@normal mode)
 
 ## my bind
 `in`: number

@@ -203,11 +203,20 @@ command! -nargs=0 Delete normal ggVGx
 function! OpenURL()
 	let line = getline(".")
 	let url = matchstr(line, '\(http\(s\)\?://[^ ]\+\)', 0)
-	call system("xdg-open &>/dev/null ".url)
+	echom 'open url:'.url
+	if has('mac')
+		call system("open ".url)
+	elseif !has('win')
+		call system("xdg-open &>/dev/null ".url)
+	else
+		echo 'not supported at windows!'
+	endif
 endfunction
-if !has('mac') && !has('win')
-	nnoremap gx :call OpenURL()<CR>
-endif
+" to rewrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
+augroup gx_group
+	autocmd!
+	autocmd VimEnter * nnoremap <buffer> gx :call OpenURL()<CR>
+augroup END
 
 function! s:yank_pwd()
 	let @+ = '.' " default value
@@ -377,6 +386,7 @@ cnoremap <C-E> <End>
 " dynamic highlight search
 " very magic
 " [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
+nnoremap se :set hlsearch<CR>:set incsearch<CR>/\v
 nnoremap / :set hlsearch<CR>:set incsearch<CR>/\v
 nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\v
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
@@ -451,8 +461,8 @@ vnoremap smap   c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
 vnoremap sfunc  c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
 vnoremap s`     c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
 vnoremap sbq    c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap scode  c```<CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
-vnoremap stbq   c```<CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
+vnoremap scode  c```<CR><CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
+vnoremap stbq   c```<CR><CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
 vnoremap s_     c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
 vnoremap sus    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
 vnoremap sud    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>

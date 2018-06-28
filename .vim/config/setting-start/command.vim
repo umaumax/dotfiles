@@ -75,6 +75,7 @@ function! s:setlines(pos, lines)
 endfunction
 command! -nargs=0 Split call CRSplit()
 command! -nargs=0 CRSplit call CRSplit()
-nnoremap zcr :call CRSplit()<CR>
-inoremap <C-x>cr <C-o>:call CRSplit()<CR>
+nnoremap zs :call CRSplit()<CR>
+inoremap <C-x>s <C-o>:call CRSplit()<CR>
+inoremap <C-x><C-s> <C-o>:call CRSplit()<CR>
 

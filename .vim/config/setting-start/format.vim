@@ -147,7 +147,9 @@ endfunction
 " [rhysd/vim-clang-format: Vim plugin for clang-format, a formatter for C, C++ and Obj-C code](https://github.com/rhysd/vim-clang-format)
 
 function! s:work_setting()
-	exe('colorscheme '.g:colors_name)
+	" NOTE: mark iconの色が変化する
+	" ここで，初期化しないと下記の色変更コマンドが反映されない?
+	" 	execute 'colorscheme '.g:colors_name
 	if IsPrivateWork()
 		let g:auto_format_flag=1
 		augroup non_private
@@ -168,6 +170,6 @@ endfunction
 
 augroup private_or_public_work
 	autocmd!
-	autocmd BufWinEnter * :call <SID>work_setting()
-	autocmd BufWinEnter *.go :let g:auto_format_flag=1
+	autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
+	autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
 augroup END

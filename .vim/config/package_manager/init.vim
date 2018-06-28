@@ -202,6 +202,10 @@ let g:NERDTreeMapOpenVSplit='v' " 's'
 " set lines of words on cursor
 Plug 'itchyny/vim-cursorword'
 
+" Doxygen
+" :Dox
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
 Plug 'tpope/vim-surround'
 " :S/{pattern}/{string}/[flags]
 " crs	"SnakeCase" → "snake_case"
