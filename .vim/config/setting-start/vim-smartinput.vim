@@ -126,6 +126,7 @@ let s:replace_map = {
 			\ ')': [      'pte',       'pae'],
 			\ '()<Left>': ['spt', 'spa', 'sparenth', 'kakko'],
 			\ '=': ['eq', 'equal'],
+			\ '==': ['deq', 'dequal'],
 			\ '-': ['mn', 'hy', 'minus', 'hyphen'],
 			\ '~': ['ti', 'tl', 'tilde', 'home','nyo'],
 			\ '^': ['ha', 'hat'],
@@ -187,7 +188,7 @@ let s:gtrigger = '<C-x><C-x>'
 
 function! RegisterSmartinputRules(replace_map)
 	for s:key in keys(a:replace_map)
-		let s:srcs=s:replace_map[s:key]
+		let s:srcs=a:replace_map[s:key]
 		let s:dst=s:key
 		for s:src in s:srcs
 			let s:n = len(substitute(s:src,'^\\<', '', ''))

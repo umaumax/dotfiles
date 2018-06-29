@@ -431,42 +431,15 @@ exportf cut2
 cmdcheck python && alias activate='source bin/activate' # <-> deactivate
 cmdcheck ninja && alias ncn='ninja -t clean && ninja'
 
-## 要検証
 if cmdcheck docker; then
-	# [dockerでコンテナにログインするのを省力化してみる - Qiita]( http://qiita.com/taichi0529/items/1550a276c90c780494ca )
-	function docker-login() {
-		SHELL='bash'
-		if [ $# -gt 0 ]; then
-			SHELL=$1
-		fi
-		containers=($(docker ps --format "{{.Names}}"))
-		len=${#containers[@]}
-		#### ++++
-		if [[ $len == 0 ]]; then
-			echo "There is no running containers."
-			return 0
-		fi
-		#### ++++
-		echo "Please enter container number."
-		for ((i = 0; i < $len; ++i)); do
-			echo $i ${containers[$i]}
-		done
-		while read -p "" num; do
-			expr "$num" + 1 >/dev/null 2>&1
-			if [ $? -ge 2 ]; then
-				echo "Please enter only numeric characters."
-				return 0
-			fi
-			if [ $num -lt 0 -o $num -ge $len ]; then
-				echo 'Please enter valid number.'
-				return 0
-			fi
-			docker exec -it ${containers[$num]} $SHELL
-			return 0
-		done
-	}
 	alias docker-remove-all-container='docker rm $(docker ps -aq)'
-	alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 echo docker rmi'
+	alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 docker rmi'
+	alias docker-stop='docker ps | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker stop'
+	# to avoid 'the input device is not a TTY'
+	function docker-attach() {
+		local container_id=$(docker ps | peco | awk '{print $1}')
+		[[ -n $container_id ]] && docker attach $container_id
+	}
 fi
 
 # to avoid xargs no args error on ubuntu
@@ -500,7 +473,7 @@ cmdcheck 'go' && function got() {
 
 # cmd alias
 cmdcheck vim && alias vi='vim'
-# 行番号指定で開く
+# NOTE: 行番号指定で開く
 function vim() {
 	if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"

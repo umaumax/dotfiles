@@ -67,6 +67,9 @@ nmap <Space>n :cnext<CR>
 nmap <Space>N :cprev<CR>
 ```
 
+## sonictemplate-vim
+`<C-y>t`,`<C-y><C-t>`,`<C-y>T`: sonicp temaplte
+
 ## jump
 `gx`: open url
 `gf`: goto file on cursor

@@ -392,7 +392,13 @@ nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\v
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " [Simplifying regular expressions using magic and no\-magic \| Vim Tips Wiki \| FANDOM powered by Wikia]( http://vim.wikia.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic )
+cnoremap %m %smagic/
+cnoremap %m %smagic/
 cnoremap %s %smagic/
+cnoremap %s %smagic/
+" replace by raw string
+cnoremap %n %sno/
+cnoremap %n %sno/
 cnoremap \>s/ \>smagic/
 nnoremap g/ :g/\v
 cnoremap g/ g/\v

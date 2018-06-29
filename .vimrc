@@ -77,10 +77,18 @@ command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 
+" load local vimrc
 if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
 let s:local_vimrc=expand('%:p:h').'/.local.vimrc'
 " NOTE: fileが存在するディレクトリのlocal vimrc
 if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
+if $VIM_PROJECT_ROOT != ''
+	let s:vim_project_root_local_vimrc = $VIM_PROJECT_ROOT.'/.local.vimrc'
+	if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc
+		execute 'source' s:vim_project_root_local_vimrc
+	endif
+endif
+
 " e.g. .local.vimrc
 " let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"

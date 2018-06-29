@@ -128,13 +128,11 @@ syntax on "コードの色分け
 augroup set_filetype
 	autocmd!
 	au BufRead,BufNewFile *.{gp,gnu,plt,gnuplot} set filetype=gnuplot
-	au BufNewFile,BufRead *.md :set syntax=markdown | :set filetype=markdown
 	au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
-	au BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile} set ft=sh
+	au BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile,envrc} set ft=sh
 	au BufRead,BufNewFile *.{zsh,zshrc,zshenv,zprofile} set ft=zsh
 	au BufRead,BufNewFile *interfaces set ft=interfaces
 	au BufRead,BufNewFile *gitignore set ft=gitignore
-	" 	au BufRead,BufNewFile *.py let g:indent_guides_enable_on_vim_startup=1 | let g:indent_guides_guide_size=2
 augroup END
 
 " [not work on Mac OSX Mavericks · Issue \#41 · suan/vim\-instant\-markdown]( https://github.com/suan/vim-instant-markdown/issues/41 )

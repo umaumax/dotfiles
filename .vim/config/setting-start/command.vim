@@ -79,3 +79,12 @@ nnoremap zs :call CRSplit()<CR>
 inoremap <C-x>s <C-o>:call CRSplit()<CR>
 inoremap <C-x><C-s> <C-o>:call CRSplit()<CR>
 
+" for string array
+" :Sand " ",
+function! Sand(prefix, suffix) range
+	for n in range(a:firstline, a:lastline)
+		let line = getline(n)
+		call setline(n, a:prefix.line.a:suffix)
+	endfor
+endfunction
+command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
