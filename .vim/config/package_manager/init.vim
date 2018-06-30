@@ -276,8 +276,8 @@ Plug 'kana/vim-submode'
 
 " [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
 Plug 'terryma/vim-expand-region'
-vmap o <Plug>(expand_region_expand)
-vmap O <Plug>(expand_region_shrink)
+vmap m <Plug>(expand_region_expand)
+vmap M <Plug>(expand_region_shrink)
 
 " autocomplete
 " Plug 'vim-scripts/L9'

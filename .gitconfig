@@ -9,7 +9,6 @@
 	add-changed-deleted = add . --update
 	add-all = add . --all
 	b = branch
-	c = commit
 	co = checkout
 	checkout-new-branch = checkout -b
 	checkout--orphan-images = checkout --orphan images
@@ -26,7 +25,9 @@
 	s = status
 	st = status
 	st-all = status --ignored
+	c = commit
 	cm = commit
+	commit-first = commit -m 'First commit'
 	push-origin-master   = push -u origin   master
 	push-upstream-master = push -u upstream master
 	push-origin-images   = push -u origin   images

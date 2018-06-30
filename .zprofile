@@ -135,6 +135,9 @@ fi
 prepend_path /usr/local/bin
 prepend_path ~/local/bin
 
+# for webcat
+export WEBCAT_PORT=3939
+
 # for vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
 

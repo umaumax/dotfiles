@@ -95,6 +95,7 @@ cmdcheck 'cmake' && function cmake-clean() {
 }
 
 alias basedirname='basename $PWD'
+alias find-git-repo="find . -name '.git' | sed 's:/.git$::g'"
 
 # cd
 alias dl='cd ~/Downloads/'
@@ -109,6 +110,14 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
 [[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
+
+[[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig'
+[[ -e ~/dotfiles/.gitconfig ]] && alias vimgc='vim ~/dotfiles/.gitconfig'
+[[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
+[[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
+
+alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
+alias fix-terminal='stty sane'
 
 alias u='cd ..'
 alias uu='cd ../..'
@@ -881,6 +890,20 @@ alias ty='type'
 alias wh='which'
 
 alias cmake-touch='touch CMakeLists.txt'
+
+# webcat
+function _webcat() {
+	# go get -u github.com/umaumax/gonetcat
+	gonetcat localhost $WEBCAT_PORT
+}
+function webcat() {
+	# go get -u github.com/umaumax/gocat
+	# screen clear and clear font
+	gocat -prefix='\x1b[2J\x1b[1;1H\033[0m' -suffix='# END\n' | _webcat "$@"
+}
+function webcatd() {
+	gotty $(which gechota) -p=$WEBCAT_PORT &
+}
 
 # 2nd arg is symbolic link: default
 function mdlink() {
