@@ -88,6 +88,14 @@ alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 cmdcheck 'git-ls' && alias gls='git-ls'
 
+# delete all file without starting . prefix at 'build' dir
+cmdcheck 'cmake' && function cmake-clean() {
+	[[ $(basename $PWD) != 'build' ]] && echo "cwd is not 'build' dir" && return 1
+	find . -not -name '.*' -maxdepth 1 -exec rm -r {} +
+}
+
+alias basedirname='basename $PWD'
+
 # cd
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
@@ -266,6 +274,16 @@ writable_filter() {
 	done
 }
 
+if cmdcheck pandoc; then
+	function html2md-pandoc() {
+		[[ $# == 0 ]] && echo "$0 <input file> [<output file>]" && return 1
+		local input=$1
+		local output=$2
+		[[ $output == "" ]] && local output=${input%.*}.html
+		pandoc -s "$input" -t html5 -c github.css -o "$output"
+	}
+fi
+
 #       sudo ansi-color
 # fzf:  NG   OK
 # peco: OK   NG
@@ -431,14 +449,22 @@ exportf cut2
 cmdcheck python && alias activate='source bin/activate' # <-> deactivate
 cmdcheck ninja && alias ncn='ninja -t clean && ninja'
 
+# rtags daemon start
+cmdcheck rdm && alias rdmd='pgrep rdm || rdm --daemon'
+
 if cmdcheck docker; then
 	alias docker-remove-all-container='docker rm $(docker ps -aq)'
 	alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 docker rmi'
 	alias docker-stop='docker ps | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker stop'
+	alias docker-start='docker ps -a | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker start'
 	# to avoid 'the input device is not a TTY'
 	function docker-attach() {
 		local container_id=$(docker ps | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker attach $container_id
+	}
+	function docker-start-and-attach() {
+		local container_id=$(docker ps -a | peco | awk '{print $1}')
+		[[ -n $container_id ]] && docker start $container_id && docker attach $container_id
 	}
 fi
 

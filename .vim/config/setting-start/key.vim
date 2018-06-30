@@ -1,3 +1,9 @@
+" set <Leader>
+let mapleader = "\<Space>"
+
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
+
 " " cursor movement in insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <ESC>:call <SID>Down()<CR>i
@@ -84,11 +90,15 @@ vnoremap N Nzz
 vnoremap * *zz
 vnoremap # #zz
 
+" 貼り付けたテキストを選択する
+" gv: select pre visual selected range
+noremap gV `[v`]
+
 " NOTE: カーソル位置によってはexapnd or shrink
 " expand range one char both side
-vnoremap m <Right>o<Left>o
-vnoremap <Space> <Right>o<Left>o
-vnoremap <Space><Space> <Right>o<Left>o
+" vnoremap m <Right>o<Left>o
+" vnoremap <Space> <Right>o<Left>o
+" vnoremap <Space><Space> <Right>o<Left>o
 
 " 現在の行の中央へ移動
 " [vimで行の中央へ移動する - Qiita]( http://qiita.com/masayukiotsuka/items/683ffba1e84942afbb97?utm_campaign=popular_items&utm_medium=referral&utm_source=popular_items )
@@ -227,17 +237,17 @@ nnoremap wd :call <SID>yank_pwd()<CR>
 command! -nargs=0 CD cd %:h
 " ##############
 
-" space -> tab replace
-nnoremap 1t :%s/^\(\t*\) /\1\t/g<CR>
-nnoremap 2t :%s/^\(\t*\)  /\1\t/g<CR>
-nnoremap 3t :%s/^\(\t*\)   /\1\t/g<CR>
-nnoremap 4t :%s/^\(\t*\)    /\1\t/g<CR>
-" tab -> space replace
-nnoremap 0T :%s/^\( *\)\t/\1/g<CR>
-nnoremap 1T :%s/^\( *\)\t/\1 /g<CR>
-nnoremap 2T :%s/^\( *\)\t/\1  /g<CR>
-nnoremap 3T :%s/^\( *\)\t/\1   /g<CR>
-nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
+" " space -> tab replace
+" nnoremap 1t :%s/^\(\t*\) /\1\t/g<CR>
+" nnoremap 2t :%s/^\(\t*\)  /\1\t/g<CR>
+" nnoremap 3t :%s/^\(\t*\)   /\1\t/g<CR>
+" nnoremap 4t :%s/^\(\t*\)    /\1\t/g<CR>
+" " tab -> space replace
+" nnoremap 0T :%s/^\( *\)\t/\1/g<CR>
+" nnoremap 1T :%s/^\( *\)\t/\1 /g<CR>
+" nnoremap 2T :%s/^\( *\)\t/\1  /g<CR>
+" nnoremap 3T :%s/^\( *\)\t/\1   /g<CR>
+" nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
 
 " vim tab control
 " nnoremap ? :tabnew<CR>

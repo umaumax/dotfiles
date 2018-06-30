@@ -76,6 +76,10 @@ endif
 command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
+" load cwd
+if isdirectory(s:cwd)
+	execute("lcd " . s:cwd)
+endif
 
 " load local vimrc
 if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
@@ -84,7 +88,7 @@ let s:local_vimrc=expand('%:p:h').'/.local.vimrc'
 if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
 if $VIM_PROJECT_ROOT != ''
 	let s:vim_project_root_local_vimrc = $VIM_PROJECT_ROOT.'/.local.vimrc'
-	if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc
+	if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc && filereadable(s:vim_project_root_local_vimrc)
 		execute 'source' s:vim_project_root_local_vimrc
 	endif
 endif
@@ -94,9 +98,6 @@ endif
 " let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_gcc_options = "-std=c++11 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
-
-" load cwd
-execute("lcd " . s:cwd)
 " manly for colorscheme
 " runtime! config/setting-end/*.vim
 

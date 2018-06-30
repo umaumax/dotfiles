@@ -1,6 +1,7 @@
 *
 !*.*
 !*/
+!Dockerfile
 
 .*
 
@@ -25,6 +26,7 @@ core.[0-9]+
 # .stdafx.c++.pch
 *.pch
 *.gch
+tags
 .tags
 .tags[0-9]*
 
@@ -42,8 +44,8 @@ Thumbs.db
 # gnu global files
 GPATH
 GRTAGS
-GSYMS
 GTAGS
+GSYMS
 
 # git files
 !.gitignore

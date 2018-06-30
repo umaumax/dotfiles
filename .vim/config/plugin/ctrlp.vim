@@ -15,15 +15,16 @@ augroup ctrlp_key_setting
 	autocmd FileType qf nnoremap <C-p> :<C-u>CtrlPQuickfix<CR>
 augroup END
 
+" 			\ 'dir': '\v[\/]\.(git|hg|svn)$',
 let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			\ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|bin$\|build$',
 			\ 'file': '\v\.(exe|so|dll)$',
 			\ 'link': 'some_bad_symbolic_links',
 			\ }
 
 " [mattn/files: Fast file find]( https://github.com/mattn/files )
 if Doctor('files', 'ctrlp.vim user command by files')
-	let g:ctrlp_user_command = 'files -a %s'
+	let g:ctrlp_user_command = 'files -a -i "^(\\.git|\\.hg|\\.svn|_darcs|\\.bzr|\\.tags|.*\\.DS_Store|.*\\.so|.*\\.zip|.*\\.png|.*\\.jpg|build|bin|node_modules|vendor)$" %s'
 else
 	let g:ctrlp_user_command = 'find %s -type f'
 endif

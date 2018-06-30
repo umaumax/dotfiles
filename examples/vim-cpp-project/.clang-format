@@ -1,4 +1,0 @@
-BasedOnStyle: Google
-CommentPragmas: '^'
-ColumnLimit: 160
-AlignConsecutiveAssignments: true

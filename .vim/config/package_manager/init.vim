@@ -122,6 +122,22 @@ Plug 'KabbAmine/vCoolor.vim'
 
 Plug 'ekalinin/Dockerfile.vim'
 
+" gtags
+Plug 'lighttiger2505/gtags.vim'
+" Options
+let g:Gtags_Auto_Map = 0
+let g:Gtags_OpenQuickfixWindow = 1
+" Keymap
+" Show definetion of function cousor word on quickfix
+nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+" Show reference of cousor word on quickfix
+nmap <silent> R :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+Plug 'jsfaint/gen_tags.vim'
+let g:gen_tags#gtags_auto_gen = 1
+
+" rtags
+Plug 'lyuts/vim-rtags'
+
 " mark viewer
 " 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
 Plug 'jeetsukumaran/vim-markology'
@@ -258,6 +274,11 @@ let g:table_mode_corner="|"
 " for consecutive shortcut input
 Plug 'kana/vim-submode'
 
+" [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
+Plug 'terryma/vim-expand-region'
+vmap o <Plug>(expand_region_expand)
+vmap O <Plug>(expand_region_shrink)
+
 " autocomplete
 " Plug 'vim-scripts/L9'
 " Plug 'othree/vim-autocomplpop'
@@ -274,7 +295,6 @@ if Doctor('git', 'airblade/vim-gitgutter')
 	Plug 'airblade/vim-gitgutter'
 	let g:gitgutter_highlight_lines = 1
 	let g:gitgutter_enabled=0
-	let mapleader = "\<Space>"
 	nnoremap <Space>g :GitGutterToggle<CR>
 	" hunk
 	nmap ]h <Plug>GitGutterNextHunk
