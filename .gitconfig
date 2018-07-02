@@ -16,6 +16,9 @@
 	m = merge
 	mt = mergetool
 	d = diff
+	# for ubuntu
+	cdiff = -c pager.diff='perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less' diff
+	wdiff = diff --word-diff-regex='\\w+'
 	diff-head = diff HEAD
 	diff-head1 = diff HEAD~
 	diff-head2 = diff HEAD~~

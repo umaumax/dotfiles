@@ -125,16 +125,6 @@ syntax on "コードの色分け
 
 " ################ end of setting ################
 
-augroup set_filetype
-	autocmd!
-	au BufRead,BufNewFile *.{gp,gnu,plt,gnuplot} set filetype=gnuplot
-	au BufRead,BufNewFile *.js set ft=javascript syntax=jquery
-	au BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile,envrc} set ft=sh
-	au BufRead,BufNewFile *.{zsh,zshrc,zshenv,zprofile} set ft=zsh
-	au BufRead,BufNewFile *interfaces set ft=interfaces
-	au BufRead,BufNewFile *gitignore set ft=gitignore
-augroup END
-
 " [not work on Mac OSX Mavericks · Issue \#41 · suan/vim\-instant\-markdown]( https://github.com/suan/vim-instant-markdown/issues/41 )
 " 上記の!コマンドでaliasを利用するときとの相性が悪い
 " set shell=bash\ -i

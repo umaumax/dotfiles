@@ -37,6 +37,14 @@ let g:sonictemplate_vim_template_dir = [
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 Plug 'rbtnn/vimconsole.vim'
 
+" :ShebangInsert
+Plug 'sbdchd/vim-shebang'
+" override and append
+let g:shebang#shebangs = {
+			\'sh':'#!/usr/bin/env bash',
+			\'awk':'#!/usr/bin/env awk -f'
+			\}
+
 " python formatter
 " error表示のwindowの制御方法が不明
 " Plug 'tell-k/vim-autopep8'
@@ -68,11 +76,6 @@ Plug 'Shougo/unite.vim'
 Plug 'LeafCage/autobackup.vim'
 let g:autobackup_backup_dir = g:tempfiledir
 let g:autobackup_backup_limit = 1024
-
-" :ShebangInsert
-Plug 'sbdchd/vim-shebang'
-" override
-let g:shebang#shebangs = {'sh':'#!/usr/bin/env bash'}
 
 " " start screen
 " Plug 'mhinz/vim-startify'
@@ -132,6 +135,8 @@ let g:Gtags_OpenQuickfixWindow = 1
 nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
 " Show reference of cousor word on quickfix
 nmap <silent> R :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+" ctags not found
+" gen_tags.vim need ctags to generate tags
 Plug 'jsfaint/gen_tags.vim'
 let g:gen_tags#gtags_auto_gen = 1
 

@@ -96,6 +96,14 @@ cmdcheck 'cmake' && function cmake-clean() {
 
 alias basedirname='basename $PWD'
 alias find-git-repo="find . -name '.git' | sed 's:/.git$::g'"
+alias find-time-sort='find . -type f -print0 | xargs -0 ls -altr'
+alias find-time-sortr='find . -type f -print0 | xargs -0 ls -alt'
+alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
+
+# [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
+alias uniq-without-sort='awk "!a[\$0]++"'
+
+alias git-filter='gfilter.awk -F, -v file=<(git ls-files)'
 
 # cd
 alias dl='cd ~/Downloads/'
