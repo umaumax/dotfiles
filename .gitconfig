@@ -9,15 +9,25 @@
 	add-changed-deleted = add . --update
 	add-all = add . --all
 	b = branch
+	change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
 	co = checkout
 	checkout-new-branch = checkout -b
 	checkout--orphan-images = checkout --orphan images
 	remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
+	# e.g. --since="2018/04/01"
+	tag-time-sort-w = log --no-walk --tags --since='1 week ago'
+	tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
+	tag-time-sort-2w = log --no-walk --tags --since='2 weeks ago'
+	tag-list = for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags
+	tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
 	m = merge
 	mt = mergetool
 	d = diff
 	# for ubuntu
-	cdiff = -c pager.diff='perl /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less' diff
+	# [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
+	# for mac
+	# [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+	cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
 	wdiff = diff --word-diff-regex='\\w+'
 	diff-head = diff HEAD
 	diff-head1 = diff HEAD~
@@ -39,6 +49,7 @@
 	amend = commit --amend --no-edit
 	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
 	graph = log --oneline --decorate --graph --branches --tags --remotes
+	rename = branch -m
 	l = log
 	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -63,6 +74,8 @@
 	interactive = auto
 	grep = auto
 	# for proxy env git:// -> https://
+[diff]
+	compactionHeuristic = true
 [merge]
 	tool = vimdiff
 # 	conflictstyle = diff3

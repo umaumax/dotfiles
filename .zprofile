@@ -131,6 +131,9 @@ if [[ -d ~/cpp ]]; then
 	unset CPPROOT
 fi
 
+[[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
+[[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+
 # clang(LLVM)
 prepend_path /usr/local/bin
 prepend_path ~/local/bin

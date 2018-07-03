@@ -91,7 +91,7 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
 	[[ $(basename $PWD) != 'build' ]] && echo "cwd is not 'build' dir" && return 1
-	find . -not -name '.*' -maxdepth 1 -exec rm -r {} +
+	find . -maxdepth 1 -not -name '.*' -exec rm -r {} +
 }
 
 alias basedirname='basename $PWD'
@@ -839,7 +839,7 @@ alias fg.ch='fgrep "*.[ch]" $@'
 alias fg.cpp-all='fgrep2 "*.c[px][px]" "*.[ch]" $@'
 alias fg.md='fgrep "*.md" $@'
 alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep-0 $@'
-alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker" \)'
+alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \)'
 alias hf='find ~'
 
 function rgrep() {

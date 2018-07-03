@@ -5,7 +5,7 @@
 
 [[ $ZSH_NAME == zsh ]] && setopt all_export
 
-cmdcheck() { type > /dev/null 2>&1 "$1"; }
+cmdcheck() { type >/dev/null 2>&1 "$1"; }
 
 alias ls='ls -G'
 alias lsal='ls -alG'
@@ -32,8 +32,8 @@ if cmdcheck peco; then
 	alias pe='peco'
 fi
 
-if `cmdcheck pbcopy && cmdcheck pbpaste`; then
-	if cmdcheck nkf ; then
+if $(cmdcheck pbcopy && cmdcheck pbpaste); then
+	if cmdcheck nkf; then
 		alias c='nkf -w | pbcopy'
 		alias p='pbpaste | nkf -w'
 		alias udec='nkf -w --url-input'
@@ -50,5 +50,19 @@ if `cmdcheck pbcopy && cmdcheck pbpaste`; then
 fi
 
 alias t='touch'
+
+# webcat
+function _webcat() {
+	# go get -u github.com/umaumax/gonetcat
+	gonetcat localhost $WEBCAT_PORT
+}
+function webcat() {
+	# go get -u github.com/umaumax/gocat
+	# screen clear and clear font
+	gocat -prefix='\x1b[2J\x1b[1;1H\033[0m' -suffix='# END\n' | _webcat "$@"
+}
+function webcatd() {
+	gotty $(which gechota) -p=$WEBCAT_PORT &
+}
 
 [[ $ZSH_NAME == zsh ]] && unsetopt all_export
