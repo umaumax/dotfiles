@@ -9,6 +9,7 @@
 	add-changed-deleted = add . --update
 	add-all = add . --all
 	b = branch
+	commits-of-file = log -p
 	change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
 	co = checkout
 	checkout-new-branch = checkout -b
