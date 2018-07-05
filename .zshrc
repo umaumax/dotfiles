@@ -346,6 +346,7 @@ if cmdcheck peco; then
 	# 最終的に'./'を加えても動作は変更されない
 	alias rvcd="cd \$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
 	alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
+	alias cdpeco="cd \$(find . -type d | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
 	alias up='cd `_up | peco`/.'
