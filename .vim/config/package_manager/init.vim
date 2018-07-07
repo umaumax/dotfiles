@@ -269,6 +269,7 @@ Plug 'bronson/vim-trailing-whitespace'
 " :TableFormat
 Plug 'godlygeek/tabular', {'for': 'markdown'} " The tabular plugin must come before vim-markdown.
 command! -nargs=0 TF :TableFormat
+" NOTE: indentがたまにおかしい
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 let g:vim_markdown_folding_disabled = 1
 " Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
@@ -279,10 +280,42 @@ let g:table_mode_corner="|"
 " for consecutive shortcut input
 Plug 'kana/vim-submode'
 
-" [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
+" [Vimメモ : vim\-expand\-regionでビジュアルモードの選択領域を拡大／縮小 \- もた日記]( https://wonderwall.hatenablog.com/entry/2016/03/31/231621 )
+" il: 'kana/vim-textobj-line'
+" ie: 'kana/vim-textobj-entire'
 Plug 'terryma/vim-expand-region'
-vmap m <Plug>(expand_region_expand)
-vmap M <Plug>(expand_region_shrink)
+vmap j <Plug>(expand_region_expand)
+vmap k <Plug>(expand_region_shrink)
+let g:expand_region_text_objects = {
+			\ 'iw'  :0,
+			\ 'iW'  :0,
+			\ 'i"'  :0,
+			\ 'a"'  :0,
+			\ 'i''' :0,
+			\ 'a''' :0,
+			\ 'i]'  :1,
+			\ 'a]'  :1,
+			\ 'ib'  :1,
+			\ 'ab'  :1,
+			\ 'iB'  :1,
+			\ 'aB'  :1,
+			\ 'il'  :0,
+			\ 'ip'  :0,
+			\ 'ie'  :0,
+			\ }
+
+" NOTE: oによるカーソル位置によってはexapnd or shrink
+" expand range one char both side
+function! s:expand_visual_range(n)
+	let pos=getpos('.')
+	if a:n > 0
+		execute "normal gv\<Right>o\<Left>o"
+	elseif a:n < 0
+		execute "normal gv\<Left>o\<Right>o"
+	endif
+endfunction
+vnoremap J :<C-u>call <SID>expand_visual_range(1)<CR>
+vnoremap K :<C-u>call <SID>expand_visual_range(-1)<CR>
 
 " autocomplete
 " Plug 'vim-scripts/L9'

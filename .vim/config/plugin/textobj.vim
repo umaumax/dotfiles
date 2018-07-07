@@ -1,4 +1,8 @@
 Plug 'kana/vim-textobj-user'
+" il
+Plug 'kana/vim-textobj-line'
+" ie
+Plug 'kana/vim-textobj-entire'
 
 Plug 'sgur/vim-textobj-parameter'
 " i,
@@ -16,11 +20,11 @@ augroup textobj
 	autocmd VimEnter * omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
 	autocmd VimEnter * xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
 	" dot
-	autocmd VimEnter * omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
-	autocmd VimEnter * xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
+	autocmd VimEnter * omap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
+	autocmd VimEnter * xmap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
 	" comma
-	autocmd VimEnter * omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
-	autocmd VimEnter * xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+	autocmd VimEnter * omap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+	autocmd VimEnter * xmap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
 	" file path
 	autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
 	autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')

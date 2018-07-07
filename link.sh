@@ -8,6 +8,8 @@ ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
 
+ln -sf ~/dotfiles/.wgit ~/
+
 [[ ! -d ~/.vim/ ]] && mkdir -p ~/.vim
 ln -fs ~/dotfiles/.vim/config ~/.vim/
 

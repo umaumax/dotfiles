@@ -90,6 +90,7 @@ set backspace=indent,eol,start
 set whichwrap=b,s,[,],<,>
 
 " #### file setting ####
+" ['viminfo' \- VimWiki]( http://vimwiki.net/?%27viminfo%27 )
 set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
 set noswapfile | set nobackup
 augroup reopen_cursor_position

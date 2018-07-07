@@ -76,6 +76,7 @@ endfunction
 command! -nargs=0 Split call CRSplit()
 command! -nargs=0 CRSplit call CRSplit()
 nnoremap zs :call CRSplit()<CR>
+nnoremap gs :call CRSplit()<CR>
 inoremap <C-x>s <C-o>:call CRSplit()<CR>
 inoremap <C-x><C-s> <C-o>:call CRSplit()<CR>
 

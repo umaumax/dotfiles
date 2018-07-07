@@ -41,5 +41,8 @@ if Doctor('gofix', 'wrong word fixer')
 	command! FixLine :call FixLine()
 	command! Fix :call FixLine()
 	command! FF :call FixLine()
+	" refactroing?
+	nnoremap gr :call FixLine()<CR>
+	nnoremap <Space>f :call FixLine()<CR>
 	inoremap <C-x>f <C-o>:call FixLine()<CR>
 endif

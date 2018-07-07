@@ -15,6 +15,7 @@
 	checkout-new-branch = checkout -b
 	checkout--orphan-images = checkout --orphan images
 	remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
+	remote-remove-origin = remote remove origin
 	# e.g. --since="2018/04/01"
 	tag-time-sort-w = log --no-walk --tags --since='1 week ago'
 	tag-time-sort-1w = log --no-walk --tags --since='1 week ago'

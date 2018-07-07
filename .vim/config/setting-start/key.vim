@@ -25,11 +25,13 @@ cnoremap <C-f> <BS>
 " for seamless line movement
 nnoremap h <Left>
 nnoremap l <Right>
+vnoremap h <Left>
+vnoremap l <Right>
 " zz: set cursor center
 " nnoremap k kzz
 " nnoremap j jzz
-nnoremap <Up>   gk
-nnoremap <Down> gj
+nnoremap <up>   gk
+nnoremap <down> gj
 
 nnoremap <C-Up>   gg
 nnoremap <C-Down> G
@@ -94,12 +96,6 @@ vnoremap # #zz
 " gv: select pre visual selected range
 noremap gV `[v`]
 
-" NOTE: カーソル位置によってはexapnd or shrink
-" expand range one char both side
-" vnoremap m <Right>o<Left>o
-" vnoremap <Space> <Right>o<Left>o
-" vnoremap <Space><Space> <Right>o<Left>o
-
 " 現在の行の中央へ移動
 " [vimで行の中央へ移動する - Qiita]( http://qiita.com/masayukiotsuka/items/683ffba1e84942afbb97?utm_campaign=popular_items&utm_medium=referral&utm_source=popular_items )
 " middle
@@ -146,10 +142,8 @@ nnoremap zH :call <SID>zh(1)<CR>
 nnoremap zL :call <SID>zl(1)<CR>
 
 " visual mode
-" word copy
-vnoremap j iwv
-" word cut
-vnoremap k iwc<ESC>
+" vnoremap j <Down>
+" vnoremap k <Up>
 
 vnoremap <C-h> <Left>
 vnoremap <C-j> <Down>
@@ -329,6 +323,19 @@ nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " psate
+function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
+	let l:tmp=@+
+	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
+	let @+=substitute(a:prefix.@+.a:suffix, '\n*$', '', '')
+	" 	if a:Pflag
+	" 		normal! P
+	" 	else
+	" 		normal! p
+	" 	endif
+	let @z=@+
+	let @+=l:tmp
+endfunction
+" psate
 function! s:paste_at_cursor(Pflag)
 	let l:tmp=@+
 	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
@@ -454,36 +461,26 @@ vnoremap <S-Tab> <<
 
 nnoremap Y y$
 
-" quote
 " s means surround
-vnoremap s<Space> c  <Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s'     c''<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap ssq    c''<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s"     c""<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sdq    c""<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s<     c<><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap slt    c<><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s(     c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap spa    c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap skakko c()<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s[     c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sbr    c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sary   c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap slist  c[]<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s{     c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap ssb    c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sdict  c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap smap   c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sfunc  c{}<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s`     c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sbq    c``<Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap scode  c```<CR><CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
-vnoremap stbq   c```<CR><CR>```<ESC><Up>:call <SID>paste_at_cursor(0)<CR>
-vnoremap s_     c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sus    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sud    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sub    c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
-vnoremap sfold  c____<Left><Left><ESC>:call <SID>paste_at_cursor(0)<CR>
+let surround_key_mappings=[
+			\{'keys':["`","bq"],                     'prefix':"`",    'suffix':"`"},
+			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
+			\{'keys':["'","sq"],                     'prefix':"'",    'suffix':"'"},
+			\{'keys':["\"","dq"],                    'prefix':'\"',   'suffix':'\"'},
+			\{'keys':["<","lt"],                     'prefix':"<",    'suffix':">"},
+			\{'keys':["(","pa","pt","kakko"],        'prefix':"(",    'suffix':")"},
+			\{'keys':["[","br","ary","list"],        'prefix':"[",    'suffix':"]"},
+			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",    'suffix':"}"},
+			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':"```"},
+			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",   'suffix':"__"},
+			\]
+for mapping in surround_key_mappings
+	let prefix=mapping['prefix']
+	let suffix=mapping['suffix']
+	for key in mapping['keys']
+		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
+	endfor
+endfor
 
 " [visual \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/visual.html )
 vnoremap ikakko ib
