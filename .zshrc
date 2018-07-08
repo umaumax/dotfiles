@@ -129,6 +129,7 @@ alias downloads='cd ~/Downloads/'
 alias ds='cd ~/Desktop/'
 alias desktop='cd ~/Desktop/'
 
+[[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
 [[ -d ~/github.com ]] && alias github='cd ~/github.com'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
 [[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
@@ -169,6 +170,11 @@ alias 5u='uuuuu'
 alias history='history 1'
 alias h='history'
 alias hgrep='h | grep'
+
+# 年号コマンド
+# name of an era; year number
+#date | awk '{print "H"$6-2000+12}'
+alias era='echo H$(($(date +"%y") + 12))'
 
 # exit
 alias q!='exit'

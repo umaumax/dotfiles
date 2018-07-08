@@ -64,7 +64,7 @@ augroup auto_format_setting
 
 	if Doctor('clang-format', 'clang format')
 		" :ClangFormatAutoEnable
-		autocmd BufWinEnter *.{c,h,cc,cpp,hpp} command! Format ClangFormat
+		autocmd BufWinEnter * autocmd FileType cpp command! Format ClangFormat
 		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
 	endif
 	" python formatter
@@ -76,7 +76,7 @@ augroup auto_format_setting
 	" python formatter
 	" pip install yapf
 	if Doctor('autopep8', 'python format')
-		autocmd BufWinEnter *.py command! Format call Autopep8()
+		autocmd BufWinEnter * autocmd FileType python command! Format call Autopep8()
 		autocmd BufWritePre *.py if IsAutoFormat() |:call Autopep8() | endif
 	endif
 
@@ -94,7 +94,7 @@ augroup auto_format_setting
 		autocmd BufWritePre *.css  if IsAutoFormat() | :call CSSBeautify() | endif
 	endif
 
-	autocmd BufWinEnter *.awk command! Format <SID>format_file()
+	autocmd BufWinEnter * autocmd FileType awk command! Format <SID>format_file()
 	autocmd BufWritePre *.awk if IsAutoFormat() | :call <SID>format_file() | endif
 	" default format
 	autocmd BufWritePre *.vim if IsAutoFormat() | :call <SID>format_file() | endif
@@ -107,7 +107,7 @@ augroup auto_format_setting
 
 	if Doctor('gofmt', 'go format')
 		" let g:go_fmt_autosave = 1
-		autocmd BufWinEnter *.go command! Format GoFmt
+		autocmd BufWinEnter * autocmd FileType go command! Format GoFmt
 		" 		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmt | endif
 		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
 	endif
