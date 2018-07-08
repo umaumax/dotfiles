@@ -100,6 +100,24 @@ alias find-time-sort='find . -type f -print0 | xargs -0 ls -altr'
 alias find-time-sortr='find . -type f -print0 | xargs -0 ls -alt'
 alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
 
+function git-check-up-to-date() {
+	target='.'
+	[[ $# -ge 1 ]] && target="$1"
+	# NOTE: for supressing of chpwd()
+	ret=$(bash -c "cd \"$target\" && git log origin/master..master")
+	if [[ $ret != "" ]]; then
+		echo "$target"
+		echo $ret
+	fi
+}
+function find-git-non-up-to-date-repo() {
+	local ccze="cat"
+	cmdcheck ccze && ccze="ccze -A"
+	while read line || [ -n "${line}" ]; do
+		git-check-up-to-date "$line" | eval $ccze
+	done < <(find-git-repo)
+}
+
 # [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
 
@@ -125,8 +143,16 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 
+alias vp='cdvproot'
+alias vpr='cdvproot'
+alias vproot='cdvproot'
+alias cdv='cdvproot'
+alias cdvp='cdvproot'
+alias cdvproot='cd $VIM_PROJECT_ROOT'
+
 alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
 alias fix-terminal='stty sane'
+alias clear-terminal='stty sane'
 
 alias u='cd ..'
 alias uu='cd ../..'
@@ -192,6 +218,9 @@ if [[ -n $_Darwin ]]; then
 		VSCODE_CWD="$PWD"
 		open -n -b "com.microsoft.VSCode" --args $*
 	}
+
+	# NOTE: 何も設定をしないと表示がくずれるため
+	cmdcheck ccze && alias ccze='ccze -A'
 fi
 
 function mvim() {
