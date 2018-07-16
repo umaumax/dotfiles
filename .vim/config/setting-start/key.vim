@@ -1,6 +1,8 @@
 " set <Leader>
 let mapleader = "\<Space>"
 
+nnoremap cc vc
+
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 
@@ -226,7 +228,8 @@ function! s:yank_pwd()
 	let @+ = '.' " default value
 	let @+ = expand('%:p:h')
 endfunction
-nnoremap wd :call <SID>yank_pwd()<CR>
+" nnoremap wd :call <SID>yank_pwd()<CR>
+command! WorkingDirectory call <SID>yank_pwd()
 " cd to editting file dir
 command! -nargs=0 CD cd %:h
 " ##############
@@ -312,14 +315,14 @@ else
 endif
 endfunction
 " save and quit
-nnoremap wq :wq<CR>
-nnoremap ww :w<CR>
+" nnoremap wq :wq<CR>
+" nnoremap ww :w<CR>
 " nnoremap qq :q<CR>
 nnoremap qq :call <SID>close(0)<CR>
 "nnoremap q! :q!<CR>
 nnoremap q! :call <SID>close(1)<CR>
 " sudo save
-nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
+" nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " psate
