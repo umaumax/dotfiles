@@ -26,6 +26,7 @@ endif
 let s:doctor_map={
 			\'autopep8':'pip install autopep8',
 			\'clang':'',
+			\'cmake-format':'pip install cmake_format',
 			\'cmigemo':'brew install cmigemo || sudo apt install cmigemo',
 			\'clang-format':'',
 			\'files':'go get -u github.com/mattn/files',

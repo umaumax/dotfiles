@@ -823,7 +823,9 @@ function xargs-grep-0() {
 	local color_opt='--color=auto'
 	cmdcheck fzf && color_opt='--color=always'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	xargs -0 -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
+	# NOTE: to prevent xargs from quitting on error
+	# NOTE: e.g. symbolic link no exist error
+	xargs -0 -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -H -n \"${keyword[@]}\" {} +" '' XXX
 }
 function xargs-grep() {
 	[[ $# == 0 ]] && echo 'grep_keyword' && return
@@ -832,7 +834,8 @@ function xargs-grep() {
 	local color_opt='--color=auto'
 	cmdcheck fzf && color_opt='--color=always'
 	cmdcheck ggrep && local grep_cmd='ggrep'
-	xargs -L 1 -IXXX find XXX -exec $grep_cmd $color_opt -H -n ${keyword[@]} {} +
+	# NOTE: to prevent xargs from quitting on error
+	xargs -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -H -n \"${keyword[@]}\" {} +" '' XXX
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {

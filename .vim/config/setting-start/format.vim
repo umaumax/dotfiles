@@ -104,6 +104,12 @@ augroup auto_format_setting
 		autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! Format Shfmt
 		autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
 	endif
+	if Doctor('cmake-format', 'cmake format')
+		autocmd BufWinEnter *.{cmake} command! Format CmakeFormat
+		autocmd BufWritePre *.{cmake} if IsAutoFormat() | :CmakeFormat | endif
+		autocmd BufWinEnter CMakeLists.txt command! Format CmakeFormat
+		autocmd BufWritePre CMakeLists.txt if IsAutoFormat() | :CmakeFormat | endif
+	endif
 
 	if Doctor('gofmt', 'go format')
 		" let g:go_fmt_autosave = 1

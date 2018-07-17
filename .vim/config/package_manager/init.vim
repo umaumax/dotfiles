@@ -14,6 +14,9 @@ Plug 'umaumax/benchvimrc-vim'
 if Doctor('shfmt', 'umaumax/vim-shfmt')
 	Plug 'umaumax/vim-shfmt'
 endif
+if Doctor('cmake-format', 'umaumax/vim-cmake-format')
+	Plug 'umaumax/vim-cmake-format'
+endif
 " let g:shfmt_fmt_on_save = 1
 
 " input helper
