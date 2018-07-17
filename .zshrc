@@ -90,7 +90,7 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
-	[[ $(basename $PWD) != 'build' ]] && echo "cwd is not 'build' dir" && return 1
+	[[ ! $(basename $PWD) =~ '^build' ]] && echo "cwd is not cmake build dir '^build'" && return 1
 	find . -maxdepth 1 -not -name '.*' -exec rm -r {} +
 }
 
