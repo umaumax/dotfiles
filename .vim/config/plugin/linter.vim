@@ -45,7 +45,7 @@ let g:ale_linters = {
 			\   'json': ['jsonlint'],
 			\   'bash': ['shellcheck'],
 			\   'vim': ['vint'],
-			\   'cpp': ['cpplint','clang'], 
+			\   'cpp': ['cpplint','clang'],
 			\}
 " ['clangcheck', 'clangtidy'],
 

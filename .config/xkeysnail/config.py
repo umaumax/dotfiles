@@ -8,7 +8,7 @@ from xkeysnail.transform import *
 # HENKAN -> Super: 現状、単体で押して離した時に入力が切り替わってしまっている
 # HENKANx2 -> HENKAN: 擬似的に満たしている
 define_multipurpose_modmap({
-    Key.CAPSLOCK: [Key.ESC, Key.RIGHT_CTRL],
+    Key.CAPSLOCK: [Key.RIGHT_CTRL, Key.RIGHT_CTRL],
     Key.MUHENKAN: [Key.MUHENKAN, Key.LEFT_CTRL],
     Key.HENKAN: [Key.HENKAN, Key.RIGHT_CTRL],
     # Require:

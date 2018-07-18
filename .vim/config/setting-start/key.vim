@@ -180,6 +180,27 @@ nnoremap <Space>a :AnsiEsc<CR>
 
 " ##############
 " #### mark ####
+
+let mkeys = [
+			\'"',
+			\'^',
+			\'(',
+			\')',
+			\'{',
+			\'}',
+			\'[',
+			\']',
+			\'<',
+			\'>',
+			\'.',
+			\"'",
+			\]
+for key in mkeys
+	execute 'nnoremap g'.key." '".key
+	execute 'nnoremap m'.key." '".key
+	execute 'nnoremap M'.key." '".key
+endfor
+
 " Mark & Start
 " nnoremap ms this means mark as 's' register
 " Mark & Yank

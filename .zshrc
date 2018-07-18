@@ -522,7 +522,7 @@ if cmdcheck docker; then
 	}
 fi
 
-# to avoid xargs no args error on ubuntu
+# NOTE: to avoid xargs no args error on ubuntu
 function pipecheck() {
 	local val=$(cat)
 	[[ -z $val ]] && return 1
@@ -1238,7 +1238,13 @@ source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
-## [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
-#autoload -Uz add-zsh-hook
-#add-zsh-hook preexec my_preexec
-#add-zsh-hook precmd my_precmd
+
+# [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
+if [[ -n $_Ubuntu ]]; then
+	# to prevent `Vimを使ってくれてありがとう` at tab
+	function precmd_function() {
+		set-dirname-title
+	}
+	autoload -Uz add-zsh-hook
+	add-zsh-hook precmd precmd_function
+fi
