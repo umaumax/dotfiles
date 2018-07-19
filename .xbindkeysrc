@@ -44,13 +44,13 @@
 
 # toggle terminator
 # wget https://raw.githubusercontent.com/umaumax/window-toggle/master/window-toggle.sh -P ~/local/bin/
-"~/local/bin/window-toggle.sh Terminator terminator"
+"~/local/bin/window-toggle Terminator terminator"
 	Alt + space
 
-"~/local/bin/window-toggle.sh Hyper hyper"
+"~/local/bin/window-toggle Hyper hyper"
 	Control+Alt + space
 
-"~/local/bin/window-toggle.sh Gnome-terminal gnome-terminal"
+"~/local/bin/window-toggle Gnome-terminal gnome-terminal"
 	Control + space
 
 # set directly keycode (here control + f with my keyboard)

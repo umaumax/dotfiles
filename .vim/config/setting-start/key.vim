@@ -30,13 +30,14 @@ nnoremap l <Right>
 vnoremap h <Left>
 vnoremap l <Right>
 " zz: set cursor center
-" nnoremap k kzz
-" nnoremap j jzz
 nnoremap <up>   gk
 nnoremap <down> gj
 
 nnoremap <C-Up>   gg
 nnoremap <C-Down> G
+
+command! NoFoldenable set nofoldenable
+command! Foldenable set foldenable
 
 " pumvisible(): completion list?
 function! s:Up()
@@ -49,8 +50,9 @@ function! s:Down()
 		normal! gj
 	endif
 endfunction
-imap <Up> <C-o>:call <SID>Up()<CR>
-imap <Down> <C-o>:call <SID>Down()<CR>
+" NOTE: neocomplete cacheでは適切に動作しない<C-o>が意図した動作にならない
+inoremap <Up> <C-o>:call <SID>Up()<CR>
+inoremap <Down> <C-o>:call <SID>Down()<CR>
 " Enterで補完決定(no additional <CR>)
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 
@@ -336,14 +338,14 @@ else
 endif
 endfunction
 " save and quit
-" nnoremap wq :wq<CR>
-" nnoremap ww :w<CR>
-" nnoremap qq :q<CR>
+" write all
+nnoremap wa :wa<CR>
+nnoremap wq :wq<CR>
+nnoremap ww :w<CR>
 nnoremap qq :call <SID>close(0)<CR>
-"nnoremap q! :q!<CR>
 nnoremap q! :call <SID>close(1)<CR>
 " sudo save
-" nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
+nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " psate

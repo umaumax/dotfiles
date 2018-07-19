@@ -117,6 +117,12 @@ function find-git-non-up-to-date-repo() {
 		git-check-up-to-date "$line" | eval $ccze
 	done < <(find-git-repo)
 }
+# [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
+function git-root() {
+	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		cd $(git rev-parse --show-toplevel)
+	fi
+}
 
 # [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
@@ -143,6 +149,9 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vimgc='vim ~/dotfiles/.gitconfig'
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
+
+[[ -n $_Darwin ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* vim"'
+[[ -n $_Ubuntu ]] && alias vim-files='pgrep -al vim'
 
 alias vp='cdvproot'
 alias vpr='cdvproot'
@@ -636,8 +645,9 @@ function allcmds() {
 		find $name -maxdepth 1 -type f -follow -perm -=+x
 	done
 	alias
-	functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"
+	functions-list
 }
+alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
 # get abs path
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)

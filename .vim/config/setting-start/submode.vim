@@ -29,4 +29,28 @@ if &rtp =~ 'vim-submode'
 	call submode#map('jump-motions', 'n', '', '<C-o>', '<C-o>')
 	call submode#map('jump-motions', 'n', '', 'o', '<C-o>')
 	call submode#map('jump-motions', 'n', '', 'i', '<C-i>')
+
+	" 画面中心移動(1行ごと)
+	nnoremap zj jzz
+	nnoremap zk kzz
+	call submode#enter_with('cursor-move', 'n', '', 'zj', 'jzz')
+	call submode#enter_with('cursor-move', 'n', '', 'zk', 'kzz')
+	call submode#map('cursor-move', 'n', '', 'j', 'jzz')
+	call submode#map('cursor-move', 'n', '', 'k', 'kzz')
+
+	" 画面中心移動(半画面ごと)
+	nnoremap zu <C-u>
+	nnoremap zd <C-d>
+	call submode#enter_with('cursor-move', 'n', '', 'zu', '<C-u>')
+	call submode#enter_with('cursor-move', 'n', '', 'zd', '<C-d>')
+	call submode#map('cursor-move', 'n', '', 'u', '<C-u>')
+	call submode#map('cursor-move', 'n', '', 'd', '<C-d>')
+
+	" 画面中心移動(半画面ごと)
+	nnoremap zb <C-b>
+	nnoremap zf <C-f>
+	call submode#enter_with('cursor-move', 'n', '', 'zf', '<C-b>')
+	call submode#enter_with('cursor-move', 'n', '', 'zb', '<C-f>')
+	call submode#map('cursor-move', 'n', '', 'b', '<C-b>')
+	call submode#map('cursor-move', 'n', '', 'f', '<C-f>')
 endif
