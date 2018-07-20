@@ -1,4 +1,8 @@
-source $VIMRUNTIME/defaults.vim
+if has('nvim')
+	set runtimepath+=~/.vim
+else
+	source $VIMRUNTIME/defaults.vim
+endif
 " old seting?
 " filetype off | filetype plugin indent off " temporarily disable
 " set nocompatible

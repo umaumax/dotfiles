@@ -24,6 +24,10 @@ ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 [[ ! -d ~/.config/gofix ]] && mkdir -p ~/.config/gofix
 ln -sf ~/dotfiles/.config/gofix/*.gofix ~/.config/gofix/
 
+[[ ! -d ~/.config/nvim ]] && mkdir -p ~/.config/nvim
+# ln -sf ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/
+ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
+
 if [[ $(uname) == "Linux" ]]; then
 	ln -sf ~/dotfiles/.xremap ~/
 	ln -sf ~/dotfiles/.xbindkeysrc ~/
