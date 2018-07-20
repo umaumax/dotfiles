@@ -1,6 +1,6 @@
-dirname=${path%/*}
-noext_filepath=${path%.*}
+dirname=${filepath%/*}
+noext_filepath=${filepath%.*}
 
-basename=${path##*/}
+basename=${filepath##*/}
 noext_filename=${basename%.*}
 ext=${basename##*.}
