@@ -41,6 +41,16 @@ else
 	ln -sf ~/dotfiles/.config/pep8 ~/.config/pep8
 fi
 
+if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
+	while read line || [ -n "${line}" ]; do
+		filepath=$line
+		dirname=${filepath%/*}
+		basename=${filepath##*/}
+		karabiner_name=${filepath#*.}
+		ln -sf $PWD/$filepath ~/.config/karabiner/assets/complex_modifications/$karabiner_name
+	done < <(ls karabiner/*.json)
+fi
+
 # if [[ -n $LOCAL_BIN ]]; then
 # 	[[ ! -d ~/local/bin ]] && mkdir -p ~/local/bin
 # 	ln -sf ~/dotfiles/local/bin/xxx ~/local/bin/xxx
