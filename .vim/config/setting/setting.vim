@@ -30,6 +30,8 @@ set wildmenu wildmode=list:full "入力補完機能
 set laststatus=2 "常に編集中ファイル名表示
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
+set scrolloff=10 " 最低でも上下に表示する行数
+set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
 
 " default 1000, -1
 set timeout timeoutlen=500 ttimeoutlen=50

@@ -3,6 +3,8 @@ let mapleader = "\<Space>"
 
 nnoremap cc vc
 
+nnoremap <leader>r :redraw!<CR>
+
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 
@@ -456,6 +458,45 @@ cnoremap <C-x> <C-\>e<SID>swap_search_replace_pattern()<CR>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
+" [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L947 )
+" / で検索するときに単語境界をトグルする
+cnoremap <C-f> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
+function! ToggleWordBounds(type, line)
+	if a:type == '/' || a:type == '?'
+		if a:line =~# '^\\<.*\\>$'
+			return substitute(a:line, '^\\<\(.*\)\\>$', '\1', '')
+		else
+			return '\<' . a:line . '\>'
+		endif
+	else
+		return a:line
+	endif
+endfunction
+" / と :s///g をトグルする
+cnoremap <expr> <C-e> ToggleSubstituteSearch(getcmdtype(), getcmdline())
+function! ToggleSubstituteSearch(type, line)
+	if a:type == '/' || a:type == '?'
+		let range = GetOnetime('s:range', '%')
+		return "\<End>\<C-U>\<BS>" . substitute(a:line, '^\(.*\)', ':' . range . 's/\1', '')
+	elseif a:type == ':'
+		let g:line = a:line
+		let [s:range, expr] = matchlist(a:line, '^\(.*\)s\%[ubstitute]\/\(.*\)$')[1:2]
+		if s:range == "'<,'>"
+			call setpos('.', getpos("'<"))
+		endif
+		return "\<End>\<C-U>\<BS>" . '/' . expr
+	endif
+endfunction
+function! GetOnetime(varname, defaultValue)
+	if exists(a:varname)
+		let varValue = eval(a:varname)
+		execute 'unlet ' . a:varname
+		return varValue
+	else
+		return a:defaultValue
+	endif
+endfunction
+
 " dynamic highlight search
 " very magic
 " [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
@@ -564,6 +605,24 @@ nnoremap q: <Nop>
 nnoremap q <Nop>
 nnoremap Q q
 command CmdlineWindow call feedkeys("q:", "n")
+
+" [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L1362 )
+" 矩形選択でなくても複数行入力をしたい
+xnoremap <expr> I MultipleInsersion('I')
+xnoremap <expr> A MultipleInsersion('A')
+function! MultipleInsersion(next_key)
+	if mode() ==# 'v'
+		return "\<C-v>" . a:next_key
+	elseif mode() ==# 'V'
+		return "\<C-v>0o$" . a:next_key
+	else
+		return a:next_key
+	endif
+endfunction
+
+" cdcurrent
+command! CdCurrent cd %:p:h
+command! LcdCurrent lcd %:p:h
 
 " for external command
 nnoremap ! :! 
