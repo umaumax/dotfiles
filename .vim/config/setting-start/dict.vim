@@ -9,9 +9,9 @@ function! s:CompleteDone()
 		call setline('.', split(line, char2nr('\n')))
 	endif
 endfunction
-function! s:SetDictionary()
-	let filetype=&ft
-	if filetype=='zsh'
+function! s:SetDictionary(filetype)
+	let filetype=a:filetype
+	if filetype == 'zsh'
 		let filetype='sh'
 	endif
 	let dict_path=$HOME.'/dotfiles/dict'
@@ -20,9 +20,13 @@ function! s:SetDictionary()
 		execute 'setlocal dictionary+='.dict_file_path
 	endif
 endfunction
+function! s:AutocmdSetDictionary()
+	call s:SetDictionary(&ft)
+	call s:SetDictionary('common')
+endfunction
 augroup dict_comp
 	autocmd!
-	autocmd FileType * call s:SetDictionary()
+	autocmd FileType * call s:AutocmdSetDictionary()
 	autocmd CompleteDone * call s:CompleteDone()
 augroup END
 
