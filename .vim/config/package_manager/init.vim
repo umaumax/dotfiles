@@ -91,6 +91,28 @@ Plug 'vim-scripts/taglist.vim'
 nnoremap <Space>T :Tlist<CR>
 " let Tlist_Ctags_Cmd='/path/to/gtags'
 
+" 検索ワード入力中に、タブで入力ワード補完
+" nmap / が上書きされる
+" Plug 'vim-scripts/SearchComplete'
+" <C-n> <C-p>で補完(最後に不要な文字列が出現する可能性がある)
+" Plug 'vim-scripts/CmdlineComplete'
+
+" コマンドライン補完を拡張し、ユーザ定義コマンドの短縮名を展開
+" 置換中はエラーとなり，あくまでコマンド名の入力中のみ
+Plug 'LeafCage/cheapcmd.vim'
+"for cmdline
+cmap <Tab> <Plug>(cheapcmd-expand)
+
+"for cmdwin
+aug cheapcmd-cmdwin
+	autocmd!
+	autocmd CmdwinEnter * call s:define_cmdwin_mappings()
+aug END
+function! s:define_cmdwin_mappings()
+	nmap <buffer><Tab> <Plug>(cheapcmd-expand)
+	imap <buffer><Tab> <Plug>(cheapcmd-expand)
+endfunction
+
 " " start screen
 " Plug 'mhinz/vim-startify'
 " " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
