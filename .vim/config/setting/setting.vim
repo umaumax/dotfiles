@@ -80,7 +80,7 @@ set wrapscan   "検索時に最後まで行ったら最初に戻る
 
 " #### 動作設定 ####
 set mouse=a " マウスの設定をすべて有効にする
-set history=10000 " コマンド、検索パターンを10000個まで履歴に残す
+set history=10000 " コマンド、検索パターンを10000個まで履歴に残す(max value:10000)
 
 " [vimで文字が削除出来ないと思ったらバックスペースが効かなくなった - Qiita]( http://qiita.com/omega999/items/23aec6a7f6d6735d033f )
 set backspace=indent,eol,start

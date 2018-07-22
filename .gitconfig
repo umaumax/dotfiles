@@ -47,7 +47,8 @@
 	push-upstream-master = push -u upstream master
 	push-origin-images   = push -u origin   images
 	# [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
-	ls = ~/local/bin/git-ls
+	# NOTE: this alias is auto generated
+# 	ls = ~/local/bin/git-ls
 	ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
 	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\n' $_git_root
 	amend = commit --amend --no-edit
@@ -80,6 +81,8 @@
 	# for proxy env git:// -> https://
 [diff]
 	compactionHeuristic = true
+[grep]
+	lineNumber = true
 [merge]
 	tool = vimdiff
 # 	conflictstyle = diff3

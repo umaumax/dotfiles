@@ -1,6 +1,11 @@
 cd ~/local/bin
+
 https://github.com/umaumax/diff-filter/blob/master/diff-filter.awk diff-filter
 chmod u+x diff-filter
+
 # only for ubuntu
 https://github.com/umaumax/window-toggle/blob/master/window-toggle.sh window-toggle
 chmod u+x window-toggle
+
+https://github.com/stedolan/git-ls/blob/master/git-ls git-ls
+chmod u+x git-ls

@@ -89,3 +89,41 @@ function! Sand(prefix, suffix) range
 	endfor
 endfunction
 command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
+
+" pick up arg
+function! s:argsWithDefaultArg(index, default, ...)
+	let l:arg = get(a:, a:index, a:default)
+	return l:arg
+endfunction
+" NOTE: G: repeat replace with entire range
+function! s:substitute(pat, sub, flags) range
+	let Gflag=stridx(a:flags,'G')>=0 ? 1 : 0
+	let flags=substitute(a:flags, 'G', '', 'g')
+
+	let change_flag = 1
+	while Gflag == 0 || (Gflag == 1 && change_flag == 1)
+		let change_flag = 0
+		for l:n in range(a:firstline, a:lastline)
+			let l:line=getline(l:n)
+			let l:ret=substitute(l:line, a:pat, a:sub, flags)
+			if l:line != l:ret
+				let change_flag = 1
+			endif
+			call setline(l:n, l:ret)
+		endfor
+		if Gflag == 0
+			break
+		endif
+	endwhile
+	call cursor(a:lastline+1, 1)
+endfunction
+command! -nargs=* -range TableConv <line1>,<line2>call s:substitute('^\|'.s:argsWithDefaultArg(1, ' ',<f-args>).'\|$', '|', 'g')
+
+" [Perform a non\-regex search/replace in vim \- Stack Overflow]( https://stackoverflow.com/questions/6254820/perform-a-non-regex-search-replace-in-vim )
+command! -nargs=* S       let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
+command! -nargs=* R       let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(":%s/\<C-r>///g<Left><Left>", 'n')
+command! -nargs=* Search  let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
+command! -nargs=* Rep     let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(":%s/\<C-r>///g<Left><Left>", 'n')
+
+command! -nargs=* -range Space2Tab <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG')
+command! -nargs=* -range Tab2Space <line1>,<line2>call s:substitute('^\( *\)\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG')

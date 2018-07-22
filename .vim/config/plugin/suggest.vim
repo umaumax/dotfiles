@@ -10,8 +10,12 @@ function! GoogleComplete(findstart, base)
 		endwhile
 		return start
 	else
-		let ret = system('curl -s -G --data-urlencode "q=' . a:base . '" "http://suggestqueries.google.com/complete/search?&client=firefox&hl=en&ie=utf8&oe=utf8"')
-		let res = split(substitute(ret,'\[\|\]\|"',"","g"),",")
+		if a:base != ''
+			let ret = system('curl -s -G --data-urlencode "q=' . a:base . '" "http://suggestqueries.google.com/complete/search?&client=firefox&hl=en&ie=utf8&oe=utf8"')
+			let res = split(substitute(ret,'\[\|\]\|"',"","g"),",")
+		else
+			let res=['']
+		endif
 		return res
 	endif
 endfunction

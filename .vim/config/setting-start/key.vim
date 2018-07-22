@@ -244,7 +244,8 @@ endfunction
 " to rewrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
 augroup gx_group
 	autocmd!
-	autocmd VimEnter * nnoremap <buffer> gx :call OpenURL()<CR>
+	" BufReadPost is for unnamed tab and load file
+	autocmd VimEnter,BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
 augroup END
 
 function! s:yank_pwd()
@@ -256,18 +257,6 @@ command! WorkingDirectory call <SID>yank_pwd()
 " cd to editting file dir
 command! -nargs=0 CD cd %:h
 " ##############
-
-" " space -> tab replace
-" nnoremap 1t :%s/^\(\t*\) /\1\t/g<CR>
-" nnoremap 2t :%s/^\(\t*\)  /\1\t/g<CR>
-" nnoremap 3t :%s/^\(\t*\)   /\1\t/g<CR>
-" nnoremap 4t :%s/^\(\t*\)    /\1\t/g<CR>
-" " tab -> space replace
-" nnoremap 0T :%s/^\( *\)\t/\1/g<CR>
-" nnoremap 1T :%s/^\( *\)\t/\1 /g<CR>
-" nnoremap 2T :%s/^\( *\)\t/\1  /g<CR>
-" nnoremap 3T :%s/^\( *\)\t/\1   /g<CR>
-" nnoremap 4T :%s/^\( *\)\t/\1    /g<CR>
 
 " vim tab control
 " nnoremap ? :tabnew<CR>
@@ -314,15 +303,19 @@ vnoremap <C-e> $
 
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
-	let l:flag=0
-	" 	if &ft != 'vim' && &bt != 'quickfix'
-	if &bt != 'quickfix'
+	let l:flag=''
+	let l:w=''
+	if !(&bt == 'quickfix' || &bt == 'nofile')
 		let save_winnr = winnr()
-		windo if !l:flag && &bt=='quickfix' | let l:flag=1 | endif
+		windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile') | let l:flag=&bt | let l:w=winnr() | endif
 	exe save_winnr. 'wincmd w'
 endif
-if l:flag
-	ccl
+if l:flag!=''
+	if l:flag=='quickfix'
+		ccl
+	elseif l:flag=='nofile'
+		exe l:w.'wincmd c'
+	endif
 else
 	if a:force
 		q!
@@ -347,6 +340,20 @@ nnoremap q! :call <SID>close(1)<CR>
 " sudo save
 nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
+function! s:cmdwin_setting()
+	nnoremap <buffer> qq :q<CR>
+endfunction
+augroup cmdline_window
+	autocmd!
+	autocmd CmdwinEnter * call s:cmdwin_setting()
+augroup END
+
+" at cmdline window
+" default completion c-n, c-p
+augroup cmdline_compl
+	autocmd!
+	autocmd CmdwinEnter * autocmd InsertCharPre <buffer> call feedkeys("\<C-n>\<C-p>", 'n')
+augroup END
 
 " psate
 function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
@@ -383,45 +390,68 @@ function! s:paste_at_cmdline()
 	call setcmdpos(strlen(cmd)+1)
 	return cmd
 endfunction
+" NOTE: gxコマンドではなく，直接URLを貼り付けて開くこと
 " [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-\_e )
 cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
 
-function! s:has_prefix(str, prefix)
-	return a:str[:strlen(a:prefix)-1] == a:prefix
-endfunction
-" NOTE: 検索時の'/'は含まれないため，
-" ':'のときには適切な挙動にはならない
-function! s:to_search()
-	" 	let cmd = getcmdline()
-	let cmd = g:cmd_tmp
-	if s:has_prefix(cmd, '%smagic/')
-		let cmd = '\v'.cmd[8:]
-	elseif s:has_prefix(cmd, '%s/')
-		let cmd = ''.cmd[3:]
+" function! s:has_prefix(str, prefix)
+" 	return a:str[:strlen(a:prefix)-1] == a:prefix
+" endfunction
+" " NOTE: 検索時の先頭の'/'はgetcmdline()には含まれないため，':'のときに次の関数を呼び出してもは適切な挙動にはならない
+" function! s:to_search()
+" 	" 	let cmd = getcmdline()
+" 	let cmd = g:cmd_tmp
+" 	if s:has_prefix(cmd, '%smagic/')
+" 		let cmd = '\v'.cmd[8:]
+" 	elseif s:has_prefix(cmd, '%s/')
+" 		let cmd = ''.cmd[3:]
+" 	endif
+" 	call setcmdpos(strlen(cmd)+1)
+" 	return cmd
+" endfunction
+" " NOTE: 以前の検索対象のみがハイライトされる
+" function! s:to_replace()
+" 	let cmd = g:cmd_tmp
+" 	if s:has_prefix(cmd, '\v')
+" 		let cmd = '%smagic/'.cmd[2:]
+" 	elseif !s:has_prefix(cmd, '%s/') && !s:has_prefix(cmd, '%smagic/')
+" 		let cmd = '%s/'.cmd[0:]
+" 	endif
+" 	call setcmdpos(strlen(cmd)+1)
+" 	return cmd
+" endfunction
+" function! s:cmd_copy()
+" 	let g:cmd_tmp = getcmdline()
+" 	let @/='' " to avoid no hit error
+" 	return ""
+" endfunction
+" cnoremap <C-o>f     <C-\>e<SID>cmd_copy()<CR><C-c>/<C-\>e<SID>to_search()<CR>
+" cnoremap <C-o><C-f> <C-\>e<SID>cmd_copy()<CR><C-c>/<C-\>e<SID>to_search()<CR>
+" cnoremap <C-o>r     <C-\>e<SID>cmd_copy()<CR><C-c>:<C-\>e<SID>to_replace()<CR>
+" cnoremap <C-o><C-r> <C-\>e<SID>cmd_copy()<CR><C-c>:<C-\>e<SID>to_replace()<CR>
+
+function! s:swap_search_replace_pattern()
+	let cmd = getcmdline()
+	let cmdtype = getcmdtype()
+	if cmdtype == '/' || cmdtype == '?'
+		if cmd =~ '^\W*\\v'
+			return substitute(cmd, '\\v', '', '')
+		else
+			return '\v'.cmd
+		endif
 	endif
-	call setcmdpos(strlen(cmd)+1)
+	if cmdtype == ':'
+		if cmd =~ '^\W*%smagic'
+			return substitute(cmd, '%smagic', '%sno', '')
+		elseif cmd =~ '^\W*%sno'
+			return substitute(cmd, '%sno', '%s', '')
+		elseif cmd =~ '^\W*%s'
+			return substitute(cmd, '%s', '%smagic', '')
+		endif
+	endif
 	return cmd
 endfunction
-" NOTE: 以前の検索対象のみがハイライトされる
-function! s:to_replace()
-	let cmd = g:cmd_tmp
-	if s:has_prefix(cmd, '\v')
-		let cmd = '%smagic/'.cmd[2:]
-	elseif !s:has_prefix(cmd, '%s/') && !s:has_prefix(cmd, '%smagic/')
-		let cmd = '%s/'.cmd[0:]
-	endif
-	call setcmdpos(strlen(cmd)+1)
-	return cmd
-endfunction
-function! s:cmd_copy()
-	let g:cmd_tmp = getcmdline()
-	let @/='' " to avoid no hit error
-	return ""
-endfunction
-cnoremap <C-o>f     <C-\>e<SID>cmd_copy()<CR><ESC>/<C-\>e<SID>to_search()<CR>
-cnoremap <C-o><C-f> <C-\>e<SID>cmd_copy()<CR><ESC>/<C-\>e<SID>to_search()<CR>
-cnoremap <C-o>r     <C-\>e<SID>cmd_copy()<CR><ESC>:<C-\>e<SID>to_replace()<CR>
-cnoremap <C-o><C-r> <C-\>e<SID>cmd_copy()<CR><ESC>:<C-\>e<SID>to_replace()<CR>
+cnoremap <C-x> <C-\>e<SID>swap_search_replace_pattern()<CR>
 
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
@@ -532,6 +562,7 @@ nnoremap q: <Nop>
 " [What is vim recording and how can it be disabled? \- Stack Overflow]( https://stackoverflow.com/questions/1527784/what-is-vim-recording-and-how-can-it-be-disabled )
 nnoremap q <Nop>
 nnoremap Q q
+command CmdlineWindow call feedkeys("q:", "n")
 
 " for external command
 nnoremap ! :! 

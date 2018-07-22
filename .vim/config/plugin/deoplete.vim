@@ -40,10 +40,13 @@ if v:version >= 800 && has('python3')
 	endif
 	" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
 	let g:deoplete#enable_at_startup = 1
-	" 	let g:deoplete#auto_complete_delay = 100
+	let g:deoplete#auto_complete_delay = 10
 	" 連続したキー入力がこの値以下の場合には補完を行わない
 	" pythonのときに文字表示がおかしくなるときの対策として100ではなく200にするとわりと安定する?
-	let g:deoplete#auto_complete_delay = 200
+	augroup deoplete_bug
+		autocmd!
+		autocmd FileType ptyhon let g:deoplete#auto_complete_delay = 200
+	augroup END
 	let g:deoplete#auto_complete_start_length = 1
 	let g:deoplete#enable_camel_case = 0
 	let g:deoplete#enable_ignore_case = 0

@@ -24,15 +24,15 @@ if Doctor('trans','soimort/translate')
 	vnoremap <Space>ja "zy:Ja<CR>
 endif
 if Doctor('s', 'zquestz/s')
-	command! -nargs=? S  call s:SearchWord('s', <f-args>)
+	command! -nargs=? Go  call s:SearchWord('s', <f-args>)
 	nnoremap <Space>s  "zviwy:S<CR>
 	nnoremap <Space>ss "zviwy:S<CR>
 	vnoremap <Space>s  "zy:S<CR>
 	" vnoremap <Space>ss v:S<CR>
 endif
 "
-if Doctor('googler', 'jarun/googler')
-	command! -nargs=? Go call s:SearchWord('echo q | googler --nocolor -n 10', <f-args>)
-	nnoremap <Space>go "zviwy:Go<CR>
-	vnoremap <Space>go "zy:Go<CR>
-endif
+" if Doctor('googler', 'jarun/googler')
+" 	command! -nargs=? Go call s:SearchWord('echo q | googler --nocolor -n 10', <f-args>)
+" 	nnoremap <Space>go "zviwy:Go<CR>
+" 	vnoremap <Space>go "zy:Go<CR>
+" endif

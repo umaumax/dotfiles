@@ -6,7 +6,7 @@ runtime! config/plugin/*.vim
 " ###################
 " #### my plugin ####
 Plug 'umaumax/autoread-vim'
-Plug 'umaumax/skeleton-vim'
+" Plug 'umaumax/skeleton-vim'
 Plug 'umaumax/comment-vim'
 " :BenchVimrc
 Plug 'umaumax/benchvimrc-vim'
@@ -79,6 +79,17 @@ Plug 'Shougo/unite.vim'
 Plug 'LeafCage/autobackup.vim'
 let g:autobackup_backup_dir = g:tempfiledir
 let g:autobackup_backup_limit = 1024
+
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = -1
+
+Plug 'vim-scripts/Highlight-UnMatched-Brackets'
+
+" Required: ctags
+" :Tlist
+Plug 'vim-scripts/taglist.vim'
+nnoremap <Space>T :Tlist<CR>
+" let Tlist_Ctags_Cmd='/path/to/gtags'
 
 " " start screen
 " Plug 'mhinz/vim-startify'
