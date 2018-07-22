@@ -1,9 +1,11 @@
+let s:dict_delim='__CR__'
+
 function! s:CompleteDone()
 	" 補完を行わなかった場合には空の辞書
 	if v:completed_item != {}
 		" NOTE: 本来は v:completed_item['word'] の範囲のみを対象に置換するべき
 		let line=getline('.')
-		let line=substitute(line, '__CR__', char2nr('\n'), 'g')
+		let line=substitute(line, s:dict_delim, char2nr('\n'), 'g')
 		call setline('.', split(line, char2nr('\n')))
 	endif
 endfunction
@@ -26,12 +28,12 @@ augroup END
 
 " for dict file editting
 function! s:DictJoin() range
-	let lines = join(getline(a:firstline, a:lastline), "__CR__")
+	let lines = join(getline(a:firstline, a:lastline), s:dict_delim)
 	execute 'normal '.(a:lastline-a:firstline+1).'"_dd'
 	call append(a:firstline-1, lines)
 endfunction
 function! s:DictSplit()
-	let lines=split(getline('.'), '__CR__')
+	let lines=split(getline('.'), s:dict_delim)
 	call append(getline('.')+1, lines)
 	normal "_dd
 endfunction
