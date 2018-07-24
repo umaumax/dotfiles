@@ -37,7 +37,7 @@ let s:doctor_map={
 			\'git':'',
 			\'go':'',
 			\'gofmt':'',
-			\'gofix':'go get -u github.com/umaumax/gofix',
+			\'golfix':'go get -u github.com/umaumax/golfix',
 			\'googler':'brew install googler || sudo apt-get install googler',
 			\'jsonlint':'npm install jsonlint -g',
 			\'look':'maybe default command',

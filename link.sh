@@ -21,8 +21,8 @@ ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
 ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 
-[[ ! -d ~/.config/gofix ]] && mkdir -p ~/.config/gofix
-ln -sf ~/dotfiles/.config/gofix/*.gofix ~/.config/gofix/
+[[ ! -d ~/.config/golfix ]] && mkdir -p ~/.config/golfix
+ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
 
 [[ ! -d ~/.config/nvim ]] && mkdir -p ~/.config/nvim
 # ln -sf ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/

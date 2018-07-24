@@ -24,10 +24,10 @@ function! s:error_message(result) abort
 	echohl None
 endfunction
 
-if Doctor('gofix', 'wrong word fixer')
+if Doctor('golfix', 'wrong word fixer')
 	function! FixLine()
 		let line=getline('.')
-		let ret = system('gofix -filetype='.&filetype, line)
+		let ret = system('golfix -filetype='.&filetype, line)
 		if s:success()
 			call setline('.', split(ret,"\n"))
 			return ret
