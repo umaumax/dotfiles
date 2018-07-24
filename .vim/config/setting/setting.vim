@@ -41,8 +41,22 @@ set timeout timeoutlen=500 ttimeoutlen=50
 " set cursorline   "カーソル行ハイライト
 " set cursorcolumn "カーソル列ハイライト
 set updatetime=500 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
+
+" 検索中のみ，カーソルを目立たせる
+function! s:auto_highlight()
+	if v:hlsearch == 0
+		setlocal nocursorline | setlocal nocursorcolumn
+	else
+		setlocal cursorline | setlocal cursorcolumn
+	endif
+endfunction
 augroup vimrc-auto-cursorline
 	autocmd!
+	" FYI: [Vimの検索ハイライト,hlsearch,:nohlsearch,v:hlsearchがややこしい \- haya14busa]( http://haya14busa.com/vim_highlight_search/ )
+	" :set hlsearch
+	autocmd OptionSet hlsearch call s:auto_highlight()
+	" NOTE: :nohでは上記は呼ばれない
+	autocmd CursorMoved,CursorMovedI * call s:auto_highlight()
 	" 	autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline | setlocal nocursorcolumn | syntax off
 	" 	autocmd CursorHold,CursorHoldI * setlocal cursorline | setlocal cursorcolumn | syntax on
 augroup END

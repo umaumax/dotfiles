@@ -15,6 +15,10 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 
+if !has('gui_running')
+	let g:loaded_matchparen = 1
+endif
+
 if has('nvim')
 	set runtimepath+=~/.vim
 else

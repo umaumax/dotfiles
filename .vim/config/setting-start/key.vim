@@ -3,6 +3,9 @@ let mapleader = "\<Space>"
 
 nnoremap cc vc
 
+" disable <C-@>
+inoremap <C-@> <C-[>
+
 nnoremap <leader>r :redraw!<CR>
 
 nnoremap <Leader>o :CtrlP<CR>
@@ -101,6 +104,8 @@ vnoremap # #zz
 " 貼り付けたテキストを選択する
 " gv: select pre visual selected range
 noremap gV `[v`]
+" move to last edited
+map gb `.zz
 
 " 現在の行の中央へ移動
 " [vimで行の中央へ移動する - Qiita]( http://qiita.com/masayukiotsuka/items/683ffba1e84942afbb97?utm_campaign=popular_items&utm_medium=referral&utm_source=popular_items )
