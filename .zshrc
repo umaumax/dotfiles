@@ -1249,6 +1249,11 @@ if [[ $ZSH_NAME == zsh ]]; then
 	setopt numeric_glob_sort              # 辞書順ではなく数字順に並べる。
 fi
 
+# 実行したプロセスの消費時間が3秒以上かかったら
+# 自動的に消費時間の統計情報を表示する。
+# stderrに出力
+REPORTTIME=3
+
 # git://の方ではproxyの設定が反映されないので，https://形式の方が無難
 zshdir=~/.zsh
 [[ ! -e $zshdir ]] && mkdir -p $zshdir
