@@ -540,6 +540,8 @@ if cmdcheck docker; then
 fi
 
 # NOTE: to avoid xargs no args error on ubuntu
+# [xargs で標準入力が空だったら何もしない \- Qiita]( https://qiita.com/m_doi/items/432b9145b69a0ba3132d )
+# --no-run-if-empty: macでは使用不可
 function pipecheck() {
 	local val=$(cat)
 	[[ -z $val ]] && return 1
