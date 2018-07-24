@@ -96,8 +96,30 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-vnoremap n nzz
-vnoremap N Nzz
+" visual mode中のnは検索ワードを選択する
+function! s:select_search(key)
+	if v:hlsearch == 0
+		if key ==  'n'
+			normal nzz
+		endif
+		if key ==  'N'
+			normal Nzz
+		endif
+	else
+		normal! v
+		let line=getline('.')
+		let result=matchstr(line, @/, col('.')-1)
+		let Mlen = { s -> strlen(substitute(s, ".", "x", "g"))}
+		let n=Mlen(result)-1
+		let end =  col('.') + n
+		call setpos(line('.'), end)
+		execute 'normal! '.n."\<Right>"
+	endif
+endfunction
+" vnoremap n nzz
+" vnoremap N Nzz
+vnoremap n :call <sid>select_search('n')<CR>
+vnoremap N :call <sid>select_search('N')<CR>
 vnoremap * *zz
 vnoremap # #zz
 
