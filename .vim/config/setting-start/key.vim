@@ -303,6 +303,7 @@ inoremap <C-e> <C-o>$
 vnoremap <C-a> ^
 vnoremap <C-e> $
 
+" FYI: [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L254 )
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
 	let l:flag=''
@@ -540,8 +541,14 @@ function! s:source(...)
 endfunction
 command! -nargs=? Src call s:source(<f-args>)
 
-command! FileName :let @+ = expand('%:t') | echo 'copyed:' . expand('%:t')
-command! FilePath :let @+ = expand('%:p') | echo 'cooyed' . expand('%:p')
+command! FileName :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
+command! FilePath :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
+command! DirPath  :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
+command! DirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
+command! CopyFileName :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
+command! CopyFilePath :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
+command! CopyDirPath  :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
+command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
 
 " [TabとCtrl\-iどちらを入力されたか区別する\(Linux限定\) \- Qiita]( https://qiita.com/norio13/items/9c05412796a7dea5cd91 )
 " <Tab> == <C-i>
@@ -553,7 +560,6 @@ command! FilePath :let @+ = expand('%:p') | echo 'cooyed' . expand('%:p')
 " tab
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
-
 vnoremap <Tab> >>
 vnoremap <S-Tab> <<
 
@@ -623,6 +629,15 @@ endfunction
 " cdcurrent
 command! CdCurrent cd %:p:h
 command! LcdCurrent lcd %:p:h
+
+" auto comment off
+augroup auto_comment_off
+	autocmd!
+	" <CR>
+	" 	autocmd BufEnter * setlocal formatoptions-=r
+	" o, O
+	autocmd BufEnter * setlocal formatoptions-=o
+augroup END
 
 " for external command
 nnoremap ! :! 

@@ -5,7 +5,9 @@ nnoremap s= <C-w>=
 nnoremap so <C-w>_<C-w>|
 nnoremap sO <C-w>=
 " tab
+" next tab
 nnoremap sn gt
+" prev tab
 nnoremap sp gT
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
@@ -46,4 +48,11 @@ if &rtp =~ 'vim-submode'
 	call submode#map('bufmove', 'n', '', '<', '<C-w><')
 	call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 	call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+
+	call submode#enter_with('bufmove', 'n', '', 'sn', 'gt')
+	call submode#enter_with('bufmove', 'n', '', 'sp', 'gT')
+	call submode#enter_with('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
+	call submode#map('bufmove', 'n', '', 'n', 'gt')
+	call submode#map('bufmove', 'n', '', 'p', 'gT')
+	call submode#map('bufmove', 'n', '', 't', ':<C-u>tabnew<CR>')
 endif

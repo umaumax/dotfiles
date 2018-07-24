@@ -207,7 +207,54 @@ call RegisterSmartinputRules(s:replace_map)
 
 " NOTE:登録済のトリガを大量に登録すると反応しないので注意
 call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, s:gtrigger)
-" call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, '<C-i>')
+
+" クラス定義や enum 定義の場合は末尾に;を付け忘れないようにする
+call smartinput#define_rule({
+			\   'at'       : '\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#',
+			\   'char'     : '<Space>',
+			\   'input'    : '<Space>{};<Left><Left><CR><Left><CR>',
+			\   'filetype' : ['cpp'],
+			\   })
+call smartinput#map_to_trigger('i', '<', '<', '<')
+" template に続く <> を補完
+call smartinput#define_rule({
+			\   'at'       : '\<template\>\s*\%#',
+			\   'char'     : '<',
+			\   'input'    : '<><Left>',
+			\   'filetype' : ['cpp'],
+			\   })
+
+" [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L2086 )
+" \s= を入力したときに空白を挟む
+call smartinput#map_to_trigger('i', '=', '=', '=')
+call smartinput#define_rule(
+			\ { 'at'    : '\s\%#'
+			\ , 'char'  : '='
+			\ , 'input' : '= '
+			\ })
+
+" でも連続した == となる場合には空白は挟まない
+call smartinput#define_rule(
+			\ { 'at'    : '=\s\%#'
+			\ , 'char'  : '='
+			\ , 'input' : '<BS>= '
+			\ })
+
+" でも連続した =~ となる場合には空白は挟まない
+call smartinput#map_to_trigger('i', '~', '~', '~')
+call smartinput#define_rule(
+			\ { 'at'    : '=\s\%#'
+			\ , 'char'  : '~'
+			\ , 'input' : '<BS>~ '
+			\ })
+
+" Vim は ==# と =~# がある
+call smartinput#map_to_trigger('i', '#', '#', '#')
+call smartinput#define_rule(
+			\ { 'at'    : '=[~=]\s\%#'
+			\ , 'char'  : '#'
+			\ , 'input' : '<BS># '
+			\ })
 
 " " no lib command
 " " b;; -> boost::

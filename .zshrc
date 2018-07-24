@@ -603,7 +603,7 @@ function _xargs-vim() {
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
 
-[[ -n $_Darwin ]] && cmdcheck nvim && alias vim='nvim'
+cmdcheck nvim && alias vim='nvim'
 alias v='vim'
 # don't use .viminfo file option
 # alias tvim='vim -c "set viminfo="'

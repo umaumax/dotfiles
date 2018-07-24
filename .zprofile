@@ -109,17 +109,6 @@ if [[ -d ~/go ]]; then
 	append_path ~/go/my/bin
 fi
 
-# python
-## pyenv
-export PYENV_ROOT="${HOME}/.pyenv"
-export PATH=${PYENV_ROOT}/bin:$PATH
-if cmdcheck pyenv; then
-	exist ~/python/lib/ && export PYTHONPATH=$var
-	## for blender add-ons
-	append_any_path PYTHONPATH /Applications/blender.app/Contents/Resources/2.78/scripts/addons
-	eval "$(pyenv init -)"
-fi
-
 # c++
 if [[ -d ~/cpp ]]; then
 	CPPROOT=~/cpp
@@ -137,6 +126,17 @@ fi
 # clang(LLVM)
 prepend_path /usr/local/bin
 prepend_path ~/local/bin
+
+# python
+## pyenv
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+if cmdcheck pyenv; then
+	exist ~/python/lib/ && export PYTHONPATH=$var
+	## for blender add-ons
+	append_any_path PYTHONPATH /Applications/blender.app/Contents/Resources/2.78/scripts/addons
+	eval "$(pyenv init -)"
+fi
 
 # for webcat
 export WEBCAT_PORT=3939

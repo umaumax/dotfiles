@@ -36,4 +36,4 @@ function! s:get_syn_info()
 				\ " guibg: " . linkedSyn.guibg
 endfunction
 " カーソル下の構文情報(ハイライト情報)を取得
-command! SyntaxInfo call s:get_syn_info()
+command! SyntaxInfoEcho call s:get_syn_info()
