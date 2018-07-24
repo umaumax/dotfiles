@@ -1270,3 +1270,9 @@ if [[ -n $_Ubuntu ]]; then
 	autoload -Uz add-zsh-hook
 	add-zsh-hook precmd precmd_function
 fi
+
+# for windows
+if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
+	export PROMPT='%~ $ '
+	export HISTFILE=${HOME}/.zsh_history
+fi
