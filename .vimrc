@@ -86,13 +86,17 @@ if isdirectory(s:cwd)
 	execute("lcd " . s:cwd)
 endif
 
+function! s:filepathjoin(a,b)
+	return substitute(a:a,'/$','','').'/'.a:b
+endfunction
+
 " load local vimrc
 if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
-let s:local_vimrc=expand('%:p:h').'/.local.vimrc'
+let s:local_vimrc=s:filepathjoin(expand('%:p:h'), '.local.vimrc')
 " NOTE: fileが存在するディレクトリのlocal vimrc
 if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
 if $VIM_PROJECT_ROOT != ''
-	let s:vim_project_root_local_vimrc = $VIM_PROJECT_ROOT.'/.local.vimrc'
+	let s:vim_project_root_local_vimrc = s:filepathjoin($VIM_PROJECT_ROOT, '.local.vimrc')
 	if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc && filereadable(s:vim_project_root_local_vimrc)
 		execute 'source' s:vim_project_root_local_vimrc
 	endif
