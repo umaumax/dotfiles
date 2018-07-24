@@ -1245,6 +1245,8 @@ if [[ $ZSH_NAME == zsh ]]; then
 	setopt GLOB_DOTS                      # 明確なドットの指定なしで.から始まるファイルをマッチ
 	zstyle ':completion:*' use-cache true # apt-getとかdpkgコマンドをキャッシュを使って速くする
 	setopt list_packed                    # 保管結果をできるだけ詰める
+	setopt rm_star_wait                   # rm * を実行する前に確認
+	setopt numeric_glob_sort              # 辞書順ではなく数字順に並べる。
 fi
 
 # git://の方ではproxyの設定が反映されないので，https://形式の方が無難
