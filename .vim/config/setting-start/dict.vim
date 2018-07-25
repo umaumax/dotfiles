@@ -1,12 +1,23 @@
 let s:dict_delim='__CR__'
+" NOTE: __CURSOR__が行末になるときに，1文字左側から入力が始まってしまう
+let s:cursor='__CURSOR__'
 
 function! s:CompleteDone()
 	" 補完を行わなかった場合には空の辞書
 	if v:completed_item != {}
 		" NOTE: 本来は v:completed_item['word'] の範囲のみを対象に置換するべき
 		let line=getline('.')
-		let line=substitute(line, s:dict_delim, char2nr('\n'), 'g')
-		call setline('.', split(line, char2nr('\n')))
+		if !(stridx(line, s:dict_delim) >=0 || stridx(line, s:cursor) >=0)
+			return
+		endif
+		" 逆向きに検索
+		" 		'__CURSOR__'の場所を検索
+		let lines=split(substitute(line, s:dict_delim, char2nr('\n'), 'g'),char2nr('\n'))
+		call append(line('.'), lines)
+		execute 'normal! "_dd'
+		if stridx(line, s:cursor) >=0 && search('__CURSOR__', 'b') != 0
+			execute 'normal! '.len('__CURSOR__').'"_x'
+		endif
 	endif
 endfunction
 function! s:SetDictionary(filetype)
@@ -38,7 +49,7 @@ function! s:DictJoin() range
 endfunction
 function! s:DictSplit()
 	let lines=split(getline('.'), s:dict_delim)
-	call append(getline('.')+1, lines)
+	call append(line('.'), lines)
 	normal "_dd
 endfunction
 command! -nargs=0 -range DictJoin  <line1>,<line2>call s:DictJoin()

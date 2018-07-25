@@ -2,6 +2,9 @@
 function! AutoFiletypeDetect(orig_filetype)
 	" for test
 	" let head='#!/usr/bin/env bash'
+	if &bt == 'terminal'
+		return 'terminal'
+	endif
 	let head = getline('.')
 	let cmd = ""
 	if head =~ "^#!/"

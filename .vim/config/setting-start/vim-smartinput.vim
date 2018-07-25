@@ -88,9 +88,25 @@ call smartinput#define_rule({
 " 			\   'at': 'def.*[^:]\%#',
 " 			\   'at': 'def.*\%#',
 call smartinput#define_rule({
-			\   'at': '\(for\|if\|def\|while\).*[^:]\%#$',
+			\   'at': '\(for\|if\|def\|while\|else\|elif\).*[^:]\%#$',
 			\   'char': '<CR>',
 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '$', ':', ''))<CR><C-o>$<CR>",
+			\   'filetype': ['python'],
+			\   })
+
+call smartinput#map_to_trigger('i', '\|', '\|', '\|')
+call smartinput#define_rule({
+			\   'at': '|\%#$',
+			\   'char': '|',
+			\   'input': "<BS>or",
+			\   'filetype': ['python'],
+			\   })
+
+call smartinput#map_to_trigger('i', '&', '&', '&')
+call smartinput#define_rule({
+			\   'at': '&\%#$',
+			\   'char': '&',
+			\   'input': "<BS>and",
 			\   'filetype': ['python'],
 			\   })
 

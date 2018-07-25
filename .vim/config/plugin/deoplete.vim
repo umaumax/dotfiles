@@ -45,7 +45,7 @@ if v:version >= 800 && has('python3')
 	" pythonのときに文字表示がおかしくなるときの対策として100ではなく200にするとわりと安定する?
 	augroup deoplete_bug
 		autocmd!
-		autocmd FileType ptyhon let g:deoplete#auto_complete_delay = 200
+		autocmd FileType python let g:deoplete#auto_complete_delay = 200
 	augroup END
 	let g:deoplete#auto_complete_start_length = 1
 	let g:deoplete#enable_camel_case = 0

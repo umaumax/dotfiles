@@ -93,12 +93,16 @@ command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
 " pick up arg
 function! s:argsWithDefaultArg(index, default, ...)
 	let l:arg = get(a:, a:index, a:default)
+	if l:arg == ''
+		return a:default
+	endif
 	return l:arg
 endfunction
+
 " NOTE: G: repeat replace with entire range
 function! s:substitute(pat, sub, flags) range
 	let Gflag=stridx(a:flags,'G')>=0 ? 1 : 0
-	let flags=substitute(a:flags, 'G', '', 'g')
+	let flags=substitute(a:flags, '\CG', '', 'g')
 
 	let change_flag = 1
 	while Gflag == 0 || (Gflag == 1 && change_flag == 1)
@@ -117,13 +121,13 @@ function! s:substitute(pat, sub, flags) range
 	endwhile
 	call cursor(a:lastline+1, 1)
 endfunction
-command! -nargs=* -range TableConv <line1>,<line2>call s:substitute('^\|'.s:argsWithDefaultArg(1, ' ',<f-args>).'\|$', '|', 'g')
+command! -nargs=* -range TableConv <line1>,<line2>call s:substitute('^\|'.s:argsWithDefaultArg(1, ' ',<q-args>).'\|$', '|', 'g')
 
 " [Perform a non\-regex search/replace in vim \- Stack Overflow]( https://stackoverflow.com/questions/6254820/perform-a-non-regex-search-replace-in-vim )
 command! -nargs=*        S      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
-command! -nargs=* -range R      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g<Left><Left>", 'n')
+command! -nargs=* -range R      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g |:noh".repeat("<Left>",8), 'n')
 command! -nargs=*        Search let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
-command! -nargs=* -range Rep    let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g<Left><Left>", 'n')
+command! -nargs=* -range Rep    let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g |:noh".repeat("<Left>",8), 'n')
 
 command! -nargs=* -range Space2Tab <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG')
 command! -nargs=* -range Tab2Space <line1>,<line2>call s:substitute('^\( *\)\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG')

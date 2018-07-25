@@ -90,8 +90,20 @@ let g:autobackup_backup_limit = 1024
 
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
+augroup vim_highlightedyank_color_group
+	autocmd!
+	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
+	" 	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
+	" 	autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
+augroup END
 
 Plug 'vim-scripts/Highlight-UnMatched-Brackets'
+
+" jenkins script formatter
+" jenkinsfile indent require groovy format
+Plug 'martinda/Jenkinsfile-vim-syntax'
+" Plug 'modille/groovy.vim'
+Plug 'vim-scripts/groovyindent-unix'
 
 " Required: ctags
 " :Tlist

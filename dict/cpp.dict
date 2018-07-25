@@ -1,4 +1,6 @@
-int main(int argc, char* argv[]) {__CR__	return 0;__CR__}
+int main(int argc, char* argv[]) {__CR____CURSOR____CR__	return 0;__CR__}
 std::
+std::cout
+std::printf("__CURSOR__");
 clang::
 llvm::

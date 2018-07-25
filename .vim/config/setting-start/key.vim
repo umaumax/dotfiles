@@ -98,27 +98,71 @@ nnoremap * *zz
 nnoremap # #zz
 " visual mode中のnは検索ワードを選択する
 function! s:select_search(key)
-	if v:hlsearch == 0
-		if key ==  'n'
-			normal nzz
+	" 	if a:key ==  'n'
+	" 		normal! nzz
+	" 	endif
+	" 	if a:key ==  'N'
+	" 		normal! Nzz
+	" 	endif
+	" 	call search(@/, '')
+	" 	return ''
+	if v:hlsearch == 1111111110
+		if a:key ==  'n'
+			normal! nzz
 		endif
-		if key ==  'N'
-			normal Nzz
+		if a:key ==  'N'
+			normal! Nzz
 		endif
 	else
+		let [line_start, column_start] = getpos("'<")[1:2]
+		let [line_end, column_end] = getpos("'>")[1:2]
+		" 		echom line_start.','.line_end
+		" 		echom column_start.','.column_end
+		call cursor(line_start, column_start)
+		" 		echom 'line'.line('.')
+		" 		echom 'col'.col('.')
+		if line_start != line_end || column_start != column_end
+			if a:key ==  'n'
+				call cursor(line_end, column_end)
+				normal! v
+				call search(@/, '')
+				" 				normal! nzz
+			endif
+			if a:key ==  'N'
+				" 				normal! Nzz
+				call search(@/,'b')
+			endif
+			return
+		endif
+		normal! v
+		call search(@/, 'e')
+		return
+		" 		vの領域の範囲を調べる
+		" 		領域が1の場合
+		" 		対象が1以外の場合には選択，それ以外ではnext
+		" 		echom 'line'.line('.')
+		" 		echom 'col'.col('.')
 		normal! v
 		let line=getline('.')
 		let result=matchstr(line, @/, col('.')-1)
 		let Mlen = { s -> strlen(substitute(s, ".", "x", "g"))}
 		let n=Mlen(result)-1
+		if n == 0
+			if a:key ==  'n'
+				normal! nzz
+			endif
+			if a:key ==  'N'
+				normal! Nzz
+			endif
+			return
+		endif
 		let end =  col('.') + n
-		call setpos(line('.'), end)
+		" 		call cursor(line('.'), end)
 		execute 'normal! '.n."\<Right>"
 	endif
 endfunction
-" vnoremap n nzz
-" vnoremap N Nzz
 vnoremap n :call <sid>select_search('n')<CR>
+" vnoremap n :<C-u>call search(@/,'e')<CR>
 vnoremap N :call <sid>select_search('N')<CR>
 vnoremap * *zz
 vnoremap # #zz

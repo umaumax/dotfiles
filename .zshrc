@@ -93,6 +93,8 @@ alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 cmdcheck 'git-ls' && alias gls='git-ls'
 
+cmdcheck ccze && alias='ccze -A'
+
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
 	[[ ! $(basename $PWD) =~ '^build' ]] && echo "cwd is not cmake build dir '^build'" && return 1
@@ -270,6 +272,8 @@ if [[ -n $_Ubuntu ]]; then
 	alias apt-install='sudo apt-get install'
 	alias apt-search='apt-cache search'
 	alias apt-show='apt-cache show'
+	# [How can I get a list of all repositories and PPAs from the command line into an install script? \- Ask Ubuntu]( https://askubuntu.com/questions/148932/how-can-i-get-a-list-of-all-repositories-and-ppas-from-the-command-line-into-an )
+	alias add-apt-repository-list="grep -r --include '*.list' '^deb ' /etc/apt/ | sed -re 's/^\/etc\/apt\/sources\.list((\.d\/)?|(:)?)//' -e 's/(.*\.list):/\[\1\] /' -e 's/deb http:\/\/ppa.launchpad.net\/(.*?)\/ubuntu .*/ppa:\1/'"
 	alias dpkg-list='sudo dpkg -l'
 	function dpkg-executable-list() {
 		[[ $# == 0 ]] && echo '<package name>' && return 1
@@ -574,18 +578,20 @@ cmdcheck 'go' && function got() {
 cmdcheck vim && alias vi='vim'
 # NOTE: 行番号指定で開く
 function vim() {
+	local vim_cmd='command vim'
+	cmdcheck nvim && vim_cmd='nvim'
 	if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"
 		local line_no=$(echo "$1" | cut -d":" -f2)
 		# "" => 0
 		line_no=$((line_no))
 		shift
-		command vim -c $line_no $file_path $@
+		eval $vim_cmd -c $line_no $file_path $@
 		local code=$?
 		set-dirname-title
 		return $code
 	fi
-	command vim $@
+	eval $vim_cmd $@
 	local code=$?
 	set-dirname-title
 	return $code
@@ -605,7 +611,6 @@ function _xargs-vim() {
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
 
-cmdcheck nvim && alias vim='nvim'
 alias v='vim'
 # don't use .viminfo file option
 # alias tvim='vim -c "set viminfo="'
@@ -1252,7 +1257,7 @@ fi
 # 実行したプロセスの消費時間が3秒以上かかったら
 # 自動的に消費時間の統計情報を表示する。
 # stderrに出力
-REPORTTIME=3
+REPORTTIME=10
 
 # git://の方ではproxyの設定が反映されないので，https://形式の方が無難
 zshdir=~/.zsh
@@ -1279,7 +1284,7 @@ if [[ -n $_Ubuntu ]]; then
 fi
 
 # for windows
-if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
+if [[ $OS == Windows_NT ]]; then
 	export PROMPT='%~ $ '
 	export HISTFILE=${HOME}/.zsh_history
 fi
