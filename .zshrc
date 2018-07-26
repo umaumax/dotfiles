@@ -537,6 +537,10 @@ if cmdcheck docker; then
 		local container_id=$(docker ps | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker attach $container_id
 	}
+	function docker-exec() {
+		local container_id=$(docker ps | peco | awk '{print $1}')
+		[[ -n $container_id ]] && docker exec -it $container_id /bin/bash
+	}
 	function docker-start-and-attach() {
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker start $container_id && docker attach $container_id
@@ -586,13 +590,16 @@ function vim() {
 		# "" => 0
 		line_no=$((line_no))
 		shift
-		eval $vim_cmd -c $line_no $file_path $@
-		local code=$?
-		set-dirname-title
-		return $code
+		# 		eval $vim_cmd -c $line_no $file_path $@
+		local cmd="$vim_cmd -c $line_no $file_path $@"
+	else
+		# 		eval $vim_cmd $@
+		local cmd="$vim_cmd $@"
 	fi
-	eval $vim_cmd $@
+	eval $cmd
 	local code=$?
+	# NOTE: nvim crash with changing window size
+	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
 	set-dirname-title
 	return $code
 }

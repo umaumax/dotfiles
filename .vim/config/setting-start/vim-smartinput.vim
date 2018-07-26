@@ -67,6 +67,8 @@ for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 endfor
 call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><ESC>O'})
 
+call smartinput#map_to_trigger('i', '{', '{', '{')
+
 " NOTE: 下記の方法では相殺できなかったため，cloneして改変する方法に
 " override default rule
 " call smartinput#define_rule({'at': '\%#\_s*)', 'char': ')', 'input': ')'})

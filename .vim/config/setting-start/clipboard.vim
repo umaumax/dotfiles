@@ -8,10 +8,7 @@ if OSTYPE == "Darwin\n"
 	" 	set clipboard=unnamed,autoselect
 	" for gvim and cui vim
 	set clipboard=unnamed,unnamedplus
-	vnoremap v y
 elseif OSTYPE == "Linux\n"
 	" ubuntu
 	set clipboard=unnamedplus
-	" ubuntu上でvisual modeで選択したものをyankする
-	vnoremap v y
 endif

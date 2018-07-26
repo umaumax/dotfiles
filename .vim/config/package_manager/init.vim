@@ -97,7 +97,8 @@ augroup vim_highlightedyank_color_group
 	" 	autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
-Plug 'vim-scripts/Highlight-UnMatched-Brackets'
+" NOTE: this plugin remap (),[],{}
+" Plug 'vim-scripts/Highlight-UnMatched-Brackets'
 
 " jenkins script formatter
 " jenkinsfile indent require groovy format

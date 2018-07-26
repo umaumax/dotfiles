@@ -48,6 +48,7 @@ let g:ale_linters = {
 			\   'cpp': ['cpplint','clang'],
 			\}
 " ['clangcheck', 'clangtidy'],
+let g:ale_cpp_cpplint_options = '--linelength=160 --filter=-readability/todo,-legal/copyright,-whitespace/line_length,-build/header_guard'
 
 " ALE用プレフィックス
 nmap [ale] <Nop>
