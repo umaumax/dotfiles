@@ -124,8 +124,10 @@ function! s:select_search(key)
 endfunction
 vnoremap n :call <sid>select_search('n')<CR>
 vnoremap N :call <sid>select_search('N')<CR>
-vnoremap * *zz
-vnoremap # #zz
+" vnoremap * *zz
+" vnoremap # #zz
+vnoremap * "zy:let @/ = @z<CR>n
+vnoremap # "zy:let @/ = @z<CR>N
 
 " 貼り付けたテキストを選択する
 " gv: select pre visual selected range
@@ -256,7 +258,7 @@ nnoremap M '
 nnoremap x "_x
 nnoremap s "_s
 vnoremap x "_x
-vnoremap d "_d
+" vnoremap d "_d
 vnoremap s "_s
 vnoremap p "_x:call <SID>paste_at_cursor(1)<CR>
 
@@ -482,8 +484,10 @@ function! s:swap_search_replace_pattern()
 	let cmd = getcmdline()
 	let cmdtype = getcmdtype()
 	if cmdtype == '/' || cmdtype == '?'
-		if cmd =~ '^\W*\\v'
-			return substitute(cmd, '\\v', '', '')
+		if cmd =~# '^\W*\\v'
+			return substitute(cmd, '\\v', '\\V', '')
+		elseif cmd =~# '^\W*\\V'
+			return substitute(cmd, '\\V', '', '')
 		else
 			return '\v'.cmd
 		endif
@@ -635,7 +639,6 @@ nnoremap Y y$
 " s means surround
 let surround_key_mappings=[
 			\{'keys':["`","bq"],                     'prefix':"`",    'suffix':"`"},
-			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
 			\{'keys':["'","sq"],                     'prefix':"'",    'suffix':"'"},
 			\{'keys':["\"","dq"],                    'prefix':'\"',   'suffix':'\"'},
 			\{'keys':["<","lt"],                     'prefix':"<",    'suffix':">"},
@@ -645,13 +648,16 @@ let surround_key_mappings=[
 			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':"```"},
 			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",   'suffix':"__"},
 			\]
+" 			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
 for mapping in surround_key_mappings
 	let prefix=mapping['prefix']
 	let suffix=mapping['suffix']
 	for key in mapping['keys']
-		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
+		" 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
+		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 	endfor
 endfor
+vnoremap s<Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
 
 " [visual \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/visual.html )
 vnoremap ikakko ib
