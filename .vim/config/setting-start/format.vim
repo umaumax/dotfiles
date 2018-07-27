@@ -163,6 +163,15 @@ function! s:work_setting()
 		augroup END
 	else
 		let g:auto_format_flag=0
+		" NOTE: disable chmod
+		" shell file is exception
+		let g:autochmodx_ignore_scriptish_file_patterns =[
+					\      '\c.*\.pl$',
+					\      '\c.*\.rb$',
+					\      '\c.*\.py$',
+					\	]
+		" \      '\c.*\.sh$',
+
 		" NOTE: BufWinEnterによってこの関数が呼び出され，その後にColorSchemeが呼ばれないため
 		" 		augroup non_private
 		" 			autocmd!

@@ -9,7 +9,7 @@ if has('nvim')
 	command! Term  :vertical rightbelow vnew | call feedkeys('i','n') | terminal
 	command! Termv :vertical rightbelow vnew | call feedkeys('i','n') | terminal
 	command! Terms :rightbelow new | call feedkeys('i','n') | terminal
-	command! Terms :tabnew | call feedkeys('i','n') | terminal
+	command! Termt :tabnew | call feedkeys('i','n') | terminal
 endif
 
 augroup terminal_autogroup

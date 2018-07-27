@@ -4,3 +4,5 @@ std::cout
 std::printf("__CURSOR__");
 clang::
 llvm::
+include <__CURSOR__>
+include "__CURSOR__"

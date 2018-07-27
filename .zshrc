@@ -113,7 +113,12 @@ function git-check-up-to-date() {
 	# NOTE: for supressing of chpwd()
 	ret=$(bash -c "cd \"$target\" && git log origin/master..master")
 	if [[ $ret != "" ]]; then
-		echo "$target"
+		echo "[$target]"
+		echo $ret
+	fi
+	ret=$(bash -c "cd \"$target\" && git status --porcelain")
+	if [[ $ret != "" ]]; then
+		echo "[$target] Changes not staged for commit:"
 		echo $ret
 	fi
 }
@@ -580,6 +585,8 @@ cmdcheck 'go' && function got() {
 
 # cmd alias
 cmdcheck vim && alias vi='vim'
+cmdcheck nvim && alias vterminal="command nvim -c terminal -c \"call feedkeys('i','n')\""
+cmdcheck nvim && alias vt='vterminal'
 # NOTE: 行番号指定で開く
 function vim() {
 	local vim_cmd='command vim'
@@ -591,6 +598,7 @@ function vim() {
 		line_no=$((line_no))
 		shift
 		# 		eval $vim_cmd -c $line_no $file_path $@
+		# -c: do command
 		local cmd="$vim_cmd -c $line_no $file_path $@"
 	else
 		# 		eval $vim_cmd $@
@@ -599,7 +607,15 @@ function vim() {
 	eval $cmd
 	local code=$?
 	# NOTE: nvim crash with changing window size
-	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
+	# ### window size change crash
+	# [tui\_flush: Assertion \`r\.bot < grid\->height && r\.right < grid\->width' failed\. Core dumped · Issue \#8774 · neovim/neovim · GitHub]( https://github.com/neovim/neovim/issues/8774 )
+	# [\[RFC\] tui: clip invalid regions on resize by bfredl · Pull Request \#8779 · neovim/neovim · GitHub]( https://github.com/neovim/neovim/pull/8779 )
+	# [Releases  neovim/neovim  GitHub]( https://github.com/neovim/neovim/releases )
+	# nvim v0.3.2-dev 5f15788ですでにmerge済み
+	# ```
+	# wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ~/local/bin/nvim && chmod u+x ~/local/bin/nvim
+	# ```
+	# 	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
 	set-dirname-title
 	return $code
 }

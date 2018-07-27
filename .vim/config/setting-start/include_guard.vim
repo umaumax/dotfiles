@@ -12,7 +12,7 @@ function! IncludeGuardC()
 	let name = toupper(name)
 	let included = substitute(name,'\.','_','g').'_INCLUDED__'
 	let res_head = '#ifndef '.included."\n#define ".included."\n\n"
-	let res_foot = "\n".'#endif //'.included."\n"
+	let res_foot = "\n".'#endif // '.included."\n"
 	call IncludeGuard(res_head, res_foot)
 endfunction
 function! IncludeGuardVim()
