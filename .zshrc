@@ -460,19 +460,19 @@ function peco-cd() {
 }
 alias sd='peco-cd'
 
-# <C-R>
-# [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
-function _peco-select-history() {
-	# historyを番号なし、逆順、最初から表示。
-	# 順番を保持して重複を削除。
-	# カーソルの左側の文字列をクエリにしてpecoを起動
-	# \nを改行に変換
-	BUFFER="$(builtin history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
-	CURSOR=$#BUFFER # カーソルを文末に移動
-	zle -R -c       # refresh
-}
-zle -N _peco-select-history
-bindkey '^R' _peco-select-history
+# # <C-R>
+# # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
+# function _peco-select-history() {
+# 	# historyを番号なし、逆順、最初から表示。
+# 	# 順番を保持して重複を削除。
+# 	# カーソルの左側の文字列をクエリにしてpecoを起動
+# 	# \nを改行に変換
+# 	BUFFER="$(builtin history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
+# 	CURSOR=$#BUFFER # カーソルを文末に移動
+# 	zle -R -c       # refresh
+# }
+# zle -N _peco-select-history
+# bindkey '^R' _peco-select-history
 
 # <C-X><C-S>
 function _peco-snippets() {
@@ -1282,16 +1282,6 @@ fi
 # stderrに出力
 REPORTTIME=10
 
-# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
-zshdir=~/.zsh
-[[ ! -e $zshdir ]] && mkdir -p $zshdir
-[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
-fpath=($zshdir/zsh-completions/src $fpath)
-[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
-source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
-[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
-source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
-
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
@@ -1311,3 +1301,5 @@ if [[ $OS == Windows_NT ]]; then
 	export PROMPT='%~ $ '
 	export HISTFILE=${HOME}/.zsh_history
 fi
+
+[[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc
