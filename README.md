@@ -20,3 +20,6 @@ open vim and puts `:PlugInstall`
 [Karabiner\-Elementsの設定項目をまとめました]( https://qiita.com/s-show/items/a1fd228b04801477729c )
 
 ## [umaumax/window\-toggle]( https://github.com/umaumax/window-toggle )
+
+## ./snippets/snippet.txt
+[zsh でワンライナーを手早く呼び出し実行する \- Qiita]( https://qiita.com/b4b4r07/items/c29163cf1723cccefed6 )

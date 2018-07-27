@@ -1,43 +1,66 @@
 #!/usr/bin/env bash
-find . -name="" -exec grep --color=auto -H -n {} +
-sudo find / -name="" -exec grep --color=auto -H -n {} +
+# [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
+: find
+[current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
+[root dir find] sudo find / -name="@" -exec grep --color=auto -H -n {} +
+: fg
+[vim] fg.vim "@" | pecovim
+[vim] fg.my.vim "@" | pecovim
+[vim] fg.md "@" | pecovim
+[vim] fg.my.md "@" | pecovim
+[vim] fg.cpp-all "@" | pecovim
+[vim] fg.vim "@"
+[vim] fg.my.vim "@"
+[vim] fg.md "@"
+[vim] fg.my.md "@"
+[vim] fg.cpp-all "@"
 
-vim /etc/hosts
-vim /etc/network/interfaces
-vim /etc/resolv.conf
+: ubuntu
+: ubuntu vim /etc files
+[hosts] vim /etc/hosts !
+[network/interfaces] vim /etc/network/interfaces !
+[resolv.conf] vim /etc/resolv.conf !
+: ubuntu cd
+[GUI app autostart] cd ~/.config/autostart !
+[apps] cd /usr/share/applications !
+: ubuntu network
+[network reboot] sudo service networking restart !
+[ip flush] sudo ip addr flush !
+[ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
+: ubuntu *.deb install
+[gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 
-cd ~/.config/autostart
-cd /usr/share/applications
+: tar
+[解凍] tar zxvf # tar zxvf xxxx.tar.gz
+[圧縮] tar zcvf # tar zcvf xxxx.tar.gz directory
 
-sudo service networking restart
-sudo ip addr flush
-NIC= && sudo ifdown $NIC && sudo ifup $NIC
+: filter
+[filter 数字のみ] perl -nle '$_=~/([0-9]+)/;print $1;'
 
-tar zxvf
-tar zxvf xxxx.tar.gz # 解凍
-tar zcvf
-tar zcvf xxxx.tar.gz directory # 圧縮
+[IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
-perl -nle '$_=~/([0-9]+)/;print $1;'
+: size
+[size] du -s * # fils size
+[size] df -h # disk size
 
-netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
+: docker
+[build] docker build -t "@" .
+[run] docker run --rm -it "@" /bin/bash
 
-du -s *
-df -h
+: cmake
+[cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
 
-echo !! | c # copy prev command(except for '|')
+: timeout
+[timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
-docker run built -t "image" .
-docker run --rm -it "image" /bin/bash
+: git
+[push] git push -u origin master ! # normal push
+[push] git push -u --force origin master # force push
+: [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
+[commit 取り消し（編集内容はそのまま）] git reset --soft HEAD^ !
+[amend 取り消し] git reset HEAD@{1} !
+[merge 取り消し] git reset --hard ORIG_HEAD !
+[ファイルの削除をなかったことにする] git checkout HEAD -- @ # <file>
+[force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 
-cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
-
-timeout -sKILL
-timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
-
-sudo gdebi
-sudo gdebi ./google-chrome-stable_current_amd64.deb
-
-git push -u origin master # normal push
-git push -u --force origin master # force push
-git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD # force update of author and email for all commits
+[lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
