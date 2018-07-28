@@ -27,7 +27,9 @@ if v:version >= 800 && has('python3')
 	endif
 
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
-	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
+	" 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
+	" NOTE: [KeyError\('runtimepath'\)  Issue \#9  zchee/deoplete\-zsh]( https://github.com/zchee/deoplete-zsh/issues/9 is not merged yet)
+	Plug 'umaumax/deoplete-zsh', {'for': ['sh','zsh']}
 	" filetypeのsyntaxファイルの中にある記述を見て 補完候補を追加
 	" NOTE: カーソル移動速度低下の要因
 	Plug 'Shougo/neco-syntax'
