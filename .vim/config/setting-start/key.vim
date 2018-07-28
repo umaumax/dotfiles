@@ -579,8 +579,12 @@ vnoremap grep "zy:let @/=@z<CR>:set hlsearch<CR>
 nnoremap sed :set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
 vnoremap sed "zy:let @/ = @z<CR>:set hlsearch<CR>:%s%<C-r>/%%gc<Left><Left><Left>
 
-cnoremap <C-n>  <Down>
-cnoremap <C-p>  <Up>
+" <C-p>, <C-q>: 前方一致ではなく愚直に履歴を辿る。
+" カーソルキーの上下は前方一致
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+" cnoremap <C-p> <S-Tab>
+" cnoremap <C-n> <Tab>
 
 nnoremap src :source ~/.vimrc<CR>
 " :Src
