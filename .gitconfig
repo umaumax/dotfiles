@@ -29,6 +29,7 @@
 	# [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
 	# for mac
 	# [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+	diff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
 	cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
 	wdiff = diff --word-diff-regex='\\w+'
 	diff-head = diff HEAD
