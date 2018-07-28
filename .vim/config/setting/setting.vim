@@ -30,7 +30,7 @@ set wildmenu wildmode=list:full "入力補完機能
 set laststatus=2 "常に編集中ファイル名表示
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " MacOSX/Linux
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
-set scrolloff=10 " 最低でも上下に表示する行数
+set scrolloff=8 " 最低でも上下に表示する行数
 set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
 
 " default 1000, -1
@@ -40,7 +40,7 @@ set timeout timeoutlen=500 ttimeoutlen=50
 " > CursorHold イベントは 'updatetime' オプションで発生するまでの時間を調節できる。ただし、'updatetime' は本来スワップファイルが更新されるまでの時間なので、設定する際は注意。
 " set cursorline   "カーソル行ハイライト
 " set cursorcolumn "カーソル列ハイライト
-set updatetime=500 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
+set updatetime=250 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
 
 " 検索中のみ，カーソルを目立たせる
 function! s:auto_highlight()
