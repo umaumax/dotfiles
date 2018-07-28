@@ -43,3 +43,44 @@ augroup textobj
 	autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
 	autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
 augroup END
+
+" [Vimメモ : vim\-expand\-regionでビジュアルモードの選択領域を拡大／縮小 \- もた日記]( https://wonderwall.hatenablog.com/entry/2016/03/31/231621 )
+" il: 'kana/vim-textobj-line'
+" ie: 'kana/vim-textobj-entire'
+" 'ih' my command
+" 'id' my command
+Plug 'terryma/vim-expand-region'
+vmap j <Plug>(expand_region_expand)
+vmap k <Plug>(expand_region_shrink)
+let g:expand_region_text_objects = {
+			\ 'iw'  :0,
+			\ 'iW'  :0,
+			\ 'ih'  :0,
+			\ 'id'  :0,
+			\ 'i"'  :0,
+			\ 'a"'  :0,
+			\ 'i''' :0,
+			\ 'a''' :0,
+			\ 'i]'  :1,
+			\ 'a]'  :1,
+			\ 'ib'  :1,
+			\ 'ab'  :1,
+			\ 'iB'  :1,
+			\ 'aB'  :1,
+			\ 'il'  :0,
+			\ 'ip'  :0,
+			\ 'ie'  :0,
+			\ }
+
+" NOTE: oによるカーソル位置によってはexapnd or shrink
+" expand range one char both side
+function! s:expand_visual_range(n)
+	let pos=getpos('.')
+	if a:n > 0
+		execute "normal gv\<Right>o\<Left>o"
+	elseif a:n < 0
+		execute "normal gv\<Left>o\<Right>o"
+	endif
+endfunction
+vnoremap J :<C-u>call <SID>expand_visual_range(1)<CR>
+vnoremap K :<C-u>call <SID>expand_visual_range(-1)<CR>
