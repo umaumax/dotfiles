@@ -9,3 +9,6 @@ chmod u+x window-toggle
 
 https://github.com/stedolan/git-ls/blob/master/git-ls git-ls
 chmod u+x git-ls
+
+https://github.com/umaumax/imv/blob/master/imv.sh imv
+chmod u+x imv
