@@ -382,6 +382,15 @@ else
 	endif
 endif
 endfunction
+function! s:last_window_event()
+	if &ft == 'vimconsole'
+		q
+	endif
+endfunction
+augroup auto_window_quit
+	autocmd!
+	autocmd WinEnter * if winnr() == winnr('$')|call s:last_window_event()|endif
+augroup END
 " save and quit
 " write all
 nnoremap wa :wa<CR>

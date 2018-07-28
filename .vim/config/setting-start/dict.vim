@@ -19,11 +19,34 @@ function! s:dict_replacer()
 endfunction
 " NOTE: 関数などの補完後も役立つ情報を保持する
 function! s:vimconsole_logger()
+	" NOTE: for debug
+	" PP v:completed_item
 	let item = v:completed_item
-	if item['menu'] ==# '[clang] '
+	let menu = item['menu']
+	let abbr = item['abbr']
+	let vim_flag = menu == '[vim] '
+	let clang_flag = menu == '[clang] '
+	let flag = vim_flag || clang_flag
+	if flag
+		let func_flag = abbr =~ '.*(.*)'
+		let template_flag = abbr =~ '.*<.*>'
+		let log_flag = func_flag || template_flag
 		" NOTE; is function?
-		if item['info'] =~ '.*(.*)'
-			call vimconsole#log('%s:%s', item['menu'], item['info'])
+		if func_flag
+			if vim_flag
+				execute "normal! i)"
+			endif
+			if clang_flag
+				execute "normal! i()"
+			endif
+		endif
+		if template_flag
+			if clang_flag
+				execute "normal! i<>"
+			endif
+		endif
+		if log_flag
+			call vimconsole#log('%s:%s', menu, abbr)
 			if vimconsole#is_open()
 				" NOTE: this is not needed because of let g:vimconsole#auto_redraw=1
 				" call vimconsole#redraw()
