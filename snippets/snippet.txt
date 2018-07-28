@@ -67,3 +67,6 @@
 [force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+
+: g++
+[c++11] g++ -std=c++11
