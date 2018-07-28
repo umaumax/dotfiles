@@ -565,6 +565,20 @@ if cmdcheck tmux; then
 		local tag_id=$(echo $output | peco | cut -d : -f 1)
 		[[ -n $tag_id ]] && tmux a -t $tag_id
 	}
+	# [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
+	function tmux-rename-session() {
+		if [ $# -lt 1 ]; then
+			git status >/dev/null 2>&1
+			if [ $? -eq 0 ]; then
+				local name=$(basename $(git rev-parse --show-toplevel))
+			else
+				local name=$(basename $(pwd))
+			fi
+		else
+			local name=$1
+		fi
+		tmux rename-session ${name//./_}
+	}
 fi
 
 # NOTE: to avoid xargs no args error on ubuntu
