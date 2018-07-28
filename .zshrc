@@ -146,7 +146,6 @@ alias ho='\cd ~'
 alias home='\cd ~'
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
-alias ds='cd ~/Desktop/'
 alias desktop='cd ~/Desktop/'
 
 [[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
@@ -660,6 +659,7 @@ function _xargs-vim() {
 	vim $@
 }
 
+alias ds='cd ~/dotfiles'
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
 
