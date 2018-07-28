@@ -1,7 +1,9 @@
 if &rtp =~ 'vim-submode'
 	" for no space line join
-	call submode#enter_with('join_line', 'n', '', 'gJ', 'gJ')
-	call submode#map('join_line', 'n', '', 'J', 'gJ')
+	" NOTE: remove tags
+	let s:gJ_cmd = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^\\t*\\(.*\\)', '\\1', ''))<CR>gJ"
+	call submode#enter_with('join_line', 'n', '', 'gJ', s:gJ_cmd)
+	call submode#map('join_line', 'n', '', 'J', s:gJ_cmd)
 
 	nnoremap gw w
 	nnoremap gW W
