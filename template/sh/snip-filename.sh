@@ -1,4 +1,4 @@
-dirname=${filepath%/*}
+dirpath=$(dirname $filepath)
 noext_filepath=${filepath%.*}
 
 basename=${filepath##*/}
