@@ -381,7 +381,7 @@ cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
 alias pvim='vim -'
-alias g='googler -n 5'
+# alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
 alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 if cmdcheck peco; then

@@ -11,10 +11,11 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
 	source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
 	[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/b4b4r07/easy-oneliner $zshdir/easy-oneliner
-	source $zshdir/easy-oneliner/easy-oneliner.zsh
+	# NOTE: 変数を設定してからsourceする必要がある
 	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
-	# 	EASY_ONE_KEYBIND="^x^x"
+	EASY_ONE_KEYBIND="^r" # default "^x^x"
 	EASY_ONE_FZF_OPTS="--no-sort"
+	source $zshdir/easy-oneliner/easy-oneliner.zsh
 	return
 fi
 

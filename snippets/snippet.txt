@@ -54,6 +54,7 @@
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
 : git
+[commit] git commit -m '@'
 [push] git push -u origin master ! # normal push
 [push] git push -u --force origin master # force push
 [diff] git diff --cached # <file> # addしたファイルの差分表示
