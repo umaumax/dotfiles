@@ -1,3 +1,5 @@
+finish
+
 function! s:nr2bin(nr)
 	let n = a:nr
 	let r = ""

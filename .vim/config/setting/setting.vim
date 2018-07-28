@@ -56,9 +56,7 @@ augroup vimrc-auto-cursorline
 	" :set hlsearch
 	autocmd OptionSet hlsearch call s:auto_highlight()
 	" NOTE: :nohでは上記は呼ばれない
-	autocmd CursorMoved,CursorMovedI * call s:auto_highlight()
-	" 	autocmd CursorMoved,CursorMovedI,WinLeave * setlocal nocursorline | setlocal nocursorcolumn | syntax off
-	" 	autocmd CursorHold,CursorHoldI * setlocal cursorline | setlocal cursorcolumn | syntax on
+	autocmd CursorHold,CursorHoldI * call s:auto_highlight()
 augroup END
 
 " these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
