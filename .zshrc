@@ -1100,6 +1100,12 @@ function when() { ps -eo lstart,pid,args | grep -v grep; }
 # [bashのalias に引数を渡すには？ - それマグで！](http://takuya-1st.hatenablog.jp/entry/2015/12/15/030119)
 function tree() { if [ -p /dev/stdout ]; then command tree "$@"; else command tree -C "$@"; fi; }
 
+# onlyd for zsh
+alias wtty='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" }'
+alias weather.tokyo.en='wtty'
+alias weather.tokyo.ja='() { curl -H "Accept-Language: ja" wttr.in/"${1:-Tokyo}" }'
+alias moon='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" } moon'
+
 # auto zstyle ':prezto:load' pmodule function
 # e.g.
 # zploadadd homebrew osx git rails syntax-highlighting history-substring-search
