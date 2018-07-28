@@ -670,9 +670,13 @@ for mapping in surround_key_mappings
 	for key in mapping['keys']
 		" 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+		if key[0] =~ '\W'
+			execute "vnoremap ".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+		endif
 	endfor
 endfor
 vnoremap s<Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
+vnoremap <Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
 
 " [visual \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/visual.html )
 vnoremap ikakko ib
