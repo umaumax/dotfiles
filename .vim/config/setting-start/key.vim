@@ -561,14 +561,14 @@ endfunction
 " dynamic highlight search
 " very magic
 " [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
-nnoremap se :set hlsearch<CR>:set incsearch<CR>/\v
-nnoremap / :set hlsearch<CR>:set incsearch<CR>/\v
-nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\v
+nnoremap se :set hlsearch<CR>:set incsearch<CR>/\V
+nnoremap / :set hlsearch<CR>:set incsearch<CR>/\V
+nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\V
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " [Simplifying regular expressions using magic and no\-magic \| Vim Tips Wiki \| FANDOM powered by Wikia]( http://vim.wikia.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic )
 " cnoremap %m %smagic/
-cnoremap %s %smagic/
+cnoremap %s %sno/
 " replace by raw string
 " cnoremap %n %sno/
 " cnoremap \>s/ \>smagic/
