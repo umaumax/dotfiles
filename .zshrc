@@ -554,6 +554,19 @@ if cmdcheck docker; then
 	}
 fi
 
+if cmdcheck tmux; then
+	function tmux-attach() {
+		if [ -n "$TMUX" ]; then
+			echo 'Do not use this command in a tmux session.'
+			return 1
+		fi
+		local output=$(tmux ls)
+		[[ -z $output ]] && return 1
+		local tag_id=$(echo $output | peco | cut -d : -f 1)
+		[[ -n $tag_id ]] && tmux a -t $tag_id
+	}
+fi
+
 # NOTE: to avoid xargs no args error on ubuntu
 # [xargs で標準入力が空だったら何もしない \- Qiita]( https://qiita.com/m_doi/items/432b9145b69a0ba3132d )
 # --no-run-if-empty: macでは使用不可
@@ -1152,6 +1165,9 @@ function color-test-full() {
 	printf "\n";
 }'
 }
+function color-tmux() {
+	for i in {0..255}; do printf "\x1b[38;5;${i}mcolour${i}\x1b[0m\n"; done | xargs
+}
 
 function xargs-printf() {
 	while read line || [ -n "${line}" ]; do
@@ -1298,10 +1314,44 @@ if [[ -n $_Ubuntu ]]; then
 	add-zsh-hook precmd precmd_function
 fi
 
-# for windows
-if [[ $OS == Windows_NT ]]; then
-	export PROMPT='%~ $ '
-	export HISTFILE=${HOME}/.zsh_history
-fi
-
 [[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc
+
+# windows setting
+# if [[ $OS == Windows_NT ]]; then
+if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
+	if [[ -n $BASH ]]; then
+		PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h (x_x)/(\[\e[35m\]$MSYSTEM\[\e[0m\]) \[\e[33m\]\w\[\e[0m\]\n\$ "
+	else
+		# zsh
+		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\n"'x$ ')
+	fi
+	export HISTFILE=${HOME}/.zsh_history
+
+	alias p='gopaste'
+	alias c='gocopy'
+
+	## windows ls color
+	export LS_COLORS="di=01;36"
+	alias ls='ls --color=auto --show-control-chars'
+
+	alias cmd='winpty cmd'
+	alias psh='winpty powershell'
+	alias ipconfig='winpty ipconfig'
+	alias ifconfig='winpty ipconfig'
+	alias netstat='winpty netstat'
+	alias netsh='winpty netsh'
+	alias ping='winpty ping'
+	alias ver='cmd.exe /c "ver"'
+	alias winver='cmd.exe /c "winver" &'
+	alias open='start .'
+
+	export PATH=~/go/bin:$PATH
+	export WIN_HOME="/c/Users/$USER"
+
+	alias fg.my.md='find "$WIN_HOME/Documents" -name "*.md" -print0 | xargs-grep-0'
+	# NOTE:findでシンボリックリンクを仲介すると極端に挙動が遅くなる
+	alias mdfind='_mdfind(){ find $WIN_HOME/Documents -name "*.md" -exec grep -n --color=auto "$@" {} + } && _mdfind'
+	alias win-home='cd $WIN_HOME'
+	alias winhome='cd $WIN_HOME'
+	alias wcd='cd $WIN_HOME'
+fi
