@@ -315,7 +315,7 @@ call smartinput#define_rule(
 
 call s:map_to_trigger('i', 'r')
 call smartinput#define_rule(
-			\ { 'at'    : 'vecto\%#'
+			\ { 'at'    : '\%(^#include <\)\@<!vecto\%#'
 			\ , 'char'  : 'r'
 			\ , 'input' : 'r<><Left>'
 			\ , 'filetype' : ['cpp']
@@ -358,9 +358,24 @@ call smartinput#define_rule(
 			\ })
 
 call smartinput#define_rule(
-			\ { 'at'    : '\%#.*\(cin\|stream\|ss\)*'
+			\ { 'at'    : '\%#.*\(cin\|stream\|ss\)'
 			\ , 'char'  : '>'
 			\ , 'input' : '>>'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+" NOTE: lambda(変数に代入を想定)
+call smartinput#define_rule(
+			\ { 'at'    : '\%((\)\@<!\[\]\%#'
+			\ , 'char'  : '('
+			\ , 'input' : '(){<Left><Left><C-o>:call append(".", ["","};"])<CR>'
+			\ , 'filetype' : ['cpp']
+			\ })
+" NOTE: lambda(thread([](){}))
+call smartinput#define_rule(
+			\ { 'at'    : '\%((\)\@<=\[\]\%#'
+			\ , 'char'  : '('
+			\ , 'input' : '(){<C-o>:call append(".", ["","}".getline(".")[col(".")-1:]])<CR><C-o>:call setline(".", getline(".")[:col(".")-2])<CR><Left><Left>'
 			\ , 'filetype' : ['cpp']
 			\ })
 
