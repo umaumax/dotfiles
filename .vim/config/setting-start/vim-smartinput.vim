@@ -1,6 +1,16 @@
 if !(&rtp =~ 'vim-smartinput')
 	finish
 endif
+
+let s:trigger_map={}
+function! s:map_to_trigger(mode, trigger)
+	let key=a:mode.':'.a:trigger
+	if has_key(s:trigger_map, key)
+		return
+	endif
+	let s:trigger_map[key]=1
+	call smartinput#map_to_trigger(a:mode, a:trigger, a:trigger, a:trigger)
+endfunction
 " auto paired char insertion
 " for alternative for 'kana/vim-smartinput'
 " [Vim 8\.0 Advent Calendar 13 日目 undo を分割せずにカーソルを移動 \- Qiita]( https://qiita.com/thinca/items/792f3a92930d79402d2c )
@@ -45,7 +55,8 @@ endif
 " 			\   'input' : '<Del><BS>',
 " 			\   })
 
-call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
+call s:map_to_trigger('i', '<Space>')
+" call smartinput#map_to_trigger('i', '<Space>', '<Space>', '<Space>')
 " NOTE: [対応する括弧等を入力する生活に疲れた\(Vim 編\) \- TIM Labs]( http://labs.timedia.co.jp/2012/09/vim-smartinput.html )
 " >  競合時の優先度: 基本的には「 at がやたら長いものはそれだけ複雑な文脈の指定になっている」という前提で at の長いルールの優先度が高くなるように設定されています。
 call smartinput#define_rule({
@@ -67,21 +78,26 @@ for s:set in ['()','\[\]','{}','``','``````','""',"''"]
 endfor
 call smartinput#define_rule({'at': '```\%#', 'char': '<CR>', 'input': '<CR><ESC>O'})
 
-call smartinput#map_to_trigger('i', '{', '{', '{')
+call s:map_to_trigger('i', '{')
+" call smartinput#map_to_trigger('i', '{', '{', '{')
 
 " NOTE: 下記の方法では相殺できなかったため，cloneして改変する方法に
 " override default rule
 " call smartinput#define_rule({'at': '\%#\_s*)', 'char': ')', 'input': ')'})
 " call smartinput#define_rule({'at': '\%#\_s*\]', 'char': ']', 'input': ']'})
-call smartinput#map_to_trigger('i', ']', ']', ']')
-call smartinput#map_to_trigger('i', ')', ')', ')')
-call smartinput#map_to_trigger('i', '}', '}', '}')
+call s:map_to_trigger('i', ']')
+call s:map_to_trigger('i', ')')
+call s:map_to_trigger('i', '}')
+" call smartinput#map_to_trigger('i', ']', ']', ']')
+" call smartinput#map_to_trigger('i', ')', ')', ')')
+" call smartinput#map_to_trigger('i', '}', '}', '}')
 call smartinput#define_rule({'at': '\[\%#\]', 'char': ']', 'input': '<Right>'})
 call smartinput#define_rule({'at': '(\%#)', 'char': ')', 'input': '<Right>'})
 call smartinput#define_rule({'at': '{\%#}', 'char': '}', 'input': '<Right>'})
 
 " 改行時に行末のスペース除去
-call smartinput#map_to_trigger('i', '<CR>', '<CR>', '<CR>')
+call s:map_to_trigger('i', '<CR>')
+" call smartinput#map_to_trigger('i', '<CR>', '<CR>', '<CR>')
 call smartinput#define_rule({
 			\   'at': '\s\+\%#',
 			\   'char': '<CR>',
@@ -96,7 +112,8 @@ call smartinput#define_rule({
 			\   'filetype': ['python'],
 			\   })
 
-call smartinput#map_to_trigger('i', '\|', '\|', '\|')
+" call smartinput#map_to_trigger('i', '\|', '\|', '\|')
+call s:map_to_trigger('i', '\|')
 call smartinput#define_rule({
 			\   'at': '|\%#$',
 			\   'char': '|',
@@ -104,7 +121,8 @@ call smartinput#define_rule({
 			\   'filetype': ['python'],
 			\   })
 
-call smartinput#map_to_trigger('i', '&', '&', '&')
+" call smartinput#map_to_trigger('i', '&', '&', '&')
+call s:map_to_trigger('i', '&')
 call smartinput#define_rule({
 			\   'at': '&\%#$',
 			\   'char': '&',
@@ -112,7 +130,8 @@ call smartinput#define_rule({
 			\   'filetype': ['python'],
 			\   })
 
-call smartinput#map_to_trigger('i', '>', '>', '>')
+call s:map_to_trigger('i', '>')
+" call smartinput#map_to_trigger('i', '>', '>', '>')
 " <>_ ===> <_>
 call smartinput#define_rule({'at': '<\%#', 'char': '>', 'input': '><Left>'})
 
@@ -224,7 +243,8 @@ endfunction
 call RegisterSmartinputRules(s:replace_map)
 
 " NOTE:登録済のトリガを大量に登録すると反応しないので注意
-call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, s:gtrigger)
+" call smartinput#map_to_trigger('i', s:gtrigger, s:gtrigger, s:gtrigger)
+call s:map_to_trigger('i', s:gtrigger)
 
 " クラス定義や enum 定義の場合は末尾に;を付け忘れないようにする
 call smartinput#define_rule({
@@ -233,7 +253,8 @@ call smartinput#define_rule({
 			\   'input'    : '<Space>{};<Left><Left><CR><Left><CR>',
 			\   'filetype' : ['cpp'],
 			\   })
-call smartinput#map_to_trigger('i', '<', '<', '<')
+" call smartinput#map_to_trigger('i', '<', '<', '<')
+call s:map_to_trigger('i', '<')
 " template に続く <> を補完
 call smartinput#define_rule({
 			\   'at'       : '\<template\>\s*\%#',
@@ -244,7 +265,8 @@ call smartinput#define_rule({
 
 " [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L2086 )
 " \s= を入力したときに空白を挟む
-call smartinput#map_to_trigger('i', '=', '=', '=')
+" call smartinput#map_to_trigger('i', '=', '=', '=')
+call s:map_to_trigger('i', '=')
 call smartinput#define_rule(
 			\ { 'at'    : '\s\%#'
 			\ , 'char'  : '='
@@ -259,7 +281,8 @@ call smartinput#define_rule(
 			\ })
 
 " でも連続した =~ となる場合には空白は挟まない
-call smartinput#map_to_trigger('i', '~', '~', '~')
+" call smartinput#map_to_trigger('i', '~', '~', '~')
+call s:map_to_trigger('i', '~')
 call smartinput#define_rule(
 			\ { 'at'    : '=\s\%#'
 			\ , 'char'  : '~'
@@ -267,47 +290,124 @@ call smartinput#define_rule(
 			\ })
 
 " Vim は ==# と =~# がある
-call smartinput#map_to_trigger('i', '#', '#', '#')
+" call smartinput#map_to_trigger('i', '#', '#', '#')
+call s:map_to_trigger('i', '#')
 call smartinput#define_rule(
 			\ { 'at'    : '=[~=]\s\%#'
 			\ , 'char'  : '#'
 			\ , 'input' : '<BS># '
 			\ })
 
-" " no lib command
-" " b;; -> boost::
-" " s;; -> std::
-" " d;; -> detail::
-" augroup cpp-namespace
-" 	autocmd!
-" 	autocmd FileType cpp inoremap <buffer><expr>; <SID>expand_namespace(';')
-" 	autocmd FileType cpp inoremap <buffer><expr>: <SID>expand_namespace(':')
-" augroup END
-" function! s:expand_namespace(char)
-" 	let s = getline('.')[0:col('.')-1]
-" 
-" 	if s =~# '\<b:'
-" 		return "\<BS>oost::"
-" 	elseif s =~# '\<s:'
-" 		return "\<BS>td::"
-" 	elseif s =~# '\<d:'
-" 		return "\<BS>etail::"
-" 	endif
-" 	if s =~# '\<b;'
-" 		return "\<BS>oost::"
-" 	elseif s =~# '\<s;'
-" 		return "\<BS>td::"
-" 	elseif s =~# '\<d;'
-" 		return "\<BS>etail::"
-" 	endif
-" 	" 	if s =~# '\<b;$'
-" 	" 		return "\<BS>oost::"
-" 	" 	elseif s =~# '\<s;$'
-" 	" 		return "\<BS>td::"
-" 	" 	elseif s =~# '\<d;$'
-" 	" 		return "\<BS>etail::"
-" 	" 	else
-" 	" 		return ';'
-" 	" 	endif
-" 	return a:char
-" endfunction
+call s:map_to_trigger('i', '-')
+call smartinput#define_rule(
+			\ { 'at'    : '\S\%#'
+			\ , 'char'  : '-'
+			\ , 'input' : '->'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call smartinput#define_rule(
+			\ { 'at'    : '\(#\s*include\s*\|vector\|shared_ptr\|unique_ptr\|weak_ptr\|map\|unordered_map\|array\|list\|forward_list\|dequre\|priority_queue\|set\|multiset\|unordered_set\|unordered_multiset\|multimap\|unordered_multimap\|stack\|queue\|template\)\%#'
+			\ , 'char'  : '<'
+			\ , 'input' : '<><Left>'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call s:map_to_trigger('i', 'r')
+call smartinput#define_rule(
+			\ { 'at'    : 'vecto\%#'
+			\ , 'char'  : 'r'
+			\ , 'input' : 'r<><Left>'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call s:map_to_trigger('i', ':')
+" 確実なマッピング
+call smartinput#define_rule(
+			\ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\)\%#'
+			\ , 'char'  : ':'
+			\ , 'input' : '::'
+			\ , 'filetype' : ['cpp']
+			\ })
+" NOTE: 文字列内である可能性では排除
+call smartinput#define_rule(
+			\ { 'at'    : '^[^"]*\w\%#'
+			\ , 'char'  : ':'
+			\ , 'input' : '::'
+			\ , 'filetype' : ['cpp']
+			\ })
+" NOTE: 誤入力防止
+call smartinput#define_rule(
+			\ { 'at'    : '::\%#'
+			\ , 'char'  : ':'
+			\ , 'input' : ''
+			\ , 'filetype' : ['cpp']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : 'public\s*\%#'
+			\ , 'char'  : '<CR>'
+			\ , 'input' : '<><Left>'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call smartinput#define_rule(
+			\ { 'at'    : '\(cout\|cerr\|clog\|stream\|ss\).*\%#'
+			\ , 'char'  : '<'
+			\ , 'input' : '<<'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call smartinput#define_rule(
+			\ { 'at'    : '\%#.*\(cin\|stream\|ss\)*'
+			\ , 'char'  : '>'
+			\ , 'input' : '>>'
+			\ , 'filetype' : ['cpp']
+			\ })
+
+call smartinput#define_rule({
+			\   'at': '\(public\|private\|protected\)[^:]*\%#$',
+			\   'char': '<CR>',
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '$', ':', ''))<CR><C-o>$<CR>",
+			\   'filetype': ['cpp'],
+			\   })
+
+" NOTE: 誤入力防止
+call smartinput#define_rule(
+			\ { 'at'    : 'if.*\[.*\]\%#\s*\%(then\)\@!$'
+			\ , 'char'  : ':'
+			\ , 'input' : '; then'
+			\ , 'filetype' : ['sh','zsh']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : 'if.*\[.*\]\%#.*then'
+			\ , 'char'  : ':'
+			\ , 'input' : ';'
+			\ , 'filetype' : ['sh','zsh']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : 'if.*\[.*\]\%#\%(;\s*then\)\@!'
+			\ , 'char'  : '<CR>'
+			\ , 'input' : '; then<CR>'
+			\ , 'filetype' : ['sh','zsh']
+			\ })
+
+call s:map_to_trigger('i', 'f')
+call smartinput#define_rule(
+			\ { 'at'    : 'endi\%#'
+			\ , 'char'  : 'f'
+			\ , 'input': "<C-o>:call setline('.', 'fi')<CR><C-o>$"
+			\ , 'filetype' : ['sh','zsh']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : 'elsei\%#'
+			\ , 'char'  : 'f'
+			\ , 'input': "<C-o>:call setline('.', 'elif')<CR><C-o>$"
+			\ , 'filetype' : ['sh','zsh']
+			\ })
+
+call smartinput#define_rule({
+			\   'at': '^plug\%#$',
+			\   'char': '<Space>',
+			\   'input': "<C-o>:call setline('.', \"Plug ''\")<CR><C-o>$<Left>",
+			\   'filetype': ['vim'],
+			\   })
