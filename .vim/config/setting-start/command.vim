@@ -131,3 +131,6 @@ command! -nargs=* -range Rep    let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <
 
 command! -nargs=* -range Space2Tab <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG')
 command! -nargs=* -range Tab2Space <line1>,<line2>call s:substitute('^\( *\)\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG')
+
+" NOTE: 全角文字扱いだが，半角表示となるためにずれる
+command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
