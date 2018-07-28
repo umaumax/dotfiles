@@ -51,6 +51,21 @@ let g:sonictemplate_vim_template_dir = [
 
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 Plug 'rbtnn/vimconsole.vim'
+let g:vimconsole#height = 8
+let g:vimconsole#auto_redraw=1
+" NOTE: 出力を逆順に表示
+function s:tac(context)
+	let firstline=1
+	let lastline=line('$')-1 " NOTE: last line is let s:PROMPT_STRING = 'VimConsole>'
+	let source=getline(firstline, lastline)
+	let rev_source=reverse(source)
+	normal! ggVG"_x
+	call setline(1, rev_source[0])
+	call append(1, rev_source[1:])
+endfunction
+let g:vimconsole#hooks = {'on_post_redraw' : function('s:tac')}
+Plug 'thinca/vim-prettyprint'
+
 
 " :ShebangInsert
 Plug 'sbdchd/vim-shebang'
