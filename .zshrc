@@ -201,6 +201,8 @@ alias era='echo H$(($(date +"%y") + 12))'
 # exit
 alias q!='exit'
 alias qq='exit'
+alias :q='exit'
+alias :q!='exit'
 alias qqq='exit'
 alias qqqq='exit'
 alias quit='exit'
