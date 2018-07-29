@@ -85,12 +85,12 @@ augroup auto_format_setting
 		autocmd BufWinEnter *.js   command! Format JsBeautify()
 		autocmd BufWinEnter *.json command! Format JsonBeautify()
 		autocmd BufWinEnter *.jsx  command! Format JsxBeautify()
-		autocmd BufWinEnter *.html command! Format HtmlBeautify()
+		autocmd BufWinEnter *.{html,vue} command! Format HtmlBeautify()
 		autocmd BufWinEnter *.css  command! Format CSSBeautify()
 		autocmd BufWritePre *.js   if IsAutoFormat() | :call JsBeautify() | endif
 		autocmd BufWritePre *.json if IsAutoFormat() | :call JsonBeautify() | endif
 		autocmd BufWritePre *.jsx  if IsAutoFormat() | :call JsxBeautify() | endif
-		autocmd BufWritePre *.html if IsAutoFormat() | :call HtmlBeautify() | endif
+		autocmd BufWritePre *.{html,vue} if IsAutoFormat() | :call HtmlBeautify() | endif
 		autocmd BufWritePre *.css  if IsAutoFormat() | :call CSSBeautify() | endif
 	endif
 

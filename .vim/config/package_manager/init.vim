@@ -249,16 +249,30 @@ Plug 'vim-airline/vim-airline'
 " let g:instant_markdown_autostart = 0
 
 " [vim で JavaScript の開発するときに最近いれた設定やプラグインとか - 憧れ駆動開発](http://atasatamatara.hatenablog.jp/entry/2013/03/09/211908)
-Plug 'vim-scripts/JavaScript-Indent', {'for': 'javascript'}
-Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
-Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
+" Plug 'vim-scripts/JavaScript-Indent', {'for': 'javascript'}
+" Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+" Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
+" Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
 Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
 if Doctor('npm', 'maksimr/vim-jsbeautify')
-	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html']}
+	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
 endif
+
+" for Vue.js
+" [Neovim/Vim8で快適Vue\.js開発\(Vue Language Server\)]( https://muunyblue.github.io/520bae6649b42ff5a3c8c58b7fcfc5a9.html )
+" npm install -g neovim
+" npm install -g vue-language-server
+Plug 'digitaltoad/vim-pug'
+Plug 'posva/vim-vue'
+Plug 'Shougo/context_filetype.vim'
+" Required: 'autozimu/LanguageClient-neovim'
+let g:LanguageClient_serverCommands = {
+			\ 'vue': ['vls'],
+			\ }
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+let g:NeoComplCache_OmniPatterns = {}
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
