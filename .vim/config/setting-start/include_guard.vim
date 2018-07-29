@@ -18,12 +18,16 @@ endfunction
 function! IncludeGuardVim()
 	let s:name = expand('%:r')
 	let s:dirname = substitute(expand('%:p:h'),'.*/','','')
-	echo s:dirname
-	if !(s:dirname == 'plugin' || s:dirname == 'autoload')
+	let s:dirpath = expand('%:p:h')
+	let plugin_flag = s:dirpath =~ 'plugin'
+	let autoload_flag = s:dirpath =~ 'autoload'
+	let ctrlp_flag = s:dirpath =~ 'autoload/ctrlp'
+	if !(plugin_flag || autoload_flag || ctrlp_flag)
 		return
 	endif
-	let s:var_name = substitute(s:name,'\.','_','g')
-	let s:head = "if ". "!\0"[s:dirname == 'plugin']."exists('g:loaded_".s:var_name."')\n"
+	let s:var_name = substitute(s:name,'\.\|-','_','g')
+	let exists_prefix = "!\0"[plugin_flag || ctrlp_flag]
+	let s:head = "if ".exists_prefix."exists('g:loaded_".s:var_name."')\n"
 				\."\tfinish\n"
 				\."endif\n"
 				\."let g:loaded_".s:var_name." = 1\n"
