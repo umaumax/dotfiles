@@ -24,6 +24,12 @@ function! s:vimconsole_logger()
 	let item = v:completed_item
 	let menu = item['menu']
 	let abbr = item['abbr']
+	let ns_flag = menu =~ '^\[ns\] '
+	if ns_flag
+		" NOTE: snippet自動展開
+		execute "normal a\<Plug>(neosnippet_expand_or_jump)"
+		return
+	endif
 	let vim_flag = menu == '[vim] '
 	let clang_flag = menu == '[clang] '
 	let flag = vim_flag || clang_flag
@@ -57,8 +63,7 @@ function! s:vimconsole_logger()
 	endif
 endfunction
 function! s:CompleteDone()
-	echom 'Done'
-	" 補完を行わなかった場合には空の辞書
+	" 	" 補完を行わなかった場合には空の辞書
 	if v:completed_item != {}
 		call s:dict_replacer()
 		call s:vimconsole_logger()

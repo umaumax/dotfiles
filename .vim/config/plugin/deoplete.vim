@@ -4,6 +4,11 @@
 " [deoplete] [vim-hug-neovim-rpc] requires `:pythonx import neovim` command to work
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
+	" NOTE: 普通のvimでも使用可能らしい
+	Plug 'autozimu/LanguageClient-neovim', {
+				\ 'branch': 'next',
+				\ 'do': 'bash install.sh',
+				\ }
 	" to choose deoplete <C-x>,<C-v>
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
