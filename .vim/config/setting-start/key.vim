@@ -350,7 +350,8 @@ imap <Nul> <C-x><C-o>
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 vnoremap <C-a> ^
-vnoremap <C-e> $
+vnoremap <C-e> $<Left>
+vnoremap $ $<Left>
 
 " FYI: [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L254 )
 " quickfix -> main windowの順に閉じる
