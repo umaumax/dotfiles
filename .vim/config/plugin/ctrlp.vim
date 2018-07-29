@@ -3,6 +3,12 @@
 Plug 'ctrlpvim/ctrlp.vim'
 " :CtrlPGitLog
 Plug 'kaneshin/ctrlp-git-log'
+" NOTE: 選択したものをすぐにペーストする
+" :CtrlPRegister
+Plug 'mattn/ctrlp-register'
+" :CtrlPYankRegister
+Plug 'umaumax/ctrlp-yank-register'
+
 " let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
 let g:ctrlp_extensions = ['quickfix', 'git_log']
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
