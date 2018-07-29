@@ -25,9 +25,12 @@ function! s:vimconsole_logger()
 	let menu = item['menu']
 	let abbr = item['abbr']
 	let ns_flag = menu =~ '^\[ns\] '
+	" NOTE: deoplete環境ではsnippet機能は通常の補完機能となってしまい，一工夫必要
+	" [deoplete環境でneosnippetを使えるようにする \- グレインの備忘録]( http://grainrigi.hatenablog.com/entry/2017/08/28/230029 )
 	if ns_flag
 		" NOTE: snippet自動展開
-		execute "normal a\<Plug>(neosnippet_expand_or_jump)"
+		execute "normal a\<Plug>(neosnippet_expand)"
+		" 		execute "normal a\<Plug>(neosnippet_expand_or_jump)"
 		return
 	endif
 	let vim_flag = menu == '[vim] '

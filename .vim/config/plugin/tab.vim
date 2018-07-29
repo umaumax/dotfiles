@@ -4,13 +4,18 @@
 " let g:SuperTabDefaultCompletionType = "context"
 
 function! s:Tab()
-	if neosnippet#jumpable() && neosnippet#expandable_or_jumpable()
-		execute "normal a\<Plug>(neosnippet_expand_or_jump)"
-		return ''
-		" 		return "\<Plug>(neosnippet_expand_or_jump)"
-	endif
 	if pumvisible()
 		return "\<C-n>"
+	endif
+	if neosnippet#jumpable()
+		execute "normal a\<Plug>(neosnippet_jump)"
+		let cursorPos = col(".")
+		let maxColumn = col("$")
+		if cursorPos == maxColumn - 1
+			call feedkeys("\<Right>",'n')
+		endif
+		return ''
+		" 		return "\<Plug>(neosnippet_jump)"
 	endif
 
 	let line = getline('.')
@@ -47,5 +52,8 @@ endfunction
 inoremap <Tab> <C-r>=<SID>Tab()<CR>
 inoremap <S-Tab> <C-r>=<SID>UnTab()<CR>
 " for neosnippet
-smap <buffer> <expr><TAB> neosnippet#jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-nmap <buffer> <expr><TAB> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <buffer> <expr><TAB> neosnippet#jumpable() ?  "\<Plug>(neosnippet_jump)" : "\<TAB>"
+" nmap <buffer> <expr><TAB> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : "\<TAB>"
+" なぜかvisualmodeに入るとインデントが可能
+nmap <buffer> <expr><TAB> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : "v>>"
+" nmap <buffer> <expr><TAB> "v>>"

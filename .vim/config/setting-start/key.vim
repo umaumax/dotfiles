@@ -49,19 +49,80 @@ command! Foldenable set foldenable
 " pumvisible(): completion list?
 function! s:Up()
 	if pumvisible() == 0
-		normal! gk
+		return "\<Up>"
 	endif
+	normal! gk
+	" NOTE: 次の動作がないと，変換候補のメニューが消えない
+	return "\<Left>\<Right>"
 endfunction
 function! s:Down()
 	if pumvisible() == 0
-		normal! gj
+		return "\<Down>"
 	endif
+	normal! gj
+	" NOTE: 次の動作がないと，変換候補のメニューが消えない
+	return "\<Left>\<Right>"
 endfunction
-" NOTE: neocomplete cacheでは適切に動作しない<C-o>が意図した動作にならない
-inoremap <Up> <C-o>:call <SID>Up()<CR>
-inoremap <Down> <C-o>:call <SID>Down()<CR>
+" NOTE: neocomplete cache, omni補完(<expr>を利用するべき?)では適切に動作しない<C-o>が意図した動作にならない<C-r>を利用する必要がある
+" inoremap <Up> <C-o>:call <SID>Up()<CR>
+" inoremap <Down> <C-o>:call <SID>Down()<CR>
+inoremap <Up> <C-r>=<SID>Up()<CR>
+inoremap <Down> <C-r>=<SID>Down()<CR>
+
+" [Big Sky :: vimでスクリプト内関数を書き換える]( https://mattn.kaoriya.net/software/vim/20090826003359.htm )
+" fnameは完全一致後に正規表現で比較
+function! GetScriptID(fname)
+	let snlist = ''
+	redir => snlist
+	silent! scriptnames
+	redir END
+	let smap = {}
+	let mx = '^\s*\(\d\+\):\s*\(.*\)$'
+	for line in split(snlist, "\n")
+		let smap[tolower(substitute(line, mx, '\2', ''))] = substitute(line, mx, '\1', '')
+	endfor
+	if has_key(smap, tolower(a:fname))
+		return smap[tolower(a:fname)]
+	endif
+	for key in keys(smap)
+		let val = smap[key]
+		if key =~ a:fname
+			return val
+		endif
+	endfor
+	return ''
+endfunction
+
+function! GetFunc(fname, funcname, ...)
+	" NOTE: function's captial has to start uppercase
+	let Default_func = get(a:, 1, {x->x})
+	let sid = GetScriptID(a:fname)
+	" NOTE: 関数の存在確認(global関数ならばexists())
+	" [vim \- VimL: Checking if function exists \- Stack Overflow]( https://stackoverflow.com/questions/13710364/viml-checking-if-function-exists )
+	silent! let F = function("<SNR>".sid."_".a:funcname)
+	if F == 0
+		return Default_func
+	endif
+	return F
+endfunction
+
+let s:vim_smartinput__trigger_or_fallback={x,y -> "\<C-G>u\<CR>" }
+augroup get_function_group
+	autocmd!
+	autocmd VimEnter * let s:vim_smartinput__trigger_or_fallback=GetFunc('vim-smartinput/autoload/smartinput.vim','_trigger_or_fallback', s:vim_smartinput__trigger_or_fallback)
+augroup END
+
 " Enterで補完決定(no additional <CR>)
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
+" i  <CR>        & <SNR>71__trigger_or_fallback("\<CR>", "\<CR>")
+" inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
+" [vim\-smartinput/smartinput\.vim at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/autoload/smartinput.vim#L318 )
+function! s:CR()
+	if pumvisible()
+		return "\<C-Y>"
+	endif
+	return s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
+endfunction
+inoremap <buffer> <script> <expr> <CR> <SID>CR()
 
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
