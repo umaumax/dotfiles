@@ -303,12 +303,14 @@ Plug 'itchyny/vim-cursorword'
 " :Dox
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
+
+" NOTE: vim-abolish
 " :S/{pattern}/{string}/[flags]
-" crs	"SnakeCase" → "snake_case"
-" crm	"mixed_case" → "MixedCase"
-" crc	"camel_case" → "camelCase"
-" cru	"upper_case" → "UPPER_CASE"
+" crs	"SnakeCase" -> "snake_case"
+" crm	"mixed_case" -> "MixedCase"
+" crc	"camel_case" -> "camelCase"
+" cru	"upper_case" -> "UPPER_CASE"
 " call extend(Abolish.Coercions, {
 "       \ 'c': Abolish.camelcase,
 "       \ 'm': Abolish.mixedcase,
@@ -324,6 +326,7 @@ Plug 'tpope/vim-surround'
 "       \ "function missing": s:function("s:unknown_coercion")
 "       \}, "keep")
 Plug 'tpope/vim-abolish'
+
 Plug 'lervag/vimtex', {'for': 'tex'}
 " css
 Plug 'lilydjwg/colorizer', {'for': ['html', 'css', 'javascript', 'vim']}
