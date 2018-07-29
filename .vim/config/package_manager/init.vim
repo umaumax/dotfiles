@@ -271,8 +271,6 @@ Plug 'Shougo/context_filetype.vim'
 let g:LanguageClient_serverCommands = {
 			\ 'vue': ['vls'],
 			\ }
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-let g:NeoComplCache_OmniPatterns = {}
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
