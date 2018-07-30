@@ -18,8 +18,8 @@ inoremap <Left> <C-g>U<Left>
 
 " " cursor movement in insert mode
 inoremap <C-h> <Left>
-inoremap <C-j> <ESC>:call <SID>Down()<CR>i
-inoremap <C-k> <ESC>:call <SID>Up()<CR>i
+inoremap <expr> <C-j> <SID>Down()
+inoremap <expr> <C-k> <SID>Up()
 inoremap <C-l> <Right>
 
 " NOTE: デフォルト割当のwindow移動を書き換え
