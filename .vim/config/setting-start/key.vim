@@ -448,6 +448,14 @@ else
 	endif
 endif
 endfunction
+
+function! s:get_window_n()
+	let wn=0
+	let save_winnr = winnr()
+	windo let wn+=1
+	exe save_winnr. 'wincmd w'
+	return wn
+endfunction
 function! s:last_window_event()
 	if &ft == 'vimconsole'
 		q
@@ -455,7 +463,7 @@ function! s:last_window_event()
 endfunction
 augroup auto_window_quit
 	autocmd!
-	autocmd WinEnter * if winnr() == winnr('$')|call s:last_window_event()|endif
+	autocmd WinEnter,BufWinEnter,BufEnter * if s:get_window_n() == 1 | call s:last_window_event() | endif
 augroup END
 " save and quit
 " write all
