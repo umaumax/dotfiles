@@ -248,8 +248,8 @@ call s:map_to_trigger('i', s:gtrigger)
 
 " クラス定義や enum 定義の場合は末尾に;を付け忘れないようにする
 call smartinput#define_rule({
-			\   'at'       : '\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#',
-			\   'char'     : '<Space>',
+			\   'at'       : '\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#[^{]*$',
+			\   'char'     : '<CR>',
 			\   'input'    : '<Space>{};<Left><Left><CR><Left><CR>',
 			\   'filetype' : ['cpp'],
 			\   })
@@ -307,7 +307,7 @@ call smartinput#define_rule(
 			\ })
 
 call smartinput#define_rule(
-			\ { 'at'    : '\(#\s*include\s*\|vector\|shared_ptr\|unique_ptr\|weak_ptr\|map\|unordered_map\|array\|list\|forward_list\|dequre\|priority_queue\|set\|multiset\|unordered_set\|unordered_multiset\|multimap\|unordered_multimap\|stack\|queue\|template\)\%#'
+			\ { 'at'    : '\(#\s*include\s*\|vector\|shared_ptr\|unique_ptr\|weak_ptr\|make_shared\|map\|unordered_map\|array\|list\|forward_list\|dequre\|priority_queue\|set\|multiset\|unordered_set\|unordered_multiset\|multimap\|unordered_multimap\|stack\|queue\|template\)\%#'
 			\ , 'char'  : '<'
 			\ , 'input' : '<><Left>'
 			\ , 'filetype' : ['cpp']
@@ -330,23 +330,25 @@ call smartinput#define_rule(
 			\ , 'filetype' : ['cpp']
 			\ })
 " NOTE: 文字列内である可能性では排除
+" call smartinput#define_rule(
+" 			\ { 'at'    : '^[^"]*\w\%#'
+" 			\ , 'char'  : ':'
+" 			\ , 'input' : '::'
+" 			\ , 'filetype' : ['cpp']
+" 			\ })
+" ::続きの場合
 call smartinput#define_rule(
-			\ { 'at'    : '^[^"]*\w\%#'
+			\ { 'at'    : '::[a-zA-z0-9-_]\+\%#'
 			\ , 'char'  : ':'
 			\ , 'input' : '::'
 			\ , 'filetype' : ['cpp']
 			\ })
+
 " NOTE: 誤入力防止
 call smartinput#define_rule(
 			\ { 'at'    : '::\%#'
 			\ , 'char'  : ':'
 			\ , 'input' : ''
-			\ , 'filetype' : ['cpp']
-			\ })
-call smartinput#define_rule(
-			\ { 'at'    : 'public\s*\%#'
-			\ , 'char'  : '<CR>'
-			\ , 'input' : '<><Left>'
 			\ , 'filetype' : ['cpp']
 			\ })
 
@@ -382,7 +384,7 @@ call smartinput#define_rule(
 call smartinput#define_rule({
 			\   'at': '\(public\|private\|protected\)[^:]*\%#$',
 			\   'char': '<CR>',
-			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '$', ':', ''))<CR><C-o>$<CR>",
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s*$', ':', ''))<CR><C-o>$<CR>",
 			\   'filetype': ['cpp'],
 			\   })
 
