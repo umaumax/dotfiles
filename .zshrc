@@ -553,6 +553,10 @@ if cmdcheck docker; then
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker start $container_id && docker attach $container_id
 	}
+	function docker-remove-container() {
+		local container_id=$(docker ps -a | peco | awk '{print $1}')
+		[[ -n $container_id ]] && docker rm $container_id
+	}
 fi
 
 if cmdcheck tmux; then
