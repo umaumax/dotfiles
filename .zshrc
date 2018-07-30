@@ -669,10 +669,19 @@ alias v='vim'
 # don't use .viminfo file option
 # alias tvim='vim -c "set viminfo="'
 alias tvim='vim -i NONE'
+alias tmpvim='vim -i NONE'
+alias tempvim='vim -i NONE'
+alias tabvim='vim -p'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
 alias lastvim="vim -c \"normal '0\""
+alias vimpluginstall="vim -c ':PlugInstall' ''"
+alias vimplugupdate="vim -c ':PlugUpdate' ''"
+alias vimplugupgrade="vim -c ':PlugUpgrade' ''"
+alias vimpi="vim -c ':PlugInstall' ''"
+alias vimpud="vim -c ':PlugUpdate' ''"
+alias vimpug="vim -c ':PlugUpgrade' ''"
 
 # for bash
 # alias vibrc='vi ~/.bashrc'
