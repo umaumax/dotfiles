@@ -70,10 +70,11 @@ Plug 'thinca/vim-prettyprint'
 " :ShebangInsert
 Plug 'sbdchd/vim-shebang'
 " override and append
+" NOTE: mac's env command can deal multiple args by env, but linux can't
 let g:shebang#shebangs = {
-			\'sh':'#!/usr/bin/env bash',
-			\'awk':'#!/usr/bin/env awk -f'
-			\}
+			\ 'awk': '#!/usr/bin/awk -f',
+			\ 'sh':  '#!/usr/bin/env bash',
+			\ }
 
 " python formatter
 " error表示のwindowの制御方法が不明
