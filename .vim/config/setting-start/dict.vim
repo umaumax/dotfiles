@@ -34,7 +34,7 @@ function! s:vimconsole_logger()
 		return
 	endif
 	let vim_flag = menu == '[vim] '
-	let clang_flag = menu == '[clang] '
+	let clang_flag = menu == '[clang] ' || menu == '[PCH] '
 	let flag = vim_flag || clang_flag
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
