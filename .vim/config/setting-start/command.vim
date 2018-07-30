@@ -133,4 +133,4 @@ command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>cal
 command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('^\( *\)\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
 
 " NOTE: 全角文字扱いだが，半角表示となるためにずれる
-command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
+" command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
