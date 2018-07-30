@@ -21,5 +21,6 @@ command! Function call PipeCommandResultToNewTab("function")
 command! Registers call PipeCommandResultToNewTab("registers")
 command! History call PipeCommandResultToNewTab("history")
 command! Command call PipeCommandResultToNewTab("command")
+command! Syntax call PipeCommandResultToNewTab("syntax")
 
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")
