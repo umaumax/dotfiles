@@ -13,6 +13,9 @@ nnoremap <leader>r :redraw!<CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
 
+" undo情報を保つ
+inoremap <Left> <C-g>U<Left>
+
 " " cursor movement in insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <ESC>:call <SID>Down()<CR>i
@@ -120,7 +123,8 @@ function! s:CR()
 	if pumvisible()
 		return "\<C-Y>"
 	endif
-	return s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
+	" NOTE: <C-g>uは undo を分割する
+	return "\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
 endfunction
 inoremap <buffer> <script> <expr> <CR> <SID>CR()
 
