@@ -5,7 +5,7 @@
 [push]
 	default = simple
 [alias]
-	a = add
+	a = add .
 	add-changed-deleted = add . --update
 	add-all = add . --all
 	b = branch
