@@ -2,6 +2,8 @@
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
+# default 10000?
+export HISTSIZE=100000
 
 # Customize to your needs...
 # ---- bash ----
@@ -395,7 +397,7 @@ if cmdcheck peco; then
 	alias pc='peco | c'
 	alias pecopy='peco | c'
 	alias pe='peco'
-	alias hpeco='builtin history -nr 1 | peco | tee /dev/tty | c'
+	alias hpeco='builtin history -nr 1 | command peco | tee /dev/tty | c'
 	alias apeco='alias | peco'
 	alias fpeco='find . -type f | peco'
 	alias fpecovim='find . -type f | pecovim'
@@ -1364,7 +1366,7 @@ if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
 		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'x$ ')
 	fi
 	export HISTFILE=${HOME}/.zsh_history
-	export HISTSIZE=10000
+	export HISTSIZE=100000
 
 	# NOTE: how about using windows native clip command?
 	alias p='gopaste'
