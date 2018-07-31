@@ -364,6 +364,8 @@ command! -nargs=0 TF :TableFormat
 " NOTE: indentがたまにおかしい
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 let g:vim_markdown_folding_disabled = 1
+" to avoid conceal of `xxx` ```xxx``` and so on
+let g:vim_markdown_conceal = 0
 " Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
