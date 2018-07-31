@@ -819,13 +819,13 @@ alias poc="p | one | c"
 
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	if cmdcheck nkf; then
-		alias c='nkf -w | pbcopy'
+		alias _c='nkf -w | pbcopy'
 		alias p='pbpaste | nkf -w'
 		alias udec='nkf -w --url-input'
 		alias uenc='nkf -WwMQ | tr = %'
 		alias overwrite-utf8='nkf -w --overwrite'
 	else
-		alias c='pbcopy'
+		alias _c='pbcopy'
 		alias p='pbpaste'
 	fi
 	# 改行コードなし
@@ -1368,7 +1368,7 @@ if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
 
 	# NOTE: how about using windows native clip command?
 	alias p='gopaste'
-	alias c='gocopy'
+	alias _c='gocopy'
 
 	## windows ls color
 	export LS_COLORS="di=01;36"
@@ -1395,3 +1395,11 @@ if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
 	alias winhome='cd $WIN_HOME'
 	alias wcd='cd $WIN_HOME'
 fi
+
+function c() {
+	if [[ $# == 0 ]]; then
+		_c
+	else
+		cat $1 | _c
+	fi
+}

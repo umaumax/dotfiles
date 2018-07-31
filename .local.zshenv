@@ -34,13 +34,13 @@ fi
 
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	if cmdcheck nkf; then
-		alias c='nkf -w | pbcopy'
+		alias _c='nkf -w | pbcopy'
 		alias p='pbpaste | nkf -w'
 		alias udec='nkf -w --url-input'
 		alias uenc='nkf -WwMQ | tr = %'
 		alias overwrite-utf8='nkf -w --overwrite'
 	else
-		alias c='pbcopy'
+		alias _c='pbcopy'
 		alias p='pbpaste'
 	fi
 	# 改行コードなし
@@ -66,3 +66,11 @@ function webcatd() {
 }
 
 [[ $ZSH_NAME == zsh ]] && unsetopt all_export
+
+function c() {
+	if [[ $# == 0 ]]; then
+		_c
+	else
+		cat $1 | _c
+	fi
+}
