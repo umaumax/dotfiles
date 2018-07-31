@@ -300,6 +300,8 @@ if [[ -n $_Ubuntu ]]; then
 		[[ $# == 0 ]] && echo "$0 <class>" && return 1
 		xdotool search --class "$1" | xargs -L 1 sh -c 'printf "# $0"; xwininfo -id $0'
 	}
+
+	alias os_ver='cat /etc/os-release | grep VERSION_ID | grep -o "[0-9.]*"'
 fi
 
 pipe-EOF-do() {
