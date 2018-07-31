@@ -147,12 +147,12 @@ syntax on "コードの色分け
 " 上記の!コマンドでaliasを利用するときとの相性が悪い
 " set shell=bash\ -i
 " [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
-if filereadable(glob('~/.bashenv'))
-	let $BASH_ENV=expand('~/.bashenv')
+if filereadable(glob('~/.local.bashenv'))
+	let $BASH_ENV=expand('~/.local.bashenv')
 endif
 " [dotfiles/dot\.zshenv at master · poppen/dotfiles]( https://github.com/poppen/dotfiles/blob/master/dot.zshenv )
-if filereadable(glob('~/.zshenv'))
-	let $ZSH_ENV=expand('~/.zshenv')
+if filereadable(glob('~/.local.zshenv'))
+	let $ZSH_ENV=expand('~/.local.zshenv')
 endif
 
 " colorscheme
