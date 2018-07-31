@@ -743,9 +743,9 @@ for mapping in surround_key_mappings
 	let suffix=mapping['suffix']
 	for key in mapping['keys']
 		" 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
-		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+		execute "vnoremap s".key." \"yc<C-o>:let @z=\"".prefix."\".@y.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		if key[0] =~ '\W'
-			execute "vnoremap ".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+			execute "vnoremap ".key." \"yc<C-o>:let @z=\"".prefix."\".@y.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		endif
 	endfor
 endfor
