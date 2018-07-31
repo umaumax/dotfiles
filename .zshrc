@@ -1358,10 +1358,12 @@ if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
 		PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h (x_x)/(\[\e[35m\]$MSYSTEM\[\e[0m\]) \[\e[33m\]\w\[\e[0m\]\n\$ "
 	else
 		# zsh
-		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\n"'x$ ')
+		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'x$ ')
 	fi
 	export HISTFILE=${HOME}/.zsh_history
+	export HISTSIZE=10000
 
+	# NOTE: how about using windows native clip command?
 	alias p='gopaste'
 	alias c='gocopy'
 
