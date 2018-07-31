@@ -97,7 +97,7 @@ cmdcheck ccze && alias='ccze -A'
 
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
-	[[ ! $(basename $PWD) =~ '^build' ]] && echo "cwd is not cmake build dir '^build'" && return 1
+	[[ ! $(basename $PWD) =~ ^build ]] && echo "cwd is not cmake build dir '^build'" && return 1
 	find . -maxdepth 1 -not -name '.*' -exec rm -r {} +
 }
 
