@@ -736,7 +736,8 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath() {
 	if [[ -n $_Darwin ]]; then
-		abspathdir=$(builtin cd $(dirname $1) && pwd)
+		_home=$(echo $HOME | sed "s/\//\\\\\//g")
+		abspathdir=$(sh -c "cd $(dirname $1) && pwd | sed \"s/$_home/~/\"")
 		echo ${abspathdir%/}/$(basename $1)
 	else
 		readlink -f $1
