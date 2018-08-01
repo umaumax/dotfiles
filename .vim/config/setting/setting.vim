@@ -108,7 +108,18 @@ set whichwrap=b,s,[,],<,>
 
 " #### file setting ####
 " ['viminfo' \- VimWiki]( http://vimwiki.net/?%27viminfo%27 )
-set viminfo='100,/50,%,<1000,f50,s100,:100,c,h,!
+" '	マークが復元されるファイル履歴の最大値。オプション 'viminfo'が空でないときは、常にこれを設定しなければならない。また、このオプションを設定するとジャンプリスト |jumplist| もviminfo ファイルに蓄えられることになる。
+" /	保存される検索パターンの履歴の最大値。非0 の値を指定すると、前回の検索パターンと置換パターンも保存される。これが含まれないときは、'history' の値が使われる。
+" %	これが含まれると、バッファリストを保存・復元する。Vimの起動時にファイル名が引数に含まれていると、バッファリストは復元されない。 Vimの起動時にファイル名が引数に含まれていないと、バッファリストが viminfo ファイルから復元される。ファイル名のないバッファとヘルプ用バッファは、viminfo ファイルには書き込まれない。
+" \" old one of <
+" <	Maximum number of lines saved for each register.  If zero then registers are not saved.  When not included, all lines are saved.  '"' is the old name for this item.
+" f	Whether file marks need to be stored.  If zero, file marks ('0 to '9, 'A to 'Z) are not stored.  When not present or when non-zero, they are all stored.  '0 is used for the current cursor position (when exiting or when doing ":wviminfo"). 
+" s	Maximum size of an item in Kbyte.  If zero then registers are not saved.  Currently only applies to registers.  The default "s10" will exclude registers with more than 10 Kbyte of text.  Also see the '<' item above: line count limit. 
+" :	保存されるコマンドライン履歴の最大値。これが含まれないときは、'history' の値が使われる。
+" c	When included, convert the text in the viminfo file from the 'encoding' used when writing the file to the current 'encoding'.  See |viminfo-encoding|. 
+" h	Disable the effect of 'hlsearch' when loading the viminfo file.  When not included, it depends on whether ":nohlsearch" 
+" !	When included, save and restore global variables that start with an uppercase letter, and don't contain a lowercase letter.  Thus "KEEPTHIS and "K_L_M" are stored, but "KeepThis" and "_K_L_M" are not.  Only String and Number types are stored. 
+set viminfo='1000,/5000,%,<1000,f1,s100,:10000,c,h,!
 set noswapfile | set nobackup
 augroup reopen_cursor_position
 	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
