@@ -106,7 +106,7 @@ call smartinput#define_rule({
 " 			\   'at': 'def.*[^:]\%#',
 " 			\   'at': 'def.*\%#',
 call smartinput#define_rule({
-			\   'at': '\(for\|if\|def\|while\|else\|elif\).*[^:]\%#$',
+			\   'at': '\(class\|for\|if\|def\|while\|else\|elif\).*[^:]\%#$',
 			\   'char': '<CR>',
 			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '$', ':', ''))<CR><C-o>$<CR>",
 			\   'filetype': ['python'],

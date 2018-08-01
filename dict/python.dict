@@ -1,3 +1,3 @@
-def __init__(self, lines):
+def __init__(self, __CURSOR__):
 if __name__ == '__main__':
 print("__CURSOR__".format())

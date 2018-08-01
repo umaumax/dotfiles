@@ -35,7 +35,8 @@ function! s:vimconsole_logger()
 	endif
 	let vim_flag = menu == '[vim] '
 	let clang_flag = menu == '[clang] ' || menu == '[PCH] '
-	let flag = vim_flag || clang_flag
+	let python_flag = menu == '[jedi] '
+	let flag = vim_flag || clang_flag || python_flag
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
 		let template_flag = abbr =~ '.*<.*>'
@@ -45,7 +46,7 @@ function! s:vimconsole_logger()
 			if vim_flag
 				execute "normal! i)"
 			endif
-			if clang_flag
+			if clang_flag || python_flag
 				execute "normal! i()"
 			endif
 		endif
