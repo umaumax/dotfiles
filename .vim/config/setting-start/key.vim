@@ -1,6 +1,9 @@
 " set <Leader>
 let mapleader = "\<Space>"
 
+" paste with space
+nnoremap gp a <ESC>p
+
 nnoremap cc vc
 
 " disable <C-@>
