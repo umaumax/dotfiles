@@ -123,6 +123,15 @@ define_keymap(lambda wm_class: wm_class not in terms, {
     #     K("Win-SPACE"): K("Win"),
 }, "Non Term")
 define_keymap(lambda wm_class: wm_class in terms, {
+    K("C-h"): K("Left"),
+    K("C-j"): K("Down"),
+    K("C-k"): K("Up"),
+    K("C-l"): K("Right"),
+    K("Win-h"): K("Left"),
+    K("Win-j"): K("Down"),
+    K("Win-k"): K("Up"),
+    K("Win-l"): K("Right"),
+
     #     K("Win-e"): K("end"),
     #     K("Win-a"): K("home"),
     K("Win-c"): K("Ctrl-Shift-c"),
