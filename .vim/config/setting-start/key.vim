@@ -327,11 +327,20 @@ nnoremap s "_s
 vnoremap x "_x
 " vnoremap d "_d
 vnoremap s "_s
-vnoremap p "_x:call <SID>paste_at_cursor(1)<CR>
+function! s:visual_mode_paste()
+	let vm = visualmode()
+	if vm ==# 'v'
+	elseif vm ==# 'V'
+		normal! 00
+	else
+	endif
+	call <SID>paste_at_cursor(1)
+	execute "normal! a\<CR>"
+endfunction
+vnoremap p "_x:call <SID>visual_mode_paste()<CR>
 
 function s:V()
 	let m=visualmode()
-	echom 'm:'.m
 	if m ==# 'V'
 		normal! gvy
 	else
