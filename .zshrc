@@ -405,6 +405,7 @@ if cmdcheck peco; then
 	alias epeco='env | peco | tee /dev/tty | c'
 	alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 	alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
+	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 	alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 	# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs -o vim"
@@ -690,6 +691,11 @@ alias vimplugupgrade="vim -c ':PlugUpgrade' ''"
 alias vimpi="vim -c ':PlugInstall' ''"
 alias vimpud="vim -c ':PlugUpdate' ''"
 alias vimpug="vim -c ':PlugUpgrade' ''"
+
+alias vimr='vim README.md'
+alias vimre='vim README.md'
+alias vimR='vim README.md'
+alias vimRe='vim README.md'
 
 # for bash
 # alias vibrc='vi ~/.bashrc'
