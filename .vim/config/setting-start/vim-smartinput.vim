@@ -112,7 +112,6 @@ call smartinput#define_rule({
 			\   'filetype': ['python'],
 			\   })
 
-" call smartinput#map_to_trigger('i', '\|', '\|', '\|')
 call s:map_to_trigger('i', '\|')
 call smartinput#define_rule({
 			\   'at': '|\%#$',
@@ -121,12 +120,25 @@ call smartinput#define_rule({
 			\   'filetype': ['python'],
 			\   })
 
-" call smartinput#map_to_trigger('i', '&', '&', '&')
 call s:map_to_trigger('i', '&')
 call smartinput#define_rule({
 			\   'at': '&\%#$',
 			\   'char': '&',
 			\   'input': "<BS>and",
+			\   'filetype': ['python'],
+			\   })
+
+call smartinput#define_rule({
+			\   'at': '== None.*\%#$',
+			\   'char': '<Space>',
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '== None', 'is None', 'g'))<CR><Space>",
+			\   'filetype': ['python'],
+			\   })
+call s:map_to_trigger('i', 'e')
+call smartinput#define_rule({
+			\   'at': '== Non\%#$',
+			\   'char': 'e',
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), '== Non', 'is None', 'g'))<CR><C-o>$",
 			\   'filetype': ['python'],
 			\   })
 
@@ -348,6 +360,18 @@ call smartinput#define_rule(
 call smartinput#define_rule(
 			\ { 'at'    : '::\%#'
 			\ , 'char'  : ':'
+			\ , 'input' : ''
+			\ , 'filetype' : ['cpp']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : '<<\%#'
+			\ , 'char'  : '<'
+			\ , 'input' : ''
+			\ , 'filetype' : ['cpp']
+			\ })
+call smartinput#define_rule(
+			\ { 'at'    : '>>\%#'
+			\ , 'char'  : '>'
 			\ , 'input' : ''
 			\ , 'filetype' : ['cpp']
 			\ })
