@@ -39,15 +39,19 @@ function! s:vimconsole_logger()
 	let flag = vim_flag || clang_flag || python_flag
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
+		let no_arg_func_flag = abbr =~ '.*()'
 		let template_flag = abbr =~ '.*<.*>'
 		let log_flag = func_flag || template_flag
-		" NOTE; is function?
+		" NOTE: is function?
 		if func_flag
-			if vim_flag
+			if vim_flag && !no_arg_func_flag
 				execute "normal! i)"
 			endif
 			if clang_flag || python_flag
 				execute "normal! i()"
+				if no_arg_func_flag
+					call feedkeys("\<Right>", 'n')
+				endif
 			endif
 		endif
 		if template_flag
