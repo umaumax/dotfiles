@@ -11,6 +11,12 @@ function! s:map_to_trigger(mode, trigger)
 	let s:trigger_map[key]=1
 	call smartinput#map_to_trigger(a:mode, a:trigger, a:trigger, a:trigger)
 endfunction
+function! s:smartinput_define_rule(rule)
+	let trigger = a:rule['char']
+	call s:map_to_trigger('i', trigger)
+	call smartinput#define_rule(a:rule)
+endfunction
+
 " auto paired char insertion
 " for alternative for 'kana/vim-smartinput'
 " [Vim 8\.0 Advent Calendar 13 日目 undo を分割せずにカーソルを移動 \- Qiita]( https://qiita.com/thinca/items/792f3a92930d79402d2c )
@@ -451,4 +457,24 @@ call smartinput#define_rule({
 			\   'char': '<Space>',
 			\   'input': "<C-o>:call setline('.', \"Plug ''\")<CR><C-o>$<Left>",
 			\   'filetype': ['vim'],
+			\   })
+
+call s:smartinput_define_rule({
+			\   'at': 'don\%#',
+			\   'char': 't',
+			\   'input': "'t",
+			\   })
+
+call s:smartinput_define_rule({
+			\   'at': ' pipe\%#',
+			\   'char': ' ',
+			\   'input': "<BS><BS><BS><BS>|<Space>",
+			\   })
+
+" NOTE: if xxx { -> if (xxx) {
+call s:smartinput_define_rule({
+			\   'at': 'if\s*[^() \t].\{-}[^() \t]\s*{\%#',
+			\   'char': '<CR>',
+			\   'input': "<C-o>:call setline('.', substitute(getline('.'), 'if\\s*\\([^() \\t].\\{-}[^() \\t]\\)\\s*{', 'if (\\1) {', ''))<CR><C-O>$",
+			\   'filetype': ['cpp'],
 			\   })
