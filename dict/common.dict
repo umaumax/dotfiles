@@ -6,7 +6,12 @@ Vim script
 JavaScript
 C++
 README.md
+Makefile
+ninja.build
 CMakeLists.txt
+g++
+clang
+clang++
 clang-tidy
 Dockerfile
 http://
@@ -14,3 +19,6 @@ https://
 NOTE:
 TODO:
 FIX:
+Wi-Fi
+127.0.0.1
+localhost
