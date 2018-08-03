@@ -405,19 +405,13 @@ nnoremap <C-w>; <C-w>+
 "nnoremap <C-w>- <C-w>-
 
 " entire select
-" TODO
-" nnoremap <C-a> ggVG
-function! s:copy_all()
-	" NOTE: 改行コードが変化する可能性
-	let l:source = join(getline(1, '$'), "\n")
-	" 	let l:view = winsaveview()
-	" 	" 	normal! ggVGV
-	" 	" 	execute "normal! ggVGV"
-	" 	silent call winrestview(l:view)
-	" 	echo 'This current file has copied!'
-	let @+=l:source
-endfunction
-command! -nargs=0 CopyAll call s:copy_all()
+" function! s:copy_all()
+" 	" NOTE: 改行コードが変化する可能性
+" 	let l:source = join(getline(1, '$'), "\n")
+" 	let @+=l:source
+" endfunction
+" command! -nargs=0 CopyAll call s:copy_all()
+command! -nargs=0 CopyAll :%y
 
 " <Nul> means <C-Space>
 " [vim のkeymapでCtrl-Spaceが設定できなかったので調べてみた。 - dgdgの日記]( http://d.hatena.ne.jp/dgdg/20080109/1199891258 )
