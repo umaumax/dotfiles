@@ -1,9 +1,16 @@
 if &rtp =~ 'vim-submode'
-	" for no space line join
-	" NOTE: remove tags
-	let s:gJ_cmd = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^\\t*\\(.*\\)', '\\1', ''))<CR>gJ"
+	" NOTE: for no space line join
+	let s:gJ_cmd_current_line = ":call setline(line('.'), substitute(getline(line('.')), '\\(.\\{-}\\)[ \\t]*$', '\\1', ''))<CR>"
+	let s:gJ_cmd_next_line = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^[ \\t]*\\(.*\\)', '\\1', ''))<CR>"
+	let s:gJ_cmd = s:gJ_cmd_current_line.s:gJ_cmd_next_line."gJ"
 	call submode#enter_with('join_line', 'n', '', 'gJ', s:gJ_cmd)
 	call submode#map('join_line', 'n', '', 'J', s:gJ_cmd)
+
+	" NOTE: for only one space line join
+	let s:J_cmd_current_line = ":call setline(line('.'), substitute(getline(line('.')), '\\(.\\{-}\\)[ \\t]*$', '\\1 ', ''))<CR>"
+	let s:J_cmd_next_line = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^[ \\t]*\\(.*\\)', '\\1', ''))<CR>"
+	let s:J_cmd = s:J_cmd_current_line.s:J_cmd_next_line."gJ"
+	execute 'nnoremap J '.s:J_cmd
 
 	nnoremap gw w
 	nnoremap gW W
