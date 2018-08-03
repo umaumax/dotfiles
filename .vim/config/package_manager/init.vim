@@ -74,6 +74,7 @@ Plug 'sbdchd/vim-shebang'
 let g:shebang#shebangs = {
 			\ 'awk': '#!/usr/bin/awk -f',
 			\ 'sh':  '#!/usr/bin/env bash',
+			\ 'python':  '#!/usr/bin/env python3',
 			\ }
 
 " python formatter
