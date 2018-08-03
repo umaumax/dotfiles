@@ -1,2 +1,2 @@
-for e in ${ary[@]}; do__CR__	echo $e__CR__done
+for e in "${ary[@]}"; do__CR__	echo $e__CR__done
 command! -range -nargs=1 XXX :<line1>,<line2>call s:XXX
