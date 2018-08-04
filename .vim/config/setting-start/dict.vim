@@ -17,6 +17,7 @@ function! s:dict_replacer()
 		execute 'normal! '.len('__CURSOR__').'"_x'
 	endif
 endfunction
+
 " NOTE: 関数などの補完後も役立つ情報を保持する
 function! s:vimconsole_logger()
 	" NOTE: for debug
@@ -29,8 +30,9 @@ function! s:vimconsole_logger()
 	" [deoplete環境でneosnippetを使えるようにする \- グレインの備忘録]( http://grainrigi.hatenablog.com/entry/2017/08/28/230029 )
 	if ns_flag
 		" NOTE: snippet自動展開
-		execute "normal a\<Plug>(neosnippet_expand)"
-		" 		execute "normal a\<Plug>(neosnippet_expand_or_jump)"
+		" executeを利用すると，一旦normalモードに移行し，その後insertモードに戻るため，行末にカーソルがある場合に位置がずれる
+		" 		execute "normal a\<Plug>(neosnippet_expand)"
+		call feedkeys("\<Plug>(neosnippet_expand)", '')
 		return
 	endif
 	let vim_flag = menu == '[vim] '
