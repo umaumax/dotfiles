@@ -94,8 +94,12 @@ function! s:print_doctor_result()
 endfunction
 command! Doctor call <SID>print_doctor_result()
 
+function! s:vim_enter_draw_post()
+	call feedkeys(":let vim_enter_draw_post_view = winsaveview() | doautocmd <nomodeline> User VimEnterDrawPost | silent call winrestview(vim_enter_draw_post_view) \<CR>",'n')
+endfunction
 augroup vim-enter-draw-post
-	autocmd VimEnter * call feedkeys(":doautocmd <nomodeline> User VimEnterDrawPost\<CR>",'n')
+	autocmd!
+	autocmd VimEnter * call <SID>vim_enter_draw_post()
 augroup END
 
 " save cwd

@@ -65,6 +65,7 @@ function! LazyPlug(repo, ...)
 	call plug#(a:repo, opts)
 endfunction
 command! -nargs=+ -bar LazyPlug call LazyPlug(<args>)
+command! LazyPlugLoad call <SID>lazy_plug_load()
 function! s:lazy_plug_load()
 	for key in keys(g:lazy_plug_map)
 		if (g:lazy_plug_map[key]==0)
