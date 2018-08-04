@@ -1,0 +1,21 @@
+snippet     funcname
+    `cfi#get_func_name()`
+
+snippet vimplug
+alias plug
+options head
+    Plug '${0}'
+
+snippet     augroup
+abbr        augroup with autocmds
+options     head
+    augroup ${1:#:augroup_name}
+      autocmd!
+      autocmd ${0}
+    augroup END
+
+snippet     function
+options     head
+    function! ${1:#:function_name}
+        ${0}
+    endfunction

@@ -22,6 +22,8 @@ if v:version >= 800 && has('python3')
 	" For func argument completion
 	Plug 'Shougo/neosnippet'
 	Plug 'Shougo/neosnippet-snippets' " default snippets
+	let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
+
 	" let g:autocomplete_flow#insert_paren_after_function = 0
 	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
 	Plug 'zchee/deoplete-jedi', {'for':'python'}

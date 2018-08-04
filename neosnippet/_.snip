@@ -1,0 +1,16 @@
+# Global snippets
+
+snippet filepath
+alias   fpath
+options word
+    `substitute(expand("%:p"), '\', '/', "g")`
+
+snippet dirpath
+alias   dpath
+options word
+    `substitute(expand("%:p:h"), '\', '/', "g")`
+
+snippet dirname
+alias   dname
+options word
+    `substitute(expand("%:p:h:t"), '\', '/', "g")`

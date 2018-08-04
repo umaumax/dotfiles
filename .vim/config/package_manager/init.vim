@@ -80,6 +80,8 @@ let g:shebang#shebangs = {
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
+Plug 'tyru/current-func-info.vim'
+
 " python formatter
 " error表示のwindowの制御方法が不明
 " Plug 'tell-k/vim-autopep8'

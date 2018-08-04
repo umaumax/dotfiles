@@ -1,0 +1,12 @@
+# wrap command
+snippet wcout
+options word
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcout'))."x", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
+
+snippet wcerr
+options word
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x", 'n') == 0 ? x:x}('std::cerr << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
+
+snippet wclog
+options word
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x", 'n') == 0 ? x:x}('std::clog << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
