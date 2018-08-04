@@ -1,6 +1,6 @@
 LazyPlug 'umaumax/autoread-vim'
 " Plug 'umaumax/skeleton-vim'
-LazyPlug 'umaumax/comment-vim'
+Plug 'umaumax/comment-vim'
 " :BenchVimrc
 Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
 " fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
@@ -14,7 +14,8 @@ endif
 
 " input helper
 " Plug 'kana/vim-smartinput'
-LazyPlug 'umaumax/vim-smartinput'
+" NOTE: don't use LazyPlug
+Plug 'umaumax/vim-smartinput'
 
 " Plug 'mattn/sonictemplate-vim'
 LazyPlug 'umaumax/sonictemplate-vim'

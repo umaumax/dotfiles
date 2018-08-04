@@ -330,9 +330,6 @@ Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
 let g:table_mode_corner="|"
 
-" for consecutive shortcut input
-LazyPlug 'kana/vim-submode'
-
 " autocomplete
 " Plug 'vim-scripts/L9'
 " Plug 'othree/vim-autocomplpop'

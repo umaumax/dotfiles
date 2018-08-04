@@ -87,5 +87,7 @@ augroup load_after_vim_enter
 augroup END
 
 call plug#begin('~/.vim/plugged')
+" for consecutive shortcut input
+Plug 'kana/vim-submode'
 runtime! config/plugin/*.vim
 call plug#end()
