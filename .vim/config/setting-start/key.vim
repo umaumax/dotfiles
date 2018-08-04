@@ -5,6 +5,10 @@ let mapleader = "\<Space>"
 nnoremap gp a <ESC>p
 
 nnoremap cc vc
+augroup vim_init
+	autocmd!
+	autocmd VimEnter * nnoremap cr i<CR><ESC>
+augroup END
 
 nnoremap <Leader>p %
 
