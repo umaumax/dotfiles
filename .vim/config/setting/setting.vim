@@ -12,7 +12,7 @@ set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する
 " set wrap  " ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
 set nowrap
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲ " 不可視文字を表示
+set listchars=tab:»_,trail:-,extends:»,precedes:«,nbsp:%,eol:↲ " 不可視文字を表示
 set showcmd " コマンドを画面最下部に表示する
 set shortmess+=I " 起動時のメッセージを消す
 set number      "行番号を表示する

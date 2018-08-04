@@ -42,6 +42,23 @@ if Doctor('vint', 'Kuniwak/vint')
 endif
 Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 
+" NOTE: tab visualization
+" Plug 'nathanaelkane/vim-indent-guides', {'on':'IndentGuidesEnable'}
+" augroup vim-indent-guides
+" 	autocmd!
+" 	autocmd User VimEnterDrawPost IndentGuidesEnable
+" augroup END
+" let g:indent_guides_enable_on_vim_startup = 1
+" let g:indent_guides_start_level = 2
+" let g:indent_guides_guide_size = 1
+" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
+
+" NOTE: 反映されない
+" Plug 'Yggdroot/indentLine'
+" let g:indentLine_color_term = 111
+" let g:indentLine_color_gui = '#708090'
+" let g:indentLine_char = '|' "use ¦, ┆ or │
+
 " auto indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 LazyPlug 'tpope/vim-sleuth'
