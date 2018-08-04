@@ -1,5 +1,5 @@
 " [Vimのマーク機能、使い方まとめ \- Qiita]( https://qiita.com/syui/items/442fd0905a1f2005c10e )
-Plug 'tacroe/unite-mark'
+Plug 'tacroe/unite-mark', {'on': 'Unite'}
 " unite mark
 " https://github.com/tacroe/unite-mark
 " http://d.hatena.ne.jp/tacroe/20101119/1290115586

@@ -405,7 +405,7 @@ function! s:switch()
 endfunction
 vnoremap <C-x> "zd:call <SID>switch()<CR>
 
-function s:V()
+function! s:V()
 	let m=visualmode()
 	if m ==# 'V'
 		normal! gvy
@@ -845,7 +845,7 @@ nnoremap q: <Nop>
 " [What is vim recording and how can it be disabled? \- Stack Overflow]( https://stackoverflow.com/questions/1527784/what-is-vim-recording-and-how-can-it-be-disabled )
 nnoremap q <Nop>
 nnoremap Q q
-command CmdlineWindow call feedkeys("q:", "n")
+command! CmdlineWindow call feedkeys("q:", "n")
 
 " [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L1362 )
 " 矩形選択でなくても複数行入力をしたい

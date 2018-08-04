@@ -44,7 +44,7 @@ augroup go_setting
 	autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
 augroup END
 
-Plug 'zchee/vim-goiferr'
+Plug 'zchee/vim-goiferr', {'for': 'go'}
 
 " " for fatih/vim-go
 " let g:go_asmfmt_autosave=0

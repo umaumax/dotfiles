@@ -1,4 +1,4 @@
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight', {'for':['c','cpp']}
 let g:cpp_class_scope_highlight = 1
 let g:cpp_concepts_highlight = 1
 
@@ -23,4 +23,4 @@ if Doctor('clang-format', 'rhysd/vim-clang-format')
 	let g:clang_format#code_style = "Google"
 endif
 
-Plug 'Shougo/neoinclude.vim'
+Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
