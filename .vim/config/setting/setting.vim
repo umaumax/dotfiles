@@ -23,7 +23,7 @@ let &t_te .= "\e[23;0t"
 set title       "編集中のファイル名を表示
 set showmatch   "括弧入力時の対応する括弧を表示
 set matchtime=1 " 0.n sec 対応するカッコにカーソルが移動する
-set pumheight=10 " 補完候補の表示数
+set pumheight=20 " 補完候補の表示数
 set incsearch    "インクリメント検索(リアルタイム検索)
 set wildmenu wildmode=list:full "入力補完機能
 " set nohlsearch   "検索キーワードハイライト無効

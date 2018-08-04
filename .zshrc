@@ -63,8 +63,21 @@ if [[ -n $BASH ]]; then
 	shopt -u histappend            # .bash_history追記モードは不要なのでOFFに
 else
 	# zsh
-	unset share_history
-	setopt share_history # シェルのプロセスごとに履歴を共有
+	# NOTE: howt to check
+	# setopt | grep 'xxx'
+
+	# history
+	setopt hist_ignore_dups
+	# 	unset share_history
+	# シェルのプロセスごとに履歴を共有
+	setopt share_history
+
+	## 補完候補を一覧表示
+	# 	setopt auto_list
+	## =command を command のパス名に展開する
+	# 	setopt equals
+	## --prefix=/usr などの = 以降も補完
+	# 	setopt magic_equal_subst
 fi
 
 # ----
@@ -1411,3 +1424,8 @@ function c() {
 		cat $1 | _c
 	fi
 }
+
+# global aliases
+alias -g PV="| pecovim"
+alias -g WC="| wc"
+alias -g L="| less"
