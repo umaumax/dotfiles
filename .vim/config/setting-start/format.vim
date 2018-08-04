@@ -183,8 +183,19 @@ function! s:work_setting()
 	endif
 endfunction
 
-augroup private_or_public_work
+" NOTE: to speed up starting
+function! s:private_or_public_work_set()
+	augroup private_or_public_work
+		autocmd!
+		autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
+		autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
+	augroup END
+	call <SID>work_setting()
+	if &filetype=='go'
+		let g:auto_format_flag=1
+	endif
+endfunction
+augroup private_or_public_work_set
 	autocmd!
-	autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
-	autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
+	autocmd User VimEnterDrawPost call <SID>private_or_public_work_set()
 augroup END
