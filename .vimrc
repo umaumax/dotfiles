@@ -94,6 +94,10 @@ function! s:print_doctor_result()
 endfunction
 command! Doctor call <SID>print_doctor_result()
 
+augroup vim-enter-draw-post
+	autocmd VimEnter * call feedkeys(":doautocmd <nomodeline> User VimEnterDrawPost\<CR>",'n')
+augroup END
+
 " save cwd
 let s:cwd = getcwd()
 if $VIM_FAST_MODE == ''

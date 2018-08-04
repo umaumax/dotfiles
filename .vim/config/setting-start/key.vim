@@ -7,7 +7,7 @@ nnoremap gp a <ESC>p
 nnoremap cc vc
 augroup vim_init
 	autocmd!
-	autocmd VimEnter * nnoremap cr i<CR><ESC>
+	autocmd User VimEnterDrawPost nnoremap cr i<CR><ESC>
 augroup END
 
 nnoremap <Leader>p %
@@ -121,7 +121,7 @@ endfunction
 let s:vim_smartinput__trigger_or_fallback={x,y -> "\<C-G>u\<CR>" }
 augroup get_function_group
 	autocmd!
-	autocmd VimEnter * let s:vim_smartinput__trigger_or_fallback=GetFunc('vim-smartinput/autoload/smartinput.vim','_trigger_or_fallback', s:vim_smartinput__trigger_or_fallback)
+	autocmd User VimEnterDrawPost let s:vim_smartinput__trigger_or_fallback=GetFunc('vim-smartinput/autoload/smartinput.vim','_trigger_or_fallback', s:vim_smartinput__trigger_or_fallback)
 augroup END
 
 " Enterで補完決定(no additional <CR>)
@@ -436,7 +436,8 @@ endfunction
 augroup gx_group
 	autocmd!
 	" BufReadPost is for unnamed tab and load file
-	autocmd VimEnter,BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
+	autocmd User VimEnterDrawPost nnoremap <buffer> gx :call OpenURL()<CR>
+	autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
 augroup END
 
 function! s:yank_pwd()

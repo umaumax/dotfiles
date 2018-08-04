@@ -45,10 +45,6 @@ function! s:plug_check_installation()
 	endif
 endfunction
 
-augroup vim-enter-draw-post
-	autocmd VimEnter * call feedkeys(":doautocmd <nomodeline> User VimEnterDrawPost\<CR>",'n')
-augroup END
-
 augroup check-plug
 	autocmd!
 	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
