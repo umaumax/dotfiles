@@ -5,23 +5,23 @@
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
 	" NOTE: 普通のvimでも使用可能らしい
-	Plug 'autozimu/LanguageClient-neovim', {
+	LazyPlug 'autozimu/LanguageClient-neovim', {
 				\ 'branch': 'next',
 				\ 'do': 'bash install.sh',
 				\ }
 	" to choose deoplete <C-x>,<C-v>
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on':[] }
+		LazyPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 	else
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on':[] }
-		Plug 'roxma/nvim-yarp'
-		Plug 'roxma/vim-hug-neovim-rpc'
+		LazyPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+		LazyPlug 'roxma/nvim-yarp'
+		LazyPlug 'roxma/vim-hug-neovim-rpc'
 	endif
-	Plug 'wokalski/autocomplete-flow'
+	LazyPlug 'wokalski/autocomplete-flow'
 	" For func argument completion
-	Plug 'Shougo/neosnippet'
-	Plug 'Shougo/neosnippet-snippets' " default snippets
+	LazyPlug 'Shougo/neosnippet'
+	LazyPlug 'Shougo/neosnippet-snippets' " default snippets
 	let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
 	" let g:autocomplete_flow#insert_paren_after_function = 0
@@ -39,7 +39,7 @@ if v:version >= 800 && has('python3')
 	Plug 'umaumax/deoplete-zsh', {'for': ['sh','zsh']}
 	" filetypeのsyntaxファイルの中にある記述を見て 補完候補を追加
 	" NOTE: カーソル移動速度低下の要因?
-	Plug 'Shougo/neco-syntax'
+	LazyPlug 'Shougo/neco-syntax'
 	if Doctor('clang','zchee/deoplete-clang')
 		" NOTE: This doesn't work
 		" This is a clang completer for deoplete.nvim that's faster than deoplete-clang. Instead of using libclang, it just uses clang -cc1 like most other clang plugins.
@@ -70,7 +70,7 @@ if v:version >= 800 && has('python3')
 				\ neosnippet#expandable_or_jumpable() ?
 				\    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 else
-	Plug 'Shougo/neocomplete.vim'
+	LazyPlug 'Shougo/neocomplete.vim'
 	if !exists('g:neocomplete#force_omni_input_patterns')
 		let g:neocomplete#force_omni_input_patterns = {}
 		let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'

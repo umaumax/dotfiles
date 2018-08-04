@@ -1,6 +1,6 @@
 " for toggle word under cursor
 " :Switch
-Plug 'AndrewRadev/switch.vim'
+LazyPlug 'AndrewRadev/switch.vim'
 " 			\   {"\\([^']\\|^\\)'\\([^']\\|$\\)" :   '\1"\2', '\([^"]\|^\)"\([^"]\|$\)'   : "\\1'\\2"},
 let g:switch_custom_definitions =
 			\ [

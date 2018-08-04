@@ -1,6 +1,6 @@
-Plug 'umaumax/autoread-vim'
+LazyPlug 'umaumax/autoread-vim'
 " Plug 'umaumax/skeleton-vim'
-Plug 'umaumax/comment-vim'
+LazyPlug 'umaumax/comment-vim'
 " :BenchVimrc
 Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
 " fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
@@ -14,10 +14,10 @@ endif
 
 " input helper
 " Plug 'kana/vim-smartinput'
-Plug 'umaumax/vim-smartinput'
+LazyPlug 'umaumax/vim-smartinput'
 
 " Plug 'mattn/sonictemplate-vim'
-Plug 'umaumax/sonictemplate-vim'
+LazyPlug 'umaumax/sonictemplate-vim'
 " NOTE: :Template -> :T
 let g:sonictemplate_commandname='T'
 let g:sonictemplate_postfix_key='<C-x><C-p>'

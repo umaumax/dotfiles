@@ -59,6 +59,7 @@ function! Cond(cond, ...)
 	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 let g:lazy_plug_map={}
+" NOTE: 主に'for'や'on'の指定がないものを対象とする
 function! LazyPlug(repo, ...)
 	let opts = get(a:000, 0, {})
 	if !has_key(opts,'on')&& !has_key(opts,'for')

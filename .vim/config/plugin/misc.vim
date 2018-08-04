@@ -1,5 +1,5 @@
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
-Plug 'rbtnn/vimconsole.vim'
+LazyPlug 'rbtnn/vimconsole.vim'
 let g:vimconsole#height = 8
 let g:vimconsole#auto_redraw=1
 " NOTE: 出力を逆順に表示
@@ -26,7 +26,7 @@ let g:shebang#shebangs = {
 			\ }
 
 " NOTE' for raibow ()
-Plug 'luochen1990/rainbow'
+LazyPlug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 " NOTE: cpp is not supported
@@ -44,7 +44,7 @@ Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 
 " auto indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
-Plug 'tpope/vim-sleuth'
+LazyPlug 'tpope/vim-sleuth'
 
 " NOTE: 必要とあらば試してみる
 " [Vimで自動的にファイルタイプを設定してくれる便利プラグインvim\-autoftを作りました！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2015/01/15/100000 )
@@ -55,16 +55,16 @@ Plug 'tpope/vim-sleuth'
 " c,s: change text
 " I: insert at start of range
 " A: insert at end of range
-Plug 'terryma/vim-multiple-cursors'
+LazyPlug 'terryma/vim-multiple-cursors'
 
-Plug 'Shougo/unite.vim'
+LazyPlug 'Shougo/unite.vim'
 
 " no dependency on vim swapfile option
-Plug 'LeafCage/autobackup.vim'
+LazyPlug 'LeafCage/autobackup.vim'
 let g:autobackup_backup_dir = g:tempfiledir
 let g:autobackup_backup_limit = 1024
 
-Plug 'machakann/vim-highlightedyank'
+LazyPlug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
 augroup vim_highlightedyank_color_group
 	autocmd!
@@ -90,7 +90,7 @@ Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
 
 " コマンドライン補完を拡張し、ユーザ定義コマンドの短縮名を展開
 " 置換中はエラーとなり，あくまでコマンド名の入力中のみ
-Plug 'LeafCage/cheapcmd.vim'
+LazyPlug 'LeafCage/cheapcmd.vim'
 "for cmdline
 cmap <Tab> <Plug>(cheapcmd-expand)
 
@@ -183,6 +183,8 @@ Plug 'lyuts/vim-rtags', {'for':['c','cpp']}
 
 " mark viewer
 " 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
+" NOTE:
+" 遅延読み込みをするとsign機能の反映が遅れるため，画面が無駄に動いてしまう
 Plug 'jeetsukumaran/vim-markology'
 let g:markology_enable=1
 " normal modeでddすると表示が一時的にずれる
@@ -233,7 +235,7 @@ let g:LanguageClient_serverCommands = {
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
 if g:colorscheme == 'molokai'
-	Plug 'tomasr/molokai'
+	LazyPlug 'tomasr/molokai'
 	if !isdirectory(expand('~/.vim/colors'))
 		call mkdir(expand('~/.vim/colors'), "p")
 	endif
@@ -241,9 +243,9 @@ if g:colorscheme == 'molokai'
 		call system('ln -s ~/.vim/plugged/molokai/colors/molokai.vim ~/.vim/colors/molokai.vim')
 	endif
 elseif g:colorscheme == 'moonfly'
-	Plug 'bluz71/vim-moonfly-colors'
+	LazyPlug 'bluz71/vim-moonfly-colors'
 elseif g:colorscheme == 'tender'
-	Plug 'jacoborus/tender.vim'
+	LazyPlug 'jacoborus/tender.vim'
 endif
 
 " auto chmod +x
@@ -267,7 +269,7 @@ let g:NERDTreeMapOpenSplit='h' " 'i'
 let g:NERDTreeMapOpenVSplit='v' " 's'
 
 " set lines of words on cursor
-Plug 'itchyny/vim-cursorword'
+LazyPlug 'itchyny/vim-cursorword'
 
 " Doxygen
 " :Dox
@@ -295,7 +297,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 "       \ 't': Abolish.titlecase,
 "       \ "function missing": s:function("s:unknown_coercion")
 "       \}, "keep")
-Plug 'tpope/vim-abolish'
+LazyPlug 'tpope/vim-abolish'
 
 Plug 'lervag/vimtex', {'for': 'tex'}
 " css
@@ -329,7 +331,7 @@ Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 let g:table_mode_corner="|"
 
 " for consecutive shortcut input
-Plug 'kana/vim-submode'
+LazyPlug 'kana/vim-submode'
 
 " autocomplete
 " Plug 'vim-scripts/L9'

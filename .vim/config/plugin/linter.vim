@@ -1,6 +1,6 @@
 " syntax check
 " 	Plug 'neomake/neomake'
-Plug 'w0rp/ale'
+LazyPlug 'w0rp/ale'
 
 " [NeovimでモダンなPython環境を構築する]( https://qiita.com/lighttiger2505/items/e0ada17634516c081ee7 )
 

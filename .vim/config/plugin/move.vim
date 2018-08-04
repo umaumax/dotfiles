@@ -1,7 +1,7 @@
 " enhances the builtin F f , T t
-Plug 'rhysd/clever-f.vim'
+LazyPlug 'rhysd/clever-f.vim'
 
-Plug 'easymotion/vim-easymotion'
+LazyPlug 'easymotion/vim-easymotion'
 
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 hi EasyMotionTarget ctermbg=none ctermfg=red

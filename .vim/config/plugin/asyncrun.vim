@@ -1,5 +1,5 @@
 " for async exec
-Plug 'skywind3000/asyncrun.vim'
+LazyPlug 'skywind3000/asyncrun.vim'
 function! s:goto_quickfix_top()
 	let save_winnr = winnr()
 	" `normal gg`は`|`で使用不可?

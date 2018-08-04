@@ -1,16 +1,18 @@
+" NOTE:
+" textobj-userを予め読み込まないと以下のpluginではエラーとなるためLazyPlugは使用できない
 Plug 'kana/vim-textobj-user'
 " il
-Plug 'kana/vim-textobj-line'
+LazyPlug 'kana/vim-textobj-line'
 " ie
-Plug 'kana/vim-textobj-entire'
+LazyPlug 'kana/vim-textobj-entire'
 
-Plug 'sgur/vim-textobj-parameter'
+LazyPlug 'sgur/vim-textobj-parameter'
 " i,
 " a,
 " i2,
 " let g:vim_textobj_parameter_mapping = ','
 
-Plug 'osyo-manga/vim-textobj-from_regexp'
+LazyPlug 'osyo-manga/vim-textobj-from_regexp'
 augroup textobj
 	autocmd!
 	" number
@@ -49,7 +51,7 @@ augroup END
 " ie: 'kana/vim-textobj-entire'
 " 'ih' my command
 " 'id' my command
-Plug 'terryma/vim-expand-region'
+LazyPlug 'terryma/vim-expand-region'
 vmap j <Plug>(expand_region_expand)
 vmap k <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {

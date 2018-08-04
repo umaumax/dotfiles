@@ -5,7 +5,7 @@ Plug 'tacroe/unite-mark', {'on': 'Unite'}
 " http://d.hatena.ne.jp/tacroe/20101119/1290115586
 nnoremap <silent> <Space>u :Unite mark<CR>
 command! Marks :Unite mark
-Plug 'zhisheng/visualmark.vim'
+LazyPlug 'zhisheng/visualmark.vim'
 
 " mark auto reg
 " http://saihoooooooo.hatenablog.com/entry/2013/04/30/001908

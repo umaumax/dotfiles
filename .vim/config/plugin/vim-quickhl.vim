@@ -1,5 +1,5 @@
 " highlight word (on cursor)
-Plug 't9md/vim-quickhl'
+LazyPlug 't9md/vim-quickhl'
 nmap <Space>h <Plug>(quickhl-manual-this)
 xmap <Space>h <Plug>(quickhl-manual-this)
 " nmap <Space>H <Plug>(quickhl-manual-reset)
