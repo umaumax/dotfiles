@@ -20,9 +20,8 @@ let g:switch_custom_definitions =
 			\   ['ON', 'OFF'],
 			\   ['yes', 'no'],
 			\   ['YES', 'NO'],
-			\   ['pulic', 'private', 'protected'],
+			\   ['public', 'private', 'protected'],
 			\   ['""', "''"],
-			\   {"\\([^']\\|^\\)'\\([^']\\|$\\)" : '\1"\2', '\([^"]\|^\)"\([^"]\|$\)' : "\\1'\\2"},
 			\   [':', ';'],
 			\   ['.', ','],
 			\   ['<', '>'],
@@ -42,6 +41,11 @@ let g:switch_custom_definitions =
 			\   ['noremap', 'cnoremap', 'inoremap', 'nnoremap', 'vnoremap'],
 			\   ['map', 'cmap', 'imap', 'nmap', 'vmap'],
 			\   ['float', 'double'],
+			\   ['else', 'elif', 'elseif'],
+			\   {
+			\     "^[^']*'[^']*$" : {"'":'"'},
+			\     "^[^\"]*\"[^\"]*$" : {'"':"'"},
+			\   }
 			\ ]
 function! s:toggle(value)
 	let opt= a:value >= 0 ? {} : {'reverse': a:value}
@@ -51,5 +55,6 @@ endfunction
 nnoremap <C-a> :call <SID>toggle(1)<CR>
 nnoremap <C-s> :call <SID>toggle(1)<CR>
 nnoremap <C-x> :call <SID>toggle(-1)<CR>
+
 nnoremap + :call <SID>toggle(1)<CR>
 nnoremap - :call <SID>toggle(-1)<CR>

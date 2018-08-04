@@ -332,17 +332,74 @@ nnoremap s "_s
 vnoremap x "_x
 " vnoremap d "_d
 vnoremap s "_s
-function! s:visual_mode_paste()
+function! s:visual_mode_paste(...)
+	let content = get(a:, 1, @+)
 	let vm = visualmode()
 	if vm ==# 'v'
 	elseif vm ==# 'V'
 		normal! 00
 	else
 	endif
-	call <SID>paste_at_cursor(1)
-	execute "normal! a\<CR>"
+	call <SID>paste_at_cursor(col('.')!=col('$')-1, content)
+	if vm ==# 'v'
+	elseif vm ==# 'V'
+		execute "normal! a\<CR>"
+	endif
 endfunction
 vnoremap p "_x:call <SID>visual_mode_paste()<CR>
+
+" visual modeで囲んだ箇所全体を対象として，'AndrewRadev/switch.vim'のswitchと同様な処理を行う
+function! s:switch()
+	let target = @z
+
+	for def in g:switch_custom_definitions
+		" ['foo', 'bar', 'baz']
+		if type(def) == type([])
+			let patterns = def
+			let index = -1
+			for pattern in patterns
+				let index+=1
+				if target ==# pattern
+					let next_pattern = patterns[(index+1)%len(patterns)]
+					let target = next_pattern
+					break
+				endif
+			endfor
+		elseif type(def) == type({})
+			for pattern in keys(def)
+				let match = matchstr(target, pattern)
+				if match !=# target
+					continue
+				endif
+				let result = def[pattern]
+				" {'#include <\([a-zA-Z0-9/\-_.]\+\)>' : '#include "\1"', '#include "\([a-zA-Z0-9/\-_.]\+\)"' : '#include <\1>'},
+				if type(result) == type('')
+					let target = substitute(target, pattern, result, '')
+					" {
+					"   "^[^']*'[^']*$" : {"'":'"'},
+					"   "^[^\"]*\"[^\"]*$" : {'"':"'"},
+					" }
+				elseif type(result) == type({})
+					for pattern2 in keys(result)
+						if target =~# pattern2
+							let result2 = result[pattern2]
+							let target = substitute(target, pattern2, result2, '')
+							break
+						endif
+					endfor
+				else
+					echom 'unknown type:'
+					PP result
+				endif
+				break
+			endfor
+		endif
+	endfor
+	call <SID>visual_mode_paste(target)
+	" select yanked range
+	normal! `[v`]
+endfunction
+vnoremap <C-x> "zd:call <SID>switch()<CR>
 
 function s:V()
 	let m=visualmode()
@@ -512,16 +569,16 @@ function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
 	let @+=l:tmp
 endfunction
 " psate
-function! s:paste_at_cursor(Pflag)
-	let l:tmp=@+
+function! s:paste_at_cursor(Pflag, ...)
+	let content = get(a:, 1, @+)
 	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
-	let @+=substitute(@+, '\n*$', '', '')
+	let content=substitute(content, '\n*$', '', '')
+	let @p = content
 	if a:Pflag
-		normal! P
+		normal! "pP
 	else
-		normal! p
+		normal! "pp
 	endif
-	let @+=l:tmp
 endfunction
 inoremap <C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
 function! s:paste_at_cmdline()
