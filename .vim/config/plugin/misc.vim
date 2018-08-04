@@ -1,37 +1,3 @@
-" ###################
-" #### my plugin ####
-Plug 'umaumax/autoread-vim'
-" Plug 'umaumax/skeleton-vim'
-Plug 'umaumax/comment-vim'
-" :BenchVimrc
-Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
-" fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
-if Doctor('shfmt', 'umaumax/vim-shfmt')
-	Plug 'umaumax/vim-shfmt',{'for': ['sh', 'zsh']}
-endif
-if Doctor('cmake-format', 'umaumax/vim-cmake-format')
-	Plug 'umaumax/vim-cmake-format', {'for': 'cmake'}
-endif
-" let g:shfmt_fmt_on_save = 1
-
-" input helper
-" Plug 'kana/vim-smartinput'
-Plug 'umaumax/vim-smartinput'
-
-" Plug 'mattn/sonictemplate-vim'
-Plug 'umaumax/sonictemplate-vim'
-" NOTE: :Template -> :T
-let g:sonictemplate_commandname='T'
-let g:sonictemplate_postfix_key='<C-x><C-p>'
-let g:sonictemplate_vim_template_dir = [
-			\ '~/dotfiles/template'
-			\]
-" if you want to add element, do like below
-" let g:sonictemplate_vim_template_dir = g:sonictemplate_vim_template_dir + ['~/template']
-
-" #### my plugin ####
-" ###################
-
 " [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 Plug 'rbtnn/vimconsole.vim'
 let g:vimconsole#height = 8
@@ -234,10 +200,6 @@ let g:markology_enable=1
 " " TODO:拡張子によって，ファイルを変更する? or all for vim?
 " let g:cheatsheet#cheat_file = expand('~/.cheatsheet.md')
 
-" status line
-" NOTE:エラー表示がこのプラグインですぐに消えてしまって見えなくなっているかもしれない
-Plug 'vim-airline/vim-airline'
-
 " required
 " npm -g install instant-markdown-d
 " Plug 'suan/vim-instant-markdown'
@@ -289,10 +251,10 @@ Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk']}
 
 " file manager
 " Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', {'on':['NERDTreeToggle','NERDTree']}
 let g:NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle','NERDTree']}
 " Require: fontforge
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " let g:NERDTreeLimitedSyntax = 1
@@ -396,3 +358,9 @@ if Doctor('git', 'airblade/vim-gitgutter')
 	nmap <Leader>uh <Plug>GitGutterUndoHunk
 	nmap <Leader>ph <Plug>GitGutterPreviewHunk
 endif
+
+" NOTE: 0.1秒ほど起動時間がかかる
+" status line
+" NOTE:エラー表示がこのプラグインですぐに消えてしまって見えなくなっているかもしれない
+" Plug 'vim-airline/vim-airline', {'on':[]}
+LazyPlug 'vim-airline/vim-airline'

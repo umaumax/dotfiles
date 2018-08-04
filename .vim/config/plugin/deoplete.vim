@@ -12,9 +12,9 @@ if v:version >= 800 && has('python3')
 	" to choose deoplete <C-x>,<C-v>
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on':[] }
 	else
-		Plug 'Shougo/deoplete.nvim'
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on':[] }
 		Plug 'roxma/nvim-yarp'
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif

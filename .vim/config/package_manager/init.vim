@@ -44,9 +44,45 @@ function! s:plug_check_installation()
 		endif
 	endif
 endfunction
+
+augroup vim-enter-draw-post
+	autocmd VimEnter * call feedkeys(":doautocmd <nomodeline> User VimEnterDrawPost\<CR>",'n')
+augroup END
+
 augroup check-plug
 	autocmd!
-	autocmd VimEnter * if !argc() | call <SID>plug_check_installation() | endif
+	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
+augroup END
+
+function! Cond(cond, ...)
+	let opts = get(a:000, 0, {})
+	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+let g:lazy_plug_map={}
+function! LazyPlug(repo, ...)
+	let opts = get(a:000, 0, {})
+	if !has_key(opts,'on')&& !has_key(opts,'for')
+		let opts=extend(opts, { 'on': [], 'for': []})
+	endif
+	let g:lazy_plug_map[split(a:repo,'/')[1]]=0
+	call plug#(a:repo, opts)
+endfunction
+command! -nargs=+ -bar LazyPlug call LazyPlug(<args>)
+function! s:lazy_plug_load()
+	for key in keys(g:lazy_plug_map)
+		if (g:lazy_plug_map[key]==0)
+			" NOTE: 可変長引数で文字列も指定可能
+			call plug#load(key)
+			let g:lazy_plug_map[key]=1
+		endif
+	endfor
+endfunction
+augroup load_after_vim_enter
+	autocmd!
+	" 	autocmd User VimEnterDrawPost call plug#load('vim-airline','deoplete.nvim')
+	" 				\| autocmd! load_after_vim_enter
+	autocmd User VimEnterDrawPost call <SID>lazy_plug_load()
+				\| autocmd! load_after_vim_enter
 augroup END
 
 call plug#begin('~/.vim/plugged')
