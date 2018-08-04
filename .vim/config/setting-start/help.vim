@@ -1,5 +1,7 @@
 " [vim \- How to yank lines into the same register then paste into a new buffer? \- Super User]( https://superuser.com/questions/1107864/how-to-yank-lines-into-the-same-register-then-paste-into-a-new-buffer )
 function! PipeCommandResultToNewTab(cmd)
+	" NOTE: this ESC is to acoid 'Press ENTER or type command to continue'
+	execute "normal! \<ESC>"
 	redir @z
 	execute 'silent '.a:cmd
 	redir END
@@ -23,4 +25,5 @@ command! History call PipeCommandResultToNewTab("history")
 command! Command call PipeCommandResultToNewTab("command")
 command! Syntax call PipeCommandResultToNewTab("syntax")
 
+" user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")
