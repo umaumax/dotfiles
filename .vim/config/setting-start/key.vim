@@ -6,6 +6,8 @@ nnoremap gp a <ESC>p
 
 nnoremap cc vc
 
+nnoremap <Leader>p %
+
 " disable <C-@>
 inoremap <C-@> <C-[>
 
