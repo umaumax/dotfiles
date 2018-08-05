@@ -26,7 +26,8 @@ let g:shebang#shebangs = {
 			\ }
 
 " NOTE' for raibow ()
-LazyPlug 'luochen1990/rainbow'
+" If you want to lazy load run :RainbowToggle after loaded
+Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 
 " NOTE: cpp is not supported
