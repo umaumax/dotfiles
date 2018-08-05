@@ -70,3 +70,5 @@
 
 : g++
 [c++11] g++ -std=c++11
+
+[rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -

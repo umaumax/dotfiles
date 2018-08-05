@@ -385,9 +385,12 @@ if cmdcheck pandoc; then
 	}
 fi
 
-#       sudo ansi-color
-# fzf:  NG   OK
-# peco: OK   NG
+#       sudo ansi-color          search_algo
+# fzf:  NG   OK                  NG(for me)
+# peco: OK   NG                  OK
+# fzy:  OK   Input OK, Output NG OK
+# 結論として，fzyの出力からansiコードを取り除いた場合が最適解?
+
 # [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
 # -> USE: pipe-EOF-do
 # brew install fzf
@@ -402,6 +405,7 @@ cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
 alias pvim='vim -'
+alias pipevim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
 # alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"

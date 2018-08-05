@@ -14,7 +14,8 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	# NOTE: 変数を設定してからsourceする必要がある
 	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
 	EASY_ONE_KEYBIND="^r" # default "^x^x"
-	EASY_ONE_FZF_OPTS="--no-sort"
+	EASY_ONE_FILTER_COMMAND="fzy"
+	EASY_ONE_FILTER_OPTS="-l 100"
 	source $zshdir/easy-oneliner/easy-oneliner.zsh
 	return
 fi
@@ -31,7 +32,7 @@ if [[ -e ~/.zplug ]]; then
 	zplug "b4b4r07/zsh-history-enhanced"
 	if zplug check "b4b4r07/zsh-history-enhanced"; then
 		# 		ZSH_HISTORY_FILE="$HISTFILE"
-		ZSH_HISTORY_FILTER="peco:fzy:fzf:peco:percol"
+		ZSH_HISTORY_FILTER="fzy:fzf:peco:percol"
 		ZSH_HISTORY_KEYBIND_GET_BY_DIR="^r"
 		ZSH_HISTORY_KEYBIND_GET_ALL="^r^a"
 	fi
