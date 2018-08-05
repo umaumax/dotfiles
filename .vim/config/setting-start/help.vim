@@ -24,6 +24,8 @@ command! Registers call PipeCommandResultToNewTab("registers")
 command! History call PipeCommandResultToNewTab("history")
 command! Command call PipeCommandResultToNewTab("command")
 command! Syntax call PipeCommandResultToNewTab("syntax")
+command! Set call PipeCommandResultToNewTab("set")
+command! SetAll call PipeCommandResultToNewTab("set all")
 
 " user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")
