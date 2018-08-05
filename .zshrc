@@ -89,6 +89,8 @@ for e in ${git_aliases[@]}; do
 done
 alias gr='git-root'
 
+cmdcheck tac || alias tac='tail -r'
+
 # ls
 [[ -n $_Darwin ]] && alias ls='ls -G'
 [[ -n $_Ubuntu ]] && alias ls='ls --color=auto'
@@ -402,7 +404,8 @@ cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe
 alias pvim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
-alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
+# alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
+alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 if cmdcheck peco; then
 	alias cpeco='command peco'
 	alias pecovim='peco | xargs-vim'
@@ -698,7 +701,6 @@ alias fastvim='VIM_FAST_MODE=on vim'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
-alias lastvim="vim -c \"normal '0\""
 alias vimpluginstall="vim -c ':PlugInstall' ''"
 alias vimplugupdate="vim -c ':PlugUpdate' ''"
 alias vimplugupgrade="vim -c ':PlugUpgrade' ''"
@@ -807,7 +809,6 @@ cmdcheck gsed && alias sed='gsed'
 # -s: suppress 'Is a directory'
 alias grep='grep -s --color=auto'
 cmdcheck ggrep && alias grep='ggrep -s --color=auto'
-cmdcheck tac || alias tac='tail -r'
 # brew install coreutils
 cmdcheck gtimeout && alias timeout='gtimeout'
 

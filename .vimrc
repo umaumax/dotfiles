@@ -39,6 +39,7 @@ let g:colorscheme = 'molokai'
 " let g:colorscheme = 'tender' " difficult to see visual mode
 
 let s:user_local_vimrc = expand('~/.local.vimrc')
+let g:vim_edit_log_path = expand('~/.vim_edit_log')
 
 " [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let g:tempfiledir = expand('~/.vim/tmp')
