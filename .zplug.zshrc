@@ -10,7 +10,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
 	[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
 	source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
-	[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/b4b4r07/easy-oneliner $zshdir/easy-oneliner
+	[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 	# NOTE: 変数を設定してからsourceする必要がある
 	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
 	EASY_ONE_KEYBIND="^r" # default "^x^x"
