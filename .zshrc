@@ -1435,3 +1435,5 @@ function c() {
 alias -g PV="| pecovim"
 alias -g WC="| wc"
 alias -g L="| less"
+
+alias remove-ansi="perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
