@@ -45,7 +45,11 @@ function! s:vimconsole_logger()
 		let template_flag = abbr =~ '.*<.*>'
 		let log_flag = func_flag || template_flag
 		" NOTE: is function?
-		if func_flag
+		if func_flag && template_flag
+			if clang_flag
+				execute "normal! i<>()\<ESC>\<Left>\<Left>"
+			endif
+		elseif func_flag
 			if vim_flag && !no_arg_func_flag
 				execute "normal! i)"
 			endif
@@ -55,8 +59,7 @@ function! s:vimconsole_logger()
 					call feedkeys("\<Right>", 'n')
 				endif
 			endif
-		endif
-		if template_flag
+		elseif template_flag
 			if clang_flag
 				execute "normal! i<>"
 			endif

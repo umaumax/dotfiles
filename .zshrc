@@ -435,7 +435,8 @@ if cmdcheck peco; then
 	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 	# 存在しない場合には空白となる
 	# 最終的に'./'を加えても動作は変更されない
-	alias rvcd="cd \$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')./"
+	# NOTE: echo ${~$(echo '~')} means expand '~'
+	alias rvcd="cd \${~\$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
 	alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
 	alias cdpeco="cd \$(find . -type d | peco | sed 's:$:/:g')./"
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )

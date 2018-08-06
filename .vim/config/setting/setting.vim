@@ -158,12 +158,14 @@ syntax on "コードの色分け
 " 上記の!コマンドでaliasを利用するときとの相性が悪い
 " set shell=bash\ -i
 " [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
-if filereadable(glob('~/.local.bashenv'))
-	let $BASH_ENV=expand('~/.local.bashenv')
+if filereadable(glob('~/.bashenv'))
+	let $BASH_ENV=expand('~/.bashenv')
 endif
 " [dotfiles/dot\.zshenv at master · poppen/dotfiles]( https://github.com/poppen/dotfiles/blob/master/dot.zshenv )
-if filereadable(glob('~/.local.zshenv'))
-	let $ZSH_ENV=expand('~/.local.zshenv')
+" [How to run zsh aliased command from vim command mode? \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/16186/how-to-run-zsh-aliased-command-from-vim-command-mode )
+" One possible workaround is to move these things out of .zshrc. .zshrc is only sourced for interactive terminals, but .zshenv is sourced for any invocation of zsh (except with -f). Creating aliases in .zshenv will allow them to work when zsh is called by vim.
+if filereadable(glob('~/.zshenv'))
+	let $ZSH_ENV=expand('~/.zshenv')
 endif
 
 " colorscheme

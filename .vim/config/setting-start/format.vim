@@ -29,7 +29,7 @@ function! IsPrivateWork(...)
 	endif
 
 	let l:authors = system("cd " . l:dir_path . " && git log | grep 'Author' | cut -d' ' -f2 | sort | uniq | tr -d '\n'")
-	let l:ret= l:authors == "" || l:authors == "fatal: not a git repository (or any of the parent directories): .git\n" || l:authors == l:author
+	let l:ret = l:authors == "" || l:authors == "fatal: not a git repository (or any of the parent directories): .git\n" || l:authors == l:author
 	let g:is_private_work_cache[l:dir_path] = l:ret
 	return l:ret
 endfunction
@@ -157,12 +157,12 @@ function! s:work_setting()
 	" ここで，初期化しないと下記の色変更コマンドが反映されない?
 	" 	execute 'colorscheme '.g:colors_name
 	if IsPrivateWork()
-		let g:auto_format_flag=1
+		let g:auto_format_flag= exists('g:auto_format_force_flag') ? g:auto_format_force_flag : 1
 		augroup non_private
 			autocmd!
 		augroup END
 	else
-		let g:auto_format_flag=0
+		let g:auto_format_flag= exists('g:auto_format_force_flag') ? g:auto_format_force_flag : 0
 		" NOTE: disable chmod
 		" shell file is exception
 		let g:autochmodx_ignore_scriptish_file_patterns =[
