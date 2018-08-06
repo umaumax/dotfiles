@@ -12,3 +12,6 @@ chmod u+x git-ls
 
 https://github.com/umaumax/imv/blob/master/imv.sh imv
 chmod u+x imv
+
+https://github.com/umaumax/wgit/blob/master/wgit.sh wgit
+chmod u+x wgit
