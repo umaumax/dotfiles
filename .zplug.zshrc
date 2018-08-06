@@ -15,7 +15,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
 	EASY_ONE_KEYBIND="^r" # default "^x^x"
 	EASY_ONE_FILTER_COMMAND="fzy"
-	EASY_ONE_FILTER_OPTS="-l 100"
+	EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
 	source $zshdir/easy-oneliner/easy-oneliner.zsh
 	return
 fi

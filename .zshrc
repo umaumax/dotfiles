@@ -400,6 +400,7 @@ fi
 # ./install
 # cp bin/fzf ~/local/bin/fzf
 cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
+cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 
 # NOTE:googler
 # NOTE:peco
@@ -1437,3 +1438,5 @@ alias -g WC="| wc"
 alias -g L="| less"
 
 alias remove-ansi="perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
+alias term-cols='tput cols'
+alias term-lines='tput lines'
