@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
-: find
+# find
 [current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name="@" -exec grep --color=auto -H -n {} +
-: fg
+# fg
 [vim] fg.vim "@" | pecovim
 [vim] fg.my.vim "@" | pecovim
 [vim] fg.md "@" | pecovim
@@ -15,51 +15,51 @@
 [vim] fg.my.md "@"
 [vim] fg.cpp-all "@"
 
-: ubuntu
-: ubuntu vim /etc files
+# ubuntu
+# ubuntu vim /etc files
 [hosts] vim /etc/hosts !
 [network/interfaces] vim /etc/network/interfaces !
 [resolv.conf] vim /etc/resolv.conf !
-: ubuntu cd
+# ubuntu cd
 [GUI app autostart] cd ~/.config/autostart !
 [apps] cd /usr/share/applications !
-: ubuntu network
+# ubuntu network
 [network reboot] sudo service networking restart !
 [ip flush] sudo ip addr flush !
 [ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
-: ubuntu *.deb install
+# ubuntu *.deb install
 [gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 
-: tar
+# tar
 [解凍] tar zxvf # tar zxvf xxxx.tar.gz
 [圧縮] tar zcvf # tar zcvf xxxx.tar.gz directory
 
-: filter
+# filter
 [filter 数字のみ] perl -nle '$_=~/([0-9]+)/;print $1;'
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
-: size
+# size
 [size] du -s * # fils size
 [size] df -h # disk size
 
-: docker
+# docker
 [build] docker build -t "@" .
 [run] docker run --rm -it "@" /bin/bash
 
-: cmake
+# cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
 
-: timeout
+# timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
-: git
+# git
 [commit] git commit -m '@'
 [push] git push -u origin master ! # normal push
 [push] git push -u --force origin master # force push
 [diff] git diff --cached # <file> # addしたファイルの差分表示
 [unstage] git reset HEAD # <file>
-: [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
+# [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [commit 取り消し（編集内容はそのまま）] git reset --soft HEAD^ !
 [amend 取り消し] git reset HEAD@{1} !
 [merge 取り消し] git reset --hard ORIG_HEAD !
@@ -68,7 +68,8 @@
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
-: g++
+# g++
 [c++11] g++ -std=c++11
 
+# rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
