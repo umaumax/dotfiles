@@ -1179,6 +1179,7 @@ cmdcheck gsed && function zploadadd() {
 	perl -pe 's/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}"'$&'"${COLOR_END}/g' | \
 	perl -pe 's/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}"'$&'"${COLOR_END}/g'"
 	alias ifconfig='ifconfig | ifconfig_color_filter'
+	cmdcheck ifconfig && alias ifc='ifconfig'
 }
 
 function off() { printf "\e[0;m$*\e[m"; }
