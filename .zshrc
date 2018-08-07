@@ -490,6 +490,11 @@ function peco-cd() {
 }
 alias sd='peco-cd'
 
+function git-checkout-branch-peco() {
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
+	[[ -n $branch ]] && git checkout $branch
+}
+
 # # <C-R>
 # # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
 # function _peco-select-history() {
