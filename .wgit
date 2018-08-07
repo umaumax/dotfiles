@@ -7,11 +7,12 @@ chmod u+x diff-filter
 https://github.com/umaumax/window-toggle/blob/master/window-toggle.sh window-toggle
 chmod u+x window-toggle
 
-https://github.com/stedolan/git-ls/blob/master/git-ls git-ls
+https://github.com/stedolan/git-ls/blob/master/git-ls
 chmod u+x git-ls
 
 https://github.com/umaumax/imv/blob/master/imv.sh imv
 chmod u+x imv
 
+# update self
 https://github.com/umaumax/wgit/blob/master/wgit.sh wgit
 chmod u+x wgit
