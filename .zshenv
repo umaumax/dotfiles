@@ -51,6 +51,9 @@ fi
 
 alias t='touch'
 
+# for webcat
+export WEBCAT_PORT=3939
+
 # webcat
 function _webcat() {
 	# go get -u github.com/umaumax/gonetcat

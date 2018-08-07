@@ -139,9 +139,6 @@ if cmdcheck pyenv; then
 	# 	eval "$(pyenv virtualenv-init -)"
 fi
 
-# for webcat
-export WEBCAT_PORT=3939
-
 # for vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
 
