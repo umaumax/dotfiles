@@ -3,14 +3,6 @@ if [[ "$OSTYPE" == darwin* ]]; then
 fi
 
 #
-# Editors
-#
-
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
-
-#
 # Language
 #
 
@@ -93,6 +85,16 @@ exist() {
 	var=$1
 	[[ -e $var ]]
 }
+
+#
+# Editors
+#
+
+export EDITOR='vim'
+export VISUAL='vim'
+cmdcheck nvim && export EDITOR='nvim'
+cmdcheck nvim && export VISUAL='nvim'
+export PAGER='less'
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
 export LC_TIME="en_US.UTF-8"
