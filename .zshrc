@@ -1,3 +1,8 @@
+# NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
+if [[ $OS == Windows_NT ]]; then
+	test -r ~/.zprofile && source ~/.zprofile
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -1390,20 +1395,29 @@ fi
 [[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc
 
 # windows setting
-# if [[ $OS == Windows_NT ]]; then
-if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
+if [[ $OS == Windows_NT ]]; then
+	# tmuxを起動するとx86_64のみになる
+	# if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
 	if [[ -n $BASH ]]; then
 		PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h (x_x)/(\[\e[35m\]$MSYSTEM\[\e[0m\]) \[\e[33m\]\w\[\e[0m\]\n\$ "
 	else
 		# zsh
 		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'x$ ')
+		function simple_prompt() {
+			PROMPT=$(echo "\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b"'$ ')
+		}
 	fi
 	export HISTFILE=${HOME}/.zsh_history
 	export HISTSIZE=100000
 
 	# NOTE: how about using windows native clip command?
-	alias p='gopaste'
-	alias _c='gocopy'
+	if [[ -e /dev/clipboard ]]; then
+		alias p='(cat /dev/clipboard)'
+		alias _c='(cat > /dev/clipboard)'
+	else
+		cmdcheck gopaste && alias p='gopaste'
+		cmdcheck gocopy && alias _c='gocopy'
+	fi
 
 	## windows ls color
 	export LS_COLORS="di=01;36"
