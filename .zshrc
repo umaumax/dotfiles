@@ -214,6 +214,7 @@ alias 5u='uuuuu'
 alias history='history 1'
 alias h='history'
 alias hgrep='h | grep'
+alias envgrep='env | grep'
 
 # 年号コマンド
 # name of an era; year number
