@@ -583,6 +583,8 @@ function! s:paste_at_cursor(Pflag, ...)
 	endif
 endfunction
 inoremap <C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
+nnoremap <C-v> :call <SID>paste_at_cursor(1)<CR>
+
 function! s:paste_at_cmdline()
 	let clipboard=@+
 	let clipboard=substitute(clipboard, '\n', ' ', '')
