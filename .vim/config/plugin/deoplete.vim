@@ -14,9 +14,10 @@ if v:version >= 800 && has('python3')
 		" if error occurs, do :UpdateRemotePlugins
 		LazyPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 	else
-		LazyPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-		LazyPlug 'roxma/nvim-yarp'
-		LazyPlug 'roxma/vim-hug-neovim-rpc'
+		" NOTE: don't use lazy load
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
 	LazyPlug 'wokalski/autocomplete-flow'
 	" For func argument completion
