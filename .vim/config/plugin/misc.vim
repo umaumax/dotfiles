@@ -203,8 +203,11 @@ Plug 'lyuts/vim-rtags', {'for':['c','cpp']}
 " 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
 " NOTE:
 " 遅延読み込みをするとsign機能の反映が遅れるため，画面が無駄に動いてしまう
-Plug 'jeetsukumaran/vim-markology'
+" ALEのlintの結果が見にくくなる
+" マークを設定すると，その行のhighlightがおかしくなる(真っ白になる)
+Plug 'jeetsukumaran/vim-markology', {'on':['MarkologyToggle','MarkologyEnable']}
 let g:markology_enable=1
+
 " normal modeでddすると表示が一時的にずれる
 " Plug 'kshenoy/vim-signature'
 " highlight SignColumn ctermbg=Black guibg=#000000
