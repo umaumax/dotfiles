@@ -1,2 +1,29 @@
 snippet     funcname
     `cfi#get_func_name()`
+
+snippet readline
+    ${0} | awk 1 | while read LINE; do
+      ${1:echo "LINE: $LINE"}
+    done
+
+snippet ismac
+    if [[ $(uname) == "Darwin" ]]; then
+        ${0}
+    fi
+
+snippet isubuntu
+    if [[ $(uname -a) =~ "Ubuntu" ]]; then
+        ${0}
+    fi
+
+snippet iswindows
+    if [[ "$OS" =~ "Windows" ]]; then
+        ${0}
+    fi
+
+snippet alias_enable
+abbr to enable alias at bash
+    shopt -s expand_aliases
+
+snippet echoerr
+    echo 1>&2
