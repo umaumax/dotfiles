@@ -5,7 +5,7 @@
 [push]
 	default = simple
 [alias]
-	a = add .
+	a = add --all
 	add-changed-deleted = add . --update
 	add-all = add . --all
 	b = branch
@@ -31,7 +31,6 @@
 	# for mac
 	# [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
 	d     = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
-	diff  = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
 	cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
 	wdiff = diff --word-diff-regex='\\w+'
 	diff-head = diff HEAD

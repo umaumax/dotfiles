@@ -115,10 +115,19 @@ alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 
 cmdcheck 'git-ls' && alias gls='git-ls'
-alias gd='git diff'
-alias ga='git add .'
+alias gd='git cdiff'
+alias gdh='git diff HEAD'
+alias gdhh='git diff HEAD~~'
+alias gdhhh='git diff HEAD~~~'
+alias gdhhhh='git diff HEAD~~~~'
+alias gdhhhhh='git diff HEAD~~~~~'
+alias gdhhhhhh='git diff HEAD~~~~~~'
+alias ga='git add --all'
+alias gadd='git add'
 # this alias overwrite Ghostscript command
 alias gs='git status'
+alias gst='git status'
+alias glog='git log'
 
 cmdcheck ccze && alias='ccze -A'
 
