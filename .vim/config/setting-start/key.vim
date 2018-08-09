@@ -803,7 +803,7 @@ let surround_key_mappings=[
 			\{'keys':["(","pa","pt","kakko"],        'prefix':"(",    'suffix':")"},
 			\{'keys':["[","br","ary","list"],        'prefix':"[",    'suffix':"]"},
 			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",    'suffix':"}"},
-			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':"```"},
+			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':'\n```'},
 			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",   'suffix':"__"},
 			\]
 " 			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
@@ -811,10 +811,12 @@ for mapping in surround_key_mappings
 	let prefix=mapping['prefix']
 	let suffix=mapping['suffix']
 	for key in mapping['keys']
+
 		" 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
-		execute "vnoremap s".key." \"yc<C-o>:let @z=\"".prefix."\".@y.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+		execute "vnoremap s".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+		" NOTE: 記号の場合にはprefix:sはなし
 		if key[0] =~ '\W'
-			execute "vnoremap ".key." \"yc<C-o>:let @z=\"".prefix."\".@y.\"".suffix."\"<CR><C-r><C-o>z<Esc>"
+			execute "vnoremap ".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		endif
 	endfor
 endfor
