@@ -113,7 +113,12 @@ alias lsat='ls -alt'
 alias lsatr='ls -altr'
 alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
+
 cmdcheck 'git-ls' && alias gls='git-ls'
+alias gd='git diff'
+alias ga='git add .'
+# this alias overwrite Ghostscript command
+alias gs='git status'
 
 cmdcheck ccze && alias='ccze -A'
 
