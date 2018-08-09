@@ -18,6 +18,23 @@ options word
 snippet contains
   (${1:str}.find(${2:keyword}) != std::string::npos)
 
+snippet cast_dynamic
+  dynamic_cast<${1:#:Type}>(${2:TARGET})${0}
+
+snippet cast_static
+  static_cast<${1:#:Type}>(${2:TARGET})${0}
+
+snippet cast_reinterpret
+  reinterpret_cast<${1:#:Type}>(${2:TARGET})${0}
+
+snippet cast_const
+  const_cast<${1:#:Type}>(${2:TARGET})${0}
+
+snippet debug_print
+options head
+abbr << __func__ << ...
+  std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
+
 # [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
 snippet cout
   std::cout << ${0} << std::endl;
