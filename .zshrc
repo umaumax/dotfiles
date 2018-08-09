@@ -781,6 +781,7 @@ alias sshconfig='vim ~/.ssh/config'
 
 # show path each line
 alias path='echo $PATH | sed "s/:/\n/g"'
+alias fpath='echo $fpath | tr " " "\n"'
 
 # 指定したディレクトリに存在する実行可能なファイルを列挙する
 function cmds() {
