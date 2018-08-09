@@ -130,8 +130,8 @@ cmdcheck 'cmake' && function cmake-clean() {
 
 alias basedirname='basename $PWD'
 alias find-git-repo="find . -name '.git' | sed 's:/.git$::g'"
-alias find-time-sort='find . -type f -print0 | xargs -0 ls -altr'
-alias find-time-sortr='find . -type f -print0 | xargs -0 ls -alt'
+alias find-time-sort='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -altr'
+alias find-time-sortr='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -alt'
 alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
 
 function git-check-up-to-date() {
@@ -453,6 +453,16 @@ if cmdcheck peco; then
 	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
 	alias up='cd `_up | peco`/.'
+
+	alias peco-ls='ls -al | peco | awk "{print \$9}"'
+	alias peco-lst='ls -alt | peco | awk "{print \$9}"'
+	alias peco-lstr='ls -altr | peco | awk "{print \$9}"'
+	alias pls='peco-ls'
+	alias plst='peco-lst'
+	alias plstr='peco-lstr'
+	alias pf='fpeco'
+	alias pft='find-time-sort | peco | awk "{print \$9}"'
+	alias pftr='find-time-sortr | peco | awk "{print \$9}"'
 fi
 alias rvgrep="viminfo-ls | xargs-grep"
 
