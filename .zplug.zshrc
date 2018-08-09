@@ -4,12 +4,16 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
 	zshdir=~/.zsh
 	[[ ! -e $zshdir ]] && mkdir -p $zshdir
+
 	[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
 	fpath=($zshdir/zsh-completions/src $fpath)
+
 	[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
 	source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 	[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
 	source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
+
 	[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 	# NOTE: 変数を設定してからsourceする必要がある
 	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
@@ -17,6 +21,18 @@ if [[ $USE_ZPLUG == 0 ]]; then
 	EASY_ONE_FILTER_COMMAND="fzy"
 	EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
 	source $zshdir/easy-oneliner/easy-oneliner.zsh
+
+	# [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
+	[[ ! -e $zshdir/cd-bookmark ]] && git clone https://github.com/mollifier/cd-bookmark.git $zshdir/cd-bookmark
+	fpath=($zshdir/cd-bookmark $fpath)
+	autoload -Uz cd-bookmark
+	function cdb() {
+		[[ $# -gt 0 ]] && cd-bookmark "$@" && return
+		local tag=$(cd-bookmark | peco | cut -d'|' -f1)
+		[[ -n $tag ]] && cd-bookmark "$tag"
+	}
+
+	autoload -Uz compinit
 	return
 fi
 
@@ -53,6 +69,8 @@ if [[ -e ~/.zplug ]]; then
 	# Install easy-oneliner (If fzf is already installed)
 	zplug "b4b4r07/easy-oneliner", if:"which fzf"
 
+	# TODO: add cd-bookmark setting
+
 	# install conrifmation
 	if ! zplug check --verbose; then
 		printf "Install? [y/N]: "
@@ -65,4 +83,6 @@ if [[ -e ~/.zplug ]]; then
 	# コマンドをリンクして、PATH に追加し、プラグインは読み込む
 	# 	zplug load --verbose
 	zplug load
+
+	autoload -Uz compinit
 fi
