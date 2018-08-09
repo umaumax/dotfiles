@@ -344,7 +344,9 @@ function! s:visual_mode_paste(...)
 		normal! 00
 	else
 	endif
-	call <SID>paste_at_cursor(col('.')!=col('$')-1, content)
+	" visual modeで切り取りを行った直後でカーソルが行の末尾場合の調整
+	let is_line_end = getpos("'<")[2]==col('$')
+	call <SID>paste_at_cursor(!is_line_end, content)
 	if vm ==# 'v'
 	elseif vm ==# 'V'
 		execute "normal! a\<CR>"
@@ -393,7 +395,11 @@ function! s:switch()
 					endfor
 				else
 					echom 'unknown type:'
-					PP result
+					if &rtp =~ 'vim-prettyprint'
+						PP result
+					else
+						echo result
+					endif
 				endif
 				break
 			endfor
@@ -776,14 +782,31 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 " 文字数をカウントした方がよさそう
-" 行をまたぐとずれるpasteした範囲とgvは異なる
 " visual paste関数と組み合わせる?
 function! s:move_block(direction)
 	let n = { s -> strlen(substitute(s, ".", "x", "g"))}(@z)
+	" visual modeで切り取りを行った直後でカーソルが行の末尾場合の調整
+	let is_line_end = getpos("'<")[2]==col('$')
+	let paste_command = is_line_end ? 'p' : 'P'
 	if a:direction < 0
-		execute "normal! \<Left>\"zP".(n-1)."\<Left>v".(n-1)."\<Right>"
+		if col('.')==1
+			let paste_command='p'
+			execute "normal! \<Left>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
+		else
+			execute "normal! \<Left>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
+		endif
 	elseif a:direction > 0
-		execute "normal! \<Right>\"zP".(n-1)."\<Left>v".(n-1)."\<Right>"
+		if col('.')==col('$')-1
+			if !is_line_end
+				let paste_command='p'
+				execute "normal! \"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
+			else
+				let paste_command='P'
+				execute "normal! \<Right>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
+			endif
+		else
+			execute "normal! \<Right>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
+		endif
 	endif
 endfunction
 vnoremap <S-Left> "zd:call <SID>move_block(-1)<CR>
