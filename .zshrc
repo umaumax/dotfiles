@@ -531,6 +531,25 @@ function _peco-snippets() {
 zle -N _peco-snippets
 bindkey '^x^s' _peco-snippets
 
+function peco-select-history() {
+	local tac
+	if which tac >/dev/null; then
+		tac="tac"
+	else
+		tac="tail -r"
+	fi
+	local query="$LBUFFER"
+	local opts=("--query" "$LBUFFER")
+	[[ -z $query ]] && local opts=()
+	BUFFER=$(builtin history -nr 1 |
+		eval $tac |
+		peco "${opts[@]}")
+	CURSOR=$#BUFFER
+	zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^o' peco-select-history
+
 function cheat() {
 	# below commands enable alias
 	# for 高速vim起動
