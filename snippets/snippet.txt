@@ -73,3 +73,6 @@
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
+
+# line filter
+[line filter] sed -n @,p # index starts with 1
