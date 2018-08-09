@@ -841,8 +841,12 @@ cmdcheck git && alias gl='git log --oneline --decorate --graph --branches --tags
 # html整形コマンド
 ## [XMLを整形(tidy)して読みやすく、貼りつけやすくする。 - それマグで！](http://takuya-1st.hatenablog.jp/entry/20120229/1330519953)
 alias fixhtml='tidy -q -i -utf8'
-alias urlencode="nkf -WwMQ | tr '=' '%'"
 alias urldecode='nkf -w --url-input'
+# [シェルスクリプトでシンプルにurlエンコードする話 \- Qiita]( https://qiita.com/ik-fib/items/cc983ca34600c2d633d5 )
+# alias urlencode="nkf -WwMQ | tr '=' '%'"
+function urlencode() {
+	echo "$1" | nkf -WwMQ | sed 's/=$//g' | tr = % | tr -d '\n'
+}
 function htmldecode() {
 	php -r 'while(($line=fgets(STDIN)) !== FALSE) echo html_entity_decode($line, ENT_QUOTES|ENT_HTML401);'
 }
