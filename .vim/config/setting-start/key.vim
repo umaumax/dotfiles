@@ -332,7 +332,10 @@ nnoremap x "_x
 nnoremap s "_s
 vnoremap x "_x
 " vnoremap d "_d
+nnoremap dx "_dd
+nnoremap dc ddi
 vnoremap s "_s
+
 function! s:visual_mode_paste(...)
 	let content = get(a:, 1, @+)
 	let vm = visualmode()
