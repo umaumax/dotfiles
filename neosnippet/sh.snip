@@ -27,3 +27,9 @@ abbr to enable alias at bash
 
 snippet echoerr
     echo 1>&2
+
+snippet array
+    "${${0:array name}[@]}"
+
+snippet array_len
+    ${#${0:array}[@]}
