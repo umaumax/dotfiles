@@ -467,11 +467,11 @@ if cmdcheck peco; then
 	alias peco-lst='ls -alt | peco | awk "{print \$9}"'
 	alias peco-lstr='ls -altr | peco | awk "{print \$9}"'
 	alias pls='peco-ls'
-	alias plst='peco-lst'
-	alias plstr='peco-lstr'
+	alias plst='peco-lstr'
+	alias plstr='peco-lst'
 	alias pf='fpeco'
-	alias pft='find-time-sort | peco | awk "{print \$9}"'
-	alias pftr='find-time-sortr | peco | awk "{print \$9}"'
+	alias pft='find-time-sortr | peco | awk "{print \$9}"'
+	alias pftr='find-time-sort | peco | awk "{print \$9}"'
 fi
 alias rvgrep="viminfo-ls | xargs-grep"
 
