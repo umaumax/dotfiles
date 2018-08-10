@@ -401,6 +401,7 @@ function! s:rainbow_group_func(action)
 endfunction
 augroup rainbow_group
 	autocmd!
+	autocmd User VimEnterDrawPost call <SID>rainbow_group_func('enter')
 	autocmd BufEnter * call <SID>rainbow_group_func('enter')
 	" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
 augroup END
