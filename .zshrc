@@ -425,7 +425,7 @@ cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 # NOTE:googler
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
-alias pvim='vim -'
+alias pvim='pecovim'
 alias pipevim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
@@ -562,7 +562,7 @@ function peco-select-history() {
 	[[ -z $query ]] && local opts=()
 	BUFFER=$(builtin history -nr 1 |
 		eval $tac |
-		peco "${opts[@]}")
+		command peco "${opts[@]}")
 	CURSOR=$#BUFFER
 	zle clear-screen
 }
@@ -1069,6 +1069,27 @@ alias f.cmake='find . \( \( -name "CMakeLists.txt" -o -name "*.cmake" \) -not -i
 alias fg.cmake='f.cmake -print0 | xargs-grep-0'
 alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \)'
 alias hf='find ~'
+
+function fg.vim.pv() { local _=$(fg.vim "$@" | pecovim); }
+function fg.my.vim.pv() { local _=$(fg.my.vim "$@" | pecovim); }
+function fg.3rd.vim.pv() { local _=$(fg.3rd.vim "$@" | pecovim); }
+function fg.go.pv() { local _=$(fg.go "$@" | pecovim); }
+function fg.go.my.pv() { local _=$(fg.my.go "$@" | pecovim); }
+function fg.3rd.go.pv() { local _=$(fg.3rd.go "$@" | pecovim); }
+function fg.py.pv() { local _=$(fg.py "$@" | pecovim); }
+function fg.sh.pv() { local _=$(fg.sh "$@" | pecovim); }
+function fg.cpp.pv() { local _=$(fg.cpp "$@" | pecovim); }
+function fg.hpp.pv() { local _=$(fg.hpp "$@" | pecovim); }
+function fg.c.pv() { local _=$(fg.c "$@" | pecovim); }
+function fg.h.pv() { local _=$(fg.h "$@" | pecovim); }
+function fg.ch.pv() { local _=$(fg.ch "$@" | pecovim); }
+function fg.cpp-all.pv() { local _=$(fg.cpp-all "$@" | pecovim); }
+function fg.md.pv() { local _=$(fg.md "$@" | pecovim); }
+function fg.my.md.pv() { local _=$(fg.my.md "$@" | pecovim); }
+function f.make.pv() { local _=$(f.make "$@" | pecovim); }
+function fg.make.pv() { local _=$(fg.make "$@" | pecovim); }
+function f.cmake.pv() { local _=$(f.cmake "$@" | pecovim); }
+function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
 
 function rgrep() {
 	# to expand alias
