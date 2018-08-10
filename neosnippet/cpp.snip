@@ -1,19 +1,19 @@
 # wrap command
 snippet wcout
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcout'))."x", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcout'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wcout$', '', 'g').' << std::endl;')`
 
 snippet wcerr
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x", 'n') == 0 ? x:x}('std::cerr << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wcerr$', '', 'g').' << std::endl;')`
 
 snippet wclog
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x", 'n') == 0 ? x:x}('std::clog << '.substitute(getline('.'), '\s*[^ \t]*$', '', '').' << std::endl;')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wclog$', '', 'g').' << std::endl;')`
 
 snippet wif
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wif'))."x", 'n') == 0 ? x:x}('if ('.substitute(getline('.'), '\s*[^ \t]*$', '', '').')')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wif'))."x\<C-o>A\<Left>", 'n') == 0 ? x:x}('if ('.substitute(getline('.'), '^\s*\|\s*wif$', '', 'g').')')`
 
 snippet contains
   (${1:str}.find(${2:keyword}) != std::string::npos)
