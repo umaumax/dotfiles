@@ -425,6 +425,7 @@ cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 # NOTE:googler
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
+alias pv='pecovim'
 alias pvim='pecovim'
 alias pipevim='vim -'
 # alias g='googler -n 5'
