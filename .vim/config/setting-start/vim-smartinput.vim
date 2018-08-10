@@ -279,6 +279,20 @@ function! s:smartinput_define()
 				\ })
 
 	call s:smartinput_define_rule(
+				\ { 'at'    : '<\%#>'
+				\ , 'char'  : '<'
+				\ , 'input' : ''
+				\ , 'filetype' : ['cpp']
+				\ })
+
+	call s:smartinput_define_rule(
+				\ { 'at'    : '(\%#)'
+				\ , 'char'  : '('
+				\ , 'input' : ''
+				\ , 'filetype' : ['cpp']
+				\ })
+
+	call s:smartinput_define_rule(
 				\ { 'at'    : '\%(^#include <\)\@<!vecto\%#'
 				\ , 'char'  : 'r'
 				\ , 'input' : 'r<><Left>'
