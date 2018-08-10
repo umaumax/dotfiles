@@ -24,8 +24,10 @@ function! s:edit_log()
 endfunction
 
 function! s:clean_vim_edit_file_log()
-	" NOTE: 重複削除
-	let content = system("awk '!a[$0]++' ".g:vim_edit_log_path)
+	" NOTE:
+	" 重複削除(後の重複位置を優先)(本来ならば，追加時に先頭に追記したいが，sedのプラットフォームの互換性がないので断念)
+	" tac | uniq | tac で無理やり実現
+	let content = system("cat ".g:vim_edit_log_path." | awk '{a[i++]=$0} END{for(j=i-1; j>=0;) print a[j--]}' | awk '!a[$0]++' | awk '{a[i++]=$0} END{for(j=i-1; j>=0;) print a[j--]}'")
 	execute ":redir! >" . g:vim_edit_log_path
 	" NOTE: 存在しないファイル削除
 	for file in split(content, "\n")
