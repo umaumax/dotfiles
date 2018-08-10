@@ -25,11 +25,6 @@ let g:shebang#shebangs = {
 			\ 'python':  '#!/usr/bin/env python3',
 			\ }
 
-" NOTE' for raibow ()
-" If you want to lazy load run :RainbowToggle after loaded
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-
 " NOTE: cpp is not supported
 Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','zsh']}
 
@@ -384,3 +379,28 @@ endif
 " NOTE:エラー表示がこのプラグインですぐに消えてしまって見えなくなっているかもしれない
 " Plug 'vim-airline/vim-airline', {'on':[]}
 LazyPlug 'vim-airline/vim-airline'
+
+" NOTE: cmake v.s. rainbow
+" [Syntax highlighting not working as expected · Issue \#5 · pboettch/vim\-cmake\-syntax]( https://github.com/pboettch/vim-cmake-syntax/issues/5 )
+" [plugin cmake\.vim \- CMake syntax highlighting not working as expected \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/14803/cmake-syntax-highlighting-not-working-as-expected/14811 )
+" The issue it turns out is a conflict with the Rainbow Parenthesis plugin: 
+" NOTE' for raibow ()
+" If you want to lazy load run :RainbowToggle after loaded
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
+function! s:rainbow_group_func(action)
+	if &ft=='cmake'
+		if a:action=='enter'
+			call rainbow_main#clear()
+		endif
+	else
+		if a:action=='enter'
+			call rainbow_main#load()
+		endif
+	endif
+endfunction
+augroup rainbow_group
+	autocmd!
+	autocmd BufEnter * call <SID>rainbow_group_func('enter')
+	" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
+augroup END
