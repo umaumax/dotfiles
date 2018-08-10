@@ -33,3 +33,18 @@ snippet array
 
 snippet array_len
     ${#${0:array}[@]}
+
+snippet tac
+    awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
+
+snippet uniq
+    awk '!a[\$0]++'
+
+snippet wcc
+    awk '{n+=length(\$0)} END{print n}'
+
+snippet wcw
+    awk '{n+=NF} END{print n}'
+
+snippet wcl
+    awk 'END{print NR}'
