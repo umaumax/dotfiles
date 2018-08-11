@@ -388,6 +388,11 @@ LazyPlug 'vim-airline/vim-airline'
 " If you want to lazy load run :RainbowToggle after loaded
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
+" [Emacs のカッコの色を抵抗のカラーコードにしてみる \- Qiita]( https://qiita.com/gnrr/items/8f9efd5ced058e576f5e )
+let g:rainbow_conf = {
+			\	'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
+			\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
+			\}
 function! s:rainbow_group_func(action)
 	if &ft=='cmake'
 		if a:action=='enter'

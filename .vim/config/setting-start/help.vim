@@ -26,6 +26,7 @@ command! Command call PipeCommandResultToNewTab("command")
 command! Syntax call PipeCommandResultToNewTab("syntax")
 command! Set call PipeCommandResultToNewTab("set")
 command! SetAll call PipeCommandResultToNewTab("set all")
+command! ColorName16 :so $VIMRUNTIME/syntax/colortest.vim
 
 " user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")

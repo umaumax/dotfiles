@@ -2,3 +2,27 @@ function!
 command!
 runtime!
 augroup END
+# color16 names
+black
+darkred
+darkgreen
+brown
+darkblue
+darkmagenta
+darkcyan
+lightgray
+darkgray
+red
+green
+yellow
+blue
+magenta
+cyan
+white
+grey
+lightred
+lightgreen
+lightyellow
+lightblue
+lightmagenta
+lightcyan
