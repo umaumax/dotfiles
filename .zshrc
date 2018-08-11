@@ -1532,3 +1532,38 @@ alias -g L="| less"
 alias remove-ansi="perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 alias term-cols='tput cols'
 alias term-lines='tput lines'
+
+# NOTE: 動作が遅い
+# nずれのシーザ暗号を解く(lookによる簡易テスト機能つき)
+function solve_caesar_cipher() {
+	local dict_path="/usr/share/dict/words"
+	local input=($(cat))
+	for i in $(seq 1 25); do
+		local output=()
+		printf "[%2d]:" $i
+		local output=($(echo $input | tr "$(printf %${i}sa-z | tr ' ' '🍣')" a-za-z | tr "$(printf %${i}sA-Z | tr ' ' '🍣')" A-ZA-Z))
+		# check?
+		local n=0
+		local n_no_hit=0
+		for word in "${output[@]}"; do
+			# NOTE: ある程度以上の文字数の単語のみを検索対象とする
+			if [[ ${#word} -ge 4 ]]; then
+				local n=$((n + 1))
+				# 文章に含まれている余計な記号の削除
+				word=$(echo $word | sed -E 's/\.|,//g')
+				look $word >/dev/null
+				# or
+				# 				cat $dict_path | grep "^${word}$" >/dev/null
+				local n_no_hit=$((n_no_hit + $?))
+			fi
+		done
+		local n_hit=$((n - n_no_hit))
+		printf "(%3d/%3d):" $n_hit $n
+		# more than 50%?
+		if [[ $n_hit -gt $((n / 2)) ]]; then
+			echo -n $GREEN
+		fi
+		echo $output
+		echo -n $DEFAULT
+	done
+}
