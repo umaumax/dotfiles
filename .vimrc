@@ -121,6 +121,7 @@ function! s:filepathjoin(a,b)
 	return substitute(a:a,'/$','','').'/'.a:b
 endfunction
 
+" FYI: [local\_vimrc の焼き直し localrc\.vim 書いた \- 永遠に未完成]( https://thinca.hatenablog.com/entry/20110108/1294427418 )
 " load local vimrc
 if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
 let s:local_vimrc=s:filepathjoin(expand('%:p:h'), '.local.vimrc')
