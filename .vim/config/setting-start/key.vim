@@ -269,10 +269,28 @@ nnoremap <C-j> <Down>
 nnoremap <C-k> <Up>
 nnoremap <C-l> <Right>
 
-" undo
-inoremap <C-u> <C-o>u
-" redo
-inoremap <C-r> <C-o><C-r>
+" undo: カーソル位置調整
+function! s:U()
+	let view = winsaveview()
+	normal! u
+	" NOTE: カーソルが先頭まで飛ぶ場合のほとんどはauto formatによるもの
+	if col('.')==1 && line('.')==1
+		silent call winrestview(view)
+	endif
+endfunction
+nnoremap u :call <SID>U()<CR>
+inoremap <C-u> <C-o>:call <SID>U()<CR>
+" redo: カーソル位置調整
+function! s:C_R()
+	let view = winsaveview()
+	execute "normal! \<C-r>"
+	" NOTE: カーソルが先頭まで飛ぶ場合のほとんどはauto formatによるもの
+	if col('.')==1 && line('.')==1
+		silent call winrestview(view)
+	endif
+endfunction
+nnoremap <C-r> :call <SID>C_R()<CR>
+inoremap <C-r> <C-o>:call <SID>C_R()<CR>
 
 inoremap <C-x>e <ESC>
 inoremap <C-x><C-e> <ESC>
