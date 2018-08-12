@@ -621,6 +621,7 @@ if cmdcheck docker; then
 	alias docker-remove-all-container='docker rm $(docker ps -aq)'
 	alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 docker rmi'
 	alias docker-stop='docker ps | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker stop'
+	alias docker-stop-all='docker stop $(docker ps -aq)'
 	alias docker-start='docker ps -a | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker start'
 	# to avoid 'the input device is not a TTY'
 	function docker-attach() {
