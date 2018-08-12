@@ -48,3 +48,16 @@ snippet wcw
 
 snippet wcl
     awk 'END{print NR}'
+
+snippet     getopts
+abbr        getopts
+options     head
+  while getopts ":a:" opt "$@"; do
+    case "$opt" in
+      \?)
+        echo "Invalid option -$OPTARG was ignored." >&2;;
+      :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1;;
+    esac
+  done
