@@ -1,5 +1,5 @@
 # Global snippets
-include _
+include _/*
 
 snippet filepath
 alias   fpath
@@ -15,3 +15,4 @@ snippet dirname
 alias   dname
 options word
     `substitute(expand("%:p:h:t"), '\', '/', "g")`
+
