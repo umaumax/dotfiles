@@ -1,6 +1,6 @@
 " selecter
 " C-P
-Plug 'ctrlpvim/ctrlp.vim', {'on':['CtrlP']}
+Plug 'ctrlpvim/ctrlp.vim', {'on':['CtrlP','CtrlPGitLog','CtrlPRegister','CtrlPYankRegister']}
 " :CtrlPGitLog
 Plug 'kaneshin/ctrlp-git-log', {'on':['CtrlPGitLog']}
 " NOTE: 選択したものをすぐにペーストする

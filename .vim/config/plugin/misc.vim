@@ -410,3 +410,5 @@ augroup rainbow_group
 	autocmd BufEnter * call <SID>rainbow_group_func('enter')
 	" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
 augroup END
+
+Plug 'tyru/vim-altercmd'

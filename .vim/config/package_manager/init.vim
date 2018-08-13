@@ -45,11 +45,6 @@ function! s:plug_check_installation()
 	endif
 endfunction
 
-augroup check-plug
-	autocmd!
-	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
-augroup END
-
 function! Cond(cond, ...)
 	let opts = get(a:000, 0, {})
 	return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
@@ -81,6 +76,11 @@ augroup load_after_vim_enter
 	" 				\| autocmd! load_after_vim_enter
 	autocmd User VimEnterDrawPost call <SID>lazy_plug_load()
 				\| autocmd! load_after_vim_enter
+augroup END
+
+augroup check-plug
+	autocmd!
+	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
 augroup END
 
 call plug#begin('~/.vim/plugged')
