@@ -792,7 +792,18 @@ command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p
 " nnoremap <C-i> mzo<ESC>`z
 
 " tab
-nnoremap <Tab> >>
+" n  <Tab>        @neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : "v>>"
+function! s:count_tab()
+	if v:count <= 1
+		return '>>'
+	endif
+	" NOTE: disable v:count by <ESC>?
+	return repeat("\<ESC>>>\<Down>", v:count)
+endfunction
+augroup tab_mapping
+	autocmd!
+	autocmd VimEnter * nnoremap <expr> <buffer> <Tab> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
+augroup END
 nnoremap <S-Tab> <<
 " vnoremap <Tab> >>
 " vnoremap <S-Tab> <<
