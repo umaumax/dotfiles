@@ -53,5 +53,5 @@ augroup auto_filedetection
 	autocmd!
 	autocmd CursorHold,CursorHoldI * if &filetype == "" | :FiletypeDetect | endif
 augroup END
-command! -bar FD execute 'set filetype='.AutoFiletypeDetect(&filetype)
-command! -bar FiletypeDetect execute 'set filetype='.AutoFiletypeDetect(&filetype)
+command! -bar FD execute 'setlocal filetype='.AutoFiletypeDetect(&filetype)
+command! -bar FiletypeDetect execute 'setlocal filetype='.AutoFiletypeDetect(&filetype)
