@@ -411,4 +411,8 @@ augroup rainbow_group
 	" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
 augroup END
 
+" NOTE: cmdlineの決め打ちショートカット機能
 Plug 'tyru/vim-altercmd'
+
+" NOTE:選択範囲ごと移動
+LazyPlug 't9md/vim-textmanip'

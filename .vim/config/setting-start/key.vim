@@ -838,9 +838,14 @@ function! s:move_block(direction)
 		endif
 	endif
 endfunction
-vnoremap <S-Left> "zd:call <SID>move_block(-1)<CR>
-vnoremap <S-Right> "zd:call <SID>move_block(1)<CR>
+" vnoremap <S-Left> "zd:call <SID>move_block(-1)<CR>
+" vnoremap <S-Right> "zd:call <SID>move_block(1)<CR>
 " <Left>"zPgv<Left>o<left>o
+" NOTE: 't9md/vim-textmanip'
+xmap <S-Down> <Plug>(textmanip-move-down)
+xmap <S-Up> <Plug>(textmanip-move-up)
+xmap <S-Left> <Plug>(textmanip-move-left)
+xmap <S-Right> <Plug>(textmanip-move-right)
 
 " 左回り
 vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o
