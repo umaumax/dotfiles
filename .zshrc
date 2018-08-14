@@ -94,7 +94,7 @@ for e in ${git_aliases[@]}; do
 done
 alias gr='git-root'
 # [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
-alias git-open="open $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $1 }')"
+alias git-open="open \$(git remote -v | head -n 1 | awk '{ print \$2 }' | awk -F'[:]' '{ print \$2 }' | awk -F'.git' '{ print \"https://github.com/\" \$1 }')"
 
 cmdcheck tac || alias tac='tail -r'
 
