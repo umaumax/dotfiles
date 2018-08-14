@@ -416,3 +416,6 @@ Plug 'tyru/vim-altercmd'
 
 " NOTE:選択範囲ごと移動
 LazyPlug 't9md/vim-textmanip'
+
+" NOTE: for tab no. for tabline
+LazyPlug 'mkitt/tabline.vim'

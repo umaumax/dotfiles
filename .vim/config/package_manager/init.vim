@@ -39,7 +39,7 @@ function! s:plug_check_installation()
 			" Close window for vim-plug
 			silent! close
 			" Restart vim
-			silent! !vim
+			" silent! !vim
 			quit!
 		endif
 	endif
@@ -76,8 +76,8 @@ augroup load_after_vim_enter
 				\| autocmd! load_after_vim_enter
 augroup END
 
-command! -nargs=0 PlugCheckInstall call <SID>plug_check_installation()
-" NOTE: Plugの遅延ロード機能との相性が良くない
+" NOTE: 適切にinstallされない?
+" command! -nargs=0 PlugCheckInstall call <SID>plug_check_installation()
 " augroup check-plug
 " 	autocmd!
 " 	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif

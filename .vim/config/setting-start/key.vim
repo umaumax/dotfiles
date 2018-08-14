@@ -159,8 +159,10 @@ command! -nargs=0 -range TrimRightSpace <line1>,<line2>:s/^\(.\{-}\)\s*$/\1/ | n
 " for function args movement
 " in insert mode <C-o> + below key
 nnoremap , f,
-nnoremap < F(
-nnoremap > f)
+" nnoremap < F(
+" nnoremap > f)
+nnoremap < 0
+nnoremap > $
 nnoremap ( f(
 nnoremap ) F)
 
