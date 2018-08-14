@@ -431,6 +431,12 @@ function! s:smartinput_define()
 				\ , 'filetype' : ['sh','zsh']
 				\ })
 
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\(^\|\s\)f\%#'
+				\ , 'char'  : 'i'
+				\ , 'input': "<BS>endif"
+				\ , 'filetype' : ['vim']
+				\ })
 	call s:smartinput_define_rule({
 				\   'at': '^plug\%#$',
 				\   'char': '<Space>',
