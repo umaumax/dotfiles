@@ -24,7 +24,11 @@ function! s:Tab()
 		call cursor('.', col('.')+1)
 		return ''
 	endif
-	return "\<tab>"
+	execute "normal! >>"
+	return ''
+	" NOTE:
+	" そのままtabを返すと中途半端なtab位置でindentした際に，幅がおかしくなる
+	" return "\<tab>"
 endfunction
 function! s:UnTab()
 	echo 'pum:'.pumvisible()
@@ -38,10 +42,10 @@ function! s:UnTab()
 		call cursor('.', col('.'))
 		return ''
 	endif
-	if strlen(line) >= &tabstop && line[:&tabstop-1] == repeat(' ', &tabstop)
-		let line = line[&tabstop:]
+	if strlen(line) >= &shiftwidth && line[:&shiftwidth-1] == repeat(' ', &shiftwidth)
+		let line = line[&shiftwidth:]
 		" 移動してから削除すること(末尾にカーソルがある場合を考慮)
-		call cursor('.', col('.')-&tabstop)
+		call cursor('.', col('.')-&shiftwidth)
 		call setline('.', line)
 		return ''
 	endif

@@ -27,6 +27,7 @@ command! Syntax call PipeCommandResultToNewTab("syntax")
 command! Set call PipeCommandResultToNewTab("set")
 command! SetAll call PipeCommandResultToNewTab("set all")
 command! ColorName16 :so $VIMRUNTIME/syntax/colortest.vim
+command! TabInfo call PipeCommandResultToNewTab("echo 'expandtab:'.&expandtab | echo 'tabstop:'.&tabstop | echo 'shiftwidth:'.&shiftwidth | echo 'softtabstop:'.&softtabstop | echo 'autoindent:'.&autoindent | echo 'smartindent:'.&smartindent")
 
 " user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")
