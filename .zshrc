@@ -1513,7 +1513,7 @@ if [[ $OS == Windows_NT ]]; then
 	alias ping='winpty ping'
 	alias ver='cmd.exe /c "ver"'
 	alias winver='cmd.exe /c "winver" &'
-	alias open='start .'
+	alias open='bash -c "cd \$0 && start ."'
 
 	export PATH=~/go/bin:$PATH
 	export WIN_HOME="/c/Users/$USER"
