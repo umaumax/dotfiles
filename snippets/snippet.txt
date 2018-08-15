@@ -76,3 +76,6 @@
 
 # line filter
 [line filter] sed -n @,p # index starts with 1
+
+# patch
+[patch] # git diff | c && cd xxx && p | patch -p1

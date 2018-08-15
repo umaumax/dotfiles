@@ -34,3 +34,4 @@ AlterCommand r[eplace] R
 AlterCommand cgl CtrlPGitLog
 AlterCommand cr CtrlPRegister
 AlterCommand cyr CtrlPYankRegister
+AlterCommand tab[info] TabInfo

@@ -1483,7 +1483,8 @@ if [[ $OS == Windows_NT ]]; then
 		PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h (x_x)/(\[\e[35m\]$MSYSTEM\[\e[0m\]) \[\e[33m\]\w\[\e[0m\]\n\$ "
 	else
 		# zsh
-		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'x$ ')
+		# NOTE:元から表示がずれるので、あえて全角文字を入れたらちょうどよくなった
+		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'★$ ')
 		function simple_prompt() {
 			PROMPT=$(echo "\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b"'$ ')
 		}
@@ -1577,3 +1578,6 @@ function solve_caesar_cipher() {
 		echo -n $DEFAULT
 	done
 }
+
+alias date-for-file='date +"%Y-%m-%d_%k-%M-%S"'
+alias sum-y="awk '{for(i=1;i<=NF;i++)sum[i]+=\$i;} END{for(i in sum)printf \"%d \", sum[i]; print \"\"}'"

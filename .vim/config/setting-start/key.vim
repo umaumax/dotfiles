@@ -816,10 +816,12 @@ function! s:count_tab()
 	" NOTE: disable v:count by <ESC>?
 	return repeat("\<ESC>>>\<Down>", v:count)
 endfunction
-augroup tab_mapping
-	autocmd!
-	autocmd VimEnter * nnoremap <expr> <buffer> <Tab> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
-augroup END
+if &rtp =~ 'neosnippet'
+	augroup tab_mapping
+		autocmd!
+		autocmd VimEnter * nmap <expr> <buffer> <Tab> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
+	augroup END
+endif
 nnoremap <S-Tab> <<
 " vnoremap <Tab> >>
 " vnoremap <S-Tab> <<

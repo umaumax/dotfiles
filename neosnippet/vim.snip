@@ -24,3 +24,8 @@ snippet     prettyprint
 alias       PP
 abbr        echomsg PrettyPrint(...)
   echomsg PrettyPrint(${0})
+
+snippet is_plugin_loaded
+  if &rtp =~ '${1:#:plugin_name}'
+    ${0}
+  endif
