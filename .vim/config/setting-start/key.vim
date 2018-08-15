@@ -356,6 +356,20 @@ nnoremap dx "_dd
 nnoremap dc ddi
 vnoremap s "_s
 
+function! s:vertical_paste()
+	" NOTE: 1行でないと適切な動作とならない
+	let @v=substitute(@+, "\n", "", 'g')
+	let cmd="I\<C-r>v\<ESC>\<ESC>"
+	if visualmode() == 'v' " 'v' or 'V'
+		let cmd = "\<C-v>".cmd
+	endif
+	execute 'normal! gv'.cmd
+endfunction
+" NOTE: paste yanked string vertically
+" NOTE: visual block かつ registerがone lineならば下記の単純なmappingでOK
+" vnoremap <C-p> I<C-r>"<ESC><ESC>
+vnoremap <C-p> <Esc>:call <SID>vertical_paste()<CR>
+
 function! s:visual_mode_paste(...)
 	let content = get(a:, 1, @+)
 	let vm = visualmode()
