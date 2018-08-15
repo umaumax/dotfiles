@@ -66,7 +66,8 @@ augroup END
 " if textwidth == 0 no auto new line
 augroup tab_setting
 	autocmd!
-	" 	autocmd BufWinEnter * setlocal tabstop=4 | setlocal shiftwidth=4 | setlocal textwidth=0
+	" NOTE: default tab setting
+	autocmd BufWinEnter * if &expandtab==0 | setlocal tabstop=2 | setlocal shiftwidth=2 | setlocal textwidth=0 | endif
 	autocmd BufWinEnter *.py exec 'setlocal softtabstop='.&tabstop
 augroup END
 set smartindent
