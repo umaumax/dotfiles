@@ -467,7 +467,7 @@ function! OpenURL()
 	if has('mac')
 		call system("open ".url)
 	elseif !has('win')
-		call system("xdg-open &>/dev/null ".url)
+		call system("xdg-open &>/dev/null \"".url."\"")
 	else
 		echo 'not supported at windows!'
 	endif
