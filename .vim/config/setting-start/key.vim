@@ -808,21 +808,25 @@ command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p
 " nnoremap <C-i> mzo<ESC>`z
 
 " tab
-" n  <Tab>        @neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : "v>>"
+" NOTE: tab処理後のカーソル位置は不完全
 function! s:count_tab()
 	if v:count <= 1
-		return '>>'
+		execute "normal! >>".repeat("\<Right>",&shiftwidth)
+		return ''
 	endif
 	" NOTE: disable v:count by <ESC>?
 	return repeat("\<ESC>>>\<Down>", v:count)
 endfunction
-if &rtp =~ 'neosnippet'
-	augroup tab_mapping
-		autocmd!
-		autocmd VimEnter * nmap <expr> <buffer> <Tab> neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
-	augroup END
-endif
-nnoremap <S-Tab> <<
+function! s:tab_wrapper()
+	let ret=&rtp =~ 'neosnippet' && neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
+	execute ret
+endfunction
+nmap <Tab> :call <SID>tab_wrapper()<CR>
+function! s:untab()
+	execute "normal! ".repeat("\<Left>",col('.')-1>=&shiftwidth?&shiftwidth:0)."<<"
+endfunction
+nnoremap <S-Tab> :call <SID>untab()<CR>
+
 " vnoremap <Tab> >>
 " vnoremap <S-Tab> <<
 vnoremap <Tab> >gv
