@@ -886,6 +886,8 @@ let surround_key_mappings=[
 			\{'keys':["[","br","ary","list"],        'prefix':"[",    'suffix':"]"},
 			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",    'suffix':"}"},
 			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':'\n```'},
+			\{'keys':["$","var"],                    'prefix':'${',   'suffix':'}'},
+			\{'keys':["do","run","exec"],            'prefix':'$(',   'suffix':')'},
 			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",   'suffix':"__"},
 			\]
 " 			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
@@ -897,7 +899,8 @@ for mapping in surround_key_mappings
 		" 		execute "vnoremap s".key." c<C-o>:let @z=\"".prefix."\".@+.\"".suffix."\"\<CR>\<C-r>\<C-o>z\<Esc>"
 		execute "vnoremap s".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		" NOTE: 記号の場合にはprefix:sはなし
-		if key[0] =~ '\W'
+		let top_char=key[0]
+		if top_char =~ '\W' && top_char != '$'
 			execute "vnoremap ".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		endif
 	endfor
