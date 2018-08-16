@@ -58,4 +58,8 @@ if &rtp =~ 'vim-submode'
 	call submode#map('bufmove', 'n', '', 'n', 'gt')
 	call submode#map('bufmove', 'n', '', 'p', 'gT')
 	call submode#map('bufmove', 'n', '', 't', ':<C-u>tabnew<CR>')
+	" NOTE: skip submode delay
+	call submode#map('bufmove', 'n', '', ':', ':call feedkeys("::", "n")<CR>')
+	call submode#map('bufmove', 'n', '', 'i', ':call feedkeys(":i", "n")<CR>')
+	call submode#map('bufmove', 'n', '', 'a', ':call feedkeys(":a", "n")<CR>')
 endif
