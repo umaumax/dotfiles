@@ -9,12 +9,14 @@ function! Substitute(pat, sub, flags) range
 	endfor
 	call cursor(a:lastline+1, 1)
 endfunction
-command! -nargs=0 -range SetMarkdownHead <line1>,<line2>call Substitute('^\(\s*\)\([^* \t].*\)$', '\1* \2', '')
-command! -nargs=0 -range SetCBottom      <line1>,<line2>call Substitute('\(^.*[^;]\+\)\s*$', '\1;', '')
-command! -nargs=0 -range SetPyBottom     <line1>,<line2>call Substitute('\(^.*[^:]\+\)\s*$', '\1:', '')
+command! -nargs=0 -range SetMarkdownHead  <line1>,<line2>call Substitute('^\(\s*\)\([^* \t].*\)$', '\1* \2', '')
+command! -nargs=0 -range SetMarkdownQuote <line1>,<line2>call Substitute('^\(\s*\)\([^> \t].*\)$', '\1> \2', '')
+command! -nargs=0 -range SetCBottom       <line1>,<line2>call Substitute('\(^.*[^;]\+\)\s*$', '\1;', '')
+command! -nargs=0 -range SetPyBottom      <line1>,<line2>call Substitute('\(^.*[^:]\+\)\s*$', '\1:', '')
 augroup file_detection_for_toggle
 	autocmd!
 	au BufNewFile,BufRead *.md nnoremap <silent> <Space>t :SetMarkdownHead<CR>
+	au BufNewFile,BufRead *.md nnoremap <silent> <Space>q :SetMarkdownQuote<CR>
 	au BufNewFile,BufRead *.{c,cc,cpp,h,hpp} nnoremap <silent> <Space>t :SetCBottom<CR>
 	au BufNewFile,BufRead *.py nnoremap <silent> <Space>t :SetPyBottom<CR>
 augroup END
