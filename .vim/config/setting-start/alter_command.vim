@@ -35,3 +35,4 @@ AlterCommand cgl CtrlPGitLog
 AlterCommand cr CtrlPRegister
 AlterCommand cyr CtrlPYankRegister
 AlterCommand tab[info] TabInfo
+AlterCommand cmd CmdlineWindow
