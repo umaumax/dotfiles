@@ -52,7 +52,7 @@
 	# NOTE: this alias is auto generated
 # 	ls = ~/local/bin/git-ls
 	ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
-	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\n' $_git_root
+	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
 	amend = commit --amend --no-edit
 	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
 	graph = log --oneline --decorate --graph --branches --tags --remotes
@@ -72,13 +72,25 @@
 	merge-undo-from-pre-commit = reset --hard HEAD
 	merge-undo-from-post-commit = reset --hard ORIG_HEAD
 	branch-current-name = rev-parse --abbrev-ref HEAD
+	tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
 	# [Gitで特定のコミットを含むマージコミットを検索する \- Qiita]( https://qiita.com/shigezo/items/6df2a0515d31e6e0432b )
 	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
 	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 	fix-typo = commit --amend
 	rebase-abort = rebase --abort
-	grep-all-commit = log -p -S
+	grep-code-diff = log -p -S
+	grep-commit-message = log --grep
+	grep-reg = grep -E
 	branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
+	modified-files = diff --name-only
+	stat = log --stat
+	diff-log = lop -p
+	alias = config --get-regexp 'alias.*'
+	# 単体の差分
+	monod    = "!f() { git diff "$1"^.."$1"; }; f"
+	monodiff = "!f() { git diff "$1"^.."$1"; }; f"
+	monol    = "!f() { git log --stat "$1"^.."$1"; }; f"
+	monolog  = "!f() { git log --stat "$1"^.."$1"; }; f"
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
