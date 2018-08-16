@@ -480,9 +480,14 @@ if cmdcheck peco; then
 	alias pls='peco-ls'
 	alias plst='peco-lstr'
 	alias plstr='peco-lst'
+	alias pvls='peco-ls | xargs-vim'
+	alias pvlst='peco-lstr | xargs-vim'
+	alias pvlstr='peco-lst | xargs-vim'
 	alias pf='fpeco'
 	alias pft='find-time-sortr | peco | awk "{print \$9}"'
 	alias pftr='find-time-sort | peco | awk "{print \$9}"'
+	alias pvft='find-time-sortr | peco | awk "{print \$9}" | xargs-vim'
+	alias pvftr='find-time-sort | peco | awk "{print \$9}" | xargs-vim'
 fi
 alias rvgrep="viminfo-ls | xargs-grep"
 
