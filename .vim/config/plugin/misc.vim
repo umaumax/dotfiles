@@ -318,6 +318,11 @@ LazyPlug 'tpope/vim-abolish'
 Plug 'lervag/vimtex', {'for': 'tex'}
 " css
 Plug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css']}
+augroup unmap_colorizer
+	autocmd!
+	autocmd VimEnter * silent! nunmap <Leader>tc
+augroup END
+
 " this plugin fix vim's awk bugs
 Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 
