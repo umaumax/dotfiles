@@ -1108,6 +1108,15 @@ function fg.make.pv() { local _=$(fg.make "$@" | pecovim); }
 function f.cmake.pv() { local _=$(f.cmake "$@" | pecovim); }
 function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
 
+alias md.pv='fg.md.pv'
+alias md.my.pv='fg.md.my.pv'
+alias vim.pv='fg.vim.pv'
+alias vim.my.pv='fg.vim.my.pv'
+alias cpp-all='fg.cpp-all'
+alias cpp-all.pv='fg.cpp-all.pv'
+alias make.pv='fg.make.pv'
+alias cmake.pv='fg.cmake.my'
+
 function rgrep() {
 	# to expand alias
 	local _=$(viminfo-ls | xargs-grep $@ | pecovim)
