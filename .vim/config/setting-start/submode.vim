@@ -62,4 +62,22 @@ if &rtp =~ 'vim-submode'
 	call submode#enter_with('cursor-move', 'n', '', 'zb', '<C-f>')
 	call submode#map('cursor-move', 'n', '', 'b', '<C-b>')
 	call submode#map('cursor-move', 'n', '', 'f', '<C-f>')
+
+	if &rtp =~ 'comfortable-motion.vim'
+		" NOTE: 急には停止できなくなるため，おすすめしない
+		" 		noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(60)<CR>
+		" 		noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-60)<CR>
+		let g:comfortable_motion_scroll_down_key = "j"
+		let g:comfortable_motion_scroll_up_key = "k"
+		" 		let g:comfortable_motion_interval = 1000.0 / 60
+		let g:comfortable_motion_friction = 640.0
+		let g:comfortable_motion_air_drag = 1.0
+		let g:comfortable_motion_no_default_key_mappings = 1
+		let g:comfortable_motion_impulse_multiplier = 2  " Feel free to increase/decrease this value.
+		nnoremap <silent> <S-Down> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+		nnoremap <silent> <S-Up>   :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+		" NOTE: submode doesn't move properly
+		nnoremap <silent> g<Down> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+		nnoremap <silent> g<Up> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+	endif
 endif
