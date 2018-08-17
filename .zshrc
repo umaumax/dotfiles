@@ -1506,8 +1506,6 @@ if [[ -n $_Ubuntu ]]; then
 	add-zsh-hook precmd precmd_function
 fi
 
-[[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc
-
 # windows setting
 if [[ $OS == Windows_NT ]]; then
 	# tmuxを起動するとx86_64のみになる
@@ -1614,3 +1612,7 @@ function solve_caesar_cipher() {
 
 alias date-for-file='date +"%Y-%m-%d_%k-%M-%S"'
 alias sum-y="awk '{for(i=1;i<=NF;i++)sum[i]+=\$i;} END{for(i in sum)printf \"%d \", sum[i]; print \"\"}'"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc

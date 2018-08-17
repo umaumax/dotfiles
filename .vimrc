@@ -108,6 +108,9 @@ augroup vim-enter-draw-post
 	autocmd VimEnter * call <SID>vim_enter_draw_post()
 augroup END
 
+" NOTE: <Leader> must be set before use
+let mapleader = "\<Space>"
+
 " save cwd
 let s:cwd = getcwd()
 if $VIM_FAST_MODE == ''
