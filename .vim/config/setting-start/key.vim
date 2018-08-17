@@ -149,9 +149,9 @@ nnoremap ZQ <nop>
 " nnoremap da vf-da->
 " nnoremap dA vF-da->
 
-command! -nargs=0 -range TrimSpace <line1>,<line2>:s/^\s*\(.\{-}\)\s*$/\1/ | nohlsearch
-command! -nargs=0 -range TrimLeftSpace <line1>,<line2>:s/^\s*\(.\{-}\)$/\1/ | nohlsearch
-command! -nargs=0 -range TrimRightSpace <line1>,<line2>:s/^\(.\{-}\)\s*$/\1/ | nohlsearch
+command! -nargs=0 -range TrimSpace      <line1>,<line2>:s/^\s*\(.\{-}\)\s*$/\1/ | nohlsearch
+command! -nargs=0 -range TrimLeftSpace  <line1>,<line2>:s/^\s*\(.\{-}\)$/\1/    | nohlsearch
+command! -nargs=0 -range TrimRightSpace <line1>,<line2>:s/^\(.\{-}\)\s*$/\1/    | nohlsearch
 
 " for function args movement
 " in insert mode <C-o> + below key
@@ -179,7 +179,7 @@ function! s:select_search(key)
 		endif
 	else
 		let [line_start, column_start] = getpos("'<")[1:2]
-		let [line_end, column_end] = getpos("'>")[1:2]
+		let [line_end,   column_end]   = getpos("'>")[1:2]
 		call cursor(line_start, column_start)
 		if line_start != line_end || column_start != column_end
 			if a:key ==# 'n'
@@ -745,8 +745,8 @@ endfunction
 " very magic
 " [Vimでパターン検索するなら知っておいたほうがいいこと \- derisの日記]( http://deris.hatenablog.jp/entry/2013/05/15/024932 )
 nnoremap se :set hlsearch<CR>:set incsearch<CR>/\V
-nnoremap / :set hlsearch<CR>:set incsearch<CR>/\V
-nnoremap ? :set hlsearch<CR>:set incsearch<CR>?\V
+nnoremap /  :set hlsearch<CR>:set incsearch<CR>/\V
+nnoremap ?  :set hlsearch<CR>:set incsearch<CR>?\V
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " [Simplifying regular expressions using magic and no\-magic \| Vim Tips Wiki \| FANDOM powered by Wikia]( http://vim.wikia.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic )
@@ -788,10 +788,10 @@ function! s:source(...)
 endfunction
 command! -nargs=? Src call s:source(<f-args>)
 
-command! FileName :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
-command! FilePath :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
-command! DirPath  :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
-command! DirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
+command! FileName     :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
+command! FilePath     :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
+command! DirPath      :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
+command! DirName      :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
 command! CopyFileName :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
 command! CopyFilePath :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
 command! CopyDirPath  :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
@@ -861,9 +861,9 @@ endfunction
 " vnoremap <S-Right> "zd:call <SID>move_block(1)<CR>
 " <Left>"zPgv<Left>o<left>o
 " NOTE: 't9md/vim-textmanip'
-xmap <S-Down> <Plug>(textmanip-move-down)
-xmap <S-Up> <Plug>(textmanip-move-up)
-xmap <S-Left> <Plug>(textmanip-move-left)
+xmap <S-Down>  <Plug>(textmanip-move-down)
+xmap <S-Up>    <Plug>(textmanip-move-up)
+xmap <S-Left>  <Plug>(textmanip-move-left)
 xmap <S-Right> <Plug>(textmanip-move-right)
 
 " 左回り
@@ -875,17 +875,17 @@ nnoremap Y y$
 
 " s means surround
 let surround_key_mappings=[
-			\{'keys':["`","bq"],                     'prefix':"`",    'suffix':"`"},
-			\{'keys':["'","sq"],                     'prefix':"'",    'suffix':"'"},
-			\{'keys':["\"","dq"],                    'prefix':'\"',   'suffix':'\"'},
-			\{'keys':["<","lt"],                     'prefix':"<",    'suffix':">"},
-			\{'keys':["(","pa","pt","kakko"],        'prefix':"(",    'suffix':")"},
-			\{'keys':["[","br","ary","list"],        'prefix':"[",    'suffix':"]"},
-			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",    'suffix':"}"},
-			\{'keys':["code","tbq"],                 'prefix':'```\n','suffix':'\n```'},
-			\{'keys':["$","var"],                    'prefix':'${',   'suffix':'}'},
-			\{'keys':["do","run","exec"],            'prefix':'$(',   'suffix':')'},
-			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",   'suffix':"__"},
+			\{'keys':["`","bq"],                     'prefix':"`",     'suffix':"`"},
+			\{'keys':["'","sq"],                     'prefix':"'",     'suffix':"'"},
+			\{'keys':["\"","dq"],                    'prefix':'\"',    'suffix':'\"'},
+			\{'keys':["<","lt"],                     'prefix':"<",     'suffix':">"},
+			\{'keys':["(","pa","pt","kakko"],        'prefix':"(",     'suffix':")"},
+			\{'keys':["[","br","ary","list"],        'prefix':"[",     'suffix':"]"},
+			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",     'suffix':"}"},
+			\{'keys':["code","tbq"],                 'prefix':'```\n', 'suffix':'\n```'},
+			\{'keys':["$","var"],                    'prefix':'${',    'suffix':'}'},
+			\{'keys':["do","run","exec"],            'prefix':'$(',    'suffix':')'},
+			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",    'suffix':"__"},
 			\]
 " 			\{'keys':["\<Space>"],                   'prefix':" ",    'suffix':" "},
 for mapping in surround_key_mappings
@@ -903,25 +903,25 @@ for mapping in surround_key_mappings
 	endfor
 endfor
 vnoremap s<Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
-vnoremap <Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
+vnoremap <Space>  c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
 " NOTE: visual modeの状態がoで反転していないことを仮定
 vnoremap sx <ESC>"_xgvo<ESC>"_xgvo<Left><Left>
 
 " [visual \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/visual.html )
 vnoremap ikakko ib
 vnoremap akakko ab
-vnoremap iary i]
-vnoremap aary a[
-vnoremap ielem i]
-vnoremap aelem a[
-vnoremap ielem i]
-vnoremap aelem a[
-vnoremap idq i"
-vnoremap adq a"
-vnoremap isq i'
-vnoremap asq a'
-vnoremap ibq i`
-vnoremap abq a`
+vnoremap iary   i]
+vnoremap aary   a[
+vnoremap ielem  i]
+vnoremap aelem  a[
+vnoremap ielem  i]
+vnoremap aelem  a[
+vnoremap idq    i"
+vnoremap adq    a"
+vnoremap isq    i'
+vnoremap asq    a'
+vnoremap ibq    i`
+vnoremap abq    a`
 
 " to avoid entering ex mode
 nnoremap Q <Nop>
@@ -948,7 +948,7 @@ function! MultipleInsersion(next_key)
 endfunction
 
 " cdcurrent
-command! CdCurrent cd %:p:h
+command! CdCurrent  cd  %:p:h
 command! LcdCurrent lcd %:p:h
 
 " auto comment off
