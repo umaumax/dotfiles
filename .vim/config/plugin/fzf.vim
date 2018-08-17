@@ -94,3 +94,32 @@ command! -nargs=* Ag call fzf#run({
 			\            '--color hl:68,hl+:110',
 			\ 'down':    '50%'
 			\ })
+
+" --------------------------------
+" [Vimでカーソル下の不完全なファイルパスからファイルを開く\(fzf\) \- Qiita]( https://qiita.com/kmszk/items/75be6564532a90b79b8a )
+nnoremap gf :FZFOpenFile<CR>
+command! FZFOpenFile call FZFOpenFileFunc()
+
+" NOTE: ファイルが一意に決定する場合には開き，そうでない場合には絞り込む
+function! FZFOpenFileFunc()
+	" カーソル下のファイルパスを取得
+	let s:file_path = expand("<cfile>")
+	" 空行などで実行されたりした場合の考慮
+	if s:file_path == ''
+		echo '[Error] <cfile> return empty string.'
+		return 0
+	endif
+
+	if filereadable(s:file_path)
+		execute ':e '.s:file_path
+		return
+	endif
+
+	" fzf実行
+	" .DS_Store はmacの不要なファイル
+	call fzf#run({
+				\ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
+				\ 'sink': 'e',
+				\ 'options': '-x +s --query=' . shellescape(s:file_path),
+				\ 'down':    '40%'})
+endfunction
