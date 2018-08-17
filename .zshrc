@@ -136,7 +136,7 @@ function git_diff() {
 		echo $e >>$tmpfile
 	done
 
-	bash -c "cd $(git rev-parse --show-toplevel) && git $diff_cmd -O$tmpfile \"${files[@]}\""
+	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "${files[@]}"
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
 alias gdh='git diff HEAD'
