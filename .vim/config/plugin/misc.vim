@@ -424,3 +424,12 @@ LazyPlug 'mkitt/tabline.vim'
 " NOTE: Show git diff for Git Rebase Interactive
 LazyPlug 'hotwatermorning/auto-git-diff'
 
+LazyPlug 'junegunn/vim-easy-align'
+xmap e<Space> <Plug>(EasyAlign)*<Space>
+xmap e=       <Plug>(EasyAlign)*=
+xmap e#       <Plug>(EasyAlign)*#
+xmap e"       <Plug>(EasyAlign)*"
+xmap e/       <Plug>(EasyAlign)*//
+xmap e,       <Plug>(EasyAlign)*,
+xmap e:       <Plug>(EasyAlign)*:
+xmap e\|      <Plug>(EasyAlign)*\|
