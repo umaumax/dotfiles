@@ -124,6 +124,10 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 alias gd='git_diff'
 # NOTE: 差分が少ないファイルから順番にdiffを表示
 function git_diff() {
+	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		return
+	fi
+
 	local diff_cmd='cdiff'
 	[[ $# -ge 1 ]] && local diff_cmd="$1"
 	local files=($(git diff --stat | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
@@ -131,7 +135,8 @@ function git_diff() {
 	for e in "${files[@]}"; do
 		echo $e >>$tmpfile
 	done
-	git $diff_cmd -O$tmpfile "${files[@]}"
+
+	bash -c "cd $(git rev-parse --show-toplevel) && git $diff_cmd -O$tmpfile \"${files[@]}\""
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
 alias gdh='git diff HEAD'
