@@ -432,7 +432,7 @@ function! s:smartinput_define()
 				\ })
 
 	call s:smartinput_define_rule(
-				\ { 'at'    : '\(^\|\s\)f\%#'
+				\ { 'at'    : '^\s*f\%#'
 				\ , 'char'  : 'i'
 				\ , 'input': "<BS>endif"
 				\ , 'filetype' : ['vim']
