@@ -243,10 +243,6 @@ endif
 Plug 'digitaltoad/vim-pug', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
 Plug 'posva/vim-vue', {'for': ['html', 'vue', 'vue.html.javascript.css']}
 Plug 'Shougo/context_filetype.vim', {'for': ['vue', 'vue.html.javascript.css']}
-" Required: 'autozimu/LanguageClient-neovim'
-let g:LanguageClient_serverCommands = {
-			\ 'vue': ['vls'],
-			\ }
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない

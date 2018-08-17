@@ -9,6 +9,11 @@ if v:version >= 800 && has('python3')
 				\ 'branch': 'next',
 				\ 'do': 'bash install.sh',
 				\ }
+	" Required: 'autozimu/LanguageClient-neovim'
+	let g:LanguageClient_serverCommands = {
+				\ 'vue': ['vls'],
+				\ 'python': ['pyls'],
+				\ }
 	" to choose deoplete <C-x>,<C-v>
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
@@ -25,9 +30,13 @@ if v:version >= 800 && has('python3')
 	LazyPlug 'Shougo/neosnippet-snippets' " default snippets
 	let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
-	" let g:autocomplete_flow#insert_paren_after_function = 0
-	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
-	Plug 'zchee/deoplete-jedi', {'for':'python'}
+	if Doctor('pyls','python lsp')
+	else
+		" NOTE: for no lsp env
+		" 詳細な解析はできない(e.g. re.compile()の結果の補完は不可)
+		" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
+		Plug 'zchee/deoplete-jedi', {'for':'python'}
+	endif
 
 	if Doctor('go','zchee/deoplete-go')
 		Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
@@ -51,12 +60,17 @@ if v:version >= 800 && has('python3')
 	" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
 	let g:deoplete#enable_at_startup = 1
 	let g:deoplete#auto_complete_delay = 0
-	" 連続したキー入力がこの値以下の場合には補完を行わない
-	" pythonのときに文字表示がおかしくなるときの対策として100ではなく200にするとわりと安定する?
-	augroup deoplete_bug
-		autocmd!
-		autocmd FileType python let g:deoplete#auto_complete_delay = 200
-	augroup END
+	if Doctor('pyls','python lsp')
+	else
+		" NOTE: zchee/deoplete-jedi 利用時
+		" 連続したキー入力がこの値以下の場合には補完を行わない
+		" pythonのときに文字表示がおかしくなるときの対策として100ではなく200にするとわりと安定する?
+		augroup deoplete_bug
+			autocmd!
+			autocmd FileType * let g:deoplete#auto_complete_delay = 0
+			autocmd FileType python let g:deoplete#auto_complete_delay = 200
+		augroup END
+	endif
 	let g:deoplete#auto_complete_start_length = 1
 	let g:deoplete#enable_camel_case = 0
 	let g:deoplete#enable_ignore_case = 0

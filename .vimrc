@@ -68,6 +68,7 @@ let s:doctor_map={
 			\'look':'maybe default command',
 			\'npm':'install node',
 			\'pylint':'pip install pylint',
+			\'pyls':'pip install python-language-server',
 			\'s':'brew install s-search',
 			\'trans':'brew install translate-shell || sudo apt-get install translate-shell',
 			\'shellcheck':'apt-get install shellcheck || brew install shellcheck',

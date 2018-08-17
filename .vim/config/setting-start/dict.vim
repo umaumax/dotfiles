@@ -37,7 +37,7 @@ function! s:vimconsole_logger()
 	endif
 	let vim_flag = menu == '[vim] '
 	let clang_flag = menu == '[clang] ' || menu == '[PCH] '
-	let python_flag = menu == '[jedi] '
+	let python_flag = menu == '[jedi] ' || menu =~ '\[LC\] '
 	let flag = vim_flag || clang_flag || python_flag
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
