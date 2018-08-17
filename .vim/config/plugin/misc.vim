@@ -58,6 +58,9 @@ Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 " auto tab indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 Plug 'tpope/vim-sleuth'
+let g:sleuth_neighbor_limit=0
+" let g:sleuth_automatic=0
+" Plug 'ciaranm/detectindent'
 
 " NOTE: 必要とあらば試してみる
 " [Vimで自動的にファイルタイプを設定してくれる便利プラグインvim\-autoftを作りました！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2015/01/15/100000 )

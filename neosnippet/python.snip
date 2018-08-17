@@ -1,2 +1,8 @@
+# vim: set noexpandtab ts=4 sw=4 :
+
 snippet     funcname
-    `cfi#get_func_name()`
+	`cfi#get_func_name()`
+
+snippet find_first
+	def find_first(list, predicate):
+		return next((e for e in list if predicate(e)), None)

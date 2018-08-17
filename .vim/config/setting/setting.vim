@@ -67,17 +67,18 @@ augroup END
 augroup tab_setting
 	autocmd!
 	" NOTE: default tab setting
-	autocmd BufWinEnter * if &expandtab==0 | setlocal tabstop=2 | setlocal shiftwidth=2 | setlocal textwidth=0 | endif
-	autocmd BufWinEnter *.py exec 'setlocal softtabstop='.&tabstop
+	" 	autocmd BufWinEnter * execute 'setlocal tabstop='.&shiftwidth | execute 'setlocal tabstop='.&shiftwidth | if &softtabstop==0 | set expandtab | else | set noexpandtab | endif
+	" 	autocmd BufWinEnter *.py exec 'setlocal softtabstop='.&tabstop
 augroup END
 set smartindent
 command! -nargs=1 SetTab call s:set_tab(<f-args>)
 function! s:set_tab(n)
-	set expandtab
-	set tabstop=a:n 
-	execute "set shiftwidth=".&tabstop 
-	execute "set softtabstop=".&tabstop
+	setlocal expandtab
+	execute "setlocal tabstop=".a:n 
+	execute "setlocal shiftwidth=".&tabstop 
+	execute "setlocal softtabstop=".&tabstop
 endfunction
+call s:set_tab(2)
 
 " VimのUndoを永続化する（ファイルの変更を記録します）
 set undofile
