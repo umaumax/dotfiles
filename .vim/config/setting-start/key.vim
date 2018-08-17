@@ -815,10 +815,13 @@ function! s:count_tab()
 	return repeat("\<ESC>>>\<Down>", v:count)
 endfunction
 function! s:tab_wrapper()
-	let ret=&rtp =~ 'neosnippet' && neosnippet#jumpable() ?  "i\<Plug>(neosnippet_jump)" : <SID>count_tab()
-	execute ret
+	if &rtp =~ 'neosnippet' && neosnippet#jumpable()
+		call feedkeys("i\<Plug>(neosnippet_jump)", '')
+	else 
+		call s:count_tab()
+	endif
 endfunction
-nmap <Tab> :call <SID>tab_wrapper()<CR>
+nnoremap <Tab> :call <SID>tab_wrapper()<CR>
 function! s:untab()
 	execute "normal! ".repeat("\<Left>",col('.')-1>=&shiftwidth?&shiftwidth:0)."<<"
 endfunction

@@ -34,6 +34,14 @@ snippet array
 snippet array_len
     ${#${0:array}[@]}
 
+snippet append_array
+alias array_append
+    ${2:dst array}=("${${1:src array}[@]}" ${0}) 
+
+snippet append_array_self
+alias array_append_self
+    ${1:dst array}+=(${0})
+
 snippet tac
     awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
 
