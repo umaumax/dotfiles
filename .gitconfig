@@ -101,6 +101,16 @@
 	interactive = auto
 	grep = auto
 	# for proxy env git:// -> https://
+[color "status"]
+	added = green
+	changed = red
+	untracked = yellow
+[color "diff"]
+	meta = 247 235
+	frag = 242 236
+	old = red normal
+	new = green normal
+	context = 243
 [diff]
 	compactionHeuristic = true
 [grep]

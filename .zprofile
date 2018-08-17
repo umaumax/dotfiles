@@ -95,6 +95,8 @@ export VISUAL='vim'
 cmdcheck nvim && export EDITOR='nvim'
 cmdcheck nvim && export VISUAL='nvim'
 export PAGER='less'
+#"[manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
+export MANPAGER="/bin/sh -c \"col -b -x|vim -R -c 'set ft=man nolist nonu noma' -\""
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
 export LC_TIME="en_US.UTF-8"

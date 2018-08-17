@@ -96,6 +96,9 @@ alias gr='git-root'
 # [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
 alias git-open="open \$(git remote -v | head -n 1 | awk '{ print \$2 }' | awk -F'[:]' '{ print \$2 }' | awk -F'.git' '{ print \"https://github.com/\" \$1 }')"
 alias git-alias='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
+function git-ranking() {
+	builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
+}
 
 cmdcheck tac || alias tac='tail -r'
 
@@ -118,7 +121,19 @@ alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 
 cmdcheck 'git-ls' && alias gls='git-ls'
-alias gd='git cdiff'
+alias gd='git_diff'
+# NOTE: 差分が少ないファイルから順番にdiffを表示
+function git_diff() {
+	local diff_cmd='cdiff'
+	[[ $# -ge 1 ]] && local diff_cmd="$1"
+	local files=($(git diff --stat | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
+	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
+	for e in "${files[@]}"; do
+		echo $e >>$tmpfile
+	done
+	trap "rm -f $tmpfile; exit 1" 1 2 3 15
+	git $diff_cmd -O$tmpfile "${files[@]}"
+}
 alias gdh='git diff HEAD'
 alias gdhh='git diff HEAD~'
 alias gdhhh='git diff HEAD~~'
@@ -236,6 +251,9 @@ alias 5u='uuuuu'
 
 # history
 alias history='history 1'
+function history_ranking() {
+	builtin history -n 1 | grep -e "^[^#]" | awk '{ print $1 }' | sort | uniq -c | sort
+}
 alias h='history'
 alias hgrep='h | grep'
 alias envgrep='env | grep'
