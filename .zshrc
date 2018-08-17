@@ -131,8 +131,8 @@ function git_diff() {
 	for e in "${files[@]}"; do
 		echo $e >>$tmpfile
 	done
-	trap "rm -f $tmpfile; exit 1" 1 2 3 15
 	git $diff_cmd -O$tmpfile "${files[@]}"
+	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
 alias gdh='git diff HEAD'
 alias gdhh='git diff HEAD~'
