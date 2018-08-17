@@ -420,3 +420,7 @@ LazyPlug 't9md/vim-textmanip'
 
 " NOTE: for tab no. for tabline
 LazyPlug 'mkitt/tabline.vim'
+
+" NOTE: Show git diff for Git Rebase Interactive
+LazyPlug 'hotwatermorning/auto-git-diff'
+
