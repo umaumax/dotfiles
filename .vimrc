@@ -53,14 +53,15 @@ endif
 " TODO: add cmds and description for install
 " \'yapf':'pip install yapf',
 let s:doctor_map={
+			\'ag':'brew install ag || sudo apt install silversearcher-ag',
 			\'autopep8':'pip install autopep8',
 			\'clang':'',
 			\'cmake-format':'pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz (pip install cmake_format)',
 			\'cmigemo':'brew install cmigemo || sudo apt install cmigemo',
 			\'clang-format':'',
 			\'files':'go get -u github.com/mattn/files',
-			\'git':'',
-			\'go':'',
+			\'git':'brew install git || sudo apt-get install git',
+			\'go':'brew install go || sudo apt-get install go',
 			\'gofmt':'',
 			\'golfix':'go get -u github.com/umaumax/golfix',
 			\'googler':'brew install googler || sudo apt-get install googler',
