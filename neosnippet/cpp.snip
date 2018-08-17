@@ -35,6 +35,9 @@ options head
 abbr << __func__ << ...
   std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
 
+snippet pp
+  #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint
+
 # [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
 snippet cout
   std::cout << ${0} << std::endl;
