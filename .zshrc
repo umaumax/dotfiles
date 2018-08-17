@@ -1109,7 +1109,7 @@ function fg.vim.pv() { local _=$(fg.vim "$@" | pecovim); }
 function fg.my.vim.pv() { local _=$(fg.my.vim "$@" | pecovim); }
 function fg.3rd.vim.pv() { local _=$(fg.3rd.vim "$@" | pecovim); }
 function fg.go.pv() { local _=$(fg.go "$@" | pecovim); }
-function fg.go.my.pv() { local _=$(fg.my.go "$@" | pecovim); }
+function fg.my.go.pv() { local _=$(fg.my.go "$@" | pecovim); }
 function fg.3rd.go.pv() { local _=$(fg.3rd.go "$@" | pecovim); }
 function fg.py.pv() { local _=$(fg.py "$@" | pecovim); }
 function fg.sh.pv() { local _=$(fg.sh "$@" | pecovim); }
@@ -1129,11 +1129,11 @@ function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
 alias md.pv='fg.md.pv'
 alias md.my.pv='fg.md.my.pv'
 alias vim.pv='fg.vim.pv'
-alias vim.my.pv='fg.vim.my.pv'
+alias vim.my.pv='fg.my.vim.pv'
 alias cpp-all='fg.cpp-all'
 alias cpp-all.pv='fg.cpp-all.pv'
 alias make.pv='fg.make.pv'
-alias cmake.pv='fg.cmake.my'
+alias cmake.pv='fg.cmake.pv'
 
 function rgrep() {
 	# to expand alias
