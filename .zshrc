@@ -125,6 +125,7 @@ alias gd='git_diff'
 # NOTE: 差分が少ないファイルから順番にdiffを表示
 function git_diff() {
 	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		echo "${RED}no git repo here!${DEFAULT}"
 		return
 	fi
 
@@ -147,6 +148,8 @@ alias gdhhhhh='git diff HEAD~~~~'
 alias gdhhhhhh='git diff HEAD~~~~~'
 alias ga='git add --all'
 alias gadd='git add'
+alias gap='git add -p'
+alias gai='git add -i'
 # this alias overwrite Ghostscript command
 alias gs='git status'
 alias gst='git status'
@@ -197,7 +200,10 @@ function find-git-non-up-to-date-repo() {
 }
 # [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
 function git-root() {
-	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		echo "${RED}no git repo here!${DEFAULT}"
+		return
+	else
 		cd $(git rev-parse --show-toplevel)
 	fi
 }
