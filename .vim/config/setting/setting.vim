@@ -37,6 +37,9 @@ set nostartofline " いろんなコマンドの後にカーソルを先頭に移
 " [vim\-abolish/abolish\.txt at master - tpope/vim\-abolish]( https://github.com/tpope/vim-abolish/blob/master/doc/abolish.txt#L167 )
 setlocal iskeyword+=- " 単語境界の追加(any char is ok)
 
+" to avoid die vim by too long line
+set synmaxcol=256
+
 " default 1000, -1
 set timeout timeoutlen=500 ttimeoutlen=50
 
