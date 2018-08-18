@@ -486,6 +486,7 @@ cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 # NOTE:googler
 # NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
+alias view='vim -R'
 alias pv='pecovim'
 alias pvim='pecovim'
 alias pipevim='vim -'
@@ -930,9 +931,14 @@ fi
 # install command: `brew install ccat` or `go get github.com/jingweno/ccat`
 if cmdcheck ccat; then
 	alias cat='ccat'
+	alias catless='local _ccat(){ccat --color=always "$@" | command cat -n | less} && _ccat'
 else
-	cmdcheck pygmentize && alias ccat='pygmentize -g -O style=colorful,linenos=1'
+	if cmdcheck pygmentize; then
+		alias ccat='pygmentize -g -O style=colorful,linenos=1'
+		alias catless='local _ccat(){ccat "$@" | less} && _ccat'
+	fi
 fi
+
 # for mac
 cmdcheck gsed && alias sed='gsed'
 # -s: suppress 'Is a directory'

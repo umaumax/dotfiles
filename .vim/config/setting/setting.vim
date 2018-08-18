@@ -49,7 +49,9 @@ set timeout timeoutlen=500 ttimeoutlen=50
 " set cursorcolumn "カーソル列ハイライト
 set updatetime=250 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
 
-" 検索中のみ，カーソルを目立たせる
+" NOTE: this help user to find where is the cursor
+setlocal cursorline | setlocal cursorcolumn
+" basically, highlight cursor while searching
 function! s:auto_highlight()
 	if v:hlsearch == 0
 		setlocal nocursorline | setlocal nocursorcolumn

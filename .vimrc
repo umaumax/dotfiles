@@ -32,7 +32,7 @@ endif
 " VIM_DOCTOR='on' vim
 " no plug plugin mode
 " VIM_FAST_MODE='on' vim
-if $OS == "Windows_NT"
+if &readonly || $OS == "Windows_NT"
 	let $VIM_FAST_MODE='on'
 endif
 
