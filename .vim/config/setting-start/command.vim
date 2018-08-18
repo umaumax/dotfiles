@@ -134,3 +134,6 @@ command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>cal
 
 " NOTE: 全角文字扱いだが，半角表示となるためにずれる
 " command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
+
+" NOTE: 匿名化コマンド
+execute "command! -range Anonymous :%s:".$HOME.":\${HOME}:gc | :%s:".$USER."@:\${USER}@:gc"
