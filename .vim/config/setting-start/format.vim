@@ -28,10 +28,10 @@ function! IsPrivateWork(...)
 		endif
 	endif
 
-	let l:authors = system("cd " . l:dir_path . " && git log | grep 'Author' | cut -d' ' -f2 | sort | uniq | tr -d '\n'")
-	let l:ret = l:authors == "" || l:authors == "fatal: not a git repository (or any of the parent directories): .git\n" || l:authors == l:author
-	let g:is_private_work_cache[l:dir_path] = l:ret
-	return l:ret
+	let l:authors = system("cd " . l:dir_path . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log | grep 'Author' | cut -d' ' -f2 | sort | uniq | tr -d '\n')")
+	let l:is_private = l:authors == "" || l:authors == l:author
+	let g:is_private_work_cache[l:dir_path] = l:is_private
+	return l:is_private
 endfunction
 
 " default format command
