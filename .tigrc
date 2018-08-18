@@ -1,0 +1,6 @@
+set line-graphics = utf-8
+set mouse = true
+
+# set refresh-mode = auto
+set refresh-mode = periodic
+  set refresh-interval = 1

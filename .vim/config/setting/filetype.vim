@@ -8,4 +8,6 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile *interfaces setlocal ft=interfaces
 	autocmd BufRead,BufNewFile *gitignore setlocal ft=gitignore
 	autocmd BufRead,BufNewFile Vagrantfile setlocal ft=ruby
+	" NOTE: .tigrc file syntax is similer to .tmux.conf syntax
+	autocmd BufRead,BufNewFile .tigrc setlocal ft=tig syntax=tmux
 augroup END

@@ -2,6 +2,7 @@
 set -x
 ln -sf ~/dotfiles/.vimrc ~/
 ln -sf ~/dotfiles/.tmux.conf ~/
+ln -sf ~/dotfiles/.tigrc ~/
 ln -sf ~/dotfiles/.clang-format ~/
 ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
