@@ -1,6 +1,56 @@
+# main view: show commit id (left side)
+set main-view = line-number:true id:yes date:local=yes author:display=abbreviated commit-title:graph=yes,refs=yes
+
 set line-graphics = utf-8
 set mouse = true
 
 # set refresh-mode = auto
 set refresh-mode = periodic
   set refresh-interval = 1
+
+bind generic <Ctrl-f> scroll-page-down
+bind generic <Ctrl-b> scroll-page-up
+
+bind generic <Ctrl-a> move-first-line
+bind generic <Ctrl-e> move-last-line
+
+bind generic A !git commit --amend --allow-empty
+
+# [Tig で Git を自由自在に操作するための \.tigrc 設定例 \- Qiita]( https://qiita.com/sfus/items/063797a1dd8fdc7d032f )
+# 最上/最下部移動
+# g をファイル先頭に移動に変更、 view-grep を再割当て
+bind generic g      move-first-line
+bind generic E      view-grep
+
+# G でファイル末尾に移動 (default: :toggle commit-title-graph)
+bind generic G      move-last-line
+bind main    G      move-last-line
+
+# Alt-g で :toggle commit-title-graph
+bind main    <Esc>g :toggle commit-title-graph
+
+# 段落移動
+# n / p を上下移動に割り当て (default: find-next / view-pager)
+bind generic n      move-down
+bind generic p      move-up
+
+# n / p で単位ごとの移動
+bind diff    n      :/^@@
+bind diff    p      :?^@@
+bind diff    <Esc>n :/^diff --(git|cc)
+bind diff    <Esc>p :?^diff --(git|cc)
+bind stage   n      :/^@@
+bind stage   p      :?^@@
+bind stage   <Esc>n :/^diff --(git|cc)
+bind stage   <Esc>p :?^diff --(git|cc)
+bind pager   n      :/^@@
+bind pager   p      :?^@@
+bind pager   <Esc>n :/^diff --(git|cc)
+bind pager   <Esc>p :?^diff --(git|cc)
+bind log     n      :/^commit
+bind log     p      :?^commit
+
+# 元の n / p を別に割り当て
+bind generic V      view-pager
+bind generic <Ctrl-s> find-next # 要 stty stop undef
+bind generic <Ctrl-r> find-prev

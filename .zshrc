@@ -172,8 +172,9 @@ function is_git_repo_with_message() {
 	[[ $code != 0 ]] && echo "$message"
 	return $code
 }
+cmdcheck tig && alias ts='tig status'
 
-cmdcheck ccze && alias='ccze -A'
+cmdcheck ccze && alias ccze='ccze -A'
 
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
