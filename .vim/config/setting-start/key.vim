@@ -981,3 +981,50 @@ function! s:rotate_in_line()
 	endif
 endfunction
 nnoremap <silent>0 :<C-u>call <SID>rotate_in_line()<CR>
+
+" [インデントレベルが同じ行を探して移動する \- Qiita]( https://qiita.com/crispy/items/ff3522a327d0a7d7706b )
+func! s:IndentSensitive(backward)
+	let lineNum = line('.')
+	let line = getline(lineNum)
+	let col = col('.')
+	call cursor(lineNum, 1)
+	let indentLevel = s:getIndentLevel(line)
+	let nextLine = getline(lineNum + (a:backward ? -1 : 1))
+	let nextIndentLevel = s:getIndentLevel(nextLine)
+
+	let pattern = printf('^[ \t]\{%d}[^ \t]', indentLevel)
+	if indentLevel != nextIndentLevel
+		let hitLineNum = search(pattern, 'n' . (a:backward ? 'b' : ''))
+	else
+		let lastLineNum = line('$')
+		let hitLineNum = lineNum
+		while 1 <= lineNum && lineNum <= lastLineNum
+			let lineNum += a:backward ? -1 : 1
+			if lineNum < 1
+				break
+			endif
+			if s:getIndentLevel(getline(lineNum)) != indentLevel
+				break
+			end
+			let hitLineNum = lineNum
+		endwhile
+	endif
+
+	call cursor(hitLineNum, col)
+endfunc
+
+func! s:getIndentLevel(str)
+	return len(matchstr(a:str, '^[ \t]*'))
+endfunc
+
+
+func! IndentSensitivePrev()
+	call s:IndentSensitive(1)
+endfunc
+
+func! IndentSensitiveNext()
+	call s:IndentSensitive(0)
+endfunc
+
+nnoremap <silent> t<Up> :call IndentSensitivePrev()<CR>
+nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
