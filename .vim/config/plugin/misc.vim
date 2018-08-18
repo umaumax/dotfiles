@@ -66,13 +66,6 @@ let g:sleuth_neighbor_limit=0
 " [Vimで自動的にファイルタイプを設定してくれる便利プラグインvim\-autoftを作りました！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2015/01/15/100000 )
 " Plug 'itchyny/vim-autoft'
 
-" <C-N> on word
-" repeat <C-N> or <C-X>:skip, <C-p>:prev
-" c,s: change text
-" I: insert at start of range
-" A: insert at end of range
-LazyPlug 'terryma/vim-multiple-cursors'
-
 LazyPlug 'Shougo/unite.vim'
 
 " no dependency on vim swapfile option

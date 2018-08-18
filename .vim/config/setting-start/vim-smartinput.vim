@@ -2,6 +2,7 @@ if !(&rtp =~ 'vim-smartinput')
 	finish
 endif
 
+let g:i_trigger_map={}
 let s:trigger_map={}
 function! s:map_to_trigger(mode, trigger)
 	let trigger=a:trigger
@@ -431,12 +432,12 @@ function! s:smartinput_define()
 				\ , 'filetype' : ['sh','zsh']
 				\ })
 
-	call s:smartinput_define_rule(
-				\ { 'at'    : '^\s*fi\%#'
-				\ , 'char'  : '<ESC>'
-				\ , 'input': "<BS><BS>endif<ESC>"
-				\ , 'filetype' : ['vim']
-				\ })
+	" 	call s:smartinput_define_rule(
+	" 				\ { 'at'    : '^\s*fi\%#'
+	" 				\ , 'char'  : '<ESC>'
+	" 				\ , 'input': "<BS><BS>endif<ESC>"
+	" 				\ , 'filetype' : ['vim']
+	" 				\ })
 	call s:smartinput_define_rule(
 				\ { 'at'    : '^\s*fi\%#'
 				\ , 'char'  : '<CR>'
@@ -479,6 +480,12 @@ function! s:smartinput_define()
 				\   'input': "<C-o>:call setline('.', substitute(getline('.'), 'if\\s*\\([^() \\t].\\{-}[^() \\t]\\)\\s*{', 'if (\\1) {', ''))<CR><C-O>$",
 				\   'filetype': ['cpp'],
 				\   })
+
+	" NOTE: for save and restore key mappings for terryma/vim-multiple-cursors
+	let g:i_triggers=[]
+	for key in keys(s:trigger_map)
+		let g:i_triggers+=[substitute(substitute(key,'^i:','',''),'\(<[a-zA-Z]*>\)','\\\1','g')]
+	endfor
 endfunction
 
 " NOTE: to speed up starting
