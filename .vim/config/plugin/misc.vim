@@ -438,3 +438,5 @@ xmap e\|      <Plug>(EasyAlign)*\|
 " NOTE: スムーズに画面をスクロール可能
 " NOTE: don't load lazy
 Plug 'yuttie/comfortable-motion.vim'
+
+Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
