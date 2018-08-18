@@ -111,6 +111,11 @@
 	old = red normal
 	new = green normal
 	context = 243
+[color "grep"]
+	match = cyan
+	linenumber = bold white
+	filename = yellow
+	function = green
 [diff]
 	compactionHeuristic = true
 [grep]
