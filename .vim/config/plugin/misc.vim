@@ -438,6 +438,9 @@ xmap e:       <Plug>(EasyAlign)*:
 xmap e\|      <Plug>(EasyAlign)*\|
 
 " NOTE: スムーズに画面をスクロール可能
+" NOTE: don't load lazy
 Plug 'yuttie/comfortable-motion.vim'
 
+" NOTE: only for normal git commit (when using --amend without git add, this plugin is disabled)
+" NOTE: you can't add {'for':'gitcommit'}
 Plug 'rhysd/committia.vim'
