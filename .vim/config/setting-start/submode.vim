@@ -33,6 +33,14 @@ if &rtp =~ 'vim-submode'
 	call submode#map('goto_buffer', 'n', '', 'o', ':bN<CR>')
 	call submode#map('goto_buffer', 'n', '', 'go', ':bN<CR>')
 
+	" back, next
+	nnoremap gb g;
+	nnoremap gn g,
+	call submode#enter_with('move_cursor', 'n', '', 'gb', 'g;')
+	call submode#enter_with('move_cursor', 'n', '', 'gn', 'g,')
+	call submode#map('move_cursor', 'n', '', 'b', 'g;')
+	call submode#map('move_cursor', 'n', '', 'n', 'g,')
+
 	" NOTE: <C-i>はtabになるため，直接取得不可能
 	call submode#enter_with('jump-motions', 'n', '', '<C-o>', '<C-o>')
 	call submode#map('jump-motions', 'n', '', '<C-o>', '<C-o>')

@@ -206,7 +206,7 @@ vnoremap # "zy:let @/ = @z<CR>N
 noremap gV `[v`]
 command! -nargs=0 LastPaste normal! `[v`]
 " move to last edited
-map gb `.zz
+" nnoremap gb `.zz
 command! -nargs=0 LastEdit normal! `.zz
 
 " 現在の行の中央へ移動
