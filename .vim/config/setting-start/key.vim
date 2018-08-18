@@ -965,3 +965,19 @@ augroup END
 
 " for external command
 nnoremap ! :! 
+
+" NOTE: rotate 行頭 → 非空白行頭 → 行
+" ^[0000]$[0000]0
+function! s:rotate_in_line()
+	let c_now = col('.')
+	normal! ^
+	let c_hat = col('.')
+	if c_now == 1 && c_hat != 1
+		normal! ^
+	elseif c_now == c_hat
+		normal! $
+	else
+		normal! 0
+	endif
+endfunction
+nnoremap <silent>0 :<C-u>call <SID>rotate_in_line()<CR>
