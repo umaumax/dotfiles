@@ -13,7 +13,8 @@ git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 
 > curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-open vim and puts `:PlugInstall`
+* first  time:  open vim and puts `:PlugInstall`
+* second time~: open vim and puts `:PlugUpdate` and `:PlugUpgrade`
 
 ## Karabiner-Element for Mac
 `~/.config/karabiner/assets/complex_modifications`
