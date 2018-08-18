@@ -439,3 +439,5 @@ xmap e\|      <Plug>(EasyAlign)*\|
 
 " NOTE: スムーズに画面をスクロール可能
 Plug 'yuttie/comfortable-motion.vim'
+
+Plug 'rhysd/committia.vim'
