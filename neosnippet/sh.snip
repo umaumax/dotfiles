@@ -21,6 +21,12 @@ snippet iswindows
         ${0}
     fi
 
+snippet devnull
+  >/dev/null 2>&1
+
+snippet stderr
+  1>&2
+
 snippet default_var
 alias defvar
   ${1:dst var name}=\${${2:src var name}:-"${3:default value}"}
