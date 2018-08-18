@@ -5,9 +5,11 @@ function! s:edit_log()
 		return
 	endif
 	" skip tmp file
-	if full_path =~ '^/tmp/.*$' || full_path =~ '^/var/.*$'|| full_path =~ '^/private/.*$'
-		return
-	endif
+	for pattern in ['^/tmp/.*$' , '^/var/.*$' , '^/private/.*$' , '^*/.git/*$']
+		if full_path =~ pattern
+			return
+		endif
+	endfor
 	let g:vim_edit_log_map[full_path]=1
 
 	" NOTE: home dirpathには正規表現が含まれていないと仮定
