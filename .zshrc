@@ -160,9 +160,17 @@ function git-add-peco() {
 	fi
 }
 
-alias gg='git_grep'
-function ggpv() { local _=$(git_grep --color=always "$@" | pecovim); }
-function git_grep() { is_git_repo_with_message && git grep "$@"; }
+# git grep settings
+alias gg='git_grep_root'
+alias ggr='git_grep_root'
+alias ggc='git_grep_current'
+alias ggpv='ggpv_root'
+alias ggpvr='ggpv_root'
+alias ggpvc='ggpv_current'
+function ggpv_root() { local _=$(git_grep_root --color=always "$@" | pecovim); }
+function ggpv_current() { local _=$(git_grep_currnet --color=always "$@" | pecovim); }
+function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
+function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 
 function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
 function is_git_repo_with_message() {
