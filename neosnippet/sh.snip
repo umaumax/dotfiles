@@ -21,6 +21,10 @@ snippet iswindows
         ${0}
     fi
 
+snippet default_var
+alias defvar
+  ${1:dst var name}=\${${2:src var name}:-"${3:default value}"}
+
 snippet alias_enable
 abbr to enable alias at bash
     shopt -s expand_aliases
