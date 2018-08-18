@@ -101,8 +101,9 @@ endfunction
 command! Doctor call <SID>print_doctor_result()
 
 function! s:vim_enter_draw_post()
-	" NOTE: last ESC is to acoid 'Press ENTER or type command to continue'
-	call feedkeys(":let vim_enter_draw_post_view = winsaveview() | doautocmd <nomodeline> User VimEnterDrawPost | silent call winrestview(vim_enter_draw_post_view) \<CR>\<Esc>",'n')
+	" NOTE: last \<ESC> is used to avoid 'Press ENTER or type command to continue'
+	" NOTE: last :\<BS> is used to avoid leaving message at cmdline
+	call feedkeys(":let vim_enter_draw_post_view = winsaveview() | doautocmd <nomodeline> User VimEnterDrawPost | silent call winrestview(vim_enter_draw_post_view) \<CR>\<Esc>:\<BS>", 'n')
 endfunction
 augroup vim-enter-draw-post
 	autocmd!
