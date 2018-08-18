@@ -25,8 +25,9 @@ set showmatch   "括弧入力時の対応する括弧を表示
 set matchtime=1 " 0.n sec 対応するカッコにカーソルが移動する
 set pumheight=20 " 補完候補の表示数
 set incsearch    "インクリメント検索(リアルタイム検索)
-set wildmenu wildmode=list:full "入力補完機能
-" set nohlsearch   "検索キーワードハイライト無効
+" [vimのコマンドラインでの補完が使いづらい \- Qiita]( https://qiita.com/YamasakiKenta/items/b342f796de69f03cb5b3 )
+set wildmenu
+set wildmode=longest:full,full
 set laststatus=2 "常に編集中ファイル名表示
 set wildignore+=*/tmp/*,*.o,*.so,*.out,*.obj,.git,build,CMakeFiles,node_modules,vender,*.rbc,*.rbo,*.swp,*.zip,*.class,.svn,*.gem,*.png,*.jpg " disable vimgrep
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
@@ -74,18 +75,18 @@ set smartindent
 command! -nargs=1 SetTab call s:set_tab(<f-args>)
 function! s:set_tab(n)
 	setlocal expandtab
-	execute "setlocal tabstop=".a:n 
-	execute "setlocal shiftwidth=".&tabstop 
-	execute "setlocal softtabstop=".&tabstop
+	execute "setlocal tabstop="    .a:n
+	execute "setlocal shiftwidth=" .a:n
+	execute "setlocal softtabstop=".a:n
 endfunction
+" default tab setting
 call s:set_tab(2)
 
-" VimのUndoを永続化する（ファイルの変更を記録します）
 set undofile
-execute('set undodir=' . g:tempfiledir)
+execute 'set undodir='.g:tempfiledir
 
 " completion menu color setting
-highlight Pmenu ctermfg=white ctermbg=black
+highlight Pmenu    ctermfg=white ctermbg=black
 highlight PmenuSel ctermfg=white ctermbg=gray
 
 " 全角スペースに色を付加
@@ -106,7 +107,7 @@ set wrapscan   "検索時に最後まで行ったら最初に戻る
 
 " #### 動作設定 ####
 set mouse=a " マウスの設定をすべて有効にする
-set history=10000 " コマンド、検索パターンを10000個まで履歴に残す(max value:10000)
+set history=10000 " コマンド、検索パターンの履歴数(max value:10000)
 
 " [vimで文字が削除出来ないと思ったらバックスペースが効かなくなった - Qiita]( http://qiita.com/omega999/items/23aec6a7f6d6735d033f )
 set backspace=indent,eol,start

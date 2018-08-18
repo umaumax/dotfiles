@@ -434,6 +434,7 @@ xmap e#       <Plug>(EasyAlign)*#
 xmap e"       <Plug>(EasyAlign)*"
 xmap e/       <Plug>(EasyAlign)*//
 xmap e,       <Plug>(EasyAlign)*,
+xmap e.       <Plug>(EasyAlign)*.
 xmap e:       <Plug>(EasyAlign)*:
 xmap e\|      <Plug>(EasyAlign)*\|
 
