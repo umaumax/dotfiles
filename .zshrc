@@ -124,10 +124,7 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 alias gd='git_diff'
 # NOTE: 差分が少ないファイルから順番にdiffを表示
 function git_diff() {
-	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-		echo "${RED}no git repo here!${DEFAULT}"
-		return
-	fi
+	is_git_repo_with_message || return
 
 	local diff_cmd='cdiff'
 	[[ $# -ge 1 ]] && local diff_cmd="$1"
@@ -161,6 +158,19 @@ function git-add-peco() {
 		git add $(echo "$SELECTED_FILE_TO_ADD" | tr '\n' ' ')
 		git status
 	fi
+}
+
+alias gg='git_grep'
+function ggpv() { local _=$(git_grep --color=always "$@" | pecovim); }
+function git_grep() { is_git_repo_with_message && git grep "$@"; }
+
+function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
+function is_git_repo_with_message() {
+	local message=${1:-"${RED}no git repo here!${DEFAULT}"}
+	is_git_repo
+	local code=$?
+	[[ $code != 0 ]] && echo "$message"
+	return $code
 }
 
 cmdcheck ccze && alias='ccze -A'
@@ -201,12 +211,8 @@ function find-git-non-up-to-date-repo() {
 }
 # [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
 function git-root() {
-	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-		echo "${RED}no git repo here!${DEFAULT}"
-		return
-	else
-		cd $(git rev-parse --show-toplevel)
-	fi
+	is_git_repo_with_message || return
+	cd $(git rev-parse --show-toplevel)
 }
 
 # [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
