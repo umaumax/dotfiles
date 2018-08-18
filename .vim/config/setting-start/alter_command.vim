@@ -6,7 +6,7 @@ call altercmd#load()
 " vim-smartinputとの共存に注意
 augroup cunmap_cr
 	autocmd!
-	autocmd VimEnter * cunmap <CR>
+	autocmd VimEnter * silent! cunmap <CR>
 augroup END
 
 AlterCommand m Message

@@ -167,8 +167,14 @@ alias ggc='git_grep_current'
 alias ggpv='ggpv_root'
 alias ggpvr='ggpv_root'
 alias ggpvc='ggpv_current'
-function ggpv_root() { local _=$(git_grep_root --color=always "$@" | pecovim); }
-function ggpv_current() { local _=$(git_grep_currnet --color=always "$@" | pecovim); }
+function ggpv_root() {
+	local ret=$(git_grep_root --color=always "$@")
+	[[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
+}
+function ggpv_current() {
+	local ret=$(git_grep_current --color=always "$@")
+	[[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
+}
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 
@@ -177,7 +183,7 @@ function is_git_repo_with_message() {
 	local message=${1:-"${RED}no git repo here!${DEFAULT}"}
 	is_git_repo
 	local code=$?
-	[[ $code != 0 ]] && echo "$message"
+	[[ $code != 0 ]] && echo "$message" >&2
 	return $code
 }
 cmdcheck tig && alias ts='tig status'
