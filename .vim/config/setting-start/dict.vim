@@ -37,8 +37,10 @@ function! s:vimconsole_logger()
 	endif
 	let vim_flag = menu == '[vim] '
 	let clang_flag = menu == '[clang] ' || menu == '[PCH] '
-	let python_flag = menu == '[jedi] ' || menu =~ '\[LC\] '
-	let flag = vim_flag || clang_flag || python_flag
+	let python_flag = menu == '[jedi] '
+	let lsp_flag = menu =~ '\[LC\] '
+	let go_flag = menu == '[go] '
+	let flag = vim_flag || clang_flag || python_flag || lsp_flag || go_flag
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
 		let no_arg_func_flag = abbr =~ '.*()'
@@ -53,7 +55,7 @@ function! s:vimconsole_logger()
 			if vim_flag && !no_arg_func_flag
 				execute "normal! i)"
 			endif
-			if clang_flag || python_flag
+			if clang_flag || python_flag || lsp_flag || go_flag
 				execute "normal! i()"
 				if no_arg_func_flag
 					call feedkeys("\<Right>", 'n')
