@@ -789,13 +789,13 @@ endfunction
 command! -nargs=? Src call s:source(<f-args>)
 
 command! FileName     :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
-command! FilePath     :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
-command! DirPath      :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
-command! DirName      :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
+command! FilePath     :let @+ = expand('%:p')     | echo 'copyed:' . expand('%:p')
+command! DirPath      :let @+ = expand('%:p:h')   | echo 'copyed:' . expand('%:p:h')
+command! DirName      :let @+ = expand('%:p:h:t') | echo 'copyed:' . expand('%:p:h:t')
 command! CopyFileName :let @+ = expand('%:t')     | echo 'copyed:' . expand('%:t')
-command! CopyFilePath :let @+ = expand('%:p')     | echo 'cooyed:' . expand('%:p')
-command! CopyDirPath  :let @+ = expand('%:p:h')   | echo 'cooyed:' . expand('%:p:h')
-command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'cooyed:' . expand('%:p:h:t')
+command! CopyFilePath :let @+ = expand('%:p')     | echo 'copyed:' . expand('%:p')
+command! CopyDirPath  :let @+ = expand('%:p:h')   | echo 'copyed:' . expand('%:p:h')
+command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'copyed:' . expand('%:p:h:t')
 
 " [TabとCtrl\-iどちらを入力されたか区別する\(Linux限定\) \- Qiita]( https://qiita.com/norio13/items/9c05412796a7dea5cd91 )
 " <Tab> == <C-i>

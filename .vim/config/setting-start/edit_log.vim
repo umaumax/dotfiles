@@ -36,7 +36,6 @@ function! s:clean_vim_edit_file_log()
 		endif
 	endfor
 	redir END
-	echo 'cleaned!'
 endfunction
 
 command! CleanVimEditFileLog call <SID>clean_vim_edit_file_log()
