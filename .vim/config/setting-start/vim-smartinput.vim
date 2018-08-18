@@ -449,6 +449,16 @@ function! s:smartinput_define()
 				\   'char': 't',
 				\   'input': "'t",
 				\   })
+	call s:smartinput_define_rule({
+				\   'at': 'can\%#',
+				\   'char': 't',
+				\   'input': "'t",
+				\   })
+	call s:smartinput_define_rule({
+				\   'at': 'doesn\%#',
+				\   'char': 't',
+				\   'input': "'t",
+				\   })
 
 	call s:smartinput_define_rule({
 				\   'at': ' pipe\%#',
