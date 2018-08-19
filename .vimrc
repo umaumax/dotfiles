@@ -108,7 +108,8 @@ let s:cwd = getcwd()
 if $VIM_FAST_MODE == ''
 	runtime! config/package_manager/*.vim
 endif
-command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc
+" NOTE: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
+command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 " load cwd

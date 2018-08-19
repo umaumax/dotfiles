@@ -622,8 +622,8 @@ function! s:paste_at_cursor(Pflag, ...)
 		normal! "pp
 	endif
 endfunction
-inoremap <C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
-nnoremap <C-v> :call <SID>paste_at_cursor(1)<CR>
+inoremap <silent><C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
+nnoremap <silent><C-v> :call <SID>paste_at_cursor(1)<CR><Right>
 
 function! s:paste_at_cmdline()
 	let clipboard=@+
@@ -1028,3 +1028,9 @@ endfunc
 
 nnoremap <silent> t<Up> :call IndentSensitivePrev()<CR>
 nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
+
+" NOTE: force disable paste mode
+" augroup disable_paste_mode_group
+" 	autocmd!
+" 	autocmd OptionSet paste setlocal nopaste
+" augroup END
