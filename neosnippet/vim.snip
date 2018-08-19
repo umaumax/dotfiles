@@ -34,3 +34,6 @@ snippet command
   command! -nargs=${1:#n of args} ${2:#command name} :call s:${3:#funciton name}
 snippet command_range
   command! -range -nargs=${1:#n of args} ${2:#command name} :<line1>,<line2>call s:${3:#funciton name}
+
+snippet execute_normal
+  execute 'normal! ${0}'

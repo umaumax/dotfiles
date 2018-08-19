@@ -49,6 +49,13 @@ alias forls
     ${0}
   done
 
+snippet arg_check
+alias argcheck
+  [[ $# -le ${1:# no of args} ]] && echo "\$0 ${0:# description}" && exit 1
+
+snippet alias
+  alias ${1}='${0}'
+
 snippet echoerr
     echo 1>&2 ${0}
 
