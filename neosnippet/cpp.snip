@@ -35,19 +35,30 @@ options head
 abbr << __func__ << ...
   std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
 
+snippet to_bool
+alias bool
+  ((${0:bool value})?"true":"false")
+
 snippet pp
   #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint
 
-# [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
-snippet cout
+snippet std
+alias s
+  std::
+
+snippet stdcout
+alias cout
   std::cout << ${0} << std::endl;
 
-snippet cerr
+snippet stdcerr
+alias cerr
   std::cerr << ${0} << std::endl;
 
-snippet clog
+snippet stdclog
+alias clog
   std::clog << ${0} << std::endl;
 
+# [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
 # for vector etc...
 snippet cout_all
   std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));

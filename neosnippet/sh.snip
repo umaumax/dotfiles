@@ -35,6 +35,20 @@ snippet alias_enable
 abbr to enable alias at bash
     shopt -s expand_aliases
 
+snippet for_array
+alias forarray
+  for ${2:# element name} in "${${1:#array name}[@]}"; do
+    echo $2
+    ${0}
+  done
+
+snippet for_ls
+alias forls
+  for ${2:# element name} in `ls ${1:# ls target}`; do
+    echo $2
+    ${0}
+  done
+
 snippet echoerr
     echo 1>&2 ${0}
 
@@ -51,6 +65,11 @@ alias array_append
 snippet append_array_self
 alias array_append_self
     ${1:dst array}+=(${0})
+
+snippet tmpfile
+abbr don't use in .xxxrc or .xxx_profile
+  tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
+  trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
 
 snippet tac
     awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
