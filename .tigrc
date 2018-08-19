@@ -11,9 +11,6 @@ set refresh-mode = periodic
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
-bind generic <Ctrl-a> move-first-line
-bind generic <Ctrl-e> move-last-line
-
 bind generic A !git commit --amend --allow-empty
 
 # [Tig で Git を自由自在に操作するための \.tigrc 設定例 \- Qiita]( https://qiita.com/sfus/items/063797a1dd8fdc7d032f )

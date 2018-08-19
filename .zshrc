@@ -187,7 +187,16 @@ function is_git_repo_with_message() {
 	[[ $code != 0 ]] && echo "$message" >&2
 	return $code
 }
-cmdcheck tig && alias ts='tig status'
+if cmdcheck tig; then
+	alias ts='tig status'
+	function tig() {
+		if [[ $# == 0 ]]; then
+			command tig status
+			return
+		fi
+		command tig "$@"
+	}
+fi
 
 cmdcheck ccze && alias ccze='ccze -A'
 
