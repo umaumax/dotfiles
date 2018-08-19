@@ -12,7 +12,7 @@ function! s:FZFTabOpenFunc()
 				\ 'source':  s:GetTabList(),
 				\ 'options': '-m -x +s',
 				\ 'down':    '40%'
-				\})
+				\ })
 endfunction
 
 function! s:GetTabList()

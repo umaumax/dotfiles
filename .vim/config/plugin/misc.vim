@@ -422,11 +422,38 @@ xmap e<Space> <Plug>(EasyAlign)*<Space>
 xmap e=       <Plug>(EasyAlign)*=
 xmap e#       <Plug>(EasyAlign)*#
 xmap e"       <Plug>(EasyAlign)*"
-xmap e/       <Plug>(EasyAlign)*//
+xmap e/       <Plug>(EasyAlign)*/
+xmap e\       <Plug>(EasyAlign)*<Bslash>
 xmap e,       <Plug>(EasyAlign)*,
 xmap e.       <Plug>(EasyAlign)*.
 xmap e:       <Plug>(EasyAlign)*:
-xmap e\|      <Plug>(EasyAlign)*\|
+xmap e\|      <Plug>(EasyAlign)*<Bar>
+
+let g:easy_align_delimiters = {
+			\ '>': { 'pattern': '>>\|=>\|>' },
+			\ '\': { 'pattern': '\\' },
+			\ '/': {
+			\     'pattern':         '//\+\|/\*\|\*/',
+			\     'delimiter_align': 'l',
+			\     'ignore_groups':   ['!Comment'] },
+			\ ']': {
+			\     'pattern':       '[[\]]',
+			\     'left_margin':   0,
+			\     'right_margin':  0,
+			\     'stick_to_left': 0
+			\   },
+			\ ')': {
+			\     'pattern':       '[()]',
+			\     'left_margin':   0,
+			\     'right_margin':  0,
+			\     'stick_to_left': 0
+			\   },
+			\ 'd': {
+			\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+			\     'left_margin':  0,
+			\     'right_margin': 0
+			\   }
+			\ }
 
 " NOTE: スムーズに画面をスクロール可能
 " NOTE: don't load lazy
