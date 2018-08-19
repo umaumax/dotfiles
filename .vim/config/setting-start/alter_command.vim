@@ -18,8 +18,11 @@ AlterCommand p[lugupdate] PlugUpdate
 AlterCommand p[lug]ug PlugUpgrade
 AlterCommand p[lugupgrade] PlugUpgrade
 
-" prettyprint.vim
+" for prettyprint.vim
 AlterCommand pp PP
+" for fzf plugins
+AlterCommand mru FZFMru
+AlterCommand ag Ag
 
 " for my commands
 AlterCommand del[ete] Delete
