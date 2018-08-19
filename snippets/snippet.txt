@@ -49,6 +49,11 @@
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
+[cmake] cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # compile_commands.json
+
+# make
+[make debug] make VERBOSE=1 # made by autotoools or cmake
+[make debug] make SHELL='sh -x' # made by yourself
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -79,3 +84,7 @@
 
 # patch
 [patch] # git diff | c && cd xxx && p | patch -p1
+
+# http server
+[python2 http server] python -m SimpleHTTPServer
+[python3 http server] python3 -m http.server
