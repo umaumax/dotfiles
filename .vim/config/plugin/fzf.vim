@@ -33,7 +33,7 @@ endfunction
 
 function! s:TabListSink(line)
 	let parts = split(a:line, '\s')
-	execute 'normal ' . parts[0] . 'gt' 
+	execute 'normal! ' . parts[0] . 'gt' 
 endfunction
 
 " --------------------------------

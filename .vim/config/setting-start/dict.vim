@@ -108,13 +108,13 @@ augroup END
 " for dict file editting
 function! s:DictJoin() range
 	let lines = join(getline(a:firstline, a:lastline), s:dict_delim)
-	execute 'normal '.(a:lastline-a:firstline+1).'"_dd'
+	execute 'normal! '.(a:lastline-a:firstline+1).'"_dd'
 	call append(a:firstline-1, lines)
 endfunction
 function! s:DictSplit()
 	let lines=split(getline('.'), s:dict_delim)
 	call append(line('.'), lines)
-	normal "_dd
+	normal! "_dd
 endfunction
 command! -nargs=0 -range DictJoin  <line1>,<line2>call s:DictJoin()
 command! -nargs=0        DictSplit                call s:DictSplit()

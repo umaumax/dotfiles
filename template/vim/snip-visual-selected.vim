@@ -18,7 +18,7 @@ function! s:delete_visual_selection()
 	let Mlen = { s -> strlen(substitute(s, ".", "x", "g"))}
 	let l = Mlen(selected)
 	if l > 0
-		execute "normal v".(l-1)."\<Right>x"
+		execute "normal! v".(l-1)."\<Right>\"_x"
 	endif
 	return selected
 endfunction

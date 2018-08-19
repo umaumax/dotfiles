@@ -17,7 +17,7 @@ function! s:delete_visual_selection()
 	let Mlen = { s -> strlen(substitute(s, ".", "x", "g"))}
 	let l = Mlen(selected)
 	if l > 0
-		execute "normal v".(l-1)."\<Right>x"
+		execute "normal! v".(l-1)."\<Right>\"_x"
 	endif
 	return selected
 endfunction
@@ -25,7 +25,7 @@ endfunction
 function! s:p(text)
 	let tmp = @a
 	let @a = a:text
-	execute 'normal "ap'
+	execute 'normal! "ap'
 	let @a = tmp
 endfunction
 
@@ -38,10 +38,10 @@ endfunction
 command! -nargs=0 -range CR <line1>,<line2>call CR()
 " NOTE: for c++
 " 1行にまとまってしまった関数ボディの改行
-function! CRBody()
-	execute "normal 00f{\<Right>vt}:CR\<CR>"
+function! CRBody() range
+	execute "normal! 00f{\<Right>vt}:CR\<CR>"
 endfunction
-command! -nargs=0 CRBody <line1>,<line2>call CRBody()
+command! -nargs=0 -range CRBody <line1>,<line2>call CRBody()
 
 function! CRSplit()
 	let line = getline('.')

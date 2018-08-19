@@ -38,7 +38,7 @@ endfunction
 function! s:format_file()
 	" [Vim:カーソル位置を移動せずにファイル全体を整形する \- ぼっち勉強会]( http://kannokanno.hatenablog.com/entry/2014/03/16/160109 )
 	let l:view = winsaveview()
-	normal gg=G
+	normal! gg=G
 	silent call winrestview(l:view)
 endfunction
 "nnoremap fm :call <SID>format_file()<CR>

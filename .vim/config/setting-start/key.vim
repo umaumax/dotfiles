@@ -454,7 +454,7 @@ vnoremap v y
 vnoremap V :<C-u>call <SID>V()<CR>
 
 " delete all lines at buffer without copy
-command! -nargs=0 Delete normal ggVGx
+command! -nargs=0 Delete normal! <silent> ggVG"_x
 
 " NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
 function! OpenURL()
@@ -466,7 +466,7 @@ function! OpenURL()
 	elseif !has('win')
 		call system("xdg-open &>/dev/null \"".url."\"")
 	else
-		echo 'not supported at windows!'
+		echom 'not supported at windows!'
 	endif
 endfunction
 " to rewrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor

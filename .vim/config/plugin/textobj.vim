@@ -79,9 +79,9 @@ let g:expand_region_text_objects = {
 function! s:expand_visual_range(n)
 	let pos=getpos('.')
 	if a:n > 0
-		execute "normal gv\<Right>o\<Left>o"
+		execute "normal! gv\<Right>o\<Left>o"
 	elseif a:n < 0
-		execute "normal gv\<Left>o\<Right>o"
+		execute "normal! gv\<Left>o\<Right>o"
 	endif
 endfunction
 vnoremap J :<C-u>call <SID>expand_visual_range(1)<CR>
