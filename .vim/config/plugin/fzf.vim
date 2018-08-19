@@ -1,5 +1,5 @@
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+LazyPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim', {'on':['Ag', 'FZFTabOpen', 'FZFMru', 'FZFOpenFile']}
 
 " --------------------------------
 " [Vimの:tabsからfzfで検索してタブを開く \- Qiita]( https://qiita.com/kmszk/items/16f6129c4732a053ace1 )
@@ -8,10 +8,11 @@ command! FZFTabOpen call s:FZFTabOpenFunc()
 
 function! s:FZFTabOpenFunc()
 	call fzf#run({
-				\ 'source':  s:GetTabList(),
 				\ 'sink':    function('s:TabListSink'),
+				\ 'source':  s:GetTabList(),
 				\ 'options': '-m -x +s',
-				\ 'down':    '40%'})
+				\ 'down':    '40%'
+				\})
 endfunction
 
 function! s:GetTabList()
