@@ -371,11 +371,23 @@ if Doctor('git', 'airblade/vim-gitgutter')
 	nmap <Leader>ph <Plug>GitGutterPreviewHunk
 endif
 
-" NOTE: 0.1秒ほど起動時間がかかる
-" status line
-" NOTE:エラー表示がこのプラグインですぐに消えてしまって見えなくなっているかもしれない
-" Plug 'vim-airline/vim-airline', {'on':[]}
 LazyPlug 'vim-airline/vim-airline'
+" NOTE: default settings
+" [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
+function! AirlineInit()
+	let spc = g:airline_symbols.space
+	" NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
+	" NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
+	let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
+	let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
+	let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis) + 1)
+	let emoji = split(emojis, '\zs')[rand]
+	let g:airline_section_c = airline#section#create(['%{getcwd()}', emoji, '%<', 'file', spc, 'readonly'])
+endfunction
+augroup vim-airline_group
+	autocmd!
+	autocmd User AirlineAfterInit call AirlineInit()
+augroup END
 
 " NOTE: cmake v.s. rainbow
 " [Syntax highlighting not working as expected · Issue \#5 · pboettch/vim\-cmake\-syntax]( https://github.com/pboettch/vim-cmake-syntax/issues/5 )
@@ -460,3 +472,5 @@ let g:easy_align_delimiters = {
 Plug 'yuttie/comfortable-motion.vim'
 
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
+
+Plug 'tpope/vim-fugitive'
