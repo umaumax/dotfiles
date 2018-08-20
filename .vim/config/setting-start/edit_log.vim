@@ -1,19 +1,21 @@
-let g:vim_edit_log_map={'':1}
 function! s:edit_log()
-	let full_path = expand("%:p")
+	" NOTE: maybe run by -i NONE
+	if len(v:oldfiles) == 0
+		return
+	endif
+	" NOTE: home dirpathには正規表現が含まれていないと仮定
+	let full_path = substitute(expand("%:p"), '^'.$HOME, '~','')
+	let g:vim_edit_log_map = get(g:, 'vim_edit_log_map', {'':1})
 	if has_key(g:vim_edit_log_map, full_path)
 		return
 	endif
 	" skip tmp file
-	for pattern in ['^/tmp/.*$' , '^/var/.*$' , '^/private/.*$' , '^*/.git/*$']
+	for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$', '^.*/.git/.*$']
 		if full_path =~ pattern
 			return
 		endif
 	endfor
 	let g:vim_edit_log_map[full_path]=1
-
-	" NOTE: home dirpathには正規表現が含まれていないと仮定
-	let full_path = substitute(full_path, '^'.$HOME, '~','')
 
 	" 	let now = localtime()
 	" 	let time_str = strftime("%Y/%m/%d %H:%M:%S", now)
@@ -33,7 +35,7 @@ function! s:clean_vim_edit_file_log()
 	execute ":redir! >" . g:vim_edit_log_path
 	" NOTE: 存在しないファイル削除
 	for file in split(content, "\n")
-		if filereadable(expand(file))
+		if filereadable(substitute(file,'^\~',$HOME,''))
 			silent! echo file
 		endif
 	endfor
@@ -44,5 +46,5 @@ command! CleanVimEditFileLog call <SID>clean_vim_edit_file_log()
 
 augroup edit_log_group
 	autocmd!
-	autocmd VimEnter,BufRead,BufWrite * call <SID>edit_log() 
+	autocmd BufEnter,BufWrite * call <SID>edit_log() 
 augroup END
