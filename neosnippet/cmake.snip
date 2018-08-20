@@ -48,6 +48,13 @@ snippet dep
         ${0:dep}
     )
 
+snippet c_flags
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${0}")
+
+snippet cpp_flags
+alias cxx_flags
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${0}")
+
 snippet Ext_url
     include(ExternalProject)
     ExternalProject_Add(${1:googletest}
@@ -82,3 +89,10 @@ snippet props
 
 snippet test
     add_test(${1:ATestName} ${0:testCommand --options})
+
+snippet dump_var
+    message(STATUS "*** dump start cmake variables ***")
+    foreach(_variableName ${_variableNames})
+      message(STATUS "${_variableName}=${${_variableName}}")
+    endforeach()
+    message(STATUS "*** dump end ***")

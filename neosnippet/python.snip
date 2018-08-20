@@ -6,3 +6,14 @@ snippet     funcname
 snippet find_first
 	def find_first(list, predicate):
 		return next((e for e in list if predicate(e)), None)
+
+snippet open_file
+alias with_open_file
+	with open(${1:#input_file_name}, 'r', encoding='utf-8') as ${2:tmp_file}:
+		${3:$input_file_content} = $2.read()
+	${0}
+
+snippet class
+	class ${1:#class name}:
+		def __init__(self, ${0}):
+

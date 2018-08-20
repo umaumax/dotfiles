@@ -63,7 +63,8 @@
 [push] git push -u origin master ! # normal push
 [push] git push -u --force origin master # force push
 [diff] git diff --cached # <file> # addしたファイルの差分表示
-[unstage] git reset HEAD # <file>
+[unstage file] git reset HEAD # <file>
+[unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [commit 取り消し（編集内容はそのまま）] git reset --soft HEAD^ !
 [amend 取り消し] git reset HEAD@{1} !
