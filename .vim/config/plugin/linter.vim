@@ -24,14 +24,14 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
 " lint結果をロケーションリストとQuickFixには表示しない
-" 出てると結構うざいしQuickFixを書き換えられるのは困る
+" 出てると結構わずらわしいしQuickFixを書き換えられるのは困る
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
-" 有効にするlinter
-" npm install jsonlint -g
+if Doctor('cmakelint', 'cmake linter')
+endif
 if Doctor('pylint', 'python linter')
 endif
 if Doctor('jsonlint', 'json linter')
@@ -41,14 +41,19 @@ endif
 if Doctor('vint', 'vim linter')
 endif
 let g:ale_linters = {
-			\   'python': ['pylint'],
+			\   'python': ['pylint', 'autopep8', 'flake8'],
 			\   'json': ['jsonlint'],
+			\   'cmakelint': ['cmakelint'],
 			\   'bash': ['shellcheck'],
 			\   'vim': ['vint'],
 			\   'cpp': ['cpplint','clang'],
 			\}
 " ['clangcheck', 'clangtidy'],
 let g:ale_cpp_cpplint_options = '--linelength=160 --filter=-readability/todo,-legal/copyright,-whitespace/line_length,-build/header_guard'
+let g:ale_cmake_cmakelint_options = '--filter=-linelength'
+let g:ale_python_pylint_options = '--disable=C0111,C0301' " C0111:missing-docstring C0301:max-line-length
+let g:ale_python_autopep8_options = '--ignore=E501' " E501:line too long
+let g:ale_python_flake8_options = '--ignore=E501' " E501:line too long
 
 " ALE用プレフィックス
 nmap [ale] <Nop>

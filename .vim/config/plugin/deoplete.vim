@@ -10,6 +10,7 @@ if v:version >= 800 && has('python3')
 				\ 'do': 'bash install.sh',
 				\ }
 	" Required: 'autozimu/LanguageClient-neovim'
+	" python: auopep8 linter -> ale
 	let g:LanguageClient_serverCommands = {
 				\ 'vue': ['vls'],
 				\ 'python': ['pyls'],
@@ -24,6 +25,15 @@ if v:version >= 800 && has('python3')
 		Plug 'roxma/nvim-yarp'
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
+
+	" NOTE: python syntax highlight
+	if has('nvim')
+		Plug 'numirias/semshi', {'for':['python'], 'do': ':UpdateRemotePlugins'}
+	else
+		Plug 'hdima/python-syntax', {'for':['python']}
+		let g:python_highlight_all = 1
+	endif
+
 	LazyPlug 'wokalski/autocomplete-flow'
 	" For func argument completion
 	LazyPlug 'Shougo/neosnippet'
