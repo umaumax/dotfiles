@@ -454,7 +454,8 @@ vnoremap v y
 vnoremap V :<C-u>call <SID>V()<CR>
 
 " delete all lines at buffer without copy
-command! -nargs=0 Delete normal! <silent> ggVG"_x
+" don't add <silent>
+command! -nargs=0 Delete normal! ggVG"_x
 
 " NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
 function! OpenURL()
