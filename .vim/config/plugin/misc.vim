@@ -319,7 +319,7 @@ augroup END
 Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 
 " for ascii color code
-Plug 'vim-scripts/AnsiEsc.vim', {'for': ['sh', 'zsh']}
+Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 Plug 'bronson/vim-trailing-whitespace', {'on':['FixWhitespace']}
@@ -468,9 +468,14 @@ let g:easy_align_delimiters = {
 			\ }
 
 " NOTE: スムーズに画面をスクロール可能
-" NOTE: don't load lazy
+" NOTE: don't use load lazy
 Plug 'yuttie/comfortable-motion.vim'
 
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
-Plug 'tpope/vim-fugitive'
+" NOTE: for git
+LazyPlug 'tpope/vim-fugitive'
+
+" only for :PlugInstall
+Plug 'rhysd/committia.vim', {'on':[]}
+Plug 'hotwatermorning/auto-git-diff', {'on':[]}
