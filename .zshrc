@@ -687,6 +687,20 @@ function cut2() {
 }
 exportf cut2
 
+function ping-web() {
+	[[ $# -le 1 ]] && echo "$0 <url>" && exit 1
+	local url="$1"
+	while true; do
+		status=$(curl -sL --head -m 3 -w "%{http_code}" "$url" -o /dev/null)
+		if [ $status = 200 ]; then
+			printf '.'
+		else
+			printf 'F'
+		fi
+		sleep 0.5
+	done
+}
+
 # for python(3.3~) venv activation
 cmdcheck python && alias activate='source bin/activate' # <-> deactivate
 cmdcheck ninja && alias ncn='ninja -t clean && ninja'
@@ -1621,6 +1635,12 @@ alias -g WC="| wc"
 alias -g L="| less"
 
 alias remove-ansi="perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
+alias drop-color="remove-ansi"
+alias drop-ansi="remove-ansi"
+alias filter-ansi="remove-ansi"
+alias filter-color="remove-ansi"
+alias monokuro="remove-ansi"
+alias mono-color="remove-ansi"
 alias term-cols='tput cols'
 alias term-lines='tput lines'
 
