@@ -39,7 +39,7 @@ snippet execute_normal
   execute 'normal! ${0}'
 
 snippet rand
-  reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:# 0 ~ n} + 1)
+  reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:# 0 ~ n})
 
 snippet len_multi_bytes
   substitute(${0}, ".", "x", "g")

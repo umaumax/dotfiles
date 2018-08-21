@@ -29,3 +29,21 @@ snippet init_list
 	[None] * ${1:#N}
 snippet init_list2
 	[[None] * ${2:#N2} for _ in range(${1:#N1})]
+
+snippet write_file
+	def write_file(file_name, text):
+		with open(file_name, 'w') as f:
+			f.write(text)
+			f.truncate()
+
+snippet argparse
+alias cmdparse
+	import argparse
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-option-xxx', default='')
+	parser.add_argument('required-arg')
+
+	args, extra_args = parser.parse_known_args()
+	# args.option_xxx
+	# args.required_arg

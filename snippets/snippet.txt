@@ -46,6 +46,7 @@
 # docker
 [build] docker build -t "@" .
 [run] docker run --rm -it "@" /bin/bash
+[stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
@@ -89,3 +90,6 @@
 # http server
 [python2 http server] python -m SimpleHTTPServer
 [python3 http server] python3 -m http.server
+
+# log
+[realtime log viewer] tail -f
