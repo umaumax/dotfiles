@@ -159,7 +159,9 @@ export WHITE="\033[0;37m"
 export GRAY="\033[0;39m"
 export DEFAULT="\033[0m"
 
-export MORE='-R'
+# brew install source-highlight
+# cmdcheck src-hilite-lesspipe.sh && export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export MORE='--quit-if-one-screen -MR'
 [[ -n $BASH ]] && export LESS='-R'
 
 # grep: warning: GREP_OPTIONS is deprecated

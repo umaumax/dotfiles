@@ -942,6 +942,9 @@ unset _home
 # ignore command which starts with `#`
 alias \#='echo "skip comment: "'
 
+# brew install source-highlight
+cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
+
 # for colordiff
 if cmdcheck icdiff; then
 	alias diff='icdiff -U 1 --line-numbers'
