@@ -30,10 +30,10 @@ inoremap <C-l> <Right>
 " inoremap <C-d> <Esc>lxi
 inoremap <C-d> <Delete>
 inoremap <C-f> <BS>
-nnoremap <C-d> <Delete>
-nnoremap <C-f> <BS>
-vnoremap <C-d> <Delete>
-vnoremap <C-f> <BS>
+nnoremap <C-d> "_x
+nnoremap <C-f> "_X
+vnoremap <C-d> <Left>
+vnoremap <C-f> <Right>
 cnoremap <C-d> <Delete>
 cnoremap <C-f> <BS>
 

@@ -673,8 +673,8 @@ bindkey -e "[" _bracket
 
 bindkey -e "^L" forward-char
 bindkey -e "^H" backward-char
-bindkey -e "^D" backward-delete-char
-bindkey -e "^F" delete-char
+bindkey -e "^F" backward-delete-char
+bindkey -e "^D" delete-char
 bindkey -e "^K" up-line-or-history
 bindkey -e "^J" down-line-or-history
 
