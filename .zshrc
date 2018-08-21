@@ -38,7 +38,7 @@ function exportf() {
 ## [shell script - what is the zsh equivalent of bash's export -f - Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/59360/what-is-the-zsh-equivalent-of-bashs-export-f )
 ## 一定の規則(e.g. "BASH_FUNC_piyo%%=( { echo piyo;})")で環境変数に指定すると関数として実行される
 ## あくまで拡張子がないといけないため、中身がshellの疑似実行ファイルに対しては無効なので、注意
-[[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
+# [[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
 # ----------------
 
 doctor() {echo $_NO_CMD}
@@ -608,6 +608,69 @@ function git-checkout-branch-peco() {
 	[[ -n $branch ]] && git checkout $branch
 }
 
+function _double_quotes() {
+	BUFFER="${BUFFER}"'""'
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _double_quotes
+bindkey -e '"' _double_quotes
+
+function _single_quotes() {
+	BUFFER="${BUFFER}''"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _single_quotes
+bindkey -e "'" _single_quotes
+
+function _exec_quotes() {
+	BUFFER="${BUFFER}\`\`"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _exec_quotes
+bindkey -e "\`" _exec_quotes
+
+function _exec2_quotes() {
+	BUFFER="${BUFFER}\$()"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _exec2_quotes
+bindkey -e "\$" _exec2_quotes
+
+function _paren() {
+	BUFFER="${BUFFER}()"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _paren
+bindkey -e "(" _paren
+
+function _brace() {
+	BUFFER="${BUFFER}{}"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _brace
+bindkey -e "{" _brace
+
+function _bracket() {
+	BUFFER="${BUFFER}[]"
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR - 1))
+	zle -R -c # refresh
+}
+zle -N _bracket
+bindkey -e "[" _bracket
+
 # # <C-R>
 # # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
 # function _peco-select-history() {
@@ -726,7 +789,10 @@ if cmdcheck docker; then
 	}
 	function docker-exec() {
 		local container_id=$(docker ps | peco | awk '{print $1}')
-		[[ -n $container_id ]] && docker exec -it $container_id /bin/bash
+		val=$(stty size)
+		rows=$(echo $val | cut -d ' ' -f 1)
+		cols=$(echo $val | cut -d ' ' -f 2)
+		[[ -n $container_id ]] && docker exec -it $container_id /bin/bash -c "stty rows $rows cols $cols; exec bash -l"
 	}
 	function docker-start-and-attach() {
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
@@ -1641,6 +1707,10 @@ function c() {
 alias -g PV="| pecovim"
 alias -g WC="| wc"
 alias -g L="| less"
+
+# [How to remove ^\[, and all of the escape sequences in a file using linux shell scripting \- Stack Overflow]( https://stackoverflow.com/questions/6534556/how-to-remove-and-all-of-the-escape-sequences-in-a-file-using-linux-shell-sc )
+alias drop-without-ascii='sed "s,\x1B\[[0-9;]*[a-zA-Z],,g"'
+alias remove-without-ascii='drop-without-ascii'
 
 alias remove-ansi="perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 alias drop-color="remove-ansi"
