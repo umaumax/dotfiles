@@ -671,6 +671,52 @@ function _bracket() {
 zle -N _bracket
 bindkey -e "[" _bracket
 
+bindkey -e "^L" forward-char
+bindkey -e "^H" backward-char
+bindkey -e "^D" backward-delete-char
+bindkey -e "^F" delete-char
+bindkey -e "^K" up-line-or-history
+bindkey -e "^J" down-line-or-history
+
+# NOTE: Shift + arrow
+bindkey '^[[1;2D' emacs-backward-word
+bindkey '^[[1;2C' emacs-forward-word
+
+function _insert_sudo() {
+	# コマンドラインが空文字列ならば
+	if [[ -z "$BUFFER" ]]; then
+		LBUFFER='sudo '
+	fi
+}
+zle -N _insert_sudo
+bindkey "^S" _insert_sudo
+
+function _insert_git() {
+	# コマンドラインが空文字列ならば
+	if [[ -z "$BUFFER" ]]; then
+		LBUFFER='git '
+	fi
+}
+zle -N _insert_git
+bindkey "^G" _insert_git
+
+function _copy_command() {
+	echo "$BUFFER" | tr -d '\n' | c
+	zle kill-whole-line
+	zle -R -c # refresh
+}
+zle -N _copy_command
+bindkey '^X^P' _copy_command
+bindkey '^Y' _copy_command
+
+function _paste_command() {
+	BUFFER="${LBUFFER}$(p)${RBUFFER}"
+	CURSOR=$#BUFFER
+	zle -R -c # refresh
+}
+zle -N _paste_command
+bindkey '^V' _paste_command
+
 # # <C-R>
 # # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
 # function _peco-select-history() {
