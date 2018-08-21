@@ -28,10 +28,6 @@ let g:shebang#shebangs = {
 " NOTE: cpp is not supported
 Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','zsh']}
 
-" python formatter
-" error表示のwindowの制御方法が不明
-" Plug 'tell-k/vim-autopep8'
-
 " vim lint
 " pip install vim-vint
 if Doctor('vint', 'Kuniwak/vint')
@@ -376,13 +372,18 @@ LazyPlug 'vim-airline/vim-airline'
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
 function! AirlineInit()
 	let spc = g:airline_symbols.space
-	" NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
-	" NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
-	let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
-	let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
-	let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis) + 1)
-	let emoji = split(emojis, '\zs')[rand]
-	let g:airline_section_c = airline#section#create(['%{getcwd()}', emoji, '%<', 'file', spc, 'readonly'])
+	if has('mac')
+		" NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
+		" NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
+		let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
+		let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
+		let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis))
+		let emoji = split(emojis, '\zs')[rand]
+	else
+		let emoji = ' '
+	endif
+	" NOTE: condition: $HOME doesn't include regex
+	let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", emoji, '%<', 'file', spc, 'readonly'])
 endfunction
 augroup vim-airline_group
 	autocmd!
