@@ -26,14 +26,6 @@ if v:version >= 800 && has('python3')
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
 
-	" NOTE: python syntax highlight
-	if has('nvim')
-		Plug 'numirias/semshi', {'for':['python'], 'do': ':UpdateRemotePlugins'}
-	else
-		Plug 'hdima/python-syntax', {'for':['python']}
-		let g:python_highlight_all = 1
-	endif
-
 	LazyPlug 'wokalski/autocomplete-flow'
 	" For func argument completion
 	LazyPlug 'Shougo/neosnippet'
