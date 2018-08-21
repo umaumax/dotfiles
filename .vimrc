@@ -15,6 +15,34 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 
+function! s:disable_opening_file()
+	for pattern in ['tu[^.]*', 'zip', 'tar.gz', 'gz', 'jp[e]g', 'png', 'exe', 'pdf', 'pch']
+		if expand('%:e') =~ pattern
+			" NOTE: below command quit force even if multi buffer was opening
+			echom "[auto closed] Don't open ".expand('%:S')."!\n"
+			q!
+			return
+		endif
+	endfor
+	" NOTE: disable executable file open
+	if expand('%:e') == '' && system('type '.expand('%:p:S').' >/dev/null 2>&1; echo $?')==0
+		echom "[auto closed] Don't open executable ".expand('%:S')."!\n"
+		q!
+		return
+	endif
+endfunction
+" NOTE: disable open
+augroup disable_opening_file_group
+	autocmd!
+	autocmd BufEnter * call <SID>disable_opening_file()
+augroup END
+
+" NOTE: buffer -> tab
+if bufnr('$') >= 1
+	:tab sball
+	:tabfirst
+endif
+
 if !has('gui_running')
 	let g:loaded_matchparen = 1
 endif
