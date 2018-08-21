@@ -100,6 +100,11 @@ function git-ranking() {
 	builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
 }
 alias vim-git-modified='vim -p `git diff --name-only`'
+# NOTE: あるファイルを特定のcommitのファイルの状態にする
+function git-revert-files() {
+	local target=${1:-"HEAD^"}
+	git diff --name-only HEAD "$target" | awk 'BEGIN{ print "# edit below commands and run by yourself" }{ printf "git checkout \"'"$target"'\" %s\n", $0}' | vim -
+}
 
 cmdcheck tac || alias tac='tail -r'
 
@@ -132,9 +137,9 @@ function git_diff() {
 	local files=($(git diff --stat | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
 	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
 	for e in "${files[@]}"; do
-		echo $e >>$tmpfile
+		[[ -e "$e" ]] && echo $e >>$tmpfile
 	done
-
+	local files=($(cat $tmpfile))
 	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "${files[@]}"
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
