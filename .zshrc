@@ -1741,6 +1741,14 @@ if [[ $OS == Windows_NT ]]; then
 	alias wcd='cd $WIN_HOME'
 fi
 
+# edit clipboard
+function cedit() {
+	local tmpfile=$(mktemp '/tmp/cedit.tmp.orderfile.XXXXX')
+	p >"$tmpfile"
+	VIM_FAST_MODE='on' vim "$tmpfile" && cat "$tmpfile" | c
+	[[ -e $tmpfile ]] && rm -f $tmpfile
+}
+
 function c() {
 	if [[ $# == 0 ]]; then
 		_c
