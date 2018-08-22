@@ -609,63 +609,56 @@ function git-checkout-branch-peco() {
 }
 
 function _double_quotes() {
-	BUFFER="${BUFFER}"'""'
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}"'""'"${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _double_quotes
 bindkey -e '"' _double_quotes
 
 function _single_quotes() {
-	BUFFER="${BUFFER}''"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}''${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _single_quotes
 bindkey -e "'" _single_quotes
 
 function _exec_quotes() {
-	BUFFER="${BUFFER}\`\`"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}\`\`${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _exec_quotes
 bindkey -e "\`" _exec_quotes
 
 function _exec2_quotes() {
-	BUFFER="${BUFFER}\$()"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}\$()${RBUFFER}"
+	CURSOR=$((CURSOR + 2))
 	zle -R -c # refresh
 }
 zle -N _exec2_quotes
-bindkey -e "\$" _exec2_quotes
+bindkey -e "^O" _exec2_quotes
 
 function _paren() {
-	BUFFER="${BUFFER}()"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}()${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _paren
 bindkey -e "(" _paren
 
 function _brace() {
-	BUFFER="${BUFFER}{}"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}{}${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _brace
 bindkey -e "{" _brace
 
 function _bracket() {
-	BUFFER="${BUFFER}[]"
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR - 1))
+	BUFFER="${LBUFFER}[]${RBUFFER}"
+	CURSOR=$((CURSOR + 1))
 	zle -R -c # refresh
 }
 zle -N _bracket
@@ -683,7 +676,6 @@ bindkey '^[[1;2D' emacs-backward-word
 bindkey '^[[1;2C' emacs-forward-word
 
 function _insert_sudo() {
-	# コマンドラインが空文字列ならば
 	if [[ -z "$BUFFER" ]]; then
 		LBUFFER='sudo '
 	fi
@@ -692,7 +684,6 @@ zle -N _insert_sudo
 bindkey "^S" _insert_sudo
 
 function _insert_git() {
-	# コマンドラインが空文字列ならば
 	if [[ -z "$BUFFER" ]]; then
 		LBUFFER='git '
 	fi
@@ -759,7 +750,7 @@ function peco-select-history() {
 	zle clear-screen
 }
 zle -N peco-select-history
-bindkey '^o' peco-select-history
+bindkey '^X^O' peco-select-history
 
 function cheat() {
 	# below commands enable alias
