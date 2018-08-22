@@ -935,7 +935,11 @@ nnoremap q: <Nop>
 " [What is vim recording and how can it be disabled? \- Stack Overflow]( https://stackoverflow.com/questions/1527784/what-is-vim-recording-and-how-can-it-be-disabled )
 nnoremap q <Nop>
 nnoremap Q q
-command! CmdlineWindow call feedkeys("q:", "n")
+
+command! Wcmd                call feedkeys("q:", "n")
+command! CmdlineWindow       call feedkeys("q:", "n")
+command! Wsearch             call feedkeys("q/", "n")
+command! SearchCmdlineWindow call feedkeys("q/", "n")
 
 " [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L1362 )
 " 矩形選択でなくても複数行入力をしたい
