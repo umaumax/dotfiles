@@ -108,3 +108,14 @@ options     head
 
 snippet lineno
   $LINENO
+
+snippet try_catch
+  function try_catch() {
+      {
+          eval "$@"
+      } ||
+      {
+          echo "${0:An error occurred}"
+          return -1
+      }
+  }
