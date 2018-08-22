@@ -37,12 +37,6 @@ augroup disable_opening_file_group
 	autocmd BufEnter * call <SID>disable_opening_file()
 augroup END
 
-" NOTE: buffer -> tab
-if bufnr('$') >= 1
-	:tab sball
-	:tabfirst
-endif
-
 if !has('gui_running')
 	let g:loaded_matchparen = 1
 endif
@@ -162,6 +156,22 @@ if $VIM_PROJECT_ROOT != ''
 		execute 'source' s:vim_project_root_local_vimrc
 	endif
 endif
+
+" NOTE: tab sballしたときのvimにsetされている状態がコピーされるような挙動のため，最後に行うこと
+" NOTE: buffers -> tabs
+" NOTE: bufnr() contains tabs
+" NOTE: VimEnter前はtabpagenr('$') == 1 (always)
+function! s:buffer_to_tab()
+	if expand('%') != '' && tabpagenr('$') == 1 && bufnr('$') >= 2
+		:tab sball
+		" NOTE: to kick autocmd
+		call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
+	endif
+endfunction
+augroup buffer_to_tab_group
+	autocmd!
+	autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
+augroup END
 
 " e.g. .local.vimrc
 " let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
