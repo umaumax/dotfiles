@@ -1301,7 +1301,7 @@ function f.cmake.pv() { local _=$(f.cmake "$@" | pecovim); }
 function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
 
 alias md.pv='fg.md.pv'
-alias md.my.pv='fg.md.my.pv'
+alias md.my.pv='fg.my.md.pv'
 alias vim.pv='fg.vim.pv'
 alias vim.my.pv='fg.my.vim.pv'
 alias cpp-all='fg.cpp-all'
