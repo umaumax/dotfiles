@@ -105,6 +105,15 @@ function git-revert-files() {
 	local target=${1:-"HEAD^"}
 	git diff --name-only HEAD "$target" | awk 'BEGIN{ print "# edit below commands and run by yourself" }{ printf "git checkout \"'"$target"'\" %s\n", $0}' | vim -
 }
+function git-restore-stash() {
+	git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
+	echo '--------------------------------'
+	echo '--------------------------------'
+	echo "$RED If you want to restore commit, put below command! $DEFAULT"
+	echo "$PURPLE git cherry-pick -n -m1 <commit id> $DEFAULT"
+	echo '--------------------------------'
+	echo '--------------------------------'
+}
 
 cmdcheck tac || alias tac='tail -r'
 
