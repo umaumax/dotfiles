@@ -13,6 +13,10 @@ ln -sf ~/dotfiles/.zplug.zshrc ~/
 ln -sf ~/dotfiles/.wgit ~/
 
 [[ ! -d ~/.vim/ ]] && mkdir -p ~/.vim
+# NOTE: windows ln behave like cp (to avoid 'cannot overwrite directory')
+if [[ "$OS" =~ "Windows" ]]; then
+	[[ -e ~/dotfiles/.vim/config ]] && rm -rf ~/dotfiles/.vim/config
+fi
 ln -fs ~/dotfiles/.vim/config ~/.vim/
 
 [[ ! -d ~/.config/ ]] && mkdir -p ~/.config
