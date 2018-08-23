@@ -13,6 +13,9 @@ bind generic <Ctrl-b> scroll-page-up
 
 bind generic A !git commit --amend --allow-empty
 
+bind main B !git rebase -i %(commit)
+bind diff B !git rebase -i %(commit)
+
 # [Tig で Git を自由自在に操作するための \.tigrc 設定例 \- Qiita]( https://qiita.com/sfus/items/063797a1dd8fdc7d032f )
 # 最上/最下部移動
 # g をファイル先頭に移動に変更、 view-grep を再割当て
