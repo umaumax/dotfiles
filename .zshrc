@@ -217,6 +217,9 @@ alias find-time-sort='find . -not -iwholename "*/.git/*" -type f -print0 | xargs
 alias find-time-sortr='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -alt'
 alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
 
+alias find-orig-files="find . -name '*.orig'"
+alias find-orig-files-and-delete="find . -name '*.orig' -delete"
+
 function git-check-up-to-date() {
 	target='.'
 	[[ $# -ge 1 ]] && target="$1"

@@ -58,6 +58,7 @@
 	graph = log --oneline --decorate --graph --branches --tags --remotes
 	rename = branch -m
 	l = log
+  log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags
 	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
