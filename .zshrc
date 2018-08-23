@@ -309,6 +309,11 @@ alias 3u='uuu'
 alias 4u='uuuu'
 alias 5u='uuuuu'
 
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
 # history
 alias history='history 1'
 function history_ranking() {
@@ -620,59 +625,52 @@ function git-checkout-branch-peco() {
 	[[ -n $branch ]] && git checkout $branch
 }
 
-function _double_quotes() {
-	BUFFER="${LBUFFER}"'""'"${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
+function git-rename-to-backup-branch-peco() {
+	local prefix='_'
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
+	[[ -n $branch ]] && git rename {,$prefix}"$branch"
+}
+
+function _insert_strs() {
+	local n=${2:-$#1}
+	local BUFFER_="${LBUFFER}$1${RBUFFER}"
+	local CURSOR_=$CURSOR
+	# NOTE: to avoid show unnecessary completion
+	zle kill-buffer
+	BUFFER="$BUFFER_"
+	# NOTE: don't use below command because this cause mono color
+	# 	CURSOR=$((CURSOR_ + 1))
+	CURSOR=$((CURSOR_))
+	for i in $(seq $n); do
+		zle forward-char
+	done
 	zle -R -c # refresh
 }
+function _double_quotes() { _insert_strs '""' 1; }
 zle -N _double_quotes
 bindkey -e '"' _double_quotes
 
-function _single_quotes() {
-	BUFFER="${LBUFFER}''${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
-	zle -R -c # refresh
-}
+function _single_quotes() { _insert_strs "''" 1; }
 zle -N _single_quotes
 bindkey -e "'" _single_quotes
 
-function _exec_quotes() {
-	BUFFER="${LBUFFER}\`\`${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
-	zle -R -c # refresh
-}
+function _exec_quotes() { _insert_strs '``' 1; }
 zle -N _exec_quotes
 bindkey -e "\`" _exec_quotes
 
-function _exec2_quotes() {
-	BUFFER="${LBUFFER}\$()${RBUFFER}"
-	CURSOR=$((CURSOR + 2))
-	zle -R -c # refresh
-}
+function _exec2_quotes() { _insert_strs '$()' 2; }
 zle -N _exec2_quotes
 bindkey -e "^O" _exec2_quotes
 
-function _paren() {
-	BUFFER="${LBUFFER}()${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
-	zle -R -c # refresh
-}
+function _paren() { _insert_strs '()' 1; }
 zle -N _paren
 bindkey -e "(" _paren
 
-function _brace() {
-	BUFFER="${LBUFFER}{}${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
-	zle -R -c # refresh
-}
+function _brace() { _insert_strs '{}' 1; }
 zle -N _brace
 bindkey -e "{" _brace
 
-function _bracket() {
-	BUFFER="${LBUFFER}[]${RBUFFER}"
-	CURSOR=$((CURSOR + 1))
-	zle -R -c # refresh
-}
+function _bracket() { _insert_strs '[]' 1; }
 zle -N _bracket
 bindkey -e "[" _bracket
 
@@ -712,13 +710,115 @@ zle -N _copy_command
 bindkey '^X^P' _copy_command
 bindkey '^Y' _copy_command
 
-function _paste_command() {
-	BUFFER="${LBUFFER}$(p)${RBUFFER}"
-	CURSOR=$#BUFFER
-	zle -R -c # refresh
-}
+function _paste_command() { _insert_strs "$(p)"; }
 zle -N _paste_command
 bindkey '^V' _paste_command
+
+function _goto_middle_of_line() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 2))
+	zle -R -c # refresh
+}
+zle -N _goto_middle_of_line
+bindkey '^X^M' _goto_middle_of_line
+
+function _goto_line_1() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 1))
+	zle -R -c # refresh
+}
+zle -N _goto_line_1
+bindkey '^X1' _goto_line_1
+function _goto_line_2() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 2))
+	zle -R -c # refresh
+}
+zle -N _goto_line_2
+bindkey '^X2' _goto_line_2
+function _goto_line_3() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 3))
+	zle -R -c # refresh
+}
+zle -N _goto_line_3
+bindkey '^X3' _goto_line_3
+function _goto_line_4() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 4))
+	zle -R -c # refresh
+}
+zle -N _goto_line_4
+bindkey '^X4' _goto_line_4
+function _goto_line_5() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 5))
+	zle -R -c # refresh
+}
+zle -N _goto_line_5
+bindkey '^X5' _goto_line_5
+function _goto_line_6() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 6))
+	zle -R -c # refresh
+}
+zle -N _goto_line_6
+bindkey '^X6' _goto_line_6
+function _goto_line_7() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 7))
+	zle -R -c # refresh
+}
+zle -N _goto_line_7
+bindkey '^X7' _goto_line_7
+function _goto_line_8() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 8))
+	zle -R -c # refresh
+}
+zle -N _goto_line_8
+bindkey '^X8' _goto_line_8
+function _goto_line_9() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 9))
+	zle -R -c # refresh
+}
+zle -N _goto_line_9
+bindkey '^X9' _goto_line_9
+function _goto_line_0() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * 10))
+	zle -R -c # refresh
+}
+zle -N _goto_line_0
+bindkey '^X0' _goto_line_0
+
+# [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
+# quote previous word in single or double quote
+autoload -U modify-current-argument
+_quote-previous-word-in-single() {
+	modify-current-argument '${(qq)${(Q)ARG}}'
+	zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-single
+bindkey '^Xs' _quote-previous-word-in-single
+bindkey '^X^S' _quote-previous-word-in-single
+
+_quote-previous-word-in-double() {
+	modify-current-argument '${(qqq)${(Q)ARG}}'
+	zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-double
+bindkey '^Xd' _quote-previous-word-in-double
+bindkey '^X^D' _quote-previous-word-in-double
+
+function my-backward-delete-word() {
+	local WORDCHARS=${WORDCHARS/\//}
+	zle backward-delete-word
+}
+zle -N my-backward-delete-word
+# shift+tab
+bindkey '^[[Z' my-backward-delete-word
 
 # # <C-R>
 # # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
@@ -735,15 +835,15 @@ bindkey '^V' _paste_command
 # bindkey '^R' _peco-select-history
 
 # <C-X><C-S>
-function _peco-snippets() {
-	local color_cmd=('cat')
-	# 	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
-	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | command peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
-	CURSOR=$#BUFFER
-	zle -R -c # refresh
-}
-zle -N _peco-snippets
-bindkey '^x^s' _peco-snippets
+# function _peco-snippets() {
+# 	local color_cmd=('cat')
+# 	# 	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
+# 	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | command peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
+# 	CURSOR=$#BUFFER
+# 	zle -R -c # refresh
+# }
+# zle -N _peco-snippets
+# bindkey '^x^s' _peco-snippets
 
 function peco-select-history() {
 	local tac
