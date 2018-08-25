@@ -460,6 +460,8 @@ alias git-log-peco='cat ~/.git-logs/*.log | peco'
 
 alias relogin='exec $SHELL -l'
 
+alias trimspace='sed "s/^[ \t]*//"'
+
 # add ast prefix
 alias add-ast="'sed 's/\(^\|\s*\)/\1* /g'"
 
