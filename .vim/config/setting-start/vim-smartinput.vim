@@ -21,6 +21,16 @@ function! s:smartinput_define_rule(rule)
 	call s:map_to_trigger('i', trigger)
 	call smartinput#define_rule(a:rule)
 endfunction
+function! s:smartinput_define_rule_of_word(src,dst,...) " filetype
+	let rule={
+				\   'at': a:src[:len(a:src)-2].'\%#',
+				\   'char': a:src[len(a:src)-1:],
+				\   'input': repeat("<BS>",len(a:src)-1).a:dst,
+				\   }
+	let filetype=get(a:, 1, [])
+	if len(filetype)>0 | let rule['filetype']=filetype | endif
+	call s:smartinput_define_rule(rule)
+endfunction
 
 " <Nul> = <C-Space>
 " let s:gtrigger = '<Nul>'
@@ -104,20 +114,6 @@ function! s:smartinput_define()
 				\   })
 
 	call s:smartinput_define_rule({
-				\   'at': '|\%#$',
-				\   'char': '|',
-				\   'input': "<BS>or",
-				\   'filetype': ['python'],
-				\   })
-
-	call s:smartinput_define_rule({
-				\   'at': '&\%#$',
-				\   'char': '&',
-				\   'input': "<BS>and",
-				\   'filetype': ['python'],
-				\   })
-
-	call s:smartinput_define_rule({
 				\   'at': '== None.*\%#$',
 				\   'char': '<Space>',
 				\   'input': "<C-o>:call setline('.', substitute(getline('.'), '== None', 'is None', 'g'))<CR><Space>",
@@ -129,6 +125,11 @@ function! s:smartinput_define()
 				\   'input': "<C-o>:call setline('.', substitute(getline('.'), '== Non', 'is None', 'g'))<CR><C-o>$",
 				\   'filetype': ['python'],
 				\   })
+
+	call s:smartinput_define_rule_of_word('||','or' ,['python'])
+	call s:smartinput_define_rule_of_word('&&','and' ,['python'])
+	call s:smartinput_define_rule_of_word('true','True',['python'])
+	call s:smartinput_define_rule_of_word('false','False' ,['python'])
 
 	" <>_ ===> <_>
 	call s:smartinput_define_rule({'at': '<\%#', 'char': '>', 'input': '><Left>'})
@@ -419,25 +420,9 @@ function! s:smartinput_define()
 				\ , 'filetype' : ['sh','zsh']
 				\ })
 
-	call s:smartinput_define_rule(
-				\ { 'at'    : 'endi\%#'
-				\ , 'char'  : 'f'
-				\ , 'input': "<C-o>:call setline('.', 'fi')<CR><C-o>$"
-				\ , 'filetype' : ['sh','zsh']
-				\ })
-	call s:smartinput_define_rule(
-				\ { 'at'    : 'elsei\%#'
-				\ , 'char'  : 'f'
-				\ , 'input': "<C-o>:call setline('.', 'elif')<CR><C-o>$"
-				\ , 'filetype' : ['sh','zsh']
-				\ })
+	call s:smartinput_define_rule_of_word('endif','fi' ,['sh','zsh'])
+	call s:smartinput_define_rule_of_word('elseif','elif' ,['sh','zsh'])
 
-	" 	call s:smartinput_define_rule(
-	" 				\ { 'at'    : '^\s*fi\%#'
-	" 				\ , 'char'  : '<ESC>'
-	" 				\ , 'input': "<BS><BS>endif<ESC>"
-	" 				\ , 'filetype' : ['vim']
-	" 				\ })
 	call s:smartinput_define_rule(
 				\ { 'at'    : '^\s*fi\%#'
 				\ , 'char'  : '<CR>'
@@ -451,27 +436,10 @@ function! s:smartinput_define()
 				\   'filetype': ['vim'],
 				\   })
 
-	call s:smartinput_define_rule({
-				\   'at': 'don\%#',
-				\   'char': 't',
-				\   'input': "'t",
-				\   })
-	call s:smartinput_define_rule({
-				\   'at': 'can\%#',
-				\   'char': 't',
-				\   'input': "'t",
-				\   })
-	call s:smartinput_define_rule({
-				\   'at': 'doesn\%#',
-				\   'char': 't',
-				\   'input': "'t",
-				\   })
-
-	call s:smartinput_define_rule({
-				\   'at': ' pipe\%#',
-				\   'char': '<Space>',
-				\   'input': "<BS><BS><BS><BS>|<Space>",
-				\   })
+	call s:smartinput_define_rule_of_word('dont',"don't")
+	call s:smartinput_define_rule_of_word('cant',"can't")
+	call s:smartinput_define_rule_of_word('doesnt',"doesn't")
+	call s:smartinput_define_rule_of_word('pipe','| ')
 
 	" NOTE: if xxx { -> if (xxx) {
 	call s:smartinput_define_rule({
