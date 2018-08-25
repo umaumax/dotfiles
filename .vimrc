@@ -60,8 +60,19 @@ endif
 " VIM_DOCTOR='on' vim
 " no plug plugin mode
 " VIM_FAST_MODE='on' vim
-if &readonly || ($OS == "Windows_NT" && $VIM_FAST_MODE == '')
-	let $VIM_FAST_MODE='on'
+if $VIM_FAST_MODE == ''
+	if &readonly || $OS == "Windows_NT"
+		let $VIM_FAST_MODE='on'
+	endif
+
+	let full_path = expand("%:p")
+	" skip tmp file
+	for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
+		if full_path =~ pattern
+			let $VIM_FAST_MODE='on'
+			break
+		endif
+	endfor
 endif
 
 " let g:colorscheme = 'default'
