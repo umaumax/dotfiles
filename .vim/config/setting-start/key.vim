@@ -578,8 +578,8 @@ augroup END
 nnoremap wa :wa<CR>
 nnoremap wq :wq<CR>
 nnoremap ww :w<CR>
-nnoremap qq :call <SID>close(0)<CR>
-nnoremap q! :call <SID>close(1)<CR>
+nnoremap <silent> qq :call <SID>close(0)<CR>
+nnoremap <silent> q! :call <SID>close(1)<CR>
 " sudo save
 nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
 cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
@@ -826,12 +826,12 @@ nnoremap <Tab> :call <SID>tab_wrapper()<CR>
 function! s:untab()
 	execute "normal! ".repeat("\<Left>",col('.')-1>=&shiftwidth?&shiftwidth:0)."<<"
 endfunction
-nnoremap <S-Tab> :call <SID>untab()<CR>
+nnoremap <silent> <S-Tab> :call <SID>untab()<CR>
 
 " vnoremap <Tab> >>
 " vnoremap <S-Tab> <<
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+vnoremap <silent> <Tab> >gv
+vnoremap <silent> <S-Tab> <gv
 
 " 文字数をカウントした方がよさそう
 " visual paste関数と組み合わせる?

@@ -60,8 +60,8 @@ function! s:UnTab()
 endfunction
 " simple version
 " inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <Tab> <C-r>=<SID>Tab()<CR>
-inoremap <S-Tab> <C-r>=<SID>UnTab()<CR>
+inoremap <silent> <Tab> <C-r>=<SID>Tab()<CR>
+inoremap <silent> <S-Tab> <C-r>=<SID>UnTab()<CR>
 
 if &rtp =~ 'neosnippet'
 	" for neosnippet
