@@ -26,8 +26,14 @@ function! s:disable_opening_file()
 	endfor
 	" NOTE: disable executable file open
 	if expand('%:e') == '' && system('type '.expand('%:p:S').' >/dev/null 2>&1; echo $?')==0
-		echom "[auto closed] Don't open executable ".expand('%:S')."!\n"
-		q!
+		" NOTE: maybe you can use file and compare (e.g. mac os x 'Mach-O 64-bit executable x86_64')
+		let filesize=system('du -k '.expand('%:p:S').' | cut -f1')
+		echom filesize
+		let maxsize_k=16
+		if filesize > maxsize_k
+			echom "[auto closed] Don't open executable (more than ".filesize."k size)".expand('%:S')."!\n"
+			q!
+		endif
 		return
 	endif
 endfunction
@@ -54,7 +60,7 @@ endif
 " VIM_DOCTOR='on' vim
 " no plug plugin mode
 " VIM_FAST_MODE='on' vim
-if &readonly || $OS == "Windows_NT"
+if &readonly || ($OS == "Windows_NT" && $VIM_FAST_MODE == '')
 	let $VIM_FAST_MODE='on'
 endif
 
@@ -128,11 +134,11 @@ let mapleader = "\<Space>"
 
 " save cwd
 let s:cwd = getcwd()
-if $VIM_FAST_MODE == ''
+if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off'
 	runtime! config/package_manager/*.vim
 endif
 " NOTE: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
-command! Enhance :let $VIM_FAST_MODE='' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
+command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 " load cwd
@@ -162,7 +168,9 @@ endif
 " NOTE: bufnr() contains tabs
 " NOTE: VimEnter前はtabpagenr('$') == 1 (always)
 function! s:buffer_to_tab()
-	if expand('%') != '' && tabpagenr('$') == 1 && bufnr('$') >= 2
+	let filename=expand('%')
+	" NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade -> [Plugins]
+	if filename != '' && filename != '[Plugins]' && tabpagenr('$') == 1 && bufnr('$') >= 2
 		:tab sball
 		" NOTE: to kick autocmd
 		call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')

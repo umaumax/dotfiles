@@ -842,9 +842,9 @@ alias fastvim='VIM_FAST_MODE=on vim'
 alias virc='vim ~/.vimrc'
 alias vimrc='vim ~/.vimrc'
 alias viminfo='vim ~/.viminfo'
-alias vimpluginstall="vim -c ':PlugInstall' ''"
-alias vimplugupdate="vim -c ':PlugUpdate' ''"
-alias vimplugupgrade="vim -c ':PlugUpgrade' ''"
+alias vimpluginstall="VIM_FAST_MODE='off' vim -c ':PlugInstall' ''"
+alias vimplugupdate="VIM_FAST_MODE='off' vim -c ':PlugUpdate' ''"
+alias vimplugupgrade="VIM_FAST_MODE='off' vim -c ':PlugUpgrade' ''"
 alias vimpi="vim -c ':PlugInstall' ''"
 alias vimpud="vim -c ':PlugUpdate' ''"
 alias vimpug="vim -c ':PlugUpgrade' ''"
