@@ -316,9 +316,10 @@ Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 
 " for ascii color code
 Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
+
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
-Plug 'bronson/vim-trailing-whitespace', {'on':['FixWhitespace']}
+LazyPlug 'bronson/vim-trailing-whitespace'
 
 " ```のあとで<CR>するとindentされてしまう問題がある
 " Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
