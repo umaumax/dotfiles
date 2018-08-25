@@ -56,5 +56,5 @@ GPL/include/vpu/autoconf.h
 GPL/include/vpu/version.h
 
 # local setting
-# build/
-# bin/
+build/
+bin/
