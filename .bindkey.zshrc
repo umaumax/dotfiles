@@ -48,6 +48,9 @@ bindkey '^[[1;2C' emacs-forward-word
 bindkey '^X^A' backward-kill-line
 bindkey '^X^E' kill-line
 
+# F:fix
+bindkey -e '^X^F' edit-command-line
+
 function _set_only_LBUFFER() {
 	if [[ -z "$BUFFER" ]]; then
 		LBUFFER="$1"
