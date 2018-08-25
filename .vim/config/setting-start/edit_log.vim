@@ -6,6 +6,7 @@ function! s:edit_log()
 	" NOTE: home dirpathには正規表現が含まれていないと仮定
 	let full_path = substitute(expand("%:p"), '^'.$HOME, '~','')
 	let g:vim_edit_log_map = get(g:, 'vim_edit_log_map', {'':1})
+	let g:vim_edit_log_map[g:vim_edit_log_path] = 1
 	if has_key(g:vim_edit_log_map, full_path)
 		return
 	endif

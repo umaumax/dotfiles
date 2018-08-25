@@ -527,6 +527,7 @@ alias pipevim='vim -'
 alias xargs-vim='_xargs-vim -'
 # alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
+alias viminfo-ls-edit='vim ~/.vim_edit_log'
 if cmdcheck peco; then
 	alias cpeco='command peco'
 	alias pecovim='peco | xargs-vim'
