@@ -931,6 +931,8 @@ alias \#='echo "skip comment: "'
 
 # brew install source-highlight
 cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
+# ubuntu
+[[ -e "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
 # for colordiff
 if cmdcheck icdiff; then
