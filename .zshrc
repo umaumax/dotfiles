@@ -225,7 +225,13 @@ cmdcheck 'cmake' && function cmake-clean() {
 }
 
 alias basedirname='basename $PWD'
-alias find-git-repo="find . -name '.git' | sed 's:/.git$::g'"
+function find-git-repo() {
+	local args=(${@})
+	[[ $# -le 0 ]] && local args=(".")
+	for dirpath in ""${args[@]}""; do
+		find "$dirpath" -name '.git' | sed 's:/.git$::g'
+	done
+}
 alias find-time-sort='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -altr'
 alias find-time-sortr='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -alt'
 alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
@@ -253,7 +259,7 @@ function find-git-non-up-to-date-repo() {
 	cmdcheck ccze && ccze="ccze -A"
 	while read line || [ -n "${line}" ]; do
 		git-check-up-to-date "$line" | eval $ccze
-	done < <(find-git-repo)
+	done < <(find-git-repo "$@")
 }
 # [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
 function git-root() {
