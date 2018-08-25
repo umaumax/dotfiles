@@ -1,3 +1,17 @@
+" NOTE: ignore yank blank string
+nnoremap <silent> dd "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+vnoremap <silent> d "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+
+for i in range(0,9)
+	execute "nnoremap y".i." :let @+=@".i."\<CR>:echo '[copyed]:'.split(@+, \"\\n\")[0]\<CR>"
+endfor
+
+finish
+
+"-------------------------------- 
+"-------------------------------- 
+"-------------------------------- 
+
 let s:yy=''
 let s:dd=''
 
@@ -76,7 +90,3 @@ augroup text-yank-post-group
 	" NOTE: yankした内容も@1~9に保存させる(TextYankPost内で@+を変更すると無限ループ?)
 	" 	autocmd TextYankPost * if @+ != '' && @+ != "\n" && @1 != @+ | let @1 = @+ | endif
 augroup END
-
-for i in range(0,9)
-	execute "nnoremap y".i." :let @+=@".i."\<CR>:echo '[copyed]:'.split(@+, \"\\n\")[0]\<CR>"
-endfor
