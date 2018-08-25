@@ -142,22 +142,23 @@ function git_diff() {
 	is_git_repo_with_message || return
 
 	local diff_cmd='cdiff'
-	[[ $# -ge 1 ]] && local diff_cmd="$1"
-	local files=($(git diff --stat | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
+	# 	[[ $# -ge 1 ]] && local diff_cmd="$1"
+	local files=($(git diff --stat "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
 	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
 	for e in "${files[@]}"; do
 		[[ -e "$e" ]] && echo $e >>$tmpfile
 	done
 	local files=($(cat $tmpfile))
-	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "${files[@]}"
+	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
-alias gdh='git diff HEAD'
-alias gdhh='git diff HEAD~'
-alias gdhhh='git diff HEAD~~'
-alias gdhhhh='git diff HEAD~~~'
-alias gdhhhhh='git diff HEAD~~~~'
-alias gdhhhhhh='git diff HEAD~~~~~'
+alias gdh='gd HEAD'
+alias gdhh='gd HEAD HEAD~'
+alias gdhhh='gd HEAD~ HEAD~~'
+alias gdhhhh='gd HEAD~~ HEAD~~~'
+alias gdhhhhh='gd HEAD~~~ HEAD~~~~'
+alias gdhhhhhh='gd HEAD~~~~ HEAD~~~~~'
+alias gdhhhhhhh='gd HEAD~~~~~ HEAD~~~~~~'
 alias ga='git add --all'
 alias gc='git commit'
 alias gadd='git add'
