@@ -93,3 +93,6 @@
 
 # log
 [realtime log viewer] tail -f
+
+# mac
+[brew clean cache] brew clean -s

@@ -48,3 +48,20 @@ alias cmdparse
 	args, extra_args = parser.parse_known_args()
 	# args.option_xxx
 	# args.required_arg
+
+snippet self
+	self.
+
+snippet from
+	from ${1:# specificated name} import ${0:# package name}
+
+snippet mean_def_np
+	def mean(self):
+		mean = np.mean(self.vec, axis=0)
+		return mean
+
+snippet mean_np
+	${0:#output} = np.mean(${1:#input}, axis=0)
+
+snippet exit
+	sys.exit(${0})

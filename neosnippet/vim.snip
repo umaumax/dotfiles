@@ -30,10 +30,18 @@ snippet is_plugin_loaded
     ${0}
   endif
 
-snippet command
-  command! -nargs=${1:#n of args} ${2:#command name} :call s:${3:#funciton name}
-snippet command_range
-  command! -range -nargs=${1:#n of args} ${2:#command name} :<line1>,<line2>call s:${3:#funciton name}
+snippet command_no_args_no_call_func
+  command! -nargs=0 ${2:#command name} $0
+snippet command_call_func
+  command! -nargs=${1:#n of args} ${2:#command name} :call <SID>${3:#funciton name}(<f-args>)
+  function s:$3(${0:#function args})
+    ${0}
+  endfunction
+snippet command_range_call_func
+  command! -range -nargs=${1:#n of args} ${2:#command name} :<line1>,<line2>call <SID>${3:#funciton name}(<f-args>)
+  function s:$3(${0:#function args}) range
+    ${0}
+  endfunction
 
 snippet execute_normal
   execute 'normal! ${0}'
@@ -50,3 +58,5 @@ snippet len_multi_bytes_func
 snippet split_multi_bytes
   split(${0}, '\zs')
 
+snippet get_arg
+  get(a:, ${1:# 1,2,3,...}, ${0:#default value})

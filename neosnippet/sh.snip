@@ -21,6 +21,9 @@ snippet iswindows
         ${0}
     fi
 
+snippet trimspace
+  sed "s/^[ \t]*//"
+
 snippet devnull
   >/dev/null 2>&1
 
@@ -119,3 +122,9 @@ snippet try_catch
           return -1
       }
   }
+
+snippet date-for-file
+  date +"%Y-%m-%d_%k-%M-%S"
+
+snippet sum
+  awk '{for(i=1;i<=NF;i++)sum+=$i;} END{print sum}'
