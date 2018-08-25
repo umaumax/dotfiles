@@ -1651,6 +1651,14 @@ alias awk-sum-all='sum'
 alias awk-sum-col='sum-col'
 alias awk-sum-line='sum-line'
 
+if [[ $(uname -a) =~ "Ubuntu" ]]; then
+	alias ps-cpu='ps aux --sort -%cpu'
+	alias ps-mem='ps aux --sort -rss'
+elif [[ $(uname) == "Darwin" ]]; then
+	alias ps-cpu='ps aux -r'
+	alias ps-mem='ps aux -m'
+fi
+
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
