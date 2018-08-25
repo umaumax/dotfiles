@@ -41,3 +41,4 @@ AlterCommand tab[info] TabInfo
 AlterCommand cmd CmdlineWindow
 AlterCommand wc[md] Wcmd
 AlterCommand ws[earch] Wsearch
+AlterCommand tac Tac

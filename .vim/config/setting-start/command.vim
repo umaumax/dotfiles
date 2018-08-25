@@ -137,3 +137,20 @@ command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>cal
 
 " NOTE: 匿名化コマンド
 execute "command! -range Anonymous :%s:".$HOME.":\${HOME}:gc | :%s:".$USER."@:\${USER}@:gc"
+
+" [editing \- How reverse selected lines order in vim? \- Super User]( https://superuser.com/questions/189947/how-reverse-selected-lines-order-in-vim )
+command! -nargs=0 -bar -range=% Tac
+			\       let save_mark_t = getpos("'t")
+			\<bar>      <line2>kt
+			\<bar>      exe "<line1>,<line2>g/^/m't"
+			\<bar>  call setpos("'t", save_mark_t)
+			\<bar>  nohlsearch
+
+" TODO: enable pass arg which contains space as prefix or suffix
+function s:join(...) range
+	let delim=get(a:, 1, ' ')
+	let lines = join(getline(a:firstline, a:lastline), delim)
+	execute 'normal! '.(a:lastline-a:firstline+1).'"_dd'
+	call append(a:firstline-1, lines)
+endfunction
+command! -nargs=? -bar -range=% Join :<line1>,<line2>call <SID>join(<f-args>)
