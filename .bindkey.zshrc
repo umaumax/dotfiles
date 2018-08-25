@@ -25,21 +25,21 @@ function _insert_strs() {
 	done
 	zle -R -c # refresh
 }
-bindkey -e '"' _double_quotes && zle -N _double_quotes && function _double_quotes() { _insert_strs '""' 1; }
-bindkey -e "'" _single_quotes && zle -N _single_quotes && function _single_quotes() { _insert_strs "''" 1; }
-bindkey -e "\`" _exec_quotes && zle -N _exec_quotes && function _exec_quotes() { _insert_strs '``' 1; }
-bindkey -e "^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes() { _insert_strs '$()' 2; }
-bindkey -e "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; }
-bindkey -e "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
-bindkey -e "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
+bindkey '"' _double_quotes && zle -N _double_quotes && function _double_quotes() { _insert_strs '""' 1; }
+bindkey "'" _single_quotes && zle -N _single_quotes && function _single_quotes() { _insert_strs "''" 1; }
+bindkey "\`" _exec_quotes && zle -N _exec_quotes && function _exec_quotes() { _insert_strs '``' 1; }
+bindkey "^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes() { _insert_strs '$()' 2; }
+bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; }
+bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
+bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
 
-bindkey -e "^F" backward-delete-char
-bindkey -e "^D" delete-char
+bindkey "^F" backward-delete-char
+bindkey "^D" delete-char
 
-bindkey -e "^H" backward-char
-bindkey -e "^K" up-line-or-history
-bindkey -e "^J" down-line-or-history
-bindkey -e "^L" forward-char
+bindkey "^H" backward-char
+bindkey "^K" up-line-or-history
+bindkey "^J" down-line-or-history
+bindkey "^L" forward-char
 
 # NOTE: Shift + arrow
 bindkey '^[[1;2D' emacs-backward-word
@@ -49,7 +49,7 @@ bindkey '^X^A' backward-kill-line
 bindkey '^X^E' kill-line
 
 # F:fix
-bindkey -e '^X^F' edit-command-line
+bindkey '^X^F' edit-command-line
 
 function _set_only_LBUFFER() {
 	if [[ -z "$BUFFER" ]]; then
