@@ -41,14 +41,14 @@ abbr to enable alias at bash
 snippet for_array
 alias forarray
   for ${2:# element name} in "${${1:#array name}[@]}"; do
-    echo $2
+    echo $$2
     ${0}
   done
 
 snippet for_ls
 alias forls
   for ${2:# element name} in `ls ${1:# ls target}`; do
-    echo $2
+    echo $$2
     ${0}
   done
 
@@ -63,18 +63,21 @@ snippet echoerr
     echo 1>&2 ${0}
 
 snippet array
-    "${${0:array name}[@]}"
+    "${${0:#array name}[@]}"
 
 snippet array_len
-    ${#${0:array}[@]}
+    ${#${0:#array name}[@]}
+
+snippet array_assign
+    ${2:#dst array name}a=("${${0:#src array name}[@]}")
 
 snippet append_array
 alias array_append
-    ${2:dst array}=("${${1:src array}[@]}" ${0}) 
+    ${2:#dst array}=("${${1:#src array}[@]}" ${0})
 
 snippet append_array_self
 alias array_append_self
-    ${1:dst array}+=(${0})
+    ${1:#dst array}+=(${0})
 
 snippet tmpfile
 abbr don't use in .xxxrc or .xxx_profile
