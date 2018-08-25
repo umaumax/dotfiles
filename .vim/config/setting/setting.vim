@@ -90,10 +90,6 @@ call s:set_tab(2)
 set undofile
 execute 'set undodir='.g:tempfiledir
 
-" completion menu color setting
-highlight Pmenu    ctermfg=white ctermbg=darkcyan  guifg=#ffffff guibg=#4169E1
-highlight PmenuSel cterm=bold    ctermfg=lightblue ctermbg=black gui=bold guifg=#4682B4 guibg=#000000
-
 " 全角スペースに色を付加
 hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue " 全角スペースの定義
 match ZenkakuSpace /　/ 			" 全角スペースの色を変更
