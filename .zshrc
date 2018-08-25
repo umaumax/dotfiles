@@ -434,6 +434,14 @@ if [[ -n $_Ubuntu ]]; then
 
 	alias os_ver='cat /etc/os-release | grep VERSION_ID | grep -o "[0-9.]*"'
 fi
+if [[ $(uname) == "Darwin" ]]; then
+	# [Find the Wi\-Fi Network Password from Windows, Mac or Linux]( https://www.labnol.org/software/find-wi-fi-network-password/28949/ )
+	function show-Wi-Fi-password() {
+		local SSID=$(networksetup -listpreferredwirelessnetworks $(networksetup -listallhardwareports | grep -A1 Wi-Fi | sed -n 2,2p | sed 's/Device: //g') | peco | sed "s/^[ \t]*//")
+		echo $SSID
+		[[ -n $SSID ]] && security -i find-generic-password -wa "$SSID"
+	}
+fi
 
 pipe-EOF-do() {
 	local v=$(cat)
