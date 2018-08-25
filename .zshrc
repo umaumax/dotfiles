@@ -215,7 +215,8 @@ if cmdcheck tig; then
 	}
 fi
 
-cmdcheck ccze && alias ccze='ccze -A'
+# NOTE: -o nolookups: speedup
+cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
@@ -384,9 +385,6 @@ if [[ -n $_Darwin ]]; then
 		VSCODE_CWD="$PWD"
 		open -n -b "com.microsoft.VSCode" --args $*
 	}
-
-	# NOTE: 何も設定をしないと表示がくずれるため
-	cmdcheck ccze && alias ccze='ccze -A'
 fi
 
 function mvim() {
