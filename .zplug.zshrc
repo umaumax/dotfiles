@@ -1,41 +1,44 @@
 local USE_ZPLUG=0
 
 if [[ $USE_ZPLUG == 0 ]]; then
-	# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
-	zshdir=~/.zsh
-	[[ ! -e $zshdir ]] && mkdir -p $zshdir
+	function {
+		# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
+		local zshdir=~/.zsh
+		[[ ! -e $zshdir ]] && mkdir -p $zshdir
 
-	[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
-	fpath=($zshdir/zsh-completions/src $fpath)
+		[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
+		fpath=($zshdir/zsh-completions/src $fpath)
 
-	[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
-	source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
+		[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
+		source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-	[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
-	source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
+		[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
+		source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-	[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
-	# NOTE: 変数を設定してからsourceする必要がある
-	EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
-	EASY_ONE_KEYBIND="^r" # default "^x^x"
-	EASY_ONE_FILTER_COMMAND="fzy"
-	EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
-	source $zshdir/easy-oneliner/easy-oneliner.zsh
+		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
+		# NOTE: 変数を設定してからsourceする必要がある
+		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
+		EASY_ONE_KEYBIND="^r" # default "^x^x"
+		EASY_ONE_FILTER_COMMAND="fzy"
+		EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
+		source $zshdir/easy-oneliner/easy-oneliner.zsh
 
-	# [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
-	[[ ! -e $zshdir/cd-bookmark ]] && git clone https://github.com/mollifier/cd-bookmark.git $zshdir/cd-bookmark
-	fpath=($zshdir/cd-bookmark $fpath)
-	autoload -Uz cd-bookmark
-	function cdb() {
-		[[ $# -gt 0 ]] && cd-bookmark "$@" && return
-		local tag=$(cd-bookmark | peco | cut -d'|' -f1)
-		[[ -n $tag ]] && cd-bookmark "$tag"
+		# [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
+		[[ ! -e $zshdir/cd-bookmark ]] && git clone https://github.com/mollifier/cd-bookmark.git $zshdir/cd-bookmark
+		fpath=($zshdir/cd-bookmark $fpath)
+		autoload -Uz cd-bookmark
+		function cdb() {
+			[[ $# -gt 0 ]] && cd-bookmark "$@" && return
+			local tag=$(cd-bookmark | peco | cut -d'|' -f1)
+			[[ -n $tag ]] && cd-bookmark "$tag"
+		}
+		autoload -Uz compinit
 	}
-
-	autoload -Uz compinit
 	return
 fi
 
+bindkey $EASY_ONE_KEYBIND easy-oneliner
+echo afjklafjlkafjl
 # zplug
 # NOTE: zplug影響下ではreloginができなくなる...，ため， zplugで大量に管理しない場合には上記のほうがおすすめ
 [[ ! -e ~/.zplug ]] && curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh

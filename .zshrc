@@ -631,239 +631,6 @@ function git-rename-to-backup-branch-peco() {
 	[[ -n $branch ]] && git rename {,$prefix}"$branch"
 }
 
-function _insert_strs() {
-	local n=${2:-$#1}
-	local BUFFER_="${LBUFFER}$1${RBUFFER}"
-	local CURSOR_=$CURSOR
-	# NOTE: to avoid show unnecessary completion
-	zle kill-buffer
-	BUFFER="$BUFFER_"
-	# NOTE: don't use below command because this cause mono color
-	# 	CURSOR=$((CURSOR_ + 1))
-	CURSOR=$((CURSOR_))
-	for i in $(seq $n); do
-		zle forward-char
-	done
-	zle -R -c # refresh
-}
-function _double_quotes() { _insert_strs '""' 1; }
-zle -N _double_quotes
-bindkey -e '"' _double_quotes
-
-function _single_quotes() { _insert_strs "''" 1; }
-zle -N _single_quotes
-bindkey -e "'" _single_quotes
-
-function _exec_quotes() { _insert_strs '``' 1; }
-zle -N _exec_quotes
-bindkey -e "\`" _exec_quotes
-
-function _exec2_quotes() { _insert_strs '$()' 2; }
-zle -N _exec2_quotes
-bindkey -e "^O" _exec2_quotes
-
-function _paren() { _insert_strs '()' 1; }
-zle -N _paren
-bindkey -e "(" _paren
-
-function _brace() { _insert_strs '{}' 1; }
-zle -N _brace
-bindkey -e "{" _brace
-
-function _bracket() { _insert_strs '[]' 1; }
-zle -N _bracket
-bindkey -e "[" _bracket
-
-bindkey -e "^L" forward-char
-bindkey -e "^H" backward-char
-bindkey -e "^F" backward-delete-char
-bindkey -e "^D" delete-char
-bindkey -e "^K" up-line-or-history
-bindkey -e "^J" down-line-or-history
-
-# NOTE: Shift + arrow
-bindkey '^[[1;2D' emacs-backward-word
-bindkey '^[[1;2C' emacs-forward-word
-
-function _insert_sudo() {
-	if [[ -z "$BUFFER" ]]; then
-		LBUFFER='sudo '
-	fi
-}
-zle -N _insert_sudo
-bindkey "^S" _insert_sudo
-
-function _insert_git() {
-	if [[ -z "$BUFFER" ]]; then
-		LBUFFER='git '
-	fi
-}
-zle -N _insert_git
-bindkey "^G" _insert_git
-
-function _copy_command() {
-	echo "$BUFFER" | tr -d '\n' | c
-	zle kill-whole-line
-	zle -R -c # refresh
-}
-zle -N _copy_command
-bindkey '^X^P' _copy_command
-bindkey '^Y' _copy_command
-
-function _paste_command() { _insert_strs "$(p)"; }
-zle -N _paste_command
-bindkey '^V' _paste_command
-
-function _goto_middle_of_line() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 2))
-	zle -R -c # refresh
-}
-zle -N _goto_middle_of_line
-bindkey '^X^M' _goto_middle_of_line
-
-function _goto_line_1() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 1))
-	zle -R -c # refresh
-}
-zle -N _goto_line_1
-bindkey '^X1' _goto_line_1
-function _goto_line_2() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 2))
-	zle -R -c # refresh
-}
-zle -N _goto_line_2
-bindkey '^X2' _goto_line_2
-function _goto_line_3() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 3))
-	zle -R -c # refresh
-}
-zle -N _goto_line_3
-bindkey '^X3' _goto_line_3
-function _goto_line_4() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 4))
-	zle -R -c # refresh
-}
-zle -N _goto_line_4
-bindkey '^X4' _goto_line_4
-function _goto_line_5() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 5))
-	zle -R -c # refresh
-}
-zle -N _goto_line_5
-bindkey '^X5' _goto_line_5
-function _goto_line_6() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 6))
-	zle -R -c # refresh
-}
-zle -N _goto_line_6
-bindkey '^X6' _goto_line_6
-function _goto_line_7() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 7))
-	zle -R -c # refresh
-}
-zle -N _goto_line_7
-bindkey '^X7' _goto_line_7
-function _goto_line_8() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 8))
-	zle -R -c # refresh
-}
-zle -N _goto_line_8
-bindkey '^X8' _goto_line_8
-function _goto_line_9() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 9))
-	zle -R -c # refresh
-}
-zle -N _goto_line_9
-bindkey '^X9' _goto_line_9
-function _goto_line_0() {
-	CURSOR=$#BUFFER
-	CURSOR=$((CURSOR / 11 * 10))
-	zle -R -c # refresh
-}
-zle -N _goto_line_0
-bindkey '^X0' _goto_line_0
-
-# [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
-# quote previous word in single or double quote
-autoload -U modify-current-argument
-_quote-previous-word-in-single() {
-	modify-current-argument '${(qq)${(Q)ARG}}'
-	zle vi-forward-blank-word
-}
-zle -N _quote-previous-word-in-single
-bindkey '^Xs' _quote-previous-word-in-single
-bindkey '^X^S' _quote-previous-word-in-single
-
-_quote-previous-word-in-double() {
-	modify-current-argument '${(qqq)${(Q)ARG}}'
-	zle vi-forward-blank-word
-}
-zle -N _quote-previous-word-in-double
-bindkey '^Xd' _quote-previous-word-in-double
-bindkey '^X^D' _quote-previous-word-in-double
-
-function my-backward-delete-word() {
-	local WORDCHARS=${WORDCHARS/\//}
-	zle backward-delete-word
-}
-zle -N my-backward-delete-word
-# shift+tab
-bindkey '^[[Z' my-backward-delete-word
-
-# # <C-R>
-# # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
-# function _peco-select-history() {
-# 	# historyを番号なし、逆順、最初から表示。
-# 	# 順番を保持して重複を削除。
-# 	# カーソルの左側の文字列をクエリにしてpecoを起動
-# 	# \nを改行に変換
-# 	BUFFER="$(builtin history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
-# 	CURSOR=$#BUFFER # カーソルを文末に移動
-# 	zle -R -c       # refresh
-# }
-# zle -N _peco-select-history
-# bindkey '^R' _peco-select-history
-
-# <C-X><C-S>
-# function _peco-snippets() {
-# 	local color_cmd=('cat')
-# 	# 	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
-# 	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | command peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
-# 	CURSOR=$#BUFFER
-# 	zle -R -c # refresh
-# }
-# zle -N _peco-snippets
-# bindkey '^x^s' _peco-snippets
-
-function peco-select-history() {
-	local tac
-	if which tac >/dev/null; then
-		tac="tac"
-	else
-		tac="tail -r"
-	fi
-	local query="$LBUFFER"
-	local opts=("--query" "$LBUFFER")
-	[[ -z $query ]] && local opts=()
-	BUFFER=$(builtin history -nr 1 |
-		eval $tac |
-		command peco "${opts[@]}")
-	CURSOR=$#BUFFER
-	zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^X^O' peco-select-history
-
 function cheat() {
 	# below commands enable alias
 	# for 高速vim起動
@@ -1726,21 +1493,6 @@ function gsync-upload() {
 	gdrive sync upload . $ID
 }
 
-# [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
-# Ctrl-Zを使ってVimにスイッチバックする
-# vim -> C-z -> zsh -> Ctrl-z or fg
-fancy-ctrl-z() {
-	if [[ $#BUFFER -eq 0 ]]; then
-		BUFFER="fg"
-		zle accept-line
-	else
-		zle push-input
-		zle clear-screen
-	fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
 if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
 	source "${ZDOTDIR:-$HOME}/.local.zshrc"
 fi
@@ -1792,57 +1544,15 @@ if [[ -n $_Ubuntu ]]; then
 	add-zsh-hook precmd precmd_function
 fi
 
-# windows setting
-if [[ $OS == Windows_NT ]]; then
-	# tmuxを起動するとx86_64のみになる
-	# if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
-	if [[ -n $BASH ]]; then
-		PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h (x_x)/(\[\e[35m\]$MSYSTEM\[\e[0m\]) \[\e[33m\]\w\[\e[0m\]\n\$ "
-	else
-		# zsh
-		# NOTE:元から表示がずれるので、あえて全角文字を入れたらちょうどよくなった
-		PROMPT=$(echo "\x1b[0m\x1b[01;32m[${USER}@${HOST%%.*}\x1b[0m\x1b"" ""\x1b[0m\x1b[01;35m (x_x)<($MSYSTEM)\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b""\r\n"'★$ ')
-		function simple_prompt() {
-			PROMPT=$(echo "\x1b[0m\x1b"" ""\x1b[0m\x1b[01;33m"" "'%~'"\x1b[0m\x1b"'$ ')
-		}
-	fi
-	export HISTFILE=${HOME}/.zsh_history
-	export HISTSIZE=100000
-
-	# NOTE: how about using windows native clip command?
-	if [[ -e /dev/clipboard ]]; then
-		alias p='(cat /dev/clipboard)'
-		alias _c='(cat > /dev/clipboard)'
-	else
-		cmdcheck gopaste && alias p='gopaste'
-		cmdcheck gocopy && alias _c='gocopy'
-	fi
-
-	## windows ls color
-	export LS_COLORS="di=01;36"
-	alias ls='ls --color=auto --show-control-chars'
-
-	alias cmd='winpty cmd'
-	alias psh='winpty powershell'
-	alias ipconfig='winpty ipconfig'
-	alias ifconfig='winpty ipconfig'
-	alias netstat='winpty netstat'
-	alias netsh='winpty netsh'
-	alias ping='winpty ping'
-	alias ver='cmd.exe /c "ver"'
-	alias winver='cmd.exe /c "winver" &'
-	alias open='bash -c "cd \$0 && start ."'
-
-	export PATH=~/go/bin:$PATH
-	export WIN_HOME="/c/Users/$USER"
-
-	alias fg.my.md='find "$WIN_HOME/Documents" -name "*.md" -print0 | xargs-grep-0'
-	# NOTE:findでシンボリックリンクを仲介すると極端に挙動が遅くなる
-	alias mdfind='_mdfind(){ find $WIN_HOME/Documents -name "*.md" -exec grep -n --color=auto "$@" {} + } && _mdfind'
-	alias win-home='cd $WIN_HOME'
-	alias winhome='cd $WIN_HOME'
-	alias wcd='cd $WIN_HOME'
-fi
+# [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
+function show-all-files-which-processes-grab() {
+	lsof |
+		grep REG |
+		grep -v "stat: No such file or directory" |
+		grep -v DEL |
+		awk '{if ($NF=="(deleted)") {x=3;y=1} else {x=2;y=0}; {print $(NF-x) "  " $(NF-y) } }' |
+		sort -n -u
+}
 
 # edit clipboard
 function cedit() {
@@ -1915,8 +1625,20 @@ function solve_caesar_cipher() {
 }
 
 alias date-for-file='date +"%Y-%m-%d_%k-%M-%S"'
-alias sum-y="awk '{for(i=1;i<=NF;i++)sum[i]+=\$i;} END{for(i in sum)printf \"%d \", sum[i]; print \"\"}'"
 
+alias sum="awk '{for(i=1;i<=NF;i++)sum+=\$i;} END{print sum}'"
+alias sum-all='sum'
+alias sum-col="awk '{for(i=1;i<=NF;i++)sum[i]+=\$i;} END{for(i in sum)printf \"%d \", sum[i]; print \"\"}'"
+alias sum-line="awk '{sum=0; for(i=1;i<=NF;i++)sum+=\$i; print sum}'"
+alias awk-sum='sum'
+alias awk-sum-all='sum'
+alias awk-sum-col='sum-col'
+alias awk-sum-line='sum-line'
+
+# ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# ---- don't add code here by your hand
 
-[[ -e ~/.zplug.zshrc ]] && source ~/.zplug.zshrc
+[[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
+[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
+[[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc

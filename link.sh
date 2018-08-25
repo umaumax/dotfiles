@@ -8,14 +8,18 @@ ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
-ln -sf ~/dotfiles/.zplug.zshrc ~/
+
+[[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
+ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
 
 ln -sf ~/dotfiles/.wgit ~/
 
 [[ ! -d ~/.vim/ ]] && mkdir -p ~/.vim
 # NOTE: windows ln behave like cp (to avoid 'cannot overwrite directory')
 if [[ "$OS" =~ "Windows" ]]; then
-	[[ -e ~/dotfiles/.vim/config ]] && rm -rf ~/dotfiles/.vim/config
+	[[ -e ~/.vim/config ]] && rm -rf ~/.vim/config
 fi
 ln -fs ~/dotfiles/.vim/config ~/.vim/
 
