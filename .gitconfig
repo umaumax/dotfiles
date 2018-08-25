@@ -2,30 +2,36 @@
 	editor = vim
 	# for japanese chars
 	quotepath = false
-[push]
-	default = simple
 [alias]
 	a = add --all
 	add-changed-deleted = add . --update
 	add-all = add . --all
+
+	alias = config --get-regexp 'alias.*'
+
+	amend = commit --amend --no-edit
+	fix-typo = commit --amend
+
 	b = branch
-	commits-of-file = log -p
-	commit-id-short = show -s --format=%h
-	commit-id-long = show -s --format=%H
-	change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
+	branch-current-name = rev-parse --abbrev-ref HEAD
+	branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
+	tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
+
 	co = checkout
 	checkout-new-branch = checkout -b
 	checkout--orphan-images = checkout --orphan images
-	remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
-	remote-remove-origin = remote remove origin
-	# e.g. --since="2018/04/01"
-	tag-time-sort-w = log --no-walk --tags --since='1 week ago'
-	tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
-	tag-time-sort-2w = log --no-walk --tags --since='2 weeks ago'
-	tag-list = for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags
-	tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
-	m = merge
-	mt = mergetool
+
+	c = commit
+	cm = commit
+	commit-first = commit -m 'First commit'
+	commits-of-file = log -p
+	commit-id-short = show -s --format=%h
+	commit-id-long = show -s --format=%H
+
+	conflicts = !git ls-files -u | cut -f 2 | sort -u
+
+	change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
+
 	# for ubuntu
 	# [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
 	# for mac
@@ -39,59 +45,76 @@
 	diff-head3 = diff HEAD~~~
 	diff-head4 = diff HEAD~~~~
 	dt = difftool
-	s = status
-	st = status
-	st-all = status --ignored
-	c = commit
-	cm = commit
-	commit-first = commit -m 'First commit'
-	push-origin-master   = push -u origin   master
-	push-upstream-master = push -u upstream master
-	push-origin-images   = push -u origin   images
+	modified-files = diff --name-only
+
+	grep-code-diff = log -p -S
+	grep-commit-message = log --grep
+	grep-reg = grep -E
+
+	l = log
+	log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags
+	log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags --since='1 day ago'
+	log-one-line-a-week = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags --since='1 week ago'
+	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	graph = log --oneline --decorate --graph --branches --tags --remotes
+	stat = log --stat
+	diff-log = log -p
+
 	# [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
 	# NOTE: this alias is auto generated
 # 	ls = ~/local/bin/git-ls
 	ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
 	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
-	amend = commit --amend --no-edit
-	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
-	graph = log --oneline --decorate --graph --branches --tags --remotes
-	rename = branch -m
-	l = log
-  log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags
-	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	pull-rebase-upstream-master = pull --rebase upstream master
-	pull-rebase-origin-master = pull --rebase origin master
-	url = remote -v
-	unstage = reset HEAD
-	unstage-permanent = rm --cached -r
-	conflicts = !git ls-files -u | cut -f 2 | sort -u
-	rebase-undo-from-pre-commit = reset --hard HEAD
-	rebase-undo-from-post-commit = reset --hard ORIG_HEAD
+
+	m = merge
+	mt = mergetool
 	merge-undo-from-pre-commit = reset --hard HEAD
 	merge-undo-from-post-commit = reset --hard ORIG_HEAD
-	branch-current-name = rev-parse --abbrev-ref HEAD
-	tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
 	# [Gitで特定のコミットを含むマージコミットを検索する \- Qiita]( https://qiita.com/shigezo/items/6df2a0515d31e6e0432b )
 	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
 	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
-	fix-typo = commit --amend
-	rebase-abort = rebase --abort
-	grep-code-diff = log -p -S
-	grep-commit-message = log --grep
-	grep-reg = grep -E
-	branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
-	modified-files = diff --name-only
-	stat = log --stat
-	diff-log = lop -p
-	alias = config --get-regexp 'alias.*'
+
 	# 単体の差分
 	monod    = "!f() { git diff "$1"^.."$1"; }; f"
 	monodiff = "!f() { git diff "$1"^.."$1"; }; f"
 	monol    = "!f() { git log --stat "$1"^.."$1"; }; f"
 	monolog  = "!f() { git log --stat "$1"^.."$1"; }; f"
+
+	push-origin-master   = push -u origin   master
+	push-upstream-master = push -u upstream master
+	push-origin-images   = push -u origin   images
+
+	pull-rebase-upstream-master = pull --rebase upstream master
+	pull-rebase-origin-master = pull --rebase origin master
+
+	rebase-abort = rebase --abort
+	rebase-undo-from-pre-commit = reset --hard HEAD
+	rebase-undo-from-post-commit = reset --hard ORIG_HEAD
+
+	remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
+	remote-remove-origin = remote remove origin
+
+	rename = branch -m
+
+	s = status
+	st = status
+	st-all = status --ignored
+
+	# e.g. --since="2018/04/01"
+	tag-time-sort-w = log --no-walk --tags --since='1 week ago'
+	tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
+	tag-time-sort-2w = log --no-walk --tags --since='2 weeks ago'
+	tag-list = for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags
+	tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
+
+	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
+
+	unstage = reset HEAD
+	unstage-permanent = rm --cached -r
+
+	url = remote -v
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
@@ -117,6 +140,9 @@
 	linenumber = bold white
 	filename = yellow
 	function = green
+
+[push]
+	default = simple
 [diff]
 	compactionHeuristic = true
 [grep]
