@@ -45,6 +45,9 @@ if v:version >= 800 && has('python3')
 		let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
 	endif
 
+	" NOTE: deoplete source using `git grep`
+	LazyPlug 'rinx/deoplete-auto-programming'
+
 	Plug 'umaumax/deoplete-docker', {'for':['dockerfile']}
 
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
