@@ -31,6 +31,10 @@ function! IncludeGuardVim()
 				\."\tfinish\n"
 				\."endif\n"
 				\."let g:loaded_".s:var_name." = 1\n"
+				\.""
+				\."let s:save_cpo = &cpo"
+				\."set cpo&vim"
+				\.""
 	let s:foot="\n"."let &cpo = s:save_cpo\n"
 				\."unlet s:save_cpo"
 	if ctrlp_flag
