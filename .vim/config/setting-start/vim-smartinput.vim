@@ -61,7 +61,7 @@ function! s:smartinput_define()
 	" inoremap "s ""<C-g>U<Left>
 	" inoremap 's ''<C-g>U<Left>
 	" inoremap <s <><C-g>U<Left>
-	" 
+	"
 	" inoremap {} {}<C-g>U<Left>
 	" inoremap [] []<C-g>U<Left>
 	" inoremap () ()<C-g>U<Left>

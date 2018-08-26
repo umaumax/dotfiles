@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## pre-commit script to prevent merge markers from being committed. 
+## pre-commit script to prevent merge markers from being committed.
 
 ##
 ## This simply searches the files that you are about to commit.

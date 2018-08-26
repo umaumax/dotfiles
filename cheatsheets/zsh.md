@@ -2,7 +2,7 @@
 
 ## array
 ```
-# assign 
+# assign
 local keyword=(${@:<number>})
 # expansion
 ${keyword[@]}

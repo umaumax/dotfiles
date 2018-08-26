@@ -22,7 +22,7 @@ function! Multiple_cursors_after()
   endif
 endfunction
 
-" -------------------------------- 
+" --------------------------------
 
 " [key bindings \- How to save and restore a mapping? \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/7734/how-to-save-and-restore-a-mapping )
 fu! s:Save_mappings(keys, mode, global) abort

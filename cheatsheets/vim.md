@@ -58,7 +58,7 @@ let g:NERDTreeMapOpenVSplit='v' " 's'
 
 ## ctrlpv.vim
 `<C-p>`: file search at default
-`<C-p>`: grep search at quickfix window 
+`<C-p>`: grep search at quickfix window
 
 ## QuickFix
 ```

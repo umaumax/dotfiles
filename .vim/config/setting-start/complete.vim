@@ -4,7 +4,7 @@ inoremap <C-X><C-V> <C-R>=ClangLibToolingComp()<CR>
 
 func! ClangLibToolingComp() abort
 	let l:line=getline('.')
-	let [buf, row, col, off] = getpos(".") 
+	let [buf, row, col, off] = getpos(".")
 	" 	let l:cursor_row=row('.')
 	" 	let l:cursor_col=col('.')
 	" 	let l:ret = system('clang-libtooling-comp', l:line."\n".l:cursor_col)

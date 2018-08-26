@@ -8,7 +8,7 @@ endfunction
 " [ERROR] Null response.
 " [ERROR] Oops! Something went wrong and I can't translate it for you :(
 " [translate\-shell doesn't work · Issue \#67 · soimort/translate\-shell]( https://github.com/soimort/translate-shell/issues/67 )
-" 
+"
 " [zquestz/s: Open a web search in your terminal\.]( https://github.com/zquestz/s )
 " s: brew install s-search
 "

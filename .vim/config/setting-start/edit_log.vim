@@ -47,5 +47,5 @@ command! CleanVimEditFileLog call <SID>clean_vim_edit_file_log()
 
 augroup edit_log_group
 	autocmd!
-	autocmd BufEnter,BufWrite * call <SID>edit_log() 
+	autocmd BufEnter,BufWrite * call <SID>edit_log()
 augroup END

@@ -22,7 +22,7 @@ function! s:GetTabList()
 		let s:tabPageText = matchstr(tabText, '^Tab page')
 		if !empty(s:tabPageText)
 			let s:pageNum = matchstr(tabText, '[0-9]*$')
-		else 
+		else
 			let s:textList = add(s:textList, printf('%d %s',
 						\ s:pageNum,
 						\ tabText,
@@ -34,7 +34,7 @@ endfunction
 
 function! s:TabListSink(line)
 	let parts = split(a:line, '\s')
-	execute 'normal! ' . parts[0] . 'gt' 
+	execute 'normal! ' . parts[0] . 'gt'
 endfunction
 
 " --------------------------------
@@ -126,6 +126,6 @@ function! FZFOpenFileFunc()
 	call fzf#run({
 				\ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
 				\ 'sink': 'e',
-				\ 'options': '-x +s --query=' . shellescape(s:file_path),
+				\ 'options': '-x +s --query=' . shellescape(s:file_path_without_line),
 				\ 'down':    '40%'})
 endfunction

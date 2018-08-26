@@ -12,7 +12,7 @@ call setline('.', line)
 " call setpos(',', [<same buf>, row, col, <same off>])
 call cursor(row, col)
 
-let [buf, row, col, off] = getpos(".") 
+let [buf, row, col, off] = getpos(".")
 let pos = getpos(".")
 call setpos('.', pos)
 ```
@@ -42,7 +42,7 @@ let array+=[4,5,6]
 ## regexp
 ```
 let url = matchstr(test, '\ca href=\([''"]\)\zs.\{-}\ze\1')
-if empty(url) 
+if empty(url)
    throw "no url recognized into ``".test."''"
 endif
 ```

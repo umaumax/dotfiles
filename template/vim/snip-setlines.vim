@@ -4,5 +4,5 @@ function! s:setlines(pos, lines)
 		return
 	endif
 	call setline(a:pos, a:lines[0])
-	call append(a:pos, a:lines[1:])	
+	call append(a:pos, a:lines[1:])
 endfunction

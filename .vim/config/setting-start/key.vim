@@ -818,7 +818,7 @@ endfunction
 function! s:tab_wrapper()
 	if &rtp =~ 'neosnippet' && neosnippet#jumpable()
 		call feedkeys("i\<Plug>(neosnippet_jump)", '')
-	else 
+	else
 		call s:count_tab()
 	endif
 endfunction

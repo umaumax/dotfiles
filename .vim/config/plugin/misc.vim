@@ -394,7 +394,7 @@ augroup END
 " NOTE: cmake v.s. rainbow
 " [Syntax highlighting not working as expected · Issue \#5 · pboettch/vim\-cmake\-syntax]( https://github.com/pboettch/vim-cmake-syntax/issues/5 )
 " [plugin cmake\.vim \- CMake syntax highlighting not working as expected \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/14803/cmake-syntax-highlighting-not-working-as-expected/14811 )
-" The issue it turns out is a conflict with the Rainbow Parenthesis plugin: 
+" The issue it turns out is a conflict with the Rainbow Parenthesis plugin:
 " NOTE' for raibow ()
 " If you want to lazy load run :RainbowToggle after loaded
 Plug 'luochen1990/rainbow'
