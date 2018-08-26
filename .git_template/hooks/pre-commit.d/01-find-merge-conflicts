@@ -16,7 +16,7 @@ grep='grep'
 cmdcheck() { type >/dev/null 2>&1 "$@"; }
 cmdcheck 'ggrep' && grep='ggrep'
 
-echo $changed | xargs $grep -E '[><=]{7}' -C 1 -H -n --color=always
+echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
 
 ## If the egrep command has any hits - echo a warning and exit with non-zero status.
 if [[ $? == 0 ]]

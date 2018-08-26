@@ -151,7 +151,7 @@ function git-reload-global-hooks() {
 	[[ -z $git_templatedir ]] && echo 'no git_templatedir setings \n e.g. git config --global init.templatedir ~/.git_template/' && return 1
 	[[ ! -d $git_templatedir ]] && echo "no such dir '$git_templatedir'" && return 1
 	local git_hookdir="$git_templatedir/hooks"
-	command cp -r "$git_hookdir" "$(git rev-parse --show-toplevel)/.git/hooks"
+	command cp -r "$git_hookdir/" "$(git rev-parse --show-toplevel)/.git/hooks"
 }
 # [Git フックの基本的な使い方 \- Qiita]( https://qiita.com/noraworld/items/c562de68a627ae792c6c#%E6%B3%A8%E6%84%8F%E7%82%B9%E3%81%BE%E3%81%A8%E3%82%81 )
 function git-find-last-space() {
