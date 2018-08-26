@@ -95,19 +95,25 @@ done
 alias gr='git-root'
 # [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
 function git-open() {
+	is_git_repo_with_message || return
 	open $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $1 }')
 }
 alias git-alias='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
 function git-ranking() {
 	builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
 }
-alias vim-git-modified='vim -p `git diff --name-only`'
+function vim-git-modified() {
+	is_git_repo_with_message || return
+	vim -p $(git diff --name-only)
+}
 # NOTE: あるファイルを特定のcommitのファイルの状態にする
 function git-revert-files() {
+	is_git_repo_with_message || return
 	local target=${1:-"HEAD^"}
 	git diff --name-only HEAD "$target" | awk 'BEGIN{ print "# edit below commands and run by yourself" }{ printf "git checkout \"'"$target"'\" %s\n", $0}' | vim -
 }
 function git-restore-stash() {
+	is_git_repo_with_message || return
 	git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
 	echo '--------------------------------'
 	echo '--------------------------------'
@@ -118,6 +124,7 @@ function git-restore-stash() {
 }
 # [\[Git\]コンフリクトをよりスマートに解消したい！ \- Qiita]( https://qiita.com/m-yamazaki/items/62fc1f877c7ab315e0d8 )
 function git-find-conflict() {
+	is_git_repo_with_message || return
 	local changed=$(git diff --cached --name-only)
 	[[ -z "$changed" ]] && return 0
 
