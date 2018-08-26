@@ -131,3 +131,11 @@ snippet date-for-file
 
 snippet sum
   awk '{for(i=1;i<=NF;i++)sum+=$i;} END{print sum}'
+
+# [Bash Templating: How to build configuration files from templates with Bash? \- Stack Overflow]( https://stackoverflow.com/questions/2914220/bash-templating-how-to-build-configuration-files-from-templates-with-bash )
+snippet template
+abbr you can use bash var in a template file
+  eval "cat <<EOF
+  $(<${1:#template file path})
+  EOF
+  " > ${0:#output file path}
