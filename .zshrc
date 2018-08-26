@@ -116,6 +116,19 @@ function git-restore-stash() {
 	echo '--------------------------------'
 	echo '--------------------------------'
 }
+# [\[Git\]コンフリクトをよりスマートに解消したい！ \- Qiita]( https://qiita.com/m-yamazaki/items/62fc1f877c7ab315e0d8 )
+function git-find-conflict() {
+	local changed=$(git diff --cached --name-only)
+	[[ -z "$changed" ]] && return 0
+
+	echo $changed | xargs egrep '[><=]{7}' -C 1 -H -I --line-number --color=always
+
+	## If the egrep command has any hits - echo a warning and exit with non-zero status.
+	if [[ $? == 0 ]]; then
+		echo "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
+		return 1
+	fi
+}
 
 cmdcheck tac || alias tac='tail -r'
 

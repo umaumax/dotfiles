@@ -79,8 +79,9 @@
 	merge-undo-from-pre-commit = reset --hard HEAD
 	merge-undo-from-post-commit = reset --hard ORIG_HEAD
 	# [Gitで特定のコミットを含むマージコミットを検索する \- Qiita]( https://qiita.com/shigezo/items/6df2a0515d31e6e0432b )
-	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+	# コマンドの引数として，<SHA-1> [branch name]
+	find-merge-commit = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	show-merge-commit = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
 	# 単体の差分
 	monod    = "!f() { git diff "$1"^.."$1"; }; f"
