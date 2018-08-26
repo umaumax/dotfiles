@@ -9,9 +9,12 @@ augroup full-width-char-conceal-group
 augroup END
 
 function! FullwidthConceal()
+	" NOTE: template
+	" 	syntax match HalfwidthHypen // display containedin=ALL conceal cchar=
 	syntax match FullwidthRectangle /□/ display containedin=ALL conceal cchar=o
 	syntax match HalfwidthMiddlePoint /·/ display containedin=ALL conceal cchar=.
 	syntax match HalfwidthHypen /—/ display containedin=ALL conceal cchar=-
 	syntax match HalfwidthHypen /‘/ display containedin=ALL conceal cchar='
 	syntax match HalfwidthHypen /’/ display containedin=ALL conceal cchar='
+	syntax match HalfwidthHypen /→/ display containedin=ALL conceal cchar=👉
 endfunction
