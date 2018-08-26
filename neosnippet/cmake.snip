@@ -96,3 +96,52 @@ snippet dump_var
       message(STATUS "${_variableName}=${${_variableName}}")
     endforeach()
     message(STATUS "*** dump end ***")
+
+snippet message
+alias echo
+    message(${0})
+
+snippet messages_list
+alias echo_list echo_var
+    message("\${${0:# list var name}}")
+
+snippet foreach_list
+abbr    don't use ${} as var name here
+options head
+  foreach(${1:item} IN LISTS ${2:items})
+    ${0}
+  endforeach()
+
+snippet list_append_all
+    foreach(${1:item} IN LISTS ${2:items})
+      list(APPEND ${3:new_item} "${4:#prefix}\${$1}${0:#suffix}")
+    endforeach()
+
+snippet list_length
+  list(LENGTH ${1:#list} ${2:#out-var})
+snippet list_get
+  list(GET ${1:#list} ${2:#element index} ${3:#[index...]} ${4:out-var})
+snippet list_join
+  list(JOIN ${1:#list} ${2:#glue} ${3:#out-var})
+snippet list_sublist
+  list(SUBLIST ${1:#list} ${2:#begin} ${3:#length} ${4:#out-var})
+snippet list_find
+  list(FIND ${1:#list} ${2:#value} ${3:#out-var})
+snippet list_append
+  list(APPEND ${1:#list} [${2:#element...]})
+snippet list_filter
+  list(FILTER ${1:#list} ${2:#INCLUDE or EXCLUDE} REGEX ${3:#regex})
+snippet list_insert
+  list(INSERT ${1:#list} ${2:#index} ${3:#[element...]})
+snippet list_remove_ietm
+  list(REMOVE_ITEM ${1:#list} ${2:#value...})
+snippet list_at
+  list(REMOVE_AT ${1:#list} ${2:#index...})
+snippet list_duplicates
+  list(REMOVE_DUPLICATES ${1:#list})
+snippet list_transform
+  list(TRANSFORM ${1:#list} ${2:#ACTION} ${3:#[...]})
+snippet list_reverse
+  list(REVERSE ${1:#list})
+snippet list_sort
+  list(SORT ${2:#list})
