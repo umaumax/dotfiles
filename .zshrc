@@ -304,6 +304,16 @@ alias cdv='cdvproot'
 alias cdvp='cdvproot'
 alias cdvproot='cd $VIM_PROJECT_ROOT'
 
+function mkcd() {
+	if [ ! -n "$1" ]; then
+		echo "Enter a directory name"
+	elif [ -d $1 ]; then
+		echo "'$1' already exists"
+	else
+		mkdir $1 && cd $1
+	fi
+}
+
 alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
 alias fix-terminal='stty sane'
 alias clear-terminal='stty sane'
