@@ -475,9 +475,6 @@ Plug 'yuttie/comfortable-motion.vim'
 
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
-" NOTE: for git
-LazyPlug 'tpope/vim-fugitive'
-
 " only for :PlugInstall
 Plug 'rhysd/committia.vim', {'on':[]}
 Plug 'hotwatermorning/auto-git-diff', {'on':[]}

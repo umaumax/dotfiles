@@ -111,6 +111,7 @@ let s:doctor_map={
 			\'pylint':       'pip install pylint',
 			\'pyls':         'pip install python-language-server',
 			\'s':            'brew install s-search',
+			\'tig':          'brew install tig || build tig your self ( https://github.com/jonas/tig/releases )',
 			\'trans':        'brew install translate-shell || sudo apt-get install translate-shell',
 			\'shellcheck':   'apt-get install shellcheck || brew install shellcheck',
 			\'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',

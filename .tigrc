@@ -1,8 +1,12 @@
 # main view: show commit id (left side)
-set main-view = line-number:true id:yes date:local=yes author:display=abbreviated commit-title:graph=yes,refs=yes
+set main-view = line-number:true date:local=yes author:display=abbreviated id:yes commit-title:graph=yes,refs=yes
+set blame-view = date:local=yes author:display=abbreviated id:yes,color line-number:yes,interval=1 text
 
 set line-graphics = utf-8
 set mouse = true
+
+# [tigでmerge diffを表示する \- Qiita]( https://qiita.com/YasuOza/items/7be136f03867d20b8332 )
+set diff-options = -m --first-parent
 
 # set refresh-mode = auto
 set refresh-mode = periodic

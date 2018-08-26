@@ -23,6 +23,9 @@ AlterCommand pp PP
 " for fzf plugins
 AlterCommand mru FZFMru
 AlterCommand ag Ag
+AlterCommand tig Tig
+AlterCommand gblame Gblame
+AlterCommand blame Gblame
 
 " for my commands
 AlterCommand del[ete] Delete
