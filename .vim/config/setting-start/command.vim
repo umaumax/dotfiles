@@ -154,3 +154,5 @@ function s:join(...) range
 	call append(a:firstline-1, lines)
 endfunction
 command! -nargs=? -bar -range=% Join :<line1>,<line2>call <SID>join(<f-args>)
+
+command! -nargs=0 SaveAsTempfile :execute ':w '.tempname()

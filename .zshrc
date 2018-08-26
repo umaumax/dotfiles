@@ -153,6 +153,20 @@ function git-reload-global-hooks() {
 	local git_hookdir="$git_templatedir/hooks"
 	command cp -r "$git_hookdir" "$(git rev-parse --show-toplevel)/.git/hooks"
 }
+function git-find-last-space() {
+	git grep -e $'\t''$\| $'
+}
+function git-find-last-space-vim() {
+	local filelist=$(git-find-last-space)
+	{
+		echo '# original key mapping info'
+		echo '# gf: open file'
+		echo '# go: next'
+		echo '# gi: back'
+		echo ''
+		echo $filelist
+	} | command vim --cmd "let g:auto_lcd_basedir=0 | autocmd VimEnter * :execute ':w '.tempname() | :lcd $PWD" -
+}
 
 cmdcheck tac || alias tac='tail -r'
 

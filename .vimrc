@@ -180,6 +180,13 @@ endif
 " NOTE: VimEnter前はtabpagenr('$') == 1 (always)
 function! s:buffer_to_tab()
 	let filename=expand('%')
+	let full_path = expand("%:p")
+	" skip tmp file
+	for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
+		if full_path =~ pattern
+			return
+		endif
+	endfor
 	" NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade -> [Plugins]
 	if filename != '' && filename != '[Plugins]' && tabpagenr('$') == 1 && winnr('$') == 1 && bufnr('$') >= 2
 		:tab sball

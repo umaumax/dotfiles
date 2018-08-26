@@ -113,8 +113,11 @@ function! FZFOpenFileFunc()
 		return 0
 	endif
 
-	if filereadable(s:file_path)
-		execute ':e '.s:file_path
+	let s:file_path_with_line=substitute(s:file_path,'\(:[0-9]*\).*','\1','')
+	let s:file_path_without_line=substitute(s:file_path,':[0-9]*.*','','')
+	if filereadable(s:file_path_without_line)
+		" NOTE: my original plugin has function to open file with line no
+		execute ':e '.s:file_path_with_line
 		return
 	endif
 
