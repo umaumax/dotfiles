@@ -67,13 +67,13 @@
 [unstage file] git reset HEAD # <file>
 [unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
-[commit 取り消し（編集内容はそのまま）] git reset --soft HEAD^ !
-[amend 取り消し] git reset HEAD@{1} !
-[merge 取り消し] git reset --hard ORIG_HEAD !
+[commit 取り消し（編集内容はそのまま）] git reset --soft HEAD^
+[amend 取り消し] git reset HEAD@{1}
+[merge 取り消し] git reset --hard ORIG_HEAD
 [merge all conflict(adopt upper one)] git checkout --ours .
 [merge all conflict(adopt lower one)] git checkout --theirs .
 [merge retry all conflict] git checkout -m .
-[git stash pop 取り消し] git checkout --ours . && git reset && git checkout . ! # NOTE: git stash pop で content が起きたときにはstashはdropしない
+[git stash pop 取り消し] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
 [ファイルの削除をなかったことにする] git checkout HEAD -- @ # <file>
 [force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [commit without hook] git commit --no-verify
