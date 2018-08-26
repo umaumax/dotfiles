@@ -181,7 +181,7 @@ endif
 function! s:buffer_to_tab()
 	let filename=expand('%')
 	" NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade -> [Plugins]
-	if filename != '' && filename != '[Plugins]' && tabpagenr('$') == 1 && bufnr('$') >= 2
+	if filename != '' && filename != '[Plugins]' && tabpagenr('$') == 1 && winnr('$') == 1 && bufnr('$') >= 2
 		:tab sball
 		" NOTE: to kick autocmd
 		call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
