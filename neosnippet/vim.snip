@@ -31,7 +31,7 @@ snippet is_plugin_loaded
   endif
 
 snippet command_no_args_no_call_func
-  command! -nargs=0 ${1:#command name} $0
+  command! -nargs=0 ${1:#command name} ${0}
 snippet command_call_func
   command! -nargs=${1:#n of args} ${2:#command name} :call <SID>${3:#funciton name}(<f-args>)
   function s:$3(${0:#function args})
