@@ -47,7 +47,7 @@ alias forarray
 
 snippet for_ls
 alias forls
-  for ${2:# element name} in `ls ${1:# ls target}`; do
+  for ${2:# element name} in \`ls ${1:# ls target}\`; do
     echo $$2
     ${0}
   done
