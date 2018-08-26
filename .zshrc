@@ -129,6 +129,23 @@ function git-find-conflict() {
 		return 1
 	fi
 }
+function git-reload-local-hooks() {
+	is_git_repo_with_message || return
+	local git_templatedir=${1:-}
+	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no such dir '$git_templatedir'" && return 1
+	[[ -z $git_templatedir ]] && local git_templatedir="$(git rev-parse --show-toplevel)/.local$(basename $(git config init.templatedir))"
+	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no local git_templatedir '$git_templatedir'" && local git_templatedir="$(git config init.templatedir | sed -e "s:^~/:$HOME/.local:g")"
+	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no local git_templatedir '$git_templatedir'" && return 1
+	git-reload-global-hooks "$git_templatedir"
+}
+function git-reload-global-hooks() {
+	is_git_repo_with_message || return
+	local git_templatedir=${1:-$(git config init.templatedir | sed -e "s:^~:$HOME:g")}
+	[[ -z $git_templatedir ]] && echo 'no git_templatedir setings \n e.g. git config --global init.templatedir ~/.git_template/' && return 1
+	[[ ! -d $git_templatedir ]] && echo "no such dir '$git_templatedir'" && return 1
+	local git_hookdir="$git_templatedir/hooks"
+	command cp -r "$git_hookdir" "$(git rev-parse --show-toplevel)/.git/hooks"
+}
 
 cmdcheck tac || alias tac='tail -r'
 
