@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+## pre-commit script to prevent merge markers from being committed. 
+
+##
+## This simply searches the files that you are about to commit.
+##
+
+RED="\033[0;31m"
+DEFAULT="\033[0m"
+
+changed=$(git diff --cached --name-only)
+[[ -z "$changed" ]] && exit 0
+
+grep='grep'
+cmdcheck() { type >/dev/null 2>&1 "$@"; }
+cmdcheck 'ggrep' && grep='ggrep'
+
+echo $changed | xargs $grep -E '[><=]{7}' -C 1 -H -n --color=always
+
+## If the egrep command has any hits - echo a warning and exit with non-zero status.
+if [[ $? == 0 ]]
+then
+  echo -e "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
+  exit 1
+fi

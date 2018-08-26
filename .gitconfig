@@ -2,6 +2,12 @@
 	editor = vim
 	# for japanese chars
 	quotepath = false
+	# NOTE: don't use $HOME as ~
+	# [Applying a git post\-commit hook to all current and future repos \- Stack Overflow]( https://stackoverflow.com/questions/2293498/applying-a-git-post-commit-hook-to-all-current-and-future-repos )
+	# global git hooks dirpath (from git 2.9+ (June 2016)) but this setting disables local git hooks...
+	# hooksPath = ~/.config/git/hooks
+[init]
+	templatedir = ~/.git_template
 [alias]
 	a = add --all
 	add-changed-deleted = add . --update

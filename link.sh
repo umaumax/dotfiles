@@ -8,6 +8,7 @@ ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
+ln -sf ~/dotfiles/.git_template/ ~/
 
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
 ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/

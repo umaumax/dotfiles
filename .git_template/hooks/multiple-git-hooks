@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# This script should be saved in a git repo as a hook file, e.g. .git/hooks/pre-receive.
+# It looks for scripts in the .git/hooks/pre-receive.d directory and executes them in order,
+# passing along stdin. If any script exits with a non-zero status, this script exits.
+
+BLACK="\033[0;30m" RED="\033[0;31m" GREEN="\033[0;32m" YELLOW="\033[0;33m" BLUE="\033[0;34m" PURPLE="\033[0;35m" LIGHT_BLUE="\033[0;36m" WHITE="\033[0;37m" GRAY="\033[0;39m" DEFAULT="\033[0m"
+function echo() { command echo -e "$@"; }
+INFO="$GREEN[INFO]$DEFAULT"
+
+script_dir=$(dirname $0)
+hook_name=$(basename $0)
+
+hook_dir="$script_dir/$hook_name.d"
+
+if [[ -d $hook_dir ]]; then
+  stdin=$(cat /dev/stdin)
+
+  for hook in $(find $hook_dir -type f -perm -u+x); do
+    echo "$INFO Running $hook_name/$hook hook"
+    echo "$stdin" | $hook "$@" | ccze -A
+
+    exit_code=$?
+
+    if [ $exit_code != 0 ]; then
+      exit $exit_code
+    fi
+  done
+fi
+
+exit 0
