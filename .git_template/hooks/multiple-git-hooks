@@ -6,7 +6,7 @@
 
 BLACK="\033[0;30m" RED="\033[0;31m" GREEN="\033[0;32m" YELLOW="\033[0;33m" BLUE="\033[0;34m" PURPLE="\033[0;35m" LIGHT_BLUE="\033[0;36m" WHITE="\033[0;37m" GRAY="\033[0;39m" DEFAULT="\033[0m"
 function echo() { command echo -e "$@"; }
-INFO="$GREEN[INFO]$DEFAULT"
+INFO="${GREEN}[INFO]${DEFAULT}"
 
 script_dir=$(dirname $0)
 hook_name=$(basename $0)
@@ -18,8 +18,7 @@ if [[ -d $hook_dir ]]; then
 
   for hook in $(find $hook_dir -type f -perm -u+x); do
     echo "$INFO Running $hook_name/$hook hook"
-    echo "$stdin" | $hook "$@" | ccze -A
-
+    echo "$stdin" | $hook "$@"
     exit_code=$?
 
     if [ $exit_code != 0 ]; then
