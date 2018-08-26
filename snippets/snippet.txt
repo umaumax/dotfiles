@@ -73,8 +73,8 @@
 [merge all conflict(adopt upper one)] git checkout --ours .
 [merge all conflict(adopt lower one)] git checkout --theirs .
 [merge retry all conflict] git checkout -m .
-[git stash pop rest] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
-[reset deleted file] git checkout HEAD -- @ # <file>
+[git stash pop reset] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
+[reset deleted files] git checkout HEAD -- @ # <file>
 [force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [commit without hook] git commit --no-verify
 [reload git hooks]  rm -rf .git/hooks && git init # NOTE: don't delete local git hooks
