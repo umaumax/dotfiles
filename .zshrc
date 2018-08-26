@@ -1548,10 +1548,15 @@ git-remote-add-upstream() {
 }
 
 # required: gdrive
+function gsync-gshare() {
+	# NOTE: zsh cd message stdout
+	# NOTE: gsync  message stderr
+	local _=$(gshare && gsync 1>&2)
+}
 function gsync() {
 	local ID=$1
 	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
 	echo "ID:$ID"
 	echo "# downloading..."
 	gdrive sync download $ID .
@@ -1561,7 +1566,7 @@ function gsync() {
 function gsync-download() {
 	local ID=$1
 	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
 	echo "ID:$ID"
 	echo "# downloading..."
 	gdrive sync download $ID .
@@ -1569,7 +1574,7 @@ function gsync-download() {
 function gsync-upload() {
 	local ID=$1
 	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'"
+	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
 	echo "ID:$ID"
 	echo "# uploading..."
 	gdrive sync upload . $ID
