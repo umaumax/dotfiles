@@ -153,6 +153,7 @@ function git-reload-global-hooks() {
 	local git_hookdir="$git_templatedir/hooks"
 	command cp -r "$git_hookdir" "$(git rev-parse --show-toplevel)/.git/hooks"
 }
+# [Git フックの基本的な使い方 \- Qiita]( https://qiita.com/noraworld/items/c562de68a627ae792c6c#%E6%B3%A8%E6%84%8F%E7%82%B9%E3%81%BE%E3%81%A8%E3%82%81 )
 function git-find-last-space() {
 	git grep -e $'\t''$\| $'
 }
