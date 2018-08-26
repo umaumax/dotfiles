@@ -969,7 +969,8 @@ augroup auto_comment_off
 augroup END
 
 " for external command
-nnoremap ! :! 
+" NOTE: execute is used to avoid last space of a line
+execute 'nnoremap ! :! '
 
 " NOTE: rotate 行頭 → 非空白行頭 → 行
 " ^[0000]$[0000]0
