@@ -45,6 +45,8 @@ if v:version >= 800 && has('python3')
 		let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
 	endif
 
+	Plug 'umaumax/deoplete-docker', {'for':['dockerfile']}
+
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
 	" 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
 	" NOTE: [KeyError\('runtimepath'\)  Issue \#9  zchee/deoplete\-zsh]( https://github.com/zchee/deoplete-zsh/issues/9 is not merged yet)

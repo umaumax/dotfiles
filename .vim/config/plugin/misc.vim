@@ -156,7 +156,12 @@ Plug 'KabbAmine/vCoolor.vim', {'on':['VCoolor','VCoolIns']}
 " Plug 'vim-jp/vital.vim'
 
 " NOTE: syntax file
-Plug 'ekalinin/Dockerfile.vim', {'for':'Dockerfile'}
+Plug 'ekalinin/Dockerfile.vim', {'for':'dockerfile'}
+" overwrite ft 'Dockerfile' -> 'dockerfile'
+augroup dockerfiletype_group
+	autocmd!
+	autocmd FileType Dockerfile setlocal ft=dockerfile
+augroup END
 
 " ---- tags ----
 
