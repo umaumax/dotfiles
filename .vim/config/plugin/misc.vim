@@ -480,6 +480,11 @@ Plug 'yuttie/comfortable-motion.vim'
 
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
+" NOTE: vim-open-googletranslate requires open-browser
+Plug 'tyru/open-browser.vim', {'on':'OpenGoogleTranslate'}
+Plug 'umaumax/vim-open-googletranslate', {'on':'OpenGoogleTranslate'}
+
+
 " only for :PlugInstall
 Plug 'rhysd/committia.vim', {'on':[]}
 Plug 'hotwatermorning/auto-git-diff', {'on':[]}
