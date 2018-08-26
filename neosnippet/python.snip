@@ -65,3 +65,7 @@ snippet mean_np
 
 snippet exit
 	sys.exit(${0})
+
+snippet abspath
+abbr abspath of script path # required: import pathlib
+	script_abspath = pathlib.Path(__file__).resolve().parent
