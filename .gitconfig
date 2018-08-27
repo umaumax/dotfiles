@@ -58,9 +58,10 @@
 	grep-reg = grep -E
 
 	l = log
-	log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags
-	log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags --since='1 day ago'
-	log-one-line-a-week = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --decorate-refs=tags --since='1 week ago'
+	# NOTE: git 2.7.4 has no option --decorate-refs=tags
+	log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso
+	log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 day ago'
+	log-one-line-a-week = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 week ago'
 	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
