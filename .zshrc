@@ -128,7 +128,10 @@ function git-find-conflict() {
 	local changed=$(git diff --cached --name-only)
 	[[ -z "$changed" ]] && return 0
 
-	echo $changed | xargs egrep '[><=]{7}' -C 1 -H -I --line-number --color=always
+	grep='grep'
+	cmdcheck 'ggrep' && grep='ggrep'
+
+	echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
 
 	## If the egrep command has any hits - echo a warning and exit with non-zero status.
 	if [[ $? == 0 ]]; then
