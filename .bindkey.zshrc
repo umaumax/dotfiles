@@ -141,30 +141,13 @@ zle -N my-backward-delete-word
 # shift+tab
 bindkey '^[[Z' my-backward-delete-word
 
-# # <C-R>
-# # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366 )
-# function _peco-select-history() {
-# 	# historyを番号なし、逆順、最初から表示。
-# 	# 順番を保持して重複を削除。
-# 	# カーソルの左側の文字列をクエリにしてpecoを起動
-# 	# \nを改行に変換
-# 	BUFFER="$(builtin history -nr 1 | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/')"
-# 	CURSOR=$#BUFFER # カーソルを文末に移動
-# 	zle -R -c       # refresh
-# }
-# zle -N _peco-select-history
-# bindkey '^R' _peco-select-history
-
-# <C-X><C-S>
-# function _peco-snippets() {
-# 	local color_cmd=('cat')
-# 	# 	cmdcheck ccat && cmdcheck fzf && color_cmd=('ccat' '--color=always')
-# 	BUFFER=$(grep -sv "^#" ~/dotfiles/snippets/* | ${color_cmd[@]} | sed 's:'$HOME/dotfiles/snippets/'::g' | command peco --query "$LBUFFER" | sed -r 's!^[^:]*:!!g')
-# 	CURSOR=$#BUFFER
-# 	zle -R -c # refresh
-# }
-# zle -N _peco-snippets
-# bindkey '^x^s' _peco-snippets
+function _peco-select-history() {
+	BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
+	CURSOR=$#BUFFER
+	zle -R -c # refresh
+}
+zle -N _peco-select-history
+bindkey '^X^P' _peco-select-history
 
 function peco-select-history() {
 	local tac
