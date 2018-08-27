@@ -8,12 +8,18 @@ ln -sf ~/dotfiles/.zshrc ~/
 ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
-ln -sf ~/dotfiles/.git_template/ ~/
 
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
 ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
+
+[[ ! -d ~/.local.git_template/ ]] && command cp -r ~/dotfiles/.local.git_template ~/
+
+# cp .git_template dirs
+(cd ~/dotfiles && find .git_template/hooks -type d -not -name '.*' | xargs -L 1 -IXXX mkdir -p "$HOME/XXX")
+# ln .git_template files
+(cd ~/dotfiles && find .git_template/hooks -type f -not -name '.*' | xargs -L 1 -IXXX ln -sf "$HOME/dotfiles/XXX" "$HOME/XXX")
 
 ln -sf ~/dotfiles/.wgit ~/
 
