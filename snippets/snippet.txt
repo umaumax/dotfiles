@@ -110,3 +110,7 @@
 
 # mac
 [brew clean cache] brew clean -s
+
+# export proxy
+[proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
+[noproxy env] NO_PROXY="127.0.0.1,loacalhost@" && export no_proxy="$NO_PROXY" && export NO_PROXY="$no_proxy"

@@ -69,3 +69,28 @@ snippet exit
 snippet abspath
 abbr abspath of script path # required: import pathlib
 	script_abspath = pathlib.Path(__file__).resolve().parent
+
+snippet pathjoin
+	os.path.join(${1:#path}, ${0:#path})
+
+snippet urlencode
+	urllib.parse.urlencode(${0:#str})
+
+snippet decode_uft_8
+	decode("utf-8")
+
+snippet getenv
+	os.getenv(${1:#key}, ${0:#default value})
+
+snippet list_expand
+alias tiple_expand
+	*${0:#list name}
+
+snippet dict_expand
+	**${0:#dict name}
+
+snippet urllib3_proxy_support
+abbr urllib3 doesn't use http_proxy env
+	option = {'': ''}
+	http_proxy = os.getenv("http_proxy")
+	http = urllib3.ProxyManager(http_proxy, **option) if http_proxy else urllib3.PoolManager(**option)
