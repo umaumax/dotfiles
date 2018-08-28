@@ -94,3 +94,21 @@ abbr urllib3 doesn't use http_proxy env
 	option = {'': ''}
 	http_proxy = os.getenv("http_proxy")
 	http = urllib3.ProxyManager(http_proxy, **option) if http_proxy else urllib3.PoolManager(**option)
+
+# NOTE: order: printf < print_with_end < printf_
+snippet printf_
+	print("${1:#message}".format(${0}))
+snippet printf_with_end
+	print("${1:#message}".format(${2}), end="${0}")
+
+snippet print_with_end
+	print("${1:#message}", end="${0}")
+
+snippet argv
+	sys.argv
+
+snippet pprint
+	pprint.pprint
+snippet pformat
+	pprint.pformat
+
