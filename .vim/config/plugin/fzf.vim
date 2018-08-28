@@ -1,3 +1,6 @@
+" NOTE: help
+" [fzf/README\-VIM\.md at master · junegunn/fzf]( https://github.com/junegunn/fzf/blob/master/README-VIM.md )
+
 LazyPlug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim', {'on':['Ag', 'FZFTabOpen', 'FZFMru', 'FZFOpenFile']}
 
@@ -7,7 +10,7 @@ nnoremap <leader>tab :FZFTabOpen<CR>
 command! FZFTabOpen call s:FZFTabOpenFunc()
 
 function! s:FZFTabOpenFunc()
-	call fzf#run({
+	silent! call fzf#run({
 				\ 'sink':    function('s:TabListSink'),
 				\ 'source':  s:GetTabList(),
 				\ 'options': '-m -x +s',
@@ -46,7 +49,7 @@ nnoremap <silent> <leader>tag :call fzf#vim#tags(expand('<cword>'))<CR>
 let g:fzf_buffers_jump = 1
 
 " --------------------------------
-command! FZFMru call fzf#run({
+command! FZFMru silent! call fzf#run({
 			\ 'source':  reverse(s:all_files()),
 			\ 'sink':    'edit',
 			\ 'options': '-m -x +s',
@@ -87,7 +90,7 @@ if Doctor('ag', 'find command')
 		endif
 	endfunction
 
-	command! -nargs=* Ag call fzf#run({
+	command! -nargs=* Ag silent! call fzf#run({
 				\ 'source':  printf('ag --nogroup --column --color "%s"',
 				\                   escape(empty(<q-args>) ? '^(?=.)' : <q-args>, '"\')),
 				\ 'sink*':    function('<sid>ag_handler'),
@@ -123,9 +126,22 @@ function! FZFOpenFileFunc()
 
 	" fzf実行
 	" .DS_Store はmacの不要なファイル
-	call fzf#run({
+	silent! call fzf#run({
 				\ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
 				\ 'sink': 'e',
 				\ 'options': '-x +s --query=' . shellescape(s:file_path_without_line),
 				\ 'down':    '40%'})
 endfunction
+
+function! FZF_find(dir)
+	silent! call fzf#run({
+				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
+				\ 'sink': 'e',
+				\ 'options': '-x +s',
+				\ 'dir': a:dir,
+				\ 'down':    '40%'})
+endfunction
+
+" NOTE: these fzf keymapping overload ctrl-p mappings
+nnoremap <silent> <C-p><C-p> :call FZF_find(expand('%:p:h'))<CR>
+nnoremap <silent> <C-p><C-u> :call FZF_find(getcwd())<CR>

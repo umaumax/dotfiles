@@ -22,6 +22,7 @@ AlterCommand p[lugupgrade] PlugUpgrade
 AlterCommand pp PP
 " for fzf plugins
 AlterCommand mru FZFMru
+AlterCommand fzf FZF
 AlterCommand ag Ag
 AlterCommand tig Tig
 AlterCommand gblame Gblame
