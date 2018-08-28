@@ -16,7 +16,7 @@ hook_dir="$script_dir/$hook_name.d"
 if [[ -d $hook_dir ]]; then
   stdin=$(cat /dev/stdin)
 
-  for hook in $(find $hook_dir -type f -perm -u+x); do
+  for hook in $(find $hook_dir \( -type f -o -type l \) -perm -u+x); do
     echo "$INFO Running $hook_name/$hook hook"
     echo "$stdin" | $hook "$@"
     exit_code=$?

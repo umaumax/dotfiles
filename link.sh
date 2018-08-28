@@ -20,6 +20,8 @@ ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
 (cd ~/dotfiles && find .git_template/hooks -type d -not -name '.*' | xargs -L 1 -IXXX mkdir -p "$HOME/XXX")
 # ln .git_template files
 (cd ~/dotfiles && find .git_template/hooks -type f -not -name '.*' | xargs -L 1 -IXXX ln -sf "$HOME/dotfiles/XXX" "$HOME/XXX")
+# -a: enable copy symbolic links
+(cd ~/dotfiles && find .git_template/hooks -type l -not -name '.*' | xargs -L 1 -IXXX cp -a "$HOME/dotfiles/XXX" "$HOME/XXX")
 
 ln -sf ~/dotfiles/.wgit ~/
 
