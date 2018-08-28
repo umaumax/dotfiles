@@ -72,6 +72,10 @@ function _insert_run_secret_dotfile() { _set_only_LBUFFER './.'; }
 zle -N _insert_run_secret_dotfile
 bindkey "^X." _insert_run_secret_dotfile
 
+function _insert_exec() { _set_only_LBUFFER './'; }
+zle -N _insert_exec
+bindkey "^X^E" _insert_exec
+
 function _no_history_rm() { _set_only_LBUFFER ' rm '; }
 zle -N _no_history_rm
 bindkey "^X^R" _no_history_rm
