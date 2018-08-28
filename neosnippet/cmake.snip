@@ -145,3 +145,29 @@ snippet list_reverse
   list(REVERSE ${1:#list})
 snippet list_sort
   list(SORT ${2:#list})
+
+snippet get_filename
+abbr File name without directory
+  get_filename_component(${1:#var name} ${0:#path} NAME)
+snippet get_directory
+abbr Directory without file name
+  get_filename_component(${1:#var name} ${0:#path} DIRECTORY)
+snippet get_ext
+abbr File name longest extension (.b.c from d/a.b.c)
+  get_filename_component(${1:#var name} ${0:#path} EXT)
+snippet get_filename_without_ext
+abbr File name without directory or longest extension
+  get_filename_component(${1:#var name} ${0:#path} NAME_WE)
+snippet get_absolute_path
+abbr Full path to file
+  get_filename_component(${1:#var name} ${0:#path} ABSOLUTE)
+snippet get_realpath
+abbr Full path to existing file with symlinks resolved
+  get_filename_component(${1:#var name} ${0:#path} REALPATH)
+snippet get_
+  get_filename_component(${1:#var name} ${0:#path} )
+snippet get_
+  get_filename_component(${1:#var name} ${0:#path} )
+snippet get_
+  get_filename_component(${1:#var name} ${0:#path} )
+

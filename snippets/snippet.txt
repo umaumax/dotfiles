@@ -49,7 +49,7 @@
 [stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
 
 # cmake
-[cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=-*" ..
+[cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
 [cmake] cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # compile_commands.json
 
 # make
