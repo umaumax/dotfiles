@@ -1590,7 +1590,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
 fi
 
 # [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
-ls -G >&2
+if [[ $ZSH_NAME == zsh ]]; then
+	chpwd
+fi
 
 # ---- bash ----
 # ---- zsh ----
