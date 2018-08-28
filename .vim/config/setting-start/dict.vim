@@ -32,8 +32,10 @@ function! s:vimconsole_logger()
 		" NOTE: snippet自動展開
 		" executeを利用すると，一旦normalモードに移行し，その後insertモードに戻るため，行末にカーソルがある場合に位置がずれる
 		" 		execute "normal a\<Plug>(neosnippet_expand)"
-		" NOTE: last \<C-o>:\<Esc> enables to show completion menu list even if after expanding neosnippet
-		call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<Esc>", '')
+		" NOTE: last \<C-o>:\<Esc> enables to show completion menu list even if after expanding neosnippet (only insert mode... this does't work well in select mode)
+		" 		call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<Esc>", '')
+		" NOTE: たまたま，visual  modeの開始地点とカーソル位置が一致しないかぎり，insert modeでもselect  modeで動作する
+		call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
 		return
 	endif
 	let vim_flag = menu == '[vim] '
