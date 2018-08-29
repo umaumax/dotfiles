@@ -1,11 +1,18 @@
-ret
-filetype
-line
-type tpe
-sample
-example
+checkout
+command
+compile
 config
 cursor
-search
-focus
+dirpath
+example
+filepath
+filetype
 flag falg
+focus
+line
+python
+ret
+sample
+search
+type tpe
+which
