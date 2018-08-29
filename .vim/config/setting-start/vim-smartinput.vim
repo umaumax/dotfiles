@@ -441,6 +441,21 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule_of_word('doesnt',"doesn't")
 	call s:smartinput_define_rule_of_word('pipe','| ')
 
+	let s:multi_word_map = {
+				\'NOTE: ':['note;', 'NOTE;', 'note:', 'NOTE:'],
+				\'TODO: ':['todo;', 'TODO;', 'todo:', 'TODO:'],
+				\'WARN: ':['warn;', 'WARN;', 'warn:', 'WARN:'],
+				\'MEMO: ':['memo;', 'MEMO;', 'memo:', 'MEMO:'],
+				\'INFO: ':['info;', 'INFO;', 'info:', 'INFO:'],
+				\'FYI:  ':['fyi;',  'FYI;',  'fyi:',  'FYI:'],
+				\'FIX:  ':['fix;',  'FIX;',  'fix:',  'FIX:'],
+				\}
+	for key in keys(s:multi_word_map)
+		for at in s:multi_word_map[key]
+			call s:smartinput_define_rule_of_word(at,key)
+		endfor
+	endfor
+
 	" NOTE: if xxx { -> if (xxx) {
 	call s:smartinput_define_rule({
 				\   'at': 'if\s*[^() \t].\{-}[^() \t]\s*{\%#',
