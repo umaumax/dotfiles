@@ -127,12 +127,15 @@ alias calctime
 
 snippet basename_of_os.path
 	os.path.basename(${0})
-
 snippet join_of_os.path
 	os.path.join(${1},${0})
+snippet exists_of_os.path
+	os.path.exists(${0})
 
 snippet listdir_of_os
 	os.listdir(${0})
+snippet makedirs_of_os
+	os.makedirs(${0})
 
 snippet subprocess.check_output
 	subprocess.check_output(${0:["ls", "."]}).decode("utf8")
