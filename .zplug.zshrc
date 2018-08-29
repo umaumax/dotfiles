@@ -1,7 +1,8 @@
 local USE_ZPLUG=0
 
 if [[ $USE_ZPLUG == 0 ]]; then
-	function {
+	# NOTE: this redundant lambda function expression is for shfmt
+	function lambda() {
 		# git://の方ではproxyの設定が反映されないので，https://形式の方が無難
 		local zshdir=~/.zsh
 		[[ ! -e $zshdir ]] && mkdir -p $zshdir
@@ -32,8 +33,27 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			local tag=$(cd-bookmark | peco | cut -d'|' -f1)
 			[[ -n $tag ]] && cd-bookmark "$tag"
 		}
-		autoload -Uz compinit
-	}
+
+		function ln_if_noexist() {
+			[[ $# -le 1 ]] && echo "$0 <src> <dst>" && return
+			[[ -e $1 ]] && [[ ! -e $2 ]] && ln -s $1 $2
+		}
+		# [docker コマンドの zsh autocompletion \- Qiita]( https://qiita.com/mickamy/items/daa2a0de5f34c9c59ad9 )
+		if [[ $(uname) == "Darwin" ]]; then
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion /usr/local/share/zsh/site-functions/_docker
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion /usr/local/share/zsh/site-functions/_docker-machine
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion /usr/local/share/zsh/site-functions/_docker-compose
+		elif [[ $(uname -a) =~ "Ubuntu" ]]; then
+			mkdir -p ~/.zsh/completion
+			# [Command\-line completion \| Docker Documentation]( https://docs.docker.com/compose/completion/#zsh )
+			# NOTE: you cat get docker-compose version by $(docker-compose version --short)
+			[[ ! -e ~/.zsh/completion/_docker-compose ]] && curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose >~/.zsh/completion/_docker-compose
+			fpath=(~/.zsh/completion $fpath)
+		fi
+
+		# enbale zsh completion
+		autoload -Uz compinit && compinit -i
+	} && lambda
 	return
 fi
 
