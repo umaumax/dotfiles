@@ -9,6 +9,8 @@ README.md
 Makefile
 ninja.build
 CMakeLists.txt
+compile_commands.json
+git_template
 g++
 clang
 clang++

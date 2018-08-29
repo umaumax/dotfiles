@@ -108,7 +108,31 @@ snippet argv
 	sys.argv
 
 snippet pprint
-	pprint.pprint
+	pprint.pprint(${0})
 snippet pformat
-	pprint.pformat
+	pprint.pformat(${0})
 
+snippet time
+	time.time()${0}
+
+snippet deepcopy
+	copy.deepcopy(${0})
+
+snippet stopwatch
+alias calctime
+	since = time.time()
+	${0}
+	time_elapsed = time.time() - since
+	print('{:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
+
+snippet basename_of_os.path
+	os.path.basename(${0})
+
+snippet join_of_os.path
+	os.path.join(${1},${0})
+
+snippet listdir_of_os
+	os.listdir(${0})
+
+snippet subprocess.check_output
+	subprocess.check_output(${0:["ls", "."]}).decode("utf8")

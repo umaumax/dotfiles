@@ -90,7 +90,7 @@
 [sed template /] sed -e 's/@//g'
 
 # g++
-[c++11] g++ -std=c++11
+[c++11] g++ -std=c++11 
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -

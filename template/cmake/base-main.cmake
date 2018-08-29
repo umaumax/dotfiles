@@ -9,7 +9,7 @@ set(CMakeHelloWorld_VERSION_MINOR 0)
 add_subdirectory(Hello)
 
 add_definitions(-DFOO)
-include_directories(Hello)
+include_directories(/path/to/include)
 link_directories(/path1/to/lib /path2/to/lib)
 #indicate the entry point for the executable
 add_executable(CMakeHelloWorld Hello HelloWorld.cpp)

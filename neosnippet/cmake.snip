@@ -20,6 +20,7 @@ snippet min
     cmake_minimum_required(version ${0:2.8.2})
 
 snippet include
+abbr NOTE: 1st arg is not target
     include_directories(${${0:include_dir}})
 
 snippet find
@@ -148,26 +149,25 @@ snippet list_sort
 
 snippet get_filename
 abbr File name without directory
-  get_filename_component(${1:#var name} ${0:#path} NAME)
+  get_filename_component(${1:#var name} ${${0:#path}} NAME)
 snippet get_directory
 abbr Directory without file name
-  get_filename_component(${1:#var name} ${0:#path} DIRECTORY)
+  get_filename_component(${1:#var name} ${${0:#path}} DIRECTORY)
 snippet get_ext
 abbr File name longest extension (.b.c from d/a.b.c)
-  get_filename_component(${1:#var name} ${0:#path} EXT)
+  get_filename_component(${1:#var name} ${${0:#path}} EXT)
 snippet get_filename_without_ext
 abbr File name without directory or longest extension
-  get_filename_component(${1:#var name} ${0:#path} NAME_WE)
+  get_filename_component(${1:#var name} ${${0:#path}} NAME_WE)
 snippet get_absolute_path
 abbr Full path to file
-  get_filename_component(${1:#var name} ${0:#path} ABSOLUTE)
+  get_filename_component(${1:#var name} ${${0:#path}} ABSOLUTE)
 snippet get_realpath
 abbr Full path to existing file with symlinks resolved
-  get_filename_component(${1:#var name} ${0:#path} REALPATH)
-snippet get_
-  get_filename_component(${1:#var name} ${0:#path} )
-snippet get_
-  get_filename_component(${1:#var name} ${0:#path} )
-snippet get_
-  get_filename_component(${1:#var name} ${0:#path} )
+  get_filename_component(${1:#var name} ${${0:#path}} REALPATH)
 
+snippet set_target_properties_sources
+  set_target_properties(${1:#target} PROPERTIES SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${0})
+
+snippet filepath_to_target
+  string(REPLACE "/" "_" target ${${0:#filepath}})
