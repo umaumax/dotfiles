@@ -88,174 +88,8 @@ if [[ $ZSH_NAME == zsh ]]; then
 fi
 
 # ----
-
-# NOTE: unalias default? git aliases
-function lambda() {
-	local git_aliases=(gCa gCe gCl gCo gCt gFb gFbc gFbd gFbf gFbl gFbm gFbp gFbr gFbs gFbt gFbx gFf gFfc gFfd gFff gFfl gFfm gFfp gFfr gFfs gFft gFfx gFh gFhc gFhd gFhf gFhl gFhm gFhp gFhr gFhs gFht gFhx gFi gFl gFlc gFld gFlf gFll gFlm gFlp gFlr gFls gFlt gFlx gFs gFsc gFsd gFsf gFsl gFsm gFsp gFsr gFss gFst gFsx gR gRa gRb gRl gRm gRp gRs gRu gRx gS gSI gSa gSf gSi gSl gSm gSs gSu gSx gb gbD gbL gbM gbR gbS gbV gbX gba gbc gbd gbl gbm gbr gbs gbv gbx gc gcF gcO gcP gcR gcS gcSF gcSa gcSf gcSm gca gcam gcd gcf gcl gcm gco gcp gcr gcs gd gdc gdi gdk gdm gdu gdx gf gfa gfc gfcr gfm gfr gg ggL ggi ggl ggv ggw giA giD giI giR giX gia gid gii gir giu gix gl glb glc gld glg glo gm gmC gmF gma gmt gp gpA gpF gpa gpc gpf gpp gpt gr gra grc gri grs gs gsL gsS gsX gsa gsd gsl gsp gsr gss gsw gsx gwC gwD gwR gwS gwX gwc gwd gwr gws gwx)
-	for e in ${git_aliases[@]}; do
-		cmdcheck $e && unalias $e
-	done
-} && lambda
-
-alias gr='cd-git-root'
-alias cdgr='cd-git-root'
-# [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
-function git-open() {
-	is_git_repo_with_message || return
-	open $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $1 }')
-}
-alias git-alias='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
-function git-ranking() {
-	builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
-}
-function vim-git-modified() {
-	is_git_repo_with_message || return
-	vim -p $(git diff --name-only)
-}
-# NOTE: あるファイルを特定のcommitのファイルの状態にする
-function git-revert-files() {
-	is_git_repo_with_message || return
-	local target=${1:-"HEAD^"}
-	git diff --name-only HEAD "$target" | awk 'BEGIN{ print "# edit below commands and run by yourself" }{ printf "git checkout \"'"$target"'\" %s\n", $0}' | vim -
-}
-function git-restore-stash() {
-	is_git_repo_with_message || return
-	git fsck --unreachable | grep commit | cut -d' ' -f3 | xargs git log --merges --no-walk --grep=WIP
-	echo '--------------------------------'
-	echo '--------------------------------'
-	echo "$RED If you want to restore commit, put below command! $DEFAULT"
-	echo "$PURPLE git cherry-pick -n -m1 <commit id> $DEFAULT"
-	echo '--------------------------------'
-	echo '--------------------------------'
-}
-# [\[Git\]コンフリクトをよりスマートに解消したい！ \- Qiita]( https://qiita.com/m-yamazaki/items/62fc1f877c7ab315e0d8 )
-function git-find-conflict() {
-	is_git_repo_with_message || return
-	local changed=$(git diff --cached --name-only)
-	[[ -z "$changed" ]] && return
-
-	local grep='grep'
-	cmdcheck 'ggrep' && local grep='ggrep'
-
-	echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
-
-	## If the egrep command has any hits - echo a warning and exit with non-zero status.
-	if [[ $? == 0 ]]; then
-		echo "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
-		return 1
-	fi
-}
-function git-reload-local-hooks() {
-	is_git_repo_with_message || return
-	local git_templatedir=${1:-}
-	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no such dir '$git_templatedir'" && return 1
-	[[ -z $git_templatedir ]] && local git_templatedir="$(git rev-parse --show-toplevel)/.local$(basename $(git config init.templatedir))"
-	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no local git_templatedir '$git_templatedir'" && local git_templatedir="$(git config init.templatedir | sed -e "s:^~/:$HOME/.local:g")"
-	[[ -n $git_templatedir ]] && [[ ! -d $git_templatedir ]] && echo "no local git_templatedir '$git_templatedir'" && return 1
-	git-reload-global-hooks "$git_templatedir"
-}
-function git-reload-global-hooks() {
-	is_git_repo_with_message || return
-	local git_templatedir=${1:-$(git config init.templatedir | sed -e "s:^~:$HOME:g")}
-	[[ -z $git_templatedir ]] && echo 'no git_templatedir setings \n e.g. git config --global init.templatedir ~/.git_template/' && return 1
-	[[ ! -d $git_templatedir ]] && echo "no such dir '$git_templatedir'" && return 1
-	local git_hookdir="$git_templatedir/hooks"
-	command cp -r "$git_hookdir/" "$(git rev-parse --show-toplevel)/.git/hooks"
-}
-# [Git フックの基本的な使い方 \- Qiita]( https://qiita.com/noraworld/items/c562de68a627ae792c6c#%E6%B3%A8%E6%84%8F%E7%82%B9%E3%81%BE%E3%81%A8%E3%82%81 )
-function git-find-last-space() {
-	git grep -e $'\t''$\| $'
-}
-function git-find-last-space-vim() {
-	local filelist=$(git-find-last-space)
-	{
-		echo '# original key mapping info'
-		echo '# gf: open file'
-		echo '# go: next'
-		echo '# gi: back'
-		echo ''
-		echo $filelist
-	} | command vim --cmd "let g:auto_lcd_basedir=0 | autocmd VimEnter * :execute ':w '.tempname() | :lcd $PWD" -
-}
-
-cmdcheck 'git-ls' && alias gls='git-ls'
-alias gd='git_diff'
-# NOTE: 差分が少ないファイルから順番にdiffを表示
-function git_diff() {
-	is_git_repo_with_message || return
-
-	local diff_cmd='cdiff'
-	# 	[[ $# -ge 1 ]] && local diff_cmd="$1"
-	local files=($(git diff --stat "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
-	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
-	for e in "${files[@]}"; do
-		[[ -e "$e" ]] && echo $e >>$tmpfile
-	done
-	local files=($(cat $tmpfile))
-	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
-	[[ -e $tmpfile ]] && rm -f $tmpfile
-}
-alias gdh='gd HEAD'
-alias gdhh='gd HEAD HEAD~'
-alias gdhhh='gd HEAD~ HEAD~~'
-alias gdhhhh='gd HEAD~~ HEAD~~~'
-alias gdhhhhh='gd HEAD~~~ HEAD~~~~'
-alias gdhhhhhh='gd HEAD~~~~ HEAD~~~~~'
-alias gdhhhhhhh='gd HEAD~~~~~ HEAD~~~~~~'
-alias ga='git add --all'
-alias gc='git commit'
-alias gadd='git add'
-alias gap='git add -p'
-alias gai='git add -i'
-# this alias overwrite Ghostscript command
-alias gs='git status'
-alias gst='git status'
-alias glog='git log'
-function git-add-peco() {
-	local SELECTED_FILE_TO_ADD="$(git status --short | peco | awk -F ' ' '{print $NF}')"
-	if [ -n "$SELECTED_FILE_TO_ADD" ]; then
-		git add $(echo "$SELECTED_FILE_TO_ADD" | tr '\n' ' ')
-		git status
-	fi
-}
-
-# git grep settings
-alias gg='git_grep_root'
-alias ggr='git_grep_root'
-alias ggc='git_grep_current'
-alias ggpv='ggpv_root'
-alias ggpvr='ggpv_root'
-alias ggpvc='ggpv_current'
-function ggpv_root() {
-	local ret=$(git_grep_root --color=always "$@")
-	[[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
-}
-function ggpv_current() {
-	local ret=$(git_grep_current --color=always "$@")
-	[[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
-}
-function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
-function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
-
-function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
-function is_git_repo_with_message() {
-	local message=${1:-"${RED}no git repo here!${DEFAULT}"}
-	is_git_repo
-	local code=$?
-	[[ $code != 0 ]] && echo "$message" >&2
-	return $code
-}
-if cmdcheck tig; then
-	alias ts='tig status'
-	function tig() {
-		if [[ $# == 0 ]]; then
-			command tig status
-			return
-		fi
-		command tig "$@"
-	}
-fi
-
+# NOTE: source bellow file to unalias git commands
+[[ -e ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
 # ----
 
 cmdcheck tac || alias tac='tail -r'
@@ -288,13 +122,7 @@ cmdcheck 'cmake' && function cmake-clean() {
 }
 
 alias basedirname='basename $PWD'
-function find-git-repo() {
-	local args=(${@})
-	[[ $# -le 0 ]] && local args=(".")
-	for dirpath in ""${args[@]}""; do
-		find "$dirpath" -name '.git' | sed 's:/.git$::g'
-	done
-}
+
 alias find-time-sort='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -altr'
 alias find-time-sortr='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -alt'
 alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
@@ -302,38 +130,8 @@ alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" 
 alias find-orig-files="find . -name '*.orig'"
 alias find-orig-files-and-delete="find . -name '*.orig' -delete"
 
-function git-check-up-to-date() {
-	target='.'
-	[[ $# -ge 1 ]] && target="$1"
-	# NOTE: for supressing of chpwd()
-	ret=$(bash -c "cd \"$target\" && git log origin/master..master")
-	if [[ $ret != "" ]]; then
-		echo "[$target]"
-		echo $ret
-	fi
-	ret=$(bash -c "cd \"$target\" && git status --porcelain")
-	if [[ $ret != "" ]]; then
-		echo "[$target] Changes not staged for commit:"
-		echo $ret
-	fi
-}
-function find-git-non-up-to-date-repo() {
-	local ccze="cat"
-	cmdcheck ccze && ccze="ccze -A"
-	while read line || [ -n "${line}" ]; do
-		git-check-up-to-date "$line" | eval $ccze
-	done < <(find-git-repo "$@")
-}
-# [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
-function cd-git-root() {
-	is_git_repo_with_message || return
-	cd $(git rev-parse --show-toplevel)
-}
-
 # [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
-
-cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 
 # cd
 alias ho='\cd ~'
@@ -345,21 +143,22 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
 [[ -d ~/github.com ]] && alias github='cd ~/github.com'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
-[[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
-[[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
-[[ -d ~/dotfiles/neosnippet ]] && alias neosnippet='cd ~/dotfiles/neosnippet'
-[[ -d ~/dotfiles/.git_template/hooks ]] && alias githooks='cd ~/dotfiles/.git_template/hooks'
-[[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
-[[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
 [[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
 
+[[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
+[[ -d ~/dotfiles/.git_template/hooks ]] && alias githooks='cd ~/dotfiles/.git_template/hooks'
+[[ -d ~/dotfiles/cheatsheets ]] && alias cheatsheets='cd ~/dotfiles/cheatsheets'
+[[ -d ~/dotfiles/neosnippet ]] && alias neosnippet='cd ~/dotfiles/neosnippet'
+[[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
+[[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
+
+[[ -d ~/dotfiles/snippets ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vimgc='vim ~/dotfiles/.gitconfig'
+
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
-
-[[ -d ~/dotfiles/snippets ]] && alias visnippetes='vim ~/dotfiles/snippets'
 
 [[ -n $_Darwin ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* vim"'
 [[ -n $_Ubuntu ]] && alias vim-files='pgrep -al vim'
@@ -371,13 +170,14 @@ alias cdv='cdvproot'
 alias cdvp='cdvproot'
 alias cdvproot='cd $VIM_PROJECT_ROOT'
 
+alias mk='mkcd'
 function mkcd() {
 	if [ ! -n "$1" ]; then
 		echo "Enter a directory name"
 	elif [ -d $1 ]; then
 		echo "'$1' already exists"
 	else
-		mkdir $1 && cd $1
+		mkdir -p $1 && cd $1
 	fi
 }
 
@@ -461,19 +261,20 @@ if [[ -n $_Darwin ]]; then
 	# [MacOSXでstraceが欲しいけどdtrace意味わからん→dtruss使おう]( https://qiita.com/hnw/items/269f8eb44614556bd6bf )
 	alias strace='sudo dtruss -f sudo -u $(id -u -n)'
 
-	alias gvim='mvim'
-	alias mvim='mvim --remote-tab-silent'
-
 	function code() {
 		VSCODE_CWD="$PWD"
 		open -n -b "com.microsoft.VSCode" --args $*
 	}
 fi
 
-function mvim() {
-	[[ $# == 1 ]] && [[ $1 == "--remote-tab-silent" ]] && $(command which mvim) && return $?
-	$(command which mvim) $@
-}
+if cmdcheck mvim; then
+	alias gvim='mvim'
+	alias mvim='mvim --remote-tab-silent'
+	function mvim() {
+		[[ $# == 1 ]] && [[ $1 == "--remote-tab-silent" ]] && $(command which mvim) && return $?
+		$(command which mvim) $@
+	}
+fi
 
 ################
 #### Ubuntu ####
@@ -502,14 +303,6 @@ if [[ -n $_Ubuntu ]]; then
 		dpkg -L $1 | executable_filter
 	}
 
-	# [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
-	function peco-apt() {
-		if [ -z "$1" ]; then
-			echo "Usage: peco-apt <initial search string> - select packages on peco and they will be installed"
-		else
-			sudo apt-cache search $1 | peco | awk '{ print $1 }' | tr "\n" " " | xargs -- sudo apt-get install
-		fi
-	}
 	function xdotool-infos() {
 		[[ $# == 0 ]] && echo "$0 <class>" && return 1
 		xdotool search --class "$1" | xargs -L 1 sh -c 'printf "# $0"; xwininfo -id $0'
@@ -517,16 +310,8 @@ if [[ -n $_Ubuntu ]]; then
 
 	alias os_ver='cat /etc/os-release | grep VERSION_ID | grep -o "[0-9.]*"'
 fi
-if [[ $(uname) == "Darwin" ]]; then
-	# [Find the Wi\-Fi Network Password from Windows, Mac or Linux]( https://www.labnol.org/software/find-wi-fi-network-password/28949/ )
-	function show-Wi-Fi-password() {
-		local SSID=$(networksetup -listpreferredwirelessnetworks $(networksetup -listallhardwareports | grep -A1 Wi-Fi | sed -n 2,2p | sed 's/Device: //g') | peco | sed "s/^[ \t]*//")
-		echo $SSID
-		[[ -n $SSID ]] && security -i find-generic-password -wa "$SSID"
-	}
-fi
 
-pipe-EOF-do() {
+function pipe-EOF-do() {
 	local v=$(cat)
 	echo $v | ${@}
 }
@@ -537,9 +322,6 @@ alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
 # window path -> unix path
 alias w2upath='sed "s:\\\:/:g"'
 alias w2p='p|w2upath|c'
-
-alias git-diff='git diff --color-words'
-alias git-log-peco='cat ~/.git-logs/*.log | peco'
 
 alias relogin='exec $SHELL -l'
 
@@ -598,143 +380,18 @@ fi
 # fzy:  OK   Input OK, Output NG OK
 # 結論として，fzyの出力からansiコードを取り除いた場合が最適解?
 
-# [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
-# -> USE: pipe-EOF-do
-# brew install fzf
-# git clone https://github.com/junegunn/fzf.git
-# git clone --depth 1 https://github.com/junegunn/fzf.git
-# cd fzf
-# ./install
-# cp bin/fzf ~/local/bin/fzf
-cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
-cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
-
-# NOTE:googler
-# NOTE:peco
 # alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
 alias view='vim -R'
-alias pv='pecovim'
-alias pvim='pecovim'
 alias pipevim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
 # alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
-if cmdcheck peco; then
-	alias cpeco='command peco'
-	alias pecovim='peco | xargs-vim'
-	# peco copy
-	alias pc='peco | c'
-	alias pecopy='peco | c'
-	alias pe='peco'
-	alias hpeco='builtin history -nr 1 | command peco | tee /dev/tty | c'
-	alias apeco='alias | peco'
-	alias fpeco='find . -type f | peco'
-	alias fpecovim='find . -type f | pecovim'
-	alias fvim='find . -type f | pecovim'
-	alias epeco='env | peco | tee /dev/tty | c'
-	alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
-	alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
-	alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
-	alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
-	# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-	# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs -o vim"
-	# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs sh -c 'vim \$1 < /dev/tty' -"
-	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
-	# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
-	# 存在しない場合には空白となる
-	# 最終的に'./'を加えても動作は変更されない
-	# NOTE: echo ${~$(echo '~')} means expand '~'
-	alias rvcd="cd \${~\$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
-	alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
-	alias cdpeco="cd \$(find . -type d | peco | sed 's:$:/:g')./"
-	# [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
-	alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
-	alias up='cd `_up | peco`/.'
 
-	alias peco-ls='ls -al | peco | awk "{print \$9}"'
-	alias peco-lst='ls -alt | peco | awk "{print \$9}"'
-	alias peco-lstr='ls -altr | peco | awk "{print \$9}"'
-	alias pls='peco-ls'
-	alias plst='peco-lstr'
-	alias plstr='peco-lst'
-	alias pvls='peco-ls | xargs-vim'
-	alias pvlst='peco-lstr | xargs-vim'
-	alias pvlstr='peco-lst | xargs-vim'
-	alias pf='fpeco'
-	alias pft='find-time-sortr | peco | awk "{print \$9}"'
-	alias pftr='find-time-sort | peco | awk "{print \$9}"'
-	alias pvft='find-time-sortr | peco | awk "{print \$9}" | xargs-vim'
-	alias pvftr='find-time-sort | peco | awk "{print \$9}" | xargs-vim'
-fi
 alias rvgrep="viminfo-ls | xargs-grep"
 
 alias ls-non-dotfiles="find . -name '*' -maxdepth 1 | sed 's:^\./::g' | grep -E -v '\..*'"
-
-function _up() {
-	dir="$PWD"
-	while [[ $dir != / ]]; do
-		echo $dir
-		dir=${dir%/*}
-		[[ $dir == '' ]] && break
-	done
-	echo /
-}
-
-# [pecoでcdを快適にした｜bashでもpeco \- マクロ生物学徒の備忘録]( http://bio-eco-evo.hatenablog.com/entry/2017/04/30/044703 )
-function peco-cd() {
-	local sw="1"
-	while [ "$sw" != "0" ]; do
-		if [ "$sw" = "1" ]; then
-			local list=$(echo -e "---$PWD\n../\n$(ls -F | grep /)\n---Show hidden directory\n---Show files, $(echo $(ls -F | grep -v /))\n---HOME DIRECTORY")
-		elif [ "$sw" = "2" ]; then
-			local list=$(echo -e "---$PWD\n$(ls -a -F | grep / | sed 1d)\n---Hide hidden directory\n---Show files, $(echo $(ls -F | grep -v /))\n---HOME DIRECTORY")
-		else
-			local list=$(echo -e "---BACK\n$(ls -F | grep -v /)")
-		fi
-		local slct=$(echo -e "$list" | peco)
-		if [ "$slct" = "---$PWD" ]; then
-			local sw="0"
-		elif [ "$slct" = "---Hide hidden directory" ]; then
-			local sw="1"
-		elif [ "$slct" = "---Show hidden directory" ]; then
-			local sw="2"
-		elif [ "$slct" = "---Show files, $(echo $(ls -F | grep -v /))" ]; then
-			local sw=$(($sw + 2))
-		elif [ "$slct" = "---HOME DIRECTORY" ]; then
-			cd "$HOME"
-		elif [[ "$slct" =~ / ]]; then
-			cd "$slct"
-		elif [ "$slct" = "" ]; then
-			:
-		else
-			local sw=$(($sw - 2))
-		fi
-	done
-}
-alias sd='peco-cd'
-
-function git-checkout-branch-peco() {
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
-	[[ -n $branch ]] && git checkout $branch
-}
-
-function git-rename-to-backup-branch-peco() {
-	local prefix='_'
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
-	[[ -n $branch ]] && git rename {,$prefix}"$branch"
-}
-
-function cheat() {
-	# below commands enable alias
-	# for 高速vim起動
-	# vim -u NONE -N
-	export VIM_FAST_MODE='on'
-	local cheat_root="$HOME/dotfiles/cheatsheets/"
-	local _=$(grep -rns ".\+" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
-	unset VIM_FAST_MODE
-}
 
 function _sed_check_test() {
 	echo '# in function (alias is disable)'
@@ -998,8 +655,8 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath() {
 	if [[ -n $_Darwin ]]; then
-		_home=$(echo $HOME | sed "s/\//\\\\\//g")
-		abspathdir=$(sh -c "cd $(dirname $1) && pwd | sed \"s/$_home/~/\"")
+		local _home=$(echo $HOME | sed "s/\//\\\\\//g")
+		local abspathdir=$(sh -c "cd $(dirname $1) && pwd | sed \"s/$_home/~/\"")
 		echo ${abspathdir%/}/$(basename $1)
 	else
 		readlink -f $1
@@ -1063,9 +720,6 @@ cmdcheck gtimeout && alias timeout='gtimeout'
 cmdcheck trans && cmdcheck rlwrap && alias trans='rlwrap trans'
 cmdcheck trans && cmdcheck rlwrap && alias transja='rlwrap trans :ja'
 cmdcheck rlwrap && alias bc='rlwrap bc'
-
-## git
-cmdcheck git && alias gl='git log --oneline --decorate --graph --branches --tags --remotes'
 
 # html整形コマンド
 ## [XMLを整形(tidy)して読みやすく、貼りつけやすくする。 - それマグで！](http://takuya-1st.hatenablog.jp/entry/20120229/1330519953)
@@ -1167,12 +821,6 @@ clean-cdinfo() {
 	command cp ~/.cdinfo "$tmpfile"
 	cat "$tmpfile" | sort | uniq | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
 	rm -f "$tmpfile"
-}
-
-# ディレクトリ作成及び移動
-mk() {
-	mkdir -p "$1"
-	cd "$1" || return 1
 }
 
 alias memo='touch README.md'
@@ -1303,31 +951,20 @@ alias global_ip='curl ifconfig.moe || curl ifconfig.io'
 
 # swap file
 function swap() {
-	if (($# != 2)); then
-		echo "Usage: swap <file1> <file2>"
-		return 1
-	fi
-	b1=$(basename $1)
-	_l=$_l"mv $1 /tmp/"
-	if [[ $? != 0 ]]; then
-		echo "err:$_l"
-		return 1
-	fi
+	[[ $# != 2 ]] && echo "Usage: swap <file1> <file2>" && return 1
+	# TODO: use mktemp
+	local b1=$(basename $1)
+	local _l=$_l"mv $1 /tmp/"
+	[[ $? != 0 ]] && echo "err:$_l" && return 1
 	mv "$1" "/tmp/"
 
-	_l=$_l"mv $2 $1"
+	local _l=$_l"mv $2 $1"
 	mv "$2" "$1"
-	if [[ $? != 0 ]]; then
-		echo "err:$_l"
-		return 1
-	fi
+	[[ $? != 0 ]] && echo "err:$_l" && return 1
 
-	_l=$_l"mv /tmp/$1 $2"
+	local _l=$_l"mv /tmp/$1 $2"
 	mv "/tmp/$b1" "$2"
-	if [[ $? != 0 ]]; then
-		echo "err:$_l"
-		return 1
-	fi
+	[[ $? != 0 ]] && echo "err:$_l" && return 1
 }
 
 # 改行コード変換
@@ -1363,36 +1000,39 @@ function mdlink() {
 	# 	local abspathdir=$(cd $(dirname $file_path) && pwd)
 	local abspathfile="${PWD%/}/$file_path"
 	local link_name=$2
-	[[ -z $link_name ]] && link_name=$abspathfile
+	[[ -z $link_name ]] && local link_name=$abspathfile
 	function trim_prefix() { echo ${1##$2}; }
 	function trim_suffix() { echo ${1%%$2}; }
 	echo $link_name $HOME
-	link_name=$(trim_prefix "$link_name" "$HOME/")
-	link_name=$(trim_suffix "$link_name" "/.")
-	link_name=$(echo $link_name | sed 's:/:-:g')
+	local link_name=$(trim_prefix "$link_name" "$HOME/")
+	local link_name=$(trim_suffix "$link_name" "/.")
+	local link_name=$(echo $link_name | sed 's:/:-:g')
 	[[ ! -e $file_path ]] && echo "$file_path does not exist!" && return 2
 	echo ln -sf "$abspathfile" "$MDLINK/$link_name"
 	ln -sf "$abspathfile" "$MDLINK/$link_name"
 }
 
-# 特定の文字で挟み込む
+# NOTE: wrap stdin each line
 function sand() {
+	[[ $# -ge 2 ]] && echo "$0 string" && return
 	local B=${1:-\"}
 	local E
-	[[ $B == \( ]] && E=")"
-	[[ $B == \[ ]] && E="]"
-	[[ $B == \< ]] && E=">"
-	[[ $B == \{ ]] && E="}"
-	[[ $B == \" ]] && B=\\\"
-	E=${E:-$B}
-	[[ $B == "\\" ]] && B="\\\\"
-	[[ $E == \" ]] && E=\\\"
-	[[ $E == "\\" ]] && E="\\\\"
+	[[ $B == \( ]] && local E=")"
+	[[ $B == \[ ]] && local E="]"
+	[[ $B == \< ]] && local E=">"
+	[[ $B == \{ ]] && local E="}"
+	[[ $B == \" ]] && local B=\\\"
+	local E=${E:-$B}
+	[[ $B == "\\" ]] && local B="\\\\"
+	[[ $E == \" ]] && local E=\\\"
+	[[ $E == "\\" ]] && local E="\\\\"
 	awk '{printf "'$B'%s'$E'\n", $0}'
 }
+# NOTE: print string which fill terminal line
 function line() {
-	local C=${1:-=} seq -f "$C" -s '' $(($(tput cols) / $(printf "%s" "$C" | wc -m)))
-	echo
+	local C=${1:-=}
+	seq -f "$C" -s '' $(($(tput cols) / $(printf "%s" "$C" | wc -m)))
+	echo ''
 }
 
 # terminal session logger
@@ -1433,12 +1073,13 @@ alias moon='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" } m
 # zploadadd ssh tmux rsync archive
 # [sed でシンボリックリンクのファイルを書き換えると、実体ファイルに変わる – Tower of Engineers]( https://toe.bbtower.co.jp/20160915/136/ )
 cmdcheck gsed && function zploadadd() {
+	[[ $# == 0 ]] && echo "$0 zstyle.pmodule names..." && return
 	for package in $@; do
 		gsed -i --follow-symlinks -e '/^zstyle.*pmodule \\$/a '\'$package\'' \\' ~/.zpreztorc
 	done
 }
 
-{
+function lambda() {
 	local COLOR_RED="\e[91m"
 	local COLOR_GREEN="\e[92m"
 	local COLOR_YELLOW="\e[93m"
@@ -1454,7 +1095,7 @@ cmdcheck gsed && function zploadadd() {
 	perl -pe 's/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}"'$&'"${COLOR_END}/g'"
 	alias ifconfig='ifconfig | ifconfig_color_filter'
 	cmdcheck ifconfig && alias ifc='ifconfig'
-}
+} && lambda
 
 function off() { printf "\e[0;m$*\e[m"; }
 function bold() { printf "\e[1;m$*\e[m"; }
@@ -1540,26 +1181,6 @@ print "\n"
 EOF
 	)
 	ruby -e "$PROGRAM"
-}
-
-# [\`git remote add upstream\`を楽にする \| Tomorrow Never Comes\.]( http://blog.sgr-ksmt.org/2016/03/04/git_remote_add_upstream/ )
-git-remote-add-upstream() {
-	if ! type jq >/dev/null 2>&1; then
-		echo "'jq' is not installed." >&2
-		return 1
-	fi
-	local repo=$(git config user.name)/$(basename $PWD)
-	if [ $# -ge 1 ]; then
-		local repo="$1"
-	fi
-	echo "repo: $repo"
-	local upstream=$(curl -L "https://api.github.com/repos/$repo" | jq -r '.parent.full_name')
-	if [ "$upstream" = "null" ]; then
-		echo "upstream not found." >&2
-		return 1
-	fi
-	echo git remote add upstream "git@github.com:${upstream}.git"
-	git remote add upstream "git@github.com:${upstream}.git"
 }
 
 # required: gdrive
@@ -1746,6 +1367,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
 
+[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 [[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc

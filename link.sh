@@ -10,6 +10,8 @@ ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
 
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
+ln -sf ~/dotfiles/.git.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.peco.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
