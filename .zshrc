@@ -41,15 +41,16 @@ function exportf() {
 # [[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
 # ----------------
 
-doctor() {echo $_NO_CMD}
-funccheck() { declare -f "$1" >/dev/null; }
-cmdcheck() {
+_NO_CMD=''
+function doctor() { echo $_NO_CMD; }
+function funccheck() { declare -f "$1" >/dev/null; }
+function cmdcheck() {
 	type "$1" >/dev/null 2>&1
 	local code=$?
 	[[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
 	return $code
 }
-alias_if_exist() {
+function alias_if_exist() {
 	local tmp="${@:3:($# - 2)}"
 	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
 }
@@ -66,9 +67,9 @@ function share_history() {
 if [[ -n $BASH ]]; then
 	PROMPT_COMMAND='share_history' # 上記関数をプロンプト毎に自動実施
 	shopt -u histappend            # .bash_history追記モードは不要なのでOFFに
-else
-	# zsh
-	# NOTE: howt to check
+fi
+if [[ $ZSH_NAME == zsh ]]; then
+	# NOTE: how to check
 	# setopt | grep 'xxx'
 
 	# history
@@ -77,6 +78,7 @@ else
 	# シェルのプロセスごとに履歴を共有
 	setopt share_history
 
+	# NOTE: these options are enabled
 	## 補完候補を一覧表示
 	# 	setopt auto_list
 	## =command を command のパス名に展開する
@@ -87,12 +89,16 @@ fi
 
 # ----
 
-# git
-git_aliases=(gCa gCe gCl gCo gCt gFb gFbc gFbd gFbf gFbl gFbm gFbp gFbr gFbs gFbt gFbx gFf gFfc gFfd gFff gFfl gFfm gFfp gFfr gFfs gFft gFfx gFh gFhc gFhd gFhf gFhl gFhm gFhp gFhr gFhs gFht gFhx gFi gFl gFlc gFld gFlf gFll gFlm gFlp gFlr gFls gFlt gFlx gFs gFsc gFsd gFsf gFsl gFsm gFsp gFsr gFss gFst gFsx gR gRa gRb gRl gRm gRp gRs gRu gRx gS gSI gSa gSf gSi gSl gSm gSs gSu gSx gb gbD gbL gbM gbR gbS gbV gbX gba gbc gbd gbl gbm gbr gbs gbv gbx gc gcF gcO gcP gcR gcS gcSF gcSa gcSf gcSm gca gcam gcd gcf gcl gcm gco gcp gcr gcs gd gdc gdi gdk gdm gdu gdx gf gfa gfc gfcr gfm gfr gg ggL ggi ggl ggv ggw giA giD giI giR giX gia gid gii gir giu gix gl glb glc gld glg glo gm gmC gmF gma gmt gp gpA gpF gpa gpc gpf gpp gpt gr gra grc gri grs gs gsL gsS gsX gsa gsd gsl gsp gsr gss gsw gsx gwC gwD gwR gwS gwX gwc gwd gwr gws gwx)
-for e in ${git_aliases[@]}; do
-	cmdcheck $e && unalias $e
-done
-alias gr='git-root'
+# NOTE: unalias default? git aliases
+function lambda() {
+	local git_aliases=(gCa gCe gCl gCo gCt gFb gFbc gFbd gFbf gFbl gFbm gFbp gFbr gFbs gFbt gFbx gFf gFfc gFfd gFff gFfl gFfm gFfp gFfr gFfs gFft gFfx gFh gFhc gFhd gFhf gFhl gFhm gFhp gFhr gFhs gFht gFhx gFi gFl gFlc gFld gFlf gFll gFlm gFlp gFlr gFls gFlt gFlx gFs gFsc gFsd gFsf gFsl gFsm gFsp gFsr gFss gFst gFsx gR gRa gRb gRl gRm gRp gRs gRu gRx gS gSI gSa gSf gSi gSl gSm gSs gSu gSx gb gbD gbL gbM gbR gbS gbV gbX gba gbc gbd gbl gbm gbr gbs gbv gbx gc gcF gcO gcP gcR gcS gcSF gcSa gcSf gcSm gca gcam gcd gcf gcl gcm gco gcp gcr gcs gd gdc gdi gdk gdm gdu gdx gf gfa gfc gfcr gfm gfr gg ggL ggi ggl ggv ggw giA giD giI giR giX gia gid gii gir giu gix gl glb glc gld glg glo gm gmC gmF gma gmt gp gpA gpF gpa gpc gpf gpp gpt gr gra grc gri grs gs gsL gsS gsX gsa gsd gsl gsp gsr gss gsw gsx gwC gwD gwR gwS gwX gwc gwd gwr gws gwx)
+	for e in ${git_aliases[@]}; do
+		cmdcheck $e && unalias $e
+	done
+} && lambda
+
+alias gr='cd-git-root'
+alias cdgr='cd-git-root'
 # [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
 function git-open() {
 	is_git_repo_with_message || return
@@ -126,10 +132,10 @@ function git-restore-stash() {
 function git-find-conflict() {
 	is_git_repo_with_message || return
 	local changed=$(git diff --cached --name-only)
-	[[ -z "$changed" ]] && return 0
+	[[ -z "$changed" ]] && return
 
-	grep='grep'
-	cmdcheck 'ggrep' && grep='ggrep'
+	local grep='grep'
+	cmdcheck 'ggrep' && local grep='ggrep'
 
 	echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
 
@@ -171,26 +177,6 @@ function git-find-last-space-vim() {
 		echo $filelist
 	} | command vim --cmd "let g:auto_lcd_basedir=0 | autocmd VimEnter * :execute ':w '.tempname() | :lcd $PWD" -
 }
-
-cmdcheck tac || alias tac='tail -r'
-
-# ls
-[[ -n $_Darwin ]] && alias ls='ls -G'
-[[ -n $_Ubuntu ]] && alias ls='ls --color=auto'
-
-alias l='ls'
-alias la='ls -al'
-alias lal='ls -al'
-alias lat='ls -alt'
-alias latr='ls -altr'
-alias lalt='ls -alt'
-alias laltr='ls -altr'
-alias lsa='ls -al'
-alias lsal='ls -al'
-alias lsat='ls -alt'
-alias lsatr='ls -altr'
-alias lsalt='ls -alt'
-alias lsaltr='ls -altr'
 
 cmdcheck 'git-ls' && alias gls='git-ls'
 alias gd='git_diff'
@@ -270,6 +256,28 @@ if cmdcheck tig; then
 	}
 fi
 
+# ----
+
+cmdcheck tac || alias tac='tail -r'
+
+# ls
+[[ -n $_Darwin ]] && alias ls='ls -G'
+[[ -n $_Ubuntu ]] && alias ls='ls --color=auto'
+
+alias l='ls'
+alias la='ls -al'
+alias lal='ls -al'
+alias lat='ls -alt'
+alias latr='ls -altr'
+alias lalt='ls -alt'
+alias laltr='ls -altr'
+alias lsa='ls -al'
+alias lsal='ls -al'
+alias lsat='ls -alt'
+alias lsatr='ls -altr'
+alias lsalt='ls -alt'
+alias lsaltr='ls -altr'
+
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
@@ -317,7 +325,7 @@ function find-git-non-up-to-date-repo() {
 	done < <(find-git-repo "$@")
 }
 # [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
-function git-root() {
+function cd-git-root() {
 	is_git_repo_with_message || return
 	cd $(git rev-parse --show-toplevel)
 }
@@ -350,6 +358,8 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vimgc='vim ~/dotfiles/.gitconfig'
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
+
+[[ -d ~/dotfiles/snippets ]] && alias visnippetes='vim ~/dotfiles/snippets'
 
 [[ -n $_Darwin ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* vim"'
 [[ -n $_Ubuntu ]] && alias vim-files='pgrep -al vim'
@@ -1589,11 +1599,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
 	source "${ZDOTDIR:-$HOME}/.local.zshrc"
 fi
 
-# [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
-if [[ $ZSH_NAME == zsh ]]; then
-	chpwd
-fi
-
 # ---- bash ----
 # ---- zsh ----
 
@@ -1744,3 +1749,8 @@ fi
 [[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+
+# [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
+if [[ $ZSH_NAME == zsh ]]; then
+	chpwd
+fi
