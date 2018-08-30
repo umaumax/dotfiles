@@ -135,6 +135,7 @@ set whichwrap=b,s,[,],<,>
 " !	When included, save and restore global variables that start with an uppercase letter, and don't contain a lowercase letter.  Thus "KEEPTHIS and "K_L_M" are stored, but "KeepThis" and "_K_L_M" are not.  Only String and Number types are stored.
 set viminfo='1000,/5000,%,<1000,f1,s100,:10000,c,h,!
 set noswapfile | set nobackup
+" NOTE: move cursor to last position
 augroup reopen_cursor_position
 	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END

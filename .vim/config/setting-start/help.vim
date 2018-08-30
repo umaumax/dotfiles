@@ -8,7 +8,6 @@ function! PipeCommandResultToNewTab(cmd)
 	tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=vim
 endfunction
 
-command! Messages    call PipeCommandResultToNewTab("messages")
 command! Map         call PipeCommandResultToNewTab("map")
 command! Imap        call PipeCommandResultToNewTab("imap")
 command! Cmap        call PipeCommandResultToNewTab("cmap")
@@ -25,15 +24,18 @@ command! Nmapv       call PipeCommandResultToNewTab("verbose nmap")
 command! Vmapv       call PipeCommandResultToNewTab("verbose vmap")
 command! Xmapv       call PipeCommandResultToNewTab("verbose xmap")
 command! Omapv       call PipeCommandResultToNewTab("verbose omap")
-command! Scriptnames call PipeCommandResultToNewTab("scriptnames")
-command! Runtimepath call PipeCommandResultToNewTab('echo substitute(&runtimepath,",","\n","g")')
-command! Function    call PipeCommandResultToNewTab("function")
-command! Registers   call PipeCommandResultToNewTab("registers")
-command! History     call PipeCommandResultToNewTab("history")
+
+command! Changes     call PipeCommandResultToNewTab("changes")
 command! Command     call PipeCommandResultToNewTab("command")
-command! Syntax      call PipeCommandResultToNewTab("syntax")
+command! Function    call PipeCommandResultToNewTab("function")
+command! History     call PipeCommandResultToNewTab("history")
+command! Messages    call PipeCommandResultToNewTab("messages")
+command! Registers   call PipeCommandResultToNewTab("registers")
+command! Runtimepath call PipeCommandResultToNewTab('echo substitute(&runtimepath,",","\n","g")')
+command! Scriptnames call PipeCommandResultToNewTab("scriptnames")
 command! Set         call PipeCommandResultToNewTab("set")
 command! SetAll      call PipeCommandResultToNewTab("set all")
+command! Syntax      call PipeCommandResultToNewTab("syntax")
 command! TabInfo     call PipeCommandResultToNewTab("echo 'expandtab:'.&expandtab | echo 'tabstop:'.&tabstop | echo 'shiftwidth:'.&shiftwidth | echo 'softtabstop:'.&softtabstop | echo 'autoindent:'.&autoindent | echo 'smartindent:'.&smartindent")
 
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
