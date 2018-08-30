@@ -1,4 +1,4 @@
-function! s:edit_log()
+function! s:edit_log(force_flag)
 	" NOTE: maybe run by -i NONE
 	if len(v:oldfiles) == 0
 		return
@@ -7,7 +7,7 @@ function! s:edit_log()
 	let full_path = substitute(expand("%:p"), '^'.$HOME, '~','')
 	let g:vim_edit_log_map = get(g:, 'vim_edit_log_map', {'':1})
 	let g:vim_edit_log_map[g:vim_edit_log_path] = 1
-	if has_key(g:vim_edit_log_map, full_path)
+	if !a:force_flag && has_key(g:vim_edit_log_map, full_path)
 		return
 	endif
 	" skip tmp file
@@ -47,5 +47,7 @@ command! CleanVimEditFileLog call <SID>clean_vim_edit_file_log()
 
 augroup edit_log_group
 	autocmd!
-	autocmd BufEnter,BufWrite * call <SID>edit_log()
+	" NOTE: BufEnterでは新規ファイルが登録された後すぐに，存在しないために消去されてしまうが，マップ変数上ではフラグが立つので，BufWritePostではforceフラグを活用
+	autocmd BufEnter * call <SID>edit_log(0)
+	autocmd BufWritePost * call <SID>edit_log(1)
 augroup END
