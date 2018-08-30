@@ -34,8 +34,6 @@ if &rtp =~ 'vim-submode'
 	call submode#map('goto_buffer', 'n', '', 'go', ':bN<CR>')
 
 	" back, next
-	nnoremap gb g;
-	nnoremap gn g,
 	call submode#enter_with('move_cursor', 'n', '', 'gb', 'g;')
 	call submode#enter_with('move_cursor', 'n', '', 'gn', 'g,')
 	call submode#map('move_cursor', 'n', '', 'b', 'g;')
