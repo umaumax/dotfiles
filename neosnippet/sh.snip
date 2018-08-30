@@ -10,16 +10,26 @@ snippet ismac
     if [[ $(uname) == "Darwin" ]]; then
         ${0}
     fi
-
 snippet isubuntu
     if [[ $(uname -a) =~ "Ubuntu" ]]; then
         ${0}
     fi
-
 snippet iswindows
     if [[ "$OS" =~ "Windows" ]]; then
         ${0}
     fi
+snippet isbash_if
+  if [[ -n $BASH ]]; then
+    ${0}
+  fi
+snippet isbash
+  [[ -n $BASH ]] && ${0}
+snippet iszsh_if
+  if [[ $ZSH_NAME == zsh ]]; then
+    ${0}
+  fi
+snippet iszsh
+  [[ $ZSH_NAME == zsh ]] ${0}
 
 snippet trimspace
   sed "s/^[ \t]*//"
@@ -139,3 +149,9 @@ abbr you can use bash var in a template file
   $(<${1:#template file path})
   EOF
   " > ${0:#output file path}
+
+snippet lambda
+abbr pseudo lambda function which is formattable by shfmt
+  function lambda() {
+    ${0}
+  } && lambda
