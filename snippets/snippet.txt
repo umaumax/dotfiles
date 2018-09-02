@@ -124,3 +124,6 @@
 
 # ssh key
 [ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa
+
+# one liners
+[args checker] python -c "import sys; print(sys.argv)" @
