@@ -156,3 +156,5 @@ endfunction
 command! -nargs=? -bar -range=% Join :<line1>,<line2>call <SID>join(<f-args>)
 
 command! -nargs=0 SaveAsTempfile :execute ':w '.tempname()
+
+command! -nargs=0 BoxEdit :execute "normal! \<C-v>"

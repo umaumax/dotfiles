@@ -442,13 +442,13 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule_of_word('pipe','| ')
 
 	let s:multi_word_map = {
-				\'NOTE: ':['NOTE;', 'NOTE:'],
-				\'TODO: ':['TODO;', 'TODO:'],
-				\'WARN: ':['WARN;', 'WARN:'],
-				\'MEMO: ':['MEMO;', 'MEMO:'],
-				\'INFO: ':['INFO;', 'INFO:'],
-				\'FYI:  ':['FYI;',  'FYI:'],
-				\'FIX:  ':['FIX;',  'FIX:'],
+				\'NOTE: ':['note', 'note:  '],
+				\'TODO: ':['todo', 'todo:  '],
+				\'WARN: ':['warn', 'warn:  '],
+				\'MEMO: ':['memo', 'memo:  '],
+				\'INFO: ':['info', 'info:  '],
+				\'FYI: ':['fyi', 'fyi:  '],
+				\'FIX: ':['fix', 'fix:  '],
 				\}
 	for key in keys(s:multi_word_map)
 		for at in s:multi_word_map[key]
