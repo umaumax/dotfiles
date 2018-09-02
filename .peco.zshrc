@@ -141,3 +141,13 @@ function cheat() {
 	local _=$(grep -rns ".\+" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
 	unset VIM_FAST_MODE
 }
+
+# copy example file peco
+function pecoexamples() {
+	local root="$HOME/dotfiles/examples"
+	local files=$(cd $root >/dev/null 2>&1 && find . -type f | grep -v README.md)
+	[[ -z $files ]] && return
+	local ret=$(echo "$files" | peco)
+	[[ -z $ret ]] && return
+	cp -i "$root/$ret" "$(basename $ret)" && echo "[COPY]: $ret"
+}
