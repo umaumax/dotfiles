@@ -17,9 +17,13 @@ snippet class
 	class ${1:#class name}:
 		def __init__(self, ${0}):
 
-snippet input
+snippet stdin_readline
 abbr input speed up tech
 	input = sys.stdin.readline
+	line = input()
+
+snippet stdin_readlines
+	lines = sys.stdin.readlines()
 
 snippet for_range
 	for ${2:i} in range(${1:# 0 ~ n-1}):
@@ -31,13 +35,13 @@ snippet init_list2
 	[[None] * ${2:#N2} for _ in range(${1:#N1})]
 
 snippet write_file
-	def write_file(file_name, text):
-		with open(file_name, 'w') as f:
-			f.write(text)
-			f.truncate()
+	def write_file(file_name, text, flag='w'):
+		with open(file_name, flag) as file:
+			file.write(text)
+			file.truncate()
 
-snippet argparse
-alias cmdparse
+snippet argparse_example
+alias cmdparse_example
 	import argparse
 
 	parser = argparse.ArgumentParser()
@@ -66,9 +70,12 @@ snippet mean_np
 snippet exit
 	sys.exit(${0})
 
-snippet abspath
+snippet abspath_of_script_file
 abbr abspath of script path # required: import pathlib
 	script_abspath = pathlib.Path(__file__).resolve().parent
+
+snippet relpath_of_os_path
+	os.path.relpath(${1:#target filepath}, start=${0:#base filepath})
 
 snippet pathjoin
 	os.path.join(${1:#path}, ${0:#path})
@@ -139,3 +146,17 @@ snippet makedirs_of_os
 
 snippet subprocess.check_output
 	subprocess.check_output(${0:["ls", "."]}).decode("utf8")
+
+snippet json_from_file
+	def read_jsonfile(filepath):
+		import json
+		with open(filepath, 'r', encoding='utf-8') as f:
+			json_dict = json.loads(f.read())
+			return json_dict
+
+snippet main
+	def main():
+		${0}
+
+	if __name__ == '__main__':
+		main()

@@ -121,3 +121,6 @@
 
 # wc
 [count japanese chars] wc -m
+
+# ssh key
+[ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa

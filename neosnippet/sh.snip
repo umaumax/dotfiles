@@ -155,3 +155,7 @@ abbr pseudo lambda function which is formattable by shfmt
   function lambda() {
     ${0}
   } && lambda
+
+snippet slice
+abbr ${@:0} == $@
+  ${${1:#array name}:${0:#1,2,3,...}}
