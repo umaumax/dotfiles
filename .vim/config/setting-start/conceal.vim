@@ -17,4 +17,14 @@ function! FullwidthConceal()
 	syntax match HalfwidthHypen /‘/ display containedin=ALL conceal cchar='
 	syntax match HalfwidthHypen /’/ display containedin=ALL conceal cchar='
 	syntax match HalfwidthHypen /→/ display containedin=ALL conceal cchar=👉
+	" NOTE: treeの表示は崩れない
+	" 	syntax match HalfwidthHypen /├/ display containedin=ALL conceal cchar=+
+	" 	syntax match HalfwidthHypen /─/ display containedin=ALL conceal cchar=-
+	" 	syntax match HalfwidthHypen /└/ display containedin=ALL conceal cchar=L
+	" 	syntax match HalfwidthHypen /│/ display containedin=ALL conceal cchar=|
+	" NOTE: つじつまは合うが，treeの表示は崩れる
+	syntax match HalfwidthHypen /├/ display containedin=ALL conceal cchar=＋
+	syntax match HalfwidthHypen /─/ display containedin=ALL conceal cchar=ー
+	syntax match HalfwidthHypen /└/ display containedin=ALL conceal cchar=Ｌ
+	syntax match HalfwidthHypen /│/ display containedin=ALL conceal cchar=｜
 endfunction
