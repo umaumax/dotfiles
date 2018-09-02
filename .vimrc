@@ -113,6 +113,7 @@ let s:doctor_map={
 			\'s':            'brew install s-search',
 			\'tig':          'brew install tig || build tig your self ( https://github.com/jonas/tig/releases )',
 			\'trans':        'brew install translate-shell || sudo apt-get install translate-shell',
+			\'textlint':     'use npm to install',
 			\'shellcheck':   'apt-get install shellcheck || brew install shellcheck',
 			\'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
 			\'vint':         'pip install vim-vint',

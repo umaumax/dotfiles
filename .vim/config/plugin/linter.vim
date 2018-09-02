@@ -30,16 +30,12 @@ let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
-if Doctor('cmakelint', 'cmake linter')
-endif
-if Doctor('pylint', 'python linter')
-endif
-if Doctor('jsonlint', 'json linter')
-endif
-if Doctor('shellcheck', 'shell linter')
-endif
-if Doctor('vint', 'vim linter')
-endif
+call Doctor('cmakelint', 'cmake linter')
+call Doctor('pylint', 'python linter')
+call Doctor('jsonlint', 'json linter')
+call Doctor('shellcheck', 'shell linter')
+call Doctor('vint', 'vim linter')
+call Doctor('textlint', 'text linter(for Japanese)')
 let g:ale_linters = {
 			\   'python': ['pylint', 'autopep8', 'flake8'],
 			\   'json': ['jsonlint'],
@@ -47,6 +43,8 @@ let g:ale_linters = {
 			\   'bash': ['shellcheck'],
 			\   'vim': ['vint'],
 			\   'cpp': ['cpplint','clang'],
+			\   'md': ['textlint'],
+			\   'txt': ['textlint'],
 			\}
 " ['clangcheck', 'clangtidy'],
 let g:ale_cpp_cpplint_options = '--linelength=160 --filter=-readability/todo,-legal/copyright,-whitespace/line_length,-build/header_guard'

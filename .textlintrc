@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "no-mix-dearu-desumasu": true,
+    "preset-ja-technical-writing": {
+     "ja-no-mixed-period": {
+        "periodMark": "．"
+    }
+    },
+    "spellcheck-tech-word": true,
+    "preset-japanese": true,
+    "ja-no-mixed-period": false
+  }
+}
