@@ -153,7 +153,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 
-[[ -d ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
+[[ -e ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
 
 [[ -e ~/dotfiles/.zplug.zshrc ]] && alias vizplug='vim ~/dotfiles/.zplug.zshrc' && alias vimzplug='vizplug'
