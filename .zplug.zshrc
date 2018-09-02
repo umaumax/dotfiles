@@ -107,5 +107,5 @@ if [[ -e ~/.zplug ]]; then
 	# 	zplug load --verbose
 	zplug load
 
-	autoload -Uz compinit
+	autoload -Uz compinit && compinit -i
 fi

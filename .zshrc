@@ -143,7 +143,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
 [[ -d ~/github.com ]] && alias github='cd ~/github.com'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
-[[ -d ~/gshare ]] && alias gshare='cd ~/gshare'
+[[ -d ~/gshare ]] && alias gshare='cd ~/gshare' && alias vigshare='tabvim ~/gshare/*.md' && alias vimshare='vishare'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
 
 [[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
@@ -153,9 +153,11 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 
-[[ -d ~/dotfiles/snippets ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
-[[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig'
-[[ -e ~/dotfiles/.gitconfig ]] && alias vimgc='vim ~/dotfiles/.gitconfig'
+[[ -d ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
+[[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
+
+[[ -e ~/dotfiles/.zplug.zshrc ]] && alias vizplug='vim ~/dotfiles/.zplug.zshrc' && alias vimzplug='vizplug'
+[[ -e ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkey='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkey='vizplug'
 
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
@@ -169,6 +171,8 @@ alias vproot='cdvproot'
 alias cdv='cdvproot'
 alias cdvp='cdvproot'
 alias cdvproot='cd $VIM_PROJECT_ROOT'
+
+alias cpp-system-include-path="echo | CPATH='' clang -x c++ -v -fsyntax-only - |& grep '^ /' | sed 's:^ ::g'"
 
 alias mk='mkcd'
 function mkcd() {
@@ -699,13 +703,15 @@ fi
 # install command: `brew install ccat` or `go get github.com/jingweno/ccat`
 if cmdcheck ccat; then
 	alias cat='ccat'
-	alias catless='local _ccat(){ccat --color=always "$@" | command cat -n | less} && _ccat'
+	alias catless='local _ccat(){cat --color=always "$@" | command cat -n | less} && _ccat'
 else
 	if cmdcheck pygmentize; then
 		alias ccat='pygmentize -g -O style=colorful,linenos=1'
-		alias catless='local _ccat(){ccat "$@" | less} && _ccat'
+		alias catless='local _ccat(){cat "$@" | less} && _ccat'
 	fi
 fi
+# brew install bat or access [sharkdp/bat: A cat\(1\) clone with wings\.]( https://github.com/sharkdp/bat )
+cmdcheck bat && alias cat='bat'
 
 # for mac
 cmdcheck gsed && alias sed='gsed'
