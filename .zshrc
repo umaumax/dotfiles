@@ -634,6 +634,13 @@ alias vissh='vim ~/.ssh/config'
 alias vimssh='vim ~/.ssh/config'
 alias sshconfig='vim ~/.ssh/config'
 
+function ssh-register_id_rsa.pub() {
+	[[ $# -le 1 ]] && echo "$0 <id_rsa.pub filepath> <ssh host name>"
+	local id_rsa_pub_filepath="$1"
+	local ssh_host_name="$2"
+	cat "$id_rsa_pub_filepath" | ssh "$ssh_host_name" 'mkdir ~/.ssh && touch .ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys && cat >> ~/.ssh/authorized_keys'
+}
+
 # show path each line
 alias path='echo $PATH | sed "s/:/\n/g"'
 alias fpath='echo $fpath | tr " " "\n"'
@@ -767,6 +774,12 @@ if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	alias op="p | tr -d '\n'"
 fi
 
+function clipboard-without-formatting() {
+	local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
+	p >"$tmpfile" && cat "$tmpfile" | c
+	[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+}
+
 # aliasでは引数がうまく取れないので、関数化
 # built-inコマンドがすでに存在している場合にはfunctionを省略してはならない
 # only bash?
@@ -783,6 +796,16 @@ function chpwd() {
 	# [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366#cdr%E3%81%A7peco%E3%82%8B )
 	echo $PWD >>"$HOME/.cdinfo"
 	set-dirname-title
+
+	# NOTE: auto python venv activate and deactivate
+	function lambda() {
+		local python_venv_activator='bin/activate'
+		local dirpath=$PWD && while true; do
+			[[ -e "$dirpath/$python_venv_activator" ]] && source "$python_venv_activator" && return
+			[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
+		done
+		[[ -n "$VIRTUAL_ENV" ]] && deactivate
+	} && lambda
 }
 set-dirname-title
 # [chpwd内のlsでファイル数が多い場合に省略表示する - Qiita]( https://qiita.com/yuyuchu3333/items/b10542db482c3ac8b059 )
