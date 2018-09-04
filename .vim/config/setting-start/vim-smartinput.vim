@@ -445,11 +445,11 @@ function! s:smartinput_define()
 				\'NOTE: ':['note', 'note:  '],
 				\'TODO: ':['todo', 'todo:  '],
 				\'WARN: ':['warn', 'warn:  '],
-				\'MEMO: ':['memo', 'memo:  '],
 				\'INFO: ':['info', 'info:  '],
 				\'FYI: ':['fyi', 'fyi:  '],
 				\'FIX: ':['fix', 'fix:  '],
 				\}
+	"	\'MEMO: ':['memo', 'memo:  '],
 	for key in keys(s:multi_word_map)
 		for at in s:multi_word_map[key]
 			call s:smartinput_define_rule_of_word(at,key)
