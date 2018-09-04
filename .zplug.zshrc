@@ -48,6 +48,11 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			# [Command\-line completion \| Docker Documentation]( https://docs.docker.com/compose/completion/#zsh )
 			# NOTE: you cat get docker-compose version by $(docker-compose version --short)
 			[[ ! -e ~/.zsh/completion/_docker-compose ]] && curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose >~/.zsh/completion/_docker-compose
+
+			# NOTE: below setting is written in README.md
+			[[ ! -e ~/.zsh/completion/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O _tig
+			[[ ! -e ~/.zsh/completion/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O tig-completion.bash
+
 			fpath=(~/.zsh/completion $fpath)
 		fi
 
