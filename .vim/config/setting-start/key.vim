@@ -600,30 +600,24 @@ augroup END
 
 " psate
 function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
-	let l:tmp=@+
-	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
-	let @+=substitute(a:prefix.@+.a:suffix, '\n*$', '', '')
-	" 	if a:Pflag
-	" 		normal! P
-	" 	else
-	" 		normal! p
-	" 	endif
-	let @z=@+
-	let @+=l:tmp
+	call s:set_cleand_clipboard_at_reg('z', a:prefix.@+.a:suffix)
 endfunction
 " psate
 function! s:paste_at_cursor(Pflag, ...)
-	let content = get(a:, 1, @+)
-	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
-	let content=substitute(content, '\n*$', '', '')
-	let @p = content
+	call s:set_cleand_clipboard_at_reg('p')
 	if a:Pflag
 		normal! "pP
 	else
 		normal! "pp
 	endif
 endfunction
-inoremap <silent><C-v> <ESC>:call <SID>paste_at_cursor(0)<CR>i
+function! s:set_cleand_clipboard_at_reg(reg_char, ...)
+	let content = get(a:, 1, @+)
+	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
+	let content=substitute(content, '\n*$', '', '')
+	call setreg(a:reg_char, content)
+endfunction
+inoremap <silent><C-v> <C-o>:call <SID>set_cleand_clipboard_at_reg('p')<CR><C-r>p
 nnoremap <silent><C-v> :call <SID>paste_at_cursor(1)<CR><Right>
 
 function! s:paste_at_cmdline()
