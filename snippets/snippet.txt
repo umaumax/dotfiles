@@ -24,8 +24,8 @@
 [GUI app autostart] cd ~/.config/autostart !
 [apps] cd /usr/share/applications !
 # ubuntu network
-[network reboot] sudo service networking restart !
-[ip flush] sudo ip addr flush !
+[network reboot] sudo service networking restart
+[ip flush] sudo ip addr flush
 [ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
 # ubuntu *.deb install
 [gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
@@ -35,7 +35,7 @@
 [圧縮] tar zcvf # tar zcvf xxxx.tar.gz directory
 
 # filter
-[filter 数字のみ] perl -nle '$_=~/([0-9]+)/;print $1;'
+[filter only number] perl -nle '$_=~/([0-9]+)/;print $1;'
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
@@ -99,7 +99,7 @@
 [line filter] sed -n @,p # index starts with 1
 
 # patch
-[patch] # git diff | c && cd xxx && p | patch -p1
+[patch] echo "git diff | c && cd xxx && p | patch -p1" !
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
@@ -124,6 +124,29 @@
 
 # ssh key
 [ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa
+[ssh port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
 
 # one liners
 [args checker] python -c "import sys; print(sys.argv)" @
+
+# python
+[pip list] pip freeze
+
+# g++
+[g++ macro defines] g++ -dM -E - < /dev/null | sort @
+
+# network manager
+[nmcli connection] nmcli connection
+[nmcli connection show] nmcli connection show
+[nmcli device status] nmcli device status
+[nmcli device show] nmcli device show
+[nmcli general status] nmcli general status
+[nmcli network reboot] echo "nmcli networking off; nmcli networking on" !
+# [nmcli nic reboot] $CONNECTIONNAME=@ && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
+[nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME@ # you can adopt setting only up command (?)
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
+[nmcli remote dump] ssh @ "nmcli device show"
+[nmcli add device] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME" # you can freely name "type"

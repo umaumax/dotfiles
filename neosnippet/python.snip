@@ -45,12 +45,13 @@ alias cmdparse_example
 	import argparse
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-string-option', default='')
-	parser.add_argument('-bool-flag', default=True, type=bool)
+	parser.add_argument('-o', '--output-filepath', default='')
+	parser.add_argument('-v', '--verbose', default=True, type=bool)
 	parser.add_argument('required-arg')
 
 	args, extra_args = parser.parse_known_args()
-	# args.option_xxx
+	# args.output_filepath
+	# args.verbose
 	# args.required_arg
 
 snippet self
@@ -171,3 +172,27 @@ alias argn
 abbr # of argv list
 	len(sys.argv)
 
+snippet time_day_range
+abbr end is not contained
+	def daterange(start, end):
+		for days in range((end - start).days):
+			yield start + datetime.timedelta(days)
+
+	${0}
+	start = datetime.datetime.strptime('201801', '%Y%m')
+	end   = datetime.datetime.strptime('201802', '%Y%m')
+	print(*daterange(start, end), sep='\n')
+
+snippet print_iter_with_type
+	print(list(${0:# iter obj}))
+
+snippet print_iter
+	print(*${0:# iter obj}, sep='\n')
+
+snippet is_pipe
+	if not sys.stdin.isatty():
+		${0}
+
+snippet clipboard
+    text = pyperclip.paste()
+	pyperclip.copy(text)

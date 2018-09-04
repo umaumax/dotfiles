@@ -62,6 +62,12 @@ alias forls
     ${0}
   done
 
+snippet for_pwd
+  dirpath=$PWD && while true; do
+    echo $dirpath
+    [[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
+  done
+
 snippet arg_check
 alias argcheck
   [[ $# -le ${1:# no of args} ]] && echo "\$0 ${0:# description}" && exit 1
@@ -90,9 +96,17 @@ alias array_append_self
     ${1:#dst array}+=(${0})
 
 snippet tmpfile
-abbr don't use in .xxxrc or .xxx_profile
+  tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
+
+snippet tmpfile_with_trap
+abbr don't use trap in .xxxrc or .xxx_profile
   tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
   trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
+
+snippet tmpfile_in_function
+  local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
+  ${0}
+  [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 
 snippet tac
     awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
@@ -159,3 +173,6 @@ abbr pseudo lambda function which is formattable by shfmt
 snippet slice
 abbr ${@:0} == $@
   ${${1:#array name}:${0:#1,2,3,...}}
+
+snippet debug
+  function debug() { command echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
