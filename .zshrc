@@ -1043,7 +1043,7 @@ function mdlink() {
 
 # NOTE: wrap stdin each line
 function sand() {
-	[[ $# -ge 2 ]] && echo "$0 string" && return
+	[[ $# -ge 2 ]] && echo "$0 <string>" && return
 	local B=${1:-\"}
 	local E
 	[[ $B == \( ]] && local E=")"
@@ -1260,7 +1260,7 @@ if [[ $ZSH_NAME == zsh ]]; then
 	# [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
 	alias -s txt='cat'
 	alias -s rb='ruby'
-	# 	alias -s py='python' # for python2 and python3
+	alias -s py='python3' # for python2 and python3
 	alias -s php='php -f'
 	alias -s gp='gnuplot'
 	alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
