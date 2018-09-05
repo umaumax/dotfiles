@@ -74,3 +74,8 @@ snippet q-args
 
 snippet command-options-all
   -nargs -complete -range -count -bang -bar -register -buffer
+
+snippet for_string
+  for ${1:char} in split(${2:#string}, '\zs')
+    ${0}
+  endfor

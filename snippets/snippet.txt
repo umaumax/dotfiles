@@ -141,7 +141,8 @@
 [nmcli device status] nmcli device status
 [nmcli device show] nmcli device show
 [nmcli general status] nmcli general status
-[nmcli network reboot] echo "nmcli networking off; nmcli networking on" !
+[nmcli network reboot] echo "sudo nmcli networking off; sudo nmcli networking on" !
+[nmcli network reboot] echo "sudo service network-manager restart" !
 # [nmcli nic reboot] $CONNECTIONNAME=@ && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
 [nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME@ # you can adopt setting only up command (?)
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
@@ -149,4 +150,25 @@
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
 [nmcli remote dump] ssh @ "nmcli device show"
-[nmcli add device] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME" # you can freely name "type"
+[nmcli add device] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
+[nmcli list unmanaged interfaces] nmcli d
+
+# curl
+[curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
+
+# dmesg
+[dmesg with human readable time] dmesg -T @
+
+# ufw
+[ufw status] sudo ufw status verbose
+[ufw reload] sudo ufw reload
+
+# serial
+[serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200@
+[serial communication screen] sudo screen /dev/ttyUSB0 115200@
+
+# screenshot of ubuntu
+[ubuntu screenshot (all)] gnome-screenshot # PrintScreen
+[ubuntu screenshot (area)] gnome-screenshot --area # Shift + PrintScreen
+[ubuntu screenshot (window)] gnome-screenshot --window # Alt + PrintScreen
+[ubuntu screenshot {delay} ] gnome-screenshot --delay=5
