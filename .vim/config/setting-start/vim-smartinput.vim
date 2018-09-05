@@ -4,6 +4,7 @@ endif
 
 let g:i_trigger_map={}
 let s:trigger_map={}
+
 function! s:map_to_trigger(mode, trigger)
 	let trigger=a:trigger
 	if trigger=='|'
@@ -16,11 +17,16 @@ function! s:map_to_trigger(mode, trigger)
 	let s:trigger_map[key]=1
 	call smartinput#map_to_trigger(a:mode, trigger, trigger, trigger)
 endfunction
-function! s:smartinput_define_rule(rule)
+
+function! s:smartinput_define_rule(rule, ...)
+	let modes=get(a:, 1, 'i')
 	let trigger = a:rule['char']
-	call s:map_to_trigger('i', trigger)
+	for mode in split(modes, '\zs')
+		call s:map_to_trigger(mode, trigger)
+	endfor
 	call smartinput#define_rule(a:rule)
 endfunction
+
 function! s:smartinput_define_rule_of_word(src,dst,...) " filetype
 	let rule={
 				\   'at': a:src[:len(a:src)-2].'\%#',
@@ -102,7 +108,7 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule({
 				\   'at': '\s\+\%#',
 				\   'char': '<CR>',
-				\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\s\\+$', '', ''))<CR><CR>",
+				\   'input': "<C-o>:call setline('.', substitute(getline('.'), '\\(\\s\\|\\r\\)\\+$', '', ''))<CR><CR>",
 				\   })
 	" 			\   'at': 'def.*[^:]\%#',
 	" 			\   'at': 'def.*\%#',

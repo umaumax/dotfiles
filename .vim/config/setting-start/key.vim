@@ -4,6 +4,9 @@ nnoremap gp a <ESC>p
 nnoremap cc vc
 nnoremap co i<CR><ESC>
 
+" NOTE: nnoremap上で利用する場合に，`|`をescapeする必要がある
+nnoremap <CR> :call setline('.', substitute(getline('.'), '\(\s\\|\r\)\+$', '', ''))<CR><CR>
+
 nnoremap <Leader>p %
 
 " disable <C-@>
@@ -895,7 +898,7 @@ for mapping in surround_key_mappings
 		execute "vnoremap s".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		" NOTE: 記号の場合にはprefix:sはなし
 		let top_char=key[0]
-		if top_char =~ '\W' && top_char != '$'
+		if (top_char =~ '\W' || top_char == '_') && top_char != '$'
 			execute "vnoremap ".key." \"yc<C-o>:let @z=\"".prefix."\".substitute(@y, '\\n*$', '', '').\"".suffix."\"<CR><C-r><C-o>z<Esc>"
 		endif
 	endfor

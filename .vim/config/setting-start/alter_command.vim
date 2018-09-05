@@ -27,6 +27,8 @@ AlterCommand ag Ag
 AlterCommand tig Tig
 AlterCommand gblame Gblame
 AlterCommand blame Gblame
+" umaumax/vim-open-googletranslate
+AlterCommand g[oogletrans] :OpenGoogleTranslate
 
 " for my commands
 AlterCommand del[ete] Delete
