@@ -50,8 +50,8 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			[[ ! -e ~/.zsh/completion/_docker-compose ]] && curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose >~/.zsh/completion/_docker-compose
 
 			# NOTE: below setting is written in README.md
-			[[ ! -e ~/.zsh/completion/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O _tig
-			[[ ! -e ~/.zsh/completion/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O tig-completion.bash
+			[[ ! -e ~/.zsh/completion/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O ~/.zsh/completion/_tig
+			[[ ! -e ~/.zsh/completion/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O ~/.zsh/completion/tig-completion.bash
 
 			fpath=(~/.zsh/completion $fpath)
 		fi
