@@ -124,7 +124,8 @@
 
 # ssh key
 [ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa
-[ssh port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
+[ssh local port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
+[ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
 
 # one liners
 [args checker] python -c "import sys; print(sys.argv)" @

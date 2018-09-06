@@ -176,3 +176,12 @@ abbr ${@:0} == $@
 
 snippet debug
   function debug() { command echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
+
+snippet switch_case_example
+  case $TERM in
+    linux) LANG=C ;;
+    *)     LANG=ja_JP.UTF-8;;
+  esac
+
+snippet second_to_humanreadable_time
+  $(printf "%02d : %02d" $((${1:#second}/60)) $(($1 % 60)))${0}

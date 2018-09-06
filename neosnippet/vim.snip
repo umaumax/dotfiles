@@ -79,3 +79,11 @@ snippet for_string
   for ${1:char} in split(${2:#string}, '\zs')
     ${0}
   endfor
+
+snippet system_nohup
+abbr for nvim
+  system('zsh -c "(${0:#command}) &" 2>&1 > /dev/null')
+
+snippet shellescape
+abbr for 'system' function
+  shellescape(${0:#})
