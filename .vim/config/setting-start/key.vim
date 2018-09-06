@@ -584,8 +584,20 @@ nnoremap ww :w<CR>
 nnoremap <silent> qq :call <SID>close(0)<CR>
 nnoremap <silent> q! :call <SID>close(1)<CR>
 " sudo save
-nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
-cnoremap w! w !sudo tee > /dev/null %<CR> :e!<CR>
+" NOTE: below command is only for 'vim' not 'nvim'
+if !has('nvim')
+	nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
+	cnoremap w!  w !sudo tee > /dev/null %<CR> :e!<CR>
+else
+	if &rtp !~ 'suda.vim'
+		nnoremap w! :w suda://%<CR>
+		cnoremap w!  w suda://%<CR>
+	else
+		nnoremap w! :echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
+		cnoremap w!  echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
+	endif
+endif
+
 function! s:cmdwin_setting()
 	nnoremap <buffer> qq :q<CR>
 endfunction

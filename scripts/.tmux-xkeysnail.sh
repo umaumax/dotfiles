@@ -9,5 +9,5 @@ echo $sudo_pass | sudo -k -S echo >/dev/null
 
 name='xkeysnail'
 tmux new-session -s $name \; \
-	send-keys "echo $sudo_pass | sudo -S xkeysnail ~/.config/xkeysnail/config.py" Enter \; \
+	send-keys "echo $sudo_pass | sudo -p '' -S xkeysnail ~/.config/xkeysnail/config.py" Enter \; \
 	detach-client >/dev/null 2>&1

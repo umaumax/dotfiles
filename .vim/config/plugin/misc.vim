@@ -488,3 +488,6 @@ Plug 'umaumax/vim-open-googletranslate', {'on':'OpenGoogleTranslate'}
 " only for :PlugInstall
 Plug 'rhysd/committia.vim', {'on':[]}
 Plug 'hotwatermorning/auto-git-diff', {'on':[]}
+
+" NOTE: sudo write for Neovim
+LazyPlug 'lambdalisue/suda.vim'

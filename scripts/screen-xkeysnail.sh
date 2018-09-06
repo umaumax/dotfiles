@@ -8,4 +8,4 @@ echo $sudo_pass | sudo -k -S echo >/dev/null
 [[ $? != 0 ]] && exit 1
 
 name='xkeysnail'
-screen -dmS "$name" /bin/bash -c "echo $sudo_pass | sudo -S xkeysnail ~/.config/xkeysnail/config.py"
+screen -dmS "$name" /bin/bash -c "echo $sudo_pass | sudo -p '' -S xkeysnail ~/.config/xkeysnail/config.py"
