@@ -104,13 +104,14 @@ function git_diff() {
 	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
-alias gdh='gd HEAD'
-alias gdhh='gd HEAD HEAD~'
-alias gdhhh='gd HEAD~ HEAD~~'
-alias gdhhhh='gd HEAD~~ HEAD~~~'
-alias gdhhhhh='gd HEAD~~~ HEAD~~~~'
-alias gdhhhhhh='gd HEAD~~~~ HEAD~~~~~'
-alias gdhhhhhhh='gd HEAD~~~~~ HEAD~~~~~~'
+alias gdh='      gd HEAD'
+alias gdhh='     gd HEAD~     HEAD'
+alias gdhhh='    gd HEAD~~     HEAD~'
+alias gdhhhh='   gd HEAD~~~    HEAD~~'
+alias gdhhhhh='  gd HEAD~~~~   HEAD~~~'
+alias gdhhhhhh=' gd HEAD~~~~~  HEAD~~~~'
+alias gdhhhhhhh='gd HEAD~~~~~~ HEAD~~~~~'
+
 alias ga='git add --all'
 alias gc='git commit'
 alias gadd='git add'
