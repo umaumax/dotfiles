@@ -1394,6 +1394,61 @@ elif [[ $(uname) == "Darwin" ]]; then
 	alias ps-mem='ps aux -m'
 fi
 
+# FYI: [文字を中央寄せで表示するスクリプト \- Qiita]( https://qiita.com/april418/items/1c44d3bd13647183deae )
+function text_center() {
+	local columns=$(tput cols)
+	local line=
+	if [ -p /dev/stdin ]; then
+		while IFS= read -r line || [ -n "$line" ]; do
+			printf "%*s\n" $(((${#line} + columns) / 2)) "$line"
+		done </dev/stdin
+	else
+		line="$@"
+		printf "%*s\n" $(((${#line} + columns) / 2)) "$line"
+	fi
+}
+
+function display_center() {
+	function max_length() {
+		local length=
+		local max_length=0
+		local line=
+		if [ -p /dev/stdin ]; then
+			while IFS= read -r line || [ -n "$line" ]; do
+				length=${#line}
+				if [ $length -gt $max_length ]; then
+					max_length=$length
+				fi
+			done </dev/stdin
+			echo $max_length
+		else
+			line="$@"
+			echo ${#line}
+		fi
+	}
+	function with_indent() {
+		local length="$1"
+		local line=
+		local indent=
+		local i=
+		for ((i = 0; i < length; i++)); do
+			indent="$indent "
+		done
+		if [ -p /dev/stdin ]; then
+			while IFS= read -r line || [ -n "$line" ]; do
+				echo "${indent}${line}"
+			done </dev/stdin
+		else
+			shift
+			line="$@"
+			echo "${indent}${#line}"
+		fi
+	}
+	local columns=$(tput cols)
+	local length=$(echo "$@" | max_length)
+	echo "$@" | with_indent "$(((columns - length) / 2))"
+}
+
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
