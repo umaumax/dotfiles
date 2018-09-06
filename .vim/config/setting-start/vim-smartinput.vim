@@ -447,13 +447,21 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule_of_word('doesnt',"doesn't")
 	call s:smartinput_define_rule_of_word('pipe','| ')
 
+	" NOTE: 後半はmarkdownのhead用
 	let s:multi_word_map = {
-				\'NOTE: ':['note', 'note:  '],
-				\'TODO: ':['todo', 'todo:  '],
-				\'WARN: ':['warn', 'warn:  '],
-				\'INFO: ':['info', 'info:  '],
-				\'FYI: ':['fyi', 'fyi:  '],
-				\'FIX: ':['fix', 'fix:  '],
+				\' NOTE: ':[' note', ' note:  '],
+				\' TODO: ':[' todo', ' todo:  '],
+				\' WARN: ':[' warn', ' warn:  '],
+				\' INFO: ':[' info', ' info:  '],
+				\' FYI: ':[' fyi', ' fyi:  '],
+				\' FIX: ':[' fix', ' fix:  '],
+				\'# MEMO':['#memo'],
+				\'# NOTE':['#note'],
+				\'# TODO':['#todo'],
+				\'# WARN':['#warn'],
+				\'# INFO':['#info'],
+				\'# FYI':['#fyi'],
+				\'# FIX':['#fix'],
 				\}
 	"	\'MEMO: ':['memo', 'memo:  '],
 	for key in keys(s:multi_word_map)
@@ -461,6 +469,8 @@ function! s:smartinput_define()
 			call s:smartinput_define_rule_of_word(at,key)
 		endfor
 	endfor
+
+	call s:smartinput_define_rule_of_word('WARN: ing',"warning")
 
 	" NOTE: if xxx { -> if (xxx) {
 	call s:smartinput_define_rule({
