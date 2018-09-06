@@ -1449,6 +1449,47 @@ function display_center() {
 	echo "$@" | with_indent "$(((columns - length) / 2))"
 }
 
+# [bashでポモドーロタイマー作ったった \- Qiita]( https://qiita.com/imura81gt/items/61ff64db8e767ecbbb9d )
+function pomodoro() {
+	clear
+	local i=${1:-$((25 * 60))}
+	# 	figlet "ready?" | sand "$GREEN" | text_center
+	# 	read Wait
+
+	while :; do
+		clear
+		figlet "Pomodoro Timer" | sand "$YELLOW" | text_center
+		(figlet $(printf "%02d : %02d" $((i/60)) $((i % 60))) | sand "$BLUE" | text_center)
+		: $((i -= 1))
+		sleep 1
+		if [ $i -eq 0 ]; then
+			if [[ $(uname) == "Darwin" ]]; then
+				terminal-notifier -message "job finished"
+			fi
+			echo -n "Pomodoro[P],Short break[S], Long break[L]?> "
+			read WAIT
+			case "${WAIT:0:1}" in
+			P | p)
+				i=$((25 * 60))
+				;;
+			S | s)
+				i=$((5 * 60))
+				;;
+			L | l)
+				i=$((15 * 60))
+				;;
+			*)
+				echo "Didn't match anything"
+				echo "Pomodoro Start!"
+				i=$((25 * 60))
+				;;
+			esac
+			clear
+			figlet $(printf "%02d : %02d" $((i/60)) $((i % 60)))
+		fi
+	done
+}
+
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
