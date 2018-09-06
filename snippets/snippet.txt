@@ -174,4 +174,4 @@
 [ubuntu screenshot {delay} ] gnome-screenshot --delay=5
 
 # vim
-[vim force save by sudo] :w !sudo tee > /dev/null %<CR> :e!<CR> # use at vim cmdline
+[vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
