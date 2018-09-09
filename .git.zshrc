@@ -6,6 +6,9 @@ function lambda() {
 	done
 } && lambda
 
+alias gm='git mergetool'
+alias merge='git mergetool'
+
 alias gr='cd-git-root'
 alias cdgr='cd-git-root'
 # [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
@@ -95,7 +98,8 @@ function git_diff() {
 
 	local diff_cmd='cdiff'
 	# 	[[ $# -ge 1 ]] && local diff_cmd="$1"
-	local files=($(git diff --stat "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
+	# FYI: [\[git\]git diff \-\-stat でパスを省略しない方法 \- dackdive's blog]( https://dackdive.hateblo.jp/entry/2014/05/13/112549 )
+	local files=($(git diff --stat --stat-width=9999 "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
 	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
 	for e in "${files[@]}"; do
 		[[ -e "$e" ]] && echo $e >>$tmpfile
