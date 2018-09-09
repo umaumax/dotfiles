@@ -15,6 +15,9 @@ set refresh-mode = periodic
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
+# you can't use pipe(|)
+bind generic Y !echo %(file)
+
 bind generic A !git commit --amend --allow-empty
 
 bind main B !git rebase -i %(commit)
