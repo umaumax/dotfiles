@@ -158,8 +158,9 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
 [[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
 
-[[ -e ~/dotfiles/.zplug.zshrc ]] && alias vizplug='vim ~/dotfiles/.zplug.zshrc' && alias vimzplug='vizplug'
-[[ -e ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkey='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkey='vizplug'
+[[ -e ~/dotfiles/.git.zshrc ]] && alias vigitrc='vim ~/dotfiles/.git.zshrc' && alias vimgitrc='vigitrc'
+[[ -e ~/dotfiles/.zplug.zshrc ]] && alias vizplugrc='vim ~/dotfiles/.zplug.zshrc' && alias vimzplugrc='vizplugrc'
+[[ -e ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkeyrc='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkeyrc='vizbindkeyrc'
 
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
@@ -1386,6 +1387,8 @@ alias awk-sum-all='sum'
 alias awk-sum-col='sum-col'
 alias awk-sum-line='sum-line'
 
+alias da='direnv allow'
+
 if [[ $(uname -a) =~ "Ubuntu" ]]; then
 	alias ps-cpu='ps aux --sort -%cpu'
 	alias ps-mem='ps aux --sort -rss'
@@ -1469,13 +1472,13 @@ function pomodoro() {
 			echo -n "Pomodoro[P],Short break[S], Long break[L]?> "
 			read WAIT
 			case "${WAIT:0:1}" in
-			P | p)
+			'P' | 'p')
 				i=$((25 * 60))
 				;;
-			S | s)
+			'S' | 's')
 				i=$((5 * 60))
 				;;
-			L | l)
+			'L' | 'l')
 				i=$((15 * 60))
 				;;
 			*)
@@ -1488,6 +1491,29 @@ function pomodoro() {
 			figlet $(printf "%02d : %02d" $((i/60)) $((i % 60)))
 		fi
 	done
+}
+# [edouard\-lopez/progress\-bar\.sh: Simple & sexy progress bar for \`bash\`, give it a duration and it will do the rest\.]( https://github.com/edouard-lopez/progress-bar.sh )
+function progress-bar-blue() {
+	echo -ne $BLUE
+	progress-bar "$@"
+	echo -e $DEFAULT
+}
+function progress-bar() {
+	local duration=${1}
+
+	function already_done() { for ((done = 0; done < $elapsed; done++)); do printf "▇"; done; }
+	function remaining() { for ((remain = $elapsed; remain < $duration; remain++)); do printf " "; done; }
+	function percentage() { printf "| %s%%" $(((($elapsed) * 100) / ($duration) * 100/100)); }
+	function clean_line() { printf "\r"; }
+
+	for ((elapsed = 1; elapsed <= $duration; elapsed++)); do
+		already_done
+		remaining
+		percentage
+		sleep 1
+		clean_line
+	done
+	clean_line
 }
 
 # ---- don't add code here by your hand
