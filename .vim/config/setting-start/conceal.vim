@@ -27,4 +27,6 @@ function! FullwidthConceal()
 	syntax match HalfwidthHypen /─/ display containedin=ALL conceal cchar=ー
 	syntax match HalfwidthHypen /└/ display containedin=ALL conceal cchar=Ｌ
 	syntax match HalfwidthHypen /│/ display containedin=ALL conceal cchar=｜
+	syntax match HalfwidthHypen /“/ display containedin=ALL conceal cchar="
+	syntax match HalfwidthHypen /”/ display containedin=ALL conceal cchar="
 endfunction
