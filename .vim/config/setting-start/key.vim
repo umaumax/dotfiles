@@ -303,7 +303,7 @@ inoremap <C-z> <ESC><C-z>
 " toggle relativenumber
 nnoremap <Space>l :<C-u>setlocal relativenumber!<CR>
 " toggle AnsiView
-nnoremap <Space>a :AnsiEsc<CR>
+" nnoremap <Space>a :AnsiEsc<CR>
 
 " nnoremap { <PageUp>
 " nnoremap } <PageDown>
@@ -815,16 +815,19 @@ command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'copyed:' . expand('%:p
 " nnoremap <C-i> mzo<ESC>`z
 
 " tab
-" NOTE: tab処理後のカーソル位置は不完全
 function! s:count_tab()
 	if v:count <= 1
 		execute "normal! >>".repeat("\<Right>",&shiftwidth)
-		return ''
+	else
+		for i in range(v:count)
+			if i>0
+				execute "normal! \<Down>"
+			endif
+			execute "normal! >>"
+		endfor
 	endif
-	" NOTE: disable v:count by <ESC>?
-	return repeat("\<ESC>>>\<Down>", v:count)
 endfunction
-function! s:tab_wrapper()
+function! s:tab_wrapper() range
 	if &rtp =~ 'neosnippet' && neosnippet#jumpable()
 		call feedkeys("i\<Plug>(neosnippet_jump)", '')
 	else
