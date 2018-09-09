@@ -31,8 +31,10 @@
 [gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 
 # tar
-[解凍] tar zxvf # tar zxvf xxxx.tar.gz
-[圧縮] tar zcvf # tar zcvf xxxx.tar.gz directory
+[解凍 .tar.gz] tar zxvf @.tar.gz
+[圧縮 .tar.gz] tar zcvf @.tar.gz $DIRECTORY
+[解凍 .tar] tar xvf @.tar
+[圧縮 .tar] tar cvf @.tar $DIRECTORY
 
 # filter
 [filter only number] perl -nle '$_=~/([0-9]+)/;print $1;'
@@ -80,6 +82,7 @@
 [reload git hooks]  rm -rf .git/hooks && git init # NOTE: don't delete local git hooks
 [first empty commit] git commit --allow-empty -m "first commit"
 [git submodule int and update] git submodule update -i
+[Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -176,3 +179,24 @@
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
+
+# one liner
+[for one liner] for i in $(seq @); do echo $i; done
+
+# mnt
+[mount nfs] sudo mount -t nfs "$nfs_server_ip:$nfs_dirpath" $local_dirpath # wrong fs type? ===> sudo apt-get install nfs-common
+
+# read
+[read] read -s sudo_pass
+
+# ssh
+[ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
+
+# compile
+[gcc llvm-config] llvm-config --cxxflags --ldflags --libs --system-libs
+
+# ffmpeg
+[silent sound file] ffmpeg -ar 48000 -t 0:01:00 -f s16le -acodec pcm_s16le -ac 2 -i /dev/zero -acodec libmp3lame -aq 4 silent.mp3
+
+# ubuntu for 32bit apps
+[ubuntu 32bit] sudo dpkg --add-architecture i386 && sudo apt-get update && && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386

@@ -40,6 +40,11 @@ snippet write_file
 			file.write(text)
 			file.truncate()
 
+snippet read_file
+	def read_file(file_name, flag='r')
+		with open(file_name, flag) as file:
+			return file.read()
+
 snippet argparse_example
 alias cmdparse_example
 	import argparse
@@ -194,5 +199,28 @@ snippet is_pipe
 		${0}
 
 snippet clipboard
-    text = pyperclip.paste()
+	text = pyperclip.paste()
 	pyperclip.copy(text)
+
+snippet variable_arguments_function
+	def ${1:#func name}(*${2:#variable arguments list name}):
+		${0}
+
+snippet for_enumerate
+alias enumerate_for
+	for (${1:i}, ${2:v}) in enumerate(${3:#list}):
+		${0}
+
+snippet for_zip
+alias zip_for
+	for (${1:e1}, ${2:e2}) in zip(${3:list1},${4:list2}):
+		${0}
+
+snippet list_append
+alias append_list
+abbr if you want to just concat list, use extend!
+	${1:#base list}.append(${0:#elements})
+
+snippet list_extend
+alias extend_list
+	${1:#base list}.extend(${0:#elements})

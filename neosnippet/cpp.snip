@@ -16,6 +16,8 @@ options word
         `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wif'))."x\<C-o>A\<Left>", 'n') == 0 ? x:x}('if ('.substitute(getline('.'), '^\s*\|\s*wif$', '', 'g').')')`
 
 snippet contains
+alias find_string
+abbr !=: found, ==: not found
   (${1:str}.find(${2:keyword}) != std::string::npos)
 
 snippet cast_dynamic
