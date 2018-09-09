@@ -155,14 +155,23 @@
 	compactionHeuristic = true
 [grep]
 	lineNumber = true
+
+# [merge]
+# 	tool = vimdiff
+# # 	conflictstyle = diff3
+# [mergetool]
+# 	# [version control \- Git mergetool generates unwanted \.orig files \- Stack Overflow]( https://stackoverflow.com/questions/1251681/git-mergetool-generates-unwanted-orig-files )
+# 	# keepBackup = false
+# 	prompt = false
+# 	trustExitCode = false
+
+# [neovim\+diffchar\.vimでgitコンフリクト解消時に単語の差分も見れるようにする \- Qiita]( https://qiita.com/mkiken/items/ddc2ee55731b01fac187 )
+# Requires: nvim and 'rickhowe/diffchar.vim'
 [merge]
-	tool = vimdiff
-# 	conflictstyle = diff3
-[mergetool]
-	# [version control \- Git mergetool generates unwanted \.orig files \- Stack Overflow]( https://stackoverflow.com/questions/1251681/git-mergetool-generates-unwanted-orig-files )
-#  	keepBackup = false
-	prompt = false
-	trustExitCode = false
+  tool = nvim
+[mergetool "nvim"]
+  cmd = nvim -c '2wincmd w | diffthis | 3wincmd w | diffthis | 1wincmd w | wincmd J' -O $MERGED $LOCAL $REMOTE
+
 [rerere]
 	# [git\-rerereのメモ \- unpushの日記]( http://d.hatena.ne.jp/unpush/20091010/1255186302 )
 	enabled = true

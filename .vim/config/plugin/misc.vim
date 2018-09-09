@@ -491,3 +491,8 @@ Plug 'hotwatermorning/auto-git-diff', {'on':[]}
 
 " NOTE: sudo write for Neovim
 LazyPlug 'lambdalisue/suda.vim'
+
+" NOTE: for git mergetool
+LazyPlug 'rickhowe/diffchar.vim'
+let g:DiffUnit = 'Char' " any single character
+let g:DiffColors = 3 " 16 colors in fixed order
