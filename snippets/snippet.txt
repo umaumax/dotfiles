@@ -148,7 +148,7 @@
 [nmcli network reboot] echo "sudo nmcli networking off; sudo nmcli networking on" !
 [nmcli network reboot] echo "sudo service network-manager restart" !
 # [nmcli nic reboot] $CONNECTIONNAME=@ && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
-[nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME@ # you can adopt setting only up command (?)
+[nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME@ # you can adopt setting only up command (without down)
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
@@ -184,13 +184,15 @@
 [for one liner] for i in $(seq @); do echo $i; done
 
 # mnt
-[mount nfs] sudo mount -t nfs "$nfs_server_ip:$nfs_dirpath" $local_dirpath # wrong fs type? ===> sudo apt-get install nfs-common
+[mount nfs] sudo mount -t nfs "$NFS_SERVER_IP:$NFS_DIR_PATH" $LOCAL_DIR_PATH # wrong fs type? ===> sudo apt-get install nfs-common
+[mount cifs(samba?)] sudo mount -t cifs -o username=$USER $REMOTE_TARGET $LOCAL_DIR_PATH
 
 # read
 [read] read -s sudo_pass
 
 # ssh
 [ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
+[sshpass] sshpass -p $PASSWORD@ ssh $HOST
 
 # compile
 [gcc llvm-config] llvm-config --cxxflags --ldflags --libs --system-libs
@@ -200,3 +202,16 @@
 
 # ubuntu for 32bit apps
 [ubuntu 32bit] sudo dpkg --add-architecture i386 && sudo apt-get update && && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386
+
+# kernel
+[load kernel module] insmod @.ko
+[load kernel module (with dependency resolution)] modprobe @
+[unload kernel] modprobe -r @
+[kernel module list of fs] modprobe -lt fs
+
+# losf
+[lsof] sudo lsof -i:@
+
+# proxy
+[proxy npm] sudo -E npm install -g @
+[proxy pip] sudo -E pip install @
