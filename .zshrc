@@ -1466,9 +1466,9 @@ function pomodoro() {
 		: $((i -= 1))
 		sleep 1
 		if [ $i -eq 0 ]; then
-			if [[ $(uname) == "Darwin" ]]; then
-				terminal-notifier -message "job finished"
-			fi
+			# NOTE: picture is chicken
+			cmdcheck notify && notify -t "Pomodoro" --icon https://icondecotter.jp/data/16709/1401284346/169a75762480f56cd2d282afedd93568.png -m "Finish!"
+
 			echo -n "Pomodoro[P],Short break[S], Long break[L]?> "
 			read WAIT
 			case "${WAIT:0:1}" in
