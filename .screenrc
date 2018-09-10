@@ -1,0 +1,28 @@
+defencodig utf-8
+startup_message off
+autodetach on
+log on
+deflog on
+logfile "/tmp/screen-%Y%m%d-%n.log"
+defscrollback 100000
+vbell off
+# mouse
+termcapinfo xterm* ti@:te@
+altscreen on
+defbce on
+term xterm-256color
+
+# ctrl + UPPER char + lower char
+escape ^Bb
+
+# NOTE
+# 画面分割
+# c-b |
+# c-b tab
+# c-b c
+# c-b tab
+
+# TODO
+# マウスでウィンドウ毎にスクロール
+# alt矢印でウィンドウを移動
+# mouse copy
