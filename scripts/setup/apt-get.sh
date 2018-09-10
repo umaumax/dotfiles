@@ -19,6 +19,7 @@ sudo apt-get install -y clang-format-5.0
 sudo apt-get install -y vim-gnome
 sudo apt-get install -y golang
 sudo apt-get install -y openssh-server
+sudo apt-get install -y sshpass
 sudo apt-get install -y imagemagick
 sudo apt-get install -y pdftk
 sudo apt-get install -y figlet
