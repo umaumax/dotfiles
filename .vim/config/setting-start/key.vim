@@ -619,7 +619,7 @@ function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
 endfunction
 " psate
 function! s:paste_at_cursor(Pflag, ...)
-	call s:set_cleand_clipboard_at_reg('p')
+	call s:set_cleand_clipboard_at_reg('p', get(a:, 1, @+))
 	if a:Pflag
 		normal! "pP
 	else
