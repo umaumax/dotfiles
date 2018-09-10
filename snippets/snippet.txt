@@ -215,3 +215,15 @@
 # proxy
 [proxy npm] sudo -E npm install -g @
 [proxy pip] sudo -E pip install @
+
+# dns
+[dns Google Public DNS] 8.8.8.8
+[dns Google Public DNS] 8.8.4.4
+[dns NTT America Technical Operations] 129.250.35.250
+[dns NTT America Technical Operations] 129.250.35.251
+
+[dns] dig
+[dns] nslookup
+[netstat] netstat antu
+
+[ping NIC ] ping -I $NIC @
