@@ -1516,6 +1516,16 @@ function progress-bar() {
 	clean_line
 }
 
+cmdcheck say && function mississippi() {
+	local n=${1:-9999}
+	local start=$(date +%s)
+	for i in $(seq 1 $n); do
+		say "$i mississippi"
+		local end=$(date +%s)
+		echo -n "\r$((end - start)) sec"
+	done
+}
+
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
