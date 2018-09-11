@@ -130,6 +130,11 @@ snippet time
 
 snippet deepcopy
 	copy.deepcopy(${0})
+snippet list_copy_for_simple_type
+alias copy_list_for_simple_type
+abbr if you want copy recursive refs use deepcopy
+	list(${0:list})
+
 
 snippet stopwatch
 alias calctime

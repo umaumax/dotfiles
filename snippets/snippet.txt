@@ -83,6 +83,10 @@
 [first empty commit] git commit --allow-empty -m "first commit"
 [git submodule int and update] git submodule update -i
 [Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
+[git tag with message] git tag -a $TAG -m "$MESSAGE"
+[git tag old to new] git tag --sort=taggerdate
+[git latest named tag] git tag --sort=taggerdate | tail -n1
+[git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -106,7 +110,7 @@
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
-[python3 http server] python3 -m http.server
+[python3 http server] python3 -m http.server $PORT
 
 # log
 [realtime log viewer] tail -f
@@ -186,6 +190,7 @@
 # mnt
 [mount nfs] sudo mount -t nfs "$NFS_SERVER_IP:$NFS_DIR_PATH" $LOCAL_DIR_PATH # wrong fs type? ===> sudo apt-get install nfs-common
 [mount cifs(samba?)] sudo mount -t cifs -o username=$USER $REMOTE_TARGET $LOCAL_DIR_PATH
+[nfsd status] nfsstat -c
 
 # read
 [read] read -s sudo_pass
@@ -208,6 +213,7 @@
 [load kernel module (with dependency resolution)] modprobe @
 [unload kernel] modprobe -r @
 [kernel module list of fs] modprobe -lt fs
+[ list kernel module ] lsmod
 
 # losf
 [lsof] sudo lsof -i:@
@@ -227,3 +233,36 @@
 [netstat] netstat antu
 
 [ping NIC ] ping -I $NIC @
+
+# apt-get
+[指定したpackageのみupgrade] sudo apt-get install @ # don't use upgrade command
+
+# at docker
+[install lsof at docker] sudo apt-get install lsof
+
+# sed
+[delete end of line] sed -i '$d' $FILEPATH # for gsed
+[add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
+
+# ruby
+[json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
+
+# ansible
+[ansible man] ansible-doc
+
+# time
+[unix timestamp] date +%s
+
+# pgrep
+[pgrep with user info 1] ps wup $(pgrep -f @)
+[pgrep with user info 2] ps aux | grep -v grep | grep -i @
+
+# vagrant
+[vagrant for proxy] vagrant plugin install vagrant-proxyconf
+[vagrant ubuntu14.04 box download] vagrant box add ubuntu/trusty64
+[vagrant ubuntu16.04 box download] vagrant box add ubuntu/xenial64
+[vagrant init ubuntu14.04] vagrant init ubuntu/trusty64
+[vagrant init ubuntu16.04] vagrant init ubuntu/xenial64
+[vagrant up (run)] vagrant up
+[vagrant ssh (connect, exec, attach)] vagrant ssh
+[open vagrant search url] open https://app.vagrantup.com/boxes/search !

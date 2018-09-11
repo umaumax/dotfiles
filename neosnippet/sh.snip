@@ -185,3 +185,6 @@ snippet switch_case_example
 
 snippet second_to_humanreadable_time
   $(printf "%02d : %02d" $((${1:#second}/60)) $(($1 % 60)))${0}
+
+snippet substr_function
+  function substr(){ echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
