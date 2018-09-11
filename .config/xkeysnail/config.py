@@ -20,10 +20,12 @@ define_keymap(None, {
     K("INSERT"): None,
     # APOSTROPHE is ':'
     K("C-m"): K("ENTER"),
-    K("C-semicolon"): [K("esc"), K("MUHENKAN"), set_mark(False)],
+    # NOTE: double esc is used for disable IME (google japanese-input)
+    K("C-semicolon"): [K("esc"), K("esc"), K("MUHENKAN"), set_mark(False)],
     # KPPLUS is ten key '+'
     K("C-Shift-semicolon"): [K("C-KPPLUS"), set_mark(False)],
-    K("C-APOSTROPHE"): [K("esc"), K("MUHENKAN"), set_mark(False)],
+    # NOTE: double esc is used for disable IME (google japanese-input)
+    K("C-APOSTROPHE"): [K("esc"), K("esc"), K("MUHENKAN"), set_mark(False)],
     K("KATAKANAHIRAGANA"): [K("C-x"), K("C-x"), set_mark(False)],
 
     K("Win-Up"): K("Home"),
