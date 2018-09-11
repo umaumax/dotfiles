@@ -1066,6 +1066,7 @@ function line() {
 	seq -f "$C" -s '' $(($(tput cols) / $(printf "%s" "$C" | wc -m)))
 	echo ''
 }
+function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
 
 # terminal session logger
 function script() {

@@ -188,3 +188,57 @@ snippet second_to_humanreadable_time
 
 snippet substr_function
   function substr(){ echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
+
+snippet hr
+alias line_char
+  function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
+
+snippet snake
+  function snake(){ sed -r 's/([A-Z])/_\L\1\E/g'; }
+snippet camel
+  function camel(){ sed -r 's/_(.)/\U\1\E/g'; }
+snippet lower
+  function lower(){ tr '[:upper:]' '[:lower:]'; }
+snippet upper
+  function upper(){ tr '[:lower:]' '[:upper:]'; }
+
+snippet pid
+  $$
+
+snippet heredoc_cat
+  cat << EOF
+  ${0}
+  EOF
+
+snippet heredoc_cat_no_expand_var
+  cat << 'EOF'
+  ${0}
+  EOF
+
+snippet heredoc_var
+  ${1:#var name}=\`cat << EOF
+  ${0}
+  EOF\`
+
+snippet heredoc_var_no_expand_var
+  ${1:#var name}=\`cat << 'EOF'
+  ${0}
+  EOF\`
+
+snippet heredoc_file
+  cat << EOF > ${1:#file path}
+  ${0}
+  EOF
+
+snippet heredoc_file_no_expand_var
+  cat << 'EOF' > ${1:#file path}
+  ${0}
+  EOF
+
+snippet lock_script
+abbr avoid multiple starts
+  exec 9< \$0
+  perl -mFcntl=:flock -e "open(LOCK,'<&=9');exit(!flock(LOCK,LOCK_EX|LOCK_NB))" || {
+      echo "\$0 is already running. (duplicate process)" >&2
+      exit 1
+  }
