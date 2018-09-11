@@ -229,3 +229,32 @@ abbr if you want to just concat list, use extend!
 snippet list_extend
 alias extend_list
 	${1:#base list}.extend(${0:#elements})
+
+snippet unittest_for_only_script
+	import unittest
+
+	class Test${1:#class name}(unittest.TestCase):
+		def setUp(self):
+			pass
+		def test_${2:#method name}(self):
+			self.assertTrue(True)
+		def tearDown(self):
+			pass
+		def fun_not_run(self):
+			pass # no run
+
+	if __name__ == "__main__":
+		unittest.main()
+
+snippet unittest_in_main_file
+	import unittest
+
+	class Test${1:#class name}(unittest.TestCase):
+		def setUp(self):
+			pass
+		def test_${2:#method name}(self):
+			self.assertTrue(True)
+		def tearDown(self):
+			pass
+		def fun_not_run(self):
+			pass # no run

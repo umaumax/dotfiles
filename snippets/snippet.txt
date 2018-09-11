@@ -66,7 +66,7 @@
 [push] git push -u origin master # normal push
 [push] git push -u --force origin master # force push
 [diff] git diff --cached # <file> # addしたファイルの差分表示
-[unstage file] git reset HEAD # <file>
+[unstage file] git reset $FILE
 [unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [commit rest（編集内容はそのまま）] git reset --soft HEAD^
@@ -87,6 +87,8 @@
 [git tag old to new] git tag --sort=taggerdate
 [git latest named tag] git tag --sort=taggerdate | tail -n1
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
+[git keep] touch @.gitkeep
+[remove all git filesnand .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -266,3 +268,10 @@
 [vagrant up (run)] vagrant up
 [vagrant ssh (connect, exec, attach)] vagrant ssh
 [open vagrant search url] open https://app.vagrantup.com/boxes/search !
+
+# python
+[python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
+[python unittest verbose] python -m unittest -v $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
+[python unittest recursively] python -m unittest discover
+[python unittest recursively verbose] python -m unittest -v discover
+[python touch init file] touch __init__.py
