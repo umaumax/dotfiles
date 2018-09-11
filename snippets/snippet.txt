@@ -3,6 +3,7 @@
 # find
 [current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name="@" -exec grep --color=auto -H -n {} +
+
 # fg
 [vim] fg.vim "@" | pecovim
 [vim] fg.my.vim "@" | pecovim
@@ -268,6 +269,9 @@
 [vagrant up (run)] vagrant up
 [vagrant ssh (connect, exec, attach)] vagrant ssh
 [open vagrant search url] open https://app.vagrantup.com/boxes/search !
+[vagrant status] vagrant status
+[vagrant stop] vagrant suspend
+[vagrant force shutdown] vagrant halt
 
 # python
 [python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
