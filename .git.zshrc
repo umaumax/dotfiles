@@ -233,3 +233,33 @@ function git-remote-add-upstream() {
 	echo git remote add upstream "git@github.com:${upstream}.git"
 	git remote add upstream "git@github.com:${upstream}.git"
 }
+
+# NOTE: 現在のcommitにおける最新のtagを取得する
+function git_tag_name() {
+	local commit=$(git rev-parse HEAD)
+	if [[ -n $commit ]]; then
+		local desc=$(git describe --tags ${commit})
+		if $(is_tag "$desc"); then
+			git describe --tags ${commit} --abbrev=0
+		fi
+		return
+	fi
+}
+
+function git_tag_message() {
+	local name=$(git_tag_name)
+	local msg=$(git tag -n10000 -l ${name})
+	if [[ -n $msg ]]; then
+		echo $msg
+		local name_n=${#name}
+		echo $(substr "$msg" $((name_n + 1)) ${#msg})
+	fi
+}
+
+function is_tag() {
+	local desc=$1
+	echo -n "$desc" | perl -ne 'exit int($_ =~ /.+-[0-9]+-g[0-9A-Fa-f]{6,}$/)'
+	return $?
+}
+
+function substr() { echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
