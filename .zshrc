@@ -1096,7 +1096,8 @@ function when() { ps -eo lstart,pid,args | grep -v grep; }
 # [aliasとシェル関数の使い分け - ももいろテクノロジー](http://inaz2.hatenablog.com/entry/2014/12/13/044630)
 # [bashでラッパースクリプトを覚えたい - Qiita](http://qiita.com/catfist/items/57327b7352940b1fd4ec)
 # [bashのalias に引数を渡すには？ - それマグで！](http://takuya-1st.hatenablog.jp/entry/2015/12/15/030119)
-function tree() { if [ -p /dev/stdout ]; then command tree "$@"; else command tree -C "$@"; fi; }
+# FYI: c2a0: [treeコマンドの出力をsedでパイプしてHTML化 \- Qiita]( https://qiita.com/narupo/items/b677a1de3af7837c749f )
+function tree() { if [ -p /dev/stdout ]; then command tree -a -I "\.git" "$@"; else command tree -a -I "\.git" -C "$@"; fi | sed "s/$(echo -e "\xc2\xa0")/ /g"; }
 
 # onlyd for zsh
 alias wtty='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" }'

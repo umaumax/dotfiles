@@ -263,3 +263,5 @@ function is_tag() {
 }
 
 function substr() { echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
+
+alias git-search-open='open https://github.com/search'
