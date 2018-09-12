@@ -27,6 +27,8 @@ define_keymap(None, {
     # NOTE: double esc is used for disable IME (google japanese-input)
     K("C-APOSTROPHE"): [K("esc"), K("esc"), K("MUHENKAN"), set_mark(False)],
     K("KATAKANAHIRAGANA"): [K("C-x"), K("C-x"), set_mark(False)],
+    # NOTE: double esc is used for disable IME (google japanese-input)
+    K("esc"): [K("esc"), K("esc")],
 
     K("Win-Up"): K("Home"),
     K("Win-Down"): K("End"),
