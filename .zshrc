@@ -42,12 +42,16 @@ function exportf() {
 # ----------------
 
 _NO_CMD=''
-function doctor() { echo $_NO_CMD; }
+function doctor() {
+	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
+	echo "# These commands are missing..."
+	echo $_NO_CMD | sed 's/^://' | tr ':' '\n'
+}
 function funccheck() { declare -f "$1" >/dev/null; }
 function cmdcheck() {
 	type "$1" >/dev/null 2>&1
 	local code=$?
-	[[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
+	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
 	return $code
 }
 function alias_if_exist() {
