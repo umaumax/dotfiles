@@ -58,3 +58,6 @@ GPL/include/vpu/version.h
 # local setting
 build/
 bin/
+
+# for python
+__pycache__
