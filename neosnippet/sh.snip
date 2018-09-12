@@ -242,3 +242,14 @@ abbr avoid multiple starts
       echo "\$0 is already running. (duplicate process)" >&2
       exit 1
   }
+
+snippet ok
+alias check
+  echo -e "${GREEN}✔${DEFAULT} $@"
+
+snippet ng
+alias failure
+  echo -e "${RED}✘${DEFAULT} $@"
+
+snippet help_0
+  [[ $# == 0 ]] && echo "\$0 <${0}>" && return 1

@@ -90,6 +90,8 @@
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
 [git keep] touch @.gitkeep
 [remove all git filesnand .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
+[git root] git rev-parse --show-toplevel
+[git search page] open "https://github.com/search"
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -98,6 +100,9 @@
 [line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
 [sed template :] sed -e 's:@::g'
 [sed template /] sed -e 's/@//g'
+[join line with char] awk '{printf "%s\\\\n", $0}'
+
+[number of CPU] nproc --all # linux only
 
 # g++
 [c++11] g++ -std=c++11 
@@ -120,6 +125,7 @@
 
 # mac
 [brew clean cache] brew clean -s
+[check SIP status] csrutil status
 
 # export proxy
 [proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
@@ -184,6 +190,10 @@
 [ubuntu screenshot (window)] gnome-screenshot --window # Alt + PrintScreen
 [ubuntu screenshot {delay} ] gnome-screenshot --delay=5
 
+# screen
+[screen list  ] screen -ls
+[screen attach] screen -r
+
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
 
@@ -194,6 +204,7 @@
 [mount nfs] sudo mount -t nfs "$NFS_SERVER_IP:$NFS_DIR_PATH" $LOCAL_DIR_PATH # wrong fs type? ===> sudo apt-get install nfs-common
 [mount cifs(samba?)] sudo mount -t cifs -o username=$USER $REMOTE_TARGET $LOCAL_DIR_PATH
 [nfsd status] nfsstat -c
+[confirm filetype of system] mount
 
 # read
 [read] read -s sudo_pass
@@ -246,6 +257,7 @@
 # sed
 [delete end of line] sed -i '$d' $FILEPATH # for gsed
 [add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
+[add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
 
 # ruby
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
@@ -272,6 +284,10 @@
 [vagrant status] vagrant status
 [vagrant stop] vagrant suspend
 [vagrant force shutdown] vagrant halt
+[vagrant ssh config] vagrant ssh-config > ssh.config
+[vagrant scp] scp -F ssh.config $SRC_PATH@ vagrant$(echo -n "\\x40")default:$DST_PATH
+[vagrant ssh] ssh -F ssh.config default
+[add vagrant proxy setting] sed -i -e "/^end$/i \\  if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['HTTP_PROXY']\\n      puts '# - Proxy Setting ----------------------------------'\\n      puts '# ' + ENV['HTTP_PROXY']\\n      config.proxy.http     = ENV['HTTP_PROXY']\\n      config.proxy.https    = ENV['HTTP_PROXY']\\n      config.proxy.no_proxy = "localhost,127.0.0.1"\\n      puts '# --------------------------------------------------'\\n  end" Vagrantfile
 
 # python
 [python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
@@ -279,3 +295,12 @@
 [python unittest recursively] python -m unittest discover
 [python unittest recursively verbose] python -m unittest -v discover
 [python touch init file] touch __init__.py
+
+# ros
+[ros kinetic source] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
+
+[show char code] hexdump -C
+
+[replace c2a0 to space (e.g. for tree)] sed "s/$(echo -e "\\xc2\\xa0")/ /g"
+
+[tree show hidden file] tree -a -I "\\.git"
