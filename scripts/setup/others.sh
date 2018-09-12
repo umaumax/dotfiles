@@ -22,6 +22,6 @@ sudo apt-get install libncursesw5-dev
 git clone git://github.com/jonas/tig.git
 cd ~/opt/tig
 # make clean
-make -j4 prefix=$HOME/local
+make -j$(nproc --all) prefix=$HOME/local
 make install prefix=$HOME/local
 # ################################
