@@ -304,3 +304,7 @@
 [replace c2a0 to space (e.g. for tree)] sed "s/$(echo -e "\\xc2\\xa0")/ /g"
 
 [tree show hidden file] tree -a -I "\\.git"
+
+# kill
+[kill SIGKILL] sudo kill -KILL @ # same meaning as sudo kill -9
+

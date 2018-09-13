@@ -258,3 +258,15 @@ snippet unittest_in_main_file
 			pass
 		def fun_not_run(self):
 			pass # no run
+
+snippet flatten
+abbr [["a", "b"], ["c", "d"]] -> ["a", "b", "c", "d"]
+	${0:#dst list} = [ flatten for inner in ${1:#src list} for flatten in inner ]
+
+snippet stdout_steal
+alias contextlib_redirect_stdout
+	from contextlib import redirect_stdout
+	string_io = io.StringIO()
+	with redirect_stdout(string_io):
+		${0}
+	${1:output} = string_io.getvalue()
