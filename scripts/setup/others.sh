@@ -4,9 +4,11 @@ set -e
 BLACK="\033[0;30m" RED="\033[0;31m" GREEN="\033[0;32m" YELLOW="\033[0;33m" BLUE="\033[0;34m" PURPLE="\033[0;35m" LIGHT_BLUE="\033[0;36m" WHITE="\033[0;37m" GRAY="\033[0;39m" DEFAULT="\033[0m"
 function echo() { command echo -e "$@"; }
 
+mkdir -p ~/local/bin
+mkdir -p ~/opt
+
 # ################################
 # nvim for linux
-mkdir -p ~/opt
 pushd ~/opt
 # nightly build
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -18,6 +20,7 @@ wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 # [Release NVIM 0\.3\.1 · neovim/neovim]( https://github.com/neovim/neovim/releases/tag/v0.3.1 )
 if [[ -f /.dockerenv ]]; then
 	# NOTE: no fuse pattern
+	chmod u+x nvim.appimage
 	./nvim.appimage --appimage-extract
 	./squashfs-root/usr/bin/nvim
 	ln -sf ./squashfs-root/usr/bin/nvim ~/local/bin/nvim
@@ -26,8 +29,8 @@ else
 	# NOTE: AppImages require FUSE to run.
 	# NOTE: fuse pattern
 	sudo apt-get install -y fuse
-	chmod u+x nvim.appimage && ./nvim.appimage
-	mkdir -p ~/local/bin
+	chmod u+x nvim.appimage
+	./nvim.appimage
 	mv nvim ~/local/bin/
 fi
 
