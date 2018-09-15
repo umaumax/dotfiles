@@ -445,7 +445,6 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule_of_word('dont',"don't")
 	call s:smartinput_define_rule_of_word('cant',"can't")
 	call s:smartinput_define_rule_of_word('doesnt',"doesn't")
-	call s:smartinput_define_rule_of_word('pipe','| ')
 
 	" NOTE: 後半はmarkdownのhead用
 	" 				\' NOTE: ':[' note', ' note:  '],
@@ -490,6 +489,7 @@ function! s:smartinput_define()
 				\'# INFO':   ['#info'],
 				\'# FYI':    ['#fyi'],
 				\'# FIX':    ['#fix'],
+				\'# HINT':   ['#hint'],
 				\}
 	"	\'MEMO: ':['memo', 'memo:  '],
 	for key in keys(s:multi_word_map)
