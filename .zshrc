@@ -508,7 +508,7 @@ if [[ -f /.dockerenv ]]; then
 		fi
 	}
 	RPROMPT='$(check_last_exit_code)'
-	PS1='%F{135}%n%f at %F{166}%m%f in %F{118}%~%f ${vcs_info_msg_0_}$python_info[virtualenv](docker)$ '
+	PS1='%F{135}%n%f at %F{166}%m%f in %F{118}%~%f (docker)$ '
 fi
 
 if cmdcheck tmux; then

@@ -1,3 +1,17 @@
+# MEMO
+# git-xxx系はaliasではなくfunctionとすること
+# 下記のコマンドではaliasは実行できないため
+# NOTE: e.g. bind git open to git-open function (not command)
+function git() {
+	local cmd="git-$1"
+	if ! cmdcheck "$cmd"; then
+		command git "$@"
+		return
+	fi
+	shift 1
+	"$cmd" "$@"
+}
+
 # NOTE: unalias default? git aliases
 function lambda() {
 	local git_aliases=(gCa gCe gCl gCo gCt gFb gFbc gFbd gFbf gFbl gFbm gFbp gFbr gFbs gFbt gFbx gFf gFfc gFfd gFff gFfl gFfm gFfp gFfr gFfs gFft gFfx gFh gFhc gFhd gFhf gFhl gFhm gFhp gFhr gFhs gFht gFhx gFi gFl gFlc gFld gFlf gFll gFlm gFlp gFlr gFls gFlt gFlx gFs gFsc gFsd gFsf gFsl gFsm gFsp gFsr gFss gFst gFsx gR gRa gRb gRl gRm gRp gRs gRu gRx gS gSI gSa gSf gSi gSl gSm gSs gSu gSx gb gbD gbL gbM gbR gbS gbV gbX gba gbc gbd gbl gbm gbr gbs gbv gbx gc gcF gcO gcP gcR gcS gcSF gcSa gcSf gcSm gca gcam gcd gcf gcl gcm gco gcp gcr gcs gd gdc gdi gdk gdm gdu gdx gf gfa gfc gfcr gfm gfr gg ggL ggi ggl ggv ggw giA giD giI giR giX gia gid gii gir giu gix gl glb glc gld glg glo gm gmC gmF gma gmt gp gpA gpF gpa gpc gpf gpp gpt gr gra grc gri grs gs gsL gsS gsX gsa gsd gsl gsp gsr gss gsw gsx gwC gwD gwR gwS gwX gwc gwd gwr gws gwx)
@@ -16,7 +30,7 @@ function git-open() {
 	is_git_repo_with_message || return
 	open $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $1 }')
 }
-alias git-alias='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
+alias git-alias-list='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
 function git-ranking() {
 	builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
 }
@@ -208,8 +222,12 @@ function cd-git-root() {
 
 cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 
-alias git-diff='git diff --color-words'
-alias git-log-peco='cat ~/.git-logs/*.log | peco'
+function git-diff() {
+	git diff --color-words
+}
+function git-log-peco() {
+	cat ~/.git-logs/*.log | peco
+}
 
 ## git
 cmdcheck git && alias gl='git log --oneline --decorate --graph --branches --tags --remotes'
@@ -264,7 +282,9 @@ function is_tag() {
 
 function substr() { echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
 
-alias git-search-open='open https://github.com/search'
+function git-search-open() {
+	open https://github.com/search
+}
 
 # FYI: [Git 管理下のファイルを一括置換する git\-sed コマンドを作った \- Qiita]( https://qiita.com/tonluqclml/items/13b323cea92425b85218 )
 # HINT: git sed 's|find_by_admin|find_by(type: :admin)|g' spec/ test/
@@ -282,15 +302,4 @@ function git-sed() {
 		# NOTE: -L: symbolic link
 		[[ -f "$line" ]] && [[ ! -L "$line" ]] && "$SED" -i -e "$pattern" "$line"
 	done < <(git ls-files -- "$@")
-}
-
-# NOTE: e.g. bind git open to git-open function (not command)
-function git() {
-	local cmd="git-$1"
-	if ! cmdcheck "$cmd"; then
-		command git "$@"
-		return
-	fi
-	shift 1
-	"$cmd" "$@"
 }
