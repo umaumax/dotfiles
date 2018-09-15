@@ -468,9 +468,9 @@ if cmdcheck docker; then
 	}
 	function docker-exec() {
 		local container_id=$(docker ps | peco | awk '{print $1}')
-		val=$(stty size)
-		rows=$(echo $val | cut -d ' ' -f 1)
-		cols=$(echo $val | cut -d ' ' -f 2)
+		local val=$(stty size)
+		local rows=$(echo $val | cut -d ' ' -f 1)
+		local cols=$(echo $val | cut -d ' ' -f 2)
 		[[ -n $container_id ]] && docker exec -it $container_id /bin/bash -c "stty rows $rows cols $cols; exec bash -l"
 	}
 	function docker-start-and-attach() {
@@ -726,6 +726,8 @@ else
 fi
 # brew install bat or access [sharkdp/bat: A cat\(1\) clone with wings\.]( https://github.com/sharkdp/bat )
 cmdcheck bat && alias cat='bat'
+# original cat
+alias ocat='command cat'
 
 # for mac
 cmdcheck gsed && alias sed='gsed'
@@ -814,9 +816,9 @@ function chpwd() {
 		[[ -n "$VIRTUAL_ENV" ]] && deactivate
 	} && lambda
 }
-set-dirname-title
+
 # [chpwd内のlsでファイル数が多い場合に省略表示する - Qiita]( https://qiita.com/yuyuchu3333/items/b10542db482c3ac8b059 )
-ls_abbrev() {
+function ls_abbrev() {
 	if [[ ! -r $PWD ]]; then
 		return
 	fi
@@ -852,7 +854,7 @@ ls_abbrev() {
 	fi
 }
 
-clean-cdinfo() {
+function clean-cdinfo() {
 	local tmpfile=$(mktemp)
 	command cp ~/.cdinfo "$tmpfile"
 	cat "$tmpfile" | sort | uniq | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
@@ -862,10 +864,15 @@ clean-cdinfo() {
 alias memo='touch README.md'
 alias tmp='cd ~/tmp/'
 
-# cat all
-function cat-all() {
-	[[ $1 == "" ]] && echo "set file reg? e.g.) cat-all '*txt'" && return 0
+function cat-find() {
+	[[ $1 == "" ]] && echo "set file reg? e.g.) $0 '*.txt'" && return
 	find . -name "$1" -exec awk '{ if (FNR==1) print "####################\n",FILENAME,"\n####################"; print $0}' {} +
+}
+function cat-all() {
+	[[ $# == 0 ]] && echo "$0 <files...>" && return
+	for filepath in "$@"; do
+		awk '{ if (FNR==1) print "####################\n",FILENAME,"\n####################"; print $0}' "$filepath"
+	done
 }
 
 # NOTE: grepに対して任意のオプションを渡せる状態?
@@ -1532,16 +1539,18 @@ cmdcheck say && function mississippi() {
 	done
 }
 
-# ---- don't add code here by your hand
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# ---- don't add code here by your hand
-
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 [[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+[[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
 
 # [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
 if [[ $ZSH_NAME == zsh ]]; then
 	chpwd
+	set-dirname-title
 fi
+
+# ---- don't add code here by your hand
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# ---- don't add code here by your hand
