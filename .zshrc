@@ -7,7 +7,7 @@ _NO_CMD=''
 function doctor() {
 	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
 	echo "# These commands are missing..."
-	echo $_NO_CMD | sed 's/^://' | tr ':' '\n'
+	echo $_NO_CMD | sed 's/^://' | tr ':' '\n' | sort | uniq
 }
 function funccheck() { declare -f "$1" >/dev/null; }
 function cmdcheck() {
@@ -508,6 +508,7 @@ if [[ -f /.dockerenv ]]; then
 	}
 	RPROMPT='$(check_last_exit_code)'
 	PS1='(docker) %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
+	[[ $LANG == "ja_JP.UTF-8" ]] && PS1='🐳 %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
 fi
 
 if cmdcheck tmux; then
@@ -794,21 +795,49 @@ alias one="tr -d '\r' | tr -d '\n'"
 # クリップボードの改行削除
 alias poc="p | one | c"
 
+if cmdcheck nkf; then
+	alias udec='nkf -w --url-input'
+	alias uenc='nkf -WwMQ | tr = %'
+	alias overwrite-utf8='nkf -w --overwrite'
+fi
+
+alias "p" >/dev/null 2>&1 && unalias "p"
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	if cmdcheck nkf; then
 		alias _c='nkf -w | pbcopy'
-		alias p='pbpaste | nkf -w'
-		alias udec='nkf -w --url-input'
-		alias uenc='nkf -WwMQ | tr = %'
-		alias overwrite-utf8='nkf -w --overwrite'
+		alias _p='pbpaste | nkf -w'
 	else
 		alias _c='pbcopy'
-		alias p='pbpaste'
+		alias _p='pbpaste'
 	fi
 	# 改行コードなし
 	# o: one
 	alias oc="tr -d '\n' | c"
 	alias op="p | tr -d '\n'"
+fi
+
+if [[ -z $DISPLAY ]]; then
+	function c() {
+		mkdir -p ~/tmp
+		local VIM="vim"
+		cmdcheck nvim && VIM="nvim"
+		tee ~/tmp/clipboard | $VIM -u NONE -c 'let @"=join(getline(1, "$"), "\n")' -c 'q!'
+	}
+	function p() {
+		touch ~/tmp/clipboard
+		cat ~/tmp/clipboard
+	}
+else
+	function c() {
+		if [[ $# == 0 ]]; then
+			_c
+		else
+			cat $1 | _c
+		fi
+	}
+	function p() {
+		_p
+	}
 fi
 
 function clipboard-without-formatting() {

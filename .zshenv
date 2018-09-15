@@ -69,11 +69,3 @@ function webcatd() {
 }
 
 [[ $ZSH_NAME == zsh ]] && unsetopt all_export
-
-function c() {
-	if [[ $# == 0 ]]; then
-		_c
-	else
-		cat $1 | _c
-	fi
-}
