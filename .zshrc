@@ -826,6 +826,9 @@ if [[ -z $DISPLAY ]]; then
 	function p() {
 		mkdir -p ~/tmp
 		touch ~/tmp/clipboard
+		local VIM="vim"
+		cmdcheck nvim && VIM="nvim"
+		$VIM -u NONE -c 'call system("tee ~/tmp/clipboard", @")' -c 'q!'
 		cat ~/tmp/clipboard
 	}
 else
@@ -1617,8 +1620,11 @@ fi
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 [[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
 
-if [[ -f /.dockerenv ]]; then
-	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
-	# why???
-	unset -f cmdcheck
-fi
+# if [[ -f /.dockerenv ]]; then
+# 	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
+# 	# why???
+# 	unset -f cmdcheck
+# fi
+
+# ros
+[[ -f /opt/ros/kinetic/share/rosbash/roszsh ]] && source /opt/ros/kinetic/share/rosbash/roszsh
