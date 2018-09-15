@@ -1,0 +1,39 @@
+snippet install_tools
+  RUN apt-get update; apt-get install -y openssh-server git tree wget less vim tmux
+snippet install_catkin
+  RUN apt-get install -y ros-kinetic-desktop-full ros-kinetic-octomap-ros ros-kinetic-octomap-server ros-kinetic-octomap-rviz-plugins ros-kinetic-jsk-visualization ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server python-wstool python-catkin-tools protobuf-compiler
+snippet install_x_window_apps
+abbr e.g. xeyes
+  RUN apt-get install -y x11-apps
+snippet install_sudo
+  RUN apt-get install -y sudo
+
+snippet add_user
+  # replace user, uid, gid by adding below flags at docker build
+  # --build-arg user="$USER" --build-arg uid="$UID" --build-arg gid="$GID"
+  ARG user=docker
+  ARG uid=1000
+  ARG gid=1000
+  RUN groupadd -g ${uid} ${user} && \
+      useradd -u ${gid} -g ${user} -r ${user} && \
+      mkdir /home/${user} && \
+      chown ${uid}:${gid} -R /home/${user}
+
+  USER ${user}
+  WORKDIR /home/${user}
+
+snippet add_sudo_right_witout_password
+  RUN usermod -aG sudo ${user}
+  RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+snippet add_proxy_settings_to_etc_environment
+  # replace proxy setting by adding below flags at docker build
+  # --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"
+  RUN echo 'HTTP_PROXY="${HTTP_PROXY}"'   | tee -a /etc/environment
+  RUN echo 'HTTPS_PROXY="${HTTPS_PROXY}"' | tee -a /etc/environment
+  RUN echo 'FTP_PROXY="${FTP_PROXY}"'     | tee -a /etc/environment
+
+snippet from_ros_kinetic
+alias ros_kinetic
+  FROM osrf/ros:kinetic-desktop-full-xenial
+
