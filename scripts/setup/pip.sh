@@ -7,17 +7,18 @@
 pip install autopep8
 pip install flake8
 pip install jedi
-pip install pylint
+pip3 install pylint
 pip install python-language-server
 pip install vim-vint
 
 pip install Pygments
 
 pip install neovim
+pip3 install neovim
 
 # for ptpython ptipython
 pip install ptpython
-pip install "ipython[notebook]"
+pip3 install "ipython[notebook]"
 # jupyter notebook
 pip install jupyter
 
@@ -35,3 +36,4 @@ pip install clipboard
 pip install googletrans
 pip install requests
 pip install urllib3
+pip install certifi

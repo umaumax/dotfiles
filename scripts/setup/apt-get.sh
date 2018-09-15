@@ -2,6 +2,9 @@
 sudo apt-get update
 # sudo apt-get upgrade
 
+sudo apt-get install -y python-pip
+sudo apt-get install -y python3-pip
+
 sudo apt-get install -y git
 sudo apt-get install -y jq
 sudo apt-get install -y nkf
@@ -154,7 +157,6 @@ sudo apt-get install -y nvim
 # sudo apt-get install -y python-dev python-pip python3-dev python3-pip
 # sudo apt-get install -y python-dev python-pip python3-dev
 # sudo apt-get install -y python3-setuptools
-# sudo apt-get install -y python3-pip
 # sudo apt-get install -y cmake libfreetype6-dev libfontconfig1-dev xclip
 # sudo apt-get install -y ubuntu-restricted-extras libdvdread4 vlc
 # sudo apt-get install -y oathtool
