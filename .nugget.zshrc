@@ -71,6 +71,8 @@ function nugget() {
 # ################################
 # nvim for linux
 function nugget_ubuntu_nvim() {
+	cmdcheck nvim && return
+
 	pushd ~/opt
 	# nightly build
 	wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -103,6 +105,8 @@ function nugget_ubuntu_nvim() {
 # ################################
 # tig for linux
 function nugget_ubuntu_tig() {
+	cmdcheck tig && return
+
 	pushd "$tmpdir"
 	# for fatal error: curses.h: No such file or directory
 	sudo apt-get install -y libncurses5-dev
@@ -114,10 +118,14 @@ function nugget_ubuntu_tig() {
 	make -j$(nproc --all) prefix=$HOME/local
 	make install prefix=$HOME/local
 	popd
-	# ################################
+}
+# ################################
 
-	# ################################
-	# fzy for ubuntu
+# ################################
+# fzy for ubuntu
+function nugget_ubuntu_fzy() {
+	cmdcheck fzy && return
+
 	pushd "$tmpdir"
 	wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
 	sudo dpkg -i fzy_0.9-1_amd64.deb
@@ -142,6 +150,8 @@ function nugget_ubuntu_vim_deoplete() {
 # ################################
 # for peco
 function nugget_ubuntu_peco() {
+	cmdcheck peco && return
+
 	pushd "$tmpdir"
 	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
 	tar zxvf peco_linux_amd64.tar.gz
@@ -153,5 +163,19 @@ function nugget_ubuntu_peco() {
 # ################################
 
 # ################################
-#
+function nugget_ubuntu_bat() {
+	cmdcheck bat && return
+
+	pushd "$tmpdir"
+	wget https://github.com/sharkdp/bat/releases/download/v0.7.0/bat_0.7.0_amd64.deb
+	sudo dpkg -i bat_0.7.0_amd64.deb
+	rm -rf bat_0.7.0_amd64.deb
+	popd
+}
+# ################################
+
+# ################################
+# ################################
+
+# ################################
 # ################################

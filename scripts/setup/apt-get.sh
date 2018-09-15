@@ -87,11 +87,13 @@ sudo apt-get install -y clang llvm
 sudo apt-get install -y libncursesw5-dev
 # maybe you should build tig yourself
 # [jonas/tig: Text\-mode interface for git]( https://github.com/jonas/tig )
-sudo apt-get install -y tig
+# sudo apt-get install -y tig
 
 # NOTE: you should use nvim.appimage
 # [neovim/neovim: Vim\-fork focused on extensibility and usability]( https://github.com/neovim/neovim )
-sudo apt-get install -y nvim
+# sudo apt-get install -y nvim
+
+sudo apt-get install -y rlwrap
 
 # --------------------------------
 # below packages are WIP

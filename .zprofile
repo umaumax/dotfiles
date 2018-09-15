@@ -148,6 +148,8 @@ if cmdcheck pyenv; then
 	eval "$(pyenv init -)"
 	# 	eval "$(pyenv virtualenv-init -)"
 fi
+cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
+cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
 # for vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
