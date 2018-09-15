@@ -496,20 +496,18 @@ if cmdcheck docker; then
 	alias dlsa='docker ps -a'
 fi
 if [[ -f /.dockerenv ]]; then
-	# NOTE: to avoid 表示の乱れ
-	prompt steeef
+	# NOTE: to avoid 表示の乱れ (don't use sorin)
+	prompt kylewest
 	function check_last_exit_code() {
 		local LAST_EXIT_CODE=$?
 		if [[ $LAST_EXIT_CODE -ne 0 ]]; then
 			local EXIT_CODE_PROMPT=' '
-			EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
-			EXIT_CODE_PROMPT+="%{$fg_bold[red]%}$LAST_EXIT_CODE%{$reset_color%}"
-			EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
+			EXIT_CODE_PROMPT+="%F{166}$LAST_EXIT_CODE"
 			echo "$EXIT_CODE_PROMPT"
 		fi
 	}
-	RPROMPT='%F{166}$(check_last_exit_code)'
-	PS1='(docker) %F{135}%n%f %F{118}%~%f$ '
+	RPROMPT='$(check_last_exit_code)'
+	PS1='(docker) %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
 fi
 
 if cmdcheck tmux; then
@@ -1592,5 +1590,5 @@ fi
 if [[ -f /.dockerenv ]]; then
 	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
 	# why???
-	unalias cmdcheck
+	unset -f cmdcheck
 fi
