@@ -17,6 +17,10 @@ ln -sf ~/dotfiles/.peco.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.naget.zshrc ~/.zsh/
+
+[[ ! -f ~/.gitconfig ]] && ln -sf ~/dotfiles/.tmpl.local.gitconfig ~/.gitconfig
+[[ ! -f ~/.local.vimrc ]] && ln -sf ~/dotfiles/.tmpl.local.vimrc ~/.local.vimrc
 
 [[ ! -d ~/.local.git_template/ ]] && command cp -r ~/dotfiles/.local.git_template ~/
 
