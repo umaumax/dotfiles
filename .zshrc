@@ -3,9 +3,30 @@ if [[ $OS == Windows_NT ]]; then
 	test -r ~/.zprofile && source ~/.zprofile
 fi
 
+_NO_CMD=''
+function doctor() {
+	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
+	echo "# These commands are missing..."
+	echo $_NO_CMD | sed 's/^://' | tr ':' '\n'
+}
+function funccheck() { declare -f "$1" >/dev/null; }
+function cmdcheck() {
+	type "$1" >/dev/null 2>&1
+	local code=$?
+	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
+	return $code
+}
+function alias_if_exist() {
+	local tmp="${@:3:($# - 2)}"
+	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
+}
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+else
+	# NOTE: install zprezto
+	cmdcheck git && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 fi
 # default 10000?
 export HISTSIZE=100000
@@ -41,23 +62,6 @@ function exportf() {
 # [[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
 # ----------------
 
-_NO_CMD=''
-function doctor() {
-	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
-	echo "# These commands are missing..."
-	echo $_NO_CMD | sed 's/^://' | tr ':' '\n'
-}
-function funccheck() { declare -f "$1" >/dev/null; }
-function cmdcheck() {
-	type "$1" >/dev/null 2>&1
-	local code=$?
-	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
-	return $code
-}
-function alias_if_exist() {
-	local tmp="${@:3:($# - 2)}"
-	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
-}
 exportf funccheck
 exportf cmdcheck
 exportf alias_if_exist
