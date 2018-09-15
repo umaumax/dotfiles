@@ -37,7 +37,7 @@ if v:version >= 800 && has('python3')
 		" NOTE: for no lsp env
 		" 詳細な解析はできない(e.g. re.compile()の結果の補完は不可)
 		" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
-		Plug 'zchee/deoplete-jedi', {'for':'python'}
+		Plug 'zchee/deoplete-jedi', {'for':'python', 'do':'pip3 install jedi'}
 	endif
 
 	if Doctor('go','zchee/deoplete-go')
@@ -48,7 +48,7 @@ if v:version >= 800 && has('python3')
 	" NOTE: deoplete source using `git grep`
 	LazyPlug 'rinx/deoplete-auto-programming'
 
-	Plug 'umaumax/deoplete-docker', {'for':['dockerfile']}
+	Plug 'umaumax/deoplete-docker', {'for':['dockerfile'], 'do': 'pip3 install pip certifi'}
 
 	Plug 'Shougo/neco-vim', {'for': ['vi', 'vim']}
 	" 	Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
