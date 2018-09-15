@@ -801,7 +801,6 @@ if cmdcheck nkf; then
 	alias overwrite-utf8='nkf -w --overwrite'
 fi
 
-alias "p" >/dev/null 2>&1 && unalias "p"
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	if cmdcheck nkf; then
 		alias _c='nkf -w | pbcopy'
@@ -823,7 +822,9 @@ if [[ -z $DISPLAY ]]; then
 		cmdcheck nvim && VIM="nvim"
 		tee ~/tmp/clipboard | $VIM -u NONE -c 'let @"=join(getline(1, "$"), "\n")' -c 'q!'
 	}
+	alias "p" >/dev/null 2>&1 && unalias "p"
 	function p() {
+		mkdir -p ~/tmp
 		touch ~/tmp/clipboard
 		cat ~/tmp/clipboard
 	}

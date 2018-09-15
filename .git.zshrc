@@ -222,9 +222,9 @@ function cd-git-root() {
 
 cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 
-function git-diff() {
-	git diff --color-words
-}
+# function git-diff() {
+# 	git diff --color-words
+# }
 function git-log-peco() {
 	cat ~/.git-logs/*.log | peco
 }
