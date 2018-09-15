@@ -1467,7 +1467,7 @@ alias awk-sum-line='sum-line'
 
 alias da='direnv allow'
 
-if [[ $(uname -a) =~ "Ubuntu" ]]; then
+if [[ $(uname) == "Linux" ]]; then
 	alias ps-cpu='ps aux --sort -%cpu'
 	alias ps-mem='ps aux --sort -rss'
 elif [[ $(uname) == "Darwin" ]]; then

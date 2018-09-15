@@ -43,7 +43,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion /usr/local/share/zsh/site-functions/_docker
 			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion /usr/local/share/zsh/site-functions/_docker-machine
 			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion /usr/local/share/zsh/site-functions/_docker-compose
-		elif [[ $(uname -a) =~ "Ubuntu" ]]; then
+		elif [[ $(uname) == "Linux" ]]; then
 			mkdir -p ~/.zsh/completion
 			# [Command\-line completion \| Docker Documentation]( https://docs.docker.com/compose/completion/#zsh )
 			# NOTE: you cat get docker-compose version by $(docker-compose version --short)

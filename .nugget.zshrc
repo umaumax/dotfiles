@@ -38,12 +38,13 @@ function nugget() {
 	*) ;;
 	esac
 
-	if [[ $(uname) == "Darwin" ]] && $(echo ${brew_list[@]} | grep -E -q "(^| )${package}( |$)"); then
+	local OS=$(_os)
+	if [[ $OS == "mac" ]] && $(echo ${brew_list[@]} | grep -E -q "(^| )${package}( |$)"); then
 		debug brew install "$package"
 		return
 	fi
 
-	if [[ $(uname -a) =~ "Ubuntu" ]] && $(echo ${apt_get_list[@]} | grep -E -q "(^| )${package}( |$)"); then
+	if [[ $OS == "ubuntu" ]] && $(echo ${apt_get_list[@]} | grep -E -q "(^| )${package}( |$)"); then
 		debug sudo apt-get install "$package"
 		return
 	fi
@@ -54,7 +55,6 @@ function nugget() {
 	# NOTE: don't use local
 	tmpdir='/tmp'
 
-	local OS=$(_os)
 	if cmdcheck "nugget_${OS}_${package}"; then
 		debug "nugget_${OS}_${package}"
 		return

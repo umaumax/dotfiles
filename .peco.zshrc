@@ -1,6 +1,6 @@
 ! cmdcheck peco && return
 
-if [[ $(uname -a) =~ "Ubuntu" ]]; then
+if [[ $(uname) == "Linux" ]]; then
 	# [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
 	function peco-apt() {
 		if [ -z "$1" ]; then
