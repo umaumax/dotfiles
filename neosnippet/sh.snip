@@ -7,14 +7,20 @@ snippet readline
     done
 
 snippet ismac
+    [[ $(uname) == "Darwin" ]]
+snippet isubuntu
+    [[ $(uname -a) =~ "Ubuntu" ]]
+snippet iswindows
+    [[ "$OS" =~ "Windows" ]]
+snippet ismac_if
     if [[ $(uname) == "Darwin" ]]; then
         ${0}
     fi
-snippet isubuntu
+snippet isubuntu_if
     if [[ $(uname -a) =~ "Ubuntu" ]]; then
         ${0}
     fi
-snippet iswindows
+snippet iswindows_if
     if [[ "$OS" =~ "Windows" ]]; then
         ${0}
     fi
@@ -94,6 +100,14 @@ alias array_append
 snippet append_array_self
 alias array_append_self
     ${1:#dst array}+=(${0})
+
+snippet search_array
+alias array_search
+  $(echo ${${1:#array name}[@]} | grep -E -q "(^| )${0:#keyword}( |$)")
+
+snippet search_array_not_found
+alias array_search_not_found
+  ! $(echo ${${1:#array name}[@]} | grep -E -q "(^| )${0:#keyword}( |$)")
 
 snippet tmpfile
   tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
@@ -175,7 +189,8 @@ abbr ${@:0} == $@
   ${${1:#array name}:${0:#1,2,3,...}}
 
 snippet debug
-  function debug() { command echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
+alias log_run
+  function debug() { echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
 
 snippet switch_case_example
   case $TERM in
@@ -253,3 +268,47 @@ alias failure
 
 snippet help_0
   [[ $# == 0 ]] && echo "\$0 <${0}>" && return 1
+
+snippet docker_build_with_proxy_settings
+  tag="${1:#image name}:latest"
+
+  httpproxy=$HTTP_PROXY
+  ftpproxy=$FTP_PROXY
+  httpsproxy=$HTTPS_PROXY
+
+  docker build \
+    -t $tag \
+    --build-arg HTTP_PROXY=$httpproxy \
+    --build-arg http_proxy=$httpproxy \
+    --build-arg FTP_PROXY=$ftpproxy \
+    --build-arg ftp_proxy=$ftpproxy \
+    --build-arg HTTPS_PROXY=$httpsproxy \
+    --build-arg https_proxy=$httpsproxy "$@" .
+snippet docker_build_user_flags
+  --build-arg user="$USER" --build-arg uid="$UID" --build-arg gid="$GID"
+snippet docker_build_proxy_flags
+  --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"
+
+snippet docker_run_snippets
+  tag="${1:#image name}"
+
+  val=$(stty size)
+  rows=$(echo $val | cut -d ' ' -f 1)
+  cols=$(echo $val | cut -d ' ' -f 2)
+
+  proxyurl="$HTTP_PROXY"
+  docker run -e http_proxy=${proxyurl} -e https_proxy=${proxyurl} -i -t $tag /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
+snippet docker_run_flags_with_terminal_size_settings
+  val=$(stty size)
+  rows=$(echo $val | cut -d ' ' -f 1)
+  cols=$(echo $val | cut -d ' ' -f 2)
+  /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
+snippet docker_run_flags_with_proxy_settings
+  proxyurl="$HTTP_PROXY"
+  -e http_proxy=${proxyurl} -e https_proxy=${proxyurl}
+snippet docker_run_flags_with_x_window_system
+  --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix
+snippet docker_run_flags_with_workdir
+  --privileged -v $PWD/docker-ws:/home/${1:#user}/ws --workdir /home/$1/ws
+snippet docker_run_it_bash
+  docker run -i -t $tag /bin/bash

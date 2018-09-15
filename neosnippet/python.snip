@@ -265,8 +265,20 @@ abbr [["a", "b"], ["c", "d"]] -> ["a", "b", "c", "d"]
 
 snippet stdout_steal
 alias contextlib_redirect_stdout
-	from contextlib import redirect_stdout
+from contextlib import redirect_stdout
 	string_io = io.StringIO()
 	with redirect_stdout(string_io):
 		${0}
 	${1:output} = string_io.getvalue()
+
+snippet this_month
+	this_month = datetime.date(datetime.date.today().year, datetime.date.today().month, 1).strftime('%Y-%m-%d')
+
+snippet dict2object
+	class Struct:
+		def __init__(self, **entries):
+		self.__dict__.update(entries)
+	${0:#object var name} = Struct(**${1:#dict var name})
+
+snippet arg_parse_wrapper
+	args, _ = parser.parse_known_args_wrapper(args=${1:#args var name (None:command line options)}):

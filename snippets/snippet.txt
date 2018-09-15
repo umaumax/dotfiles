@@ -166,9 +166,13 @@
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
-[nmcli remote dump] ssh @ "nmcli device show"
-[nmcli add device] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
+[nmcli add device ] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
 [nmcli list unmanaged interfaces] nmcli d
+[nmcli add gateway] sudo nmcli connection modify "Wired connection @" ipv4.gateway ""
+[nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28"
+[nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
+
+[nmcli remote dump] ssh @ "nmcli device show"
 
 # curl
 [curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
