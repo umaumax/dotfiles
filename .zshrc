@@ -11,6 +11,7 @@ function doctor() {
 }
 function funccheck() { declare -f "$1" >/dev/null; }
 function cmdcheck() {
+	[[ $# == 0 ]] && echo "$0 <cmd>" && return
 	type "$1" >/dev/null 2>&1
 	local code=$?
 	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
@@ -507,8 +508,8 @@ if [[ -f /.dockerenv ]]; then
 			echo "$EXIT_CODE_PROMPT"
 		fi
 	}
-	RPROMPT='$(check_last_exit_code)'
-	PS1='%F{135}%n%f at %F{166}%m%f in %F{118}%~%f (docker)$ '
+	RPROMPT='%F{166}$(check_last_exit_code)'
+	PS1='(docker) %F{135}%n%f %F{118}%~%f$ '
 fi
 
 if cmdcheck tmux; then
@@ -1587,3 +1588,9 @@ fi
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 [[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
+
+if [[ -f /.dockerenv ]]; then
+	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
+	# why???
+	unalias cmdcheck
+fi
