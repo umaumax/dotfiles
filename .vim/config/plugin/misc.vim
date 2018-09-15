@@ -409,23 +409,6 @@ let g:rainbow_conf = {
 			\	'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
 			\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
 			\}
-function! s:rainbow_group_func(action)
-	if &ft=='cmake'
-		if a:action=='enter'
-			call rainbow_main#clear()
-		endif
-	else
-		if a:action=='enter'
-			call rainbow_main#load()
-		endif
-	endif
-endfunction
-augroup rainbow_group
-	autocmd!
-	autocmd User VimEnterDrawPost call <SID>rainbow_group_func('enter')
-	autocmd BufEnter * call <SID>rainbow_group_func('enter')
-	" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
-augroup END
 
 " NOTE: cmdlineの決め打ちショートカット機能
 Plug 'tyru/vim-altercmd'

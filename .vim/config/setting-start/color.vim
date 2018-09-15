@@ -23,3 +23,23 @@ augroup init_color_group
 	autocmd ColorScheme,BufWinEnter * call s:init_color()
 	autocmd User VimEnterDrawPost     call s:init_color()
 augroup END
+
+if &rtp =~ 'rainbow'
+	function! s:rainbow_group_func(action)
+		if &ft=='cmake'
+			if a:action=='enter'
+				call rainbow_main#clear()
+			endif
+		else
+			if a:action=='enter'
+				call rainbow_main#load()
+			endif
+		endif
+	endfunction
+	augroup rainbow_group
+		autocmd!
+		autocmd User VimEnterDrawPost call <SID>rainbow_group_func('enter')
+		autocmd BufEnter * call <SID>rainbow_group_func('enter')
+		" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
+	augroup END
+endif
