@@ -22,8 +22,7 @@ if [[ -f /.dockerenv ]]; then
 	# NOTE: no fuse pattern
 	chmod u+x nvim.appimage
 	./nvim.appimage --appimage-extract
-	./squashfs-root/usr/bin/nvim
-	ln -sf ./squashfs-root/usr/bin/nvim ~/local/bin/nvim
+	cp -r squashfs-root/usr/* ~/local
 else
 	# FYI: [FUSE · AppImage/AppImageKit Wiki]( https://github.com/AppImage/AppImageKit/wiki/FUSE#type-2-appimage )
 	# NOTE: AppImages require FUSE to run.
@@ -40,8 +39,10 @@ popd
 
 # ################################
 # tig for linux
-# for Japanese language
 pushd /tmp
+# for fatal error: curses.h: No such file or directory
+sudo apt-get install -y libncurses5-dev
+# for Japanese language
 sudo apt-get install -y libncursesw5-dev
 git clone git://github.com/jonas/tig.git
 cd /tmp/tig
