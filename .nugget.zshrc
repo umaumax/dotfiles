@@ -2,21 +2,21 @@
 # TODO: list or show
 # TODO: with out sudo option
 
-function naget-h() {
-	echo "naget [-h] [-l] <package>"
+function nugget-h() {
+	echo "nugget [-h] [-l] <package>"
 	echo '  -h: help'
 	echo '  -l: list installable packages'
 }
-function naget-l() {
+function nugget-l() {
 	local OS=''
 	[[ $(uname) == "Darwin" ]] && local OS='mac'
 	[[ $(uname) == "Linux" ]] && local OS='ubuntu'
 	# NOTE: this eval is to avoid only zsh syntax (for shfmt)
-	local install_function_list=($(eval 'print -l ${(ok)functions}' | grep '^naget_'"$OS"))
+	local install_function_list=($(eval 'print -l ${(ok)functions}' | grep '^nugget_'"$OS"))
 	echo "${install_function_list[@]}" | tr ' ' '\n' | sort
 }
 
-function naget() {
+function nugget() {
 	function debug() { echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
 
 	# NOTE: WIP
@@ -24,11 +24,11 @@ function naget() {
 	# NOTE: WIP
 	local apt_get_list=()
 
-	[[ $# == 0 ]] && naget-l && return 1
+	[[ $# == 0 ]] && nugget-h && return 1
 	local package="$1"
 	case $package in
 	-l | -h)
-		"naget$package"
+		"nugget$package"
 		return
 		;;
 	*) ;;
@@ -50,8 +50,8 @@ function naget() {
 	# NOTE: don't use local
 	tmpdir='/tmp'
 
-	if cmdcheck "naget_${OS}_${package}"; then
-		debug "naget_${OS}_${package}"
+	if cmdcheck "nugget_${OS}_${package}"; then
+		debug "nugget_${OS}_${package}"
 		return
 	fi
 
@@ -65,7 +65,7 @@ function naget() {
 
 # ################################
 # nvim for linux
-function naget_ubuntu_nvim() {
+function nugget_ubuntu_nvim() {
 	pushd ~/opt
 	# nightly build
 	wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -97,7 +97,7 @@ function naget_ubuntu_nvim() {
 
 # ################################
 # tig for linux
-function naget_ubuntu_tig() {
+function nugget_ubuntu_tig() {
 	pushd "$tmpdir"
 	# for fatal error: curses.h: No such file or directory
 	sudo apt-get install -y libncurses5-dev
@@ -123,7 +123,7 @@ function naget_ubuntu_tig() {
 
 # ################################
 # deoplete
-function naget_ubuntu_vim_deoplete() {
+function nugget_ubuntu_vim_deoplete() {
 	sudo apt-get install -y python-pip
 	sudo apt-get install -y python3-pip
 	pip2 install neovim
@@ -136,7 +136,7 @@ function naget_ubuntu_vim_deoplete() {
 
 # ################################
 # for peco
-function naget_ubuntu_peco() {
+function nugget_ubuntu_peco() {
 	pushd "$tmpdir"
 	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
 	tar zxvf peco_linux_amd64.tar.gz

@@ -1618,7 +1618,7 @@ fi
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
-[[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
+[[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 
 # if [[ -f /.dockerenv ]]; then
 # 	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
