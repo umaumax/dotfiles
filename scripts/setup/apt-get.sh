@@ -2,6 +2,9 @@
 sudo apt-get update
 # sudo apt-get upgrade
 
+# basic tools
+sudo apt-get install -y openssh-server git tree wget less vim tmux zsh sudo curl man iputils-ping net-tools
+
 sudo apt-get install -y python-pip
 sudo apt-get install -y python3-pip
 
