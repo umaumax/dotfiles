@@ -1,5 +1,5 @@
 snippet install_tools
-  RUN apt-get update; apt-get install -y openssh-server git tree wget less vim tmux
+  RUN apt-get install -y openssh-server git tree wget less vim tmux zsh
 snippet install_catkin
   RUN apt-get install -y ros-kinetic-desktop-full ros-kinetic-octomap-ros ros-kinetic-octomap-server ros-kinetic-octomap-rviz-plugins ros-kinetic-jsk-visualization ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server python-wstool python-catkin-tools protobuf-compiler
 snippet install_x_window_apps
@@ -15,7 +15,7 @@ snippet add_user
   ARG uid=1000
   ARG gid=1000
   RUN groupadd -g ${uid} ${user} && \
-      useradd -u ${gid} -g ${user} -r ${user} && \
+      useradd -u ${uid} -g ${user} -r ${user} && \
       mkdir /home/${user} && \
       chown ${uid}:${gid} -R /home/${user}
 
@@ -37,3 +37,16 @@ snippet from_ros_kinetic
 alias ros_kinetic
   FROM osrf/ros:kinetic-desktop-full-xenial
 
+snippet from_ros_kinetic_tutorials
+  FROM ros:kinetic
+
+  RUN apt-get update && apt-get install -y
+  RUN apt-get install -y zsh
+  RUN apt-get install -y ros-kinetic-ros-tutorials ros-kinetic-common-tutorials
+  # HINT: source /opt/ros/kinetic/share/rosbash/roszsh
+
+snippet apt_init
+  RUN apt-get update && apt-get upgrade -y
+
+snippet apt_add_apt_repository
+  RUN apt-get install -y software-properties-common

@@ -7,13 +7,21 @@ snippet readline
     done
 
 snippet ismac
-    [[ $(uname) == "Darwin" ]]
+  [[ $(uname) == "Darwin" ]]
+snippet islinux
+  [[ $(uname) == "Linux" ]]
 snippet isubuntu
-    [[ $(uname -a) =~ "Ubuntu" ]]
+  [[ $(uname -a) =~ "Ubuntu" ]]
 snippet iswindows
-    [[ "$OS" =~ "Windows" ]]
+  [[ "$OS" =~ "Windows" ]]
+snippet isdocker
+  [[ -f /.dockerenv ]]
 snippet ismac_if
     if [[ $(uname) == "Darwin" ]]; then
+        ${0}
+    fi
+snippet islinux_if
+    if [[ $(uname) == "Linux" ]]; then
         ${0}
     fi
 snippet isubuntu_if
@@ -24,6 +32,11 @@ snippet iswindows_if
     if [[ "$OS" =~ "Windows" ]]; then
         ${0}
     fi
+snippet isdocker
+  if [[ -f /.dockerenv ]]; then
+    ${0}
+  fi
+
 snippet isbash_if
   if [[ -n $BASH ]]; then
     ${0}
@@ -37,12 +50,14 @@ snippet iszsh_if
 snippet iszsh
   [[ $ZSH_NAME == zsh ]] ${0}
 
+snippet ispipe
+  [[ -p /dev/stdout ]] ${0}
+
 snippet trimspace
   sed "s/^[ \t]*//"
 
 snippet devnull
   >/dev/null 2>&1
-
 snippet stderr
   1>&2
 
@@ -303,6 +318,8 @@ snippet docker_run_flags_with_terminal_size_settings
   rows=$(echo $val | cut -d ' ' -f 1)
   cols=$(echo $val | cut -d ' ' -f 2)
   /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
+  #or
+  -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
 snippet docker_run_flags_with_proxy_settings
   proxyurl="$HTTP_PROXY"
   -e http_proxy=${proxyurl} -e https_proxy=${proxyurl}
@@ -311,4 +328,9 @@ snippet docker_run_flags_with_x_window_system
 snippet docker_run_flags_with_workdir
   --privileged -v $PWD/docker-ws:/home/${1:#user}/ws --workdir /home/$1/ws
 snippet docker_run_it_bash
-  docker run -i -t $tag /bin/bash
+  docker run -it $tag /bin/bash
+
+snippet function_list_bash
+  compgen -A function
+snippet function_list_zsh
+  print -l ${(ok)functions}

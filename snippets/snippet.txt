@@ -47,8 +47,8 @@
 [size] df -h # disk size
 
 # docker
-[build] docker build -t "@" .
-[run] docker run --rm -it "@" /bin/bash
+[build] docker build -t $tag@ .
+[run] docker run --rm -it $tag@ /bin/bash
 [stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
 
 # cmake
@@ -82,7 +82,7 @@
 [commit without hook] git commit --no-verify
 [reload git hooks]  rm -rf .git/hooks && git init # NOTE: don't delete local git hooks
 [first empty commit] git commit --allow-empty -m "first commit"
-[git submodule int and update] git submodule update -i
+[git submodule init and update] git submodule update -i
 [Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
 [git tag old to new] git tag --sort=taggerdate
@@ -148,6 +148,7 @@
 
 # python
 [pip list] pip freeze
+[pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @
@@ -171,6 +172,12 @@
 [nmcli add gateway] sudo nmcli connection modify "Wired connection @" ipv4.gateway ""
 [nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28"
 [nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
+
+# id
+[USER at Mac OS X] id -F
+[USER] $LOGNAME
+[UID] id -u
+[GID] id -g
 
 [nmcli remote dump] ssh @ "nmcli device show"
 
@@ -301,7 +308,12 @@
 [python touch init file] touch __init__.py
 
 # ros
-[ros kinetic source] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
+[ros kinetic source bash] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
+[ros kinetic source zsh ] source /opt/ros/kinetic/share/rosbash/roszsh
+
+# gitignore
+# FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
+[ros gitignore] curl -L http://www.gitignore.io/api/ros
 
 [show char code] hexdump -C
 
@@ -312,3 +324,23 @@
 # kill
 [kill SIGKILL] sudo kill -KILL @ # same meaning as sudo kill -9
 
+# user
+[add group to user usermod] sudo usermod -aG $GROUPS@ $USER
+[add group to user gpasswd] sudo gpasswd -a $USER $GROUP@
+[add group to user adduser(ubuntu)] sudo adduser $USER $GROUP@
+
+# heredoc
+[heredoc to filename] cat > $FILEPATH@ << 'EOF'
+
+# stdin/out/errr
+[devnull] >/dev/null 2>&1
+
+# login shell
+[set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $LOGNAME
+[relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
+[relogin] exec $SHELL -l
+
+[fix perl local warning] sudo apt-get install -y locales && sudo locale-gen $LANG
+[enable emoji] sudo apt-get install -y language-pack-ja && sudo update-locale LANG=ja_JP.UTF-8
+
+[zsh function list] print -l ${(ok)functions}
