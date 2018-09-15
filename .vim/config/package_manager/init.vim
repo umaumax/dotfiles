@@ -1,4 +1,5 @@
 " NOTE: auto download vim-plug
+let b:plug_install_flag=0
 if has('vim_starting')
   " 	if !isdirectory(expand('~/.vim/plugged/vim-plug'))
   " 		echo 'install vim-plug...'
@@ -10,7 +11,10 @@ if has('vim_starting')
   " 	endif
   if !filereadable(expand('~/.vim/autoload/plug.vim'))
     echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/autoload')
     call system('curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    echo '[HINT] install vim plugins'
+    let b:plug_install_flag=1
   end
 endif
 
@@ -113,3 +117,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'kana/vim-submode'
 runtime! config/plugin/*.vim
 call plug#end()
+if b:plug_install_flag == 1
+  PlugInstall
+endif

@@ -17,7 +17,8 @@ sudo apt-get install -y ccze
 sudo apt-get install -y clang-tidy
 sudo apt-get install -y clang-format-5.0
 sudo apt-get install -y vim-gnome
-sudo apt-get install -y golang
+sudo apt-get install -y golang-1.10
+# HINT: export PATH=”/usr/lib/go-1.10/bin:$PATH”
 sudo apt-get install -y openssh-server
 sudo apt-get install -y sshpass
 sudo apt-get install -y imagemagick
@@ -138,7 +139,6 @@ sudo apt-get install -y nvim
 # sudo apt-get install -y umake
 # sudo apt-get install -y openjdk-8-jdk
 # sudo apt-get install -y android-tools-adb
-# sudo apt-get install -y golang-1.10
 # sudo apt-get install -y nitrogen
 # sudo apt-get install -y translate-shell
 # sudo apt-get install -y xserver-xorg-video-intel

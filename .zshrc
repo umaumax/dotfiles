@@ -26,7 +26,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 else
 	# NOTE: install zprezto
-	cmdcheck git && git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
 fi
 # default 10000?
 export HISTSIZE=100000
@@ -485,6 +486,29 @@ if cmdcheck docker; then
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker rm $container_id
 	}
+	alias de='docker-exec'
+	alias dexec='docker-exec'
+	alias da='docker-attach'
+	alias dattach='docker-attach'
+	alias dsa='docker-start-and-attach'
+	alias dls='docker ps'
+	alias dlsa='docker ps -a'
+fi
+if [[ -f /.dockerenv ]]; then
+	# NOTE: to avoid 表示の乱れ
+	prompt steeef
+	function check_last_exit_code() {
+		local LAST_EXIT_CODE=$?
+		if [[ $LAST_EXIT_CODE -ne 0 ]]; then
+			local EXIT_CODE_PROMPT=' '
+			EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
+			EXIT_CODE_PROMPT+="%{$fg_bold[red]%}$LAST_EXIT_CODE%{$reset_color%}"
+			EXIT_CODE_PROMPT+="%{$fg[red]%}-%{$reset_color%}"
+			echo "$EXIT_CODE_PROMPT"
+		fi
+	}
+	RPROMPT='$(check_last_exit_code)'
+	PS1='%F{135}%n%f at %F{166}%m%f in %F{118}%~%f ${vcs_info_msg_0_}$python_info[virtualenv](docker)$ '
 fi
 
 if cmdcheck tmux; then
@@ -594,6 +618,7 @@ function _xargs-vim() {
 }
 
 alias ds='cd ~/dotfiles'
+alias dot='cd ~/dotfiles'
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
 
@@ -1108,7 +1133,11 @@ function when() { ps -eo lstart,pid,args | grep -v grep; }
 # [bashでラッパースクリプトを覚えたい - Qiita](http://qiita.com/catfist/items/57327b7352940b1fd4ec)
 # [bashのalias に引数を渡すには？ - それマグで！](http://takuya-1st.hatenablog.jp/entry/2015/12/15/030119)
 # FYI: c2a0: [treeコマンドの出力をsedでパイプしてHTML化 \- Qiita]( https://qiita.com/narupo/items/b677a1de3af7837c749f )
-function tree() { if [ -p /dev/stdout ]; then command tree -a -I "\.git" "$@"; else command tree -a -I "\.git" -C "$@"; fi | sed "s/$(echo -e "\xc2\xa0")/ /g"; }
+function tree() {
+	local COLOR_OPT=()
+	[[ ! -p /dev/stdout ]] && local COLOR_OPT=(-C)
+	command tree -a -I "\.git" "${COLOR_OPT[@]}" "$@" | sed "s/$(echo -e "\xc2\xa0")/ /g"
+}
 
 # onlyd for zsh
 alias wtty='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" }'
@@ -1542,13 +1571,6 @@ cmdcheck say && function mississippi() {
 		echo -n "\r$((end - start)) sec"
 	done
 }
-
-[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
-[[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
-[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
-[[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
-[[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
-
 # [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
 if [[ $ZSH_NAME == zsh ]]; then
 	chpwd
@@ -1558,3 +1580,10 @@ fi
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
+
+[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
+[[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
+[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
+# NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
+[[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+[[ -e ~/.zsh/.naget.zshrc ]] && source ~/.zsh/.naget.zshrc
