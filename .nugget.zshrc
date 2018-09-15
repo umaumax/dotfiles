@@ -7,10 +7,14 @@ function nugget-h() {
 	echo '  -h: help'
 	echo '  -l: list installable packages'
 }
-function nugget-l() {
+function _os() {
 	local OS=''
 	[[ $(uname) == "Darwin" ]] && local OS='mac'
 	[[ $(uname) == "Linux" ]] && local OS='ubuntu'
+	echo -n "$OS"
+}
+function nugget-l() {
+	local OS=$(_os)
 	# NOTE: this eval is to avoid only zsh syntax (for shfmt)
 	local install_function_list=($(eval 'print -l ${(ok)functions}' | grep '^nugget_'"$OS"))
 	echo "${install_function_list[@]}" | tr ' ' '\n' | sort
@@ -50,6 +54,7 @@ function nugget() {
 	# NOTE: don't use local
 	tmpdir='/tmp'
 
+	local OS=$(_os)
 	if cmdcheck "nugget_${OS}_${package}"; then
 		debug "nugget_${OS}_${package}"
 		return
