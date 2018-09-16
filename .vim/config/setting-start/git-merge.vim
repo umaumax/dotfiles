@@ -54,5 +54,7 @@ function! s:diffget()
   silent! execute ":".(ours_index+1).','.(theirs_index+1).'!:'
   call append(ours_index, new_lines)
 endfunction
-" NOTE: a: accept
+" NOTE: a: accept, adopt
 nnoremap <leader>a :call <SID>diffget()<CR>
+" NOTE: p: pickup
+nnoremap <leader>p :call <SID>diffget()<CR>
