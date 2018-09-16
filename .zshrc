@@ -473,11 +473,19 @@ if cmdcheck docker; then
 		[[ -n $container_id ]] && docker attach $container_id
 	}
 	function docker-exec() {
+		# NOTE: sudo su with '-' cause "Session terminated, terminating shell..." message when C-c is pressed ... why?
+		# local login_shell="env zsh || env bash"
+		local login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+		[[ $1 == '--bash' ]] && local login_shell='exec bash -l'
+
 		local container_id=$(docker ps | peco | awk '{print $1}')
 		local val=$(stty size)
 		local rows=$(echo $val | cut -d ' ' -f 1)
 		local cols=$(echo $val | cut -d ' ' -f 2)
-		[[ -n $container_id ]] && docker exec -it $container_id /bin/bash -c "stty rows $rows cols $cols; exec bash -l"
+		[[ -z $container_id ]] && return
+
+		echo "${YELLOW}[HINT]${DEFAULT}[relogin command]:"' sudo su $(whoami)'
+		docker exec -it $container_id /bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"
 	}
 	function docker-start-and-attach() {
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
