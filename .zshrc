@@ -1636,3 +1636,19 @@ fi
 
 # ros
 [[ -f /opt/ros/kinetic/share/rosbash/roszsh ]] && source /opt/ros/kinetic/share/rosbash/roszsh
+
+# for catkin_make shortcut (auto catkin work dir detection)
+function cmk() {
+	function lambda() {
+		local dirpath=$PWD && while true; do
+			local target_filepath="$dirpath/src/CMakeLists.txt"
+			if [[ -L "$target_filepath" ]] && [[ $(basename $(readlink $target_filepath)) == 'toplevel.cmake' ]]; then
+				pushd $dirpath >/dev/null 2>&1
+				catkin_make
+				popd >/dev/null 2>&1
+				return
+			fi
+			[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
+		done
+	} && lambda
+}
