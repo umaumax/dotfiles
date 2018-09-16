@@ -304,8 +304,8 @@
 [add vagrant proxy setting] sed -i -e "/^end$/i \\  if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['HTTP_PROXY']\\n      puts '# - Proxy Setting ----------------------------------'\\n      puts '# ' + ENV['HTTP_PROXY']\\n      config.proxy.http     = ENV['HTTP_PROXY']\\n      config.proxy.https    = ENV['HTTP_PROXY']\\n      config.proxy.no_proxy = "localhost,127.0.0.1"\\n      puts '# --------------------------------------------------'\\n  end" Vagrantfile
 
 # python
-[python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
-[python unittest verbose] python -m unittest -v $SCRIPT_NAME_WITHOUT_EXT.$TEST_CASE_NAME
+[python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CLASS_NAME
+[python unittest verbose] python -m unittest -v $SCRIPT_NAME_WITHOUT_EXT.$TEST_CLASS_NAME
 [python unittest recursively] python -m unittest discover
 [python unittest recursively verbose] python -m unittest -v discover
 [python touch init file] touch __init__.py
@@ -359,3 +359,9 @@
 # sudo
 [sudo su as user] sudo su
 [sudo su as root] sudo su -
+
+# echo
+[echo  x char] echo -e "\\x61"
+[echo unicode] echo -e "\\U1F363"
+
+[open emoji unicode site] open "http://www.fileformat.info/info/emoji/list.htm"

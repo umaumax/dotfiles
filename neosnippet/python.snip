@@ -282,3 +282,14 @@ snippet dict2object
 
 snippet arg_parse_wrapper
 	args, _ = parser.parse_known_args_wrapper(args=${1:#args var name (None:command line options)}):
+
+snippet heredoc_indent_ng
+	${1:#heredoc} = """\
+		${0}
+	"""
+
+snippet heredoc_indent_ok
+	import textwrap
+	msg = textwrap.dedent("""\
+		${0}
+	""")
