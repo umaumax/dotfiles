@@ -21,10 +21,6 @@ if cmdcheck xsel; then
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
 fi
-if [[ -n $_Ubuntu ]]; then
-	alias pbcopy='xsel --clipboard --input'
-	alias pbpaste='xsel --clipboard --output'
-fi
 
 if cmdcheck peco; then
 	# peco copy

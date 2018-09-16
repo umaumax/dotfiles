@@ -105,8 +105,8 @@ fi
 cmdcheck tac || alias tac='tail -r'
 
 # ls
-[[ -n $_Darwin ]] && alias ls='ls -G'
-[[ -n $_Ubuntu ]] && alias ls='ls --color=auto'
+[[ $(uname) == "Darwin" ]] && alias ls='ls -G'
+[[ $(uname) == "Linux" ]] && alias ls='ls --color=auto'
 
 alias l='ls'
 alias la='ls -al'
@@ -175,8 +175,8 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 
-[[ -n $_Darwin ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* vim"'
-[[ -n $_Ubuntu ]] && alias vim-files='pgrep -al vim'
+[[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* vim"'
+[[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
 
 alias vp='cdvproot'
 alias vpr='cdvproot'
@@ -245,8 +245,7 @@ alias type='type -af'
 ################
 ####  Mac   ####
 ################
-if [[ -n $_Darwin ]]; then
-	export LSCOLORS=gxfxcxdxbxegexabagacad
+if [[ $(uname) == "Darwin" ]]; then
 	# cmds
 	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 	alias sysinfo='system_profiler SPSoftwareDataType'
@@ -296,7 +295,7 @@ fi
 ################
 #### Ubuntu ####
 ################
-if [[ -n $_Ubuntu ]]; then
+if [[ $(uname) == "Linux" ]]; then
 	if cmdcheck xclip; then
 		alias pbcopy='xclip -sel clip'
 		alias pbpaste='xclip -o -sel clip'
@@ -475,7 +474,9 @@ if cmdcheck docker; then
 	function docker-exec() {
 		# NOTE: sudo su with '-' cause "Session terminated, terminating shell..." message when C-c is pressed ... why?
 		# local login_shell="env zsh || env bash"
-		local login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+		# NOTE: sudo suを行わない場合と比較してLANGの設定が変化する(sudo suのみでは~/.zprofileは実行されていないっぽい)
+		# local login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+		local login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
 		[[ $1 == '--bash' ]] && local login_shell='exec bash -l'
 
 		local container_id=$(docker ps | peco | awk '{print $1}')
@@ -714,7 +715,7 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # get abs path
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath() {
-	if [[ -n $_Darwin ]]; then
+	if [[ $(uname) == "Darwin" ]]; then
 		local _home=$(echo $HOME | sed "s/\//\\\\\//g")
 		local abspathdir=$(sh -c "cd $(dirname $1) && pwd | sed \"s/$_home/~/\"")
 		echo ${abspathdir%/}/$(basename $1)
@@ -997,8 +998,8 @@ function fgrep2() {
 	find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep-0 ${keyword[@]}
 }
 alias fg.vim='fgrep "*.vim"'
-[[ -n $_Darwin ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
-[[ -n $_Ubuntu ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc"              \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
+[[ $(uname) == "Darwin" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
+[[ $(uname) == "Linux" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc"              \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
 alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep-0'
 alias fg.go='find "." \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
 alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
@@ -1378,7 +1379,7 @@ REPORTTIME=10
 #unsetopt promptcr
 
 # [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
-if [[ -n $_Ubuntu ]]; then
+if [[ $(uname) == "Linux" ]]; then
 	# to prevent `Vimを使ってくれてありがとう` at tab
 	function precmd_function() {
 		set-dirname-title

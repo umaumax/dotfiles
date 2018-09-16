@@ -58,10 +58,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 
 # ---- zsh ----
 # ---- bash ----
-# set -x # for debug
-[[ $(uname) == 'Darwin' ]] && export _Darwin=1
-[[ $(uname -a) =~ 'Ubuntu' ]] && export _Ubuntu=1
-[[ $(uname) == 'Linux' ]] && export _Linux=1
 
 funccheck() { declare -f "$1" >/dev/null; }
 cmdcheck() {
@@ -177,8 +173,13 @@ export MORE='--quit-if-one-screen -MR'
 export GREP_COLOR='4;1;31'
 export GREP_COLORS='sl=0:cx=1;32:mt=1;31:ms=4;1;31:mc=1;31:fn=1;32:ln=34:bn=36:se=0;37'
 
-# X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
-[[ -n $_Ubuntu && -z $DISPLAY ]] && export DISPLAY=":0"
+[[ $(uname) == "Darwin" ]] && export LSCOLORS=gxfxcxdxbxegexabagacad
+
+# NOTE: X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
+if [[ -z $DISPLAY ]]; then
+	export DISPLAY=":0"
+	xset q >/dev/null 2>&1 || unset DISPLAY
+fi
 
 export MDROOT="$HOME/md"
 export MDLINK="$HOME/md/link"
