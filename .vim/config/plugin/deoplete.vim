@@ -46,7 +46,8 @@ if v:version >= 800 && has('python3')
 	endif
 
 	" NOTE: deoplete source using `git grep`
-	LazyPlug 'rinx/deoplete-auto-programming'
+	" NOTE: 補完候補が多くなりすぎて，微妙?
+	" 	LazyPlug 'rinx/deoplete-auto-programming'
 
 	Plug 'umaumax/deoplete-docker', {'for':['dockerfile'], 'do': 'pip3 install pip certifi'}
 
