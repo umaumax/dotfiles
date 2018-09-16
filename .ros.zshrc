@@ -14,7 +14,7 @@ function cmk() {
 function cdrosroot() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
-	cd $(ros_ws_root)
+	cd $ros_ws_root
 }
 function rosroot() {
 	local dirpath=$PWD && while true; do
