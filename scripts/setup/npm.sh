@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-if [[ $1 == '--sudo' ]]; then
-	sudo su
+if [[ $1 == '--sudo-env' ]]; then
+	function npm() {
+		sudo -E npm "$@"
+	}
 else
-	sudo su -
+	function npm() {
+		sudo npm "$@"
+	}
 fi
 
 # sudo apt-get install -y nodejs npm

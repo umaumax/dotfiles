@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-[[ $1 == '--sudo' ]] && sudo su
+[[ $1 == '--sudo' ]] && function pip() {
+	sudo -E pip "$@"
+}
 
 # --------------------------------
 # NOTE: as tools
