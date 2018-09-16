@@ -495,6 +495,10 @@ if cmdcheck docker; then
 		local container_id=$(docker ps -a | peco | awk '{print $1}')
 		[[ -n $container_id ]] && docker rm $container_id
 	}
+	function docker-container-id() {
+		local ret=$(docker ps | peco | awk '{print $1}')
+		[[ -n $ret ]] && CONTAINER_ID="$ret" && echo "\$CONTAINER_ID=$CONTAINER_ID"
+	}
 	alias de='docker-exec'
 	alias dexec='docker-exec'
 	alias da='docker-attach'
@@ -502,6 +506,7 @@ if cmdcheck docker; then
 	alias dsa='docker-start-and-attach'
 	alias dls='docker ps'
 	alias dlsa='docker ps -a'
+	alias did='docker-container-id'
 fi
 if [[ -f /.dockerenv ]]; then
 	# NOTE: to avoid 表示の乱れ (don't use sorin)
