@@ -2,6 +2,8 @@
 
 [[ $1 == '--sudo' ]] && function pip() {
 	sudo -E pip "$@"
+} && function pip3() {
+	sudo -E pip3 "$@"
 }
 
 # --------------------------------
@@ -36,10 +38,10 @@ pip install cmakelint
 # NOTE: as library
 # --------------------------------
 
-pip install beautifulsoup4
-pip install clipboard
-pip install googletrans
-pip install requests
-pip install urllib3
-pip install certifi
-pip install clang
+pip3 install beautifulsoup4
+pip3 install clipboard
+pip3 install googletrans
+pip3 install requests
+pip3 install urllib3
+pip3 install certifi
+pip3 install clang
