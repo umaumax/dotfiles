@@ -835,7 +835,6 @@ if [[ -z $DISPLAY ]]; then
 		cmdcheck nvim && VIM="nvim"
 		tee ~/tmp/clipboard | $VIM -u NONE -c 'let @"=join(getline(1, "$"), "\n")' -c 'q!'
 	}
-	alias "p" >/dev/null 2>&1 && unalias "p"
 	function p() {
 		mkdir -p ~/tmp
 		touch ~/tmp/clipboard
@@ -856,6 +855,7 @@ else
 		_p
 	}
 fi
+alias "p" >/dev/null 2>&1 && unalias "p"
 
 function clipboard-without-formatting() {
 	local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
