@@ -147,6 +147,17 @@ fi
 cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
 cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
+# linuxbrew
+if [[ ! -d ~/.linuxbrew ]] && [[ $(uname) == "Linux" ]]; then
+	git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+fi
+if [[ -d ~/.linuxbrew ]]; then
+	export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+	export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+	export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+	export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
+fi
+
 # for vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
 
