@@ -175,7 +175,7 @@
 
 # id
 [USER at Mac OS X] id -F
-[USER] $LOGNAME
+[USER] whoami
 [UID] id -u
 [GID] id -g
 
@@ -336,11 +336,16 @@
 [devnull] >/dev/null 2>&1
 
 # login shell
-[set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $LOGNAME
+[set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
 [relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 [relogin] exec $SHELL -l
+[clean relogin] sudo su $(whoami) -
 
 [fix perl local warning] sudo apt-get install -y locales && sudo locale-gen $LANG
 [enable emoji] sudo apt-get install -y language-pack-ja && sudo update-locale LANG=ja_JP.UTF-8
 
 [zsh function list] print -l ${(ok)functions}
+
+# sudo
+[sudo su as user] sudo su
+[sudo su as root] sudo su -
