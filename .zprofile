@@ -148,6 +148,7 @@ cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site
 cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
 # linuxbrew
+# FYI: [Linuxbrew \| The Homebrew package manager for Linux]( http://linuxbrew.sh/ )
 if [[ ! -d ~/.linuxbrew ]] && [[ $(uname) == "Linux" ]]; then
 	git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
 fi
@@ -155,6 +156,7 @@ if [[ -d ~/.linuxbrew ]]; then
 	export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 	export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 	export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+	export PKG_CONFIG_PATH="$HOME/.linuxbrew/lib64/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 	export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
 
