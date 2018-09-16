@@ -129,6 +129,8 @@
 # mac
 [brew clean cache] brew clean -s
 [check SIP status] csrutil status
+# linux
+[linuxbrew clean cache] brew clean -s && rm -rf $HOME/.cache/Homebrew/
 
 # export proxy
 [proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
@@ -350,7 +352,8 @@
 [set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
 [relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 [relogin] exec $SHELL -l
-[clean relogin] exec sudo su $(whoami) - # NOTE: don't miss type sudo password
+# really?
+# [clean relogin] exec sudo su $(whoami) - # NOTE: don't miss type sudo password
 
 [fix perl local warning] sudo apt-get install -y locales && sudo locale-gen $LANG
 [enable emoji] sudo apt-get install -y language-pack-ja && sudo update-locale LANG=ja_JP.UTF-8
@@ -358,11 +361,15 @@
 [zsh function list] print -l ${(ok)functions}
 
 # sudo
-[sudo su as user] sudo su
-[sudo su as root] sudo su -
+[enter root as user env] sudo su
+[enter root as root env] sudo su -
 
 # echo
 [echo  x char] echo -e "\\x61"
 [echo unicode] echo -e "\\U1F363"
 
 [open emoji unicode site] open "http://www.fileformat.info/info/emoji/list.htm"
+
+[unexport] unset @ # remove export
+
+[test x window system] xset q
