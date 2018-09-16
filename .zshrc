@@ -1627,28 +1627,10 @@ fi
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
+[[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 
 # if [[ -f /.dockerenv ]]; then
 # 	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
 # 	# why???
 # 	unset -f cmdcheck
 # fi
-
-# ros
-[[ -f /opt/ros/kinetic/share/rosbash/roszsh ]] && source /opt/ros/kinetic/share/rosbash/roszsh
-
-# for catkin_make shortcut (auto catkin work dir detection)
-function cmk() {
-	function lambda() {
-		local dirpath=$PWD && while true; do
-			local target_filepath="$dirpath/src/CMakeLists.txt"
-			if [[ -L "$target_filepath" ]] && [[ $(basename $(readlink $target_filepath)) == 'toplevel.cmake' ]]; then
-				pushd $dirpath >/dev/null 2>&1
-				catkin_make
-				popd >/dev/null 2>&1
-				return
-			fi
-			[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
-		done
-	} && lambda
-}
