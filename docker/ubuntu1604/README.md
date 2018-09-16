@@ -9,6 +9,7 @@
 
 ## init script
 ```
+sudo apt-get install git wget curl zsh sudo
 git clone https://github.com/umaumax/dotfiles.git
 cd ~/dotfiles
 ./link.sh
