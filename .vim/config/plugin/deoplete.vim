@@ -61,7 +61,7 @@ if v:version >= 800 && has('python3')
 		" NOTE: This doesn't work
 		" This is a clang completer for deoplete.nvim that's faster than deoplete-clang. Instead of using libclang, it just uses clang -cc1 like most other clang plugins.
 		" Plug 'tweekmonster/deoplete-clang2', {'for': ['c','cpp','cmake']}
-		Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake']}
+		Plug 'zchee/deoplete-clang', {'for': ['c','cpp','cmake'], 'do':'pip install clang'}
 		Plug 'umaumax/deoplete-clang-with-pch', {'for': ['c','cpp','cmake']}
 	endif
 	" [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
