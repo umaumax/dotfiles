@@ -521,7 +521,7 @@ if [[ -f /.dockerenv ]]; then
 	}
 	RPROMPT='$(check_last_exit_code)'
 	PS1='(docker) %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
-	[[ $LANG == "ja_JP.UTF-8" ]] && PS1='🐳 %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
+	[[ $LC_CTYPE == "ja_JP.UTF-8" ]] && PS1='🐳 %F{135}%n%f %F{118}%~%f ${git_info:+${(e)git_info[prompt]}}$ '
 fi
 
 if cmdcheck tmux; then
