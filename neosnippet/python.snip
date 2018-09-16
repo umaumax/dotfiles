@@ -53,11 +53,13 @@ alias cmdparse_example
 	parser.add_argument('-o', '--output-filepath', default='')
 	parser.add_argument('-v', '--verbose', default=True, type=bool)
 	parser.add_argument('required-arg')
+    parser.add_argument('args', nargs='*') # any length of args is ok
 
 	args, extra_args = parser.parse_known_args()
 	# args.output_filepath
 	# args.verbose
 	# args.required_arg
+	# args.args
 
 snippet self
 	self.

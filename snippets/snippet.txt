@@ -152,6 +152,7 @@
 # python
 [pip list] pip freeze
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
+[pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @
