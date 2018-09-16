@@ -311,6 +311,13 @@
 [ros kinetic source bash] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
 [ros kinetic source zsh ] source /opt/ros/kinetic/share/rosbash/roszsh
 
+[ros] rosnode list
+[ros] rostopic list
+[ros] rostopic info $TOPIC_OR_NODE
+[ros] rostopic echo $TOPIC # /hoge/piyo
+[ros] rostopic echo --noarr $TOPIC # for big topic output
+[ros] rostopic hz   $TOPIC
+
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
