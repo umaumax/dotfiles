@@ -147,6 +147,9 @@ fi
 cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
 cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
+# NOTE: disable brew analytics
+export HOMEBREW_NO_ANALYTICS
+
 # linuxbrew
 # FYI: [Linuxbrew \| The Homebrew package manager for Linux]( http://linuxbrew.sh/ )
 if [[ ! -d ~/.linuxbrew ]] && [[ $(uname) == "Linux" ]]; then
