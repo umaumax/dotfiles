@@ -3,11 +3,13 @@
 [[ -f /opt/ros/kinetic/share/rosbash/roszsh ]] && source /opt/ros/kinetic/share/rosbash/roszsh
 
 # for catkin_make shortcut (auto catkin work dir detection)
+alias ctm='cmk'
+alias ctmk='cmk'
 function cmk() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
 	pushd $ros_ws_root >/dev/null 2>&1
-	catkin_make
+	catkin_make "$@"
 	popd >/dev/null 2>&1
 }
 
