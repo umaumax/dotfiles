@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 tag="ubuntu16.04-dotfiles"
 
-login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
 
 proxyurl="$HTTP_PROXY"
 docker run \
