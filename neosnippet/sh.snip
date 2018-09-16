@@ -275,11 +275,11 @@ abbr avoid multiple starts
 
 snippet ok
 alias check
-  echo -e "${GREEN}✔${DEFAULT} $@"
+  echo -e "${GREEN}✔${DEFAULT}" "$@"
 
 snippet ng
 alias failure
-  echo -e "${RED}✘${DEFAULT} $@"
+  echo -e "${RED}✘${DEFAULT}" "$@"
 
 snippet help_0
   [[ $# == 0 ]] && echo "\$0 <${0}>" && return 1
