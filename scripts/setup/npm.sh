@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
+
+if [[ $1 == '--sudo' ]]; then
+	sudo su
+else
+	sudo su -
+fi
+
 # sudo apt-get install -y nodejs npm
-sudo -E npm install -g n
-sudo -E npm install -g neovim
-sudo -E npm install -g jsonlint
-sudo -E npm install -g vue-language-server
-sudo -E npm install -g node-notifier-cli
+npm install -g n
+npm install -g neovim
+npm install -g jsonlint
+npm install -g vue-language-server
+npm install -g node-notifier-cli

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 sudo apt-get update
-# sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 # basic tools
 sudo apt-get install -y openssh-server git tree wget less vim tmux zsh sudo curl man iputils-ping net-tools
@@ -97,6 +97,12 @@ sudo apt-get install -y libncursesw5-dev
 # sudo apt-get install -y nvim
 
 sudo apt-get install -y rlwrap
+
+# language
+sudo apt-get install -y locales
+sudo locale-gen en_US.UTF-8
+sudo apt-get install -y language-pack-ja
+sudo update-locale LANG=ja_JP.UTF-8
 
 # --------------------------------
 # below packages are WIP

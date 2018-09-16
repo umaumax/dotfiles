@@ -53,7 +53,8 @@ function nugget() {
 	mkdir -p ~/local/bin
 	mkdir -p ~/opt
 	# NOTE: don't use local
-	tmpdir='/tmp'
+	tmpdir="$HOME/tmp"
+	mkdir -p "$tmpdir"
 
 	if cmdcheck "nugget_${OS}_${package}"; then
 		debug "nugget_${OS}_${package}"
@@ -113,10 +114,11 @@ function nugget_ubuntu_tig() {
 	# for Japanese language
 	sudo apt-get install -y libncursesw5-dev
 	git clone git://github.com/jonas/tig.git
-	cd "$tmpdir"/tig
+	pushd "$tmpdir"/tig
 	# make clean
 	make -j$(nproc --all) prefix=$HOME/local
 	make install prefix=$HOME/local
+	popd
 	popd
 }
 # ################################
@@ -131,6 +133,16 @@ function nugget_ubuntu_fzy() {
 	sudo dpkg -i fzy_0.9-1_amd64.deb
 	rm -f fzy_0.9-1_amd64.deb
 	popd
+}
+# ################################
+
+# ################################
+# fzy for ubuntu
+function nugget_ubuntu_fzf() {
+	cmdcheck fzf && return
+
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install --no-key-bindings --completion --no-update-rc
 }
 # ################################
 

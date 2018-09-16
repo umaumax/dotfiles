@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ $1 == '--sudo' ]] && sudo su
+
 # --------------------------------
 # NOTE: as tools
 # --------------------------------
@@ -12,6 +14,7 @@ pip install python-language-server
 pip install vim-vint
 
 pip install Pygments
+pip install icdiff
 
 pip install neovim
 pip3 install neovim
@@ -37,3 +40,4 @@ pip install googletrans
 pip install requests
 pip install urllib3
 pip install certifi
+pip install clang
