@@ -3,6 +3,22 @@ if [[ $OS == Windows_NT ]]; then
 	test -r ~/.zprofile && source ~/.zprofile
 fi
 
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+else
+	# NOTE: install zprezto
+	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
+fi
+
+# default 10000?
+export HISTSIZE=100000
+
+# Customize to your needs...
+# ---- bash ----
+# set -x #for debug
+
 _NO_CMD=''
 function doctor() {
 	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
@@ -21,21 +37,6 @@ function alias_if_exist() {
 	local tmp="${@:3:($# - 2)}"
 	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
 }
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-else
-	# NOTE: install zprezto
-	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
-fi
-# default 10000?
-export HISTSIZE=100000
-
-# Customize to your needs...
-# ---- bash ----
-# set -x #for debug
 
 # ----------------
 # 環境変数を`export`するときには`-`は使用不可ではあるが、`env`で設定する際には問題ないので使用可能(alias -sでのbash起動時に自動的に関数化され、環境変数から消える)
@@ -1369,15 +1370,15 @@ if [[ $ZSH_NAME == zsh ]]; then
 	setopt numeric_glob_sort              # 辞書順ではなく数字順に並べる。
 fi
 
-# 実行したプロセスの消費時間が3秒以上かかったら
-# 自動的に消費時間の統計情報を表示する。
-# stderrに出力
+# 実行したプロセスの消費時間がn秒以上かかったら
+# 自動的に消費時間の統計情報をstderrに出力する。
 REPORTTIME=10
 
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
 
+# NOTE: macのiTermでは必要ない
 # [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
 if [[ $(uname) == "Linux" ]]; then
 	# to prevent `Vimを使ってくれてありがとう` at tab
@@ -1388,7 +1389,7 @@ if [[ $(uname) == "Linux" ]]; then
 	add-zsh-hook precmd precmd_function
 fi
 
-# [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
+# FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
 function show-all-files-which-processes-grab() {
 	lsof |
 		grep REG |
