@@ -38,23 +38,35 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			[[ $# -le 1 ]] && echo "$0 <src> <dst>" && return
 			[[ -e $1 ]] && [[ ! -e $2 ]] && ln -s $1 $2
 		}
+
+		local zsh_completion_dir=''
+		[[ $(uname) == "Darwin" ]] && local zsh_completion_dir='/usr/local/share/zsh/site-functions'
+		[[ $(uname) == "Linux" ]] && local zsh_completion_dir="$HOME/.zsh/completion"
 		# [docker コマンドの zsh autocompletion \- Qiita]( https://qiita.com/mickamy/items/daa2a0de5f34c9c59ad9 )
 		if [[ $(uname) == "Darwin" ]]; then
-			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion /usr/local/share/zsh/site-functions/_docker
-			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion /usr/local/share/zsh/site-functions/_docker-machine
-			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion /usr/local/share/zsh/site-functions/_docker-compose
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker.zsh-completion "${zsh_completion_dir}/_docker"
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-machine.zsh-completion "${zsh_completion_dir}/_docker-machine"
+			ln_if_noexist /Applications/Docker.app/Contents/Resources/etc/docker-compose.zsh-completion "${zsh_completion_dir}/_docker-compose"
 		elif [[ $(uname) == "Linux" ]]; then
-			mkdir -p ~/.zsh/completion
+			mkdir -p "$zsh_completion_dir"
 			# [Command\-line completion \| Docker Documentation]( https://docs.docker.com/compose/completion/#zsh )
 			# NOTE: you cat get docker-compose version by $(docker-compose version --short)
-			[[ ! -e ~/.zsh/completion/_docker-compose ]] && curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose >~/.zsh/completion/_docker-compose
+			[[ ! -e $zsh_completion_dir/_docker-compose ]] && curl -L https://raw.githubusercontent.com/docker/compose/1.22.0/contrib/completion/zsh/_docker-compose >$zsh_completion_dir/_docker-compose
 
 			# NOTE: below setting is written in README.md
-			[[ ! -e ~/.zsh/completion/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O ~/.zsh/completion/_tig
-			[[ ! -e ~/.zsh/completion/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O ~/.zsh/completion/tig-completion.bash
+			[[ ! -e $zsh_completion_dir/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O $zsh_completion_dir/_tig
+			[[ ! -e $zsh_completion_dir/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O $zsh_completion_dir/tig-completion.bash
 
 			fpath=(~/.zsh/completion $fpath)
 		fi
+
+		# pip
+		cmdcheck pip && [[ ! -e $zsh_completion_dir/_pip ]] && pip completion --zsh >$zsh_completion_dir/_pip
+		cmdcheck pip2 && [[ ! -e $zsh_completion_dir/_pip2 ]] && pip2 completion --zsh >$zsh_completion_dir/_pip2
+		cmdcheck pip3 && [[ ! -e $zsh_completion_dir/_pip3 ]] && pip3 completion --zsh >$zsh_completion_dir/_pip3
+		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip
+		[[ -e $zsh_completion_dir/_pip2 ]] && source $zsh_completion_dir/_pip2
+		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip
 
 		# enbale zsh completion
 		autoload -Uz compinit && compinit -i
