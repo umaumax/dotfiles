@@ -50,6 +50,9 @@
 [build] docker build -t $tag@ .
 [run] docker run --rm -it $tag@ /bin/bash
 [stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
+[docker cp  host -> guest] docker cp $HOST_FILEPATH@ $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+[docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH@ # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
