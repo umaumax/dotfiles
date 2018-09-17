@@ -392,3 +392,8 @@
 [unexport] unset @ # remove export
 
 [test x window system] xset q
+
+# crontab
+[crontab] crontab -l
+[crontab] crontab -e
+[crontab] crontab $FILEPATH
