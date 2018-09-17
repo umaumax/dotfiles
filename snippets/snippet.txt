@@ -239,10 +239,15 @@
 # ubuntu for 32bit apps
 [ubuntu 32bit] sudo dpkg --add-architecture i386 && sudo apt-get update && && sudo apt-get install -y gcc-multilib g++-multilib && sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386
 
+# dpkg
 [dpkg] dpkg -l
 [dpkg] dpkg -L $PACKAGE
 [dpkg package name only] dpkg-query --show -f '${Package}\n'
 [dpkg package size] dpkg-query --show -f '${Installed-Size}KB (${Package})\n'
+
+# tmux
+[tmux version] tmux -V
+
 
 # kernel
 [load kernel module] insmod @.ko
