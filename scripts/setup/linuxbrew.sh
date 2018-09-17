@@ -29,7 +29,12 @@ brew install python
 brew install bat # x.x.x :requires: rust: this takes a lot of time
 brew install rust
 
-brew install clang-format
+# error
+# Checked out revision 342395.
+# Error: An exception occured within a build process:
+#   NoMethodError: undefined method `installed?' for OS::Mac::Xcode:Module
+# Did you mean?  instance_of?
+# brew install clang-format
 
 # brew install neovim # error
 brew install umaumax/neovim/neovim
