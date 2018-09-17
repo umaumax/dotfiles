@@ -117,7 +117,7 @@
 [line filter] sed -n @,p # index starts with 1
 
 # patch
-[patch] echo "git diff | c && cd xxx && p | patch -p1" !
+[patch] echo "git diff | c && cd xxx && git rev-parse --show-toplevel && p | patch -p1" !
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
@@ -129,8 +129,12 @@
 # mac
 [brew clean cache] brew clean -s
 [check SIP status] csrutil status
+[brew install local formula] brew install $FORMULA_FILEPATH
+[brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
 # linux
 [linuxbrew clean cache] brew clean -s && rm -rf $HOME/.cache/Homebrew/
+[linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
+[open linuxbrew formula github] open 'https://github.com/Linuxbrew/homebrew-core'
 
 # export proxy
 [proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
@@ -145,6 +149,7 @@
 
 # ssh key
 [ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa
+[ssh delete finger print] ssh-keygen -R $IP_ADDRESS
 [ssh local port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
 [ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
 
@@ -247,6 +252,10 @@
 
 # tmux
 [tmux version] tmux -V
+
+# sha
+[sha256] shasum -a 256 @
+[sha256] gsha256sum @
 
 
 # kernel
