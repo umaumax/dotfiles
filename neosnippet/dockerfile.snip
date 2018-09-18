@@ -10,7 +10,7 @@ snippet install_sudo
 
 snippet add_user
   # replace user, uid, gid by adding below flags at docker build
-  # --build-arg user="$USER" --build-arg uid="$UID" --build-arg gid="$GID"
+  # --build-arg user="$(whoami)" --build-arg uid="$(id -u)" --build-arg gid="$(id -g)"
   ARG user=docker
   ARG uid=1000
   ARG gid=1000
@@ -22,19 +22,33 @@ snippet add_user
   USER ${user}
   WORKDIR /home/${user}
 
+snippet add_user_same_password_sudoer
+  ARG user=docker
+  ARG uid=1000
+  ARG gid=1000
+  RUN useradd -m $user && \
+    echo "$user:$user" | chpasswd && \
+    usermod --shell /bin/bash $user && \
+    usermod -aG sudo $user && \
+    usermod  --uid $uid $user && \
+    groupmod --gid $gid $user
+
 snippet add_sudo_right_witout_password
   RUN usermod -aG sudo ${user}
   RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 snippet add_proxy_settings_to_etc_environment
   # replace proxy setting by adding below flags at docker build
-  # --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"
-  RUN echo 'HTTP_PROXY="${HTTP_PROXY}"'   | tee -a /etc/environment
-  RUN echo 'HTTPS_PROXY="${HTTPS_PROXY}"' | tee -a /etc/environment
-  RUN echo 'FTP_PROXY="${FTP_PROXY}"'     | tee -a /etc/environment
+  # --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"--build-arg http_proxy="$http_proxy" --build-arg https_proxy="$https_proxy" --build-arg ftp_proxy="$ftp_proxy"
+  RUN echo HTTP_PROXY="${HTTP_PROXY}"   | tee -a /etc/environment
+  RUN echo HTTPS_PROXY="${HTTPS_PROXY}" | tee -a /etc/environment
+  RUN echo FTP_PROXY="${FTP_PROXY}"     | tee -a /etc/environment
+  RUN echo http_proxy="${http_proxy}"   | tee -a /etc/environment
+  RUN echo https_proxy="${https_proxy}" | tee -a /etc/environment
+  RUN echo ftp_proxy="${ftp_proxy}"     | tee -a /etc/environment
 
-snippet from_ros_kinetic
-alias ros_kinetic
+snippet from_ros_kinetic_full
+alias ros_kinetic_full
   FROM osrf/ros:kinetic-desktop-full-xenial
 
 snippet from_ros_kinetic_tutorials

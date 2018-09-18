@@ -287,9 +287,9 @@ snippet help_0
 snippet docker_build_with_proxy_settings
   tag="${1:#image name}:latest"
 
-  httpproxy=$HTTP_PROXY
-  ftpproxy=$FTP_PROXY
-  httpsproxy=$HTTPS_PROXY
+  httpproxy="${HTTP_PROXY:-$http_proxy}"
+  httpsproxy="${HTTPS_PROXY:-$https_proxy}"
+  ftpproxy="${FTP_PROXY:-$ftp_proxy}"
 
   docker build \
     -t $tag \
@@ -300,9 +300,9 @@ snippet docker_build_with_proxy_settings
     --build-arg HTTPS_PROXY=$httpsproxy \
     --build-arg https_proxy=$httpsproxy "$@" .
 snippet docker_build_user_flags
-  --build-arg user="$USER" --build-arg uid="$UID" --build-arg gid="$GID"
+  --build-arg user="$(whoami)" --build-arg uid="$(id -u)" --build-arg gid="$(id -g)"
 snippet docker_build_proxy_flags
-  --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"
+  --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"--build-arg http_proxy="$http_proxy" --build-arg https_proxy="$https_proxy" --build-arg ftp_proxy="$ftp_proxy"
 
 snippet docker_run_snippets
   tag="${1:#image name}"
@@ -311,7 +311,7 @@ snippet docker_run_snippets
   rows=$(echo $val | cut -d ' ' -f 1)
   cols=$(echo $val | cut -d ' ' -f 2)
 
-  proxyurl="$HTTP_PROXY"
+  proxyurl="${HTTP_PROXY:-$http_proxy}"
   docker run -e http_proxy=${proxyurl} -e https_proxy=${proxyurl} -i -t $tag /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
 snippet docker_run_flags_with_terminal_size_settings
   val=$(stty size)
@@ -321,7 +321,7 @@ snippet docker_run_flags_with_terminal_size_settings
   #or
   -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
 snippet docker_run_flags_with_proxy_settings
-  proxyurl="$HTTP_PROXY"
+  proxyurl="${HTTP_PROXY:-$http_proxy}"
   -e http_proxy=${proxyurl} -e https_proxy=${proxyurl}
 snippet docker_run_flags_with_x_window_system
   --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix
@@ -334,3 +334,10 @@ snippet function_list_bash
   compgen -A function
 snippet function_list_zsh
   print -l ${(ok)functions}
+
+snippet docker_run_login_shell
+  val=$(stty size)
+  rows=$(echo $val | cut -d ' ' -f 1)
+  cols=$(echo $val | cut -d ' ' -f 2)
+  login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+  /bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bas
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
 [current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
@@ -52,6 +52,7 @@
 [stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
 [docker cp  host -> guest] docker cp $HOST_FILEPATH@ $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
 [docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH@ # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+[docker force rebuild flag] --no-cache
 
 
 # cmake
@@ -181,7 +182,7 @@
 [nmcli add device ] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
 [nmcli list unmanaged interfaces] nmcli d
 [nmcli add gateway] sudo nmcli connection modify "Wired connection @" ipv4.gateway ""
-[nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28"
+[nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28" # 空白区切りで複数指定可能
 [nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
 
 # id
@@ -279,13 +280,16 @@
 [dns NTT America Technical Operations] 129.250.35.251
 
 [dns] dig
-[dns] nslookup
+[dns] nslookup $TARGET $DNS_SERVER
 [netstat] netstat antu
 
 [ping NIC ] ping -I $NIC @
 
 # apt-get
 [指定したpackageのみupgrade] sudo apt-get install @ # don't use upgrade command
+
+[apt-get under proxy env] sudo -E apt-get install @
+[apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install @ # http_proxyがセットしてあればsudo -EでOK
 
 # at docker
 [install lsof at docker] sudo apt-get install lsof
@@ -335,6 +339,10 @@
 # ros
 [ros kinetic source bash] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
 [ros kinetic source zsh ] source /opt/ros/kinetic/share/rosbash/roszsh
+[ros init] mkdir -p ~/catkin_ws/src && cd ~/catkin_ws && catkin_make && cd src && echo "catkin_create_pkg!!"
+
+[ros open turorials en] open http://wiki.ros.org/ROS/Tutorials
+[ros open turorials ja] open http://wiki.ros.org/ja/ROS/Tutorials
 
 [ros] rosnode list
 [ros] rostopic list
@@ -342,6 +350,21 @@
 [ros] rostopic echo $TOPIC # /hoge/piyo
 [ros] rostopic echo --noarr $TOPIC # for big topic output
 [ros] rostopic hz   $TOPIC
+[ros node graph] rosrun rqt_graph rqt_graph
+[ros echo] rostopic echo /@
+[ros 3d gui] rosrun rviz rviz # in docker use nvidia-docker1(not nvidia-docker2)
+[ros console] rosrun rqt_console rqt_console
+[ros show type] rostopic type /@
+[ros show field of type] rosmsg show @
+[ros show field of type] rosmsg show $(rostopic type /@)
+[ros find] rospack find @
+[ros ls] rosls @
+[ros cd] roscd @
+[ros cp] roscp @
+[ros depends] rospack depends @ # all nest
+[ros depends1] rospack depends1 @ # only nest 1
+
+[ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
@@ -392,8 +415,22 @@
 [unexport] unset @ # remove export
 
 [test x window system] xset q
+[x window app install] sudo apt-get install x11-apps
 
 # crontab
 [crontab] crontab -l
 [crontab] crontab -e
 [crontab] crontab $FILEPATH
+
+# direnv
+[direnv allow] direnv allow
+[direnv file] touch .envrc
+[direnv append ros devel source] [[ -d ./devel ]] && echo "source ./devel/setup.${0##-}" >> .envrc
+
+# vim
+[vim init cmake] vim CMakeLists.txt
+[vim init docker file] vim Dockerfile
+[vim init README.md] vim README.md
+
+# shell tips
+[shell to ext] echo ${0##-} # without fish(bash,csh,zsh,sh ok)
