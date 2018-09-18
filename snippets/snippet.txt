@@ -434,3 +434,7 @@
 
 # shell tips
 [shell to ext] echo ${0##-} # without fish(bash,csh,zsh,sh ok)
+
+# cpp environment variables
+[cpp include file path] export CPATH="@:$CPATH"
+[cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
