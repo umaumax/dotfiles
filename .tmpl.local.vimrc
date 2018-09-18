@@ -21,7 +21,18 @@ if has('mac')
 	let g:deoplete#sources#clang_with_pch#pch_pathes     = []
 else
 	" WIP ubuntu
+	let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-5.0/lib/libclang.so'
+	let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-5.0/include/clang'
+	if !exists("g:deoplete#sources#clang#flags")
+		let g:deoplete#sources#clang#flags = []
+	endif
 endif
 
 let g:ale_cmake_cmakelint_options = '--filter=-linelength'
 let g:ale_python_pylint_options = '--disable=C0111,C0301' " C0111:missing-docstring C0301:max-line-length
+
+if exists('g:sonictemplate_vim_template_dir')
+	if isdirectory(expand('~/template'))
+		let g:sonictemplate_vim_template_dir += ['~/template']
+	endif
+endif

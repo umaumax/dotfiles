@@ -20,8 +20,9 @@ ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.nugget.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.ros.zshrc ~/.zsh/
 
-[[ ! -f ~/.gitconfig ]] && ln -sf ~/dotfiles/.tmpl.local.gitconfig ~/.gitconfig
-[[ ! -f ~/.local.vimrc ]] && ln -sf ~/dotfiles/.tmpl.local.vimrc ~/.local.vimrc
+# cp not ln -f
+[[ ! -f ~/.gitconfig ]] && cp ~/dotfiles/.tmpl.gitconfig ~/.gitconfig
+[[ ! -f ~/.local.vimrc ]] && cp ~/dotfiles/.tmpl.local.vimrc ~/.local.vimrc
 
 [[ ! -d ~/.local.git_template/ ]] && command cp -r ~/dotfiles/.local.git_template ~/
 
