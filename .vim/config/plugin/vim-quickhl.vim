@@ -19,4 +19,5 @@ let g:quickhl_manual_keywords = [
 			\ {"pattern": '\<INFO\>\c', "regexp": 1 },
 			\ {"pattern": '\<WIP\>\c',  "regexp": 1 },
 			\ {"pattern": '\<HINT\>\c', "regexp": 1 },
+			\ {"pattern": '\<QUESTION\>\c', "regexp": 1 },
 			\ ]

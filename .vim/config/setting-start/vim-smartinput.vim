@@ -446,13 +446,6 @@ function! s:smartinput_define()
 	call s:smartinput_define_rule_of_word('cant',"can't")
 	call s:smartinput_define_rule_of_word('doesnt',"doesn't")
 
-	" NOTE: 後半はmarkdownのhead用
-	" 				\' NOTE: ':[' note', ' note:  '],
-	" 				\' TODO: ':[' todo', ' todo:  '],
-	" 				\' WARN: ':[' warn', ' warn:  '],
-	" 				\' INFO: ':[' info', ' info:  '],
-	" 				\' FYI: ':[' fyi', ' fyi:  '],
-	" 				\' FIX: ':[' fix', ' fix:  '],
 	let s:multi_word_map = {
 				\'/ NOTE: ': ['/ note', '/ note:  '],
 				\'/ TODO: ': ['/ todo', '/ todo:  '],
@@ -461,6 +454,7 @@ function! s:smartinput_define()
 				\'/ FYI: ':  ['/ fyi',  '/ fyi:  '],
 				\'/ FIX: ':  ['/ fix',  '/ fix:  '],
 				\'/ HINT: ': ['/ hint', '/ hint:  '],
+				\'/ QUESTION: ': ['/ question', '/ question:  '],
 				\'# NOTE: ': ['# note', '# note:  '],
 				\'# TODO: ': ['# todo', '# todo:  '],
 				\'# WARN: ': ['# warn', '# warn:  '],
@@ -468,6 +462,7 @@ function! s:smartinput_define()
 				\'# FYI: ':  ['# fyi',  '# fyi:  '],
 				\'# FIX: ':  ['# fix',  '# fix:  '],
 				\'# HINT: ': ['# hint', '# hint:  '],
+				\'# QUESTION: ': ['# question', '# question:  '],
 				\'" NOTE: ': ['" note', '" note:  '],
 				\'" TODO: ': ['" todo', '" todo:  '],
 				\'" WARN: ': ['" warn', '" warn:  '],
@@ -475,6 +470,7 @@ function! s:smartinput_define()
 				\'" FYI: ':  ['" fyi',  '" fyi:  '],
 				\'" FIX: ':  ['" fix',  '" fix:  '],
 				\'" HINT: ': ['" hint', '" hint:  '],
+				\'" QUESTION: ': ['" question', '" question:  '],
 				\'* NOTE: ': ['* note', '* note:  '],
 				\'* TODO: ': ['* todo', '* todo:  '],
 				\'* WARN: ': ['* warn', '* warn:  '],
@@ -482,6 +478,7 @@ function! s:smartinput_define()
 				\'* FYI: ':  ['* fyi',  '* fyi:  '],
 				\'* FIX: ':  ['* fix',  '* fix:  '],
 				\'* HINT: ': ['* hint', '* hint:  '],
+				\'* QUESTION: ': ['* question', '* question:  '],
 				\'# MEMO':   ['#memo'],
 				\'# NOTE':   ['#note'],
 				\'# TODO':   ['#todo'],
@@ -490,6 +487,7 @@ function! s:smartinput_define()
 				\'# FYI':    ['#fyi'],
 				\'# FIX':    ['#fix'],
 				\'# HINT':   ['#hint'],
+				\'# QUESTION':   ['#question'],
 				\}
 	"	\'MEMO: ':['memo', 'memo:  '],
 	for key in keys(s:multi_word_map)
