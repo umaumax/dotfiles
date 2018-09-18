@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # LinuxBrew installs software in user-specified directory (not system-wide), and does not require sudo access.
 
 # maybe latest(so I recommend to install below package by linuxbrew or build your self)

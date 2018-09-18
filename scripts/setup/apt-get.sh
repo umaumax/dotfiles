@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+
+set -e
+
+if [[ $1 == '--sudo-env' ]]; then
+	function sudo() {
+		command sudo -E "$@"
+	}
+elif [[ $1 == '--no-sudo' ]]; then
+	function sudo() {
+		"$@"
+	}
+fi
+
 sudo apt-get update
 sudo apt-get upgrade -y
 

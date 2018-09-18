@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 [[ $1 == '--sudo' ]] && function pip() {
 	sudo -E pip "$@"
 } && function pip3() {

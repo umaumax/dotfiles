@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [[ $1 == '--sudo-env' ]]; then
 	function npm() {
 		sudo -E npm "$@"
