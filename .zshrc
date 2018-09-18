@@ -1480,8 +1480,6 @@ alias awk-sum-all='sum'
 alias awk-sum-col='sum-col'
 alias awk-sum-line='sum-line'
 
-alias da='direnv allow'
-
 if [[ $(uname) == "Linux" ]]; then
 	alias ps-cpu='ps aux --sort -%cpu'
 	alias ps-mem='ps aux --sort -rss'
