@@ -341,3 +341,12 @@ snippet docker_run_login_shell
   cols=$(echo $val | cut -d ' ' -f 2)
   login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
   /bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"
+
+snippet var_regexp_prefix_remove_min
+  ${${1:#var name}%${0:#pattern}}
+snippet var_regexp_prefix_remove_max
+  ${${1:#var name}%%${0:#pattern}}
+snippet var_regexp_suffix_remove_min
+  ${${1:#var name}#${0:#pattern}}
+snippet var_regexp_suffix_remove_max
+  ${${1:#var name}##${0:#pattern}}

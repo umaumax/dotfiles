@@ -438,3 +438,6 @@
 # cpp environment variables
 [cpp include file path] export CPATH="@:$CPATH"
 [cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
+
+# url
+[vim regexp page] open https://qiita.com/kawaz/items/d0708a4ab08e572f38f3
