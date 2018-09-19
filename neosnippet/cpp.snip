@@ -375,3 +375,21 @@ snippet if_x64
   ${0}
   #endif  // defined(__x86_64__) || defined(_WIN64) || defined(__MINGW64__)
 
+snippet class_template
+  template <class T>
+  class ${1:#class name} {
+   public:
+    $1(){};
+
+   private:
+    int ${2:#method name}(T xxx);
+  };
+
+  template <>
+  inline int $1<int>::$2(int xxx) {
+    return 0;
+  }
+  template <>
+  inline int $1<char>::$2(char xxx) {
+    return 0;
+  }
