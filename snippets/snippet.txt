@@ -161,6 +161,7 @@
 [pip list] pip freeze
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 [pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
+[pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @
@@ -291,6 +292,9 @@
 [apt-get under proxy env] sudo -E apt-get install @
 [apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install @ # http_proxyがセットしてあればsudo -EでOK
 
+[apt official repo source list file] /etc/apt/sources.list
+[apt unofficial repo source list directory] /etc/apt/sources.list.d/
+
 # at docker
 [install lsof at docker] sudo apt-get install lsof
 
@@ -338,11 +342,13 @@
 
 # ros
 [ros kinetic source bash] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
-[ros kinetic source zsh ] source /opt/ros/kinetic/share/rosbash/roszsh
+[ros kinetic source zsh ] source /opt/ros/kinetic/setup.zsh
 [ros init] mkdir -p ~/catkin_ws/src && cd ~/catkin_ws && catkin_make && cd src && echo "catkin_create_pkg!!"
 
 [ros open turorials en] open http://wiki.ros.org/ROS/Tutorials
 [ros open turorials ja] open http://wiki.ros.org/ja/ROS/Tutorials
+[ros open time doc] open http://wiki.ros.org/roscpp/Overview/Time
+[ros open publish data doc] open http://wiki.ros.org/ROS/YAMLCommandLine
 
 [ros] rosnode list
 [ros] rostopic list
@@ -356,13 +362,15 @@
 [ros console] rosrun rqt_console rqt_console
 [ros show type] rostopic type /@
 [ros show field of type] rosmsg show @
-[ros show field of type] rosmsg show $(rostopic type /@)
+[ros show field of type] rostopic type /@ | rosmsg show
 [ros find] rospack find @
 [ros ls] rosls @
 [ros cd] roscd @
 [ros cp] roscp @
 [ros depends] rospack depends @ # all nest
 [ros depends1] rospack depends1 @ # only nest 1
+[ros publish] rostopic pub -1 /@ $TYPE -- '{$KEY: $VAL}' # '{header: {seq: 0, stamp: now, frame_id:sample_id}, data: [], position: {x: 0.0, y: 0.0, z: 0.0}}'
+[ros echo publish (pipe)] rostopic echo /@ | rostopic pub /@ $TYPE
 
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 
@@ -425,7 +433,6 @@
 # direnv
 [direnv allow] direnv allow
 [direnv file] touch .envrc
-[direnv append ros devel source] [[ -d ./devel ]] && echo "source ./devel/setup.${0##-}" >> .envrc
 
 # vim
 [vim init cmake] vim CMakeLists.txt
@@ -433,7 +440,7 @@
 [vim init README.md] vim README.md
 
 # shell tips
-[shell to ext] echo ${0##-} # without fish(bash,csh,zsh,sh ok)
+[shell to ext] $(basename ${0##-}) # without fish(bash,csh,zsh,sh ok)
 
 # cpp environment variables
 [cpp include file path] export CPATH="@:$CPATH"
@@ -441,3 +448,6 @@
 
 # url
 [vim regexp page] open https://qiita.com/kawaz/items/d0708a4ab08e572f38f3
+
+# yaml
+[yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs

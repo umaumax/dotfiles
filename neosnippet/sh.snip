@@ -350,3 +350,48 @@ snippet var_regexp_suffix_remove_min
   ${${1:#var name}#${0:#pattern}}
 snippet var_regexp_suffix_remove_max
   ${${1:#var name}##${0:#pattern}}
+
+# [$PATH から特定のパスだけを削除する]( https://qiita.com/ironsand/items/10e28d7589298090ec23 )
+snippet path_operation
+  function path_append ()  { path_remove \$1; export PATH="$PATH:\$1"; }
+  function path_prepend () { path_remove \$1; export PATH="\$1:$PATH"; }
+  function path_remove ()  { export PATH=\`echo -n $PATH | awk -v RS=: -v ORS=: '\$0 != "'\$1'"' | sed 's/:$//'\`; }
+
+snippet normalize_path
+alias clean path
+  perl -MCwd -e 'print Cwd::abs_path shift' ${0:#path}
+
+snippet normalize_path_linux_only_readlink
+  readlink -f ${0:#path}
+snippet normalize_path_linux_only_realpath
+  readpath ${0:#path}
+
+snippet traverse_path_list
+  function traverse_path_list() {
+    local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
+    while true; do
+      echo $dirpath
+      [[ "$dirpath" == "/" ]] && break
+      local dirpath="$(dirname $dirpath)"
+    done
+  }
+
+snippet envrc_recursive_source
+  function traverse_path_list() {
+    local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
+    while true; do
+      echo $dirpath
+      [[ "$dirpath" == "/" ]] && break
+      local dirpath="$(dirname $dirpath)"
+    done
+  }
+  for dir in $(traverse_path_list $PWD/..); do
+    envrc_filepath="$dir/.envrc"
+    [[ -f $envrc_filepath ]] && source "$envrc_filepath"
+  done
+
+snippet tmporary_disable_alias
+  $${1:#cmd}_tmp=$(alias $1)
+  alias $1 >/dev/null 2>&1 && unalias $1
+  ${0}
+  [[ -n $$1_tmp ]] && eval alias $$1_tmp

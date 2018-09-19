@@ -171,3 +171,8 @@ snippet set_target_properties_sources
 
 snippet filepath_to_target
   string(REPLACE "/" "_" target ${${0:#filepath}})
+
+snippet version_if
+  if(${CMAKE_VERSION} VERSION_LESS ${1:#version e.g. 3.6})
+    ${0:option(CMAKE_CXX_CLANG_TIDY "clang-tidy command" OFF)}
+  endif()
