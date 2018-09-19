@@ -37,6 +37,14 @@ function alias_if_exist() {
 	local tmp="${@:3:($# - 2)}"
 	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
 }
+function traverse_path_list() {
+	local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' ${1:-$PWD})
+	while true; do
+		echo $dirpath
+		[[ "$dirpath" == "/" ]] && break
+		local dirpath="$(dirname $dirpath)"
+	done
+}
 
 # ----------------
 # 環境変数を`export`するときには`-`は使用不可ではあるが、`env`で設定する際には問題ないので使用可能(alias -sでのbash起動時に自動的に関数化され、環境変数から消える)
@@ -890,6 +898,17 @@ function chpwd() {
 			[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
 		done
 		[[ -n "$VIRTUAL_ENV" ]] && deactivate
+	} && lambda
+
+	# NOTE: auto ros devel/setup.zsh runner
+	function lambda() {
+		local pwd_tmp=$(alias pwd)
+		alias pwd >/dev/null 2>&1 && unalias pwd
+		for dir in $(traverse_path_list $PWD); do
+			local setup_zsh_filepath="$dir/devel/setup.zsh"
+			[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
+		done
+		[[ -n $pwd_tmp ]] && eval alias $pwd_tmp
 	} && lambda
 }
 
