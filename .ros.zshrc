@@ -1,6 +1,6 @@
 # ros
 # auto source
-[[ -f /opt/ros/kinetic/share/rosbash/roszsh ]] && source /opt/ros/kinetic/share/rosbash/roszsh
+[[ -f /opt/ros/kinetic/setup.zsh ]] && source /opt/ros/kinetic/setup.zsh
 
 # for catkin_make shortcut (auto catkin work dir detection)
 alias ctm='cmk'
