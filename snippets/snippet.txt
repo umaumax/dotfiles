@@ -3,6 +3,7 @@
 # find
 [current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name="@" -exec grep --color=auto -H -n {} +
+[find some ext file] find . -name="*.@"
 
 # fg
 [vim] fg.vim "@" | pecovim
