@@ -21,16 +21,19 @@ abbr !=: found, ==: not found
   (${1:str}.find(${2:keyword}) != std::string::npos)
 
 snippet cast_dynamic
-  dynamic_cast<${1:#:Type}>(${2:TARGET})${0}
-
+abbr for class
+  dynamic_cast<${1:# Type}>(${2:TARGET})${0}
 snippet cast_static
-  static_cast<${1:#:Type}>(${2:TARGET})${0}
-
+abbr for not pointer
+  static_cast<${1:# Type}>(${2:TARGET})${0}
 snippet cast_reinterpret
-  reinterpret_cast<${1:#:Type}>(${2:TARGET})${0}
-
+abbr for pointer
+  reinterpret_cast<${1:# Type}>(${2:TARGET})${0}
 snippet cast_const
-  const_cast<${1:#:Type}>(${2:TARGET})${0}
+abbr for const cast
+  const_cast<${1:# Type}>(${2:TARGET})${0}
+snippet void_pointer_to_rvalue_cast
+  static_cast<$2&&>(*reinterpret_cast<${2:#type}*>(${1:# pointer}));
 
 snippet debug_print
 options head
