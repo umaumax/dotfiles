@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # An example hook script to verify what is about to be pushed.  Called by "git
 # push" after it has checked the remote status, but before anything has been
@@ -19,6 +19,9 @@
 # This sample shows how to prevent push of commits where the log message starts
 # with "WIP" (work in progress).
 
+BLACK="\033[0;30m" RED="\033[0;31m" GREEN="\033[0;32m" YELLOW="\033[0;33m" BLUE="\033[0;34m" PURPLE="\033[0;35m" LIGHT_BLUE="\033[0;36m" WHITE="\033[0;37m" GRAY="\033[0;39m" DEFAULT="\033[0m"
+function echo() { command echo -e "$@"; }
+
 remote="$1"
 url="$2"
 
@@ -29,7 +32,7 @@ while read local_ref local_sha remote_ref remote_sha
 do
 	if [ "$local_sha" = $z40 ]
 	then
-		# Handle delete
+		: # Handle delete
 	else
 		if [ "$remote_sha" = $z40 ]
 		then
@@ -44,7 +47,7 @@ do
 		commit=`git rev-list -n 1 --grep '^WIP' "$range"`
 		if [ -n "$commit" ]
 		then
-			echo "Found WIP commit in $local_ref, not pushing"
+			echo "Found ${PURPLE}WIP${DEFAULT} commit in $local_ref, not pushing"
 			exit 1
 		fi
 	fi
