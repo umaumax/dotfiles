@@ -195,13 +195,21 @@ function find-git-repo() {
 function git-check-up-to-date() {
 	target='.'
 	[[ $# -ge 1 ]] && target="$1"
-	# NOTE: for supressing of chpwd()
-	ret=$(bash -c "cd \"$target\" && git log origin/master..master")
+	# NOTE: for debug
+	echo $target
+	ret=$(
+		# NOTE: for supressing of chpwd()
+		cd "$target" >/dev/null 2>&1
+		git log "origin/master..master"
+	)
 	if [[ $ret != "" ]]; then
 		echo "[$target]"
 		echo $ret
 	fi
-	ret=$(bash -c "cd \"$target\" && git status --porcelain")
+	ret=$(
+		cd "$target" >/dev/null 2>&1
+		git status --porcelain
+	)
 	if [[ $ret != "" ]]; then
 		echo "[$target] Changes not staged for commit:"
 		echo $ret
