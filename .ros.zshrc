@@ -3,14 +3,26 @@
 [[ -f /opt/ros/kinetic/setup.zsh ]] && source /opt/ros/kinetic/setup.zsh
 
 # for catkin_make shortcut (auto catkin work dir detection)
-alias ctm='cmk'
-alias ctmk='cmk'
-function cmk() {
+alias ctm='catkin_make'
+alias ctmk='catkin_make'
+alias cmk='catkin_make'
+function catkin_make() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
 	pushd $ros_ws_root >/dev/null 2>&1
-	catkin_make "$@"
+	command catkin_make "$@"
+	local setup_zsh_filepath="./devel/setup.zsh"
+	[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
 	popd >/dev/null 2>&1
+}
+function ros_gitignore_download() {
+	local ros_ws_root=$(rosroot)
+	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
+	(
+		curl -L http://www.gitignore.io/api/ros
+		echo 'CMakeLists.txt'
+		echo '!*/CMakeLists.txt'
+	) | tee $ros_ws_root/.gitignore
 }
 
 function cdrosroot() {
