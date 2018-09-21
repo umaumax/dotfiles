@@ -6,7 +6,7 @@
 LazyPlug 'terryma/vim-multiple-cursors'
 function! Multiple_cursors_before()
   let g:multi_cursor_inputing=1
-  let b:i_triggers_mappings = s:Save_mappings(get(g:, 'i_triggers', []), 'i', 1)
+  let b:i_triggers_mappings = s:Store_mappings(get(g:, 'i_triggers', []), 'i', 1)
 
   if exists(':NeoCompleteLock')==2
     exe 'NeoCompleteLock'
@@ -25,26 +25,31 @@ endfunction
 " --------------------------------
 
 " [key bindings \- How to save and restore a mapping? \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/7734/how-to-save-and-restore-a-mapping )
-fu! s:Save_mappings(keys, mode, global) abort
+fu! s:Store_mappings(keys, mode, global) abort
   let mappings = {}
 
   if a:global
     for l:key in a:keys
+      " NOTE: 現状: ", ', [, `, {, |のマッピングは解除できていない
       let buf_local_map = maparg(l:key, a:mode, 0, 1)
+      " NOTE: ' 'と'\<Space>'が別々に登録されている場合に2重削除が発生しうる
+      if empty(buf_local_map)
+        continue
+      endif
 
-      sil! exe a:mode.'unmap <buffer> '.l:key
-
-      let map_info        = maparg(l:key, a:mode, 0, 1)
-      let mappings[l:key] = !empty(map_info)
-            \     ? map_info
+      let l:key=l:key
+      let l:key = substitute(l:key, ' ', '<Space>', 'g')
+      let l:key = substitute(l:key, '\\<Space>', '<Space>', 'g')
+      let buffer_option=(buf_local_map.buffer == 0 ? '' : '<buffer>')
+      sil! exe a:mode.'unmap '.buffer_option.' '.l:key
+      let mappings[l:key] = !empty(buf_local_map)
+            \     ? buf_local_map
             \     : {
             \ 'unmapped' : 1,
             \ 'buffer'   : 0,
             \ 'lhs'      : l:key,
             \ 'mode'     : a:mode,
             \ }
-
-      call s:Restore_mappings({l:key : buf_local_map})
     endfor
 
   else
@@ -64,7 +69,6 @@ fu! s:Save_mappings(keys, mode, global) abort
   return mappings
 endfu
 fu! s:Restore_mappings(mappings) abort
-
   for mapping in values(a:mappings)
     if !has_key(mapping, 'unmapped') && !empty(mapping)
       exe     mapping.mode
