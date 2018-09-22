@@ -332,3 +332,13 @@ function git-sed() {
 		[[ -f "$line" ]] && [[ ! -L "$line" ]] && "$SED" -i -e "$pattern" "$line"
 	done < <(git ls-files -- "$@")
 }
+
+function git-comments() {
+	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
+}
+function git-comments-todo() {
+	git grep -E -e '(^|\s+)//' --and -e 'TODO' -e '(^|\s+)#' --and -e 'TODO' -- . ':!*.md'
+}
+function git-comments-note() {
+	git grep -E -e '(^|\s+)//' --and -e 'NOTE' -e '(^|\s+)#' --and -e 'NOTE' -- . ':!*.md'
+}

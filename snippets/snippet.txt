@@ -98,6 +98,7 @@
 [git root] git rev-parse --show-toplevel
 [git search page] open "https://github.com/search" !
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
+[git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
