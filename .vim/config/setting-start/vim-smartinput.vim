@@ -426,6 +426,43 @@ function! s:smartinput_define()
 				\ , 'filetype' : ['sh','zsh']
 				\ })
 
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*\%#.*\]'
+				\ , 'char'  : '>'
+				\ , 'input' : '-gt'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*>\%#.*\]'
+				\ , 'char'  : '='
+				\ , 'input' : '<BS>-ge'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*-gt\%#.*\]'
+				\ , 'char'  : '='
+				\ , 'input' : '<BS><BS><BS>-ge'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*<\%#.*\]'
+				\ , 'char'  : '<'
+				\ , 'input' : '-lt'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*<\%#.*\]'
+				\ , 'char'  : '='
+				\ , 'input' : '<BS>-le'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\[.*-lt\%#.*\]'
+				\ , 'char'  : '='
+				\ , 'input' : '<BS><BS><BS>-le'
+				\ , 'filetype' : ['sh','zsh']
+				\ })
+
 	call s:smartinput_define_rule_of_word('endif','fi' ,['sh','zsh'])
 	call s:smartinput_define_rule_of_word('elseif','elif' ,['sh','zsh'])
 
