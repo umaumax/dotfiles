@@ -574,7 +574,8 @@ function! s:last_window_event()
 endfunction
 augroup auto_window_quit
 	autocmd!
-	autocmd WinEnter,BufWinEnter,BufEnter * if s:get_window_n() == 1 | call s:last_window_event() | endif
+	" NOTE: below silent! is for 'Not allowed to edit another buffer now'
+	autocmd WinEnter,BufWinEnter,BufEnter * silent! if s:get_window_n() == 1 | call s:last_window_event() | endif
 augroup END
 " save and quit
 " write all
