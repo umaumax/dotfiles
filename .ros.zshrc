@@ -24,7 +24,7 @@ function ros_gitignore_download() {
 		curl -L http://www.gitignore.io/api/ros
 		echo 'CMakeLists.txt'
 		echo '!*/CMakeLists.txt'
-	) | tee $ros_ws_root/.gitignore
+	) | tee $ros_ws_root/src/.gitignore
 }
 
 function cdrosroot() {
