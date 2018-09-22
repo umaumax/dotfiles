@@ -9,8 +9,10 @@ alias cmk='catkin_make'
 function catkin_make() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
+
 	pushd $ros_ws_root >/dev/null 2>&1
-	command catkin_make "$@"
+	# NOTE: force append compile_commands.json option
+	command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
 	local setup_zsh_filepath="./devel/setup.zsh"
 	[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
 	popd >/dev/null 2>&1

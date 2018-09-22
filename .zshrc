@@ -1071,6 +1071,10 @@ alias cpp-all.pv='fg.cpp-all.pv'
 alias make.pv='fg.make.pv'
 alias cmake.pv='fg.cmake.pv'
 
+function cmake() {
+	command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+}
+
 function rgrep() {
 	# to expand alias
 	local _=$(viminfo-ls | xargs-grep $@ | pecovim)
