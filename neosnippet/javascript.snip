@@ -7,3 +7,60 @@ snippet console_log_json
 alias cj
 options head
   console.log(JSON.stringify(${0:TARGET}, null, 2))
+
+snippet urlBuilder
+  // FYI: [Changing URL parameters with jQuery · samaxes]( https://samaxes.com/2011/09/change-url-parameters-with-jquery/ )
+  function modifyURL(query, param) {
+    /*
+    * queryParameters -> handles the query string parameters
+    * queryString -> the query string without the fist '?' or '#' character
+    * re -> the regular expression
+    * m -> holds the string matching the regular expression
+    */
+    var queryParameters = {},
+    queryString = query.substring(1),
+    re = /([^&=]+)=([^&]*)/g,
+    m;
+    // Creates a map with the query string parameters
+    while (m = re.exec(queryString)) {
+      queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+
+    // Add new parameters or update existing ones
+    for (let key of Object.keys(param)) {
+      queryParameters[key] = param[key];
+    }
+
+    /*
+    * Replace the query portion of the URL.
+    * jQuery.param() -> create a serialized representation of an array or
+    *     object, suitable for use in a URL query string or Ajax request.
+    */
+    var prefix = query[0];
+    if (query.length == 0) prefix = '?';
+    return prefix + $.param(queryParameters);
+  }
+  ${0}
+
+snippet location_param
+  location.search || location.hash
+snippet location_without_param
+  location.protocol + '//' + location.host + location.pathname
+
+snippet onload_with_jquery
+  $(function(){
+    ${0}
+  });
+
+snippet append_stylesheet
+  var style = '';
+  style += '<style type="text/css" id="StyleId">';
+  style += ${0:'.body { display: none !important; \}'};
+  style += '</style>';
+  $('head').append(style);
+
+snippet for_object
+  for (let ${2:key} of Object.keys(${1:#object})) {
+    var ${3:val} = $1[$2];
+    ${0}
+  }
