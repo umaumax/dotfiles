@@ -2,6 +2,7 @@
 " :Switch
 LazyPlug 'AndrewRadev/switch.vim'
 " 			\   {"\\([^']\\|^\\)'\\([^']\\|$\\)" :   '\1"\2', '\([^"]\|^\)"\([^"]\|$\)'   : "\\1'\\2"},
+" NOTE: you can't use $ as char \   ['~', "$HOME"],
 let g:switch_custom_definitions =
 			\ [
 			\   {'"\([a-zA-Z0-9/\-_.]*\).h"' : '"\1.hpp"', '"\([a-zA-Z0-9/\-_.]*\).hpp"' : '"\1.h"'},
