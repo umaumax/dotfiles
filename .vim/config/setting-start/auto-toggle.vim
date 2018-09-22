@@ -15,8 +15,8 @@ command! -nargs=0 -range SetCBottom       <line1>,<line2>call Substitute('\(^.*[
 command! -nargs=0 -range SetPyBottom      <line1>,<line2>call Substitute('\(^.*[^:]\+\)\s*$', '\1:', '')
 augroup file_detection_for_toggle
 	autocmd!
-	au BufNewFile,BufRead *.md nnoremap <silent> <Space>t :SetMarkdownHead<CR>
+	au BufNewFile,BufRead *.md nnoremap <silent> <Leader><Space> :SetMarkdownHead<CR>
 	au BufNewFile,BufRead *.md nnoremap <silent> <Space>q :SetMarkdownQuote<CR>
-	au BufNewFile,BufRead *.{c,cc,cpp,h,hpp} nnoremap <silent> <Space>t :SetCBottom<CR>
-	au BufNewFile,BufRead *.py nnoremap <silent> <Space>t :SetPyBottom<CR>
+	au BufNewFile,BufRead *.{c,cc,cpp,h,hpp} nnoremap <silent> <Leader><Space> :SetCBottom<CR>
+	au BufNewFile,BufRead *.py nnoremap <silent> <Leader><Space> :SetPyBottom<CR>
 augroup END
