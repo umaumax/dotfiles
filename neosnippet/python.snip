@@ -89,7 +89,18 @@ snippet pathjoin
 	os.path.join(${1:#path}, ${0:#path})
 
 snippet urlencode
-	urllib.parse.urlencode(${0:#str})
+abbr {'spam': 1, 'eggs': 2, 'bacon': 0}
+	import urllib.parse
+	urllib.parse.urlencode(${0:#dict})
+
+snippet urlunquote
+abbr e.g. '%E3%81%82' -> 'あ'
+	import urllib.parse
+	urllib.parse.unquote(${0})
+snippet urlquote
+abbr e.g. 'あ' -> '%E3%81%82'
+	import urllib.parse
+	urllib.parse.quote(${0})
 
 snippet decode_uft_8
 	decode("utf-8")
