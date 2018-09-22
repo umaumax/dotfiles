@@ -702,6 +702,8 @@ function ssh-register_id_rsa.pub() {
 
 # show path each line
 alias path='echo $PATH | sed "s/:/\n/g"'
+alias cpath='echo $CPATH | sed "s/:/\n/g"'
+# NOTE: zsh var
 alias fpath='echo $fpath | tr " " "\n"'
 
 # 指定したディレクトリに存在する実行可能なファイルを列挙する
