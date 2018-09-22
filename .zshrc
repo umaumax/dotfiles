@@ -1635,10 +1635,6 @@ cmdcheck say && function mississippi() {
 		echo -n "\r$((end - start)) sec"
 	done
 }
-# [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
-if [[ $ZSH_NAME == zsh ]]; then
-	cd .
-fi
 
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -1652,8 +1648,9 @@ fi
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 
-# if [[ -f /.dockerenv ]]; then
-# 	# NOTE: to avoid cmdcheck:2: maximum nested function level reached
-# 	# why???
-# 	unset -f cmdcheck
-# fi
+# ---------------------
+
+# FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
+if [[ $ZSH_NAME == zsh ]]; then
+	cd .
+fi
