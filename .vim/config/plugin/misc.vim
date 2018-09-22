@@ -479,3 +479,6 @@ LazyPlug 'lambdalisue/suda.vim'
 LazyPlug 'rickhowe/diffchar.vim'
 let g:DiffUnit = 'Char' " any single character
 let g:DiffColors = 3 " 16 colors in fixed order
+
+" run :RainbowDelim command when the cursor is just on delim char
+Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
