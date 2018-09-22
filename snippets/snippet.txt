@@ -96,7 +96,8 @@
 [git keep] touch @.gitkeep
 [remove all git filesnand .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
-[git search page] open "https://github.com/search"
+[git search page] open "https://github.com/search" !
+[git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -110,7 +111,8 @@
 [number of CPU] nproc --all # linux only
 
 # g++
-[c++11] g++ -std=c++11 
+[c++11] g++ -std=c++11 @
+[c++11] clang++ -std=c++11 @
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -136,7 +138,7 @@
 # linux
 [linuxbrew clean cache] brew clean -s && rm -rf $HOME/.cache/Homebrew/
 [linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
-[open linuxbrew formula github] open 'https://github.com/Linuxbrew/homebrew-core'
+[open linuxbrew formula github] open 'https://github.com/Linuxbrew/homebrew-core' !
 
 # export proxy
 [proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
@@ -218,7 +220,8 @@
 
 # screen
 [screen list  ] screen -ls
-[screen attach] screen -r
+[screen attach] screen -r @
+[run command by screen] screen -dmS $tag $commands
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
@@ -347,12 +350,12 @@
 [ros kinetic source zsh ] source /opt/ros/kinetic/setup.zsh
 [ros init] mkdir -p ~/catkin_ws/src && cd ~/catkin_ws && catkin_make && cd src && echo "catkin_create_pkg!!"
 
-[ros open turorials en] open http://wiki.ros.org/ROS/Tutorials
-[ros open turorials ja] open http://wiki.ros.org/ja/ROS/Tutorials
-[ros open time doc] open http://wiki.ros.org/roscpp/Overview/Time
-[ros open publish data doc] open http://wiki.ros.org/ROS/YAMLCommandLine
-[open ros doxygen] open http://docs.ros.org/melodic/api/roscpp/html/
-[open ros doxygen (namespace)] open http://docs.ros.org/melodic/api/roscpp/html/namespaceros.html
+[ros open turorials en] open http://wiki.ros.org/ROS/Tutorials !
+[ros open turorials ja] open http://wiki.ros.org/ja/ROS/Tutorials !
+[ros open time doc] open http://wiki.ros.org/roscpp/Overview/Time !
+[ros open publish data doc] open http://wiki.ros.org/ROS/YAMLCommandLine !
+[open ros doxygen] open http://docs.ros.org/melodic/api/roscpp/html/ !
+[open ros doxygen (namespace)] open http://docs.ros.org/melodic/api/roscpp/html/namespaceros.html !
 
 [ros] rosnode list
 [ros] rostopic list
@@ -424,7 +427,7 @@
 [echo  x char] echo -e "\\x61"
 [echo unicode] echo -e "\\U1F363"
 
-[open emoji unicode site] open "http://www.fileformat.info/info/emoji/list.htm"
+[open emoji unicode site] open "http://www.fileformat.info/info/emoji/list.htm" !
 
 [unexport] unset @ # remove export
 
@@ -453,10 +456,35 @@
 [cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
 
 # url
-[vim regexp page] open https://qiita.com/kawaz/items/d0708a4ab08e572f38f3
+[vim regexp page] open https://qiita.com/kawaz/items/d0708a4ab08e572f38f3 !
 
 # yaml
 [yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs
 
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
+
+# compile_commands.json
+[list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\\n' ':'
+[add -I dirs list to CPATH] export CPATH="$(cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\\n' ':'):$CPATH"
+
+# dev usb
+[dev usb0] /dev/ttyUSB0
+[dev usb1] /dev/ttyUSB1
+[dev usb2] /dev/ttyUSB2
+[dev usb3] /dev/ttyUSB3
+
+# c++ url
+[c++ const url] open "https://qiita.com/yuki12/items/06c85af2735ddefd5666" !
+
+# tags
+[rtags: run rdm server by screen] pgrep rdm >/dev/null 2>&1 || screen -dmS "rdm" rdm
+[rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.1); rc -J .
+
+# help
+[help open vim tags] open "https://github.com/umaumax/vim-cpp-project-sample" !
+
+[open umaumax github repo] open "https://github.com/umaumax?tab=repositories" !
+
+# shell
+[extract filepath ~] sed "s:^~:$HOME:g
