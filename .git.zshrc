@@ -188,6 +188,8 @@ function find-git-repo() {
 	local args=(${@})
 	[[ $# -le 0 ]] && local args=(".")
 	for dirpath in ""${args[@]}""; do
+		local dirpath=$(echo $dirpath | sed "s:^~:$HOME:g")
+		[[ ! -d $dirpath ]] && continue
 		find "$dirpath" -name '.git' | sed 's:/.git$::g'
 	done
 }
@@ -197,8 +199,8 @@ function git-check-up-to-date() {
 	[[ $# -ge 1 ]] && target="$1"
 	# NOTE: for debug
 	echo $target
+	# NOTE: for supressing of chpwd()
 	ret=$(
-		# NOTE: for supressing of chpwd()
 		cd "$target" >/dev/null 2>&1
 		git log "origin/master..master"
 	)
@@ -215,12 +217,31 @@ function git-check-up-to-date() {
 		echo $ret
 	fi
 }
+
+function cdgit() {
+	local git_dirs=('~/dotfiles' '~/git' '~/github.com' '~/local_git')
+	local ret=$(find-git-repo "${git_dirs[@]}" | sed "s:^$HOME:~:" | peco | sed "s:^~:$HOME:g")
+	[[ -n $ret ]] && cd $ret
+}
+
+function find-my-git-non-up-to-date-repo() {
+	(
+		echo '~/dotfiles'
+		echo '~/git'
+		echo '~/github.com'
+		echo '~/local_git'
+	) | find-git-non-up-to-date-repo-pipe
+}
+
 function find-git-non-up-to-date-repo() {
+	find-git-repo "$@" | find-git-non-up-to-date-repo-pipe
+}
+function find-git-non-up-to-date-repo-pipe() {
 	local ccze="cat"
 	cmdcheck ccze && ccze="ccze -A"
 	while read line || [ -n "${line}" ]; do
 		git-check-up-to-date "$line" | eval $ccze
-	done < <(find-git-repo "$@")
+	done
 }
 # [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
 function cd-git-root() {
