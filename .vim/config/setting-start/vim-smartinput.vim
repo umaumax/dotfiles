@@ -230,7 +230,7 @@ function! s:smartinput_define()
 
 	" クラス定義や enum 定義の場合は末尾に;を付け忘れないようにする
 	call s:smartinput_define_rule({
-				\   'at'       : '\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#[^{]*$',
+				\   'at'       : '^\s*\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#[^{]*$',
 				\   'char'     : '<CR>',
 				\   'input'    : '<Space>{};<Left><Left><CR><Left><CR>',
 				\   'filetype' : ['cpp'],
