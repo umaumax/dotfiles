@@ -114,6 +114,8 @@ alias tiple_expand
 
 snippet dict_expand
 	**${0:#dict name}
+snippet dict_remove
+	del ${1:#dict}${0:#val}
 
 snippet urllib3_proxy_support
 abbr urllib3 doesn't use http_proxy env
@@ -278,7 +280,7 @@ abbr [["a", "b"], ["c", "d"]] -> ["a", "b", "c", "d"]
 
 snippet stdout_steal
 alias contextlib_redirect_stdout
-from contextlib import redirect_stdout
+	from contextlib import redirect_stdout
 	string_io = io.StringIO()
 	with redirect_stdout(string_io):
 		${0}
@@ -306,3 +308,13 @@ snippet heredoc_indent_ok
 	msg = textwrap.dedent("""\
 		${0}
 	""")
+
+snippet strip_functions
+	strip_left = (lambda text, prefix: text if not text.startswith(prefix) else text[len(prefix):])
+	strip_right = (lambda text, suffix: text if not text.endswith(suffix) else text[:len(text) - len(suffix)])
+	strip = (lambda text, prefix, suffix: strip_right(strip_left(text, prefix), suffix))
+
+snippet regexp_example
+	m = re.search(r"${1:# pattern (group1)}", ${2:#input})
+	if m:
+		${0:m.group(1)}

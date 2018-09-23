@@ -168,6 +168,7 @@
 [pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 [pip show] pip show @ # e.g. Location
+[python venv] python -m venv $PROJECT_PATH@
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @

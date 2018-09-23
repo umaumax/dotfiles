@@ -896,7 +896,10 @@ function chpwd() {
 	function lambda() {
 		local python_venv_activator='bin/activate'
 		local dirpath=$PWD && while true; do
-			[[ -e "$dirpath/$python_venv_activator" ]] && source "$python_venv_activator" && return
+			if [[ -e "$dirpath/$python_venv_activator" ]]; then
+				[[ -z "$VIRTUAL_ENV" ]] && source "$dirpath/$python_venv_activator"
+				return
+			fi
 			[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
 		done
 		[[ -n "$VIRTUAL_ENV" ]] && deactivate
