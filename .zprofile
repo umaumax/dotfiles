@@ -142,6 +142,7 @@ if cmdcheck pyenv; then
 	## for blender add-ons
 	append_any_path PYTHONPATH /Applications/blender.app/Contents/Resources/2.78/scripts/addons
 	eval "$(pyenv init -)"
+	# NOTE: for virtualenv
 	# 	eval "$(pyenv virtualenv-init -)"
 fi
 cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
