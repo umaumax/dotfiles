@@ -160,3 +160,34 @@ command! -nargs=0 SaveAsTempfile :execute ':w '.tempname()
 command! -nargs=0 BoxEdit :execute "normal! \<C-v>"
 
 command! -range=% -nargs=0 RemoveWinCR :<line1>,<line2>/\r//g
+
+" NOTE: for c++ member initialization
+function! MemberInitialization() range
+	let lines=getline(a:firstline, a:lastline)
+
+	let arg_list=[]
+	let init_list=[]
+	for line in lines
+		let list = matchlist(line, '^\s\+\(.\{-,}\)\s\+\([^ ]\+\)_;')
+		if len(list) > 0
+			let type_name=list[1]
+			let arg_var_name=list[2]
+			let field_var_name=list[2].'_'
+			let arg_list+=[type_name.' '.arg_var_name]
+			let init_list+=[field_var_name.'('.arg_var_name.')']
+		endif
+	endfor
+
+	let arg_list_output=[]
+	let init_list_output=[]
+	if len(arg_list) > 0
+		let arg_list_output= '('.join(arg_list,', ').')'
+	endif
+	if len(init_list) > 0
+		let init_list_output= ': '.join(init_list,', ')
+	endif
+
+	call append(line('.')-1, [arg_list_output,init_list_output])
+endfunction
+command! -nargs=0 -range MemberInitialization <line1>,<line2>call MemberInitialization()
+
