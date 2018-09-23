@@ -38,6 +38,9 @@ command! SetAll      call PipeCommandResultToNewTab("set all")
 command! Syntax      call PipeCommandResultToNewTab("syntax")
 command! TabInfo     call PipeCommandResultToNewTab("echo 'expandtab:'.&expandtab | echo 'tabstop:'.&tabstop | echo 'shiftwidth:'.&shiftwidth | echo 'softtabstop:'.&softtabstop | echo 'autoindent:'.&autoindent | echo 'smartindent:'.&smartindent")
 
+command! HelpRtag    call PipeCommandResultToNewTab("filter /rtags/ nmap")
+command! HelpGtag    call PipeCommandResultToNewTab("filter /Gtags/ nmap")
+
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
 command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
 
