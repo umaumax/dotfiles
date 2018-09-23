@@ -1,9 +1,9 @@
 #!/usr/bin/env bas
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
-[current dir find] find . -name="@" -exec grep --color=auto -H -n {} +
-[root dir find] sudo find / -name="@" -exec grep --color=auto -H -n {} +
-[find some ext file] find . -name="*.@"
+[current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
+[root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
+[find some ext file] find . -name "*.@"
 
 # fg
 [vim] fg.vim "@" | pecovim
@@ -114,6 +114,7 @@
 # g++
 [c++11] g++ -std=c++11 @
 [c++11] clang++ -std=c++11 @
+[c++11 ignore library order] -Wl,--no-as-needed
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -294,6 +295,7 @@
 
 # apt-get
 [指定したpackageのみupgrade] sudo apt-get install @ # don't use upgrade command
+[apt-get error solution]  sudo rm -f /var/lib/apt/lists/lock /var/cache/apt/archives/lock
 
 [apt-get under proxy env] sudo -E apt-get install @
 [apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install @ # http_proxyがセットしてあればsudo -EでOK
@@ -489,3 +491,10 @@
 
 # shell
 [extract filepath ~] sed "s:^~:$HOME:g
+
+# date
+[mac date] date +'%Y-%m-%d %H:%M:%S'
+
+[mac logger] logger 'hello world'
+[mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
+[linux cat log] cat /var/log/messages

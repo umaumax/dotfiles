@@ -111,3 +111,6 @@ alias default_dict
 snippet visual_lines
 alias range_lines
   let lines=getline(a:firstline, a:lastline)
+
+snippet grep_command
+  filter /${1:#keyword}/ ${0:#command}
