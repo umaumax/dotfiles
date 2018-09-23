@@ -100,6 +100,7 @@ let s:doctor_map={
 			\'cmigemo':      'brew install cmigemo || sudo apt install cmigemo',
 			\'clang-format': '',
 			\'files':        'go get -u github.com/mattn/files',
+			\'flake8':       'pip install flake8',
 			\'git':          'brew install git || sudo apt-get install git',
 			\'go':           'brew install go || sudo apt-get install go',
 			\'gofmt':        '',
@@ -123,12 +124,13 @@ function! Doctor(cmd, description)
 	if !executable(a:cmd)
 		if $VIM_DOCTOR != ''
 			echomsg 'Require:[' . a:cmd . '] for [' . a:description . ']'
-			echomsg '    ' . s:doctor_map[a:cmd]
+			echomsg '    ' . get(s:doctor_map, a:cmd, '[no description]')
 		endif
 		if !has_key(s:no_cmd_map,a:cmd)
-			let s:no_cmd_map[a:cmd]=''
+			let s:no_cmd_map[a:cmd]=a:description
+		else
+			let s:no_cmd_map[a:cmd].=', '.a:description
 		endif
-		let s:no_cmd_map[a:cmd].=a:description.' '
 		return 0
 	endif
 	return 1
@@ -137,7 +139,7 @@ function! s:print_doctor_result()
 	for s:key in keys(s:no_cmd_map)
 		let s:val = s:no_cmd_map[s:key]
 		echomsg 'Require:[' . s:key . '] for [' . s:val . ']'
-		echomsg '    ' . s:doctor_map[s:key]
+		echomsg '    ' . get(s:doctor_map, s:key, '[no description]')
 	endfor
 endfunction
 command! Doctor call <SID>print_doctor_result()

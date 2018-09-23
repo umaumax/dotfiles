@@ -30,12 +30,6 @@ let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
-call Doctor('cmakelint', 'cmake linter')
-call Doctor('pylint', 'python linter')
-call Doctor('jsonlint', 'json linter')
-call Doctor('shellcheck', 'shell linter')
-call Doctor('vint', 'vim linter')
-call Doctor('textlint', 'text linter(for Japanese)')
 let g:ale_linters = {
 			\   'python': ['pylint', 'autopep8', 'flake8'],
 			\   'json': ['jsonlint'],
@@ -47,6 +41,14 @@ let g:ale_linters = {
 			\   'txt': ['textlint'],
 			\}
 " ['clangcheck', 'clangtidy'],
+" NOTE: check linter commands
+for [key, linters] in items(g:ale_linters)
+	for linter in linters
+		if Doctor(linter, 'for '.key.' linter')
+			call remove(g:ale_linters[key], linter)
+		endif
+	endfor
+endfor
 let g:ale_cpp_cpplint_options = '--linelength=160 --filter=-readability/todo,-legal/copyright,-whitespace/line_length,-build/header_guard'
 let g:ale_cmake_cmakelint_options = '--filter=-linelength'
 let g:ale_python_pylint_options = '--disable=C0111,C0301' " C0111:missing-docstring C0301:max-line-length
