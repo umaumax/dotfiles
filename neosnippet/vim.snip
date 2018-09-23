@@ -79,6 +79,22 @@ snippet for_string
   for ${1:char} in split(${2:#string}, '\zs')
     ${0}
   endfor
+snippet for_dict_key_val
+  for [key, val] in items(${1:#dict})
+    ${0}
+  endfor
+snippet for_dict_key
+  for key in keys(${1:#dict})
+    ${0}
+  endfor
+snippet for_dict_values
+  for val in values(${1:#dict})
+    ${0}
+  endfor
+snippet for_list
+  for ${2:e} in ${1:list}
+    ${0}
+  endfor
 
 snippet system_nohup
 abbr for nvim
@@ -87,3 +103,7 @@ abbr for nvim
 snippet shellescape
 abbr for 'system' function
   shellescape(${0:#})
+
+snippet dict_default
+alias default_dict
+  get(${1:dict}, ${2:key}, ${3:default value})${0}
