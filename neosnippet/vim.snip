@@ -107,3 +107,7 @@ abbr for 'system' function
 snippet dict_default
 alias default_dict
   get(${1:dict}, ${2:key}, ${3:default value})${0}
+
+snippet visual_lines
+alias range_lines
+  let lines=getline(a:firstline, a:lastline)
