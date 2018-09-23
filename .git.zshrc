@@ -329,7 +329,7 @@ function git-sed() {
 
 	while read -r line; do
 		# NOTE: -L: symbolic link
-		[[ -f "$line" ]] && [[ ! -L "$line" ]] && "$SED" -i -e "$pattern" "$line"
+		[[ -f "$line" ]] && [[ ! -L "$line" ]] && "$SED" -i -E -e "$pattern" "$line"
 	done < <(git ls-files -- "$@")
 }
 
@@ -341,4 +341,9 @@ function git-comments-todo() {
 }
 function git-comments-note() {
 	git grep -E -e '(^|\s+)//' --and -e 'NOTE' -e '(^|\s+)#' --and -e 'NOTE' -- . ':!*.md'
+}
+
+# NOTE: _field to field_
+function git-rename-cpp-field() {
+	git-sed 's/([^_A-Za-z0-9])_([A-Za-z0-9][_A-Za-z0-9]*)/\1\2_/g'
 }
