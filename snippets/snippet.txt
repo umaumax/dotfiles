@@ -76,8 +76,8 @@
 [unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [commit rest（編集内容はそのまま）] git reset --soft HEAD^
-[amend reset] git reset HEAD@{1}
-[merge reset] git reset --hard ORIG_HEAD
+[git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}"
+[git merge reset] git reset --hard ORIG_HEAD
 [merge all conflict(adopt upper one)] git checkout --ours .
 [merge all conflict(adopt lower one)] git checkout --theirs .
 [merge retry all conflict] git checkout -m .
