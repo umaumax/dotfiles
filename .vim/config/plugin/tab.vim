@@ -21,6 +21,7 @@ function! s:Tab()
 	endif
 
 	let line = getline('.')
+	" NOTE: for markdown
 	if line =~ '\s*\*'
 		if &expandtab == 0
 			call setline('.', "\t" . line)
@@ -31,14 +32,22 @@ function! s:Tab()
 		endif
 		return ''
 	endif
+
 	execute "normal! >>"
+	" NOTE: for empty line
+	if getline('.')==''
+		call setline(line('.'), &expandtab?repeat(' ', &shiftwidth):"\t")
+		call cursor('.', col('$')+1)
+	else
+		call cursor('.', col('.')+(&expandtab?&shiftwidth:1))
+	endif
 	return ''
 	" NOTE:
 	" そのままtabを返すと中途半端なtab位置でindentした際に，幅がおかしくなる
 	" return "\<tab>"
 endfunction
+
 function! s:UnTab()
-	echo 'pum:'.pumvisible()
 	if pumvisible()
 		return "\<C-p>"
 	endif

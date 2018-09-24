@@ -818,7 +818,23 @@ command! CopyDirName  :let @+ = expand('%:p:h:t') | echo 'copyed:' . expand('%:p
 " tab
 function! s:count_tab()
 	if v:count <= 1
-		execute "normal! >>".repeat("\<Right>",&shiftwidth)
+		let line=getline('.')
+		" NOTE: for empty line
+		if line==''
+			call setline(line('.'), &expandtab?repeat(' ', &shiftwidth):"\t")
+			normal! $
+			return
+		endif
+		let left_move_n=0
+		for i in range(1,&shiftwidth)
+			if col('.')-i>=0 && line[col('.')-i]=="\t"
+				break
+			endif
+			let left_move_n+=1
+		endfor
+		execute "normal! >>"
+		let left_move_n=left_move_n>0?left_move_n:1
+		execute "normal! ".repeat("\<Right>",left_move_n)
 	else
 		for i in range(v:count)
 			if i>0
@@ -837,7 +853,29 @@ function! s:tab_wrapper() range
 endfunction
 nnoremap <Tab> :call <SID>tab_wrapper()<CR>
 function! s:untab()
-	execute "normal! ".repeat("\<Left>",col('.')-1>=&shiftwidth?&shiftwidth:0)."<<"
+	let line=getline('.')
+	if line == '' || (line[0] != ' ' && line[0] != "\t")
+		return
+	endif
+	if line[col('.')-1]=="\t"
+		execute "normal! <<"
+		if col('.')>1
+			execute "normal! \<Left>"
+		endif
+		return
+	endif
+	" 	col('.')
+	" 	execute "normal! ".repeat("\<Left>",(&expandtab!=100&&col('.')-1>=&shiftwidth)?&shiftwidth:1)."<<"
+	" 	execute "normal! <<"
+	" 	execute "normal! ".repeat("\<Left>",(col('.')-1>=(&expandtab?1:&shiftwidth))?&shiftwidth:1)."<<"
+	" 	let left_move_n=(&expandtab?&shiftwidth:1)
+	let left_move_n=&shiftwidth
+	if col('.')>=col('$')-&shiftwidth
+		let left_move_n=col('$')-col('.')-(&shiftwidth-1)
+	endif
+	execute "normal! <<".repeat("\<Left>",left_move_n)
+	" 	execute "normal! ".repeat("\<Left>",(&expandtab?1:&shiftwidth))."<<"
+	" 	(col('.')-1>=(&expandtab?1:&shiftwidth))?&shiftwidth:1)
 endfunction
 nnoremap <silent> <S-Tab> :call <SID>untab()<CR>
 
