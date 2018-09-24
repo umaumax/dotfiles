@@ -1,16 +1,21 @@
 if &rtp =~ 'vim-submode'
 	" NOTE: for no space line join
-	let s:gJ_cmd_current_line = ":call setline(line('.'), substitute(getline(line('.')), '\\(.\\{-}\\)[ \\t]*$', '\\1', ''))<CR>"
-	let s:gJ_cmd_next_line = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^[ \\t]*\\(.*\\)', '\\1', ''))<CR>"
-	let s:gJ_cmd = s:gJ_cmd_current_line.s:gJ_cmd_next_line."gJ"
+	let s:gJ_cmd = ":call J('gJ')<CR>"
 	call submode#enter_with('join_line', 'n', '', 'gJ', s:gJ_cmd)
 	call submode#map('join_line', 'n', '', 'J', s:gJ_cmd)
 
 	" NOTE: for only one space line join
-	let s:J_cmd_current_line = ":call setline(line('.'), substitute(getline(line('.')), '\\(.\\{-}\\)[ \\t]*$', '\\1 ', ''))<CR>"
-	let s:J_cmd_next_line = ":call setline(line('.')+1, substitute(getline(line('.')+1), '^[ \\t]*\\(.*\\)', '\\1', ''))<CR>"
-	let s:J_cmd = s:J_cmd_current_line.s:J_cmd_next_line."gJ"
-	execute 'nnoremap J '.s:J_cmd
+	nnoremap J :call J()<CR>
+	command! -range -nargs=0 J :<line1>,<line2>call J()
+	command! -range -nargs=0 GJ :<line1>,<line2>call J('gJ')
+	function J(...) range
+		let join_cmd=get(a:, 1, 'J')
+		for i in range(max([a:lastline-a:firstline,1]))
+			call setline(line('.'), substitute(getline(line('.')), '\(.\{-}\)[ \t]*$', '\1', ''))
+			call setline(line('.')+1, substitute(getline(line('.')+1), '^[ \t]*\(.*\)', '\1', ''))
+			execute "normal! ".join_cmd
+		endfor
+	endfunction
 
 	nnoremap gw w
 	nnoremap gW W
