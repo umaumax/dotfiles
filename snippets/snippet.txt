@@ -134,6 +134,7 @@
 
 # mac
 [brew clean cache] brew clean -s
+[brew clean cache dry-run] brew clean -n
 [check SIP status] csrutil status
 [brew install local formula] brew install $FORMULA_FILEPATH
 [brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
