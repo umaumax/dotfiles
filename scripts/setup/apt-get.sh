@@ -53,6 +53,7 @@ sudo apt-get install -y graphviz
 sudo apt-get install -y cmake
 sudo apt-get install -y colormake
 sudo apt-get install -y ninja-build
+sudo apt-get install -y ccache
 
 # terminal
 sudo apt-get install -y guake
