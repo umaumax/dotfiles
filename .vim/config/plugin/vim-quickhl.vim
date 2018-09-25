@@ -9,6 +9,7 @@ xmap <Space>h <Plug>(quickhl-manual-this)
 let g:quickhl_manual_enable_at_startup = 1
 " \<: 単語始まり
 " \>: 単語終わり
+" NOTE: ubuntuではDELETEの色が黒になってしまっていたので，DUMMYを設けた
 let g:quickhl_manual_keywords = [
 			\ {"pattern": '\<NOTE\>\c', "regexp": 1 },
 			\ {"pattern": '\<TODO\>\c', "regexp": 1 },
@@ -20,5 +21,6 @@ let g:quickhl_manual_keywords = [
 			\ {"pattern": '\<WIP\>\c',  "regexp": 1 },
 			\ {"pattern": '\<HINT\>\c', "regexp": 1 },
 			\ {"pattern": '\<QUESTION\>\c', "regexp": 1 },
+			\ {"pattern": '\<DUMMY\>\c', "regexp": 1 },
 			\ {"pattern": '\<DELETE\>\c', "regexp": 1 },
 			\ ]
