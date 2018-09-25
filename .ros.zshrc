@@ -7,15 +7,24 @@ alias ctm='catkin_make'
 alias ctmk='catkin_make'
 alias cmk='catkin_make'
 function catkin_make() {
+	# NOTE: push CPATH
+	local _CPATH="$CPATH"
+	unset CPATH
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
 
-	pushd $ros_ws_root >/dev/null 2>&1
+	# NOTE: なぜが，pushd, popdがうまくいかない(ros sourceの関係上?)
+	# 	pushd $ros_ws_root >/dev/null 2>&1
+	local _PWD="$PWD"
+	cd $ros_ws_root >/dev/null 2>&1
 	# NOTE: force append compile_commands.json option
 	command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
 	local setup_zsh_filepath="./devel/setup.zsh"
 	[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
-	popd >/dev/null 2>&1
+	# 	popd >/dev/null 2>&1
+	cd "$_PWD" >/dev/null 2>&1
+	# NOTE: pop CPATH
+	export CPATH="$_CPATH"
 }
 function ros_gitignore_download() {
 	local ros_ws_root=$(rosroot)
