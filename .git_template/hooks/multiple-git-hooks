@@ -13,8 +13,10 @@ hook_name=$(basename $0)
 
 hook_dir="$script_dir/$hook_name.d"
 
+[[ $hook_name == "pre-rebase" ]] && stdin=''
+
 if [[ -d $hook_dir ]]; then
-  stdin=$(cat /dev/stdin)
+   stdin=${stdin-$(cat /dev/stdin)}
 
   for hook in $(find $hook_dir \( -type f -o -type l \) -perm -u+x); do
     echo "$INFO Running $hook_name/$hook hook"
