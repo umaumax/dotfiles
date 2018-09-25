@@ -9,6 +9,7 @@
 RED="\033[0;31m"
 DEFAULT="\033[0m"
 
+# NOTE: cached == staged
 changed=$(git diff --cached --name-only)
 [[ -z "$changed" ]] && exit 0
 
