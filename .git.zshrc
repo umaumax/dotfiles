@@ -334,7 +334,10 @@ function git-sed() {
 }
 
 function git-comments() {
-	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
+	# NOTE: see GITGLOSSARY(7) <pathspec>
+	# NOTE: man 7 gitglossary
+	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
+	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
 }
 function git-comments-todo() {
 	git grep -E -e '(^|\s+)//' --and -e 'TODO' -e '(^|\s+)#' --and -e 'TODO' -- . ':!*.md'
@@ -343,7 +346,7 @@ function git-comments-note() {
 	git grep -E -e '(^|\s+)//' --and -e 'NOTE' -e '(^|\s+)#' --and -e 'NOTE' -- . ':!*.md'
 }
 
-# NOTE: _field to field_
+# NOTE: cpp private '_field' to 'field_'
 function git-rename-cpp-field() {
-	git-sed 's/([^_A-Za-z0-9])_([A-Za-z0-9][_A-Za-z0-9]*)/\1\2_/g'
+	git-sed 's/([^_A-Za-z0-9])_([A-Za-z0-9][_A-Za-z0-9]*)/\1\2_/g' ':*.hpp' ':*.cpp' ':*.cc' ':*.cxx' ':.c' ':*.h'
 }
