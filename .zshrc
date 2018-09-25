@@ -377,6 +377,12 @@ function sed-range() {
 	cat -n $name | sed -n ${start},${end}p
 }
 
+# NOTE: 普通に出力するとゴミデータ?が混じっている
+function mancat() {
+	# 	MANPAGER="sed \"s/.$(echo \"\\x08\")//g\"" man "$@"
+	MANPAGER="col -b -x" man "$@"
+}
+
 alias ascii='man ascii'
 # http servers
 alias httpserver='httpserver.python2'
