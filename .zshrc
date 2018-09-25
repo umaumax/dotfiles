@@ -334,6 +334,18 @@ if [[ $(uname) == "Linux" ]]; then
 	}
 
 	alias os_ver='cat /etc/os-release | grep VERSION_ID | grep -o "[0-9.]*"'
+
+	# [How can I get a list of all repositories and PPAs from the command line into an install script? \- Ask Ubuntu]( https://askubuntu.com/questions/148932/how-can-i-get-a-list-of-all-repositories-and-ppas-from-the-command-line-into-an )
+	function ppa-list() {
+		# listppa Script to get all the PPA installed on a system ready to share for reininstall
+		for APT in $(find /etc/apt/ -name \*.list); do
+			grep -o "^deb http://ppa.launchpad.net/[a-z0-9\-]\+/[a-z0-9\-]\+" $APT | while read ENTRY; do
+				USER=$(echo $ENTRY | cut -d/ -f4)
+				PPA=$(echo $ENTRY | cut -d/ -f5)
+				echo sudo apt-add-repository ppa:$USER/$PPA
+			done
+		done
+	}
 fi
 
 function pipe-EOF-do() {
