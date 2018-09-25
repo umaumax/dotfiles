@@ -99,6 +99,8 @@
 [git search page] open "https://github.com/search" !
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
+[git man grep] man git-grep
+[git man diff] man git-diff
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -305,6 +307,10 @@
 [apt official repo source list file] /etc/apt/sources.list
 [apt unofficial repo source list directory] /etc/apt/sources.list.d/
 
+[apt-get remove ppa repo] sudo add-apt-repository --remove ppa:@ # xxx/yyy
+[apt-gte remove package] sudo apt-get remove @
+[apt-get packages url] open "https://ubuntu.pkgs.org/"
+
 # at docker
 [install lsof at docker] sudo apt-get install lsof
 
@@ -388,6 +394,8 @@
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
 
+[roscore run by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
+
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
@@ -446,6 +454,7 @@
 
 # direnv
 [direnv allow] direnv allow
+[reload .envrc] direnv allow
 [direnv file] touch .envrc
 
 # vim
@@ -486,6 +495,9 @@
 [rtags: run rdm server by screen] pgrep rdm >/dev/null 2>&1 || screen -dmS "rdm" rdm
 [rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.1); rc -J .
 
+[webcatd run by screen] pgrep gotty >/dev/null 2>&1 || screen -dmS "webcatd" webcatd
+[any command run by screen] CMD=@ && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD
+
 # help
 [help open vim tags] open "https://github.com/umaumax/vim-cpp-project-sample" !
 
@@ -500,3 +512,16 @@
 [mac logger] logger 'hello world'
 [mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
 [linux cat log] cat /var/log/messages
+
+[ubuntu mother board info] sudo dmidecode -t baseboard
+[ubuntu memory info] sudo dmidecode -t memory
+[ubuntu memory info] cat /proc/meminfo
+[ubuntu cpu info] cat /proc/cpuinfo
+[ubuntu gpu info] lspci | grep VGA
+[ubuntu nvidia gpu info] nvidia-smi
+[ubuntu partition info] sudo parted -l
+[ubuntu block device info] lsblk
+[ubuntu network device info] lspci | grep Ethernet
+[ubuntu network device info] sudo lshw -class network
+
+[ubuntu filepath to apt-get package] dpkg -S $FILEPATH

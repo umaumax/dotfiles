@@ -318,3 +318,12 @@ snippet regexp_example
 	m = re.search(r"${1:# pattern (group1)}", ${2:#input})
 	if m:
 		${0:m.group(1)}
+
+snippet decorator
+abbr use @func_name before function
+	def ${1:#func name}(func):
+		def wrapper(*args, **kwargs):
+			${2:# pre process}
+			func(*args, **kwargs)
+			${0:# post process}
+		return wrapper
