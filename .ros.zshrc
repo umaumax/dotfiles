@@ -11,7 +11,7 @@ function catkin_make() {
 	local _CPATH="$CPATH"
 	unset CPATH
 	local ros_ws_root=$(rosroot)
-	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
+	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}, but if this is first catkin_make to init, please run 'command catkin_make'" && return 1
 
 	# NOTE: なぜが，pushd, popdがうまくいかない(ros sourceの関係上?)
 	# 	pushd $ros_ws_root >/dev/null 2>&1
