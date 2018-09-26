@@ -395,3 +395,8 @@ snippet tmporary_disable_alias
   alias $1 >/dev/null 2>&1 && unalias $1
   ${0}
   [[ -n $$1_tmp ]] && eval alias $$1_tmp
+
+snippet next_cmd
+  hook_cmd_path="${0}"
+  hook_cmd=$(basename "$hook_cmd_path")
+  next_hook_cmd=$(for i in $(command which -a "$hook_cmd"); do ! [[ "$i" == "$hook_cmd_path" ]] && echo "$i" && break; done)
