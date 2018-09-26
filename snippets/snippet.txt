@@ -528,3 +528,6 @@
 [ubuntu network device info] sudo lshw -class network
 
 [ubuntu filepath to apt-get package] dpkg -S $FILEPATH
+
+# [linux \- How to know if a disk is an SSD or an HDD \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd )
+[hdd or ssd] echo 'SSD HDD' | cut -d" " -f$(($(cat /sys/block/sda/queue/rotational)+1))
