@@ -7,6 +7,7 @@ function echo() { command echo -e "$@"; }
 
 if [[ -n $ENV_HOGEHOGE ]] && [[ $1 == 'HOGEHOGE' ]]; then
 	echo "${PURPLE}[INFO][DISABLE] $hook_cmd $* ${DEFAULT}"
+	echo "${YELLOW}[INFO][how to enable] unset ENV_HOGEHOGE${DEFAULT}"
 	exit 0
 fi
 
