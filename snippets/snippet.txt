@@ -101,6 +101,8 @@
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 [git man grep] man git-grep
 [git man diff] man git-diff
+[git grep submodule] git grep --recurse-submodules @
+[git grep submodule peco vim] ggpv --recurse-submodules @
 
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
@@ -395,6 +397,7 @@
 [rostest run tests] catkin_make tests # for 2nd or later?
 
 [roscore run by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
+[roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
