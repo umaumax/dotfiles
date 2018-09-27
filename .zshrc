@@ -731,6 +731,7 @@ function cmds() {
 	# -type f とするとシンボリックリンクのファイルを無視してしまうので-followを付加
 	find $1 -maxdepth 1 -type f -follow -perm -=+x
 }
+alias lscmds='allcmds'
 function allcmds() {
 	for name in $(echo $PATH | sed "s/:/\n/g"); do
 		echo $name
