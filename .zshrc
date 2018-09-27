@@ -989,7 +989,12 @@ function cat-find() {
 function cat-all() {
 	[[ $# == 0 ]] && echo "$0 <files...>" && return
 	for filepath in "$@"; do
-		awk '{ if (FNR==1) print "####################\n",FILENAME,"\n####################"; print $0}' "$filepath"
+		echo "$YELLOW"
+		echo "####################"
+		echo "# $(basename $filepath)"
+		echo "####################"
+		echo "$DEFAULT"
+		cat $filepath
 	done
 }
 
