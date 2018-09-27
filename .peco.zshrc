@@ -152,3 +152,10 @@ function pecoexamples() {
 	[[ -z $ret ]] && return
 	cp -i "$root/$ret" "$(basename $ret)" && echo "[COPY]: $ret"
 }
+
+# NOTE: peco google
+function pecoole() {
+	local ret=$(for filepath in $(ls ~/dotfiles/urls/*.md); do cat "$filepath" | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""}'; done | peco)
+	local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
+	[[ -n $url ]] && open "$url"
+}
