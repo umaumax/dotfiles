@@ -118,6 +118,8 @@ sudo locale-gen en_US.UTF-8
 sudo apt-get install -y language-pack-ja
 sudo update-locale LANG=ja_JP.UTF-8
 
+sudo apt-get install -y ldap-utils
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
