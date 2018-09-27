@@ -104,7 +104,9 @@
 [git grep submodule] git grep --recurse-submodules @
 [git grep submodule peco vim] ggpv --recurse-submodules @
 
+# tree
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+[tree depth] tree -L $DEPTH
 
 # shell one liner
 [space まとめる] sed -e 's/\s\+/ /g'
@@ -112,6 +114,7 @@
 [sed template :] sed -e 's:@::g'
 [sed template /] sed -e 's/@//g'
 [join line with char] awk '{printf "%s\\\\n", $0}'
+[join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
 
 [number of CPU] nproc --all # linux only
 
@@ -396,7 +399,7 @@
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
 
-[roscore run by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
+[roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
 
 # gitignore
@@ -523,9 +526,16 @@
 [ubuntu gpu info] lspci | grep VGA
 [ubuntu nvidia gpu info] nvidia-smi
 [ubuntu partition info] sudo parted -l
-[ubuntu block device info] lsblk
+[ubuntu block device info] lsblk # you can use without sudo
 [ubuntu network device info] lspci | grep Ethernet
 [ubuntu network device info] sudo lshw -class network
+[ubuntu hardware info] sudo lshw
+[ubuntu disk info] sudo lshw -c disk
+[ubuntu disk read/write speed performance check] sudo hdparm -Tt /dev/sda
+# e.g.
+# /dev/sda:
+#  Timing cached reads:   27416 MB in  1.99 seconds = 13761.56 MB/sec
+#  Timing buffered disk reads: 600 MB in  3.00 seconds = 199.80 MB/sec
 
 [ubuntu filepath to apt-get package] dpkg -S $FILEPATH
 
@@ -533,3 +543,8 @@
 [hdd or ssd] echo 'SSD HDD' | cut -d" " -f$(($(cat /sys/block/sda/queue/rotational)+1))
 
 [confirm zsh cached comand type] builtin which @
+
+[confirm fonts list at ubuntu] fc-list
+
+[how to know image size] file
+[how to know image size] identify
