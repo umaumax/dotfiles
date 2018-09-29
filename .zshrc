@@ -1,4 +1,9 @@
 # NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
+
+# HINT: if you want to calclate login time uncomment next line
+# DEBUG_MODE='ON'
+[[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
+
 if [[ $OS == Windows_NT ]]; then
 	test -r ~/.zprofile && source ~/.zprofile
 fi
@@ -1687,3 +1692,4 @@ cmdcheck say && function mississippi() {
 if [[ $ZSH_NAME == zsh ]]; then
 	cd .
 fi
+[[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof

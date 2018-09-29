@@ -1,3 +1,7 @@
+# HINT: if you want to calclate login time uncomment next line
+# DEBUG_MODE='ON'
+[[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
+
 if [[ "$OSTYPE" == darwin* ]]; then
 	export BROWSER='open'
 fi
@@ -213,3 +217,5 @@ fi
 [[ -n $BASH ]] && export HISTFILESIZE=100000
 [[ -n $BASH && -f ~/.bashrc ]] && source ~/.bashrc
 # ---- bash ----
+
+[[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
