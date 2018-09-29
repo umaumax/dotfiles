@@ -482,3 +482,6 @@ let g:DiffColors = 3 " 16 colors in fixed order
 
 " run :RainbowDelim command when the cursor is just on delim char
 Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
+
+" NOTE: for install only (below libraries are enable other script)
+Plug 'nhooyr/neoman.vim', {'on':[]}

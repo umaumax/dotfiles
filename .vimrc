@@ -15,6 +15,8 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 
+let g:plug_home=$HOME."/.vim/plugged"
+
 function! s:disable_opening_file()
 	for pattern in ['tu[^.]*', 'zip', 'tar.gz', 'gz', 'jp[e]g', 'png', 'exe', 'pdf', 'pch']
 		if expand('%:e') =~ pattern
@@ -202,6 +204,26 @@ augroup buffer_to_tab_group
 	autocmd!
 	autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
 augroup END
+
+" NOTE: only use some plugins for man
+if $VIM_MAN_FLAG==1
+	set ft=neoman
+	" NOTE:
+	" 詳しい理由は不明だが，おそらくcolorscheme変更処理によって，syntaxが反映されないので，defalut
+	" man syntaxを利用する
+	set syntax=man
+	" NOTE: to adopt e.g. vimdiff(1)
+	call plug#begin(g:plug_home)
+	" NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
+	Plug 'nhooyr/neoman.vim'
+	call plug#end()
+	nnoremap <silent> K  :execute  ":Nman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
+	nnoremap <silent> ss :execute ":Snman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
+	nnoremap <silent> sv :execute ":Vnman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
+	nnoremap <silent> st :execute ":Tnman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
+	set iskeyword+=(,)
+endif
+
 
 " e.g. .local.vimrc
 " let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"

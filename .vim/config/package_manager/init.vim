@@ -112,7 +112,7 @@ augroup END
 " 	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
 " augroup END
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:plug_home)
 " for consecutive shortcut input
 Plug 'kana/vim-submode'
 runtime! config/plugin/*.vim
