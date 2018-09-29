@@ -255,6 +255,11 @@ snippet heredoc_var_no_expand_var
   ${0}
   EOF\`
 
+snippet heredoc_pipe
+  cat << EOF | cat
+  ${0}
+  EOF
+
 snippet heredoc_file
   cat << EOF > ${1:#file path}
   ${0}
@@ -400,3 +405,23 @@ snippet next_cmd
   hook_cmd_path="${0}"
   hook_cmd=$(basename "$hook_cmd_path")
   next_hook_cmd=$(for i in $(command which -a "$hook_cmd"); do ! [[ "$i" == "$hook_cmd_path" ]] && echo "$i" && break; done)
+
+snippet read_sudo_pass
+alias sudo_read_pass
+  echo -n "Password:🔑"
+  read -s sudo_pass || exit 1
+  echo ""
+# -k: --reset-timestamp
+# -S: --stdin
+  echo $sudo_pass | sudo -k -S echo >/dev/null
+  [[ $? != 0 ]] && exit 1
+
+ echo $sudo_pass | sudo -p '' -S ${0:#command}
+
+snippet expect_example
+  expect -f - << EOF
+  set timeout 5
+  spawn /bin/sh -c "sudo -k -p password: pwd"
+  expect "password:"; send "${sudo_pass}\n"
+  expect eof; exit
+  EOF
