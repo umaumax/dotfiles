@@ -146,12 +146,17 @@ if cmdcheck pyenv; then
 	exist ~/python/lib/ && export PYTHONPATH=$var
 	# for blender add-ons
 	[[ -d "/Applications/blender.app/Contents/Resources/2.78/scripts/addons" ]] && export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/scripts/addons:PYTHONPATH"
+
+	# NOTE: slow
 	eval "$(pyenv init -)"
+
 	# NOTE: for virtualenv
 	# 	eval "$(pyenv virtualenv-init -)"
 fi
-cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
-cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
+
+# NOTE: slow
+# cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
+# cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
 # NOTE: disable brew analytics
 export HOMEBREW_NO_ANALYTICS
