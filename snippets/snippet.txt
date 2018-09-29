@@ -44,16 +44,17 @@
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
 # size
-[size] du -s * # fils size
-[size] df -h # disk size
+[file size] du -s * # * means file or directories
+[disk size] df -h
 
 # docker
-[build] docker build -t $tag@ .
-[run] docker run --rm -it $tag@ /bin/bash
-[stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
+[docker build] docker build -t $tag@ .
+[docker run] docker run --rm -it $tag@ /bin/bash
+[docker stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
 [docker cp  host -> guest] docker cp $HOST_FILEPATH@ $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
 [docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH@ # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
 [docker force rebuild flag] --no-cache
+[docker volume list] docker volume ls
 
 
 # cmake

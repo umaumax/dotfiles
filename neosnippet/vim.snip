@@ -114,3 +114,17 @@ alias range_lines
 
 snippet grep_command
   filter /${1:#keyword}/ ${0:#command}
+
+snippet expand_cword
+  expand('<cword>')
+snippet expand_cfile
+  expand('<cfile>')
+
+snippet lower
+  substitute(${1:#str},'\(.\+\)', '\L\1','')
+snippet lOWER
+  substitute(${1:#str},'\(.\+\)', '\l\1','')
+snippet UPPER
+  substitute(${1:#str},'\(.\+\)', '\U\1','')
+snippet Upper
+  substitute(${1:#str},'\(.\+\)', '\u\1','')

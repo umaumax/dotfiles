@@ -44,8 +44,12 @@ snippet to_bool
 alias bool
   ((${0:bool value})?"true":"false")
 
-snippet pp
+# NOTE: pp is too short to select
+snippet pppp
+alias ppp
   #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint
+snippet streampp
+  #include "umaumaxcpp/streampp.hpp" // FORBIDDEN_COMMIT_MAGIC_KEYWORD${0}
 
 snippet std
 alias s
@@ -283,6 +287,10 @@ snippet time_measurement
 snippet duration_cast
 abbr std::chrono::duration_cast<T>() <chrono>
   std::chrono::duration_cast<std::chrono::${1:milliseconds}>(${2})
+snippet shared_void_pointer_cast
+alias cast_shared_void_pointer
+abbr cast std::shared_ptr<void> to some pointer (also unique pointer)
+  (${0:# dst pointer type}*)${1:#smart pointer var name}.get()
 
 snippet lock_guard
   {
@@ -396,3 +404,4 @@ snippet class_template
   inline int $1<char>::$2(char xxx) {
     return 0;
   }
+
