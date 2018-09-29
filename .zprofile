@@ -108,6 +108,7 @@ export LC_MESSAGES="en_US.UTF-8"
 # ----
 
 # golang
+mkdir -p ~/go/{3rd,my}/{bin,src,pkg}
 if [[ -d ~/go ]]; then
 	# go1.9~: If $GOPATH is not specified, $HOME/go will be used by default:
 	export GOPATH=~/go/3rd:~/go/my
@@ -120,6 +121,7 @@ if [[ -d "/usr/lib/go-1.10" ]]; then
 fi
 
 # c++
+mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
 if [[ -d ~/cpp ]]; then
 	CPPROOT=~/cpp
 	append_path $CPPROOT/orig/bin
