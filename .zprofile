@@ -74,7 +74,6 @@ cmdcheck() {
 #alias cmdcheck='type > /dev/null 2>&1'
 #alias funccheck='declare -f > /dev/null'
 
-append_any_path() { [[ -d "$2" ]] && export "$1"=$(eval echo '$'$1)":$2"; }
 prepend_path() {
 	local p="$1"
 	[[ -d $p ]] && export PATH=$p:$PATH
@@ -94,8 +93,7 @@ exist() {
 
 export EDITOR='vim'
 export VISUAL='vim'
-cmdcheck nvim && export EDITOR='nvim'
-cmdcheck nvim && export VISUAL='nvim'
+cmdcheck nvim && export EDITOR='nvim' && export VISUAL='nvim'
 export PAGER='less'
 #"[manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
 export MANPAGER="/bin/sh -c \"col -b -x|vim -R -c 'set ft=man nolist nonu noma' -\""
@@ -124,7 +122,6 @@ if [[ -d ~/cpp ]]; then
 	CPPROOT=~/cpp
 	append_path $CPPROOT/orig/bin
 	append_path $CPPROOT/3rd/bin
-	# export CPATH=$CPPROOT/include:$CPPROOT/include/HElib/src
 	export CPATH=$CPPROOT/orig/include:$CPPROOT/3rd/include
 	export LIBRARY_PATH=$CPPROOT/orig/lib:$CPPROOT/3rd/lib
 	unset CPPROOT
@@ -143,8 +140,8 @@ export PYENV_ROOT="${HOME}/.pyenv"
 export PATH=${PYENV_ROOT}/bin:$PATH
 if cmdcheck pyenv; then
 	exist ~/python/lib/ && export PYTHONPATH=$var
-	## for blender add-ons
-	append_any_path PYTHONPATH /Applications/blender.app/Contents/Resources/2.78/scripts/addons
+	# for blender add-ons
+	[[ -d "/Applications/blender.app/Contents/Resources/2.78/scripts/addons" ]] && export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/scripts/addons:PYTHONPATH"
 	eval "$(pyenv init -)"
 	# NOTE: for virtualenv
 	# 	eval "$(pyenv virtualenv-init -)"
@@ -202,6 +199,7 @@ if [[ -z $DISPLAY ]]; then
 	xset q >/dev/null 2>&1 || unset DISPLAY
 fi
 
+# NOTE: for my markdowns
 export MDROOT="$HOME/md"
 export MDLINK="$HOME/md/link"
 [[ -d $MDROOT ]] && [[ ! -d $MDLINK ]] && mkdir -p $MDLINK
