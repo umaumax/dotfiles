@@ -17,12 +17,13 @@ grep='grep'
 cmdcheck() { type >/dev/null 2>&1 "$@"; }
 cmdcheck 'ggrep' && grep='ggrep'
 
-echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
+# NOTE: add 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' at last of line
+echo $changed | xargs $grep -E 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' -C 1 -H -n --color=always
 exit_code=$?
 
 ## If the egrep command has any hits - echo a warning and exit with non-zero status.
 if [[ $exit_code == 0 ]]
 then
-  echo -e "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
+  echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
   exit 1
 fi
