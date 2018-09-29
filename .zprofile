@@ -91,12 +91,14 @@ exist() {
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
-cmdcheck nvim && export EDITOR='nvim' && export VISUAL='nvim'
+VIM=vim
+cmdcheck nvim && VIM=nvim
+export EDITOR=$VIM
+export VISUAL=$VIM
 export PAGER='less'
-#"[manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
-export MANPAGER="/bin/sh -c \"col -b -x|vim -R -c 'set ft=man nolist nonu noma' -\""
+# [manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
+# NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
+export MANPAGER="/bin/sh -c \"col -b -x| VIM_MAN_FLAG=1 vim -R --cmd 'set ft=man' -c 'set nolist nonu noma' -\""
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
 export LC_TIME="en_US.UTF-8"
