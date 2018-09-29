@@ -17,12 +17,16 @@ grep='grep'
 cmdcheck() { type >/dev/null 2>&1 "$@"; }
 cmdcheck 'ggrep' && grep='ggrep'
 
-echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
-exit_code=$?
+files=($(echo $changed | xargs -L 1 -IXXX find XXX -type f -size -1M -maxdepth 1))
+exit_code=1
+if [[ ${#files[@]} -ge 1 ]]; then
+  echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
+  exit_code=$?
+fi
+
 
 ## If the egrep command has any hits - echo a warning and exit with non-zero status.
-if [[ $exit_code == 0 ]]
-then
+if [[ $exit_code == 0 ]]; then
   echo -e "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
   exit 1
 fi
