@@ -552,6 +552,7 @@ if cmdcheck docker; then
 	alias dexec='docker-exec'
 	alias da='docker-attach'
 	alias dattach='docker-attach'
+	alias ds='docker-start'
 	alias dsa='docker-start-and-attach'
 	alias dls='docker ps'
 	alias dlsa='docker ps -a'
@@ -679,7 +680,6 @@ function _xargs-vim() {
 	vim $@
 }
 
-alias ds='cd ~/dotfiles'
 alias dot='cd ~/dotfiles'
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
