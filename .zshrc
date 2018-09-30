@@ -724,10 +724,10 @@ alias vimssh='vim ~/.ssh/config'
 alias sshconfig='vim ~/.ssh/config'
 
 function ssh-register_id_rsa.pub() {
-	[[ $# -le 1 ]] && echo "$0 <id_rsa.pub filepath> <ssh host name>"
+	[[ $# -le 1 ]] && echo "$0 <id_rsa.pub filepath> <ssh host name>" && return 1
 	local id_rsa_pub_filepath="$1"
 	local ssh_host_name="$2"
-	cat "$id_rsa_pub_filepath" | ssh "$ssh_host_name" 'mkdir ~/.ssh && touch .ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys && cat >> ~/.ssh/authorized_keys'
+	cat "$id_rsa_pub_filepath" | ssh "$ssh_host_name" 'mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys && cat >> ~/.ssh/authorized_keys'
 }
 
 # show path each line
