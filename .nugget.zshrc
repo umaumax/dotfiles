@@ -125,7 +125,8 @@ function nugget_ubuntu_tig() {
 # ################################
 # tmux for linux
 function nugget_ubuntu_tmux() {
-	cmdcheck tmux && return
+	# NOTE: there is /usr/bin/tmux (2.1)
+	# 	cmdcheck tmux && return
 
 	pushd "$tmpdir"
 	sudo apt install -y build-essential automake libevent-dev ncurses-dev
