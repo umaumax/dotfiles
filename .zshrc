@@ -8,11 +8,12 @@ if [[ $OS == Windows_NT ]]; then
 fi
 
 # auto compile
+# NOTE: 関数内のalias展開に影響するため，compile前後の動作を確かめる必要がある
 # -nt: file1 is newer than file2? (used modified time)
-zsh_compile_files=(~/.zshrc ~/.zprofile ~/.zlogin ~/.zlogout $(ls ~/.zsh/.*.zshrc) $(ls ~/.zsh/*/*.zsh))
-for src in "${zsh_compile_files[@]}"; do
-	[[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
-done
+# zsh_compile_files=(~/.zshrc ~/.zprofile ~/.zlogin ~/.zlogout $(ls ~/.zsh/.*.zshrc) $(ls ~/.zsh/*/*.zsh))
+# for src in "${zsh_compile_files[@]}"; do
+# 	[[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
+# done
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
