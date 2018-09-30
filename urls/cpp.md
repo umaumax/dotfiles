@@ -15,3 +15,9 @@ c++ library online doc
 [C\+\+ documentation — DevDocs]( http://devdocs.io/cpp/ )
 [en\.cppreference\.com]( https://en.cppreference.com/w/ )
 [ja\.cppreference\.com]( https://ja.cppreference.com/w/ )
+
+c++ cpp boost deserialize example
+[c\+\+ \- looking for deserialization example in boost \- Stack Overflow]( https://stackoverflow.com/questions/23022881/looking-for-deserialization-example-in-boost )
+
+c++ cpp std::endl type manip
+[c\+\+ \- std::endl is of unknown type when overloading operator<< \- Stack Overflow]( https://stackoverflow.com/questions/1134388/stdendl-is-of-unknown-type-when-overloading-operator )
