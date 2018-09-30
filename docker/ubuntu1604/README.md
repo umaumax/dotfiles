@@ -42,6 +42,7 @@ nugget fzy
 nugget fzf
 nugget bat
 
+# NOTE: DISPLAY env?
 # nvimの画面が起動しないときにはsshで接続し直すと解決した
 nugget nvim
 nugget vim_deoplete
