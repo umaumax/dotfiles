@@ -27,7 +27,6 @@ sudo apt-get install -y nkf
 sudo apt-get install -y htop
 sudo apt-get install -y silversearcher-ag
 sudo apt-get install -y gdebi
-sudo apt-get install -y update-alternatives
 sudo apt-get install -y nodejs npm
 sudo apt-get install -y xsel xclip
 sudo apt-get install -y colordiff
