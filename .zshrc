@@ -58,6 +58,15 @@ function traverse_path_list() {
 	done
 }
 
+function source() {
+	local pwd_tmp=$(alias pwd)
+	alias pwd >/dev/null 2>&1 && unalias pwd
+	builtin source "$@"
+	local exit_code=$?
+	[[ -n $pwd_tmp ]] && eval alias $pwd_tmp
+	return $exit_code
+}
+
 # ----------------
 # 環境変数を`export`するときには`-`は使用不可ではあるが、`env`で設定する際には問題ないので使用可能(alias -sでのbash起動時に自動的に関数化され、環境変数から消える)
 # [shell script - what is the zsh equivalent of bash's export -f - Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/59360/what-is-the-zsh-equivalent-of-bashs-export-f )
@@ -723,6 +732,7 @@ alias vissh='vim ~/.ssh/config'
 alias vimssh='vim ~/.ssh/config'
 alias sshconfig='vim ~/.ssh/config'
 
+# FYI: there is similar command `ssh-copy-id`
 function ssh-register_id_rsa.pub() {
 	[[ $# -le 1 ]] && echo "$0 <id_rsa.pub filepath> <ssh host name>" && return 1
 	local id_rsa_pub_filepath="$1"
@@ -938,13 +948,10 @@ function chpwd() {
 
 	# NOTE: auto ros devel/setup.zsh runner
 	function lambda() {
-		local pwd_tmp=$(alias pwd)
-		alias pwd >/dev/null 2>&1 && unalias pwd
 		for dir in $(traverse_path_list $PWD); do
 			local setup_zsh_filepath="$dir/devel/setup.zsh"
 			[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
 		done
-		[[ -n $pwd_tmp ]] && eval alias $pwd_tmp
 	} && lambda
 }
 
