@@ -64,6 +64,7 @@
 # make
 [make debug] make VERBOSE=1 # made by autotoools or cmake
 [make debug] make SHELL='sh -x' # made by yourself
+[make -j max cpu] make -j$(nproc --all)
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -124,6 +125,7 @@
 [cpp c++11 compile] g++ -std=c++11 @
 [cpp c++11 compile] clang++ -std=c++11 @
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
+[cpp pch] PCH_HEADER=@ && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -284,7 +286,7 @@
 [load kernel module (with dependency resolution)] modprobe @
 [unload kernel] modprobe -r @
 [kernel module list of fs] modprobe -lt fs
-[ list kernel module ] lsmod
+[list kernel module] lsmod
 
 # losf
 [lsof] sudo lsof -i:@
@@ -378,8 +380,11 @@
 [open ros doxygen] open http://docs.ros.org/melodic/api/roscpp/html/ !
 [open ros doxygen (namespace)] open http://docs.ros.org/melodic/api/roscpp/html/namespaceros.html !
 
-[ros] rosnode list
-[ros] rostopic list
+[rosnode list] rosnode list
+[rostopic list] rostopic list
+[rostopic list] rostopic list -v
+[rostopic list] rostopic list -p
+[rostopic list] rostopic list -s
 [ros] rostopic info $TOPIC_OR_NODE
 [ros] rostopic echo $TOPIC # /hoge/piyo
 [ros] rostopic echo --noarr $TOPIC # for big topic output
@@ -406,6 +411,15 @@
 
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
+
+[rosbag] rosbag compresss
+[rosbag] rosbag decompresss
+[rosbag] rosbag filter
+[rosbag] rosbag play
+
+[catkin_make] catkin_make --pkg $PACAKGE_NAME
+
+[ros info reload] rospack profile
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
