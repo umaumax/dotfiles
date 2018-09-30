@@ -37,6 +37,7 @@ source ~/.zshrc
 nugget peco
 nugget tig
 nugget tmux
+nugget rtags
 nugget fzy
 nugget fzf
 nugget bat

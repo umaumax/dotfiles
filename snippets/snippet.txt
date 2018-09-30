@@ -60,11 +60,13 @@
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
 [cmake] cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # compile_commands.json
+[cmake install preifx] cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/local
 
 # make
 [make debug] make VERBOSE=1 # made by autotoools or cmake
 [make debug] make SHELL='sh -x' # made by yourself
 [make -j max cpu] make -j$(nproc --all)
+[make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -518,7 +520,7 @@
 
 # tags
 [rtags: run rdm server by screen] pgrep rdm >/dev/null 2>&1 || screen -dmS "rdm" rdm
-[rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.1); rc -J .
+[rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.2); rc -J .
 
 [webcatd run by screen] pgrep gotty >/dev/null 2>&1 || screen -dmS "webcatd" webcatd
 [any command run by screen] CMD=@ && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD

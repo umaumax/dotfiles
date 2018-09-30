@@ -128,10 +128,29 @@ function nugget_ubuntu_tmux() {
 	# NOTE: there is /usr/bin/tmux (2.1)
 	# 	cmdcheck tmux && return
 
-	pushd "$tmpdir"
 	sudo apt install -y build-essential automake libevent-dev ncurses-dev
+	pushd "$tmpdir"
 	git clone https://github.com/tmux/tmux.git
-	pushd "$tmpdir"/tmux && sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+	pushd "$tmpdir"/tmux
+	sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+	popd
+	popd
+}
+# ################################
+
+# ################################
+# rtags for linux
+function nugget_ubuntu_rtags() {
+	cmdcheck rdm && return
+
+	# for <clang-c/Index.h>
+	sudo apt-get install -y libclang-3.8-dev
+	# for Could NOT find CPPUNIT (missing: CPPUNIT_LIBRARY CPPUNIT_INCLUDE_DIR)
+	sudo apt-get install -y libcppunit-dev
+	pushd "$tmpdir"
+	git clone --recursive https://github.com/Andersbakken/rtags.git
+	pushd "$tmpdir"/rtags
+	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
 	popd
 	popd
 }
