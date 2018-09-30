@@ -1,10 +1,7 @@
 # dotfiles
 
-## TODO
-
 ## install
 ```
-cd ~/
 git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 ```
 
@@ -16,15 +13,15 @@ git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 * first  time:  open vim and puts `:PlugInstall`
 * second time~: open vim and puts `:PlugUpdate` and `:PlugUpgrade`
 
-## Karabiner-Element for Mac
+### Karabiner-Element for Mac
 `~/.config/karabiner/assets/complex_modifications`
 [Karabiner\-Elementsの設定項目をまとめました]( https://qiita.com/s-show/items/a1fd228b04801477729c )
 
-## [umaumax/window\-toggle]( https://github.com/umaumax/window-toggle )
-
-## ./snippets/snippet.txt
-[zsh でワンライナーを手早く呼び出し実行する \- Qiita]( https://qiita.com/b4b4r07/items/c29163cf1723cccefed6 )
+## others
+* [umaumax/window\-toggle]( https://github.com/umaumax/window-toggle )
+* [zsh でワンライナーを手早く呼び出し実行する \- Qiita]( https://qiita.com/b4b4r07/items/c29163cf1723cccefed6 )
+  * `snippets/snippet.txt`
 
 ## NOTE
-`.gitignore`: this .gitignore file is only for this repo
-`.config/git/ignore`: this will be link to ~/.gitignore
+* `.gitignore`: this .gitignore file is only for this repo
+* `.config/git/ignore`: this will be link to ~/.gitignore
