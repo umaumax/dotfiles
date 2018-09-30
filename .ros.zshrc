@@ -19,12 +19,17 @@ function catkin_make() {
 	cd $ros_ws_root >/dev/null 2>&1
 	# NOTE: force append compile_commands.json option
 	command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
-	local setup_zsh_filepath="./devel/setup.zsh"
-	[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
+	local exit_code=$?
+	if [[ $exit_code == 0 ]]; then
+		local setup_zsh_filepath="./devel/setup.zsh"
+		[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
+		pgrep rdm >/dev/null 2>&1 && rc -J build
+	fi
 	# 	popd >/dev/null 2>&1
 	cd "$_PWD" >/dev/null 2>&1
 	# NOTE: pop CPATH
 	export CPATH="$_CPATH"
+	return $exit_code
 }
 function ros_gitignore_download() {
 	local ros_ws_root=$(rosroot)
