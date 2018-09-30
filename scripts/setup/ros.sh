@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # FYI: [kinetic/Installation/Ubuntu \- ROS Wiki]( http://wiki.ros.org/kinetic/Installation/Ubuntu )
 
 # ubuntu16.04: kinetic
