@@ -94,8 +94,7 @@ function nugget_ubuntu_nvim() {
 		# NOTE: fuse pattern
 		sudo apt-get install -y fuse
 		chmod u+x nvim.appimage
-		./nvim.appimage
-		mv nvim ~/local/bin/
+		mv nvim.appimage ~/local/bin/nvim
 	fi
 
 	echo "${GREEN}Add ~/local/bin to \$PATH${DEFAULT}"
