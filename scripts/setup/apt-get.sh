@@ -27,16 +27,17 @@ sudo apt-get install -y nkf
 sudo apt-get install -y htop
 sudo apt-get install -y silversearcher-ag
 sudo apt-get install -y gdebi
-sudo apt-get install -y nodejs npm
+sudo apt-get install -y nodejs
+sudo apt-get install -y npm
 sudo apt-get install -y xsel xclip
 sudo apt-get install -y colordiff
 sudo apt-get install -y ccze
 
 sudo apt-get install -y clang-tidy
 sudo apt-get install -y clang-format-5.0
-sudo apt-get install -y vim-gnome
+# sudo apt-get install -y vim-gnome # old vim
 sudo apt-get install -y golang-1.10
-# HINT: export PATH=”/usr/lib/go-1.10/bin:$PATH”
+# HINT: export PATH="/usr/lib/go-1.10/bin:$PATH"
 sudo apt-get install -y openssh-server
 sudo apt-get install -y sshpass
 sudo apt-get install -y imagemagick
@@ -74,6 +75,7 @@ sudo apt-get install -y docker-ce=18.03.1~ce-0~ubuntu
 sudo apt-get install -y compizconfig-settings-manager unity-tweak-tool
 
 # for keymapping
+# NOTE: xbindkeys is more better than xmodmap for me
 # sudo apt-get install -y xorg-xmodmap
 sudo apt-get install -y xdotool
 sudo apt-get install -y xbindkeys
