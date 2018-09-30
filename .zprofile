@@ -148,6 +148,7 @@ if cmdcheck pyenv; then
 	[[ -d "/Applications/blender.app/Contents/Resources/2.78/scripts/addons" ]] && export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/scripts/addons:PYTHONPATH"
 
 	# NOTE: slow
+	# NOTE: if you add --no-rehash (it will be a little faster)
 	eval "$(pyenv init -)"
 
 	# NOTE: for virtualenv

@@ -425,3 +425,13 @@ snippet expect_example
   expect "password:"; send "${sudo_pass}\n"
   expect eof; exit
   EOF
+
+snippet cache_as_file
+  # NOTE: cache file (24 hours)
+  mkdir -p ~/.cache/${1:#app name}
+  if [[ ! -e ~/.cache/$1/${2:#file name} ]] || [[ -n "$(find ~/.cache/$1/$2 -mtime +0 -type f)" ]]; then
+    ${0:# command} >~/.cache/$1/$2
+  fi
+
+snippet zcompile
+  [[ ${1:#zsh file} -nt $1.zwc ]] && zcompile $1

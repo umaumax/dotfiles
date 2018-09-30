@@ -1,12 +1,18 @@
-# NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
-
 # HINT: if you want to calclate login time uncomment next line
 # DEBUG_MODE='ON'
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
+# NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
 if [[ $OS == Windows_NT ]]; then
 	test -r ~/.zprofile && source ~/.zprofile
 fi
+
+# auto compile
+# -nt: file1 is newer than file2? (used modified time)
+zsh_compile_files=(~/.zshrc ~/.zprofile ~/.zlogin ~/.zlogout $(ls ~/.zsh/.*.zshrc) $(ls ~/.zsh/*/*.zsh))
+for src in "${zsh_compile_files[@]}"; do
+	[[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
+done
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then

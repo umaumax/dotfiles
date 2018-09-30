@@ -68,8 +68,12 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ -e $zsh_completion_dir/_pip2 ]] && source $zsh_completion_dir/_pip2
 		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip
 
-		# enbale zsh completion
-		autoload -Uz compinit && compinit -i
+		# NOTE: enbale zsh completion
+		# [zshの起動が遅いのでなんとかしたい 2 \- Qiita]( https://qiita.com/vintersnow/items/c29086790222608b28cf )
+		# NOTE: slow with security check
+		# 		autoload -Uz compinit && compinit -i
+		# NOTE: fast(0.0x sec) without security check
+		autoload -Uz compinit && compinit -C
 	} && lambda
 	return
 fi
