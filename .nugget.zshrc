@@ -123,6 +123,20 @@ function nugget_ubuntu_tig() {
 # ################################
 
 # ################################
+# tmux for linux
+function nugget_ubuntu_tmux() {
+	cmdcheck tmux && return
+
+	pushd "$tmpdir"
+	sudo apt install -y build-essential automake libevent-dev ncurses-dev
+	git clone https://github.com/tmux/tmux.git
+	pushd "$tmpdir"/tmux && sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+	popd
+	popd
+}
+# ################################
+
+# ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzy() {
 	cmdcheck fzy && return
