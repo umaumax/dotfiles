@@ -21,3 +21,6 @@ c++ cpp boost deserialize example
 
 c++ cpp std::endl type manip
 [c\+\+ \- std::endl is of unknown type when overloading operator<< \- Stack Overflow]( https://stackoverflow.com/questions/1134388/stdendl-is-of-unknown-type-when-overloading-operator )
+
+c++ cpp design pattern
+[デザインパターン \| TECHSCORE\(テックスコア\)]( http://www.techscore.com/tech/DesignPattern/index.html/ )
