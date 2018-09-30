@@ -1,6 +1,7 @@
 if &rtp !~ 'vim-altercmd'
 	finish
 endif
+
 call altercmd#load()
 " NOTE: cmap <CR>にマッピングがないことが前提
 " vim-smartinputとの共存に注意
