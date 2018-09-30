@@ -12,6 +12,23 @@ elif [[ $1 == '--no-sudo' ]]; then
 	}
 fi
 
+function dpkg_url() {
+	[[ $# -le 0 ]] && echo "$0 <url>" && return 1
+	local url="$1"
+	local TEMP_DEB="$(mktemp)"
+	wget -O "$TEMP_DEB" "$url" &&
+		sudo dpkg -i "$TEMP_DEB"
+	rm -f "$TEMP_DEB"
+}
+function gdebi_url() {
+	[[ $# -le 0 ]] && echo "$0 <url>" && return 1
+	local url="$1"
+	local TEMP_DEB="$(mktemp)"
+	wget -O "$TEMP_DEB" "$url" &&
+		sudo gdebi --non-interactive "$TEMP_DEB"
+	rm -f "$TEMP_DEB"
+}
+
 sudo apt-get update
 sudo apt-get upgrade -y
 
@@ -55,41 +72,52 @@ sudo apt-get install -y colormake
 sudo apt-get install -y ninja-build
 sudo apt-get install -y ccache
 
-# terminal
-sudo apt-get install -y guake
-sudo apt-get install -y tilda
-sudo apt-get install -y rxvt-unicode-256color
-
 # tags
-sudo apt-get install -y gtags
-sudo apt-get install -y global
 sudo apt-get install -y ctags
+# sudo apt-get install -y global # gtags 5.7.1-2
+# NOTE: [6\.5\.6\-2 : global : amd64 : Zesty \(17\.04\) : Ubuntu]( https://launchpad.net/ubuntu/zesty/amd64/global/6.5.6-2 )
+dpkg_url 'http://launchpadlibrarian.net/301614632/global_6.5.6-2_amd64.deb'
 
 # for man
 sudo apt-get install -y ruby-ronn
 
-# [Get Docker CE for Debian \| Docker Documentation]( https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository )
-sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-sudo apt-get install -y docker-ce=18.03.1~ce-0~ubuntu
+if [[ ! -f /.dockerenv ]]; then
+	# [Get Docker CE for Debian \| Docker Documentation]( https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository )
+	sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository \
+		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+	sudo apt-get update
+	sudo apt-get install -y docker-ce
 
-sudo apt-get install -y compizconfig-settings-manager unity-tweak-tool
+	# for gui
+	sudo apt-get install -y compizconfig-settings-manager unity-tweak-tool
 
-# for keymapping
-# NOTE: xbindkeys is more better than xmodmap for me
-# sudo apt-get install -y xorg-xmodmap
-sudo apt-get install -y xdotool
-sudo apt-get install -y xbindkeys
+	# for keymapping
+	# NOTE: xbindkeys is more better than xmodmap for me
+	# sudo apt-get install -y xorg-xmodmap
+	sudo apt-get install -y xdotool
+	sudo apt-get install -y xbindkeys
+
+	# for open command
+	sudo apt-get install -y gnome-terminal
+
+	# terminal
+	sudo apt-get install -y guake
+	sudo apt-get install -y tilda
+	sudo apt-get install -y rxvt-unicode-256color
+	gdebi_url 'http://cdn-fastly.deb.debian.org/debian/pool/main/t/terminator/terminator_1.91-2_all.deb'
+fi
 
 # for virus
-sudo apt-get install -y clamav clamav-daemon
-sudo apt-get install -y clamav-base clamav-daemon clamav-freshclam
+# sudo apt-get install -y clamav clamav-daemon
+# sudo apt-get install -y clamav-base clamav-daemon clamav-freshclam
 
 # for windows server
 sudo apt-get install -y cifs-utils
 # sudo apt-get install -y samba
-
-# for open command
-sudo apt-get install -y nautilus-open-terminal
 
 # for serial communication
 sudo apt-get install -y cu
