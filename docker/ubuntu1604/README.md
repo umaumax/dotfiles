@@ -9,7 +9,7 @@
 
 ## init script
 ```
-sudo apt-get install git wget curl zsh sudo
+sudo apt-get install -y git wget curl zsh sudo
 git clone https://github.com/umaumax/dotfiles.git
 cd ~/dotfiles
 ./link.sh
@@ -19,8 +19,6 @@ command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
 
 # NOTE: ここ以降は自動化可能なはず...
-
-mkdir -p ~/go/{3rd,my}
 
 source ~/.zshenv
 source ~/.zprofile
@@ -33,13 +31,18 @@ source ~/.zshrc
 ~/dotfiles/scripts/setup/pip.sh
 ~/dotfiles/scripts/setup/npm.sh
 ~/dotfiles/scripts/setup/go.sh
-nugget nvim
-nugget vim_deoplete
+
+# ~/dotfiles/scripts/setup/ros.sh
+
 nugget peco
 nugget tig
 nugget fzy
 nugget fzf
 nugget bat
+
+# nvimの画面が起動しないときにはsshで接続し直すと解決した
+nugget nvim
+nugget vim_deoplete
 
 source ~/.zshenv
 source ~/.zprofile
