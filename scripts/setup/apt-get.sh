@@ -33,12 +33,15 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # basic tools
-sudo apt-get install -y openssh-server git tree wget less vim tmux zsh sudo curl man iputils-ping net-tools
+sudo apt-get install -y openssh-server git tree wget less vim zsh sudo curl man iputils-ping net-tools
+# build for yourself
+# sudo apt-get install -y tmux
 
 sudo apt-get install -y python-pip
 sudo apt-get install -y python3-pip
 
 sudo apt-get install -y git
+sudo apt-get install -y direnv
 sudo apt-get install -y jq
 sudo apt-get install -y nkf
 sudo apt-get install -y htop
@@ -128,6 +131,7 @@ sudo apt-get install -y screen
 # sudo apt-get install -y python-pygments
 
 sudo apt-get install -y clang llvm
+sudo apt-get install -y libclang-5.0-dev
 
 # for tig
 sudo apt-get install -y libncursesw5-dev
