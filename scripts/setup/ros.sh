@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 # FYI: [kinetic/Installation/Ubuntu \- ROS Wiki]( http://wiki.ros.org/kinetic/Installation/Ubuntu )
 

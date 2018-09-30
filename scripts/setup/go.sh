@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -ex
 
 go get -u github.com/b4b4r07/gomi/...
 go get -u github.com/jingweno/ccat

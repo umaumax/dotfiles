@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 # LinuxBrew installs software in user-specified directory (not system-wide), and does not require sudo access.
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 # for vim 8.1
 sudo add-apt-repository -y ppa:jonathonf/vim
 sudo apt update

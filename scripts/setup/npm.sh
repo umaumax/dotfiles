@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -ex
 
 if [[ $1 == '--sudo-env' ]]; then
 	function npm() {
