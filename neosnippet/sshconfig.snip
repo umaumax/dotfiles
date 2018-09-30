@@ -1,0 +1,30 @@
+snippet host
+  Host ${1:#name}
+    HostName ${2:#hostname}
+    User ${3:#login user name}
+    IdentityFile ~/.ssh/${4:#secret key filepath(not .pub)}
+
+snippet port
+  Port ${0}
+
+snippet portforward
+alias LocalForward
+  LocalForward ${1:# local port} ${2:# target host from remote host}:${3:# target port from remote host}
+
+snippet proxy
+alias ProxyCommand
+  ProxyCommand ssh ${1:# proxy ssh host name} -W %h:%p
+
+snippet xwindow
+  XAuthLocation /opt/X11/bin/xauth
+  ForwardX11 yes
+  ForwardX11Trusted yes
+
+snippet Compression
+  Compression yes
+  CompressionLevel 3
+
+snippet high_sierra
+  ## NOTE: for High Sierra
+  AddKeysToAgent yes
+  UseKeychain yes
