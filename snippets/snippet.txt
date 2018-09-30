@@ -316,8 +316,10 @@
 [apt unofficial repo source list directory] /etc/apt/sources.list.d/
 
 [apt-get remove ppa repo] sudo add-apt-repository --remove ppa:@ # xxx/yyy
-[apt-gte remove package] sudo apt-get remove @
+[apt-get installed ppa list] dpkg -l | grep -E "ppa[0-9]+"
+[apt-get remove package] sudo apt-get remove @
 [apt-get packages url] open "https://ubuntu.pkgs.org/"
+[apt-get force reinstall repo] REPO=@ && sudo apt-get remove -y $REPO && sudo apt-get install -y $REPO # for delete ppa and reinstall
 
 # at docker
 [install lsof at docker] sudo apt-get install lsof
