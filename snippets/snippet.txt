@@ -89,6 +89,7 @@
 [reload git hooks]  rm -rf $(git rev-parse --show-toplevel)/.git/hooks && git init # NOTE: don't delete local git hooks
 [first empty commit] git commit --allow-empty -m "first commit"
 [git submodule init and update] git submodule update -i
+[git submodule force add] git submodule add -f @
 [Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
 [git tag old to new] git tag --sort=taggerdate
@@ -120,9 +121,9 @@
 [number of CPU] nproc --all # linux only
 
 # g++
-[c++11] g++ -std=c++11 @
-[c++11] clang++ -std=c++11 @
-[c++11 ignore library order] -Wl,--no-as-needed
+[cpp c++11 compile] g++ -std=c++11 @
+[cpp c++11 compile] clang++ -std=c++11 @
+[cpp c++11 compile ignore library order] -Wl,--no-as-needed
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -587,3 +588,6 @@
 [login message] figlet 'Hello Underworld!' | sand "$YELLOW" | text_center | sudo tee /etc/motd # my original command is included
 
 [mac You have new mail.] mail
+
+[filter file by < size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size -1M@
+[filter file by > size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size +1M@
