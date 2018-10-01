@@ -327,3 +327,19 @@ abbr use @func_name before function
 			func(*args, **kwargs)
 			${0:# post process}
 		return wrapper
+
+snippet dirname_os_path
+	os.path.dirname(${0})
+snippet baseame_os_path
+	os.path.basename(${0})
+
+snippet get_parent_pathes
+	def get_parent_pathes(filepath):
+		dirpath = filepath
+		l = []
+		while True:
+			dirpath = os.path.dirname(dirpath)
+			l += [dirpath]
+			if dirpath == '/':
+				break
+		return l
