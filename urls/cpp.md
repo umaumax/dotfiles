@@ -4,6 +4,7 @@ c++ cpp class abstract virtual vector pointer shared
 c++ cpp shared void pointer destructor
 [c\+\+ \- Shared void pointers\. Why does this work? \- Stack Overflow]( https://stackoverflow.com/questions/4807286/shared-void-pointers-why-does-this-work )
 [shared\_ptr \- cpprefjp C\+\+日本語リファレンス]( https://cpprefjp.github.io/reference/memory/shared_ptr.html )
+[shared\_ptr::デストラクタ \- cpprefjp C\+\+日本語リファレンス]( https://cpprefjp.github.io/reference/memory/shared_ptr/op_destructor.html )
 
 c++ cpp gcc online doc
 [GCC online documentation \- GNU Project \- Free Software Foundation \(FSF\)]( https://gcc.gnu.org/onlinedocs/ )
@@ -24,3 +25,23 @@ c++ cpp std::endl type manip
 
 c++ cpp design pattern
 [デザインパターン \| TECHSCORE\(テックスコア\)]( http://www.techscore.com/tech/DesignPattern/index.html/ )
+
+c++ cpp shared void pointer destructor convert boost::shared_ptr to std::shared_ptr
+[c\+\+ \- Conversion from boost::shared\_ptr to std::shared\_ptr? \- Stack Overflow]( https://stackoverflow.com/questions/6326757/conversion-from-boostshared-ptr-to-stdshared-ptr )
+
+c++ cpp convert std::shared_ptr -> std::unique_ptr (<- is NG)
+[c\+\+ \- Does C\+\+11 unique\_ptr and shared\_ptr able to convert to each other's type? \- Stack Overflow]( https://stackoverflow.com/questions/37884728/does-c11-unique-ptr-and-shared-ptr-able-to-convert-to-each-others-type )
+
+c++ cpp return std::unique_ptr
+[c\+\+ \- Returning unique\_ptr from functions \- Stack Overflow]( https://stackoverflow.com/questions/4316727/returning-unique-ptr-from-functions )
+[unique\_ptr で今風な C\+\+ コードを書こう！！ \- @nojima's blog]( https://nojima.hatenablog.com/entry/2014/12/10/014131 )
+[return文と暗黙のムーブと型変換 \- yohhoyの日記]( http://d.hatena.ne.jp/yohhoy/20161016/p1 )
+
+c++ cpp boost official homepage
+[boostjp]( https://boostjp.github.io/ )
+
+c++ cpp boost _1
+[無名関数 \- boostjp]( https://boostjp.github.io/tips/lambda.html )
+
+c++ smart pointer info
+[C\+\+11スマートポインタ入門 \- Qiita]( https://qiita.com/hmito/items/db3b14917120b285112f )
