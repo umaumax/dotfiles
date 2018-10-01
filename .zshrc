@@ -967,6 +967,13 @@ function chpwd() {
 	} && lambda
 }
 
+function cdninja() {
+	for dir in $(traverse_path_list $PWD); do
+		local build_ninja_filepath="$dir/build.ninja"
+		[[ -f $build_ninja_filepath ]] && cd "$dir"
+	done
+}
+
 # [chpwd内のlsでファイル数が多い場合に省略表示する - Qiita]( https://qiita.com/yuyuchu3333/items/b10542db482c3ac8b059 )
 function ls_abbrev() {
 	if [[ ! -r $PWD ]]; then
