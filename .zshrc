@@ -717,6 +717,9 @@ alias vimRe='vim README.md'
 # for zsh
 alias src='source ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
+alias lzshrc='vim ~/.local.zshrc'
+alias zshenv='vim ~/.zshenv'
+alias lzshenv='vim ~/.local.zshenv'
 alias vizrc='vim ~/.zshrc'
 alias vimzrc='vim ~/.zshrc'
 alias vizp='vim ~/.zprofile'
@@ -724,8 +727,17 @@ alias vimzp='vim ~/.zprofile'
 alias zp='vim ~/.zprofile'
 alias zrc='vim ~/.zshrc'
 alias lzp='[[ -f ~/.local.zprofile ]] && vim ~/.local.zprofile'
-alias lzrc='[[ -f ~/.local.zshrc ]]vim ~/.local.zshrc'
-alias lvrc='[[ -f ~/.local.vimrc ]]vim ~/.local.vimrc'
+alias lzrc='[[ -f ~/.local.zshrc ]] && vim ~/.local.zshrc'
+alias lvrc='[[ -f .local.vimrc ]] && vim .local.vimrc || [[ -f ~/.local.vimrc ]] && vim ~/.local.vimrc'
+
+alias vimemo='vim README.md'
+alias vmemo='vim README.md'
+alias vm='vim README.md'
+
+alias allow='direnv allow'
+
+alias envrc='vim .envrc'
+alias vm='vim README.md'
 
 # for ssh
 alias vissh='vim ~/.ssh/config'
