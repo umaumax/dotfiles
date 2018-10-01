@@ -127,7 +127,8 @@
 [cpp c++11 compile] g++ -std=c++11 @
 [cpp c++11 compile] clang++ -std=c++11 @
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
-[cpp pch] PCH_HEADER=@ && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
+[cpp pch] PCH_HEADER=@ && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
+[cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
