@@ -405,3 +405,11 @@ snippet class_template
     return 0;
   }
 
+snippet stream_eof_detection
+    std::streampos archive_offset    = iss.tellg();
+    std::streamoff stream_end_offset = iss.seekg(0, std::ios_base::end).tellg();
+    iss.seekg(archive_offset);
+    // some processing
+    if (iss.tellg() == stream_end_offset - 1) {
+      ${0:# eof processing}
+    }
