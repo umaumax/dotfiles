@@ -611,3 +611,7 @@
 [filter file by > size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size +1M@
 
 [shutdown] sudo shutdown -h now
+
+[ninja build] ninja
+[ninja clean] ninja -t clean
+[ninja build.ninja file] touch build.ninja
