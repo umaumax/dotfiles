@@ -43,5 +43,9 @@ c++ cpp boost official homepage
 c++ cpp boost _1
 [無名関数 \- boostjp]( https://boostjp.github.io/tips/lambda.html )
 
-c++ smart pointer info
+c++ cpp smart pointer info
 [C\+\+11スマートポインタ入門 \- Qiita]( https://qiita.com/hmito/items/db3b14917120b285112f )
+
+c++ cpp detect stream eof boost serialization
+[Boost serialization end of file \- Stack Overflow]( https://stackoverflow.com/questions/6665742/boost-serialization-end-of-file )
+[c\+\+ \- Why does ifstream\.eof\(\) not return TRUE after reading the last line of a file? \- Software Engineering Stack Exchange]( https://softwareengineering.stackexchange.com/questions/318081/why-does-ifstream-eof-not-return-true-after-reading-the-last-line-of-a-file )
