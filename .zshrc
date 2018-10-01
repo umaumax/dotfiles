@@ -894,14 +894,14 @@ if [[ -z $DISPLAY ]]; then
 		local VIM="vim"
 		cmdcheck nvim && VIM="nvim"
 		$VIM -u NONE -c 'call system("tee ~/tmp/clipboard", @")' -c 'q!'
-		cat ~/tmp/clipboard
+		command cat ~/tmp/clipboard
 	}
 else
 	function c() {
 		if [[ $# == 0 ]]; then
 			_c
 		else
-			cat $1 | _c
+			command cat $1 | _c
 		fi
 	}
 	function p() {
@@ -910,9 +910,9 @@ else
 fi
 alias "p" >/dev/null 2>&1 && unalias "p"
 
-function clipboard-without-formatting() {
+function remove_clipboard_format() {
 	local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
-	p >"$tmpfile" && cat "$tmpfile" | c
+	p >"$tmpfile" && command cat "$tmpfile" | c
 	[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 }
 
