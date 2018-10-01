@@ -41,6 +41,8 @@ let g:switch_custom_definitions =
 			\   ['X', 'Y', 'Z'],
 			\   ['int', 'int32_t', 'uint32_t'],
 			\   ['long', 'int64_t', 'uint64_t', 'size_t'],
+			\   ['unique_ptr', 'shared_ptr'],
+			\   ['make_unique', 'make_shared'],
 			\   ['dynamic_cast', 'static_cast', 'const_cast', 'reinterpret_cast'],
 			\   ['cout', 'cerr', 'clog'],
 			\   ['let', 'var'],
