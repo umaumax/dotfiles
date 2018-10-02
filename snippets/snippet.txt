@@ -616,3 +616,4 @@
 [ninja build] ninja
 [ninja clean] ninja -t clean
 [ninja build.ninja file] touch build.ninja
+[ninja compile_commands.json] ninja -t compdb $RULE_NAMES # e.g. app obj lib
