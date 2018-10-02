@@ -36,6 +36,9 @@ pip install jupyter
 pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz
 pip install cmakelint
 
+# for keybind
+pip3 install xkeysnail
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------
