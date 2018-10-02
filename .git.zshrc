@@ -165,6 +165,11 @@ function ggpv_current() {
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 
+# FYI: [unicode \- grep: Find all lines that contain Japanese kanjis \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65715/grep-find-all-lines-that-contain-japanese-kanjis )
+alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
+alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
+alias ggc-japanese='ggc -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
+
 function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
 function is_git_repo_with_message() {
 	local message=${1:-"${RED}no git repo here!${DEFAULT}"}
@@ -336,8 +341,11 @@ function git-sed() {
 function git-comments() {
 	# NOTE: see GITGLOSSARY(7) <pathspec>
 	# NOTE: man 7 gitglossary
-	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
-	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
+	# 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
+	# 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
+	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' ':*.c' ':*.h' ':*.go'
+	git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':*.python' ':*.sh' ':*rc' ':*.zsh' ':*.ninja'
+	#  	git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':CMakeLists.txt'
 }
 function git-comments-todo() {
 	git grep -E -e '(^|\s+)//' --and -e 'TODO' -e '(^|\s+)#' --and -e 'TODO' -- . ':!*.md'
@@ -350,3 +358,7 @@ function git-comments-note() {
 function git-rename-cpp-field() {
 	git-sed 's/([^_A-Za-z0-9])_([A-Za-z0-9][_A-Za-z0-9]*)/\1\2_/g' ':*.hpp' ':*.cpp' ':*.cc' ':*.cxx' ':.c' ':*.h'
 }
+
+alias gg-comments='git-comments'
+alias gg-comments-todo='git-comments-todo'
+alias gg-comments-note='git-comments-note'
