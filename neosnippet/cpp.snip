@@ -414,3 +414,19 @@ snippet stream_eof_detection
     if (iss.tellg() == stream_end_offset - 1) {
       ${0:# eof processing}
     }
+
+snippet boost_serialization_headers
+alias serialization_headers
+    #include <boost/archive/text_iarchive.hpp>
+    #include <boost/archive/text_oarchive.hpp>
+    #include <boost/serialization/map.hpp>
+    #include <boost/serialization/serialization.hpp>
+    #include <boost/serialization/shared_ptr.hpp>
+    #include <boost/serialization/string.hpp>
+    #include <boost/serialization/vector.hpp>
+snippet serialization
+alias boost_serialization
+    boost::archive::text_oarchive toa(${1:# ostream});
+snippet deserialization
+alias boost_deserialization
+    boost::archive::text_iarchive tia(${1:# istream});
