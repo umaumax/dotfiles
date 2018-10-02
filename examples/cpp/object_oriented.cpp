@@ -21,15 +21,15 @@ class CBird {
 class CChicken : public CBird {
  public:
   CChicken() {}
-  ~CChicken() {}
-  void sing() { cout << "コケコッコー" << endl; }
+  ~CChicken() override {}
+  void sing() override { cout << "コケコッコー" << endl; }
   void fly() { cout << "にわとりは飛べません" << endl; }
 };
 class CCrow : public CBird {
  public:
   CCrow() {}
-  ~CCrow() {}
-  void sing() { cout << "カーカー" << endl; }
+  ~CCrow() override {}
+  void sing() override { cout << "カーカー" << endl; }
   void fly() { cout << "カラスが飛びます" << endl; }
 };
 
