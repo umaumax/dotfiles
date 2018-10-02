@@ -102,6 +102,7 @@ if [[ ! -f /.dockerenv ]]; then
 	# NOTE: xbindkeys is more better than xmodmap for me
 	# sudo apt-get install -y xorg-xmodmap
 	sudo apt-get install -y xdotool
+	# for global shortcutkey
 	sudo apt-get install -y xbindkeys
 
 	# for open command
