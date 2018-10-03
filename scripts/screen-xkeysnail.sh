@@ -4,7 +4,7 @@ read -s sudo_pass || exit 1
 echo ""
 # -k: --reset-timestamp
 # -S: --stdin
-echo $sudo_pass | sudo -k -S echo >/dev/null
+echo $sudo_pass | sudo -k -S -p '' echo >/dev/null
 [[ $? != 0 ]] && exit 1
 
 name='xkeysnail'
