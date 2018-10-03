@@ -505,6 +505,14 @@ function ping-web() {
 cmdcheck python && alias activate='source bin/activate' # <-> deactivate
 cmdcheck ninja && alias ncn='ninja -t clean && ninja'
 
+cmdcheck ipython && function python() {
+	if [[ $# == 0 ]]; then
+		ipython
+	else
+		command python "$@"
+	fi
+}
+
 # rtags daemon start
 cmdcheck rdm && alias rdmd='pgrep rdm || rdm --daemon'
 
