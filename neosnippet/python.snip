@@ -333,6 +333,13 @@ snippet dirname_os_path
 snippet baseame_os_path
 	os.path.basename(${0})
 
+snippet expand_filepath
+abbr this can exapnd ~
+	os.path.expanduser('${0}')
+
+snippet list_function_for_each_example
+	pathes = list(map(lambda x: os.path.join('.', x), p.glob('*.pch')))
+
 snippet get_parent_pathes
 	def get_parent_pathes(filepath):
 		dirpath = filepath
