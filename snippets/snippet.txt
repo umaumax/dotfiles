@@ -393,6 +393,9 @@
 [ros] rostopic echo --noarr $TOPIC # for big topic output
 [ros] rostopic hz   $TOPIC
 [ros node graph] rosrun rqt_graph rqt_graph
+[ros tf tree GUI] rosrun rqt_tf_tree rqt_tf_tree
+[ros tf tree pdf] rosrun tf view_frames
+[ros tf echo] rosrun tf tf_echo $TF1 $TF2
 [ros echo] rostopic echo /@
 [ros 3d gui] rosrun rviz rviz # in docker use nvidia-docker1(not nvidia-docker2)
 [ros console] rosrun rqt_console rqt_console
