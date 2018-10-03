@@ -29,6 +29,8 @@ function catkin_make() {
 	cd "$_PWD" >/dev/null 2>&1
 	# NOTE: pop CPATH
 	export CPATH="$_CPATH"
+	# NOTE: to update info from builded files
+	cmdcheck direnv && direnv allow >/dev/null 2>&1
 	return $exit_code
 }
 function ros_gitignore_download() {
