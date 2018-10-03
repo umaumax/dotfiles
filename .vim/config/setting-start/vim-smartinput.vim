@@ -228,11 +228,19 @@ function! s:smartinput_define()
 	" NOTE:登録済のトリガを大量に登録すると反応しないので注意
 	call s:map_to_trigger('i', s:gtrigger)
 
-	" クラス定義や enum 定義の場合は末尾に;を付け忘れないようにする
+	" クラス定義やenum定義の場合は末尾に;を付け忘れないように
+	" class Nanoha _curosr_
 	call s:smartinput_define_rule({
-				\   'at'       : '^\s*\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*\%#[^{]*$',
+				\   'at'       : '^\s*\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*[^{}]\%#[^{}]*$',
 				\   'char'     : '<CR>',
-				\   'input'    : '<Space>{};<Left><Left><CR><Left><CR>',
+				\   'input'    : '{};<Left><Left><CR><Left><CR>',
+				\   'filetype' : ['cpp'],
+				\   })
+	" class Nanoha {_curosr_}
+	call s:smartinput_define_rule({
+				\   'at'       : '^\s*\(\<struct\>\|\<class\>\|\<enum\>\)\s*\w\+.*{\%#}$',
+				\   'char'     : '<CR>',
+				\   'input'    : '<Right>;<Left><Left><CR><Left><CR>',
 				\   'filetype' : ['cpp'],
 				\   })
 	" template に続く <> を補完
@@ -272,10 +280,17 @@ function! s:smartinput_define()
 				\ , 'input' : '<BS># '
 				\ })
 
+	" you can toggle . <====> -> by .
 	call s:smartinput_define_rule(
-				\ { 'at'    : '[a-zA-Z_)]\%#'
-				\ , 'char'  : '-'
-				\ , 'input' : '->'
+				\ { 'at'    : '->%#'
+				\ , 'char'  : '.'
+				\ , 'input' : '<BS><BS>.'
+				\ , 'filetype' : ['cpp']
+				\ })
+	call s:smartinput_define_rule(
+				\ { 'at'    : '\.\%#'
+				\ , 'char'  : '.'
+				\ , 'input' : '<BS>->'
 				\ , 'filetype' : ['cpp']
 				\ })
 
