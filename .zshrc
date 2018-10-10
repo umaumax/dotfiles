@@ -333,7 +333,7 @@ if [[ $(uname) == "Linux" ]]; then
 		alias pbcopy='xsel --clipboard --input'
 		alias pbpaste='xsel --clipboard --output'
 	fi
-	alias gsed='sed'
+	# 	alias gsed='sed'
 	alias open='xdg-open &>/dev/null'
 
 	alias apt-upgrade='sudo apt-get upgrade'
@@ -801,7 +801,7 @@ function abspath() {
 # $1: delimiter
 function mdt() {
 	local delim=${1:-" "}
-	gsed 's/'"$delim"'/\|/g' | awk '{print "|"$0"|"}'
+	sed 's/'"$delim"'/\|/g' | awk '{print "|"$0"|"}'
 }
 
 # show user home dir. as `~`
@@ -1298,7 +1298,7 @@ alias moon='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" } m
 cmdcheck gsed && function zploadadd() {
 	[[ $# == 0 ]] && echo "$0 zstyle.pmodule names..." && return
 	for package in $@; do
-		gsed -i --follow-symlinks -e '/^zstyle.*pmodule \\$/a '\'$package\'' \\' ~/.zpreztorc
+		sed -i --follow-symlinks -e '/^zstyle.*pmodule \\$/a '\'$package\'' \\' ~/.zpreztorc
 	done
 }
 
