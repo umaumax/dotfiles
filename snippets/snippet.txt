@@ -75,7 +75,7 @@
 [commit] git commit -m '@'
 [push] git push -u origin master # normal push
 [push] git push -u --force origin master # force push
-[diff] git diff --cached # <file> # addしたファイルの差分表示
+[staged file diff] git diff --cached # <file> # addしたファイルの差分表示
 [unstage file] git reset $FILE
 [unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
