@@ -110,6 +110,7 @@
 [git man diff] man git-diff
 [git grep submodule] git grep --recurse-submodules @
 [git grep submodule peco vim] ggpv --recurse-submodules @
+[git clone rename] git clone @ $NEW_NAME
 
 # tree
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
@@ -278,6 +279,10 @@
 [dpkg] dpkg -L $PACKAGE
 [dpkg package name only] dpkg-query --show -f '${Package}\n'
 [dpkg package size] dpkg-query --show -f '${Installed-Size}KB (${Package})\n'
+[ubuntu filepath to apt-get package] dpkg -S $FILEPATH
+
+# so files
+[so lib path search] ldconfig -p | grep $LIB_NAME
 
 # sha
 [sha256] shasum -a 256 @
@@ -427,6 +432,7 @@
 [ros info reload] rospack profile
 
 [ros Fixed Frame map does not exist] rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 $ROOT_FRAME $CHILD_FRAME 100 # /map /xxx
+[ros tf sample] rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_link map 100
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
@@ -562,8 +568,6 @@
 # /dev/sda:
 #  Timing cached reads:   27416 MB in  1.99 seconds = 13761.56 MB/sec
 #  Timing buffered disk reads: 600 MB in  3.00 seconds = 199.80 MB/sec
-
-[ubuntu filepath to apt-get package] dpkg -S $FILEPATH
 
 # [linux \- How to know if a disk is an SSD or an HDD \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd )
 [hdd or ssd] echo 'SSD HDD' | cut -d" " -f$(($(cat /sys/block/sda/queue/rotational)+1))
