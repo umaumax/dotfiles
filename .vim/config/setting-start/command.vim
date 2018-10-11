@@ -189,5 +189,6 @@ function! MemberInitialization() range
 
 	call append(line('.')-1, [arg_list_output,init_list_output])
 endfunction
+command! -nargs=0 -range CPPConstructorInitialization <line1>,<line2>call MemberInitialization()
 command! -nargs=0 -range MemberInitialization <line1>,<line2>call MemberInitialization()
 
