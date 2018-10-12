@@ -169,6 +169,9 @@ function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggc-japanese='ggc -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
+function git-grep-japanese() { gg-japanese; }
+function git-grep-japanese-root() { ggr-japanese; }
+function git-grep-japanese-current() { ggc-japanese; }
 
 function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
 function is_git_repo_with_message() {
