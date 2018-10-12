@@ -688,6 +688,11 @@ function _xargs-vim() {
 	vim $@
 }
 
+alias minvi='vim -u ~/dotfiles/.minimal.vimrc'
+alias minvim='vim -u ~/dotfiles/.minimal.vimrc'
+alias minivi='vim -u ~/dotfiles/.minimal.vimrc'
+alias minivim='vim -u ~/dotfiles/.minimal.vimrc'
+
 alias dot='cd ~/dotfiles'
 alias dotfiles='cd ~/dotfiles'
 alias plugged='cd ~/.vim/plugged'
