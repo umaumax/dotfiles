@@ -356,6 +356,9 @@ function git-comments-todo() {
 function git-comments-note() {
 	git grep -E -e '(^|\s+)//' --and -e 'NOTE' -e '(^|\s+)#' --and -e 'NOTE' -- . ':!*.md'
 }
+function git-comments-fix() {
+	git grep -E -e '(^|\s+)//' --and -e 'FIX' -e '(^|\s+)#' --and -e 'FIX' -- . ':!*.md'
+}
 
 # NOTE: cpp private '_field' to 'field_'
 function git-rename-cpp-field() {
@@ -365,3 +368,11 @@ function git-rename-cpp-field() {
 alias gg-comments='git-comments'
 alias gg-comments-todo='git-comments-todo'
 alias gg-comments-note='git-comments-note'
+
+# FYI: [git branch の結果を時間順にソート: git branch \-\-sort=\-authordate \- Islands in the byte stream]( https://gfx.hatenablog.com/entry/2016/06/10/153747 )
+function git-branch-old-to-new() {
+	git branch --sort=authordate
+}
+function git-branch-new-to-old() {
+	git branch --sort=-authordate
+}
