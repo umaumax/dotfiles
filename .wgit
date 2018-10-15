@@ -13,6 +13,9 @@ chmod u+x git-ls
 https://github.com/umaumax/imv/blob/master/imv.sh imv
 chmod u+x imv
 
+https://github.com/umaumax/clip-share/blob/master/clip-share.sh clip-share
+chmod u+x clip-share
+
 # update self
 https://github.com/umaumax/wgit/blob/master/wgit.sh wgit
 chmod u+x wgit
