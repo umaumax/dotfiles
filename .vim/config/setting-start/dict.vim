@@ -47,7 +47,7 @@ function! s:vimconsole_logger()
 	if flag
 		let func_flag = abbr =~ '.*(.*)'
 		let no_arg_func_flag = abbr =~ '.*()'
-		let template_flag = abbr =~ '.*<.*>'
+		let template_flag = abbr =~ '^[^()<>]*<.*>'
 		let log_flag = func_flag || template_flag
 		" NOTE: is function?
 		if func_flag && template_flag
