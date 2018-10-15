@@ -369,13 +369,6 @@ function! s:smartinput_define()
 				\ , 'input' : '='
 				\ , 'filetype' : ['cpp']
 				\ })
-	" . to ->
-	call s:smartinput_define_rule(
-				\ { 'at'    : '.\%#'
-				\ , 'char'  : '-'
-				\ , 'input' : '<BS>->'
-				\ , 'filetype' : ['cpp']
-				\ })
 	" -> to .
 	call s:smartinput_define_rule(
 				\ { 'at'    : '->\%#'
