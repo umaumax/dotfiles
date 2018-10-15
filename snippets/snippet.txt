@@ -59,8 +59,11 @@
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
-[cmake] cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # compile_commands.json
+[cmake compile_commands] cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # compile_commands.json
 [cmake install preifx] cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/local
+[cmake verbose] cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
+[cmake compile_commands arg] -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+[cmake verbose arg] -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 # make
 [make debug] make VERBOSE=1 # made by autotoools or cmake
