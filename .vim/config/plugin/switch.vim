@@ -50,6 +50,12 @@ let g:switch_custom_definitions =
 			\   ['map', 'cmap', 'imap', 'nmap', 'vmap'],
 			\   ['float', 'double'],
 			\   ['else', 'elif', 'elseif'],
+			\   ['typename', 'class'],
+			\   ['begin', 'end'],
+			\   ['first', 'second'],
+			\   ['ifs', 'ofs'],
+			\   {'\(\w*\)++' : '++\1', '++\(\w*\)' : '\1++'},
+			\   {'\(\w*\)--' : '--\1', '--\(\w*\)' : '\1--'},
 			\   {
 			\     "^[^']*'[^']*$" : {"'":'"'},
 			\     "^[^\"]*\"[^\"]*$" : {'"':"'"},
