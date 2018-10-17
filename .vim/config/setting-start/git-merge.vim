@@ -57,4 +57,4 @@ endfunction
 " NOTE: a: accept, adopt
 nnoremap <leader>a :call <SID>diffget()<CR>
 " NOTE: p: pickup
-nnoremap <leader>p :call <SID>diffget()<CR>
+" nnoremap <leader>p :call <SID>diffget()<CR>
