@@ -41,6 +41,8 @@ command! TabInfo     call PipeCommandResultToNewTab("echo 'expandtab:'.&expandta
 command! HelpRtag    call PipeCommandResultToNewTab("filter /rtags/ nmap")
 command! HelpGtag    call PipeCommandResultToNewTab("filter /Gtags/ nmap")
 
+command! HelpGit     call PipeCommandResultToNewTab("filter /diffget/ nmap")
+
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
 command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
 
