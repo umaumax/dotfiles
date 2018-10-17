@@ -430,3 +430,8 @@ alias boost_serialization
 snippet deserialization
 alias boost_deserialization
     boost::archive::text_iarchive tia(${1:# istream});
+
+snippet include-guard
+    #ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
+    #define $1
+    #endif  // $1${0}
