@@ -648,3 +648,10 @@
 [git remove untracked files and dirs] git clean -d --dry-run
 [git remove untracked and ignored files and dirs] git clean -x -d --dry-run
 [git remove only ignored files and dirs] git clean -X -d --dry-run
+
+# lzz
+# space + `#` -> parse as comment
+# 'hogehoge''piyopiyo' -> "hogehoge'piyopiyo"
+# 'hogehoge'""'piyopiyo' -> "hogehogepiyopiyo"
+[lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
+
