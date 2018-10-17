@@ -333,6 +333,9 @@
 [apt-get packages url] open "https://ubuntu.pkgs.org/"
 [apt-get force reinstall repo] REPO=@ && sudo apt-get remove -y $REPO && sudo apt-get install -y $REPO # for delete ppa and reinstall
 
+[add update-alternatives   ] sudo update-alternatives --install $LINK_PATH $CONFIG_NAME $REAL_CMD_PATH $PRIORITY
+[switch update-alternatives] sudo update-alternatives --config $CMD
+
 # at docker
 [install lsof at docker] sudo apt-get install lsof
 
@@ -429,6 +432,7 @@
 [rosbag] rosbag decompresss
 [rosbag] rosbag filter
 [rosbag] rosbag play
+[rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 
