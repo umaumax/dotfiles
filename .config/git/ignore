@@ -123,3 +123,6 @@ CATKIN_IGNORE
 
 # for ansible
 *.retry
+
+# for ros
+ros/install/
