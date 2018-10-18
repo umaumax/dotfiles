@@ -230,6 +230,8 @@
 
 # curl
 [curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
+[curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'@ $URL
+[curl dump response header] curl --dump-header - $URL
 
 # dmesg
 [dmesg with human readable time] dmesg -T @
@@ -659,3 +661,4 @@
 # 'hogehoge'""'piyopiyo' -> "hogehogepiyopiyo"
 [lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
 
+[clang-format replace file] clang-format -i $FILEPATH
