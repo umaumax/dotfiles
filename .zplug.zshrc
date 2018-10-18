@@ -79,7 +79,6 @@ if [[ $USE_ZPLUG == 0 ]]; then
 fi
 
 bindkey $EASY_ONE_KEYBIND easy-oneliner
-echo afjklafjlkafjl
 # zplug
 # NOTE: zplug影響下ではreloginができなくなる...，ため， zplugで大量に管理しない場合には上記のほうがおすすめ
 [[ ! -e ~/.zplug ]] && curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
