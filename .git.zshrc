@@ -257,6 +257,18 @@ function cd-git-root() {
 	cd $(git rev-parse --show-toplevel)
 }
 
+function git-pull-all() {
+	is_git_repo_with_message || return
+	local current_branch=$(git rev-parse --abbrev-ref HEAD)
+	for branch in $(git branch -r | grep -v HEAD); do
+		# NOTE: remove e.g. 'origin/'
+		local local_branch=${branch#*/}
+		git checkout $local_branch
+		git pull
+	done
+	git checkout $current_branch
+}
+
 cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 
 # function git-diff() {
