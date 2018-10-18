@@ -435,3 +435,12 @@ snippet include-guard
     #ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
     #define $1
     #endif  // $1${0}
+
+snippet include-guard-with-include-prefix
+    #ifndef ${1:INCLUDE_`substitute(toupper(expand('%')),'\.', '_', 'g')`}
+    #define $1
+    #endif  // $1${0}
+
+snippet namespace
+    namespace ${1:# namespace} {
+    }  // namespace $1
