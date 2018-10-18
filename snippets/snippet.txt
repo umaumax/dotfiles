@@ -115,6 +115,10 @@
 [git grep submodule peco vim] ggpv --recurse-submodules @
 [git clone rename] git clone @ $NEW_NAME
 
+# gerrit
+[git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
+[git gerrit review push  master branch] git push origin HEAD:refs/for/master
+
 # tree
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 [tree depth] tree -L $DEPTH
