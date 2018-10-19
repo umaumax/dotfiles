@@ -50,6 +50,7 @@ GSYMS
 # git files
 !.gitignore
 !.gitattributes
+!.gitmodules
 
 # generated files
 GPL/include/vpu/autoconf.h
