@@ -61,6 +61,26 @@ function rosroot() {
 }
 
 if cmdcheck peco; then
+	alias roscdpeco='roscdpeco_local'
+	function roscdpeco_global() {
+		local ret=$(
+			rospack list | awk '{printf "%-40s:%s\n", $1, $2}' | peco | awk '{print $1}'
+		)
+		[[ -n $ret ]] && roscd $ret
+	}
+	function roscdpeco_local() {
+		local ros_ws_root=$(rosroot)
+		[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1
+		local ret=$(
+			(
+				echo "workspace_root $ros_ws_root"
+				rospack list
+			) |
+				grep $ros_ws_root | awk '{printf "%-40s:%s\n", $1, $2}' | peco | awk '{print $1}'
+		)
+		[[ -n $ret ]] && roscd $ret
+	}
+
 	function rostopicpeco() {
 		local ret=$(rostopic list | peco)
 		[[ -n $ret ]] && ROSTOPIC="$ret" && echo "\$ROSTOPIC=$ROSTOPIC"
