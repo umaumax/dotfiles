@@ -192,3 +192,13 @@ endfunction
 command! -nargs=0 -range CPPConstructorInitialization <line1>,<line2>call MemberInitialization()
 command! -nargs=0 -range MemberInitialization <line1>,<line2>call MemberInitialization()
 
+" NOTE
+" xxx = yyy; -> yyy = xxx;
+function! SwapCPPEqual() range
+	for n in range(a:firstline, a:lastline)
+		let line = getline(n)
+		let line = substitute(line, '^\(.*\)=\(.*\);$', '\2=\1;', 'g')
+		call setline(n, line)
+	endfor
+endfunction
+command! -nargs=0 -range SwapCPPEqual <line1>,<line2>call SwapCPPEqual()
