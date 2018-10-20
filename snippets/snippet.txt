@@ -662,3 +662,9 @@
 [lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
 
 [clang-format replace file] clang-format -i $FILEPATH
+
+# bash
+[shell var regexp] ${FILEPATH@%./} # dirname(dirpath)
+[shell var regexp] ${FILEPATH@%.*} # without ext
+[shell var regexp] ${FILEPATH@##*/} # basename
+[shell var regexp] ${FILEPATH@##*.} # ext
