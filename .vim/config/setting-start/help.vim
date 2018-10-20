@@ -8,6 +8,17 @@ function! PipeCommandResultToNewTab(cmd)
 	tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=vim
 endfunction
 
+function! OrigBind()
+	echo ' crs,cr_ " SnakeCase" -> "snake_case"'
+	echo ' crm     "mixed_case" -> " MixedCase"'
+	echo ' crc     "camel_case" -> " camelCase"'
+	echo ' cru,crU "upper_case" -> "UPPER_CASE"'
+	echo ' crk,cr- " dash_case" -> " dash-case"'
+	echo ' cr.     "  dot_case" -> "  dot.case"'
+	echo ' cr" "   "space_case" -> "space case"'
+	echo ' crt     "title_case" -> "Title Case"'
+endfunction
+
 command! Map         call PipeCommandResultToNewTab("map")
 command! Imap        call PipeCommandResultToNewTab("imap")
 command! Cmap        call PipeCommandResultToNewTab("cmap")
@@ -42,6 +53,8 @@ command! HelpRtag    call PipeCommandResultToNewTab("filter /rtags/ nmap")
 command! HelpGtag    call PipeCommandResultToNewTab("filter /Gtags/ nmap")
 
 command! HelpGit     call PipeCommandResultToNewTab("filter /diffget/ nmap")
+
+command! HelpOrigBind call PipeCommandResultToNewTab("call OrigBind()")
 
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
 command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
