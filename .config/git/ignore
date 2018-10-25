@@ -127,3 +127,6 @@ CATKIN_IGNORE
 
 # for ros
 ros/install/
+*.bag
+*.gv
+core.*
