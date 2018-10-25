@@ -139,6 +139,7 @@
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
 [cpp pch] PCH_HEADER=@ && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
 [cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
+[c++ demangle] echo "@" | c++filt
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -439,6 +440,7 @@
 [rosbag] rosbag filter
 [rosbag] rosbag play
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
+[rosbag rqt_bag viewer] rqt_bag # <bag file>
 
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
@@ -454,7 +456,7 @@
 [roslog] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
-[roscore url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://ROS_HOSTNAME:11311/
+[roscore url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
@@ -663,6 +665,8 @@
 [git remove untracked files and dirs] git clean -d --dry-run
 [git remove untracked and ignored files and dirs] git clean -x -d --dry-run
 [git remove only ignored files and dirs] git clean -X -d --dry-run
+# あくまでも，指定したブランチからとってくる
+[git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
 
 # lzz
 # space + `#` -> parse as comment
