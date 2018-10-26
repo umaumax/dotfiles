@@ -19,7 +19,8 @@
 *.tar.gz
 *.dylib
 *.out
-core.[0-9]+
+# core.[0-9]+
+core.*
 *.tu*
 
 .ninja*
@@ -129,4 +130,3 @@ CATKIN_IGNORE
 ros/install/
 *.bag
 *.gv
-core.*
