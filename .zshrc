@@ -809,6 +809,9 @@ function mdt() {
 	sed 's/'"$delim"'/\|/g' | awk '{print "|"$0"|"}'
 }
 
+# NOTE: for line message app(drop time and username)
+alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ //g"'
+
 # show user home dir. as `~`
 _home=$(echo $HOME | sed "s/\//\\\\\//g")
 alias pwd="pwd | sed \"s/$_home/~/\""
