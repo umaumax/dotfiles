@@ -78,10 +78,18 @@ function git-find-conflict() {
 	local grep='grep'
 	cmdcheck 'ggrep' && local grep='ggrep'
 
-	echo $changed | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always
+	local git_root_path="$(git rev-parse --show-toplevel)"
+	# abs path
+	local _home=$(echo $HOME | sed "s/\//\\\\\//g")
+	local ret=$(echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$git_root_path/XXX" | sed "s/$_home/~/")
+	# rel path
+	# 	pushd $git_root_path >/dev/null 2>&1
+	# 	echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always XXX
+	# 	popd >/dev/null 2>&1
 
 	## If the egrep command has any hits - echo a warning and exit with non-zero status.
-	if [[ $? == 0 ]]; then
+	if [[ -n $ret ]]; then
+		echo $ret
 		echo "${RED}WARNING: You have merge markers in the above files, lines. Fix them before committing.${DEFAULT}"
 		return 1
 	fi
