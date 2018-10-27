@@ -205,3 +205,34 @@ command! -nargs=0 -range SwapCPPEqual <line1>,<line2>call SwapCPPEqual()
 
 command! -nargs=1 -range E    :exe "e    ".expand('%:p:h').'/'.<q-args>
 command! -nargs=1 -range Tabe :exe "tabe ".expand('%:p:h').'/'.<q-args>
+
+" FYI: [aehlke/vim\-rename3: Rename a buffer within Vim and on disk\.]( https://github.com/aehlke/vim-rename3 )
+" :Rename[!] {newname}
+command! -nargs=* -complete=file -bang Rename :call Rename("<args>", "<bang>")
+" NOTE: bang: '' or '!'
+function! Rename(name, bang)
+	let l:curfile = expand("%:p")
+	if l:curfile==''
+		echomsg 'This file has no name!'
+		echomsg 'Save :w <filepath>'
+		return
+	endif
+	let l:curfilepath = expand("%:p:h")
+	let l:newname = l:curfilepath . "/" . a:name
+	let v:errmsg = ""
+	let savecmd="saveas"
+	silent! exec savecmd . a:bang . " " . fnameescape(l:newname)
+	if v:errmsg !~# '^$\|^E329'
+		echoerr v:errmsg
+	else
+		" NOTE: delete orig file
+		if expand("%:p") !=# l:curfile && filewritable(expand("%:p"))
+			silent exec "bwipe! " . fnameescape(l:curfile)
+			if delete(l:curfile)
+				echoerr "Could not delete " . l:curfile
+			endif
+		endif
+		" NOTE: force reload (to adopt filetype)
+		e!
+	endif
+endfunction
