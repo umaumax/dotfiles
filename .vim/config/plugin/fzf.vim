@@ -137,14 +137,24 @@ function! FZF_find(dir)
 	" FYI: [Examples \(vim\) · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/Examples-(vim) )
 	" NOTE:    e means :edit
 	"       tabe means :tabedit
+	" NOTE: current bufferが無名の場合にはeditで開き，すでにファイルを開いている場合にはtabeで開くように
+	let sink=expand('%')!='' ? 'tabe' : 'e'
 	silent! call fzf#run({
 				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
-				\ 'sink': 'tabe',
+				\ 'sink': sink,
 				\ 'options': '-x +s',
 				\ 'dir': a:dir,
 				\ 'down':    '40%'})
 endfunction
 
+" NOTE: 新規tabや新規ウィンドウでバッファを開いたときに，project root基準でのファイル検索となることの防止策で
+"       直前のファイルパスを参考にする
+let g:prev_filedirpath=expand('%:p:h')
+augroup save_filedirpath_group
+	autocmd!
+	autocmd WinEnter let g:prev_filedirpath=expand('%:p:h')!='' ? expand('%:p:h') : g:prev_filedirpath;
+augroup END
+
 " NOTE: these fzf keymapping overload ctrl-p mappings
-nnoremap <silent> <C-p><C-p> :call FZF_find(expand('%:p:h'))<CR>
+nnoremap <silent> <C-p><C-p> :call FZF_find(g:prev_filedirpath)<CR>
 nnoremap <silent> <C-p><C-u> :call FZF_find(getcwd())<CR>
