@@ -66,23 +66,24 @@ bindkey "^G" _insert_git
 
 function _search_history() { hpeco; }
 zle -N _search_history
-bindkey "^B" _search_history
+bindkey "^X^H" _search_history
+bindkey "^X^R" _search_history
 
-function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
-zle -N _insert_cd_home
-bindkey "^X^H" _insert_cd_home
+# function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
+# zle -N _insert_cd_home
+# bindkey "^X^H" _insert_cd_home
 
-function _insert_run_secret_dotfile() { _set_only_LBUFFER './.'; }
-zle -N _insert_run_secret_dotfile
-bindkey "^X." _insert_run_secret_dotfile
+# function _insert_run_secret_dotfile() { _set_only_LBUFFER './.'; }
+# zle -N _insert_run_secret_dotfile
+# bindkey "^X." _insert_run_secret_dotfile
 
 # function _insert_exec() { _set_only_LBUFFER './'; }
 # zle -N _insert_exec
 # bindkey "^X^E" _insert_exec
 
-function _no_history_rm() { _set_only_LBUFFER ' rm '; }
-zle -N _no_history_rm
-bindkey "^X^R" _no_history_rm
+# function _no_history_rm() { _set_only_LBUFFER ' rm '; }
+# zle -N _no_history_rm
+# bindkey "^X^R" _no_history_rm
 
 function _copy_command() {
 	echo "$BUFFER" | tr -d '\n' | c

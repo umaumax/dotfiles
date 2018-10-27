@@ -1731,9 +1731,10 @@ cmdcheck say && function mississippi() {
 
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 [[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
-[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+# NOTE: run after zplug to avoid overwrite keybind
+[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 

@@ -19,7 +19,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 		# NOTE: 変数を設定してからsourceする必要がある
 		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
-		EASY_ONE_KEYBIND="^r" # default "^x^x"
+		EASY_ONE_KEYBIND='^x^x' # default "^x^x"
 		EASY_ONE_FILTER_COMMAND="fzy"
 		EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
 		source $zshdir/easy-oneliner/easy-oneliner.zsh
