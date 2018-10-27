@@ -37,7 +37,7 @@ let g:ctrlp_custom_ignore = {
 
 " [mattn/files: Fast file find]( https://github.com/mattn/files )
 if Doctor('files', 'ctrlp.vim user command by files')
-	let g:ctrlp_user_command = 'files -a -i "^(\\.git|\\.hg|\\.svn|_darcs|\\.bzr|\\.tags|.*\\.DS_Store|.*\\.so|.*\\.zip|.*\\.png|.*\\.jpg|build|bin|node_modules|vendor|CMakeFiles)$" %s'
+	let g:ctrlp_user_command = 'files -a -i "^(\\.git|\\.hg|\\.svn|_darcs|\\.bzr|\\.tags|.*\\.DS_Store|.*\\.so|.*\\.zip|.*\\.png|.*\\.jpg|.*\\.bag|build|bin|node_modules|vendor|CMakeFiles|install|devel)$" %s'
 else
 	let g:ctrlp_user_command = 'find %s -type f'
 endif

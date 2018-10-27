@@ -134,9 +134,12 @@ function! FZFOpenFileFunc()
 endfunction
 
 function! FZF_find(dir)
+	" FYI: [Examples \(vim\) · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/Examples-(vim) )
+	" NOTE:    e means :edit
+	"       tabe means :tabedit
 	silent! call fzf#run({
 				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
-				\ 'sink': 'e',
+				\ 'sink': 'tabe',
 				\ 'options': '-x +s',
 				\ 'dir': a:dir,
 				\ 'down':    '40%'})
