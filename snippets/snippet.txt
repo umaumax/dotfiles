@@ -282,7 +282,8 @@
 
 # ssh
 [ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
-[sshpass] sshpass -p $PASSWORD@ ssh $HOST
+[sshpass ssh] sshpass -p $PASSWORD@ ssh $HOST
+[sshpass scp] sshpass -p $PASSWORD@ scp $HOST
 
 # compile
 [gcc llvm-config] llvm-config --cxxflags --ldflags --libs --system-libs
@@ -696,3 +697,6 @@
 
 # diff
 [diff ignore space(blank)] diff -b @
+
+# mac
+[mac sshpass install] brew install http://git.io/sshpass.rb
