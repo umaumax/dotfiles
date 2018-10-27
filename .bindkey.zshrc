@@ -64,6 +64,10 @@ function _insert_git() { _set_only_LBUFFER 'git '; }
 zle -N _insert_git
 bindkey "^G" _insert_git
 
+function _search_history() { hpeco; }
+zle -N _search_history
+bindkey "^B" _search_history
+
 function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
 zle -N _insert_cd_home
 bindkey "^X^H" _insert_cd_home
