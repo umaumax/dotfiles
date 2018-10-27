@@ -1,3 +1,8 @@
+" NOTE:
+" :w <filepath>で新規に保存したときにはFileTypeイベントの発行前なので，vim format plugがまだ起動しないため，保存時にエラーとなるため，
+" まず，autocmd FileType 駆動で初回のみイベントを登録する
+" FileTypeイベントを発行させるために，:e!をすることを推奨
+
 " git logのauthorが自分と一致する場合はプライベートなファイルであると仮定する
 let g:is_private_work_cache={}
 function! IsPrivateWork(...)
@@ -61,63 +66,117 @@ augroup auto_format_setting
 	autocmd!
 	" default format command
 	autocmd BufWinLeave * command! Format call <SID>format_file()
-
-	if Doctor('clang-format', 'clang format')
-		" :ClangFormatAutoEnable
-		autocmd BufWinEnter * autocmd FileType cpp command! Format ClangFormat
-		autocmd BufWritePre *.{c,h,cc,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
-	endif
-	" python formatter
-	" pip install yapf
-	" 	if Doctor('yapf', 'python format')
-	" 		autocmd BufWinEnter *.py command! Format 0,$!yapf
-	" 		autocmd BufWritePre *.py                :0,$!yapf
-	" 	endif
-	" python formatter
-	" pip install yapf
-	if Doctor('autopep8', 'python format')
-		autocmd BufWinEnter * autocmd FileType python command! Format call Autopep8()
-		autocmd BufWritePre *.py if IsAutoFormat() |:call Autopep8() | endif
-	endif
-
-	" 'maksimr/vim-jsbeautify'
-	if Doctor('npm', 'js,html,css format')
-		autocmd BufWinEnter *.js   command! Format JsBeautify()
-		autocmd BufWinEnter *.json command! Format JsonBeautify()
-		autocmd BufWinEnter *.jsx  command! Format JsxBeautify()
-		autocmd BufWinEnter *.{html,vue} command! Format HtmlBeautify()
-		autocmd BufWinEnter *.css  command! Format CSSBeautify()
-		autocmd BufWritePre *.js   if IsAutoFormat() | :call JsBeautify() | endif
-		autocmd BufWritePre *.json if IsAutoFormat() | :call JsonBeautify() | endif
-		autocmd BufWritePre *.jsx  if IsAutoFormat() | :call JsxBeautify() | endif
-		autocmd BufWritePre *.{html,vue} if IsAutoFormat() | :call HtmlBeautify() | endif
-		autocmd BufWritePre *.css  if IsAutoFormat() | :call CSSBeautify() | endif
-	endif
-
-	autocmd BufWinEnter * autocmd FileType awk command! Format <SID>format_file()
-	autocmd BufWritePre *.awk if IsAutoFormat() | :call <SID>format_file() | endif
-	" default format
-	autocmd BufWritePre *.vim if IsAutoFormat() | :call <SID>format_file() | endif
-	autocmd BufWritePre *vimrc if IsAutoFormat() | :call <SID>format_file() | endif
-	autocmd BufWritePre *.tex  if IsAutoFormat() | :call <SID>format_file() | endif
-	if Doctor('shfmt', 'shell format')
-		autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! Format Shfmt
-		autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
-	endif
-	if Doctor('cmake-format', 'cmake format')
-		autocmd BufWinEnter *.{cmake} command! Format CmakeFormat
-		autocmd BufWritePre *.{cmake} if IsAutoFormat() | :CmakeFormat | endif
-		autocmd BufWinEnter CMakeLists.txt command! Format CmakeFormat
-		autocmd BufWritePre CMakeLists.txt if IsAutoFormat() | :CmakeFormat | endif
-	endif
-
-	if Doctor('gofmt', 'go format')
-		" let g:go_fmt_autosave = 1
-		autocmd BufWinEnter * autocmd FileType go command! Format GoFmt
-		" 		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmt | endif
-		autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
-	endif
 augroup END
+
+if Doctor('clang-format', 'clang format')
+	augroup cpp_group
+		autocmd!
+		" :ClangFormatAutoEnable
+		autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! Format ClangFormat
+		autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
+		autocmd FileType cpp autocmd! cpp_group FileType
+	augroup END
+endif
+" python formatter
+" pip install yapf
+" 	if Doctor('yapf', 'python format')
+" 		autocmd BufWinEnter *.py command! Format 0,$!yapf
+" 		autocmd BufWritePre *.py                :0,$!yapf
+" 	endif
+" python formatter
+" pip install yapf
+if Doctor('autopep8', 'python format')
+	augroup python_group
+		autocmd!
+		autocmd FileType python autocmd BufWinEnter *.py command! Format call Autopep8()
+		autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() |:call Autopep8() | endif
+		autocmd FileType python autocmd! python_group FileType
+	augroup END
+endif
+
+" 'maksimr/vim-jsbeautify'
+if Doctor('npm', 'js,html,css format')
+	augroup javascript_group
+		autocmd!
+		autocmd FileType javascript autocmd BufWinEnter *.js command! Format         JsBeautify()
+		autocmd FileType javascript autocmd BufWritePre *.js if       IsAutoFormat() | :call JsBeautify() | endif
+		autocmd FileType javascript autocmd! javascript_group FileType
+	augroup END
+	augroup json_group
+		autocmd!
+		autocmd FileType json autocmd BufWinEnter *.json command! Format         JsonBeautify()
+		autocmd FileType json autocmd BufWritePre *.json if       IsAutoFormat() | :call JsonBeautify() | endif
+		autocmd FileType json autocmd! json_group FileType
+	augroup END
+	" 		augroup jsx_group
+	" 			autocmd!
+	" 		autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! Format JsxBeautify()
+	" 		autocmd FileType jsx      autocmd BufWritePre *.jsx        if IsAutoFormat() | :call JsxBeautify()  | endif
+	" 		autocmd FileType jsx autocmd! jsx_group FileType
+	" 		augroup END
+	augroup html_vue_group
+		autocmd!
+		autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! Format HtmlBeautify()
+		autocmd FileType html,vue autocmd BufWritePre *.{html,vue} if IsAutoFormat() | :call HtmlBeautify() | endif
+		autocmd FileType html,vue autocmd! html_vue_group FileType
+	augroup END
+	augroup css_group
+		autocmd!
+		autocmd FileType css autocmd  BufWinEnter *.css command! Format         CSSBeautify()
+		autocmd FileType css autocmd  BufWritePre *.css if       IsAutoFormat() | :call CSSBeautify() | endif
+		autocmd FileType css autocmd! css_group   FileType
+	augroup END
+endif
+
+augroup awk_group
+	autocmd!
+	autocmd FileType awk autocmd BufWinEnter *.awk command! Format <SID>format_file()
+	autocmd FileType awk autocmd BufWritePre *.awk if IsAutoFormat() | :call <SID>format_file() | endif
+	autocmd FileType awk autocmd! awk_group FileType
+augroup END
+
+augroup vim_group
+	autocmd!
+	autocmd FileType vim autocmd BufWritePre *.vim  if IsAutoFormat() | :call <SID>format_file() | endif
+	autocmd FileType vim autocmd BufWritePre *vimrc if IsAutoFormat() | :call <SID>format_file() | endif
+	autocmd FileType vim autocmd! vim_group FileType
+augroup END
+
+augroup tex_group
+	autocmd!
+	autocmd FileType plaintex autocmd BufWritePre *.tex  if IsAutoFormat() | :call <SID>format_file() | endif
+	autocmd FileType plaintex autocmd! tex_group FileType
+augroup END
+
+if Doctor('shfmt', 'shell format')
+	augroup shell_group
+		autocmd!
+		autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! Format Shfmt
+		autocmd FileType sh,zsh autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
+		autocmd FileType sh,zsh autocmd! shell_group FileType
+	augroup END
+endif
+
+if Doctor('cmake-format', 'cmake format')
+	augroup cmake_format_group
+		autocmd!
+		autocmd FileType cmake autocmd BufWinEnter *.{cmake}      command! Format         CmakeFormat
+		autocmd FileType cmake autocmd BufWinEnter CMakeLists.txt command! Format         CmakeFormat
+		autocmd FileType cmake autocmd BufWritePre *.{cmake}      if       IsAutoFormat() | :CmakeFormat | endif
+		autocmd FileType cmake autocmd BufWritePre CMakeLists.txt if       IsAutoFormat() | :CmakeFormat | endif
+		autocmd FileType cmake autocmd! cmake_format_group FileType
+	augroup END
+endif
+
+if Doctor('gofmt', 'go format')
+	augroup go_format_group
+		autocmd!
+		" let g:go_fmt_autosave = 1
+		autocmd FileType go autocmd BufWinEnter * command! Format GoFmt
+		autocmd FileType go autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
+		autocmd FileType go autocmd! go_format_group FileType
+	augroup END
+endif
 " NOTE: original GoFmt has no '-bar' option
 command! -bar GoFmtWrapper :GoFmt
 
