@@ -69,6 +69,11 @@ zle -N _search_history
 bindkey "^X^H" _search_history
 bindkey "^X^R" _search_history
 
+function _pecoole() { pecoole; }
+zle -N _pecoole
+bindkey "^X^P" _pecoole
+bindkey "^X^G" _pecoole
+
 # function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
 # zle -N _insert_cd_home
 # bindkey "^X^H" _insert_cd_home
