@@ -152,6 +152,8 @@ alias lsatr='ls -altr'
 alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 
+alias rmf='rm -rf'
+
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
