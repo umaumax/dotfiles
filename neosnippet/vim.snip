@@ -13,6 +13,14 @@ options     head
       autocmd!
       autocmd ${0}
     augroup END
+snippet     augroup_once
+options     head
+    augroup ${1:#:augroup_name}_group
+      autocmd!
+      autocmd ${0} \
+        autocmd! $1_group
+    augroup END
+
 
 snippet     function
 options     head
