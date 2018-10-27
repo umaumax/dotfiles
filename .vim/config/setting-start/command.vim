@@ -202,3 +202,6 @@ function! SwapCPPEqual() range
 	endfor
 endfunction
 command! -nargs=0 -range SwapCPPEqual <line1>,<line2>call SwapCPPEqual()
+
+command! -nargs=1 -range E    :exe "e    ".expand('%:p:h').'/'.<q-args>
+command! -nargs=1 -range Tabe :exe "tabe ".expand('%:p:h').'/'.<q-args>

@@ -12,7 +12,7 @@ function! Execute() range
 	call writefile(getline(a:firstline,a:lastline), tempfilepath)
 	execute "source ".tempfilepath
 endfunction
-command! -range Run <line1>,<line2>call Execute()
-command! -range E <line1>,<line2>call Execute()
-command! -range Ex <line1>,<line2>call Execute()
+command! -range Run     <line1>,<line2>call Execute()
+command! -range Ex      <line1>,<line2>call Execute()
+command! -range Exe     <line1>,<line2>call Execute()
 command! -range Execute <line1>,<line2>call Execute()
