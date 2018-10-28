@@ -485,3 +485,7 @@ Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
 
 " NOTE: for install only (below libraries are enable other script)
 Plug 'nhooyr/neoman.vim', {'on':[]}
+
+" NOTE: interactive renamer at directory
+LazyPlug 'qpkorr/vim-renamer'
+let g:RenamerWildIgnoreSetting=''
