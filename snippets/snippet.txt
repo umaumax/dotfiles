@@ -64,6 +64,7 @@
 [cmake verbose] cmake .. -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 [cmake compile_commands arg] -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 [cmake verbose arg] -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
+[cmake auto create build dir & cmake] [[ $(basedirname $PWD) != "build" ]] && mkdir -p build && cd build; cmake ..
 
 # make
 [make debug] make VERBOSE=1 # made by autotoools or cmake
