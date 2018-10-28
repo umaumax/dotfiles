@@ -107,7 +107,6 @@
 [git keep] touch @.gitkeep
 [remove all git filesnand .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
-[git search page] open "https://github.com/search" !
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 [git man grep] man git-grep
@@ -176,7 +175,6 @@
 # linux
 [linuxbrew clean cache] brew clean -s && rm -rf $HOME/.cache/Homebrew/
 [linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
-[open linuxbrew formula github] open 'https://github.com/Linuxbrew/homebrew-core' !
 
 # export proxy
 [proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
@@ -348,7 +346,6 @@
 [apt-get remove ppa repo] sudo add-apt-repository --remove ppa:@ # xxx/yyy
 [apt-get installed ppa list] dpkg -l | grep -E "ppa[0-9]+"
 [apt-get remove package] sudo apt-get remove @
-[apt-get packages url] open "https://ubuntu.pkgs.org/"
 [apt-get force reinstall repo] REPO=@ && sudo apt-get remove -y $REPO && sudo apt-get install -y $REPO # for delete ppa and reinstall
 
 [add update-alternatives   ] sudo update-alternatives --install $LINK_PATH $CONFIG_NAME $REAL_CMD_PATH $PRIORITY
@@ -383,7 +380,6 @@
 [vagrant init ubuntu16.04] vagrant init ubuntu/xenial64
 [vagrant up (run)] vagrant up
 [vagrant ssh (connect, exec, attach)] vagrant ssh
-[open vagrant search url] open https://app.vagrantup.com/boxes/search !
 [vagrant status] vagrant status
 [vagrant stop] vagrant suspend
 [vagrant force shutdown] vagrant halt
@@ -403,13 +399,6 @@
 [ros kinetic source bash] source /opt/ros/kinetic/setup.bash # Wily(Ubuntu 15.10), Xenial(Ubuntu 16.04), Jessie(Debian 8)
 [ros kinetic source zsh ] source /opt/ros/kinetic/setup.zsh
 [ros init] mkdir -p ~/catkin_ws/src && cd ~/catkin_ws && catkin_make && cd src && echo "catkin_create_pkg!!"
-
-[ros open turorials en] open http://wiki.ros.org/ROS/Tutorials !
-[ros open turorials ja] open http://wiki.ros.org/ja/ROS/Tutorials !
-[ros open time doc] open http://wiki.ros.org/roscpp/Overview/Time !
-[ros open publish data doc] open http://wiki.ros.org/ROS/YAMLCommandLine !
-[open ros doxygen] open http://docs.ros.org/melodic/api/roscpp/html/ !
-[open ros doxygen (namespace)] open http://docs.ros.org/melodic/api/roscpp/html/namespaceros.html !
 
 [rosnode list] rosnode list
 [rostopic list] rostopic list
@@ -516,8 +505,6 @@
 [echo  x char] echo -e "\\x61"
 [echo unicode] echo -e "\\U1F363"
 
-[open emoji unicode site] open "http://www.fileformat.info/info/emoji/list.htm" !
-
 [unexport] unset @ # remove export
 
 [test x window system] xset q
@@ -545,9 +532,6 @@
 [cpp include file path] export CPATH="@:$CPATH"
 [cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
 
-# url
-[vim regexp page] open https://qiita.com/kawaz/items/d0708a4ab08e572f38f3 !
-
 # yaml
 [yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs
 
@@ -564,20 +548,12 @@
 [dev usb2] /dev/ttyUSB2
 [dev usb3] /dev/ttyUSB3
 
-# c++ url
-[c++ const url] open "https://qiita.com/yuki12/items/06c85af2735ddefd5666" !
-
 # tags
 [rtags: run rdm server by screen] pgrep rdm >/dev/null 2>&1 || screen -dmS "rdm" rdm
 [rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.2); rc -J .
 
 [webcatd run by screen] pgrep gotty >/dev/null 2>&1 || screen -dmS "webcatd" webcatd
 [any command run by screen] CMD=@ && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD
-
-# help
-[help open vim tags] open "https://github.com/umaumax/vim-cpp-project-sample" !
-
-[open umaumax github repo] open "https://github.com/umaumax?tab=repositories" !
 
 # shell
 [extract filepath ~] sed "s:^~:$HOME:g
