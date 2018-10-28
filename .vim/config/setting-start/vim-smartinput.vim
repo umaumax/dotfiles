@@ -324,7 +324,7 @@ function! s:smartinput_define()
 
 	" 確実なマッピング
 	call s:smartinput_define_rule(
-				\ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\)\%#'
+				\ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\|ros\|Eigen\|cv\|bridge\)\%#'
 				\ , 'char'  : ':'
 				\ , 'input' : '::'
 				\ , 'filetype' : ['cpp']
@@ -377,6 +377,24 @@ function! s:smartinput_define()
 				\ , 'filetype' : ['cpp']
 				\ })
 
+	let cpp_shortcut_map={
+				\ 'std':['cout','clog','cin','endl','shared_ptr','unique_ptr'],
+				\	}
+	for [key, val] in items(cpp_shortcut_map)
+		let namespace=key
+		let keywords=val
+		for keyword in keywords
+			let n=len(keyword)
+			let keyword_without_last_char=keyword[:n-2]
+			let last_char=keyword[n-1]
+			call s:smartinput_define_rule(
+						\ { 'at'    : '\%('.namespace.'::\)\@<!'.keyword_without_last_char.'\%#'
+						\ , 'char'  : last_char
+						\ , 'input' : repeat('<BS>',n-1).namespace.'::'.keyword
+						\ , 'filetype' : ['cpp']
+						\ })
+		endfor
+	endfor
 
 	call s:smartinput_define_rule(
 				\ { 'at'    : '\(cout\|cerr\|clog\|stream\|ss\).*\%(<<\)\@<!\%#'
