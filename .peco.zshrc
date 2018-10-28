@@ -155,7 +155,17 @@ function pecoexamples() {
 
 # NOTE: peco google
 function pecoole() {
-	local ret=$(for filepath in $(ls ~/dotfiles/urls/*.md); do cat "$filepath" | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""}'; done | peco)
+	local ret=$(
+		{
+			for filepath in $(ls ~/dotfiles/urls/*.md); do
+				echo -n $(basename $filepath) " "
+			done
+			echo ''
+			echo '[dotfiles/urls at master · umaumax/dotfiles]( https://github.com/umaumax/dotfiles/tree/master/urls )'
+			echo ''
+			cat $(ls ~/dotfiles/urls/*.md)
+		} | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""}' | peco
+	)
 	local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
 	[[ -n $url ]] && open "$url"
 }
