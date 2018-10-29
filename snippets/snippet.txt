@@ -115,6 +115,9 @@
 [git grep submodule peco vim] ggpv --recurse-submodules @
 [git clone rename] git clone @ $NEW_NAME
 
+[git rebase interactive] git rebase -i HEAD~$NUM@
+[git rebase continue] git rebase --continue
+
 [git overwrite another commit file] git checkout $COMMIT_HASH $REL_FILE_PATH
 [git overwrite another branch file] git checkout $BRANCH_NAME $FILE_PATH_FROM_GIT_ROOT
 [git show another commit file] git show $COMMIT_ID:$FILE_PATH_FROM_GIT_ROOT
@@ -122,7 +125,7 @@
 [git diff from current branch] git diff $BRANCH@ $REL_FILEPATH
 [git diff between branches] git diff $OLD_BRANCH:$REL_FILEPATH $NEW_BRANCH:$REL_FILEPATH
 
-[git follow file] git log --follow --stat @
+[git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH@ # you can use dir path
 
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
