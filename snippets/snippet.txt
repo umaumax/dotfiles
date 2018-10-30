@@ -495,9 +495,6 @@
 [add group to user gpasswd] sudo gpasswd -a $USER $GROUP@
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP@
 
-# heredoc
-[heredoc to filename] cat > $FILEPATH@ << 'EOF'
-
 # stdin/out/errr
 [devnull] >/dev/null 2>&1
 
@@ -572,7 +569,7 @@
 [any command run by screen] CMD=@ && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD
 
 # shell
-[extract filepath ~] sed "s:^~:$HOME:g
+[extract filepath ~] sed "s:^~:$HOME:g"
 
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
@@ -688,3 +685,6 @@
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
+
+# heredoc
+[heredoc to filename] cat > $FILEPATH@ << 'EOF'
