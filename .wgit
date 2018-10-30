@@ -1,6 +1,10 @@
 mkdir -p ~/local/bin
 cd ~/local/bin
 
+# update self
+https://github.com/umaumax/wgit/blob/master/wgit.sh wgit
+chmod u+x wgit
+
 https://github.com/umaumax/diff-filter/blob/master/diff-filter.awk diff-filter
 chmod u+x diff-filter
 
@@ -20,6 +24,5 @@ chmod u+x clip-share
 https://github.com/paulirish/git-recent/blob/master/git-recent
 chmod u+x git-recent
 
-# update self
-https://github.com/umaumax/wgit/blob/master/wgit.sh wgit
-chmod u+x wgit
+https://github.com/umaumax/oressh/blob/master/oressh.sh oressh
+chmod u+x oressh
