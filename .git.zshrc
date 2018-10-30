@@ -162,6 +162,9 @@ alias gai='git add -i'
 alias gs='git status'
 alias gst='git status'
 alias glog='git log'
+alias glst='git log --stat'
+alias glogst='git log --stat'
+alias glogstat='git log --stat'
 function git-add-peco() {
 	local SELECTED_FILE_TO_ADD="$(git status --short | peco | awk -F ' ' '{print $NF}')"
 	if [ -n "$SELECTED_FILE_TO_ADD" ]; then
