@@ -69,19 +69,25 @@ function git-restore-stash() {
 	echo '--------------------------------'
 	echo '--------------------------------'
 }
-# [\[Git\]コンフリクトをよりスマートに解消したい！ \- Qiita]( https://qiita.com/m-yamazaki/items/62fc1f877c7ab315e0d8 )
+function _grep_if_file_exist() {
+	local git_root_path="$(git rev-parse --show-toplevel)"
+	local grep='grep'
+	cmdcheck 'ggrep' && local grep='ggrep'
+	awk 1 | while read LINE; do
+		local filepath="$git_root_path/$LINE"
+		[[ -e "$filepath" ]] && $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$filepath"
+	done
+}
+# FYI: [\[Git\]コンフリクトをよりスマートに解消したい！ \- Qiita]( https://qiita.com/m-yamazaki/items/62fc1f877c7ab315e0d8 )
 function git-find-conflict() {
 	is_git_repo_with_message || return
 	local changed=$(git diff --cached --name-only)
 	[[ -z "$changed" ]] && return
 
-	local grep='grep'
-	cmdcheck 'ggrep' && local grep='ggrep'
-
-	local git_root_path="$(git rev-parse --show-toplevel)"
 	# abs path
 	local _home=$(echo $HOME | sed "s/\//\\\\\//g")
-	local ret=$(echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$git_root_path/XXX" | sed "s/$_home/~/")
+	# 	local ret=$(echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$git_root_path/XXX" | sed "s/$_home/~/")
+	local ret=$(echo $changed | _grep_if_file_exist | sed "s/$_home/~/")
 	# rel path
 	# 	pushd $git_root_path >/dev/null 2>&1
 	# 	echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always XXX
