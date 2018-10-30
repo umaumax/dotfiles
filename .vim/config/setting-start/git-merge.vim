@@ -58,3 +58,7 @@ endfunction
 nnoremap <leader>a :call <SID>diffget()<CR>
 " NOTE: p: pickup
 " nnoremap <leader>p :call <SID>diffget()<CR>
+
+" NOTE: move to next conflict codes
+nnoremap <leader>n :call search('=======')<CR>
+nnoremap <leader>N :call search('=======','b')<CR>
