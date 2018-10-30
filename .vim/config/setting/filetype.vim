@@ -12,4 +12,6 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile .tigrc setlocal ft=tig syntax=tmux
 	autocmd BufRead,BufNewFile .textlintrc setlocal ft=json syntax=json
 	autocmd BufRead,BufNewFile *.csv setlocal ft=csv syntax=csv
+	" NOTE: for ros
+	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 augroup END
