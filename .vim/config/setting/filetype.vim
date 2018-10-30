@@ -14,4 +14,6 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile *.csv setlocal ft=csv syntax=csv
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
+	" NOTE: for ~/dotfiles/snippets/snippet.txt
+	autocmd BufRead,BufNewFile snippet.txt setlocal syntax=sh
 augroup END
