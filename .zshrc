@@ -154,6 +154,12 @@ alias lsaltr='ls -altr'
 
 alias rmf='rm -rf'
 
+# NOTE: windowsの処理が重いので，処理を省略
+if [[ $OS == Windows_NT ]]; then
+	[[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
+	return
+fi
+
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
@@ -1730,7 +1736,6 @@ cmdcheck say && function mississippi() {
 # ---- don't add code here by your hand
 
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
-[[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 # NOTE: run after zplug to avoid overwrite keybind
