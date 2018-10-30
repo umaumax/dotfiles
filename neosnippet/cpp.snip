@@ -444,3 +444,13 @@ snippet include-guard-with-include-prefix
 snippet namespace
     namespace ${1:# namespace} {
     }  // namespace $1
+
+snippet ros_info
+alias ros_cout
+  ROS_INFO_STREAM(${0});
+snippet ros_error
+alias ros_cerr
+  ROS_ERROR_STREAM(${0});
+snippet ros_warn
+alias ros_clog
+  ROS_WARN_STREAM(${0});
