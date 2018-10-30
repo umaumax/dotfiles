@@ -127,6 +127,19 @@
 
 [git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH@ # you can use dir path
 
+[git list ignored files] git ls-files --other --ignored --exclude-standard
+[git remove untracked files and dirs] git clean -d --dry-run
+[git remove untracked and ignored files and dirs] git clean -x -d --dry-run
+[git remove only ignored files and dirs] git clean -X -d --dry-run
+# あくまでも，指定したブランチからのpull(任意に設定可能)
+[git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
+[git log without modified files] git log --stat --name-status | grep -v "^M" | less
+
+[git discard staged changes in working directory] git checkout -- . # dangerous
+[git fetch remote branches] git fetch –all
+[git checkout remote branch as local] git checkout -t origin/@BRANCH_NAME
+
+
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
@@ -653,20 +666,11 @@
 [version sed] sed --version
 [version git] git --version
 
-# git
-[git list ignored files] git ls-files --other --ignored --exclude-standard
-[git remove untracked files and dirs] git clean -d --dry-run
-[git remove untracked and ignored files and dirs] git clean -x -d --dry-run
-[git remove only ignored files and dirs] git clean -X -d --dry-run
-# あくまでも，指定したブランチからのpull(任意に設定可能)
-[git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
-[git log without modified files] git log --stat --name-status | grep -v "^M" | less
-
 # lzz
 # space + `#` -> parse as comment
 # 'hogehoge''piyopiyo' -> "hogehoge'piyopiyo"
 # 'hogehoge'""'piyopiyo' -> "hogehogepiyopiyo"
-[lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
+[c++ split hpp to cpp: lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
 
 [clang-format replace file] clang-format -i $FILEPATH
 
