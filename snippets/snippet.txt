@@ -688,3 +688,5 @@
 
 # heredoc
 [heredoc to filename] cat > $FILEPATH@ << 'EOF'
+
+[linux: check shared lib path objdump -p] objdump -p @
