@@ -33,6 +33,15 @@ function catkin_make() {
 	cmdcheck direnv && direnv allow >/dev/null 2>&1
 	return $exit_code
 }
+alias ctcl='catkin_make_all_clean'
+function catkin_make_all_clean() {
+	local ros_ws_root=$(rosroot)
+	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}, but if this is first catkin_make to init, please run 'command catkin_make'" && return 1
+
+	pushd $ros_ws_root >/dev/null 2>&1
+	[[ -d src ]] && rm -rf build devel install || echo "\033[0;31m"'here is not catkin workspace'"\033[0m"
+	popd >/dev/null 2>&1
+}
 function ros_gitignore_download() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}" && return 1

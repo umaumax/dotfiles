@@ -462,7 +462,7 @@
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
 
-[catkin build all clean] [[ -d src ]] && rm -rf build devel install
+[catkin build all clean] [[ -d src ]] && rm -rf build devel install || echo "\\033[0;31m"'here is not catkin workspace'"\\033[0m"
 
 [ros info reload] rospack profile
 
