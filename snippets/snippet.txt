@@ -133,6 +133,7 @@
 [git remove only ignored files and dirs] git clean -X -d --dry-run
 # あくまでも，指定したブランチからのpull(任意に設定可能)
 [git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
+[git pull rebase master] git pull --rebase origin master
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
 
 [git discard staged changes in working directory] git checkout -- . # dangerous
