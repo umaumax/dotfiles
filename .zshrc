@@ -1731,6 +1731,31 @@ cmdcheck say && function mississippi() {
 	done
 }
 
+function ssh() {
+	local exit_code=0
+	if cmdcheck autossh; then
+		autossh -M 0 $@
+		local exit_code=$?
+	else
+		ssh $@
+		local exit_code=$?
+	fi
+
+	# NOTE: autossh使用時にはexit codeが異なる可能性がある
+	# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	# @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+	# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	if [[ $exit_code == 255 ]]; then
+		for hostname in "$@"; do
+			if [[ ! $hostname =~ ^-.* ]]; then
+				echo "[clipboard copyed!]"
+				echo "ssh-keygen -R $hostname" | tee /dev/stderr | c
+				break
+			fi
+		done
+	fi
+}
+
 # ---- don't add code here by your hand
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ---- don't add code here by your hand
