@@ -1737,7 +1737,7 @@ function ssh() {
 		autossh -M 0 $@
 		local exit_code=$?
 	else
-		ssh $@
+		command ssh $@
 		local exit_code=$?
 	fi
 
