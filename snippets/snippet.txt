@@ -245,6 +245,11 @@
 [nmcli add gateway] sudo nmcli connection modify "Wired connection @" ipv4.gateway ""
 [nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28" # 空白区切りで複数指定可能
 [nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
+[nmcli wi-fi info list] sudo nmcli d w
+
+[search ip address range] nmap -sP 192.168.0.0/24
+[search ip address range by nbstat (NetBIOS)] sudo nmap -sU --script nbstat.nse -p137 '192.168.0.*'
+[renew DHCP release] sudo dhclient -r; sudo dhclient
 
 # id
 [USER at Mac OS X] id -F
