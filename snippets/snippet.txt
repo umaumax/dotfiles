@@ -166,6 +166,7 @@
 [cpp pch] PCH_HEADER=@ && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
 [cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
 [c++ demangle] echo "@" | c++filt
+[cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -696,3 +697,7 @@
 [heredoc to filename] cat > $FILEPATH@ << 'EOF'
 
 [linux: check shared lib path objdump -p] objdump -p @
+
+# nkf
+[nkf guess] nkf -g @
+[nkf auto conv] nkf -w @
