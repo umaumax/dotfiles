@@ -11,6 +11,9 @@
 # for git mergetool
 *.orig
 
+# for git patch
+*.rej
+
 *.exe
 *.o
 *.d
