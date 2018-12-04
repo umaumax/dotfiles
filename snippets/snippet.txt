@@ -470,6 +470,7 @@
 [rosbag] rosbag decompresss
 [rosbag] rosbag filter
 [rosbag] rosbag play
+[rosbag play with rename topic] rosbag play @ $FROM_TOPIC:=$TO_TOPIC# from:=to
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 [rosbag rqt_bag viewer] rqt_bag # <bag file>
 
