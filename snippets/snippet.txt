@@ -710,3 +710,7 @@
 # nkf
 [nkf guess] nkf -g @
 [nkf auto conv] nkf -w @
+
+# symbolic link
+[ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
+[ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
