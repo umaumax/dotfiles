@@ -133,3 +133,6 @@ CATKIN_IGNORE
 ros/install/
 *.bag
 *.gv
+
+# for cmake
+CMakeFiles/
