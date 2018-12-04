@@ -1746,9 +1746,10 @@ function ssh() {
 	# @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 	# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	if [[ $exit_code == 255 ]]; then
-		for hostname in "$@"; do
-			if [[ ! $hostname =~ ^-.* ]]; then
+		for ssh_hostname in "$@"; do
+			if [[ ! $ssh_hostname =~ ^-.* ]]; then
 				echo "[clipboard copyed!]"
+				local hostname=$(ssh -G mse | grep "^hostname" | awk '{print $2}')
 				echo "ssh-keygen -R $hostname" | tee /dev/stderr | c
 				break
 			fi
