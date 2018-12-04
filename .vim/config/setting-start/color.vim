@@ -13,15 +13,14 @@ function! s:init_color()
 	" NOTE: visualize fullsidth space
 	highlight TrailingSpaces term=underline guibg=#ff0000 ctermbg=Red
 	match TrailingSpaces /　/
-
-	" for speedup
-	" syntax sync maxlines=10 minlines=10
 endfunction
 
 augroup init_color_group
 	autocmd!
 	autocmd ColorScheme,BufWinEnter * call s:init_color()
 	autocmd User VimEnterDrawPost     call s:init_color()
+	autocmd FileType * syntax sync minlines=50 maxlines=500
+	autocmd FileType log,text syntax sync minlines=10 maxlines=100
 augroup END
 
 if &rtp =~ 'rainbow'
