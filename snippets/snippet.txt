@@ -114,6 +114,7 @@
 [git grep submodule] git grep --recurse-submodules @
 [git grep submodule peco vim] ggpv --recurse-submodules @
 [git clone rename] git clone @ $NEW_NAME
+[git commit log grep] git log --stat -S "@"
 
 [git rebase interactive] git rebase -i HEAD~$NUM@
 [git rebase continue] git rebase --continue
@@ -139,6 +140,8 @@
 [git discard staged changes in working directory] git checkout -- . # dangerous
 [git fetch remote branches] git fetch –all
 [git checkout remote branch as local] git checkout -t origin/@BRANCH_NAME
+
+[git find detached commits] git fsck --lost-found
 
 
 # gerrit
@@ -211,6 +214,7 @@
 [ssh local port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
 [ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
 [ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user@127.0.0.1 -p 10022)
+[ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
 
 # one liners
 [args checker] python -c "import sys; print(sys.argv)" @
