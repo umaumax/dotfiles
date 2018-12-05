@@ -1742,6 +1742,7 @@ function ssh() {
 	fi
 
 	# NOTE: autossh使用時にはexit codeが異なる可能性がある
+	# ssh: `connect to host xxx.xxx.xxx.xxx port 22: Connection refused` is also return 255
 	# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	# @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 	# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
