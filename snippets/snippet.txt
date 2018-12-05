@@ -215,6 +215,7 @@
 [ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
 [ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user@127.0.0.1 -p 10022)
 [ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
+[ssh print configuration] ssh -G $HOST
 
 [scp dir] tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [rsync        ] rsync -auvzh $SRC_DIR/ @ # set dst with dirname
