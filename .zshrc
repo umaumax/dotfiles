@@ -1749,7 +1749,7 @@ function ssh() {
 		for ssh_hostname in "$@"; do
 			if [[ ! $ssh_hostname =~ ^-.* ]]; then
 				echo "[clipboard copyed!]"
-				local hostname=$(ssh -G mse | grep "^hostname" | awk '{print $2}')
+				local hostname=$(ssh -G $ssh_hostname | grep "^hostname" | awk '{print $2}')
 				echo "ssh-keygen -R $hostname" | tee /dev/stderr | c
 				break
 			fi
