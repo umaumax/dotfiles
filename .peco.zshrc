@@ -166,7 +166,10 @@ function pecoole() {
 			echo ''
 			echo '[dotfiles/urls at master · umaumax/dotfiles]( https://github.com/umaumax/dotfiles/tree/master/urls )'
 			echo ''
-			cat $(ls ~/dotfiles/urls/*.md)
+			for filepath in $(ls ~/dotfiles/urls/*.md); do
+				cat $filepath
+				echo ""
+			done
 		} | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""}' | peco
 	)
 	local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
