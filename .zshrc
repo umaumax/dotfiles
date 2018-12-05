@@ -190,6 +190,7 @@ alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
 alias desktop='cd ~/Desktop/'
 
+[[ -d ~/git ]] && alias git-repo='cd ~/git' && alias ghome='cd ~/git'
 [[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
 [[ -d ~/github.com ]] && alias github='cd ~/github.com'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
