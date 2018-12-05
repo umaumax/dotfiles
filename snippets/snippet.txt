@@ -143,6 +143,8 @@
 
 [git find detached commits] git fsck --lost-found
 
+[git patch apply] git apply $PATCH_FILEPATH # <(p)
+[git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
@@ -178,7 +180,7 @@
 [line filter] sed -n @,p # index starts with 1
 
 # patch
-[patch] echo "git diff | c && cd xxx && git rev-parse --show-toplevel && p | patch -p1" !
+[patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
