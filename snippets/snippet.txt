@@ -590,6 +590,7 @@
 
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
+[date for log] date +'%Y-%m-%d-%H-%M-%S'
 
 [mac logger] logger 'hello world'
 [mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
