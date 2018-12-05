@@ -1750,13 +1750,53 @@ function ssh() {
 	if [[ $exit_code == 255 ]]; then
 		for ssh_hostname in "$@"; do
 			if [[ ! $ssh_hostname =~ ^-.* ]]; then
-				echo "[clipboard copyed!]"
-				local hostname=$(ssh -G $ssh_hostname | grep "^hostname" | awk '{print $2}')
-				echo "ssh-keygen -R $hostname" | tee /dev/stderr | c
-				break
+				local tmp_ssh_hostname=${ssh_hostname##*@}
+				local tmp_ssh_hostname=${tmp_ssh_hostname%:*}
+				local hostname=$(sshconfig_host_hostname $tmp_ssh_hostname)
+				if [[ -n $hostname ]]; then
+					export WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME="$hostname"
+					echo "$PURPLE"
+					echo "$hostname is exported to "'$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME'
+					echo "If you want to remove the IDENTIFICATION, run sshdelkey"
+					echo "$DEFAULT"
+					break
+				fi
 			fi
 		done
 	fi
+	return $exit_code
+}
+function sshdelkey() {
+	[[ -z $WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME ]] && echo '$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME is empty!'
+	ssh-keygen -R \"$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME\"
+}
+# [regex \- Parsing \.ssh/config for proxy information \- Stack Overflow]( https://stackoverflow.com/questions/12779134/parsing-ssh-config-for-proxy-information )
+function sshconfig_host_hostname() {
+	awk -v "target=$1" '
+		BEGIN {
+			if (target == "") printf "%32s %32s\n", "Host", "HostName"
+			exit_code=1
+		}
+		$1 == "Host" {
+			host = $2;
+			next;
+		}
+		$1 == "HostName" {
+			$1 = "";
+			sub( /^[[:space:]]*/, "" );
+			if (target == "") {
+				printf "%32s %32s\n", host, $0;
+				exit_code=0
+			}
+			if (target == host) {
+				printf $0;
+				exit 0
+			}
+		}
+		END {
+			exit exit_code
+		}
+' ~/.ssh/config
 }
 
 # ---- don't add code here by your hand
