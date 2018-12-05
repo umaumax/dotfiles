@@ -204,6 +204,7 @@
 # rm
 [rm files startwith '-' ] rm -- -
 [rm files startwith '-' ] rm ./-
+[rm avoid 10sec wait at zsh]  bash -c "rm -rf *@" # BE CAREFUL!!!!
 
 # wc
 [count japanese chars] wc -m
