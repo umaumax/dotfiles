@@ -719,3 +719,8 @@
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
 [time command redirect tips] (time @) # |& tee $FILEPATH
 [time command redirect tips] {time @} # |& tee $FILEPATH
+
+# unbuffer command
+# [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
+[unbuffer command] unbuffer @
+[unbuffer command] script -c "$COMMAND@" /dev/null # |& tee $FILEPATH
