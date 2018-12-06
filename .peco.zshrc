@@ -38,6 +38,7 @@ alias pecovim='peco | xargs-vim'
 # peco copy
 alias pc='peco | c'
 alias pecopy='peco | c'
+alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
 alias hpeco='builtin history -nr 1 | command peco | tee /dev/tty | c'
 alias apeco='alias | peco'
@@ -62,7 +63,7 @@ alias rvcd="cd \${~\$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./
 alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
 function cdpeco() {
 	# NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
-	{cd $( ([[ -p /dev/stdin ]] && cat || find . -type d) | peco | sed 's:$:/:g')./}
+	{cd $({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./}
 }
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
