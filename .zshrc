@@ -1757,7 +1757,7 @@ function ssh() {
 					export WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME="$hostname"
 					echo "$PURPLE"
 					echo "$hostname is exported to "'$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME'
-					echo "If you want to remove the IDENTIFICATION, run sshdelkey"
+					echo "If you want to remove the IDENTIFICATION, run ${YELLOW}sshdelkey${DEFAULT}"
 					echo "$DEFAULT"
 					break
 				fi
