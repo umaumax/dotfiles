@@ -707,6 +707,8 @@
 
 # diff
 [diff ignore space(blank)] diff -b @
+[diff directory] diff -r @ # DIR_A DIR_B
+[diff directory only filepath] diff -rq @ # DIR_A DIR_B
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
