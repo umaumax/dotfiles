@@ -184,8 +184,8 @@ alias uniq-without-sort='awk "!a[\$0]++"'
 alias vars='declare -p'
 
 # cd
-alias ho='\cd ~'
-alias home='\cd ~'
+alias ho='cd ~'
+alias home='cd ~'
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
 alias desktop='cd ~/Desktop/'
