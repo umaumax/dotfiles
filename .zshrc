@@ -281,6 +281,10 @@ alias qqqq='exit'
 alias quit='exit'
 
 alias type='type -af'
+
+# [command line \- Disable crontab's remove option in CLI \- Ask Ubuntu]( https://askubuntu.com/questions/871178/disable-crontabs-remove-option-in-cli )
+function crontab() { [[ $@ =~ -[iel]*r ]] && echo "$RED'r' NOT ALLOWED!$DEFAULT" || command crontab "$@"; }
+
 ################
 ####  Mac   ####
 ################
