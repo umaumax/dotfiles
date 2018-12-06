@@ -233,6 +233,9 @@ function find-git-repo() {
 		find "$dirpath" -name '.git' | sed 's:/.git$::g'
 	done
 }
+function find-git-repo-and-show-head-commit-hash-id() {
+	find-git-repo | xargs -L 1 -IXXX bash -c "cd XXX && echo XXX && git rev-parse HEAD"
+}
 
 function git-check-up-to-date() {
 	target='.'
