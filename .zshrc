@@ -468,6 +468,8 @@ alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
 alias rvgrep="viminfo-ls | xargs-grep"
 
+alias xargs1='xargs -L 1'
+
 alias ls-non-dotfiles="find . -name '*' -maxdepth 1 | sed 's:^\./::g' | grep -E -v '\..*'"
 
 function _sed_check_test() {
