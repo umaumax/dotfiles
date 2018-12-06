@@ -146,9 +146,13 @@
 [git patch apply] git apply $PATCH_FILEPATH # <(p)
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
+[git current branch name] git rev-parse --abbrev-ref HEAD
+[git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
+
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
+[git gerrit base64 patch] cat @ | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
 
 # tree
 [lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
