@@ -1768,7 +1768,7 @@ function ssh() {
 }
 function sshdelkey() {
 	[[ -z $WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME ]] && echo '$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME is empty!'
-	ssh-keygen -R \"$WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME\"
+	ssh-keygen -f "$HOME/.ssh/known_hosts" -R $WARNING_REMOTE_HOST_IDENTIFICATION_HAS_CHANGED_HOSTNAME
 }
 # [regex \- Parsing \.ssh/config for proxy information \- Stack Overflow]( https://stackoverflow.com/questions/12779134/parsing-ssh-config-for-proxy-information )
 function sshconfig_host_hostname() {
