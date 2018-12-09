@@ -280,6 +280,7 @@
 [curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
 [curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'@ $URL
 [curl dump response header] curl --dump-header - $URL
+[curl check SSL expire date] curl --verbose @ 2>&1 | grep 'expire date'
 
 # dmesg
 [dmesg with human readable time] dmesg -T @
@@ -322,6 +323,8 @@
 [ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
 [sshpass ssh] sshpass -p $PASSWORD@ ssh $HOST
 [sshpass scp] sshpass -p $PASSWORD@ scp $HOST
+# [Run Remote ssh command with Full Login Shell \- Super User]( https://superuser.com/questions/306530/run-remote-ssh-command-with-full-login-shell )
+[ssh run command with full login shell] ssh $HOST@ -t 'bash -l -c "env"'
 
 # compile
 [gcc llvm-config] llvm-config --cxxflags --ldflags --libs --system-libs
@@ -343,8 +346,10 @@
 [so lib path search] ldconfig -p | grep $LIB_NAME
 
 # sha
-[sha256] shasum -a 256 @
-[sha256] gsha256sum @
+[hash sha256] shasum -a 256 @
+[hash sha256 mac] gsha256sum @
+[hash md5sum] md5sum @
+[hash md5sum mac] gmd5sum @
 
 # kernel
 [load kernel module] insmod @.ko
@@ -725,6 +730,7 @@
 # symbolic link
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
 [ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
+[namei ubuntu] namei @
 
 # time
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
