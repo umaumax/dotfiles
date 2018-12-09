@@ -1136,6 +1136,9 @@ alias f.make='find . \( -name "Makefile" -o -name "*.mk" \)'
 alias fg.make='f.make -print0 | xargs-grep-0'
 alias f.cmake='find . \( \( -name "CMakeLists.txt" -o -name "*.cmake" \) -not -iwholename "*build*" \)'
 alias fg.cmake='f.cmake -print0 | xargs-grep-0'
+alias f.readme='find . \( \( -iname readme*.txt -o -iname readme*.md \) -not -iwholename "*build*" \)'
+alias fg.readme='f.readme -print0 | xargs-grep-0'
+
 alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \)'
 alias hf='find ~'
 
@@ -1159,6 +1162,8 @@ function f.make.pv() { local _=$(f.make "$@" | pecovim); }
 function fg.make.pv() { local _=$(fg.make "$@" | pecovim); }
 function f.cmake.pv() { local _=$(f.cmake "$@" | pecovim); }
 function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
+function f.readme.pv() { local _=$(f.readme "$@" | pecovim); }
+function fg.readme.pv() { local _=$(fg.readme "$@" | pecovim); }
 
 alias md.pv='fg.md.pv'
 alias md.my.pv='fg.my.md.pv'
@@ -1168,6 +1173,7 @@ alias cpp-all='fg.cpp-all'
 alias cpp-all.pv='fg.cpp-all.pv'
 alias make.pv='fg.make.pv'
 alias cmake.pv='fg.cmake.pv'
+alias readme.pv='fg.readme.pv'
 
 function cmake() {
 	command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
