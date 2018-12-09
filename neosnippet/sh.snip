@@ -435,3 +435,9 @@ snippet cache_as_file
 
 snippet zcompile
   [[ ${1:#zsh file} -nt $1.zwc ]] && zcompile $1
+
+snippet async_wait_sample
+  sleep 1 &
+  sleep 2 &
+  sleep 3 &
+  wait
