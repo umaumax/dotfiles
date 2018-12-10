@@ -166,7 +166,8 @@ cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 # delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
 	[[ ! $(basename $PWD) =~ ^build ]] && echo "cwd is not cmake build dir '^build'" && return 1
-	find . -maxdepth 1 -not -name '.*' -exec rm -r {} +
+	# -f option is for rm: remove write-protected regular file
+	find . -maxdepth 1 -not -name '.*' -exec rm -rf {} +
 }
 
 alias basedirname='basename $PWD'
