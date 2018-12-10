@@ -4,6 +4,7 @@
 [current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.@"
+[find tu file and remote] find . -name "*.tu" -exec rm {} \;
 
 # fg
 [vim] fg.vim "@" | pecovim
@@ -341,6 +342,8 @@
 [dpkg package name only] dpkg-query --show -f '${Package}\n'
 [dpkg package size] dpkg-query --show -f '${Installed-Size}KB (${Package})\n'
 [ubuntu filepath to apt-get package] dpkg -S $FILEPATH
+
+[apt-cache search] apt-cache search @
 
 # so files
 [so lib path search] ldconfig -p | grep $LIB_NAME
