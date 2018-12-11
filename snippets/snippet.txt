@@ -151,6 +151,9 @@
 [git current branch name] git rev-parse --abbrev-ref HEAD
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
 
+[git find file] git ls-files "*@"
+[git stash] git stash pop "stash$(echo -n "\\x40"){@}"
+
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
