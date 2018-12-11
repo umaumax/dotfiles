@@ -84,7 +84,8 @@
 [unstage file] git reset $FILE
 [unstage all] git reset
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
-[commit rest（編集内容はそのまま）] git reset --soft HEAD^
+[commit reset（編集内容はそのまま）] git reset --soft HEAD^
+[git commit without pre-hook] git commit --no-verify @
 [git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
 [merge all conflict(adopt upper one)] git checkout --ours .
