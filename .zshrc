@@ -1199,18 +1199,18 @@ alias global_ip='curl ifconfig.moe || curl ifconfig.io'
 # swap file
 function swap() {
 	[[ $# != 2 ]] && echo "Usage: swap <file1> <file2>" && return 1
-	# TODO: use mktemp
 	local b1=$(basename $1)
-	local _l=$_l"mv $1 /tmp/"
+	local tmpdir=$(mktemp -d)
+	local _l="mv $1 $tmpdir"
 	[[ $? != 0 ]] && echo "err:$_l" && return 1
-	mv "$1" "/tmp/"
+	mv "$1" "$tmpdir"
 
-	local _l=$_l"mv $2 $1"
+	local _l="mv $2 $1"
 	mv "$2" "$1"
 	[[ $? != 0 ]] && echo "err:$_l" && return 1
 
-	local _l=$_l"mv /tmp/$1 $2"
-	mv "/tmp/$b1" "$2"
+	local _l="mv $tmpdir/$1 $2"
+	mv "$tmpdir/$b1" "$2"
 	[[ $? != 0 ]] && echo "err:$_l" && return 1
 }
 
