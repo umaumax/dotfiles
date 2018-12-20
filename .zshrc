@@ -695,8 +695,10 @@ function vim() {
 function _xargs-vim() {
 	if [[ $1 == - ]]; then
 		shift
-		cat | while read file_path; do
+		# [bash の read でバックスラッシュをエスケープ文字として扱わない \- ひとりごと]( http://d.hatena.ne.jp/youhey/20120809/1344496466 )
+		cat | awk 1 | while read -r file_path; do
 			# recursive call
+			echo $file_path
 			vim "$file_path" $@ </dev/tty >/dev/tty
 		done
 		return

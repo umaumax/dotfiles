@@ -2,7 +2,9 @@ snippet     funcname
     `cfi#get_func_name()`
 
 snippet readline
-    ${0} | awk 1 | while read LINE; do
+    # awk: process last line even without CR or LF
+    # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+    ${0} | awk 1 | while read -r LINE; do
       ${1:echo "LINE: $LINE"}
     done
 
