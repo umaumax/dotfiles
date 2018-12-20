@@ -756,3 +756,7 @@
 
 # gdb
 [gdb bind process] gdb -p $PID # bt detach quit
+
+# perf
+[git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
+[perf frame graph] perf script -i @ | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
