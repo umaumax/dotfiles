@@ -257,7 +257,7 @@ function git-check-up-to-date() {
 	[[ $# -ge 1 ]] && target="$1"
 	# NOTE: for debug
 	echo $target
-	# NOTE: for supressing of chpwd()
+	# NOTE: for suppressing of chpwd()
 	ret=$(
 		cd "$target" >/dev/null 2>&1
 		git log "origin/master..master"

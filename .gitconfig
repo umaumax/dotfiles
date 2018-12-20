@@ -178,6 +178,6 @@
 [url "https://"]
 	insteadOf = git://
 [url "github:"]
-	# cannnot through proxy
+	# cannot through proxy
 	# 	InsteadOf = https://github.com/
 	InsteadOf = git@github.com:

@@ -1105,7 +1105,7 @@ function fgrep() {
 	fi
 	find $root -type f -name $find_name -print0 | xargs-grep-0 ${keyword[@]}
 }
-# FIX: merge with funtion
+# FIX: merge below and above function
 function fgrep2() {
 	[[ $# == 2 ]] && echo '[root_dir_path] grep_keyword' && return
 	local find_name1="$1"
