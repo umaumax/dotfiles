@@ -750,3 +750,6 @@
 # [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
 [unbuffer command] unbuffer @
 [unbuffer command] script -c "$COMMAND@" /dev/null # |& tee $FILEPATH
+
+# gdb
+[gdb bind process] gdb -p $PID # bt detach quit
