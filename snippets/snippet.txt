@@ -515,6 +515,9 @@
 [rosclean] rosclean purge
 [roscore url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
 
+[ros log] ~/.ros/log/latest/master.log
+[ros log] ~/.ros/log/latest/$ROS_NODE_NAME@-1-stdout.log
+
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
