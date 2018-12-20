@@ -5,6 +5,8 @@
 [root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.@"
 [find tu file and remote] find . -name "*.tu" -exec rm {} \;
+[find rm object fils and archives] find . -name "*.a" -o -name "*.o" -exec rm {} \;
+[find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
 
 # fg
 [vim] fg.vim "@" | pecovim
