@@ -62,6 +62,7 @@ if [[ $(uname) == "Linux" ]]; then
 	ln -sf ~/dotfiles/.xbindkeysrc ~/
 	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
 	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
+	ln -sf ~/dotfiles/.toprc ~/
 fi
 
 if [[ -n $XDG_CONFIG_HOME ]]; then
