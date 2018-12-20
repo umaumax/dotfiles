@@ -7,6 +7,8 @@
 [find tu file and remote] find . -name "*.tu" -exec rm {} \;
 [find rm object fils and archives] find . -name "*.a" -o -name "*.o" -exec rm {} \;
 [find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
+[find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
+[find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
 
 # fg
 [vim] fg.vim "@" | pecovim
@@ -74,6 +76,7 @@
 [make debug] make SHELL='sh -x' # made by yourself
 [make -j max cpu] make -j$(nproc --all)
 [make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+[make variables debug] make -p -f/dev/null
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -313,6 +316,7 @@
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
+[vim open tmp file from pipe input] | { local tmpfile=$(mktemp).log; cat > $tmpfile; vim $tmpfile; } @
 
 # one liner
 [for one liner] for i in $(seq @); do echo $i; done
