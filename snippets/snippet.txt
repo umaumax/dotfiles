@@ -4,8 +4,9 @@
 [current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.@"
-[find tu file and remote] find . -name "*.tu" -exec rm {} \;
-[find rm object fils and archives] find . -name "*.a" -o -name "*.o" -exec rm {} \;
+[find tu file and remove] find . -name "*.tu" -exec bash -c "echo {}; rm {}" \;
+[find core file and remove] find . -name "core.*" -exec bash -c "echo {}; rm {}" \;
+[find rm object fils and archives] find . -name "*.a" -o -name "*.o" -exec bash -c "echo {}; rm {}" \;
 [find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
 [find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
 [find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
@@ -326,6 +327,7 @@
 [mount cifs(samba?)] sudo mount -t cifs -o username=$USER $REMOTE_TARGET $LOCAL_DIR_PATH
 [nfsd status] nfsstat -c
 [confirm filetype of system] mount
+[nfs setting file] /etc/exports
 
 # read
 [read] read -s sudo_pass
@@ -764,3 +766,7 @@
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
 [perf frame graph] perf script -i @ | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
+
+# TERM
+[TERM tmux] export TERM=screen-256color
+[TERM xterm] export TERM=xterm-256color
