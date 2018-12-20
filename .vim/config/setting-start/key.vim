@@ -1006,9 +1006,15 @@ function! MultipleInsersion(next_key)
 	endif
 endfunction
 
-" cdcurrent
+" cd current file directory
+command! Cd  cd  %:p:h
+command! Lcd lcd %:p:h
 command! CdCurrent  cd  %:p:h
 command! LcdCurrent lcd %:p:h
+" up dir
+command! U lcd %:h:h
+command! CdGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
+command! LcdGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
 
 " auto comment off
 augroup auto_comment_off
