@@ -5,7 +5,7 @@ nnoremap cc vc
 nnoremap co i<CR><ESC>
 
 " NOTE: nnoremap上で利用する場合に，`|`をescapeする必要がある
-nnoremap <CR> :call setline('.', substitute(getline('.'), '\(\s\\|\r\)\+$', '', ''))<CR><CR>
+nnoremap <CR> :call setline('.', substitute(getline('.'), '\(\s\\|　\\|\r\)\+$', '', ''))<CR><CR>
 
 nnoremap <Leader>p %
 
