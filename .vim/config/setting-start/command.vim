@@ -168,18 +168,29 @@ function! MemberInitialization() range
 	let arg_list=[]
 	let init_list=[]
 	for line in lines
-		let list = matchlist(line, '^\s\+\(.\{-,}\)\s\+\([^ ]\+\)_;')
+		" NOTE: field_ -> field_(field)
+		let list = matchlist(line, '^\s*\(.\{-,}\)\s\+\([0-9a-zA-Z_]\+\)_;')
 		if len(list) > 0
 			let type_name=list[1]
 			let arg_var_name=list[2]
 			let field_var_name=list[2].'_'
 			let arg_list+=[type_name.' '.arg_var_name]
 			let init_list+=[field_var_name.'('.arg_var_name.')']
+		else
+			" NOTE: field -> field(field_)
+			let list = matchlist(line, '^\s*\(.\{-,}\)\s\+\([0-9a-zA-Z_]\+\);')
+			if len(list) > 0
+				let type_name=list[1]
+				let arg_var_name=list[2].'_'
+				let field_var_name=list[2]
+				let arg_list+=[type_name.' '.arg_var_name]
+				let init_list+=[field_var_name.'('.arg_var_name.')']
+			endif
 		endif
 	endfor
 
-	let arg_list_output=[]
-	let init_list_output=[]
+	let arg_list_output=""
+	let init_list_output=""
 	if len(arg_list) > 0
 		let arg_list_output= '('.join(arg_list,', ').')'
 	endif
