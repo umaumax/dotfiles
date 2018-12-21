@@ -4,9 +4,14 @@
 [current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
 [root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.@"
-[find tu file and remove] find . -name "*.tu" -exec bash -c "echo {}; rm {}" \;
-[find core file and remove] find . -name "core.*" -exec bash -c "echo {}; rm {}" \;
-[find rm object fils and archives] find . -name "*.a" -o -name "*.o" -exec bash -c "echo {}; rm {}" \;
+
+[find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
+[find remove core] find . -name "core.*" -type f -ls -delete
+[find remove object/archives] find . \( -name "*.a" -o -name "*.o" \) -type f -ls -delete
+[find remove orig] find . -name "*.orig" -type f -ls -delete
+[find executable mac] find @ -type f -perm +ugo+x -print
+[find executable linux] find @ -executable -type f
+
 [find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
 [find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
 [find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
