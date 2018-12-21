@@ -1,3 +1,6 @@
+########################
+# set
+########################
 # main view: show commit id (left side)
 set main-view = line-number:true date:local=yes author:display=abbreviated id:yes commit-title:graph=yes,refs=yes
 set blame-view = date:local=yes author:display=abbreviated id:yes,color line-number:yes,interval=1 text
@@ -23,10 +26,17 @@ set diff-options = -m --first-parent
 # set refresh-mode = periodic
 #   set refresh-interval = 1
 
+########################
+# color
+########################
+color cursor white 104 bold
+
+########################
+# bind
+########################
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
-## OK
 # you can't use pipe(|)
 bind generic Y !bash -c "echo file:; echo %(file); echo commit id:; echo %(commit)"
 
