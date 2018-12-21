@@ -39,6 +39,9 @@ pip install cmakelint
 # for keybind
 pip3 install xkeysnail
 
+# for perf command visualization
+pip3 install gprof2dot
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------
