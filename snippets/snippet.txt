@@ -165,9 +165,16 @@
 [git find file] git ls-files "*@"
 [git stash] git stash pop "stash$(echo -n "\\x40"){@}"
 
+[git clone only HEAD] git clone --depth 1 $URL
+
+# tig
+[tig file history] tig $FILE
+[tig blame] tig blame $FILE
+
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
+[git gerrit review push  master branch (drafts)] git push origin HEAD:refs/drafts/master
 [git gerrit base64 patch] cat @ | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
 
 # tree
