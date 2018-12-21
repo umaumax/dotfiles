@@ -102,6 +102,7 @@ endfunction
 " NOTE: G: repeat replace with entire range
 function! s:substitute(pat, sub, flags) range
 	let Gflag=stridx(a:flags,'G')>=0 ? 1 : 0
+	" NOTE: distinguish case
 	let flags=substitute(a:flags, '\CG', '', 'g')
 
 	let change_flag = 1
@@ -112,8 +113,8 @@ function! s:substitute(pat, sub, flags) range
 			let l:ret=substitute(l:line, a:pat, a:sub, flags)
 			if l:line != l:ret
 				let change_flag = 1
+				call setline(l:n, l:ret)
 			endif
-			call setline(l:n, l:ret)
 		endfor
 		if Gflag == 0
 			break
@@ -129,8 +130,8 @@ command! -nargs=* -range R      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <
 command! -nargs=*        Search let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
 command! -nargs=* -range Rep    let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g |:noh".repeat("<Left>",8), 'n')
 
-command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG') | silent call winrestview(view)
-command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('^\( *\)\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
+command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>call s:substitute('\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG') | silent call winrestview(view)
+command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('\( *\)\?\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
 
 " NOTE: 全角文字扱いだが，半角表示となるためにずれる
 " command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
