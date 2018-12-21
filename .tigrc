@@ -5,20 +5,33 @@ set blame-view = date:local=yes author:display=abbreviated id:yes,color line-num
 set line-graphics = utf-8
 set mouse = true
 
+# NOTE: default
+# set vertical-split = auto
+# NOTE; |
+# set vertical-split = yes
+# NOTE: -
+# set vertical-split = no
+
+set split-view-height = 80%
+set split-view-width = 90%
+
 # [tigでmerge diffを表示する \- Qiita]( https://qiita.com/YasuOza/items/7be136f03867d20b8332 )
 set diff-options = -m --first-parent
 
+# NOTE: 以下を有効にすると`u`でstage-updateするときにviewが閉じてしまう可能性があるので，注意
 # set refresh-mode = auto
-set refresh-mode = periodic
-  set refresh-interval = 1
+# set refresh-mode = periodic
+#   set refresh-interval = 1
 
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
+## OK
 # you can't use pipe(|)
-bind generic Y !echo %(file)
+bind generic Y !bash -c "echo file:; echo %(file); echo commit id:; echo %(commit)"
 
-bind generic A !git commit --amend --allow-empty
+# ?: confirm
+bind generic A ?git commit --amend --allow-empty
 
 bind main B !git rebase -i %(commit)
 bind diff B !git rebase -i %(commit)
@@ -58,6 +71,10 @@ bind log     n      :/^commit
 bind log     p      :?^commit
 
 # 元の n / p を別に割り当て
-bind generic V      view-pager
+bind generic V        view-pager
 bind generic <Ctrl-s> find-next # 要 stty stop undef
 bind generic <Ctrl-r> find-prev
+
+# NOTE: change split-view position
+bind generic | :set vertical-split = yes
+bind generic - :set vertical-split = no
