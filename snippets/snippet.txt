@@ -784,3 +784,14 @@
 # TERM
 [TERM tmux] export TERM=screen-256color
 [TERM xterm] export TERM=xterm-256color
+
+# random
+[random texts] (head /dev/urandom | LC_CTYPE=C tr -dc A-Za-z0-9 | head -c 13 ; echo '') # LC_CTYPE=C is for mac
+
+[cmd repeat] while true; do sleep 1; @; done
+
+[stopwatch] time cat # stop:c-c
+
+[fork bomb] echo ':(){ :|:& };:' !
+
+[from when] uptime
