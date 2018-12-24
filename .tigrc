@@ -43,7 +43,9 @@ bind generic Y !bash -c "echo file:; echo %(file); echo commit id:; echo %(commi
 # ?: confirm
 bind generic A ?git commit --amend --allow-empty
 
+# NOTE: rebase
 bind main B !git rebase -i %(commit)
+bind log  B !git rebase -i %(commit)
 bind diff B !git rebase -i %(commit)
 
 # [Tig で Git を自由自在に操作するための \.tigrc 設定例 \- Qiita]( https://qiita.com/sfus/items/063797a1dd8fdc7d032f )
