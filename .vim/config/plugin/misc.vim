@@ -410,6 +410,15 @@ let g:rainbow_conf = {
 			\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
 			\}
 
+" NOTE: 対応する()をhighlight
+" disable default matchparen plugin
+let g:loaded_matchparen = 1
+LazyPlug 'sgur/vim-hlparen'
+let g:hlparen_highlight_delay = 100
+" NOTE: parenthesis: only paren highlight
+" NOTE: expression: + between paran highlight
+let g:hlparen_highlight_style = 'expression'
+
 " NOTE: cmdlineの決め打ちショートカット機能
 Plug 'tyru/vim-altercmd'
 
