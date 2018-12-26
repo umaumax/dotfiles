@@ -11,6 +11,9 @@ ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
 ln -sf ~/dotfiles/.textlintrc ~/
 
+ln -sf ~/dotfiles/.gdbinit ~/
+ln -sf ~/dotfiles/.gdb-dashboard ~/
+
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
 ln -sf ~/dotfiles/.git.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.peco.zshrc ~/.zsh/
