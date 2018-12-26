@@ -31,10 +31,24 @@ fi
 cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
 cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 
+function pecocat() {
+	if cmdcheck fzf; then
+		local CAT='cat'
+		if cmdcheck bat; then
+			local CAT='bat --color=always'
+		elif cmdcheck ccat; then
+			local CAT='ccat -C=always'
+		fi
+		pipe-EOF-do fzf --ansi --reverse --preview 'F=`echo {} | cut -d":" -f1`; [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $F'
+	else
+		peco
+	fi
+}
+
 alias pv='pecovim'
 alias pvim='pecovim'
 alias cpeco='command peco'
-alias pecovim='peco | xargs-vim'
+alias pecovim='pecocat | xargs-vim'
 # peco copy
 alias pc='peco | c'
 alias pecopy='peco | c'
@@ -127,7 +141,9 @@ function peco-cd() {
 alias sd='peco-cd'
 
 function git-checkout-branch-peco() {
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
+	local PECO="peco"
+	cmdcheck fzf && local PECO="fzf --reverse --ansi --multi --preview 'git log --oneline --decorate --graph --branches --tags --remotes --color'"
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | bash -c $PECO | awk '{print $1}')
 	[[ -n $branch ]] && git checkout $branch
 }
 
@@ -152,7 +168,9 @@ function pecoexamples() {
 	local root="$HOME/dotfiles/examples"
 	local files=$(cd $root >/dev/null 2>&1 && find . -type f | grep -v README.md)
 	[[ -z $files ]] && return
-	local ret=$(echo "$files" | peco)
+	local PECO="peco"
+	cmdcheck fzf && cmdcheck ccat && local PECO="fzf --reverse --ansi --multi --preview 'ccat -C=always $root/{}'"
+	local ret=$(echo "$files" | bash -c $PECO)
 	[[ -z $ret ]] && return
 	cp -i "$root/$ret" "$(basename $ret)" && echo "[COPY]: $ret"
 }

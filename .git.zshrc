@@ -438,3 +438,20 @@ function git-branch-old-to-new() {
 function git-branch-new-to-old() {
 	git branch --sort=-authordate
 }
+
+if $(cmdcheck fzf); then
+	alias co='git checkout $(git branch -a | tr -d " " | fzf --height 100% --prompt "CHECKOUT BRANCH>" --preview "git log --color=always {}" | head -n 1 | sed -e "s/^\*\s*//g" | perl -pe "s/remotes\/origin\///g")'
+	function finder() {
+		local ret=$(
+			(
+				echo '..'
+				ls
+			) | fzf --height 100% --prompt "file >" --preview "[[ -d {} ]] && ls {}; [[ -f {} ]] && cat {}"
+		)
+		[[ -d $ret ]] && cd $ret
+		[[ -f $ret ]] && cat $ret
+	}
+	function tigl() {
+		git log --color --oneline | fzf --reverse --ansi --multi --preview 'git -c color.diff=always show {+1}'
+	}
+fi
