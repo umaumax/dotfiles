@@ -3,3 +3,6 @@ ubuntu apt-get update init bug
 
 ubuntu update-alternatives clang-format-5.0
 [update\-alternatives: clang\-format\-5\.0]( https://gist.github.com/egor-tensin/40498d417e9e6e6e6364010f249273d7 )
+
+ubuntu - proxyconnect tcp: tls: oversized record received with length 20527
+[Ubuntu, Docker \- proxyconnect tcp: tls: oversized record received with length 20527 \- Stack Overflow]( https://stackoverflow.com/questions/50717390/ubuntu-docker-proxyconnect-tcp-tls-oversized-record-received-with-length-20 )
