@@ -63,6 +63,9 @@ if [[ $(uname) == "Linux" ]]; then
 	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
 	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
 	ln -sf ~/dotfiles/.toprc ~/
+
+	[[ ! -d ~/.config/autostart ]] && mkdir -p ~/.config/autostart
+	(cd ~/dotfiles/.config/autostart && find . -type f -name '*.desktop' | xargs -L 1 -IXXX ln -sf "$HOME/dotfiles/.config/autostart/XXX" "$HOME/.config/autostart/XXX")
 fi
 
 if [[ -n $XDG_CONFIG_HOME ]]; then
