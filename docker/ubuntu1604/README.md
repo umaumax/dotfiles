@@ -33,6 +33,7 @@ source ~/.zshrc
 ~/dotfiles/scripts/setup/go.sh
 
 # ~/dotfiles/scripts/setup/ros.sh
+# ~/dotfiles/scripts/setup/apt-get-virtualbox.sh
 
 nugget peco
 nugget tig
