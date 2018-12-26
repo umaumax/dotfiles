@@ -203,6 +203,7 @@
 [cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
 [c++ demangle] echo "@" | c++filt
 [cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
+[g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 
 # rename
 [rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -563,9 +564,11 @@
 [kill SIGKILL] sudo kill -KILL @ # same meaning as sudo kill -9
 
 # user
-[add group to user usermod] sudo usermod -aG $GROUPS@ $USER
+[add group to user usermod] sudo usermod -aG $GROUP@ $USER
 [add group to user gpasswd] sudo gpasswd -a $USER $GROUP@
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP@
+
+[list users with ldap user] getent passwd
 
 # stdin/out/errr
 [devnull] >/dev/null 2>&1
@@ -833,3 +836,5 @@
 [LD] LD_LIBRARY_PATH=@
 [LD] LD_TRACE_LOADED_OBJECTS=1 @
 [LD] LD_SHOW_AUXV=1 @
+
+[malloc free check] MALLOC_CHECK_=1@ # 1:print stderr and continue, 2:abort
