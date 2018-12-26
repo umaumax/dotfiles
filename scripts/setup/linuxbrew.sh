@@ -24,12 +24,12 @@ brew install ccat
 brew install ninja
 
 # takes a lot of time
-brew install vim # 8.1.0350 :requires: python: this takes a lot of time
-brew install python
+# brew install vim # 8.1.0350 :requires: python: this takes a lot of time
+# brew install python
 
 # takes a loooooot of time
-brew install bat # x.x.x :requires: rust: this takes a lot of time
-brew install rust
+# brew install bat # x.x.x :requires: rust: this takes a lot of time
+# brew install rust
 
 # error
 # Checked out revision 342395.
@@ -39,4 +39,4 @@ brew install rust
 # brew install clang-format
 
 # brew install neovim # error
-brew install umaumax/neovim/neovim
+# brew install umaumax/neovim/neovim

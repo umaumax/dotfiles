@@ -154,6 +154,8 @@ sudo update-locale LANG=ja_JP.UTF-8
 
 sudo apt-get install -y ldap-utils
 
+sudo apt-get install -y ntp
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------

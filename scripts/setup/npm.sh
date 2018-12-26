@@ -12,7 +12,15 @@ else
 	}
 fi
 
-# sudo apt-get install -y nodejs npm
+# REQUIRED: sudo apt-get install -y nodejs npm
+npm -g config set proxy $http_proxy
+npm -g config set https-proxy $https_proxy
+npm -g config set registry http://registry.npmjs.org/
+# NOTE: below are delete commands
+# npm -g config rm proxy
+# npm -g config rm https-proxy
+# npm -g config rm registry
+
 npm install -g n
 npm install -g neovim
 npm install -g jsonlint

@@ -29,7 +29,7 @@ pip3 install neovim
 pip install ptpython
 pip3 install "ipython[notebook]"
 # jupyter notebook
-pip install jupyter
+pip3 install jupyter
 
 # for cmake
 # pip install cmake-format

@@ -1,5 +1,7 @@
 # dotfiles
 
+* use __tmux__ or __screen__ while install
+
 ## how to run
 ```
 # git clone https://github.com/umaumax/dotfiles.git
@@ -28,6 +30,7 @@ source ~/.zshrc
 ## packages
 ```
 ~/dotfiles/scripts/setup/apt-get.sh
+~/dotfiles/scripts/setup/apt-get-ppa.sh
 ~/dotfiles/scripts/setup/pip.sh
 ~/dotfiles/scripts/setup/npm.sh
 ~/dotfiles/scripts/setup/go.sh
