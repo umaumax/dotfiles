@@ -466,6 +466,7 @@ alias xargs-vim='_xargs-vim -'
 # alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
+alias vim-git-modified='vim -p `git status -s | cut -c4-`'
 
 alias rvgrep="viminfo-ls | xargs-grep"
 
@@ -1549,6 +1550,8 @@ function c() {
 alias -g PV="| pecovim"
 alias -g WC="| wc"
 alias -g L="| less"
+alias -g C="| c"
+alias -g P="p |"
 
 # [How to remove ^\[, and all of the escape sequences in a file using linux shell scripting \- Stack Overflow]( https://stackoverflow.com/questions/6534556/how-to-remove-and-all-of-the-escape-sequences-in-a-file-using-linux-shell-sc )
 alias drop-without-ascii='sed "s,\x1B\[[0-9;]*[a-zA-Z],,g"'
