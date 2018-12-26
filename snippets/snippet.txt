@@ -27,6 +27,7 @@
 [vim] fg.md "@"
 [vim] fg.my.md "@"
 [vim] fg.cpp-all "@"
+[vim git modified] vim -p `git status -s | awk '{print $2}'`
 
 # ubuntu
 # ubuntu vim /etc files
@@ -126,6 +127,8 @@
 [git man diff] man git-diff
 [git grep submodule] git grep --recurse-submodules @
 [git grep submodule peco vim] ggpv --recurse-submodules @
+[git grep ext filter] git grep "@" -- '*.'
+[git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git clone rename] git clone @ $NEW_NAME
 [git commit log grep] git log --stat -S "@"
 
@@ -149,6 +152,7 @@
 [git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
 [git pull rebase master] git pull --rebase origin master
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
+[git relative modified files] git status -s | cut -c4-
 
 [git discard staged changes in working directory] git checkout -- . # dangerous
 [git fetch remote branches] git fetch –all
@@ -262,6 +266,8 @@
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 [pip show] pip show @ # e.g. Location
 [python venv] python -m venv $PROJECT_PATH@
+[pip(2) recover] sudo python -m pip uninstall pip && sudo apt install python-pip --reinstall
+[pip3 recover] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @
@@ -286,6 +292,7 @@
 [nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28" # 空白区切りで複数指定可能
 [nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
 [nmcli wi-fi info list] sudo nmcli d w
+[nmcli remote dump] ssh @ "nmcli device show"
 
 [search ip address range] nmap -sP 192.168.0.0/24
 [search ip address range by nbstat (NetBIOS)] sudo nmap -sU --script nbstat.nse -p137 '192.168.0.*'
@@ -296,8 +303,6 @@
 [USER] whoami
 [UID] id -u
 [GID] id -g
-
-[nmcli remote dump] ssh @ "nmcli device show"
 
 # curl
 [curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
@@ -325,7 +330,8 @@
 # screen
 [screen list  ] screen -ls
 [screen attach] screen -r @
-[run command by screen] screen -dmS $tag $commands
+[screen run command] screen -dmS $tag $commands # don't surround command by ""
+[screen run clip-share] HOST=@ && screen -dmS clip-share-$HOST clip-share $HOST
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
@@ -368,6 +374,8 @@
 [ubuntu filepath to apt-get package] dpkg -S $FILEPATH
 
 [apt-cache search] apt-cache search @
+
+[ubuntu code name] lsb_release -cs # 16.04: xenial
 
 # so files
 [so lib path search] ldconfig -p | grep $LIB_NAME
@@ -543,6 +551,9 @@
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
 
 [show char code] hexdump -C @
+[hexdump -C] od -t x1z -A x
+[od next line] od -t x1c -A x
+[file to c++ array] od -A n -v -t x1 @ | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
 
 [replace c2a0 to space (e.g. for tree)] sed "s/$(echo -e "\\xc2\\xa0")/ /g"
 
@@ -753,7 +764,7 @@
 # heredoc
 [heredoc to filename] cat > $FILEPATH@ << 'EOF'
 
-[linux: check shared lib path objdump -p] objdump -p @
+[linux: check shared lib path objdump -p] objdump -p @ # readelf -d
 
 # nkf
 [nkf guess] nkf -g @
@@ -795,3 +806,30 @@
 [fork bomb] echo ':(){ :|:& };:' !
 
 [from when] uptime
+
+[elf: elf header] readelf -h @
+[elf: program header] readelf -l @
+[elf: section header] readelf -S @
+[elf: elf/program/section header] readlef -e @
+[read section] readelf -x@ # -x25 # FYI: readelf -S
+[elf: symbol header] readelf -s @
+[show string table] FILE_PATH=@ && readelf -S $FILE_PATH | grep -A 1 strtab | tr -d '\\n' | xargs bash -c 'od --skip-bytes 0x$4 --read-bytes 0x$5 -t x1z '"$FILE_PATH"
+[show string table] FILE_PATH=@ && readelf -S $FILE_PATH | grep strtab | grep -o '\[[0-9]*\]' | sed 's/\[\|\]//g' | xargs -I{} readelf -x{} $FILE_PATH
+
+[static library: list objects] ar tv @
+
+[add default gateway] sudo route add default gw @
+
+[ldd tree] lddtree -a @ # sudo apt-get install pax-utils
+[ldd] LD_TRACE_LOADED_OBJECTS=1 @
+
+[nm: with object filename] nm -A @
+[nm: dynamic symbol] nm -D @ # e.g. calloc, free
+[nm: demangle] nm --demabgle @ # FYI: c++filt
+
+[awk args] awk -v var=@ '{print var}'
+
+[LD] LD_PRELOAD=@
+[LD] LD_LIBRARY_PATH=@
+[LD] LD_TRACE_LOADED_OBJECTS=1 @
+[LD] LD_SHOW_AUXV=1 @
