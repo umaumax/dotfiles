@@ -197,3 +197,9 @@ function pecoole() {
 	local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
 	[[ -n $url ]] && open "$url"
 }
+
+if cmdcheck fzf; then
+	function calc() {
+		: | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
+	}
+fi
