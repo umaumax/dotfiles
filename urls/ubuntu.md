@@ -9,3 +9,6 @@ ubuntu - proxyconnect tcp: tls: oversized record received with length 20527
 
 linux - kernel source find
 [Linux source code: identifier \(v4\.4\) \- Bootlin]( https://elixir.bootlin.com/linux/v4.4/ident )
+
+ubuntu problems found システムプログラムの問題が見つかりました
+[「システムプログラムの問題が見つかりました」のダイアログの消し方 \- Qiita]( https://qiita.com/naoyukisugi/items/d0a30f1e7b9761fdf3e9 )
