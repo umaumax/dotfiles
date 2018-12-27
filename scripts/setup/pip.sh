@@ -15,6 +15,7 @@ set -ex
 pip install autopep8
 pip install flake8
 pip install jedi
+pip3 install cpplint
 pip3 install pylint
 pip install python-language-server
 pip install vim-vint
@@ -37,7 +38,8 @@ pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz
 pip install cmakelint
 
 # for keybind
-pip3 install xkeysnail
+# NOTE: xkeysnail is used as root
+sudo -E pip3 install xkeysnail
 
 # for perf command visualization
 pip3 install gprof2dot

@@ -54,6 +54,7 @@ sudo apt-get install -y colordiff
 sudo apt-get install -y ccze
 
 sudo apt-get install -y clang-tidy
+sudo apt-get install -y clang-format # maybe 3.8
 sudo apt-get install -y clang-format-5.0
 # sudo apt-get install -y vim-gnome # old vim
 sudo apt-get install -y golang-1.10
