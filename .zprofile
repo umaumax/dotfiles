@@ -10,8 +10,12 @@ fi
 # Language
 #
 
+# FYI: [基本の復習: 優先順位は LANGUAGE, LC\_ALL, LC\_xxx, LANG の順 \- Qiita]( https://qiita.com/kitsuyui/items/4ee5bf1baa47553be477 )
 if [[ -z "$LANG" ]]; then
 	export LANG='en_US.UTF-8'
+fi
+if [[ -z "$LANGUAGE" ]]; then
+	export LANGUAGE='en_US.UTF-8'
 fi
 
 #
