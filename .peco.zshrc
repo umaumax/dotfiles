@@ -203,6 +203,6 @@ if cmdcheck fzf; then
 		: | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
 	}
 	function ppgrep() {
-		: | fzf --ansi --multi --preview 'pgrep -l {q}; echo '----'; pgrep -alf {q}' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
+		: | fzf --ansi --multi --preview '[[ -n {q} ]] && { pgrep -l {q}; echo "----"; pgrep -alf {q}; }' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
 	}
 fi
