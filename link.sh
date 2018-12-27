@@ -61,7 +61,6 @@ ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
 ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 
 if [[ $(uname) == "Linux" ]]; then
-	ln -sf ~/dotfiles/.xremap ~/
 	ln -sf ~/dotfiles/.xbindkeysrc ~/
 	[[ ! -d ~/.config/xkeysnail ]] && mkdir -p ~/.config/xkeysnail
 	ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
