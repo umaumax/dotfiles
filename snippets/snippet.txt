@@ -839,3 +839,5 @@
 [LD] LD_SHOW_AUXV=1 @
 
 [malloc free check] MALLOC_CHECK_=1@ # 1:print stderr and continue, 2:abort
+
+[daemon background exec] nohup @ &
