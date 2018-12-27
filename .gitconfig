@@ -53,6 +53,8 @@
 	dt = difftool
 	modified-files = diff --name-only
 
+	find = ls-files
+
 	grep-code-diff = log -p -S
 	grep-commit-message = log --grep
 	grep-reg = grep -E
