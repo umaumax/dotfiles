@@ -1,0 +1,29 @@
+GtkWindow#Main {
+    background-color: #000000;
+}
+
+GtkWindow#Main .notebook {
+    padding: 0px;
+}
+
+GtkWindow#Main .notebook tab GtkLabel {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #999999;
+}
+
+GtkWindow#Main .notebook tab {
+    background-color: #101010;
+    border: 1px solid #222222;
+}
+
+GtkWindow#Main .notebook tab:active {
+    background-color: #333333;
+    border: 1px solid #999999;
+}
+
+GtkBox {
+    background-color: #000;
+}

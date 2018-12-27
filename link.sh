@@ -74,6 +74,8 @@ if [[ -n $XDG_CONFIG_HOME ]]; then
 	ln -sf ~/dotfiles/.config/pep8 ~/"$XDG_CONFIG_HOME"/pep8
 else
 	ln -sf ~/dotfiles/.config/pep8 ~/.config/pep8
+	[[ ! -d ~/.config/tilda ]] && mkdir -p ~/.config/tilda
+	ln -sf ~/dotfiles/.config/tilda/style.css ~/.config/tilda/style.css
 fi
 
 if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
