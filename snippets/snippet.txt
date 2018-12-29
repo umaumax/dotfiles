@@ -421,7 +421,8 @@
 [ping NIC ] ping -I $NIC @
 
 # apt-get
-[指定したpackageのみupgrade] sudo apt-get install @ # don't use upgrade command
+[apt-get install] sudo apt-get install @
+[apt-get upgrade certain package only] sudo apt-get install @ # don't use upgrade command
 [apt-get error solution]  sudo rm -f /var/lib/apt/lists/lock /var/cache/apt/archives/lock
 
 [apt-get under proxy env] sudo -E apt-get install @
