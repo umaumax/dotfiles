@@ -1678,7 +1678,7 @@ function pomodoro() {
 	while :; do
 		clear
 		figlet "Pomodoro Timer" | sand "$YELLOW" | text_center
-		(figlet $(printf "%02d : %02d" $((i/60)) $((i % 60))) | sand "$BLUE" | text_center)
+		(figlet $(printf "%02d : %02d" $((i / 60)) $((i % 60))) | sand "$BLUE" | text_center)
 		: $((i -= 1))
 		sleep 1
 		if [ $i -eq 0 ]; then
@@ -1704,7 +1704,7 @@ function pomodoro() {
 				;;
 			esac
 			clear
-			figlet $(printf "%02d : %02d" $((i/60)) $((i % 60)))
+			figlet $(printf "%02d : %02d" $((i / 60)) $((i % 60)))
 		fi
 	done
 }
@@ -1719,7 +1719,7 @@ function progress-bar() {
 
 	function already_done() { for ((done = 0; done < $elapsed; done++)); do printf "▇"; done; }
 	function remaining() { for ((remain = $elapsed; remain < $duration; remain++)); do printf " "; done; }
-	function percentage() { printf "| %s%%" $(((($elapsed) * 100) / ($duration) * 100/100)); }
+	function percentage() { printf "| %s%%" $(((($elapsed) * 100) / ($duration) * 100 / 100)); }
 	function clean_line() { printf "\r"; }
 
 	for ((elapsed = 1; elapsed <= $duration; elapsed++)); do
