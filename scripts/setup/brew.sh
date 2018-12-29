@@ -4,6 +4,7 @@ set -ex
 
 # brew
 # WIP
+brew install rpl
 
 # brew tap
 # WIP

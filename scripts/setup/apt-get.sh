@@ -52,6 +52,7 @@ sudo apt-get install -y npm
 sudo apt-get install -y xsel xclip
 sudo apt-get install -y colordiff
 sudo apt-get install -y ccze
+sudo apt-get install -y rpl
 
 sudo apt-get install -y clang-tidy
 sudo apt-get install -y clang-format # maybe 3.8
