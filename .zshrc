@@ -486,14 +486,6 @@ function _sed_check_test() {
 function prefix() { while read n; do echo "${@}${n}"; done; }
 function suffix() { while read n; do echo "${n}${@}"; done; }
 
-# which
-## which -a $COMMAND_NAME 完全一致のみ
-## `which -a` means `where`?
-# for GNU
-# alias which-all="echo $PATH | sed 's/:/\n/g' | xargs -J % find % -executable -type f -maxdepth 1"
-# for BSD
-alias which-all="echo $PATH | sed 's/:/\n/g' | xargs -J % find % -type f -perm +111 -maxdepth 1"
-
 # awk
 # n~m列のみを表示(省略時には先頭または最後となる)
 function cut2() {
@@ -804,7 +796,6 @@ function allcmds() {
 		find $name -maxdepth 1 -type f -follow -perm -=+x
 	done
 	alias
-	functions-list
 }
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
