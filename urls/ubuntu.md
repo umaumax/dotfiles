@@ -12,3 +12,6 @@ linux - kernel source find
 
 ubuntu problems found システムプログラムの問題が見つかりました
 [「システムプログラムの問題が見つかりました」のダイアログの消し方 \- Qiita]( https://qiita.com/naoyukisugi/items/d0a30f1e7b9761fdf3e9 )
+
+ubuntu launcher problem
+[take short　Ubuntu16\.04のランチャ消失]( http://pdragon.blog24.fc2.com/blog-entry-630.html )
