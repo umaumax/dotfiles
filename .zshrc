@@ -830,7 +830,8 @@ unset _home
 # `$`付きコマンドでも実行可能に(bashではinvalid)
 [[ $ZSH_NAME == zsh ]] && alias \$=''
 # ignore command which starts with `#`
-alias \#='echo "skip comment: "'
+# alias \#='echo "skip comment: "'
+alias \#=':'
 
 # brew install source-highlight
 cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
