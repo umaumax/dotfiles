@@ -5,11 +5,11 @@ options word
 
 snippet wcerr
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wcerr$', '', 'g').' << std::endl;')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cerr << '.substitute(getline('.'), '^\s*\|\s*wcerr$', '', 'g').' << std::endl;')`
 
 snippet wclog
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wclog$', '', 'g').' << std::endl;')`
+        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::clog << '.substitute(getline('.'), '^\s*\|\s*wclog$', '', 'g').' << std::endl;')`
 
 snippet wif
 options word
@@ -19,6 +19,12 @@ snippet contains
 alias find_string
 abbr !=: found, ==: not found
   (${1:str}.find(${2:keyword}) != std::string::npos)
+
+snippet prefix_string
+alias string_prefix
+  if (${1:#target}.size() >= ${2:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
+    ${0}
+  }
 
 snippet cast_dynamic
 abbr for class
@@ -454,3 +460,31 @@ alias ros_cerr
 snippet ros_warn
 alias ros_clog
   ROS_WARN_STREAM(${0});
+
+snippet assert_with_message
+  assert((${1:# condition}) && "${0:# message}");
+
+# [c\+\+ \- Get home directory in Linux \- Stack Overflow]( https://stackoverflow.com/questions/2910377/get-home-directory-in-linux/2910392#2910392 )
+snippet home_dir
+alias get_home_dir
+  #include <unistd.h>
+  #include <sys/types.h>
+  #include <pwd.h>
+
+  struct passwd *pw = getpwuid(getuid());
+  const char *homedir = pw->pw_dir;
+
+snippet is_file_exist
+alias file_exist
+  #include<string>
+  #include<fstream>
+  #include<iostream>
+
+  bool checkFileExistence(const std::string& str)
+  {
+      std::ifstream ifs(str);
+      return ifs.is_open();
+  }
+
+snippet push_back
+  emplace_back
