@@ -205,11 +205,30 @@ function pecoole() {
 	[[ -n $url ]] && open "$url"
 }
 
+function selhost() {
+	local VAR_NAME=${1:-"TARGET_HOST"}
+	local RET=$(sshconfig_host_hostname | peco | awk '{print $1}')
+	export $VAR_NAME="$RET"
+	echo "export ${YELLOW}${VAR_NAME}${DEFAULT}=${YELLOW}${RET}${DEFAULT}"
+}
+
 if cmdcheck fzf; then
+	alias icalc='calc'
 	function calc() {
 		: | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
 	}
+	alias ipgrep='ppgrep'
 	function ppgrep() {
 		: | fzf --ansi --multi --preview '[[ -n {q} ]] && { pgrep -l {q}; echo "----"; pgrep -alf {q}; }' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
+	}
+	# interactive tree
+	function itree() {
+		seq 1 100 | fzf --ansi --multi --preview 'tree -L {}'
+	}
+	function ilsof() {
+		seq 0 65536 | fzf --ansi --multi --preview 'lsof -i :{}'
+	}
+	function isudolsof() {
+		sudo echo >/dev/null 2>&1 && seq 0 65536 | fzf --ansi --multi --preview 'sudo lsof -i :{}'
 	}
 fi
