@@ -114,11 +114,14 @@ function nugget_ubuntu_tig() {
 	sudo apt-get install -y libncursesw5-dev
 	git clone git://github.com/jonas/tig.git
 	pushd "$tmpdir"/tig
-	# make clean
+	./autogen.sh
+	# for Japanese language
+	./configure --without-ncurses
 	make -j$(nproc --all) prefix=$HOME/local
 	make install prefix=$HOME/local
 	popd
 	popd
+	rm -rf "$tmpdir"/tig
 }
 # ################################
 
@@ -135,6 +138,7 @@ function nugget_ubuntu_tmux() {
 	sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 	popd
 	popd
+	rm -rf "$tmpdir"/tmux
 }
 # ################################
 
@@ -153,6 +157,7 @@ function nugget_ubuntu_rtags() {
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
 	popd
 	popd
+	rm -rf "$tmpdir"/rtags
 }
 # ################################
 
