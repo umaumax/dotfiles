@@ -1508,9 +1508,12 @@ if [[ $(uname) == "Linux" ]]; then
 	function precmd_function() {
 		set-dirname-title
 	}
-	autoload -Uz add-zsh-hook
-	add-zsh-hook precmd precmd_function
+elif [[ $(uname) == "Darwin" ]]; then
+	function precmd_function() {
+		({ echo $history[$((HISTCMD - 1))] | grep -s 'LD_PRELOAD'; } || [[ -n $LD_PRELOAD ]]) && echo "$RED THERE IS NO '"'$LD_PRELOAD'"' IN MAC. USE BELOW ENV!$DEFAULT" && echo "DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES="
+	}
 fi
+cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmd precmd_function
 
 # FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
 function show-all-files-which-processes-grab() {
