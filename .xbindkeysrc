@@ -47,8 +47,8 @@
 "~/local/bin/window-toggle Terminator terminator"
 	Alt + space
 
-"~/local/bin/window-toggle Hyper hyper"
-	Control+Alt + space
+# "~/local/bin/window-toggle Hyper hyper"
+# 	Control+Alt + space
 
 "~/local/bin/window-toggle Gnome-terminal gnome-terminal"
 	Control + space
