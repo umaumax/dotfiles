@@ -231,4 +231,10 @@ if cmdcheck fzf; then
 	function isudolsof() {
 		sudo echo >/dev/null 2>&1 && seq 0 65536 | fzf --ansi --multi --preview 'sudo lsof -i :{}'
 	}
+	function googletrans() {
+		local port="12800"
+		! cmdcheck gtrans && echo "REQUIRED: gtrans" && echo "pip install https://github.com/umaumax/gtrans/archive/master.tar.gz" && return 1
+		pgrep -lf "gtrans -p" >/dev/null 2>&1 || nohup gtrans -p $port &
+		: | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | gsed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
+	}
 fi
