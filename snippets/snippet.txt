@@ -265,6 +265,7 @@
 [args checker] python -c "import sys; print(sys.argv)" @
 
 # python
+[pip upgrade] pip install --upgrade @
 [pip list] pip freeze
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
