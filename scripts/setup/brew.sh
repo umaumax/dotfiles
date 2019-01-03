@@ -8,3 +8,6 @@ brew install rpl
 
 # brew tap
 # WIP
+
+# brew cask
+brew cask install chromedriver
