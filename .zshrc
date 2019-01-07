@@ -1802,7 +1802,7 @@ function sshconfig_host_hostname() {
 				exit_code=0
 			}
 			if (target == host) {
-				printf $0;
+				printf $1;
 				exit 0
 			}
 		}
