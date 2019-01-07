@@ -31,15 +31,46 @@ fi
 cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
 cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 
+function cat-C() {
+	local file_path="${1%%:*}"
+	local range=${2:-3}
+	local line_no=$(($(echo "$1" | cut -d":" -f2)))
+
+	local CAT='cat -n'
+	local pre_line=0
+	if cmdcheck bat; then
+		local CAT='bat --color=always'
+		local pre_line=3
+	elif cmdcheck ccat; then
+		local CAT='ccat -C=always'
+		local pre_line=0
+	fi
+
+	eval $CAT $file_path | awk -v base=$line_no -v range=$range -v pre_line=$pre_line '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)'
+}
+# force color cat
+function fccat() {
+	local CAT='cat'
+	if cmdcheck bat; then
+		local CAT='bat --color=always'
+	elif cmdcheck ccat; then
+		local CAT='ccat -C=always'
+	fi
+	eval $CAT $@
+}
 function pecocat() {
 	if cmdcheck fzf; then
 		local CAT='cat'
-		if cmdcheck bat; then
+		if cmdcheck wcat; then
+			local CAT='wcat'
+			pipe-EOF-do fzf --ansi --reverse --preview 'F=`echo {} | cut -d":" -f1`; FL=`echo {} | awk "{ print \\$1; }" | awk -F":" "{ printf \\"%s:%d\\\\n\\", \\$1, \\$2; }"`; [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $FL:10;' --preview-window 'down:60%'
+			return
+		elif cmdcheck bat; then
 			local CAT='bat --color=always'
 		elif cmdcheck ccat; then
 			local CAT='ccat -C=always'
 		fi
-		pipe-EOF-do fzf --ansi --reverse --preview 'F=`echo {} | cut -d":" -f1`; [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $F'
+		pipe-EOF-do fzf --ansi --reverse --preview 'F=`echo {} | cut -d":" -f1`; [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%'
 	else
 		peco
 	fi
