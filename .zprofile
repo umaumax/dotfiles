@@ -14,9 +14,10 @@ fi
 if [[ -z "$LANG" ]]; then
 	export LANG='en_US.UTF-8'
 fi
-if [[ -z "$LANGUAGE" ]]; then
-	export LANGUAGE='en_US.UTF-8'
-fi
+export LANGUAGE=''
+# if [[ -z "$LANGUAGE" ]]; then
+# 	export LANGUAGE='en_US.UTF-8'
+# fi
 
 #
 # Paths
