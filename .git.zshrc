@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # MEMO
 # git-xxx系はaliasではなくfunctionとすること
 # 下記のコマンドではaliasは実行できないため

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 alias bindkey_events_list='bindkey -L'
 alias bindkey_default_events_list='zsh -c "bindkey"'
 function bindkey_default_all_events_list() {

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 ! cmdcheck peco && return
 
 if [[ $(uname) == "Linux" ]]; then

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # ros
 # auto source
 [[ -f /opt/ros/kinetic/setup.zsh ]] && source /opt/ros/kinetic/setup.zsh

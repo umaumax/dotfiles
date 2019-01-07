@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # windows setting
 if [[ $OS == Windows_NT ]]; then
 	# tmuxを起動するとx86_64のみになる

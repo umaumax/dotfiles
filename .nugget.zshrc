@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # TODO: --dry-run
 # TODO: list or show
 # TODO: with out sudo option

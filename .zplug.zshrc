@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 local USE_ZPLUG=0
 
 if [[ $USE_ZPLUG == 0 ]]; then
