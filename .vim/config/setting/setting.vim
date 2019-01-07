@@ -54,22 +54,27 @@ set updatetime=250 "スワップファイルの自動保存時間設定。 こ�
 
 " NOTE: this help user to find where is the cursor
 setlocal cursorline | setlocal cursorcolumn
-" basically, highlight cursor while searching
-function! s:auto_highlight()
-	if v:hlsearch == 0
-		setlocal nocursorline | setlocal nocursorcolumn
-	else
-		setlocal cursorline | setlocal cursorcolumn
-	endif
-endfunction
-augroup vimrc-auto-cursorline
-	autocmd!
-	" FYI: [Vimの検索ハイライト,hlsearch,:nohlsearch,v:hlsearchがややこしい \- haya14busa]( http://haya14busa.com/vim_highlight_search/ )
-	" :set hlsearch
-	autocmd OptionSet hlsearch call s:auto_highlight()
-	" NOTE: :nohでは上記は呼ばれない
-	autocmd CursorHold,CursorHoldI * call s:auto_highlight()
-augroup END
+
+let cursor_highlight_opt_flag = 0
+lockvar cursor_highlight_opt_flag
+if cursor_highlight_opt_flag != 0
+	" basically, highlight cursor while searching
+	function! s:auto_highlight()
+		if v:hlsearch == 0
+			setlocal nocursorline | setlocal nocursorcolumn
+		else
+			setlocal cursorline | setlocal cursorcolumn
+		endif
+	endfunction
+	augroup vimrc-auto-cursorline
+		autocmd!
+		" FYI: [Vimの検索ハイライト,hlsearch,:nohlsearch,v:hlsearchがややこしい \- haya14busa]( http://haya14busa.com/vim_highlight_search/ )
+		" :set hlsearch
+		autocmd OptionSet hlsearch call s:auto_highlight()
+		" NOTE: :nohでは上記は呼ばれない
+		autocmd CursorHold,CursorHoldI * call s:auto_highlight()
+	augroup END
+endif
 
 " these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
 " if textwidth == 0 no auto new line

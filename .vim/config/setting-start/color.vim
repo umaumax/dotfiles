@@ -10,6 +10,10 @@ function! s:init_color()
 	highlight Pmenu    ctermfg=white ctermbg=26  guifg=#ffffff guibg=#4169E1
 	highlight PmenuSel cterm=bold    ctermfg=32 ctermbg=black gui=bold guifg=#4682B4 guibg=#000000
 
+	" vim cursor color setting
+	highlight CursorLine   term=underline cterm=underline guibg=Black
+	highlight CursorColumn term=underline cterm=underline guibg=Black
+
 	" NOTE: visualize fullsidth space
 	highlight TrailingSpaces term=underline guibg=#ff0000 ctermbg=Red
 	match TrailingSpaces /　/
