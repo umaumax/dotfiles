@@ -194,6 +194,7 @@
 [sed template /] sed -e 's/@//g'
 [join line with char] awk '{printf "%s\\\\n", $0}'
 [join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
+[filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
 
 [number of CPU] nproc --all # linux only
 
