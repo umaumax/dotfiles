@@ -136,6 +136,8 @@ sudo apt-get install -y screen
 sudo apt-get install -y clang llvm
 sudo apt-get install -y libclang-5.0-dev
 
+sudo apt-get install -y gawk
+
 # for tig
 sudo apt-get install -y libncursesw5-dev
 # maybe you should build tig yourself
