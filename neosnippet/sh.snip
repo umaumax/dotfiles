@@ -13,7 +13,7 @@ snippet ismac
 snippet islinux
   [[ $(uname) == "Linux" ]]
 snippet isubuntu
-  [[ $(uname -a) =~ "Ubuntu" ]]
+  [[ "$(uname -a)" =~ "Ubuntu" ]]
 snippet iswindows
   [[ "$OS" =~ "Windows" ]]
 snippet isdocker
@@ -27,7 +27,7 @@ snippet islinux_if
         ${0}
     fi
 snippet isubuntu_if
-    if [[ $(uname -a) =~ "Ubuntu" ]]; then
+    if [[ "$(uname -a)" =~ "Ubuntu" ]]; then
         ${0}
     fi
 snippet iswindows_if
@@ -443,3 +443,7 @@ snippet async_wait_sample
   sleep 2 &
   sleep 3 &
   wait
+
+snippet help_oneline
+alias easy_help
+  { [[ \$1 == '-h' ]] || [[ \$1 == '-help' ]] || [[ \$1 == '--help' ]]; } && echo "\$0 "'${0}' && exit 1
