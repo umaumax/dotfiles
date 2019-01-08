@@ -1799,13 +1799,13 @@ function sshconfig_host_hostname() {
 		}
 		$1 == "HostName" {
 			$1 = "";
-			sub( /^[[:space:]]*/, "" );
+			sub( /^ */, "" , $0);
 			if (target == "") {
 				printf "%32s %32s\n", host, $0;
 				exit_code=0
 			}
 			if (target == host) {
-				printf $1;
+				printf "%s", $0;
 				exit 0
 			}
 		}
