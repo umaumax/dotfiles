@@ -195,6 +195,8 @@
 [join line with char] awk '{printf "%s\\\\n", $0}'
 [join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
 [filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
+[awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
+[awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 
 [number of CPU] nproc --all # linux only
 
@@ -208,12 +210,13 @@
 [cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 [g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
+[g++ asm] g++ -S -g @
 
 # rename
-[rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
+[find and rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
 
 # line filter
-[line filter] sed -n @,p # index starts with 1
+[sed line filter] sed -n @,p # index starts with 1
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
@@ -754,6 +757,7 @@
 # 'hogehoge''piyopiyo' -> "hogehoge'piyopiyo"
 # 'hogehoge'""'piyopiyo' -> "hogehogepiyopiyo"
 [c++ split hpp to cpp: lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
+[lzz] lzz $LZZFILE@ # gen xxx.cpp xxx.h NOTE: overwrite
 
 [clang-format replace file] clang-format -i $FILEPATH
 
@@ -812,7 +816,8 @@
 # random
 [random texts] (head /dev/urandom | LC_CTYPE=C tr -dc A-Za-z0-9 | head -c 13 ; echo '') # LC_CTYPE=C is for mac
 
-[cmd repeat] while true; do sleep 1; @; done
+[cmd repeat like watch] while true; do sleep 1; @; done
+[pseudo watch command] while true; do sleep 1; bash -c "clear; @"; done
 
 [stopwatch] time cat # stop:c-c
 
@@ -870,3 +875,11 @@
 
 [check PIE or not in linux] hardening-check @
 [check PIE or not in mac] otool -hv @
+
+[tput cols(terminal width)] tput cols
+[tput lines(terminal height)] tput lines
+[tput color list] echo "tput setaf <val>"; for ((i = 0; i <= 255; i++)); do printf "%s%03d " $(tput setaf $i) $i; done # echo $(tput setaf 1) RED $(tput sgr0) DEFAULT
+
+[process tree hint for linux] ps x -o  "%p %r %y %x %c"
+[kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
+[kill process tree for mac] kill -TERM -- -$PID
