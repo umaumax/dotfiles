@@ -64,8 +64,9 @@ function pecocat() {
 		local CAT='cat'
 		if cmdcheck wcat; then
 			local CAT='wcat'
+			local range=`echo "$(tput lines) * 6 / 10 / 2 - 1" | bc`
 			# DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
-			pipe-EOF-do fzf --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%d\\n\", \$1, \$2; }"; ); [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $FL:10;' --preview-window 'down:60%'
+			pipe-EOF-do fzf --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%d\\n\", \$1, \$2; }"; ); [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%'
 			return
 		elif cmdcheck bat; then
 			local CAT='bat --color=always'
