@@ -286,9 +286,11 @@ snippet sum
   std::accumulate(std::begin(${1}), std::end($1), ${2:decltype($1)::value_type()})
 
 snippet time_measurement
-  auto ${1:start} = std::chrono::system_clock::now();
-  ${0};
-  auto ${2:elapsed} = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - $1).count();
+alias chrono_time, stopwatch, calc_time
+abbr REQUIRED: #include <chrono>
+  std::chrono::system_clock::time_point ${1:start}_start = std::chrono::system_clock::now();
+  ${0}
+  double $1_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - $1_start).count();
 
 snippet duration_cast
 abbr std::chrono::duration_cast<T>() <chrono>
@@ -492,3 +494,16 @@ snippet push_back
 snippet breakpoint
 abbr REQUIRED: <signal.h>
   raise(SIGTRAP);
+
+snippet include_chrono
+alias incl_chrono
+  #include <chrono>
+  ${0}
+snippet include_functional
+alias incl_functional
+  #include <functional>
+  ${0}
+snippet include_iomanip
+alias incl_iomanip
+  #include <iomanip>
+  ${0}
