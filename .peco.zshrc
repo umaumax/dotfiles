@@ -241,6 +241,35 @@ function pecoole() {
 	[[ -n $url ]] && open "$url"
 }
 
+function lnpeco() {
+	[[ $# == 0 ]] && echo "$0 SYM_SRC_PATH" && return 1
+	local SYM_SRC_PATH="$1"
+	local SYM_SRC_NAME=$(basename $SYM_SRC_PATH)
+	local TARGET_DIR=$(dirname $SYM_SRC_PATH)
+	[[ -e $SYM_SRC_PATH ]] && [[ ! -L $SYM_SRC_PATH ]] && echo "'$SYM_SRC_PATH' is not symbolic link!" && return 1
+	[[ ! -d $TARGET_DIR ]] && echo "'$TARGET_DIR' is not dir" && return 1
+
+	local dst=$(ls $TARGET_DIR | peco)
+	if [[ -n $dst ]]; then
+		if $(is_wd_owner_root $TARGET_DIR); then
+			sudo bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
+		else
+			bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
+		fi
+		echo "[DONE] cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
+	fi
+}
+
+function is_wd_owner_root() {
+	local TARGET_DIR="${1:-.}"
+	if [[ $(uname) == "Darwin" ]]; then
+		[[ $(stat -f "%u" $TARGET_DIR) == 0 ]]
+		return
+	fi
+	[[ $(stat -c "%u" $TARGET_DIR) == 0 ]]
+	return
+}
+
 function selhost() {
 	local VAR_NAME=${1:-"TARGET_HOST"}
 	local RET=$(sshconfig_host_hostname | peco | awk '{print $1}')
