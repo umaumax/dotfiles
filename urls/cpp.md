@@ -52,3 +52,6 @@ c++ cpp detect stream eof boost serialization
 
 c++ cpp const
 [ポインタ型に付ける const は型名の後ろに付くと考えると憶えやすい \- Qiita]( https://qiita.com/yuki12/items/06c85af2735ddefd5666 )
+
+c++ clang-format
+[c\+\+ \- Clang\-format line breaks \- Stack Overflow]( https://stackoverflow.com/questions/33656800/clang-format-line-breaks )
