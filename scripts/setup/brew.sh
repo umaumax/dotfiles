@@ -5,6 +5,7 @@ set -ex
 # brew
 # WIP
 brew install rpl
+brew install colormake
 
 # brew tap
 # WIP
