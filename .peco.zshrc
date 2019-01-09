@@ -300,6 +300,6 @@ if cmdcheck fzf; then
 		local port="12800"
 		! cmdcheck gtrans && echo "REQUIRED: gtrans" && echo "pip install https://github.com/umaumax/gtrans/archive/master.tar.gz" && return 1
 		pgrep -lf "gtrans -p" >/dev/null 2>&1 || nohup gtrans -p $port &
-		: | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | gsed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
+		: | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | sed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
 	}
 fi
