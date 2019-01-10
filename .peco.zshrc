@@ -249,8 +249,9 @@ function lnpeco() {
 	[[ -e $SYM_SRC_PATH ]] && [[ ! -L $SYM_SRC_PATH ]] && echo "'$SYM_SRC_PATH' is not symbolic link!" && return 1
 	[[ ! -d $TARGET_DIR ]] && echo "'$TARGET_DIR' is not dir" && return 1
 
-	local dst=$(ls $TARGET_DIR | peco)
+	local dst=$({ printf "# current setting: "; ls -l $SYM_SRC_PATH | env grep -o -E '[a-zA-Z0-9\-~/]* ->.*$'; ls $TARGET_DIR; } | peco)
 	if [[ -n $dst ]]; then
+		[[ ! -e $dst ]] && echo "No such file or directory '$dst'" && return 1
 		if $(is_wd_owner_root $TARGET_DIR); then
 			sudo bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
 		else
