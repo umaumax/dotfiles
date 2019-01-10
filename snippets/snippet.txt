@@ -88,6 +88,7 @@
 [make -j max cpu] make -j$(nproc --all) @ # or simply only -j option
 [make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 [make variables debug] make -p -f/dev/null
+[make good looking color output] make SHELL='sh -ex' @ | ccze -A -o nolookups
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -590,6 +591,7 @@
 [devnull stderr       ] 2>/dev/null @
 [devnull stdout       ] >/dev/null @
 [devnull stdout/stderr] >/dev/null 2>&1 @
+[stderr > stdout      ] 2>&1 @
 
 # login shell
 [set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
@@ -891,3 +893,6 @@
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
+
+# performance
+[gprof: gmon.out call graph] gprof $EXEC_FILE_PATH@ | gprof2dot | dot -Tsvg -o output.svg
