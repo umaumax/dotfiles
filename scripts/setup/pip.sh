@@ -37,6 +37,9 @@ pip3 install jupyter
 pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz
 pip install cmakelint
 
+# for translate
+pip3 install https://github.com/umaumax/gtrans/archive/master.tar.gz
+
 # for keybind
 # NOTE: xkeysnail is used as root
 sudo -E pip3 install xkeysnail
