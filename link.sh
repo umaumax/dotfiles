@@ -74,7 +74,7 @@ if [[ $(uname) == "Linux" ]]; then
 fi
 
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
-ln -sf ~/dotfiles/.config/pep8 "~/$XDG_CONFIG_HOME/pep8"
+ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 
 if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
 	while read line || [ -n "${line}" ]; do
