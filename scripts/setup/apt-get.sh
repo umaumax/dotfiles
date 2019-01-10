@@ -160,6 +160,9 @@ sudo apt-get install -y ldap-utils
 
 sudo apt-get install -y ntp
 
+# for nfs mount
+sudo apt-get install nfs-common
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
