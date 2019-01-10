@@ -137,6 +137,9 @@ ros/install/
 # for cmake
 CMakeFiles/
 
+# for make
+!Makefile
+
 # for backup
 *.bak
 *~
