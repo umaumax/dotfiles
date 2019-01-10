@@ -1434,6 +1434,7 @@ EOF
 }
 
 # required: gdrive
+alias memosync='gsync-gshare'
 function gsync-gshare() {
 	# NOTE: zsh cd message stdout
 	# NOTE: gsync  message stderr
@@ -1443,11 +1444,21 @@ function gsync() {
 	local ID=$1
 	[[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
 	[[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
-	echo "ID:$ID"
-	echo "# downloading..."
-	gdrive sync download $ID .
-	echo "# uploading..."
-	gdrive sync upload . $ID
+	echo "${YELLOW}ID:$ID${DEFAULT}"
+
+	echo "# ${GREEN}downloading...${DEFAULT}"
+	local ret=$(gdrive sync download $ID . 2>&1)
+	echo "$ret"
+	local code=0
+	echo "$ret" | grep "Failed to find root dir: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
+	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && exit $code
+
+	echo "# ${GREEN}uploading...${DEFAULT}"
+	local ret=$(gdrive sync upload . $ID 2>&1)
+	echo "$ret"
+	local code=0
+	echo "$ret" | grep "Failed to find root dir: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1
+	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && exit $code
 }
 function gsync-download() {
 	local ID=$1
