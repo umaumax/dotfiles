@@ -60,8 +60,12 @@ snippet trimspace
 
 snippet devnull
   >/dev/null 2>&1
-snippet stderr
+snippet stdout_to_err
+abbr stdout -> stderr
   1>&2
+snippet stderr_to_out
+abbr stderr -> stdout
+  2>&1
 
 snippet default_var
 alias defvar
