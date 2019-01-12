@@ -792,11 +792,14 @@ function cmds() {
 	find $1 -maxdepth 1 -type f -follow -perm -=+x
 }
 alias lscmds='allcmds'
-function allcmds() {
+function pathcmds() {
 	for name in $(echo $PATH | sed "s/:/\n/g"); do
 		echo $name
-		find $name -maxdepth 1 -type f -follow -perm -=+x
+		find $name -maxdepth 1 -type f -follow -perm -=+x 2>/dev/null
 	done
+}
+function allcmds() {
+	pathcmds
 	alias
 }
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'

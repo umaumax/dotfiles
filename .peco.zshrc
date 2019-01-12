@@ -278,6 +278,10 @@ function selhost() {
 	echo "export ${YELLOW}${VAR_NAME}${DEFAULT}=${YELLOW}${RET}${DEFAULT}"
 }
 
+function pathcmdspeco() {
+	pathcmds | peco
+}
+
 if cmdcheck fzf; then
 	alias icalc='calc'
 	function calc() {
