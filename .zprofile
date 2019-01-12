@@ -142,6 +142,9 @@ fi
 # clang(LLVM)
 prepend_path /usr/local/bin
 prepend_path ~/local/bin
+# for pip
+# [systemd\-path user\-binaries]( https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path )
+append_path ~/.local/bin
 
 # python
 ## pyenv
