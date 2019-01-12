@@ -378,6 +378,8 @@ LazyPlug 'vim-airline/vim-airline'
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
 function! AirlineInit()
 	let spc = g:airline_symbols.space
+	let emoji_flag=0
+	let emoji = ' '
 	if has('mac')
 		" NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
 		" NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
@@ -385,7 +387,8 @@ function! AirlineInit()
 		let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
 		let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis))
 		let emoji = split(emojis, '\zs')[rand]
-	else
+	endif
+	if emoji_flag==0
 		let emoji = ' '
 	endif
 	" NOTE: condition: $HOME doesn't include regex
