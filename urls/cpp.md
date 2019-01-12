@@ -55,3 +55,6 @@ c++ cpp const
 
 c++ clang-format
 [c\+\+ \- Clang\-format line breaks \- Stack Overflow]( https://stackoverflow.com/questions/33656800/clang-format-line-breaks )
+
+c++ printf format
+[書式付入出力関数（printf 文・scanf 文）の書式 \- C言語 \- 碧色工房]( https://www.mm2d.net/main/legacy/c/c-01.html )
