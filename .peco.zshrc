@@ -29,7 +29,7 @@ fi
 # cd fzf
 # ./install
 # cp bin/fzf ~/local/bin/fzf
-cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --ansi --reverse'
+cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && alias fzf='pipe-EOF-do fzf --no-mouse --ansi --reverse'
 cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 
 function cat-C() {
