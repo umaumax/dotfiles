@@ -459,3 +459,10 @@ snippet trap
 snippet single_quote_in_single_quote
 alias sqinsq
   '"'"'
+
+snippet no_auto_shfmt
+  source <(
+    cat <<EOF
+  ${0}
+  EOF
+  )
