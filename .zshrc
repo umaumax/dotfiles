@@ -1517,19 +1517,41 @@ REPORTTIME=10
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
 
-# NOTE: macのiTermでは必要ない
+######
+# function precmd_function()
+######
 # [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
-if [[ $(uname) == "Linux" ]]; then
-	# to prevent `Vimを使ってくれてありがとう` at tab
-	function precmd_function() {
+#
+# NOTE: this function is called <C-c> (with same 'cmd')
+function precmd_function() {
+	local cmd="$history[$((HISTCMD - 1))]"
+	# 	local cmd=${cmd//\\/\\\\}
+	if [[ $(uname) == "Linux" ]]; then
+		# NOTE: macのiTermでは必要ない
+		# to prevent `Vimを使ってくれてありがとう` at tab
 		set-dirname-title
-	}
-elif [[ $(uname) == "Darwin" ]]; then
-	function precmd_function() {
-		({ echo $history[$((HISTCMD - 1))] | grep -s 'LD_PRELOAD'; } || [[ -n $LD_PRELOAD ]]) && echo "$RED THERE IS NO '"'$LD_PRELOAD'"' IN MAC. USE BELOW ENV!$DEFAULT" && echo "DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES="
-	}
-fi
+	elif [[ $(uname) == "Darwin" ]]; then
+		# NOTE: to warn LD_PRELOAD at mac
+		({ printf '%s' $cmd | grep -s 'LD_PRELOAD'; } || [[ -n $LD_PRELOAD ]]) && echo "$RED THERE IS NO '"'$LD_PRELOAD'"' IN MAC. USE BELOW ENV!$DEFAULT" && echo "DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES="
+	fi
+
+	# NOTE: maybe broken by multiple write
+	local date_str=$(date "+%Y/%m/%d %H:%M:%S")
+	printf "%s@%s@%s@%s\n" "$date_str" "$TTY" "$(pwd)" "$cmd" >>~/.detail_history
+}
 cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmd precmd_function
+
+function detail_history() {
+	cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'
+}
+function recent_history() {
+	local n=${1:-10}
+	cat ~/.detail_history | grep "$TTY" | cut -d"@" -f4 | tail -n $n
+}
+function wd_history() {
+	local n=${1:-20}
+	cat ~/.detail_history | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
+}
 
 # FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
 function show-all-files-which-processes-grab() {
