@@ -92,7 +92,8 @@ bindkey "^X^G" _pecoole
 # bindkey "^X^R" _no_history_rm
 
 function _copy_command() {
-	echo "$BUFFER" | tr -d '\n' | c
+	# NOTE: don't use echo (because e.g. \\ -> \ )
+	printf '%s' "$BUFFER" | tr -d '\n' | c
 	zle kill-whole-line
 	zle -R -c # refresh
 	echo "[clipboard]: $(p)"
