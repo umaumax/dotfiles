@@ -914,7 +914,8 @@ fi
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	if cmdcheck nkf; then
 		alias _c='nkf -w | pbcopy'
-		alias _p='pbpaste | nkf -w'
+		# NOTE: need nkf -w ?
+		alias _p='pbpaste'
 	else
 		alias _c='pbcopy'
 		alias _p='pbpaste'
@@ -924,6 +925,11 @@ if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	alias oc="tr -d '\n' | c"
 	alias op="p | tr -d '\n'"
 fi
+
+function remote_terminal_extra_string_from_clipboard() {
+	local clipboard=$(p)
+	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*✱$//g' | c
+}
 
 if [[ -z $DISPLAY ]]; then
 	function c() {
