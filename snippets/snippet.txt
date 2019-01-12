@@ -216,6 +216,7 @@
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 [g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
 [g++ asm] g++ -S -g @
+[g++ arch native] -march=native @
 
 # rename
 [find and rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
