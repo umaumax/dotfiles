@@ -902,6 +902,7 @@
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
+[list process which use some lib for linux] ps $(sudo grep @ /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH@ | gprof2dot | dot -Tsvg -o output.svg
