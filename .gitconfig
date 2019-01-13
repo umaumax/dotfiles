@@ -124,7 +124,8 @@
 	unstage = reset HEAD
 	unstage-permanent = rm --cached -r
 
-	url = remote -v
+	urls = remote -v
+	url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
 [color]
 	# Use colors in Git commands that are capable of colored output when
 	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
