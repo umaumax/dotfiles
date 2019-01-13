@@ -929,7 +929,7 @@ if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	alias op="p | tr -d '\n'"
 fi
 
-function remote_terminal_extra_string_from_clipboard() {
+function remove_terminal_extra_string_from_clipboard() {
 	local clipboard=$(p)
 	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*✱$//g' | c
 }
