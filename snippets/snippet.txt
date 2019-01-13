@@ -218,6 +218,10 @@
 [g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
 [g++ asm] g++ -S -g @
 [g++ arch native] -march=native @
+[32bit arm-linux-gnueabihf-g++] arm-linux-gnueabihf-g++ @
+[alias 32bit arm-linux-gnueabihf-g++] alias g++=arm-linux-gnueabihf-g++ !
+[64bit arm-linux-gnueabihf-g++] aarch64-linux-gnu-g++ @
+[alias 64bit arm-linux-gnueabihf-g++] alias g++=aarch64-linux-gnu-g++ !
 
 # rename
 [find and rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
