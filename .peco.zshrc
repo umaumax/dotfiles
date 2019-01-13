@@ -107,6 +107,7 @@ alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -
 # [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
+alias grvim='rgvim'
 alias rcvim='rdvim'
 function rdvim() {
 	local wd=${1:-$(pwd)}
