@@ -807,18 +807,6 @@ function allcmds() {
 }
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
-# get abs path
-# [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
-function abspath() {
-	if [[ $(uname) == "Darwin" ]]; then
-		local _home=$(echo $HOME | sed "s/\//\\\\\//g")
-		local abspathdir=$(sh -c "cd $(dirname $1) && pwd | sed \"s/$_home/~/\"")
-		echo ${abspathdir%/}/$(basename $1)
-	else
-		readlink -f $1
-	fi
-}
-
 # create markdown table body (not including header)
 # e.g. paste <(seq 1 10) <(seq 11 20) | mdt "\t"
 # $1: delimiter
@@ -831,9 +819,25 @@ function mdt() {
 alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ //g"'
 
 # show user home dir. as `~`
-_home=$(echo $HOME | sed "s/\//\\\\\//g")
-alias pwd="pwd | sed \"s/$_home/~/\""
-unset _home
+function homedir_normalization() {
+	sed 's:'"$(echo $HOME | sed "s/\//\\\\\//g")"':~:'
+}
+alias pwd='pwd | homedir_normalization'
+
+# [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
+function abspath() {
+	local target=${1:-.}/
+	if [[ $(uname) == "Darwin" ]]; then
+		local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
+		local ret=$(echo ${abspathdir%/}/$(basename $target))
+		{
+			[[ -f $ret ]] && echo $ret
+			[[ -d $ret ]] && dirname $ret
+		} | homedir_normalization
+	else
+		readlink -f $target
+	fi
+}
 
 # `$`付きコマンドでも実行可能に(bashではinvalid)
 [[ $ZSH_NAME == zsh ]] && alias \$=''
