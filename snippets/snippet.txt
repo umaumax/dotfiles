@@ -884,7 +884,9 @@
 [man seach] man -k @
 [man shell builtin command] man n @
 
+# grep
 [grep without message] grep -sq @
+[grep fixed string] grep -F @ # no regex '$' -> '\$', '\' -> '\\'
 
 # linux
 [segmentation backtrace] catchsegv @ # command
