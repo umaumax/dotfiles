@@ -163,6 +163,12 @@ sudo apt-get install -y ntp
 # for nfs mount
 sudo apt-get install nfs-common
 
+# for arm corss build
+## 32bit(arm)
+sudo apt install -y g++-arm-linux-gnueabihf
+## 64bit(arm64)
+sudo apt install -y g++-aarch64-linux-gnu
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
