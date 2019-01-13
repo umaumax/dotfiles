@@ -29,3 +29,6 @@ chmod u+x oressh
 
 https://github.com/umaumax/wcat/blob/master/wcat.sh wcat
 chmod u+x wcat
+
+https://github.com/umaumax/comment_asm/blob/master/comment_asm.awk comment_asm
+chmod u+x comment_asm
