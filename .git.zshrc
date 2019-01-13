@@ -221,6 +221,8 @@ function git-grep-japanese() { gg-japanese; }
 function git-grep-japanese-root() { ggr-japanese; }
 function git-grep-japanese-current() { ggc-japanese; }
 
+alias gfvim='git ls-files | pecovim'
+
 function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
 function is_git_repo_with_message() {
 	local message=${1:-"${RED}no git repo here!${DEFAULT}"}
