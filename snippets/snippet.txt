@@ -881,6 +881,8 @@
 # man
 [man ld] man ld.so!
 [man ascii] man ascii!
+[man seach] man -k @
+[man shell builtin command] man n @
 
 [grep without message] grep -sq @
 
