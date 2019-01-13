@@ -85,7 +85,8 @@
 [make debug verbose] make SHELL='sh -x' @ # made by yourself
 [make debug verbose] make --debug=j @ # made by yourself
 [make set -ex] make SHELL='sh -ex' @ # made by yourself
-[make -j max cpu] make -j$(nproc --all) @ # or simply only -j option
+## [makeの並列オプションは何を指定するべきか \- よーる]( http://lpha-z.hatenablog.com/entry/2018/12/30/231500 )
+[make -j max cpu] make -j$(($(nproc --all)+1)) @ # or simply only -j option
 [make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 [make variables debug] make -p -f/dev/null
 [make good looking color output] make SHELL='sh -ex' @ | ccze -A -o nolookups
