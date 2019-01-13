@@ -254,3 +254,9 @@ endfunction
 command! -nargs=1 -complete=file DiffSplit execute "vertical rightbelow diffsplit ".<q-args>
 command! DisableDeoplete :call deoplete#disable()
 command! EnableDeoplete :call deoplete#enable()
+
+function! s:gitopen()
+	let cmd='echo "`git url`/blob/`git rev-parse --abbrev-ref HEAD`/`git ls-files --full-name '.expand('%').'`#L'.line('.').'" | xargs open'
+	call system(cmd)
+endfunction
+command! GitOpen :call s:gitopen()
