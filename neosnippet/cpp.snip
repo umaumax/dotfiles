@@ -205,6 +205,15 @@ abbr std::stable_sort <algorithm>
       return ${0:#:x < y};
     });
 
+snippet min_assigne
+  $1 = ${1} < ${2} ? $1 : $2;${0}
+snippet max_assigne
+  $1 = ${1} > ${2} ? $1 : $2;${0}
+snippet min
+  (${1} < ${2} ? $1 : $2)${0}
+snippet max
+  (${1} > ${2} ? $1 : $2)${0}
+
 snippet min_element
 abbr std::min_element <algorithm>
   std::min_element(std::begin(${1}), std::end($1))
