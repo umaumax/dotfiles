@@ -1530,15 +1530,15 @@ REPORTTIME=10
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
 
-######
-# function precmd_function()
-######
 # [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
-#
-# NOTE: this function is called <C-c> (with same 'cmd')
-function precmd_function() {
-	local cmd="$history[$((HISTCMD - 1))]"
-	# 	local cmd=${cmd//\\/\\\\}
+# function precmd_function() {
+# 	local cmd="$history[$((HISTCMD - 1))]"
+# }
+# cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmdprecmd_function
+
+_pre_cmd=''
+function zshaddhistory_function() {
+	local cmd=${1%%$'\n'}
 	if [[ $(uname) == "Linux" ]]; then
 		# NOTE: macのiTermでは必要ない
 		# to prevent `Vimを使ってくれてありがとう` at tab
@@ -1549,20 +1549,24 @@ function precmd_function() {
 	fi
 
 	# NOTE: maybe broken by multiple write
-	local date_str=$(date "+%Y/%m/%d %H:%M:%S")
-	printf "%s@%s@%s@%s\n" "$date_str" "$TTY" "$(pwd)" "$cmd" >>~/.detail_history
+	# NOTE: <C-c> cause same history
+	if [[ $_pre_cmd != $cmd ]]; then
+		_pre_cmd=$cmd
+		local date_str=$(date "+%Y/%m/%d %H:%M:%S")
+		printf "%s@%s@%s@%s\n" "$date_str" "$TTY" "$(pwd)" "$cmd" >>~/.detail_history
+	fi
 
 	# NOTE: 列数に応じて，自動的にpromptを改行する
 	local cols=$(tput cols)
 	if [[ $cols -le $PROMPT_COLS_BOUNDARY ]]; then
 		# NOTE: %F{3}: YELLOW
 		# NOTE: $'\n': new line
-		export PS1="$_PS1"$'\n%F{3}$%F{255} '
+		PS1="$_PS1"$'\n%F{3}$%F{255} '
 	else
-		export PS1="$_PS1"
+		PS1="$_PS1"
 	fi
 }
-cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmd precmd_function
+cmdcheck zshaddhistory_function && autoload -Uz add-zsh-hook && add-zsh-hook zshaddhistory zshaddhistory_function
 
 function detail_history() {
 	cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'
