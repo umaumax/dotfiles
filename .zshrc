@@ -24,6 +24,9 @@ else
 	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
 fi
 
+[[ -z $_PS1 ]] && _PS1="$PS1"
+PROMPT_COLS_BOUNDARY=48
+
 # default 10000?
 export HISTSIZE=100000
 
@@ -1544,6 +1547,16 @@ function precmd_function() {
 	# NOTE: maybe broken by multiple write
 	local date_str=$(date "+%Y/%m/%d %H:%M:%S")
 	printf "%s@%s@%s@%s\n" "$date_str" "$TTY" "$(pwd)" "$cmd" >>~/.detail_history
+
+	# NOTE: 列数に応じて，自動的にpromptを改行する
+	local cols=$(tput cols)
+	if [[ $cols -le $PROMPT_COLS_BOUNDARY ]]; then
+		# NOTE: %F{3}: YELLOW
+		# NOTE: $'\n': new line
+		export PS1="$_PS1"$'\n%F{3}$%F{255} '
+	else
+		export PS1="$_PS1"
+	fi
 }
 cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmd precmd_function
 
