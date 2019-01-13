@@ -105,9 +105,14 @@ alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 # [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs -o vim"
-# 	alias rvim="viminfo-ls | peco | tee /dev/tty | xargs sh -c 'vim \$1 < /dev/tty' -"
 alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
+alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
+alias rcvim='rdvim'
+function rdvim() {
+	local wd=${1:-$(pwd)}
+	echo $wd
+	viminfo-ls | grep -E '^'"$wd" | peco | tee /dev/tty | xargs-vim
+}
 # 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 # 存在しない場合には空白となる
 # 最終的に'./'を加えても動作は変更されない
