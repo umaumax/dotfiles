@@ -179,6 +179,8 @@
 
 [git clone only HEAD] git clone --depth 1 $URL
 
+[git abspath to git relative path] git ls-files --full-name @
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
