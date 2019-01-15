@@ -466,6 +466,7 @@
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
 [sed fixed string replace] rpl @ # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
+[cut before] sed -E 's/^([^ ]+?( )+?){@}//'
 
 # ruby
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
