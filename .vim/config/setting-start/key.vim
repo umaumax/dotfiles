@@ -461,8 +461,8 @@ vnoremap V :<C-u>call <SID>V()<CR>
 command! -nargs=0 Delete normal! ggVG"_x
 
 " NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
-function! OpenURL()
-	let line = getline(".")
+function! OpenURL(...)
+	let line=get(a:, 1, getline("."))
 	let url = matchstr(line, '\(http\(s\)\?://[^ ]\+\)', 0)
 	echom 'open url:'.url
 	if has('mac')
