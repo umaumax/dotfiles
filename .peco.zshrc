@@ -227,6 +227,12 @@ function pecoexamples() {
 	cp -i "$root/$ret" "$(basename $ret)" && echo "[COPY]: $ret"
 }
 
+function unmountpeco() {
+	local ret=$(mount | peco | sed 's/.* on//g' | awk '{print$1}')
+	[[ -z $ret ]] && return
+	sudo unmount $ret
+}
+
 # NOTE: peco google
 function pecoole() {
 	local ret=$(
