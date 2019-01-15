@@ -911,3 +911,8 @@
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH@ | gprof2dot | dot -Tsvg -o output.svg
+
+# copy
+[copy with progress] cp -v @
+[copy directory] cp -R @ # Do not use -r: symbolic link -> no symbolic link
+[show copy progress] watch -n 0.1 progress -q
