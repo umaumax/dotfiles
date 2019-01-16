@@ -40,8 +40,17 @@ bind generic <Ctrl-b> scroll-page-up
 # you can't use pipe(|)
 bind generic Y !bash -c "echo file:; echo %(file); echo commit id:; echo %(commit)"
 
-# ?: confirm
-bind generic A ?git commit --amend --allow-empty
+# NOTE: ?: confirm
+# NOTE: ["Press Enter to continue" after a commit message · Issue \#463 · jonas/tig]( https://github.com/jonas/tig/issues/463 )
+# NOTE: >: prevent 'Press Enter to continue' for interactive command
+bind generic A ?>git commit --amend --allow-empty
+# remove file for untracked file
+# NOTE: @: prevent message 'Press Enter to continue'
+bind status D ?@rm -f %(file)
+# NOTE: default is !git commit
+bind status C !>git commit
+
+bind generic R refresh
 
 # NOTE: rebase
 bind main B !git rebase -i %(commit)
