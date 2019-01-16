@@ -442,6 +442,34 @@ function git-branch-new-to-old() {
 	git branch --sort=-authordate
 }
 
+# NOTE: ~/.ssh_configの対応するhostのに対して，例えば以下のように設定
+# Host github.com
+# 	HostName github.com
+# 	User git
+# 	SendEnv WEB_URL github.com:443
+function git-url() {
+	local url=${1:-$(git config remote.origin.url)}
+	[[ -z $url ]] && echo "$0 [git url] [filepath] [line no]" && return 1
+	local filepath=$2
+	local lineno=$3
+
+	local ret=$(echo $url | sed -E 's@^[a-z]+://@@' | sed -E 's:^[a-zA-z._0-9]+@::' | sed -E 's:\.git$::')
+	local host_repo=$(echo $ret | sed -E 's@^([^:/]*)((:[0-9]+)/|:([^/]+/)|/)(.*)$@\1 \4\5@')
+	local host=$(echo $host_repo | awk '{print$1}')
+	local repo=$(echo $host_repo | awk '{print$2}')
+	[[ -z $host ]] && echo "$0 parse error $ret" && return 1
+	local web_url=$(ssh -G $host 2>/dev/null | grep -A 1 WEB_URL | grep -v WEB_URL | awk '{print $2}')
+	[[ -z $web_url ]] && local web_url=$host
+	local web_type='gerrit'
+	echo $web_url | grep -q github && local web_type='github'
+	echo $web_url | grep -q gitlab && local web_type='gitlab'
+	local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "master")
+	local web_link="$web_url/gitweb?p=$repo;f=$filepath;hb=refs/heads/$branch#l$lineno"
+	[[ $web_type == "github" ]] && local web_link="$web_url/$repo/blob/$branch/$filepath#L$lineno"
+	[[ $web_type == "gitlab" ]] && local web_link="$web_url/$repo/blob/$branch/$filepath#L$lineno"
+	echo $web_link
+}
+
 if $(cmdcheck fzf); then
 	alias co='git checkout $(git branch -a | tr -d " " | fzf --height 100% --prompt "CHECKOUT BRANCH>" --preview "git log --color=always {}" | head -n 1 | sed -e "s/^\*\s*//g" | perl -pe "s/remotes\/origin\///g")'
 	function finder() {
