@@ -375,16 +375,17 @@ function! s:visual_mode_paste(...)
 	let vm = visualmode()
 	if vm ==# 'v'
 	elseif vm ==# 'V'
+		" NOTE: move to top of line
 		normal! 00
+		let last_char=content[len(content)-1]
+		if last_char!="\n"
+			let content.="\n"
+		endif
 	else
 	endif
 	" visual modeで切り取りを行った直後でカーソルが行の末尾場合の調整
 	let is_line_end = getpos("'<")[2]==col('$')
 	call <SID>paste_at_cursor(!is_line_end, content)
-	if vm ==# 'v'
-	elseif vm ==# 'V'
-		execute "normal! a\<CR>"
-	endif
 endfunction
 vnoremap p "_x:call <SID>visual_mode_paste()<CR>
 
@@ -629,7 +630,13 @@ endfunction
 function! s:set_cleand_clipboard_at_reg(reg_char, ...)
 	let content = get(a:, 1, @+)
 	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
-	let content=substitute(content, '\n*$', '', '')
+	" そうでない場合には次の行への貼り付けになってしまう
+	let vm = visualmode()
+	" NOTE:
+	" 行選択状態では，次の行への貼付けを気にしない(むしろ，そのままのほうが良い)
+	if vm !=# 'V'
+		let content=substitute(content, '\n*$', '', '')
+	endif
 	call setreg(a:reg_char, content)
 endfunction
 inoremap <silent><C-v> <C-o>:call <SID>set_cleand_clipboard_at_reg('p')<CR><C-r>p
