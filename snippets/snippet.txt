@@ -181,6 +181,8 @@
 
 [git abspath to git relative path] git ls-files --full-name @
 
+[git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/@"
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
