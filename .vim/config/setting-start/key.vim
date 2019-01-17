@@ -462,13 +462,12 @@ command! -nargs=0 Delete normal! ggVG"_x
 
 " NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
 function! OpenURL(...)
-	let line=get(a:, 1, getline("."))
-	let url = matchstr(line, '\(http\(s\)\?://[^ ]\+\)', 0)
+	let url=get(a:, 1, matchstr(getline("."), '\(http\(s\)\?://[^ ]\+\)', 0))
 	echom 'open url:'.url
 	if has('mac')
-		call system("open ".url)
+		call system("open '".url."'")
 	elseif !has('win')
-		call system("xdg-open &>/dev/null \"".url."\"")
+		call system("xdg-open &>/dev/null '".url."'")
 	else
 		echom 'not supported at windows!'
 	endif
