@@ -469,10 +469,16 @@ alias xargs-vim='_xargs-vim -'
 # alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
-alias git-status-pecovim='vim -p `git status -s | cut -c4-`'
+
+alias git-status-allvim='vim -p `git status -s | grep "^ M" | cut -c4-`'
+alias git-status-allvim='git-status-tabvim'
+alias gsttabvim='git-status-tabvim'
+
+alias git-status-pecovim='git status -s | grep "^ M" | cut -c4- | pecovim'
 alias vim-git-modified='git-status-pecovim'
 alias gst-pecovim='git-status-pecovim'
 alias gstpv='git-status-pecovim'
+alias gstvim='git-status-pecovim'
 
 alias rvgrep="viminfo-ls | xargs-grep"
 
