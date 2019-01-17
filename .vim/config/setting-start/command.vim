@@ -256,7 +256,7 @@ command! DisableDeoplete :call deoplete#disable()
 command! EnableDeoplete :call deoplete#enable()
 
 function! s:gitopen()
-	let cmd='echo "`git url`/blob/`git rev-parse --abbrev-ref HEAD`/`git ls-files --full-name '.expand('%').'`#L'.line('.').'"'
+	let cmd='git url '.expand('%').' '.line('.')." | tr -d '\n'"
 	let url=system(cmd)
 	call OpenURL(url)
 endfunction
