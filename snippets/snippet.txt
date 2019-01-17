@@ -128,7 +128,7 @@
 [git latest named tag] git tag --sort=taggerdate | tail -n1
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
 [git keep] touch @.gitkeep
-[remove all git filesnand .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
+[remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
