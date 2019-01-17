@@ -521,3 +521,24 @@ snippet clang-format-off-on
   // clang-format off
   ${0}
   // clang-format on
+
+snippet sprintf
+alias snprintf
+  [&]() {
+    char buf[1024];
+    std::snprintf(buf, sizeof(buf), ${1:#format});
+    return std::string(buf);
+  }();
+
+snippet float_equal
+abbr #include <limits>
+  (std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())
+
+snippet double_equal
+abbr #include <limits>
+  (std::abs(${1} - ${2}) <= std::numeric_limits<double>::epsilon())
+
+snippet __FUNC__
+alias func_macro, FUNC
+abbr no mangling name(method without class name)
+  __func__
