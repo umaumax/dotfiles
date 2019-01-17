@@ -616,18 +616,18 @@ augroup END
 
 " psate
 function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
-	call s:set_cleand_clipboard_at_reg('z', a:prefix.@+.a:suffix)
+	call s:set_cleaned_clipboard_at_reg('z', a:prefix.@+.a:suffix)
 endfunction
 " psate
 function! s:paste_at_cursor(Pflag, ...)
-	call s:set_cleand_clipboard_at_reg('p', get(a:, 1, @+))
+	call s:set_cleaned_clipboard_at_reg('p', get(a:, 1, @+))
 	if a:Pflag
 		normal! "pP
 	else
 		normal! "pp
 	endif
 endfunction
-function! s:set_cleand_clipboard_at_reg(reg_char, ...)
+function! s:set_cleaned_clipboard_at_reg(reg_char, ...)
 	let content = get(a:, 1, @+)
 	" 最後の連続改行を削除することで，カーソル位置からの貼り付けとなる
 	" そうでない場合には次の行への貼り付けになってしまう
@@ -639,7 +639,7 @@ function! s:set_cleand_clipboard_at_reg(reg_char, ...)
 	endif
 	call setreg(a:reg_char, content)
 endfunction
-inoremap <silent><C-v> <C-o>:call <SID>set_cleand_clipboard_at_reg('p')<CR><C-r>p
+inoremap <silent><C-v> <C-o>:call <SID>set_cleaned_clipboard_at_reg('p')<CR><C-r>p
 nnoremap <silent><C-v> :call <SID>paste_at_cursor(1)<CR><Right>
 
 function! s:paste_at_cmdline()
