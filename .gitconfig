@@ -125,6 +125,7 @@
 	unstage-permanent = rm --cached -r
 
 	urls = remote -v
+	# NOTE: maybe overwrite by shell function(only for my shell setting) or command
 	url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
 [color]
 	# Use colors in Git commands that are capable of colored output when
