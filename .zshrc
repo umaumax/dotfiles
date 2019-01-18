@@ -943,6 +943,14 @@ if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	alias op="p | tr -d '\n'"
 fi
 
+function paste_to_file() {
+	local ret=$(p)
+	printf "filename: "
+	read filename
+	[[ -z $filename ]] && return
+	printf "%s" $ret >$filename
+}
+
 function remove_terminal_extra_string_from_clipboard() {
 	local clipboard=$(p)
 	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|✭)+$//g' | c
