@@ -1,19 +1,16 @@
 # wrap command
 snippet wcout
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcout'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cout << '.substitute(getline('.'), '^\s*\|\s*wcout$', '', 'g').' << std::endl;')`
-
-snippet wcerr
+  `NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`
+snippet werr
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wcerr'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::cerr << '.substitute(getline('.'), '^\s*\|\s*wcerr$', '', 'g').' << std::endl;')`
-
-snippet wclog
+  `NeoSnippetWrapLine('werr', 'std::err << @', ' << std::endl;')`
+snippet wlog
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wclog'))."x\<C-o>13\<Right>", 'n') == 0 ? x:x}('std::clog << '.substitute(getline('.'), '^\s*\|\s*wclog$', '', 'g').' << std::endl;')`
-
+  `NeoSnippetWrapLine('wlog', 'std::log << @', ' << std::endl;')`
 snippet wif
 options word
-        `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wif'))."x\<C-o>A\<Left>", 'n') == 0 ? x:x}('if ('.substitute(getline('.'), '^\s*\|\s*wif$', '', 'g').')')`
+  `NeoSnippetWrapLine('wif', 'if (', '@)')`
 
 # REQUIRED: ctags
 snippet funcname

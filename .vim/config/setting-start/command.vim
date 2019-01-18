@@ -215,6 +215,14 @@ else
 	endfunction
 endif
 
+function! NeoSnippetWrapLine(name, prefix, suffix)
+	let cursor_mark='@'
+	let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
+	call feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len(a:name))."x\<C-o>".stridx(line, cursor_mark)."\<Right>", 'n')
+	let line=substitute(line, cursor_mark, '', '')
+	return line
+endfunction
+
 " NOTE
 " xxx = yyy; -> yyy = xxx;
 function! SwapCPPEqual() range
