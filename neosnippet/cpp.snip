@@ -15,6 +15,10 @@ snippet wif
 options word
         `{ x -> feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len('wif'))."x\<C-o>A\<Left>", 'n') == 0 ? x:x}('if ('.substitute(getline('.'), '^\s*\|\s*wif$', '', 'g').')')`
 
+# REQUIRED: ctags
+snippet funcname
+  `CppFuncName()`${0}
+
 snippet contains
 alias find_string
 abbr !=: found, ==: not found

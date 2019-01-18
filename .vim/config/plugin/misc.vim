@@ -26,6 +26,7 @@ let g:shebang#shebangs = {
 			\ }
 
 " NOTE: cpp is not supported
+" NOTE: get function name
 Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','zsh']}
 
 " vim lint
