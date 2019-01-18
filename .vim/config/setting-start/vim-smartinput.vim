@@ -378,7 +378,7 @@ function! s:smartinput_define()
 				\ })
 
 	let cpp_shortcut_map={
-				\ 'std':['cout','clog','cin','endl','shared_ptr','unique_ptr'],
+				\ 'std':['cout','clog', 'cerr','cin','endl','shared_ptr','unique_ptr'],
 				\	}
 	for [key, val] in items(cpp_shortcut_map)
 		let namespace=key
@@ -387,8 +387,9 @@ function! s:smartinput_define()
 			let n=len(keyword)
 			let keyword_without_last_char=keyword[:n-2]
 			let last_char=keyword[n-1]
+			" NOTE: 単語の途中や，すでにnamespaceが付加されていない場合
 			call s:smartinput_define_rule(
-						\ { 'at'    : '\%('.namespace.'::\)\@<!'.keyword_without_last_char.'\%#'
+						\ { 'at'    : '\%(\('.namespace.'::\)\|\([a-zA-Z0-9]\)\)\@<!'.keyword_without_last_char.'\%#'
 						\ , 'char'  : last_char
 						\ , 'input' : repeat('<BS>',n-1).namespace.'::'.keyword
 						\ , 'filetype' : ['cpp']
