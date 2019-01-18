@@ -722,9 +722,7 @@ alias plugged='cd ~/.vim/plugged'
 alias v='vim'
 # don't use .viminfo file option
 # alias tvim='vim -c "set viminfo="'
-alias tvim='vim -i NONE'
-alias tmpvim='vim -i NONE'
-alias tempvim='vim -i NONE'
+alias novim='vim -i NONE'
 alias tabvim='vim -p'
 alias fastvim='VIM_FAST_MODE=on vim'
 alias virc='vim ~/.vimrc'
@@ -741,6 +739,12 @@ alias vimr='vim README.md'
 alias vimre='vim README.md'
 alias vimR='vim README.md'
 alias vimRe='vim README.md'
+
+[[ ! -d ~/.tmp/ ]] && mkdir -p ~/.tmp/
+function tmpvim() {
+	local filename=${1:-$(date +%s)}
+	vim ~/.tmp/$filename
+}
 
 # for bash
 # alias vibrc='vi ~/.bashrc'
