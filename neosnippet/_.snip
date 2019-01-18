@@ -1,6 +1,12 @@
 # Global snippets
 include _/*
 
+# override
+snippet     filename
+alias       fname
+options     word
+    `bufname('%') ==#'[Command Line]' ? expand('#') : expand('%:t')`${0}
+
 snippet filepath
 alias   fpath
 options word
