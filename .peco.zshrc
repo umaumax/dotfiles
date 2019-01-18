@@ -132,7 +132,11 @@ function cdpeco() {
 	fi
 }
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
-alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | peco)"'
+# NOTE: only dir
+alias gcd='cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | pecocat)"'
+# NOTE: includes file
+alias gfcd='cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | pecocat))"'
+
 function _up() {
 	dir="$PWD"
 	while [[ $dir != / ]]; do
