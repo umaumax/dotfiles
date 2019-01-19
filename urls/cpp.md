@@ -58,3 +58,9 @@ c++ clang-format
 
 c++ printf format
 [書式付入出力関数（printf 文・scanf 文）の書式 \- C言語 \- 碧色工房]( https://www.mm2d.net/main/legacy/c/c-01.html )
+
+c++ mangle tool
+[compiler construction \- What is Linux utility to mangle a C\+\+ symbol name? \- Stack Overflow]( https://stackoverflow.com/questions/11335624/what-is-linux-utility-to-mangle-a-c-symbol-name )
+
+c++ time
+[c\+\+ \- How to reset the high\_resolution\_clock::time\_point \- Stack Overflow]( https://stackoverflow.com/questions/35148465/how-to-reset-the-high-resolution-clocktime-point?lq=1 )
