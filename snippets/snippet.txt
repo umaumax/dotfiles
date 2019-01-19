@@ -1,4 +1,3 @@
-#!/usr/bin/env bas
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
 [current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
@@ -278,6 +277,8 @@
 [ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user@127.0.0.1 -p 10022)
 [ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
 [ssh print configuration] ssh -G $HOST
+[sshfs] sshfs @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshfs read only] sshfs -o ro @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
 
 [scp dir] command tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [rsync        ] rsync -auvzh $SRC_DIR/ @ # set dst with dirname
@@ -684,6 +685,7 @@
 
 # shell
 [extract filepath ~] sed "s:^~:$HOME:g"
+[single quote] '"'"'
 
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
