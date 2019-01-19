@@ -331,4 +331,13 @@ if cmdcheck fzf; then
 		pgrep -lf "gtrans -p" >/dev/null 2>&1 || nohup gtrans -p $port &
 		: | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | sed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
 	}
+	function test_bash_regexp() {
+		[[ $# -le 0 ]] && echo "$0 [filepath]" && return 1
+		local TARGET_FILE=$1
+		{
+			echo NOTE: start with "' '" means raw query!
+			echo sample
+			echo '(\.|\?)$'
+		} | fzf --ansi --multi --preview 'echo {q} | grep ''^ \\+'' && QUERY={} || QUERY=$(echo {q} | awk ''{gsub(/^ +/,"")} {print $0}''); [[ -z $QUERY ]] && QUERY=".*"; echo "PAT=''$QUERY'' [[ xxx =~ \$PAT ]]"; echo; cat '"$TARGET_FILE"' | awk 1 | while read -r LINE; do; [[ $LINE =~ $QUERY ]] && echo "$LINE"; done' --print-query
+	}
 fi
