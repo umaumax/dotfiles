@@ -96,7 +96,6 @@ alias fpeco='find . -type f | peco'
 alias fpecovim='find . -type f | pecovim'
 alias fvim='find . -type f | pecovim'
 # m: modified
-alias gvim='git status -s | cut -c4- | pecovim'
 alias gmvim='git status -s | cut -c4- | pecovim'
 alias ftvim='pvft'
 alias epeco='env | peco | tee /dev/tty | c'
