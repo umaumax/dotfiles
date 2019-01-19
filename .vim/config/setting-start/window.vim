@@ -9,10 +9,40 @@ nnoremap sO <C-w>=
 nnoremap sn gt
 " prev tab
 nnoremap sp gT
-nnoremap sN :<C-u>bn<CR>
-nnoremap sP :<C-u>bp<CR>
+" nnoremap sN :<C-u>bn<CR>
+" nnoremap sP :<C-u>bp<CR>
+nnoremap sN :<C-u>call TorusTabMove(1)<CR>
+nnoremap sP :<C-u>call TorusTabMove(-1)<CR>
 nnoremap st :<C-u>tabnew<CR>
 nnoremap sT :<C-u>Unite tab<CR>
+
+" NOTE: 巡回する円環tab機構
+" NOTE: +1, -1
+function! TorusTabMove(...)
+	let str=get(a:, 1, '+1')
+	if str=='1'
+		let str='+1'
+	endif
+	if str!='+1' && str!='-1'
+		echom ':TorusTabMove +1 or -1'
+		return
+	endif
+	let prev_flag=str=='-1'
+	let next_flag=str=='+1'
+
+	" NOTE: 1~
+	let current_tab_no=tabpagenr()
+	let max_tab_no = tabpagenr('$')
+	if current_tab_no==1 && prev_flag
+		:tabmove
+		return
+	endif
+	if current_tab_no==max_tab_no && next_flag
+		:tabmove 0
+		return
+	endif
+	execute ':tabmove '.str
+endfunction
 
 " split window of new buffer
 nnoremap ss :new<CR>
