@@ -14,33 +14,33 @@ options word
 
 # REQUIRED: ctags
 snippet funcname
-  `CppFuncName()`${0}
+  `CppFuncName()`
 
 snippet contains
 alias find_string
 abbr !=: found, ==: not found
-  (${1:str}.find(${2:keyword}) != std::string::npos)
+  (${1:#:str}.find(${2:#:keyword}) != std::string::npos)
 
 snippet prefix_string
 alias string_prefix
-  if (${1:#target}.size() >= ${2:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
+  if (${1:#:target}.size() >= ${2:#:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
     ${0}
   }
 
 snippet cast_dynamic
 abbr for class
-  dynamic_cast<${1:# Type}>(${2:TARGET})${0}
+  dynamic_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_static
 abbr for not pointer
-  static_cast<${1:# Type}>(${2:TARGET})${0}
+  static_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_reinterpret
 abbr for pointer
-  reinterpret_cast<${1:# Type}>(${2:TARGET})${0}
+  reinterpret_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_const
 abbr for const cast
-  const_cast<${1:# Type}>(${2:TARGET})${0}
+  const_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet void_pointer_to_rvalue_cast
-  auto &${0} == static_cast<$2&>(*reinterpret_cast<${2:#type}*>(${1:# pointer}));
+  auto &${0} == static_cast<$2&>(*reinterpret_cast<${2:#:type}*>(${1:#:pointer}));
 
 snippet debug_print
 options head
@@ -49,7 +49,7 @@ abbr << __func__ << ...
 
 snippet to_bool
 alias bool
-  ((${0:bool value})?"true":"false")
+  ((${0:#:bool value})?"true":"false")
 
 # NOTE: pp is too short to select
 snippet pppp
@@ -96,7 +96,7 @@ snippet sleep
   std::this_thread::sleep_for(std::chrono::${1:milliseconds}(${2:1000}));
 
 snippet numeric_limits
-  std::numeric_limits<${1:int}>::${0}()
+  std::numeric_limits<${1:int}>::${0:#:max or min}()
 
 snippet foreach_iterator
   for (std::${1:vector}<${2}>::iterator ${3:itr} = ${4}.begin(); $3 != $4.end(); ++$3) {
@@ -129,7 +129,8 @@ snippet async
   });
 
 snippet unused
-  (void)
+abbr avoid unused variable warning
+  (void)${0:#:var};
 
 snippet for_auto
   for (auto&& ${1:e} : ${2:#:container}) {
@@ -298,7 +299,7 @@ snippet sum
 snippet time_measurement
 alias chrono_time, stopwatch, calc_time
 abbr REQUIRED: #include <chrono>
-  std::chrono::system_clock::time_point ${1:start}_start = std::chrono::system_clock::now();
+  std::chrono::system_clock::time_point ${1:#:start}_start = std::chrono::system_clock::now();
   ${0}
   double $1_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - $1_start).count();
 
@@ -308,7 +309,7 @@ abbr std::chrono::duration_cast<T>() <chrono>
 snippet shared_void_pointer_cast
 alias cast_shared_void_pointer
 abbr cast std::shared_ptr<void> to some pointer (also unique pointer)
-  (${0:# dst pointer type}*)${1:#smart pointer var name}.get()
+  (${0:#:dst pointer type}*)${1:#:smart pointer var name}.get()
 
 snippet lock_guard
   {
@@ -406,13 +407,13 @@ snippet if_x64
 
 snippet class_template
   template <class T>
-  class ${1:#class name} {
+  class ${1:#:class name} {
    public:
     $1(){};
     ~$1(){};
 
    private:
-    int ${2:#method name}(T xxx);
+    int ${2:#:method name}(T xxx);
   };
 
   template <>
@@ -430,7 +431,7 @@ snippet stream_eof_detection
     iss.seekg(archive_offset);
     // some processing
     if (iss.tellg() == stream_end_offset - 1) {
-      ${0:# eof processing}
+      ${0:#: eof processing}
     }
 
 snippet boost_serialization_headers
@@ -444,10 +445,10 @@ alias serialization_headers
     #include <boost/serialization/vector.hpp>
 snippet serialization
 alias boost_serialization
-    boost::archive::text_oarchive toa(${1:# ostream});
+    boost::archive::text_oarchive toa(${1:#:ostream});
 snippet deserialization
 alias boost_deserialization
-    boost::archive::text_iarchive tia(${1:# istream});
+    boost::archive::text_iarchive tia(${1:#:istream});
 
 snippet include-guard
     #ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
@@ -460,7 +461,7 @@ snippet include-guard-with-include-prefix
     #endif  // $1${0}
 
 snippet namespace
-    namespace ${1:# namespace} {
+    namespace ${1:#: namespace} {
     }  // namespace $1
 
 snippet ros_info
@@ -518,26 +519,22 @@ alias incl__system
 snippet include_chrono
 alias incl_chrono
   #include <chrono>
-  ${0}
 snippet include_functional
 alias incl_functional
   #include <functional>
-  ${0}
 snippet include_iomanip
 alias incl_iomanip
   #include <iomanip>
-  ${0}
 
 snippet clang-format-off-on
   // clang-format off
-  ${0}
   // clang-format on
 
-snippet sprintf
-alias snprintf
+snippet sprintf_string
+alias snprintf_string
   [&]() {
     char buf[1024];
-    std::snprintf(buf, sizeof(buf), ${1:#format});
+    std::snprintf(buf, sizeof(buf), ${1:#:format});
     return std::string(buf);
   }();
 
