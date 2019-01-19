@@ -473,8 +473,11 @@ snippet ros_warn
 alias ros_clog
   ROS_WARN_STREAM(${0});
 
-snippet assert_with_message
-  assert((${1:# condition}) && "${0:# message}");
+snippet assert_with_fixed_message
+  assert((${1:#:condition}) && "${0:#:message}");
+
+snippet assert_with_formated_message
+  assert((${1:#:condition}) || !std::fprintf(stderr, "%s:%d ${0:#:format}\n", __FILE__, __LINE__));
 
 # [c\+\+ \- Get home directory in Linux \- Stack Overflow]( https://stackoverflow.com/questions/2910377/get-home-directory-in-linux/2910392#2910392 )
 snippet home_dir
@@ -504,6 +507,13 @@ snippet push_back
 snippet breakpoint
 abbr REQUIRED: <signal.h>
   raise(SIGTRAP);
+
+snippet include__user
+alias incl__user
+  #include "${0}"
+snippet include__system
+alias incl__system
+  #include <${0}>
 
 snippet include_chrono
 alias incl_chrono
@@ -543,3 +553,17 @@ snippet __FUNC__
 alias func_macro, FUNC
 abbr no mangling name(method without class name)
   __func__
+
+snippet __LINE__
+alias line_macro, LINE
+  __LINE__
+
+snippet __FILE__
+alias file_macro, FILE
+  __FILE__
+
+snippet using_typedef
+  using ${1:#:new type name} = ${2:#: type};
+
+snippet typedef
+  typedef ${1:#:type} ${2:#:new type name};
