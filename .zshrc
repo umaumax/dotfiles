@@ -1317,6 +1317,26 @@ function line() {
 	echo ''
 }
 function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
+function hr_log() {
+	local char=$1
+	[[ $# -le 1 ]] && echo "$0 [CHAR] [printf FORMAT] [ARGS]" && return 1
+	shift
+	hr $char
+	hr_message $char $@
+	hr $char
+}
+function hr_message() {
+	local char=$1
+	[[ $# -le 1 ]] && echo "$0 [CHAR] [printf FORMAT] [ARGS]" && return 1
+	shift
+	local message="    "$(printf $@)"    "
+	local left_cols=$((($(tput cols) - ${#message}) / 2))
+	local right_cols=$((($(tput cols) - ${#message} + 1) / 2))
+	printf '%*s' "$left_cols" '' | tr ' ' "$char"
+	printf '%s' "$message"
+	printf '%*s' "$right_cols" '' | tr ' ' "$char"
+	printf '\n'
+}
 
 # terminal session logger
 function script() {
