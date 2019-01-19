@@ -6,6 +6,7 @@ set -ex
 # WIP
 brew install rpl
 brew install colormake
+brew install sshfs
 # for c++ lib
 brew install google-benchmark
 
