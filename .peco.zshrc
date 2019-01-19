@@ -231,10 +231,14 @@ function pecoexamples() {
 	cp -i "$root/$ret" "$(basename $ret)" && echo "[COPY]: $ret"
 }
 
-function unmountpeco() {
+function umountpeco() {
 	local ret=$(mount | peco | sed 's/.* on//g' | awk '{print$1}')
 	[[ -z $ret ]] && return
-	sudo unmount $ret
+	if [[ $(uname) == "Darwin" ]]; then
+		sudo diskutil unmount $ret
+	else
+		sudo umount $ret
+	fi
 }
 
 # NOTE: peco google
