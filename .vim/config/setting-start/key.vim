@@ -497,25 +497,11 @@ command! -nargs=0 CD cd %:h
 " nnoremap < :tabp<CR>
 
 " vim window control
-" :sp	水平分割
-" :vs	垂直分割
+" :sp 水平分割
+" :vs 垂直分割
 " :e <tab>
 
-" ウィンドウ切り替え
-nnoremap <C-w> <C-w><C-w>
-" 現在のウィンドウのサイズ調整
-nnoremap <C-w>, <C-w><
-nnoremap <C-w>. <C-w>>
-nnoremap <C-w>; <C-w>+
-"nnoremap <C-w>- <C-w>-
-
-" entire select
-" function! s:copy_all()
-" 	" NOTE: 改行コードが変化する可能性
-" 	let l:source = join(getline(1, '$'), "\n")
-" 	let @+=l:source
-" endfunction
-" command! -nargs=0 CopyAll call s:copy_all()
+" copy current buffer lines
 command! -nargs=0 CopyAll :%y
 
 " <Nul> means <C-Space>
@@ -634,6 +620,7 @@ function! s:set_cleaned_clipboard_at_reg(reg_char, ...)
 	" NOTE:
 	" 行選択状態では，次の行への貼付けを気にしない(むしろ，そのままのほうが良い)
 	if vm !=# 'V'
+		" NOTE: e.g. c-vでの貼り付けは改行を含んでいていも，カーソル位置に貼り付けたいため
 		let content=substitute(content, '\n*$', '', '')
 	endif
 	call setreg(a:reg_char, content)
@@ -650,7 +637,7 @@ function! s:paste_at_cmdline()
 	call setcmdpos(strlen(cmd)+1)
 	return cmd
 endfunction
-" NOTE: gxコマンドではなく，直接URLを貼り付けて開くこと
+" NOTE: 下記のURLはvimのgxコマンドではなく，直接URLを貼り付けて開くこと(urlencodeされてしまうため)
 " [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-\_e )
 cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
 
@@ -794,7 +781,7 @@ cnoremap <C-n> <Down>
 " cnoremap <C-p> <S-Tab>
 " cnoremap <C-n> <Tab>
 
-nnoremap src :source ~/.vimrc<CR>
+" nnoremap src :source ~/.vimrc<CR>
 " :Src
 " :Src .
 function! s:source(...)
@@ -857,6 +844,7 @@ vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o
 " 右回り
 vnoremap <silent> <C-r> <Left>"zd<Right>"zPgv<Right>
 
+" 現在のカーソル位置から行末までをコピー
 nnoremap Y y$
 
 " s means surround
@@ -1006,25 +994,14 @@ func! s:IndentSensitive(backward)
 
 	call cursor(hitLineNum, col)
 endfunc
-
 func! s:getIndentLevel(str)
 	return len(matchstr(a:str, '^[ \t]*'))
 endfunc
-
-
 func! IndentSensitivePrev()
 	call s:IndentSensitive(1)
 endfunc
-
 func! IndentSensitiveNext()
 	call s:IndentSensitive(0)
 endfunc
-
 nnoremap <silent> t<Up> :call IndentSensitivePrev()<CR>
 nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
-
-" NOTE: force disable paste mode
-" augroup disable_paste_mode_group
-" 	autocmd!
-" 	autocmd OptionSet paste setlocal nopaste
-" augroup END
