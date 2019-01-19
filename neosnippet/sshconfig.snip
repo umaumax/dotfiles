@@ -1,19 +1,19 @@
 snippet host
-  Host ${1:#name}
-    HostName ${2:#hostname}
-    User ${3:#login user name}
-    IdentityFile ~/.ssh/${4:#secret key filepath(not .pub)}
+  Host ${1:#:name}
+    HostName ${2:#:hostname}
+    User ${3:#:login user name}
+    IdentityFile ~/.ssh/${4:#:secret key filepath(not .pub)}
 
 snippet port
   Port ${0}
 
 snippet portforward
 alias LocalForward
-  LocalForward ${1:# local port} ${2:# target host from remote host}:${3:# target port from remote host}
+  LocalForward ${1:#: local port} ${2:#: target host from remote host}:${3:#: target port from remote host}
 
 snippet proxy
 alias ProxyCommand
-  ProxyCommand ssh ${1:# proxy ssh host name} -W %h:%p
+  ProxyCommand ssh ${1:#: proxy ssh host name} -W %h:%p
 
 snippet xwindow
   XAuthLocation /opt/X11/bin/xauth
@@ -30,6 +30,6 @@ snippet high_sierra
   UseKeychain yes
 
 snippet ServerAliveInterval
-  ServerAliveInterval ${1:# sec}
+  ServerAliveInterval ${1:#: sec}
 snippet ServerAliveCountMax
-  ServerAliveCountMax ${1:# count}
+  ServerAliveCountMax ${1:#: count}

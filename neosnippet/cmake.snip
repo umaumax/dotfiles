@@ -1,13 +1,13 @@
 # [vim\-snippets\-neosnippet/cmake\.snip at master · gisphm/vim\-snippets\-neosnippet]( https://github.com/gisphm/vim-snippets-neosnippet/blob/master/neosnippets/cmake.snip )
 snippet init
     cmake_minimum_required(version ${1:2.8.2})
-    project(${2:ProjectName})
+    project(${2:#:ProjectName})
 
-    find_package(${3:library})
+    find_package(${3:#:library})
 
     include_directories(${$3_INCLUDE_DIRS})
 
-    add_subdirectory(${0:src})
+    add_subdirectory(${0:#:src})
 
     add_executable($2)
 
@@ -21,32 +21,32 @@ snippet min
 
 snippet include
 abbr NOTE: 1st arg is not target
-    include_directories(${${0:include_dir}})
+    include_directories(${${0:#:include_dir}})
 
 snippet find
-    find_package(${1:library} ${0:REQUIRED})
+    find_package(${1:#:library}${0: REQUIRED})
 
 snippet glob
-    file(glob ${1:srcs} *.${0:cpp})
+    file(glob ${1:#:srcs} *.${0:cpp})
 
 snippet subdir
-    add_subdirectory(${0:src})
+    add_subdirectory(${0:#:src})
 
 snippet lib
-    add_library(${1:lib} ${${0:srcs}})
+    add_library(${1:#:lib} ${${0:#:srcs}})
 
 snippet link
-    target_link_libraries(${1:bin} ${0:somelib})
+    target_link_libraries(${1:#:bin} ${0:#:somelib})
 
 snippet bin
-    add_executable(${1:bin})
+    add_executable(${1:#:bin})
 
 snippet set
-    set(${1:var} ${0:val})
+    set(${1:#:var} ${0:#:val})
 
 snippet dep
-    add_dependencies(${1:target}
-        ${0:dep}
+    add_dependencies(${1:#:target}
+        ${0:#:dep}
     )
 
 snippet c_flags
@@ -58,11 +58,11 @@ alias cxx_flags
 
 snippet Ext_url
     include(ExternalProject)
-    ExternalProject_Add(${1:googletest}
-      URL ${2:http://googletest.googlecode.com/files/gtest-1.7.0.zip}
-      URL_HASH SHA1=${3:f85f6d2481e2c6c4a18539e391aa4ea8ab0394af}
-      SOURCE_DIR "${4:${CMAKE_BINARY_DIR}/gtest-src}"
-      BINARY_DIR "${0:${CMAKE_BINARY_DIR}/gtest-build}"
+    ExternalProject_Add(${1:#:googletest}
+      URL ${2:#:http://googletest.googlecode.com/files/gtest-1.7.0.zip}
+      URL_HASH SHA1=${3:#:f85f6d2481e2c6c4a18539e391aa4ea8ab0394af}
+      SOURCE_DIR "${CMAKE_BINARY_DIR}/${4:#:gtest-src}"
+      BINARY_DIR "${CMAKE_BINARY_DIR}/${0:#:gtest-build}"
       CONFIGURE_COMMAND ""
       BUILD_COMMAND     ""
       INSTALL_COMMAND   ""
@@ -71,11 +71,11 @@ snippet Ext_url
 
 snippet Ext_git
     include(ExternalProject)
-    ExternalProject_Add(${1:googletest}
-      GIT_REPOSITORY    ${2:https://github.com/google/googletest.git}
+    ExternalProject_Add(${1:#:googletest}
+      GIT_REPOSITORY    ${2:#:https://github.com/google/googletest.git}
       GIT_TAG           ${3:master}
-      SOURCE_DIR        "${4:${CMAKE_BINARY_DIR}/googletest-src}"
-      BINARY_DIR        "${0:${CMAKE_BINARY_DIR}/googletest-build}"
+      SOURCE_DIR        "${CMAKE_BINARY_DIR}/${4:#:googletest-src}"
+      BINARY_DIR        "${CMAKE_BINARY_DIR}/${0:#:googletest-build}"
       CONFIGURE_COMMAND ""
       BUILD_COMMAND     ""
       INSTALL_COMMAND   ""
@@ -83,13 +83,13 @@ snippet Ext_git
     )
 
 snippet props
-    set_target_properties(${1:target}
-        ${2:properties} ${3:compile_flags}
+    set_target_properties(${1:#:target}
+        ${2:#:properties} ${3:#:compile_flags}
         ${0:"-O3 -Wall -pedantic"}
     )
 
 snippet test
-    add_test(${1:ATestName} ${0:testCommand --options})
+    add_test(${1:#:TestName} ${0:#:testCommand --options})
 
 snippet dump_var
     message(STATUS "*** dump start cmake variables ***")
@@ -105,75 +105,75 @@ alias echo
 
 snippet messages_list
 alias echo_list echo_var
-    message("\${${0:# list var name}}")
+    message("\${${0:#: list var name}}")
 
 snippet foreach_list
 abbr    don't use ${} as var name here
 options head
-  foreach(${1:item} IN LISTS ${2:items})
+  foreach(${1:item} IN LISTS ${2:#:items})
     ${0}
   endforeach()
 
 snippet list_append_all
-    foreach(${1:item} IN LISTS ${2:items})
-      list(APPEND ${3:new_item} "${4:#prefix}\${$1}${0:#suffix}")
+    foreach(${1:item} IN LISTS ${2:#:items})
+      list(APPEND ${3:#:new_item} "${4:#:prefix}\${$1}${0:#:suffix}")
     endforeach()
 
 snippet list_length
-  list(LENGTH ${1:#list} ${2:#out-var})
+  list(LENGTH ${1:#:list} ${2:#:out-var})
 snippet list_get
-  list(GET ${1:#list} ${2:#element index} ${3:#[index...]} ${4:out-var})
+  list(GET ${1:#:list} ${2:#:element index} ${3:#:[index...]} ${4:#:out-var})
 snippet list_join
-  list(JOIN ${1:#list} ${2:#glue} ${3:#out-var})
+  list(JOIN ${1:#:list} ${2:#:glue} ${3:#:out-var})
 snippet list_sublist
-  list(SUBLIST ${1:#list} ${2:#begin} ${3:#length} ${4:#out-var})
+  list(SUBLIST ${1:#:list} ${2:#:begin} ${3:#:length} ${4:#:out-var})
 snippet list_find
-  list(FIND ${1:#list} ${2:#value} ${3:#out-var})
+  list(FIND ${1:#:list} ${2:#:value} ${3:#:out-var})
 snippet list_append
-  list(APPEND ${1:#list} [${2:#element...]})
+  list(APPEND ${1:#:list} [${2:#:element...]})
 snippet list_filter
-  list(FILTER ${1:#list} ${2:#INCLUDE or EXCLUDE} REGEX ${3:#regex})
+  list(FILTER ${1:#:list} ${2:#:INCLUDE or EXCLUDE} REGEX ${3:#:regex})
 snippet list_insert
-  list(INSERT ${1:#list} ${2:#index} ${3:#[element...]})
+  list(INSERT ${1:#:list} ${2:#:index} ${3:#:[element...]})
 snippet list_remove_ietm
-  list(REMOVE_ITEM ${1:#list} ${2:#value...})
+  list(REMOVE_ITEM ${1:#:list} ${2:#:value...})
 snippet list_at
-  list(REMOVE_AT ${1:#list} ${2:#index...})
+  list(REMOVE_AT ${1:#:list} ${2:#:index...})
 snippet list_duplicates
-  list(REMOVE_DUPLICATES ${1:#list})
+  list(REMOVE_DUPLICATES ${1:#:list})
 snippet list_transform
-  list(TRANSFORM ${1:#list} ${2:#ACTION} ${3:#[...]})
+  list(TRANSFORM ${1:#:list} ${2:#:ACTION} ${3:#:[...]})
 snippet list_reverse
-  list(REVERSE ${1:#list})
+  list(REVERSE ${1:#:list})
 snippet list_sort
-  list(SORT ${2:#list})
+  list(SORT ${2:#:list})
 
 snippet get_filename
 abbr File name without directory
-  get_filename_component(${1:#var name} ${${0:#path}} NAME)
+  get_filename_component(${1:#:var name} ${${0:#:path}} NAME)
 snippet get_directory
 abbr Directory without file name
-  get_filename_component(${1:#var name} ${${0:#path}} DIRECTORY)
+  get_filename_component(${1:#:var name} ${${0:#:path}} DIRECTORY)
 snippet get_ext
 abbr File name longest extension (.b.c from d/a.b.c)
-  get_filename_component(${1:#var name} ${${0:#path}} EXT)
+  get_filename_component(${1:#:var name} ${${0:#:path}} EXT)
 snippet get_filename_without_ext
 abbr File name without directory or longest extension
-  get_filename_component(${1:#var name} ${${0:#path}} NAME_WE)
+  get_filename_component(${1:#:var name} ${${0:#:path}} NAME_WE)
 snippet get_absolute_path
 abbr Full path to file
-  get_filename_component(${1:#var name} ${${0:#path}} ABSOLUTE)
+  get_filename_component(${1:#:var name} ${${0:#:path}} ABSOLUTE)
 snippet get_realpath
 abbr Full path to existing file with symlinks resolved
-  get_filename_component(${1:#var name} ${${0:#path}} REALPATH)
+  get_filename_component(${1:#:var name} ${${0:#:path}} REALPATH)
 
 snippet set_target_properties_sources
-  set_target_properties(${1:#target} PROPERTIES SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${0})
+  set_target_properties(${1:#:target} PROPERTIES SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/${0})
 
 snippet filepath_to_target
-  string(REPLACE "/" "_" target ${${0:#filepath}})
+  string(REPLACE "/" "_" target ${${0:#:filepath}})
 
 snippet version_if
-  if(${CMAKE_VERSION} VERSION_LESS ${1:#version e.g. 3.6})
+  if(${CMAKE_VERSION} VERSION_LESS ${1:#:version e.g. 3.6})
     ${0:option(CMAKE_CXX_CLANG_TIDY "clang-tidy command" OFF)}
   endif()

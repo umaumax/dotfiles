@@ -1,12 +1,12 @@
 snippet console_log
 alias cl
 options head
-  console.log(${0:TARGET})
+  console.log(${0:#:TARGET})
 
 snippet console_log_json
 alias cj
 options head
-  console.log(JSON.stringify(${0:TARGET}, null, 2))
+  console.log(JSON.stringify(${0:#:TARGET}, null, 2))
 
 snippet urlBuilder
   // FYI: [Changing URL parameters with jQuery · samaxes]( https://samaxes.com/2011/09/change-url-parameters-with-jquery/ )
@@ -60,7 +60,7 @@ snippet append_stylesheet
   $('head').append(style);
 
 snippet for_object
-  for (let ${2:key} of Object.keys(${1:#object})) {
+  for (let ${2:key} of Object.keys(${1:#:object})) {
     var ${3:val} = $1[$2];
     ${0}
   }

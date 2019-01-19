@@ -9,12 +9,12 @@ snippet find_first
 
 snippet open_file
 alias with_open_file
-	with open(${1:#input_file_name}, 'r', encoding='utf-8') as ${2:tmp_file}:
-		${3:$input_file_content} = $2.read()
+	with open(${1:#:input_file_name}, 'r', encoding='utf-8') as ${2:tmp_file}:
+		${3:#:input_file_content} = $2.read()
 	${0}
 
 snippet class
-	class ${1:#class name}:
+	class ${1:#:class name}:
 		def __init__(self, ${0}):
 
 snippet stdin_readline
@@ -26,13 +26,13 @@ snippet stdin_readlines
 	lines = sys.stdin.readlines()
 
 snippet for_range
-	for ${2:i} in range(${1:# 0 ~ n-1}):
+	for ${2:i} in range(${1:#: 0 ~ n-1}):
 		${0}
 
 snippet init_list
-	[None] * ${1:#N}
+	[None] * ${1:#:N}
 snippet init_list2
-	[[None] * ${2:#N2} for _ in range(${1:#N1})]
+	[[None] * ${2:#:N2} for _ in range(${1:#:N1})]
 
 snippet write_file
 	def write_file(file_name, text, flag='w'):
@@ -65,7 +65,7 @@ snippet self
 	self.
 
 snippet from
-	from ${1:# specificated name} import ${0:# package name}
+	from ${1:#: specificated name} import ${0:#: package name}
 
 snippet mean_def_np
 	def mean(self):
@@ -73,7 +73,7 @@ snippet mean_def_np
 		return mean
 
 snippet mean_np
-	${0:#output} = np.mean(${1:#input}, axis=0)
+	${0:#:output} = np.mean(${1:#:input}, axis=0)
 
 snippet exit
 	sys.exit(${0})
@@ -83,15 +83,15 @@ abbr abspath of script path # required: import pathlib
 	script_abspath = pathlib.Path(__file__).resolve().parent
 
 snippet relpath_of_os_path
-	os.path.relpath(${1:#target filepath}, start=${0:#base filepath})
+	os.path.relpath(${1:#:target filepath}, start=${0:#:base filepath})
 
 snippet pathjoin
-	os.path.join(${1:#path}, ${0:#path})
+	os.path.join(${1:#:path}, ${0:#:path})
 
 snippet urlencode
 abbr {'spam': 1, 'eggs': 2, 'bacon': 0}
 	import urllib.parse
-	urllib.parse.urlencode(${0:#dict})
+	urllib.parse.urlencode(${0:#:dict})
 
 snippet urlunquote
 abbr e.g. '%E3%81%82' -> 'あ'
@@ -106,16 +106,16 @@ snippet decode_uft_8
 	decode("utf-8")
 
 snippet getenv
-	os.getenv(${1:#key}, ${0:#default value})
+	os.getenv(${1:#:key}, ${0:#:default value})
 
 snippet list_expand
 alias tiple_expand
-	*${0:#list name}
+	*${0:#:list name}
 
 snippet dict_expand
-	**${0:#dict name}
+	**${0:#:dict name}
 snippet dict_remove
-	del ${1:#dict}${0:#val}
+	del ${1:#:dict}${0:#:val}
 
 snippet urllib3_proxy_support
 abbr urllib3 doesn't use http_proxy env
@@ -125,12 +125,12 @@ abbr urllib3 doesn't use http_proxy env
 
 # NOTE: order: printf < print_with_end < printf_
 snippet printf_
-	print("${1:#message}".format(${0}))
+	print("${1:#:message}".format(${0}))
 snippet printf_with_end
-	print("${1:#message}".format(${2}), end="${0}")
+	print("${1:#:message}".format(${2}), end="${0}")
 
 snippet print_with_end
-	print("${1:#message}", end="${0}")
+	print("${1:#:message}", end="${0}")
 
 snippet argv
 	sys.argv
@@ -148,7 +148,7 @@ snippet deepcopy
 snippet list_copy_for_simple_type
 alias copy_list_for_simple_type
 abbr if you want copy recursive refs use deepcopy
-	list(${0:list})
+	list(${0:#:list})
 
 
 snippet stopwatch
@@ -171,7 +171,7 @@ snippet makedirs_of_os
 	os.makedirs(${0})
 
 snippet subprocess.check_output
-	subprocess.check_output(${0:["ls", "."]}).decode("utf8")
+	subprocess.check_output(${0:#:["ls", "."]}).decode("utf8")
 
 snippet json_from_file
 	def read_jsonfile(filepath):
@@ -209,10 +209,10 @@ abbr end is not contained
 	print(*daterange(start, end), sep='\n')
 
 snippet print_iter_with_type
-	print(list(${0:# iter obj}))
+	print(list(${0:#: iter obj}))
 
 snippet print_iter
-	print(*${0:# iter obj}, sep='\n')
+	print(*${0:#: iter obj}, sep='\n')
 
 snippet is_pipe
 	if not sys.stdin.isatty():
@@ -223,35 +223,35 @@ snippet clipboard
 	pyperclip.copy(text)
 
 snippet variable_arguments_function
-	def ${1:#func name}(*${2:#variable arguments list name}):
+	def ${1:#:func name}(*${2:#:variable arguments list name}):
 		${0}
 
 snippet for_enumerate
 alias enumerate_for
-	for (${1:i}, ${2:v}) in enumerate(${3:#list}):
+	for (${1:i}, ${2:v}) in enumerate(${3:#:list}):
 		${0}
 
 snippet for_zip
 alias zip_for
-	for (${1:e1}, ${2:e2}) in zip(${3:list1},${4:list2}):
+	for (${1:e1}, ${2:e2}) in zip(${3:#:list1},${4:#:list2}):
 		${0}
 
 snippet list_append
 alias append_list
 abbr if you want to just concat list, use extend!
-	${1:#base list}.append(${0:#elements})
+	${1:#:base list}.append(${0:#:elements})
 
 snippet list_extend
 alias extend_list
-	${1:#base list}.extend(${0:#elements})
+	${1:#:base list}.extend(${0:#:elements})
 
 snippet unittest_for_only_script
 	import unittest
 
-	class Test${1:#class name}(unittest.TestCase):
+	class Test${1:#:class name}(unittest.TestCase):
 		def setUp(self):
 			pass
-		def test_${2:#method name}(self):
+		def test_${2:#:method name}(self):
 			self.assertTrue(True)
 		def tearDown(self):
 			pass
@@ -264,10 +264,10 @@ snippet unittest_for_only_script
 snippet unittest_in_main_file
 	import unittest
 
-	class Test${1:#class name}(unittest.TestCase):
+	class Test${1:#:class name}(unittest.TestCase):
 		def setUp(self):
 			pass
-		def test_${2:#method name}(self):
+		def test_${2:#:method name}(self):
 			self.assertTrue(True)
 		def tearDown(self):
 			pass
@@ -276,7 +276,7 @@ snippet unittest_in_main_file
 
 snippet flatten
 abbr [["a", "b"], ["c", "d"]] -> ["a", "b", "c", "d"]
-	${0:#dst list} = [ flatten for inner in ${1:#src list} for flatten in inner ]
+	${0:#:dst list} = [ flatten for inner in ${1:#:src list} for flatten in inner ]
 
 snippet stdout_steal
 alias contextlib_redirect_stdout
@@ -284,7 +284,7 @@ alias contextlib_redirect_stdout
 	string_io = io.StringIO()
 	with redirect_stdout(string_io):
 		${0}
-	${1:output} = string_io.getvalue()
+	${1:#:output} = string_io.getvalue()
 
 snippet this_month
 	this_month = datetime.date(datetime.date.today().year, datetime.date.today().month, 1).strftime('%Y-%m-%d')
@@ -293,13 +293,13 @@ snippet dict2object
 	class Struct:
 		def __init__(self, **entries):
 		self.__dict__.update(entries)
-	${0:#object var name} = Struct(**${1:#dict var name})
+	${0:#:object var name} = Struct(**${1:#:dict var name})
 
 snippet arg_parse_wrapper
-	args, _ = parser.parse_known_args_wrapper(args=${1:#args var name (None:command line options)}):
+	args, _ = parser.parse_known_args_wrapper(args=${1:#:args var name (None:command line options)}):
 
 snippet heredoc_indent_ng
-	${1:#heredoc} = """\
+	${1:#:heredoc} = """\
 		${0}
 	"""
 
@@ -315,17 +315,17 @@ snippet strip_functions
 	strip = (lambda text, prefix, suffix: strip_right(strip_left(text, prefix), suffix))
 
 snippet regexp_example
-	m = re.search(r"${1:# pattern (group1)}", ${2:#input})
+	m = re.search(r"${1:#: pattern (group1)}", ${2:#:input})
 	if m:
 		${0:m.group(1)}
 
 snippet decorator
 abbr use @func_name before function
-	def ${1:#func name}(func):
+	def ${1:#:func name}(func):
 		def wrapper(*args, **kwargs):
-			${2:# pre process}
+			${2:#: pre process}
 			func(*args, **kwargs)
-			${0:# post process}
+			${0:#: post process}
 		return wrapper
 
 snippet dirname_os_path

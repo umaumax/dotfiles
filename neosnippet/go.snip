@@ -2,7 +2,7 @@ snippet     funcname
     `cfi#get_func_name()`
 
 snippet removeext
-    ${1:#filename} := strings.TrimSuffix($1, filepath.Ext($1))
+    ${1:#:filename} := strings.TrimSuffix($1, filepath.Ext($1))
 
 snippet removeext_func
     func removeExt(fname string) string {
