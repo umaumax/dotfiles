@@ -45,10 +45,12 @@
 [gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 
 # tar
-[解凍 .tar.gz] tar zxvf @.tar.gz
-[圧縮 .tar.gz] tar zcvf @.tar.gz $DIRECTORY
-[解凍 .tar] tar xvf @.tar
-[圧縮 .tar] tar cvf @.tar $DIRECTORY
+[tar 解凍(extract)  .tar.gz] tar zxvf @
+[tar 解凍(extract)  .tar   ] tar  xvf @
+[tar 圧縮(compress) .tar.gz] tar zcvf @ # tar.gz dir
+[tar 圧縮(compress) .tar   ] tar  cvf @ # .tar dir
+[tar 圧縮(compress) .tar.gz] DIRECTORY=@ && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
+[tar 圧縮(compress) .tar   ] DIRECTORY=@ && tar  cvf $DIRECTORY.tar    $DIRECTORY
 
 # filter
 [filter only number] perl -nle '$_=~/([0-9]+)/;print $1;'
