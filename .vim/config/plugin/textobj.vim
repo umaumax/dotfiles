@@ -81,6 +81,16 @@ let g:expand_region_text_objects = {
 " NOTE: oによるカーソル位置によってはexapnd or shrink
 " expand range one char both side
 function! s:expand_visual_range(n)
+	" NOTE: up and down move
+	if visualmode() ==# 'V'
+		if a:n > 0
+			execute "normal! gv\<Down>"
+		elseif a:n < 0
+			execute "normal! gv\<Up>"
+		endif
+		return
+	endif
+
 	let pos=getpos('.')
 	if a:n > 0
 		execute "normal! gv\<Right>o\<Left>o"
