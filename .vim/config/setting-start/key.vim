@@ -614,11 +614,10 @@ augroup cmdline_compl
 	autocmd CmdwinEnter * autocmd InsertCharPre <buffer> call feedkeys("\<C-n>\<C-p>", 'n')
 augroup END
 
-" psate
+" paste
 function! s:paste_at_cursor_with_str(Pflag, prefix, suffix)
 	call s:set_cleaned_clipboard_at_reg('z', a:prefix.@+.a:suffix)
 endfunction
-" psate
 function! s:paste_at_cursor(Pflag, ...)
 	call s:set_cleaned_clipboard_at_reg('p', get(a:, 1, @+))
 	if a:Pflag
