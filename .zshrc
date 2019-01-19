@@ -1617,6 +1617,7 @@ function recent_history() {
 	local n=${1:-10}
 	cat ~/.detail_history | grep "$TTY" | cut -d"@" -f4 | tail -n $n
 }
+alias current_history='wd_history'
 function wd_history() {
 	local n=${1:-20}
 	cat ~/.detail_history | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
