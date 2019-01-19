@@ -7,7 +7,7 @@
 
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
 [find remove core] find . -name "core.*" -type f -ls -delete
-[find remove object/archives] find . \( -name "*.a" -o -name "*.o" \) -type f -ls -delete
+[find remove object/archives] find . \( -name "*.a" -o -name "*.so" -o -name "*.o" \) -type f -ls -delete
 [find remove orig] find . -name "*.orig" -type f -ls -delete
 [find executable mac] find @ -type f -perm +ugo+x -print
 [find executable linux] find @ -executable -type f
@@ -183,9 +183,12 @@
 
 [git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/@"
 
+[git sed] git sed "s/\.a/\.so/g" "*/Makefile" # convert .a to .so
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
+[tig stash] tig stash! # or press y
 
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
@@ -220,7 +223,7 @@
 [cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 [g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
-[g++ asm] g++ -S -g @
+[g++ asm] g++ -S -fno-asynchronous-unwind-tables -g @ # -fno-asynchronous-unwind-tables: disable CFI directive
 [g++ arch native] -march=native @
 [32bit arm-linux-gnueabihf-g++] arm-linux-gnueabihf-g++ @
 [alias 32bit arm-linux-gnueabihf-g++] alias g++=arm-linux-gnueabihf-g++ !
@@ -470,8 +473,10 @@
 [sed fixed string replace] rpl @ # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
 [cut before] sed -E 's/^([^ ]+?( )+?){@}//'
 
-# ruby
+# json,yaml
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
+[yaml to json one liner] python3 -c "import sys; import yaml; import json; print(json.dumps(yaml.load(sys.stdin.read()), indent=2))"
+[yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs
 
 # ansible
 [ansible man] ansible-doc
@@ -653,9 +658,6 @@
 [cpp include file path] export CPATH="@:$CPATH"
 [cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
 
-# yaml
-[yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs
-
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
 
@@ -734,11 +736,15 @@
 
 [repeat command] watch -n $SEC "$CMD"
 
+# base64
 [mac base64 encode] base64 @
 [mac base64 decode] base64 -D @
-
 [ubuntu base64 encode] base64 -w 0 @
 [ubuntu base64 decode] base64 -d @
+[python3 base64 encode] python3 -c "import base64; import sys; print(base64.b64encode(sys.stdin.buffer.read()).decode('utf-8'), end='')"
+[python3 base64 decode] python3 -c "import base64; import sys; print(base64.b64decode(sys.stdin.read()).decode('utf-8'), end='')"
+[python base64 encode] python -c "import base64; import sys; sys.stdout.write(base64.b64encode(sys.stdin.buffer.read()).decode('utf-8'))"
+[python base64 decode] python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))"
 
 [ubuntu disk unmount] sudo umount /dev/sdb?
 
