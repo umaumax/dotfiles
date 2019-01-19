@@ -279,7 +279,7 @@
 [ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
 [ssh print configuration] ssh -G $HOST
 
-[scp dir] tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
+[scp dir] command tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [rsync        ] rsync -auvzh $SRC_DIR/ @ # set dst with dirname
 [rsync dry-run] rsync -auvzhn $SRC_DIR/ @ # set dst with dirname
 # [rsync: how can I configure it to create target directory on server? \- Stack Overflow]( https://stackoverflow.com/questions/1636889/rsync-how-can-i-configure-it-to-create-target-directory-on-server )
@@ -611,6 +611,8 @@
 [devnull stdout       ] >/dev/null @
 [devnull stdout/stderr] >/dev/null 2>&1 @
 [stderr > stdout      ] 2>&1 @
+# [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
+[pipe only stderr] 3>&1 1>&2 2>&3 3>&- @ # in zsh do setopt nomultios
 
 # login shell
 [set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
