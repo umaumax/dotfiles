@@ -1920,6 +1920,35 @@ function sshconfig_host_hostname() {
 ' ~/.ssh/config
 }
 
+function tar() { cmd_fuzzy_error_check tar $@; }
+function rsync() { cmd_fuzzy_error_check rsync $@; }
+function scp() { cmd_fuzzy_error_check scp $@; }
+function cmd_fuzzy_error_check() {
+	[[ $# -le 0 ]] && echo "$0 [CMD] [ARGS]" && return 1
+	local cmd=$1
+	shift
+
+	local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
+	# NOTE: no pop below setop, so there is side effect
+	# NOTE: if you use subprocess `()` -> you cannot get exit_code
+	setopt nomultios
+	command $cmd $@ 3>&1 1>&2 2>&3 3>&- | tee "$tmpfile" 1>&2
+	local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
+	local grep_exit_code=$?
+	if [[ $exit_code != 0 || $grep_exit_code == 0 ]]; then
+		{
+			hr_log '#' "MAYBE $cmd ERROR"
+			echo "[log]: $tmpfile"
+			hr '#'
+			cat "$tmpfile" | grep ':'
+			hr '#'
+		} 1>&2
+		return $exit_code
+	else
+		[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+	fi
+}
+
 function man-signal() {
 	command cat <<EOF
      No    Name         Default Action       Description
