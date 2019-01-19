@@ -22,10 +22,10 @@ nnoremap <Leader>w :w<CR>
 " undo情報を保つ
 inoremap <Left> <C-g>U<Left>
 
-" " cursor movement in insert mode
+" cursor movement in insert mode
 inoremap <C-h> <Left>
-inoremap <expr> <C-j> <SID>Down()
-inoremap <expr> <C-k> <SID>Up()
+inoremap <C-k> <C-r>=<SID>Up()<CR>
+inoremap <C-j> <C-r>=<SID>Down()<CR>
 inoremap <C-l> <Right>
 
 " NOTE: デフォルト割当のwindow移動を書き換え
