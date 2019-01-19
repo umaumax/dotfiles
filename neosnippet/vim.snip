@@ -127,6 +127,9 @@ snippet expand_cword
   expand('<cword>')
 snippet expand_cfile
   expand('<cfile>')
+snippet expand_quote
+abbr e.g. for system()
+  expand('${0}:S')
 
 snippet lower
   substitute(${1:#str},'\(.\+\)', '\L\1','')
