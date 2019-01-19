@@ -66,6 +66,11 @@ abbr stdout -> stderr
 snippet stderr_to_out
 abbr stderr -> stdout
   2>&1
+# [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
+snippet pipe_only_stderr
+  3>&1 1>&2 2>&3 3>&- @
+  # in zsh do setopt nomultios
+  ${0}
 
 snippet default_var
 alias defvar
@@ -140,7 +145,7 @@ abbr don't use trap in .xxxrc or .xxx_profile
   trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
 
 snippet tmpfile_in_function
-  local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
+  local tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
   ${0}
   [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 
@@ -466,3 +471,7 @@ snippet no_auto_shfmt
   ${0}
   EOF
   )
+
+snippet pipestatus_bash_and_zsh
+alias pipe_exit_code
+  local exit_code=${PIPESTATUS[${1:#:cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
