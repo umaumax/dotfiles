@@ -1,8 +1,12 @@
 if &rtp =~ 'vim-submode'
+	function! s:easy_submode_set(submode, modes, options, lhs, cmd)
+		call submode#enter_with(a:submode, a:modes, a:options, a:lhs, a:cmd)
+		call submode#map(a:submode, a:modes, a:options, a:lhs, a:cmd)
+		call submode#map(a:submode, a:modes, a:options, a:lhs[1:], a:cmd)
+	endfunction
+
 	" NOTE: for no space line join
-	let s:gJ_cmd = ":call J('gJ')<CR>"
-	call submode#enter_with('join_line', 'n', '', 'gJ', s:gJ_cmd)
-	call submode#map('join_line', 'n', '', 'J', s:gJ_cmd)
+	call s:easy_submode_set('join_line', 'n', '', 'gJ', ":call J('gJ')<CR>")
 
 	" NOTE: for only one space line join
 	nnoremap J :call J()<CR>
@@ -19,10 +23,8 @@ if &rtp =~ 'vim-submode'
 
 	nnoremap gw w
 	nnoremap gW W
-	call submode#enter_with('goto', 'n', '', 'gw', 'w')
-	call submode#enter_with('goto', 'n', '', 'gW', 'W')
-	call submode#map('goto', 'n', '', 'w', 'w')
-	call submode#map('goto', 'n', '', 'W', 'W')
+	call s:easy_submode_set('goto', 'n', '', 'gw', 'w')
+	call s:easy_submode_set('goto', 'n', '', 'gW', 'W')
 	call submode#map('goto', 'n', '', 'b', 'b')
 	call submode#map('goto', 'n', '', 'e', 'e')
 	call submode#map('goto', 'n', '', 'B', 'B')
@@ -31,12 +33,8 @@ if &rtp =~ 'vim-submode'
 	" jump list i:next, o:prev
 	nnoremap gi :bn<CR>
 	nnoremap go :bN<CR>
-	call submode#enter_with('goto_buffer', 'n', '', 'gi', ':bn<CR>')
-	call submode#enter_with('goto_buffer', 'n', '', 'go', ':bN<CR>')
-	call submode#map('goto_buffer', 'n', '', 'i', ':bn<CR>')
-	call submode#map('goto_buffer', 'n', '', 'gi', ':bn<CR>')
-	call submode#map('goto_buffer', 'n', '', 'o', ':bN<CR>')
-	call submode#map('goto_buffer', 'n', '', 'go', ':bN<CR>')
+	call s:easy_submode_set('goto_buffer', 'n', '', 'gi', ':bn<CR>')
+	call s:easy_submode_set('goto_buffer', 'n', '', 'go', ':bN<CR>')
 
 	" NOTE: <C-i>はtabになるため，直接取得不可能
 	call submode#enter_with('jump-motions', 'n', '', '<C-o>', '<C-o>')
@@ -47,26 +45,20 @@ if &rtp =~ 'vim-submode'
 	" 画面中心移動(1行ごと)
 	nnoremap zj jzz
 	nnoremap zk kzz
-	call submode#enter_with('cursor-move', 'n', '', 'zj', 'jzz')
-	call submode#enter_with('cursor-move', 'n', '', 'zk', 'kzz')
-	call submode#map('cursor-move', 'n', '', 'j', 'jzz')
-	call submode#map('cursor-move', 'n', '', 'k', 'kzz')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zj', 'jzz')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zk', 'kzz')
 
 	" 画面中心移動(半画面ごと)
 	nnoremap zu <C-u>
 	nnoremap zd <C-d>
-	call submode#enter_with('cursor-move', 'n', '', 'zu', '<C-u>')
-	call submode#enter_with('cursor-move', 'n', '', 'zd', '<C-d>')
-	call submode#map('cursor-move', 'n', '', 'u', '<C-u>')
-	call submode#map('cursor-move', 'n', '', 'd', '<C-d>')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zu', '<C-u>')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zd', '<C-d>')
 
 	" 画面中心移動(半画面ごと)
 	nnoremap zb <C-b>
 	nnoremap zf <C-f>
-	call submode#enter_with('cursor-move', 'n', '', 'zf', '<C-b>')
-	call submode#enter_with('cursor-move', 'n', '', 'zb', '<C-f>')
-	call submode#map('cursor-move', 'n', '', 'b', '<C-b>')
-	call submode#map('cursor-move', 'n', '', 'f', '<C-f>')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zf', '<C-b>')
+	call s:easy_submode_set('cursor-move', 'n', '', 'zb', '<C-f>')
 
 	if &rtp =~ 'comfortable-motion.vim'
 		" NOTE: 急には停止できなくなるため，おすすめしない

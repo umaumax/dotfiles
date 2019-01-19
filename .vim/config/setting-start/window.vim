@@ -70,24 +70,21 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 
 if &rtp =~ 'vim-submode'
-	call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-	call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-	call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-	call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-	call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-	call submode#map('bufmove', 'n', '', '<', '<C-w><')
-	call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-	call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+	function! s:easy_submode_set(submode, modes, options, lhs, cmd)
+		call submode#enter_with(a:submode, a:modes, a:options, a:lhs, a:cmd)
+		call submode#map(a:submode, a:modes, a:options, a:lhs, a:cmd)
+		call submode#map(a:submode, a:modes, a:options, a:lhs[1:], a:cmd)
+	endfunction
+	call s:easy_submode_set('bufmove', 'n', '', 's>', '<C-w>>')
+	call s:easy_submode_set('bufmove', 'n', '', 's<', '<C-w><')
+	call s:easy_submode_set('bufmove', 'n', '', 's+', '<C-w>+')
+	call s:easy_submode_set('bufmove', 'n', '', 's-', '<C-w>-')
+	call s:easy_submode_set('bufmove', 'n', '', 'sn', 'gt')
+	call s:easy_submode_set('bufmove', 'n', '', 'sp', 'gT')
+	call s:easy_submode_set('bufmove', 'n', '', 'sN', ':<C-u>call TorusTabMove(1)<CR>')
+	call s:easy_submode_set('bufmove', 'n', '', 'sP', ':<C-u>call TorusTabMove(-1)<CR>')
+	call s:easy_submode_set('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
 
-	call submode#enter_with('bufmove', 'n', '', 'sn', 'gt')
-	call submode#enter_with('bufmove', 'n', '', 'sp', 'gT')
-	call submode#enter_with('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
-	call submode#map('bufmove', 'n', '', 'sn', 'gt')
-	call submode#map('bufmove', 'n', '', 'sp', 'gT')
-	call submode#map('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
-	call submode#map('bufmove', 'n', '', 'n', 'gt')
-	call submode#map('bufmove', 'n', '', 'p', 'gT')
-	call submode#map('bufmove', 'n', '', 't', ':<C-u>tabnew<CR>')
 	" NOTE: skip submode delay
 	call submode#map('bufmove', 'n', '', ':', ':call feedkeys("::", "n")<CR>')
 	call submode#map('bufmove', 'n', '', 'i', ':call feedkeys(":i", "n")<CR>')
