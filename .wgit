@@ -35,3 +35,6 @@ chmod u+x wcat
 
 https://github.com/umaumax/comment_asm/blob/master/comment_asm.awk comment_asm
 chmod u+x comment_asm
+
+https://github.com/umaumax/lessbat/blob/master/lessbat.sh lessbat
+chmod u+x lessbat
