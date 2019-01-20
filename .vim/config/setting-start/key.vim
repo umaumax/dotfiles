@@ -16,6 +16,7 @@ inoremap <C-@> <C-[>
 " inoremap <expr> j  getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
 
 nnoremap <leader>r :redraw!<CR>
+command! -nargs=0 Redraw :redraw!
 
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>w :w<CR>
