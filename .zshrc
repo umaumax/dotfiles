@@ -231,14 +231,18 @@ alias cdvproot='cd $VIM_PROJECT_ROOT'
 alias cpp-system-include-path="echo | CPATH='' clang -x c++ -v -fsyntax-only - |& grep '^ /' | sed 's:^ ::g'"
 
 alias mk='mkcd'
+alias mkdircd='mkcd'
 function mkcd() {
-	if [ ! -n "$1" ]; then
-		echo "Enter a directory name"
-	elif [ -d $1 ]; then
-		echo "'$1' already exists"
-	else
-		mkdir -p $1 && cd $1
+	if [[ $# -le 0 ]]; then
+		echo "${RED} $0 [directory path]${DEFAULT}" 1>&2
+		return 1
 	fi
+	local dirpath=$1
+	if [[ -d $dirpath ]]; then
+		echo "'$dirpath' already exists" 1>&2
+		return 1
+	fi
+	mkdir -p $dirpath && cd $dirpath
 }
 
 alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
