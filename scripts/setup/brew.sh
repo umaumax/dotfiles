@@ -7,6 +7,7 @@ set -ex
 brew install rpl
 brew install colormake
 brew install sshfs
+brew install ghq
 # for c++ lib
 brew install google-benchmark
 
