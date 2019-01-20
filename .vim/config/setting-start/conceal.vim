@@ -1,9 +1,8 @@
-" conceal の表示を有効にする
 set conceallevel=1
-" どのモードで conceal の文字にするか
+" NOTE: enable conceal which vim mode?
 set concealcursor=nvic
 
-augroup full-width-char-conceal-group
+augroup full_width_char_conceal_group
 	autocmd!
 	autocmd WinEnter,WinLeave,BufRead,BufNew,BufEnter,Syntax * call FullwidthConceal()
 augroup END
@@ -11,6 +10,7 @@ augroup END
 function! FullwidthConceal()
 	" NOTE: template
 	" 	syntax match HalfwidthHypen // display containedin=ALL conceal cchar=
+
 	syntax match FullwidthRectangle /□/ display containedin=ALL conceal cchar=o
 	syntax match HalfwidthMiddlePoint /·/ display containedin=ALL conceal cchar=.
 	syntax match HalfwidthHypen /—/ display containedin=ALL conceal cchar=-
