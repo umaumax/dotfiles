@@ -204,6 +204,16 @@ function git-checkout-branch-peco() {
 	[[ -n $branch ]] && git checkout $branch
 }
 
+function git-choose-commit-peco() {
+	# NOTE: escape {7} -> {'7'} to avoid fzf replacing
+	gl --color | fzf --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]*[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]*[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
+}
+function git-rebase-peco() {
+	local commit=$(git-choose-commit-peco)
+	[[ -z $commit ]] && return 1
+	git rebase -i "$commit^"
+}
+
 function git-rename-to-backup-branch-peco() {
 	local prefix='_'
 	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | peco | awk '{print $1}')
