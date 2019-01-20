@@ -30,7 +30,7 @@ fi
 # ./install
 # cp bin/fzf ~/local/bin/fzf
 cmdcheck fzf && alias peco='pipe-EOF-do fzf --ansi --reverse' && function fzf() {
-	pipe-EOF-do command fzf --no-mouse --ansi --reverse --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char' $@
+	pipe-EOF-do command fzf --no-mouse --ansi --reverse --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' $@
 }
 cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 
