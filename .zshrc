@@ -961,7 +961,7 @@ function shell_string_escape() {
 
 function remove_terminal_extra_string_from_clipboard() {
 	local clipboard=$(p)
-	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|✭)+$//g' | c
+	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | c
 }
 
 if [[ -z $DISPLAY ]]; then
