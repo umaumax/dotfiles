@@ -392,7 +392,7 @@ fi
 
 function pipe-EOF-do() {
 	local v=$(cat)
-	echo $v | ${@}
+	printf "%s" $v | ${@}
 }
 
 alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
