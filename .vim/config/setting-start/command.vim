@@ -90,6 +90,23 @@ function! Sand(prefix, suffix) range
 endfunction
 command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
 
+function! NoDiffStyle() range
+	for n in range(a:firstline, a:lastline)
+		let line = getline(n)
+		let line = substitute(line, '^[-+]', '', '')
+		call setline(n, line)
+	endfor
+endfunction
+command! -range NoDiffStyle <line1>,<line2>call NoDiffStyle()
+function! OnlyPlusDiffStyle() range
+	for n in range(a:firstline, a:lastline)
+		let line = getline(n)
+		let line = substitute(line, '\(^+\)\|\(^-.*\)', '', '')
+		call setline(n, line)
+	endfor
+endfunction
+command! -range OnlyPlusDiffStyle <line1>,<line2>call OnlyPlusDiffStyle()
+
 " pick up arg
 function! s:argsWithDefaultArg(index, default, ...)
 	let l:arg = get(a:, a:index, a:default)
