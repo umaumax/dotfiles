@@ -328,9 +328,9 @@ cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 # function git-diff() {
 # 	git diff --color-words
 # }
-function git-log-peco() {
-	cat ~/.git-logs/*.log | peco
-}
+# function git-log-peco() {
+# 	cat ~/.git-logs/*.log | peco
+# }
 
 ## git
 cmdcheck git && alias gl='git log --oneline --decorate --graph --branches --tags --remotes'
