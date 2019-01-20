@@ -489,8 +489,6 @@ function! s:yank_pwd()
 endfunction
 " nnoremap wd :call <SID>yank_pwd()<CR>
 command! WorkingDirectory call <SID>yank_pwd()
-" cd to editting file dir
-command! -nargs=0 CD cd %:h
 " ##############
 
 " vim tab control
@@ -928,14 +926,29 @@ function! MultipleInsersion(next_key)
 endfunction
 
 " cd current file directory
-command! Cd  cd  %:p:h
-command! Lcd lcd %:p:h
-command! CdCurrent  cd  %:p:h
-command! LcdCurrent lcd %:p:h
+function! s:NERDTreeCD()
+	if &rtp =~ 'nerdtree'
+		if exists(':NERDTreeCWD')
+			:NERDTreeCWD
+		endif
+	endif
+endfunction
+function! CD()
+	cd %:h
+	" NOTE: cd with nerdtree
+	call s:NERDTreeCD()
+endfunction
+function! LCD()
+	lcd %:h
+	" NOTE: cd with nerdtree
+	call s:NERDTreeCD()
+endfunction
+command! -nargs=0 CD :call CD()
+command! -nargs=0 LCD :call LCD()
 " up dir
 command! U lcd %:h:h
-command! CdGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
-command! LcdGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
+command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
+command! LCDGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
 
 " auto comment off
 augroup auto_comment_off
