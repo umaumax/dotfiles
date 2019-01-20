@@ -191,6 +191,8 @@
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
 [tig stash] tig stash! # or press y
+[tig commit log grep] tig -S"@"
+[tig commit log grep] tig log -S"@"
 
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
