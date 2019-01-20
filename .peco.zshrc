@@ -198,9 +198,9 @@ function peco-cd() {
 alias sd='peco-cd'
 
 function git-checkout-branch-peco() {
-	local PECO="peco"
-	cmdcheck fzf && local PECO="fzf --reverse --ansi --multi --preview 'git log --oneline --decorate --graph --branches --tags --remotes --color'"
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | bash -c $PECO | awk '{print $1}')
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
+		fzf --reverse --ansi --multi --preview 'git log --oneline --decorate --graph --branches --tags --remotes --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' |
+		awk '{print $1}')
 	[[ -n $branch ]] && git checkout $branch
 }
 
