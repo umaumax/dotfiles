@@ -925,12 +925,25 @@ function! MultipleInsersion(next_key)
 	endif
 endfunction
 
-" cd current file directory
-function! s:NERDTreeCD()
+" NOTE: no arg  : just exec :NERDTreeCWD
+" NOTE: with arg: exec :NERDTreeCWD at specific wd
+function! s:NERDTreeCD(...)
+	let new_wd = get(a:, 1, '')
+	let cwd = getcwd()
 	if &rtp =~ 'nerdtree'
 		if exists(':NERDTreeCWD')
+			if haslocaldir()
+				execute 'lcd '.new_wd
+			else
+				execute 'cd '.new_wd
+			endif
 			:NERDTreeCWD
 		endif
+	endif
+	if haslocaldir()
+		execute 'lcd '.cwd
+	else
+		execute 'cd '.cwd
 	endif
 endfunction
 function! CD()
@@ -945,6 +958,8 @@ function! LCD()
 endfunction
 command! -nargs=0 CD :call CD()
 command! -nargs=0 LCD :call LCD()
+" NERDTree cd
+command! -nargs=0 NCD :call s:NERDTreeCD(expand('%:h'))
 " up dir
 command! U lcd %:h:h
 command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
