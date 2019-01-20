@@ -330,6 +330,34 @@ if cmdcheck fzf; then
 	function printf-check() {
 		: | fzf --ansi --multi --preview 'echo printf "{q}" '"$*"'; printf "{q}" '"$*" --preview-window 'down:70%' --height '80%' --print-query
 	}
+	function git-log-file-find-peco() {
+		local cmd='git log --color --follow --stat -- {q}'
+		{
+			echo '*md'
+			echo '*cpp'
+		} | _git-peco $cmd
+	}
+	function git-log-src-grep-peco() {
+		local cmd='git log --color --stat -S $(echo {q} | awk "{print \$1}") -- $(echo {q} | awk "{print \$2}")'
+		{
+			echo 'function *zsh'
+			echo 'print *cpp'
+		} | _git-peco $cmd
+	}
+	function _git-peco() {
+		[[ $# -le 0 ]] && echo "$0 [cmd]" && return 1
+		local cmd=$1
+		# NOTE: 1st line: input query
+		# NOTE: 2nd line: selected query
+		local ret=$(cat | fzf --query='*' --ansi --multi --preview $cmd --preview-window 'down:90%' --height '90%' --print-query | head -n 1)
+		# NOTE: same output of preview-window
+		if [[ -n $ret ]]; then
+			local eval_cmd=$(printf '%s' $cmd | sed 's@{q}@'"'$ret'"'@g')
+			eval $eval_cmd
+			hr '#'
+			echo $eval_cmd
+		fi
+	}
 	function googletrans() {
 		local port="12800"
 		! cmdcheck gtrans && echo "REQUIRED: gtrans" && echo "pip install https://github.com/umaumax/gtrans/archive/master.tar.gz" && return 1
