@@ -226,6 +226,19 @@ function nugget_ubuntu_bat() {
 # ################################
 
 # ################################
+# NOTE: for c++ library
+function nugget_ubuntu_benchmark() {
+	pushd "$tmpdir"
+	git clone https://github.com/google/benchmark.git
+	cd benchmark
+	git clone https://github.com/google/googletest.git
+	mkdir build && cd build
+	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
+	make -j
+	sudo make install
+	rm -rf "$tmpdir/benchmark"
+	popd
+}
 # ################################
 
 # ################################
