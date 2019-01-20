@@ -538,6 +538,12 @@ alias snprintf_string
     return std::string(buf);
   }();
 
+snippet sprintf_library
+alias library_sprintf
+  // clang-format off
+  namespace fmt { template <class... Args> std::string snprintf(char* buff, std::size_t n, const char* const format, Args... args) { std::snprintf(buff, n, format, args...); return std::string(buff); } template <class... Args> std::string snprintf(std::size_t n, const char* const format, Args... args) { char buff[n]; return snprintf(buff, n, format, args...); } template <class... Args> std::string sprintf(const char* const format, Args... args) { std::size_t n = std::snprintf(nullptr, 0, format, args...); return snprintf(n, format, args...); } }  // namespace fmt
+  // clang-format on
+
 snippet float_equal
 abbr #include <limits>
   (std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())
