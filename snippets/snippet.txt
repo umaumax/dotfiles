@@ -137,7 +137,8 @@
 [git man diff] man git-diff
 [git grep submodule] git grep --recurse-submodules @
 [git grep submodule peco vim] ggpv --recurse-submodules @
-[git grep ext filter] git grep "@" -- '*.'
+[git grep ext ok filter] git grep "@" -- '*.'
+[git grep ext ng filter] git grep "@" -- ':!*.'
 [git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git clone rename] git clone @ $NEW_NAME
 [git commit log grep] git log --stat -S "@"
