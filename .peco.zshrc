@@ -206,7 +206,7 @@ function git-checkout-branch-peco() {
 
 function git-choose-commit-peco() {
 	# NOTE: escape {7} -> {'7'} to avoid fzf replacing
-	gl --color | fzf --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]*[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]*[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
+	gl --color | fzf --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
 }
 function git-rebase-peco() {
 	local commit=$(git-choose-commit-peco)
