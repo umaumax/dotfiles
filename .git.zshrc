@@ -183,6 +183,8 @@ alias gsc='git status .'
 alias gscall='git status --ignored --untracked-files .'
 alias gstc='git status .'
 alias gstcall='git status --ignored --untracked-files .'
+alias gstp='git log HEAD...HEAD~ --stat'
+
 alias glog='git log'
 alias gstlog='git log --stat'
 alias glst='git log --stat'
