@@ -206,14 +206,39 @@ function git-checkout-branch-peco() {
 	[[ -n $branch ]] && git checkout $branch
 }
 
-function git-choose-commit-peco() {
+function _git-commit-peco() {
 	# NOTE: escape {7} -> {'7'} to avoid fzf replacing
-	gl --color | fzf --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
+	gl --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
+}
+function git-commits-peco() {
+	_git-commit-peco --multi
 }
 function git-rebase-peco() {
-	local commit=$(git-choose-commit-peco)
+	local commit=$(_git-commit-peco)
 	[[ -z $commit ]] && return 1
 	git rebase -i "$commit^"
+}
+function git-cherry-pick-peco() {
+	local commit=$(_git-commit-peco)
+	[[ -z $commit ]] && return 1
+	git cherry-pick "$commit"
+}
+function git-cherry-pick-peco-range() {
+	local commits=($(git-commits-peco))
+	[[ -z $commits ]] && return 1
+	[[ ${#commits[@]} != 2 ]] && echo "choose two commit! not ${#commis[@]} ($commits)" && return 1
+	local commit1=$(echo $commits | awk '{print $1}') # new
+	local commit2=$(echo $commits | awk '{print $2}') # old
+
+	git log "${commit2}^..${commit1}"
+	hr '#'
+	echo git cherry-pick "'${commit2}^..${commit1}'"
+
+	# NOTE: only for zsh
+	echo -n "ok?(y/N): "
+	read -q || return 1
+
+	git cherry-pick "${commit2}^..${commit1}"
 }
 
 function git-rename-to-backup-branch-peco() {
