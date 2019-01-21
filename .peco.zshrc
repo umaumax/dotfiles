@@ -356,10 +356,11 @@ if cmdcheck fzf; then
 	}
 	function _git-peco() {
 		[[ $# -le 0 ]] && echo "$0 [cmd]" && return 1
+		local pipe_content=$(cat)
 		local cmd=$1
 		# NOTE: 1st line: input query
 		# NOTE: 2nd line: selected query
-		local ret=$(cat | fzf --query='*' --ansi --multi --preview $cmd --preview-window 'down:90%' --height '90%' --print-query | head -n 1)
+		local ret=$(printf "%s" $pipe_content | fzf --query='*' --ansi --multi --preview $cmd --preview-window 'down:90%' --height '90%' --print-query | head -n 1)
 		# NOTE: same output of preview-window
 		if [[ -n $ret ]]; then
 			local eval_cmd=$(printf '%s' $cmd | sed 's@{q}@'"'$ret'"'@g')
