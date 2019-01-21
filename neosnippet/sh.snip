@@ -116,6 +116,15 @@ snippet array
 snippet array_len
     ${#${0:#:array name}[@]}
 
+# [Bash/Zshで配列のn番目を取得する、を統一する]( https://rcmdnk.com/blog/2018/08/19/computer-bash-zsh/ )
+snippet array_n_func
+abbr get_n 0 "${array[@]}" # bash[0~], zsh[1~]
+  function get_n() {
+    local n=$((\$1+1))
+    shift
+    eval echo \\$${n}
+  }
+
 snippet array_assign
     ${2:#:dst array name}a=("${${0:#:src array name}[@]}")
 
