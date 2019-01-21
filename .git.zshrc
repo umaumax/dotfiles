@@ -211,7 +211,7 @@ function ggpv_root() {
 }
 function ggpv_current() {
 	local ret=$(git_grep_current --color=always "$@")
-	[[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
+	[[ -n "$ret" ]] && echo $(echo "$ret" | pecovim)
 }
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
