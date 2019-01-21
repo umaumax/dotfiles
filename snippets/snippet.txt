@@ -214,6 +214,8 @@
 [filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
 [awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
 [awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
+# [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
+[awk uniq without sort] awk '!a[$0]++'
 
 [number of CPU] nproc --all # linux only
 
