@@ -216,6 +216,14 @@ function ggpv_current() {
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 
+alias glpv='git_log_pecovim'
+function git_log_pecovim() {
+	is_git_repo_with_message || return 1
+	pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1
+	echo -n $(git log --numstat --format= | sed 's/^[0-9\-]*\t[0-9\-]*\t//g' | awk '!a[$0]++' | pecovim)
+	popd >/dev/null 2>&1
+}
+
 # FYI: [unicode \- grep: Find all lines that contain Japanese kanjis \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65715/grep-find-all-lines-that-contain-japanese-kanjis )
 alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
