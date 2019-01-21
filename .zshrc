@@ -1938,13 +1938,14 @@ function cmd_fuzzy_error_check() {
 	setopt nomultios
 	command $cmd $@ 3>&1 1>&2 2>&3 3>&- | tee "$tmpfile" 1>&2
 	local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
+	cat "$tmpfile" | grep ': ' -q
 	local grep_exit_code=$?
 	if [[ $exit_code != 0 || $grep_exit_code == 0 ]]; then
 		{
 			hr_log '#' "MAYBE $cmd ERROR"
 			echo "[log]: $tmpfile"
 			hr '#'
-			cat "$tmpfile" | grep ':'
+			cat "$tmpfile" | grep ': '
 			hr '#'
 		} 1>&2
 		return $exit_code
