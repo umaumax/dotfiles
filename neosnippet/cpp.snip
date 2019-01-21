@@ -540,6 +540,14 @@ alias snprintf_string
     return std::string(buf);
   }();
 
+snippet string_lambda
+alias lambda_string
+  [&]() {
+    std::stringstream ss;
+    ss << "${0}";
+    return ss.str();
+  }();
+
 snippet sprintf_library
 alias library_sprintf
   // clang-format off
