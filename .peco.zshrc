@@ -62,25 +62,27 @@ function fccat() {
 	eval $CAT $@
 }
 function pecocat() {
-	if cmdcheck fzf; then
-		local CAT='cat'
-		if cmdcheck wcat; then
-			local CAT='wcat'
-			local range=$(echo "$(tput lines) * 6 / 10 / 2 - 1" | bc)
-			# DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
-			# NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
-			# NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
-			pipe-EOF-do fzf --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && ls $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%'
-			return
-		elif cmdcheck bat; then
-			local CAT='bat --color=always'
-		elif cmdcheck ccat; then
-			local CAT='ccat -C=always'
+	{
+		if cmdcheck fzf; then
+			local CAT='cat'
+			if cmdcheck wcat; then
+				local CAT='wcat'
+				local range=$(echo "$(tput lines) * 6 / 10 / 2 - 1" | bc)
+				# DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
+				# NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
+				# NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
+				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && ls $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%'
+				return
+			elif cmdcheck bat; then
+				local CAT='bat --color=always'
+			elif cmdcheck ccat; then
+				local CAT='ccat -C=always'
+			fi
+			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1); [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%'
+		else
+			peco
 		fi
-		pipe-EOF-do fzf --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1); [[ -d $F ]] && ls $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%'
-	else
-		peco
-	fi
+	} | sed -E 's/:([0-9]+):.*$/:\1/g'
 }
 
 alias pv='pecovim'
