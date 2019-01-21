@@ -609,3 +609,11 @@ snippet pp_2d_array
     std::cout << std::endl;
   }
   ${0}
+
+snippet alignas_malloc
+abbr #include <cstlib>, std::free()
+  ${1:#:type}* ${2:#:var name};
+  (int)posix_memalign(&$2, ${3:#:alignment}, ${4:#:size});
+
+snippet alignas_alignof
+  alignas(alignof(${0:float32x4_t}))
