@@ -103,8 +103,9 @@
 [staged file diff] git diff --cached # <file> # addしたファイルの差分表示
 [unstage file] git reset $FILE
 [unstage all] git reset
+[git rename branch] git branch -m @
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
-[commit reset（編集内容はそのまま）] git reset --soft HEAD^
+[git uncommit reset（編集内容はそのまま）] git reset --soft HEAD^ # to move commit to stash or easy to amend...
 [git commit without pre-hook] git commit --no-verify @
 [git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
