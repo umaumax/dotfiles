@@ -705,11 +705,14 @@ function _xargs-vim() {
 	if [[ $1 == - ]]; then
 		shift
 		# [bash の read でバックスラッシュをエスケープ文字として扱わない \- ひとりごと]( http://d.hatena.ne.jp/youhey/20120809/1344496466 )
+		local files=()
 		cat | awk 1 | while read -r file_path; do
 			# recursive call
 			echo $file_path
+			local files=("${files[@]}" $file_path)
 			vim "$file_path" $@ </dev/tty >/dev/tty
 		done
+		# 		vim -p "${files[@]}" $@ </dev/tty >/dev/tty
 		return
 	fi
 	vim $@
