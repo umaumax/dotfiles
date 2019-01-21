@@ -475,3 +475,13 @@ snippet no_auto_shfmt
 snippet pipestatus_bash_and_zsh
 alias pipe_exit_code
   local exit_code=${PIPESTATUS[${1:#:cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
+
+snippet yes_or_no_zsh
+abbr default no
+  echo -n "ok?(y/N): "
+  read -q || return 1
+
+snippet yes_or_no_bash
+abbr default no
+  read -n1 -p "ok? (y/N): " yn
+  [[ $yn = [yY] ]] || return 1
