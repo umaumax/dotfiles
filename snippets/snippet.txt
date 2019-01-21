@@ -752,8 +752,10 @@
 [ubuntu base64 decode] base64 -d @
 [python3 base64 encode] python3 -c "import base64; import sys; print(base64.b64encode(sys.stdin.buffer.read()).decode('utf-8'), end='')"
 [python3 base64 decode] python3 -c "import base64; import sys; print(base64.b64decode(sys.stdin.read()).decode('utf-8'), end='')"
-[python base64 encode] python -c "import base64; import sys; sys.stdout.write(base64.b64encode(sys.stdin.buffer.read()).decode('utf-8'))"
+[python base64 encode] python -c "import base64; import sys; sys.stdout.write(base64.b64encode(sys.stdin.read() if sys.version_info[0]<3 else sys.stdin.buffer.read()).decode('utf-8'))"
 [python base64 decode] python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))"
+[python binary stdin.read()] sys.stdin.read() if sys.version_info[0]<3 else sys.stdin.buffer.read()
+[python version branch ? :] $PY2 if sys.version_info[0]<3 else $PY3
 
 [ubuntu disk unmount] sudo umount /dev/sdb?
 
