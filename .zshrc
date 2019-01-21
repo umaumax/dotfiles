@@ -708,7 +708,7 @@ function _xargs-vim() {
 		local files=()
 		cat | awk 1 | while read -r file_path; do
 			# recursive call
-			echo $file_path
+			abspath $file_path
 			local files=("${files[@]}" $file_path)
 			vim "$file_path" $@ </dev/tty >/dev/tty
 		done
