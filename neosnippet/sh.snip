@@ -18,6 +18,8 @@ snippet iswindows
   [[ "$OS" =~ "Windows" ]]
 snippet isdocker
   [[ -f /.dockerenv ]]
+snippet istmux
+  [[ -n "$TMUX" ]]
 snippet ismac_if
     if [[ $(uname) == "Darwin" ]]; then
         ${0}
@@ -36,6 +38,10 @@ snippet iswindows_if
     fi
 snippet isdocker_if
   if [[ -f /.dockerenv ]]; then
+    ${0}
+  fi
+snippet istmux_if
+  if [[ -n "$TMUX" ]]; then
     ${0}
   fi
 
