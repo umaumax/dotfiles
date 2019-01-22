@@ -158,6 +158,7 @@ endif
 command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
+runtime! config/setting-end/*.vim
 " load cwd
 if isdirectory(s:cwd)
 	execute("lcd " . s:cwd)
@@ -230,8 +231,6 @@ endif
 " let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
 " let g:ale_cpp_gcc_options = "-std=c++11 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
-" manly for colorscheme
-" runtime! config/setting-end/*.vim
 
 " ################ playground ######################
 " ################ playground ######################
