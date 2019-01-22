@@ -710,9 +710,11 @@ function _xargs-vim() {
 			# recursive call
 			abspath $file_path
 			local files=("${files[@]}" $file_path)
-			vim "$file_path" $@ </dev/tty >/dev/tty
+			# NOTE: open each file
+			# 			vim "$file_path" $@ </dev/tty >/dev/tty
 		done
-		# 		vim -p "${files[@]}" $@ </dev/tty >/dev/tty
+		# NOTE: my vim setting (buffers -> tab)
+		[[ ${#files[@]} -gt 0 ]] && vim "${files[@]}" $@ </dev/tty >/dev/tty
 		return
 	fi
 	vim $@
