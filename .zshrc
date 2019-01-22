@@ -1627,7 +1627,7 @@ function recent_history() {
 alias current_history='wd_history'
 function wd_history() {
 	local n=${1:-20}
-	cat ~/.detail_history | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
+	cat ~/.detail_history $n | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
 }
 
 # FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
