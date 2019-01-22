@@ -63,8 +63,8 @@ let g:NERDTreeMapOpenVSplit='v' " 's'
 ## QuickFix
 ```
 " for vimgrep quickfix
-nmap <Space>n :cnext<CR>
-nmap <Space>N :cprev<CR>
+nmap <Space>g :cnext<CR>
+nmap <Space>G :cprev<CR>
 ```
 
 ## sonictemplate-vim

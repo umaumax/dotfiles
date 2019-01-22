@@ -363,7 +363,7 @@ if Doctor('git', 'airblade/vim-gitgutter')
 	Plug 'airblade/vim-gitgutter', {'on':['GitGutterToggle']}
 	let g:gitgutter_highlight_lines = 1
 	let g:gitgutter_enabled=0
-	nnoremap <Space>g :GitGutterToggle<CR>
+	command -narg=0 G :GitGutterToggle
 	" hunk
 	nmap ]h <Plug>GitGutterNextHunk
 	nmap [h <Plug>GitGutterPrevHunk

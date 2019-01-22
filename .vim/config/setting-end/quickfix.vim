@@ -20,8 +20,8 @@ augroup quickfix_color_group
 augroup END
 
 " for vimgrep quickfix
-nmap <Space>n :cnext<CR>
-nmap <Space>N :cprev<CR>
+nmap <leader>g :cnext<CR>
+nmap <leader>G :cprev<CR>
 
 if &rtp =~ 'vim-submode'
 	call submode#enter_with('vimgrep', 'n', '', '<Space>n', ':cnext<CR>')
