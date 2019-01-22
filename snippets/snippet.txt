@@ -105,7 +105,7 @@
 [unstage all] git reset
 [git rename branch] git branch -m @
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
-[git uncommit reset（編集内容はそのまま）] git reset --soft HEAD^ # to move commit to stash or easy to amend...
+[git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" # to move commit to stash or easy to amend...
 [git commit without pre-hook] git commit --no-verify @
 [git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
@@ -755,10 +755,9 @@
 [mac base64 decode] base64 -D @
 [ubuntu base64 encode] base64 -w 0 @
 [ubuntu base64 decode] base64 -d @
-[python3 base64 encode] python3 -c "import base64; import sys; print(base64.b64encode(sys.stdin.buffer.read()).decode('utf-8'), end='')"
-[python3 base64 decode] python3 -c "import base64; import sys; print(base64.b64decode(sys.stdin.read()).decode('utf-8'), end='')"
-[python base64 encode] python -c "import base64; import sys; sys.stdout.write(base64.b64encode(sys.stdin.read() if sys.version_info[0]<3 else sys.stdin.buffer.read()).decode('utf-8'))"
-[python base64 decode] python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))"
+[python base64 encode] python -c "import base64; import sys; x = base64.b64encode(sys.stdin.read() if sys.version_info[0] < 3 else sys.stdin.buffer.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
+[python base64 decode] python -c "import base64; import sys; x = base64.b64decode(sys.stdin.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
+
 [python binary stdin.read()] sys.stdin.read() if sys.version_info[0]<3 else sys.stdin.buffer.read()
 [python version branch ? :] $PY2 if sys.version_info[0]<3 else $PY3
 
