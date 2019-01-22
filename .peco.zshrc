@@ -117,7 +117,6 @@ alias grvim='rgvim'
 alias rcvim='rdvim'
 function rdvim() {
 	local wd=${1:-$(pwd)}
-	echo $wd
 	viminfo-ls | grep -E '^'"$wd" | peco | tee /dev/tty | xargs-vim
 }
 # 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
