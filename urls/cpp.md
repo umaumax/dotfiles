@@ -64,3 +64,6 @@ c++ mangle tool
 
 c++ time
 [c\+\+ \- How to reset the high\_resolution\_clock::time\_point \- Stack Overflow]( https://stackoverflow.com/questions/35148465/how-to-reset-the-high-resolution-clocktime-point?lq=1 )
+
+c++ clang-format how to find setting file
+[Clang\-Format Style Options — Clang 9 documentation]( https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configuring-style-with-clang-format )
