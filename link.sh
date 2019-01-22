@@ -10,6 +10,7 @@ ln -sf ~/dotfiles/.zprofile ~/
 ln -sf ~/dotfiles/.zshenv ~/
 ln -sf ~/dotfiles/.zpreztorc ~/
 ln -sf ~/dotfiles/.textlintrc ~/
+ln -sf ~/dotfiles/.inputrc ~/
 
 ln -sf ~/dotfiles/.gdbinit ~/
 ln -sf ~/dotfiles/.gdb-dashboard ~/
