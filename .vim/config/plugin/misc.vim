@@ -373,6 +373,9 @@ if Doctor('git', 'airblade/vim-gitgutter')
 	" NOTE: how to use undo hunk?
 	nmap <Leader>uh <Plug>GitGutterUndoHunk
 	nmap <Leader>ph <Plug>GitGutterPreviewHunk
+
+	" NOTE: for .gitignore color highlighting
+	Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
 endif
 
 LazyPlug 'vim-airline/vim-airline'
