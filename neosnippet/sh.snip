@@ -106,9 +106,15 @@ snippet for_pwd
     [[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
   done
 
-snippet arg_check
-alias argcheck
-  [[ $# -le ${1:#: no of args} ]] && echo "\$0 ${0:#: description}" && exit 1
+snippet arg_check_exit
+alias argcheck_exit
+  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$0 ${0:#: description}" && exit 1
+snippet arg_check_return
+alias argcheck_return
+  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$0 ${0:#: description}" && return 1
+
+snippet cmdcheck
+  function ccmdcheck() { type >/dev/null 2>&1 "$@"; }
 
 snippet alias
   alias ${1}='${0}'
@@ -500,3 +506,11 @@ snippet yes_or_no_bash
 abbr default no
   read -n1 -p "ok? (y/N): " yn
   [[ $yn = [yY] ]] || return 1
+
+snippet is_symbolic_link
+  [[ -h ${0} ]]
+
+snippet is_symbolic_link_if
+  if [[ -h ${1} ]]; then
+    ${0}
+  fi
