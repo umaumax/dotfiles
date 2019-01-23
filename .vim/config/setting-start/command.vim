@@ -223,7 +223,7 @@ command! -nargs=0 -range MemberInitialization <line1>,<line2>call MemberInitiali
 
 if Doctor('ctags', 'for getting funcname')
 	function! CppFuncName()
-		let func_name=system("ctags -x --c-types=f ".expand('%:S')." | sort -k 3 | sed -E 's/ +function +([0-9]+).*$/$\\1/' | awk -F'$' -v line=".line('.')." 'line>=int($2){func_name=$1;} END{if(func_name!=\"\") printf \"%s\", func_name;}'")
+		let func_name=system("ctags -x --c-types=f ".expand('%:S')." | sed -E 's/ (\\W+)( *function)/\\1 \\2/' | sort -k 3 | sed -E 's/ +function +([0-9]+).*$/$\\1/' | awk -F'$' -v line=".line('.')." 'line>=int($2){func_name=$1;} END{if(func_name!=\"\") printf \"%s\", func_name;}'")
 		return func_name
 	endfunction
 else
