@@ -52,12 +52,13 @@
 [tar 圧縮(compress) .tar   ] DIRECTORY=@ && tar  cvf $DIRECTORY.tar    $DIRECTORY
 
 # filter
-[filter only number] perl -nle '$_=~/([0-9]+)/;print $1;'
+[filter only number] echo "1samp4le\n2.3echo" | perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
 # size
-[file size] du -s * # * means file or directories
+## h: human readable
+[file size] du -sh * # * means file or directories
 [disk size] df -h
 
 # docker
@@ -217,6 +218,7 @@
 [awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [awk uniq without sort] awk '!a[$0]++'
+[awk drop blank line] awk 'NF'
 
 [number of CPU] nproc --all # linux only
 
@@ -827,6 +829,8 @@
 # nkf
 [nkf guess] nkf -g @
 [nkf auto conv] nkf -w @
+[nkf add UTF-8 BOM] nkf --oc=UTF-8-BOM
+[nkf drop(remove,delete) UTF-8 BOM] nkf --oc=UTF-8
 
 # symbolic link
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
