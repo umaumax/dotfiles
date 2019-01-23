@@ -20,3 +20,4 @@ brew install progress
 
 # brew cask
 brew cask install chromedriver
+brew cask install alacritty
