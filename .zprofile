@@ -228,6 +228,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.local.zprofile" ]]; then
 	source "${ZDOTDIR:-$HOME}/.local.zprofile"
 fi
 
+# for tig edit vim command
+mkdir -p ~/local/bin
+cmdcheck nvim && [[ ! -f ~/local/bin/vim ]] && ln -s $(which nvim) ~/local/bin/vim
+
 # ----
 
 [[ -n $BASH ]] && export HISTFILESIZE=100000
