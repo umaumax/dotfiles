@@ -80,6 +80,7 @@ snippet cout_all
   std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));
 
 snippet precision
+abbr e.g. std::cout << HERE #include <iomanip>
   std::fixed << std::setprecision(${1}) << ${0}
 
 snippet setfill
@@ -114,6 +115,14 @@ abbr std::vector<T> <vector>
 snippet vector2d
 abbr std::vector<std::vector<T> > <vector>
   std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))
+
+snippet vector_copy_with_cast_constractor
+  std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());
+snippet vector_copy_with_cast
+  ${1:#:dst var name}.resize(${2:#:src var name}.size());
+  std::copy($2.begin(), $2.end(), $1.begin());
+snippet stream_vector
+  std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));
 
 snippet random
   std::${1:mt19937} ${2:rnd}((std::random_device())())
@@ -623,12 +632,28 @@ abbr not Mac OS X
 snippet alignas_alignof
   alignas(alignof(${0:float32x4_t}))
 
-snippet overflow_check
+snippet float_test_headers
+  #include <cassert>
+  #include <cfenv>
+  #include <cstdio>
+  #include <limits>
+  #include <string>
+  #include <typeinfo>
+snippet float_test_assert
+abbr can't use string as dummy value use number
   #undef VAR_NAME
   #define VAR_NAME(x) (#x "")
-  assert(!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOAT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str()));
-  assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOAT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
+  assert(!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str()));
+  assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
   ${0}
-
-snippet overflow_clear
-  assert((std::feclearexcept(FE_ALL_EXCEPT) ==  0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));
+snippet float_test_clear_assert
+  assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));
+snippet float_test_clear_assert
+abbr can't use string as dummy value use number
+  #undef VAR_NAME
+  #define VAR_NAME(x) (#x "")
+  !std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
+  !std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
+  //  (std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__);
+  std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
+  ${0}
