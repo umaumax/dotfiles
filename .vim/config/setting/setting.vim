@@ -52,6 +52,9 @@ set timeout timeoutlen=500 ttimeoutlen=50
 " set cursorcolumn "カーソル列ハイライト
 set updatetime=250 "スワップファイルの自動保存時間設定。 この時間の間 (ミリ秒単位) 入力がなければ、スワップファイルがディスクに書き込まれる。
 
+set cmdheight=2
+set colorcolumn=80
+
 " NOTE: this help user to find where is the cursor
 setlocal cursorline | setlocal cursorcolumn
 
