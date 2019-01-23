@@ -74,6 +74,11 @@ if [[ $(uname) == "Linux" ]]; then
 	ln -sf ~/dotfiles/.config/tilda/style.css ~/.config/tilda/style.css
 fi
 
+[[ ! -d ~/.config/alacritty ]] && mkdir -p ~/.config/alacritty
+# backup original setting file
+[[ -f ~/.config/alacritty/alacritty.yml ]] && [[ ! -L ~/.config/alacritty/alacritty.yml ]] && mv ~/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml~
+ln -sf ~/dotfiles/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
 ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 
