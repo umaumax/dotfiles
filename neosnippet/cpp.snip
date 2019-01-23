@@ -622,3 +622,13 @@ abbr not Mac OS X
 
 snippet alignas_alignof
   alignas(alignof(${0:float32x4_t}))
+
+snippet overflow_check
+  #undef VAR_NAME
+  #define VAR_NAME(x) (#x "")
+  assert(!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOAT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str()));
+  assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOAT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
+  ${0}
+
+snippet overflow_clear
+  assert((std::feclearexcept(FE_ALL_EXCEPT) ==  0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));
