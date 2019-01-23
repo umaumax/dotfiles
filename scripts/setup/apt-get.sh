@@ -96,6 +96,7 @@ if [[ ! -f /.dockerenv ]]; then
    stable"
 	sudo apt-get update
 	sudo apt-get install -y docker-ce
+	sudo gpasswd -a $USER docker
 
 	# for gui
 	sudo apt-get install -y compizconfig-settings-manager unity-tweak-tool
