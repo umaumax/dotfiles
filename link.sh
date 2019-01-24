@@ -82,6 +82,11 @@ ln -sf ~/dotfiles/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
 ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 
+[[ ! -d ~/.config/oressh ]] && mkdir -p ~/.config/oressh/default/
+ln -sf ~/dotfiles/.minimal.bashrc ~/.config/oressh/default/.bashrc
+ln -sf ~/dotfiles/.minimal.vimrc ~/.config/oressh/default/.vimrc
+ln -sf ~/dotfiles/.inputrc ~/.config/oressh/default/.inputrc
+
 if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
 	while read line || [ -n "${line}" ]; do
 		filepath=$line
