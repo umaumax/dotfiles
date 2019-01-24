@@ -9,3 +9,15 @@ stty stop undef
 
 function cmdcheck() { type "$1" >/dev/null 2>&1; }
 cmdcheck vim && alias vi='vim'
+
+alias l='ls'
+alias ll='lsal'
+alias lsal='ls -al'
+alias lsalt='ls -alt'
+alias lsaltr='ls -altr'
+
+alias type='type -a'
+
+alias qq='exit'
+alias qqq='exit'
+alias qqqq='exit'
