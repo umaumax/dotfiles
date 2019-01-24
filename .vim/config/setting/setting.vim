@@ -29,7 +29,8 @@ set incsearch    "インクリメント検索(リアルタイム検索)
 set wildmenu
 set wildmode=longest:full,full
 set laststatus=2 "常に編集中ファイル名表示
-set wildignore+=*/tmp/*,*.o,*.so,*.out,*.obj,.git,build,CMakeFiles,node_modules,vender,*.rbc,*.rbo,*.swp,*.zip,*.class,.svn,*.gem,*.png,*.jpg,*.tu,*.pch " disable vimgrep
+" */tmp/*を指定すると~/tmp上で`:e`のファイル名の補完もignoreされる
+set wildignore+=,*.o,*.so,*.out,*.obj,.git,build,CMakeFiles,node_modules,vender,*.rbc,*.rbo,*.swp,*.zip,*.class,.svn,*.gem,*.png,*.jpg,*.tu,*.pch " disable vimgrep
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
 set scrolloff=8 " 最低でも上下に表示する行数
 set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
