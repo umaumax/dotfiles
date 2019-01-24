@@ -15,7 +15,9 @@ endif
 augroup terminal_autogroup
 	autocmd!
 	if has('nvim')
-		autocmd WinEnter * if &buftype ==# 'terminal' | echom 'terminal' | startinsert | endif
+		" 		autocmd WinEnter * if &buftype ==# 'terminal' | echom 'terminal' | startinsert | endif
+		" NOTE: :h terminal
+		autocmd TermOpen * startinsert
 	else
 		autocmd WinEnter * if &buftype ==# 'terminal' | normal i | endif
 	endif
