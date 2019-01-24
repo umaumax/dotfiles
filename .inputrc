@@ -1,6 +1,35 @@
 $if Bash
+  # key mapping
   "\C-p": history-search-backward
   "\C-n": history-search-forward
-  "\e[A":history-search-backward
-  "\e[B":history-search-forward
+  # up
+  "\e[A": history-search-backward
+  # down
+  "\e[B": history-search-forward
+  # shift left
+  "\e[1;2D": backward-word
+  # shift right
+  "\e[1;2C": forward-word
+
+  # shift + tab
+  "\e[Z": backward-kill-word
+
+  # NOTE: to avoid running command when paste by clipboard with new lines
+  set enable-bracketed-paste on
+
+  # NOTE: show all completions as soon as one press tab, even if there's more than one
+  # if this option is off, you have to press twice
+  set show-all-if-ambiguous on
+
+  set completion-ignore-case on
+
+  # add '*','/' mark to end of executable or directory at completion
+  set visible-stats on
+  # [bash \- is there a way to set coloring for cd tab complete? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/16243/is-there-a-way-to-set-coloring-for-cd-tab-complete )
+  # NOTE: readline 6.3 and later
+  # add color (LS_COLORS) to executable or directory at completion
+  set colored-stats on
+  set colored-completion-prefix on
+  set mark-symlinked-directories on
+  set menu-complete-display-prefix on
 $endif
