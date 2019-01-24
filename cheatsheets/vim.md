@@ -3,32 +3,34 @@
 # normal mode
 ## move
 A,I,G
-`S`:行を消してinsert mode
-`gm`: goto middle of screen of current line(basically you can use `gs` as `$`)
+* `S`:行を消してinsert mode
+* `gm`: goto middle of screen of current line(basically you can use `gs` as `$`)
 
 ## line join
-`J`: join with space
-`gJ`: join with no space
-`gJ...J`: join with no space by sub-mode plugin
+* `J`: join with space
+* `gJ`: join with no space
+* `gJ...J`: join with no space by sub-mode plugin
+* `:J`: for visual mode
+* `:GJ`: for visual mode
 
 ## fold
-`zi`: toggle foldenable
-`zR`: all open
+* `zi`: toggle foldenable
+* `zR`: all open
 
 ## multi commands
-`ggVG`: entire select
+* `ggVG`: entire select
 
-`w`:word
-`p`:paragraph
-`ciw`,`diw`,`viw`: cut, delete, visual for word on cursor
-`ci"`,`di"`, `vi"`: cut, delete, visual inner of `"`
+* `w`:word
+* `p`:paragraph
+* `ciw`,`diw`,`viw`: cut, delete, visual for word on cursor
+* `ci"`,`di"`, `vi"`: cut, delete, visual inner of `"`
 
 ## tab
 ### my bind
-`st`: new tab
+* `st`: new tab
 
-`sn`: next tab
-`sp`: previous tab
+* `sn`: next tab
+* `sp`: previous tab
 
 ### default bind
 
@@ -42,10 +44,10 @@ A,I,G
 ### default bind
 
 ## NERDTree
-`<C-e>`: toggle `my`
+* `<C-e>`: toggle `my`
 <!-- `s`: open at new left window -->
 <!-- `o`,`<CR>`: open at current window -->
-`?`: toggle help
+* `?`: toggle help
 
 ```
 " :help NERDTree-t
@@ -57,8 +59,8 @@ let g:NERDTreeMapOpenVSplit='v' " 's'
 ```
 
 ## ctrlpv.vim
-`<C-p>`: file search at default
-`<C-p>`: grep search at quickfix window
+* `<C-p>`: file search at default
+* `<C-p>`: grep search at quickfix window
 
 ## QuickFix
 ```
@@ -68,14 +70,14 @@ nmap <Space>G :cprev<CR>
 ```
 
 ## sonictemplate-vim
-`<C-y>t`,`<C-y><C-t>`,`<C-y>T`: sonicp temaplte
+* `<C-y>t`,`<C-y><C-t>`,`<C-y>T`: sonicp temaplte
 
 ## jump
-`gx`: open url
-`gf`: goto file on cursor
-`gF`: goto file on cursor with line number
-`gi`: goto next buffer `my`
-`go`: goto prev buffer `my`
+* `gx`: open url
+* `gf`: goto file on cursor
+* `gF`: goto file on cursor with line number
+* `gi`: goto next buffer `my`
+* `go`: goto prev buffer `my`
 
 ## easymotion
 ```
@@ -88,21 +90,22 @@ map gw       <Plug>(easymotion-overwin-w)
 ```
 
 ## completion
-`<C-x><C-p>`: 'mattn/sonictemplate-vim'
-`<C-x><C-x>`: name to sign `my`
+* `<C-x><C-p>`: 'mattn/sonictemplate-vim'
+* `<C-x><C-x>`: name to sign `my`
 
 ----
 
 # visual mode
-`o`: toggle cursor
-`gv`: relelected the last block (@normal mode)
+* `o`: toggle cursor
+* `gv`: relelected the last block (@normal mode)
 
 ## my bind
-`in`: number
-`ih`: word + hyphen
-`id`: word + dot
-`ic`: word + comma
-`if`: file path
+* `in`: number
+* `ih`: word + hyphen
+* `id`: word + dot
+* `ic`: word + comma
+* `if`: file path
+* `sx`: delete both size of char
 
 ```
 " expand range one char both side
@@ -110,14 +113,14 @@ vnoremap <Space> <Right>o<Left>o
 ```
 
 ## 'sgur/vim-textobj-parameter' bind
-`i,`: func args
-`a,`: func args with space
+* `i,`: func args
+* `a,`: func args with space
 
 ----
 
 # normal and visual mode
 ## move by 'rhysd/clever-f.vim'
-`f,F,t,T`
+* `f,F,t,T`
 
 ----
 
