@@ -11,6 +11,8 @@ chmod u+x diff-filter
 # only for ubuntu
 https://github.com/umaumax/window-toggle/blob/master/window-toggle.sh window-toggle
 chmod u+x window-toggle
+https://github.com/umaumax/window-toggle/blob/master/wintoggle.sh wintoggle
+chmod u+x wintoggle
 
 https://github.com/stedolan/git-ls/blob/master/git-ls
 chmod u+x git-ls

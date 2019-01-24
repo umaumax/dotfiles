@@ -348,6 +348,13 @@ function pathcmdspeco() {
 	pathcmds | peco
 }
 
+# TODO: USE WINDOW_ID not APP_NAME
+cmdcheck wmctrl && cmdcheck wintoggle && function wintogglepeco() {
+	local app_name=$(wmctrl -lx | grep -v 'N/A' | awk '{print$3}')
+	[[ -z $app_name ]] && return 1
+	wintoggle $app_name
+}
+
 if cmdcheck fzf; then
 	alias icalc='calc'
 	function calc() {
