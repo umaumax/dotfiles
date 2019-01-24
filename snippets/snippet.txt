@@ -244,6 +244,8 @@
 
 # line filter
 [sed line filter] sed -n @,p # index starts with 1
+[sed (before) <= some line] sed -n '1,/@/p'
+[sed (after)  >= some line] sed -n '/@/,$p'
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
