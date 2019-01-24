@@ -87,14 +87,14 @@ abbr to enable alias at bash
     shopt -s expand_aliases
 
 snippet for_array
-alias forarray
+alias array_for
   for ${2:#: element name} in "${${1:#:array name}[@]}"; do
     echo $$2
     ${0}
   done
 
 snippet for_ls
-alias forls
+alias ls_for
   for ${2:#: element name} in \`ls ${1:#: ls target}\`; do
     echo $$2
     ${0}
@@ -114,7 +114,7 @@ alias argcheck_return
   [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$0 ${0:#: description}" && return 1
 
 snippet cmdcheck
-  function ccmdcheck() { type >/dev/null 2>&1 "$@"; }
+  function cmdcheck() { type >/dev/null 2>&1 "$@"; }
 
 snippet alias
   alias ${1}='${0}'
@@ -281,12 +281,14 @@ snippet heredoc_cat_no_expand_var
 snippet heredoc_var
   ${1:#:var name}=\`cat << EOF
   ${0}
-  EOF\`
+  EOF
+  \`
 
 snippet heredoc_var_no_expand_var
   ${1:#:var name}=\`cat << 'EOF'
   ${0}
-  EOF\`
+  EOF
+  \`
 
 snippet heredoc_pipe
   cat << EOF | cat
