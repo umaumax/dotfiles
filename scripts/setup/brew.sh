@@ -5,6 +5,7 @@ set -ex
 # brew
 # WIP
 brew install rpl
+brew install rust
 brew install colormake
 brew install sshfs
 brew install ghq

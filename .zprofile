@@ -167,6 +167,9 @@ fi
 # cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
 # cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
+# rust
+append_path "$HOME/.cargo/bin"
+
 # NOTE: disable brew analytics
 export HOMEBREW_NO_ANALYTICS
 
