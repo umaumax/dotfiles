@@ -26,9 +26,14 @@ if v:version >= 800 && has('python3')
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
 
-	LazyPlug 'wokalski/autocomplete-flow'
-	" For func argument completion
-	LazyPlug 'Shougo/neosnippet'
+	" NOTE: ???
+	" 	Plug 'wokalski/autocomplete-flow'
+	" 	let g:deoplete#enable_at_startup = 1
+	" 	let g:neosnippet#enable_completed_snippet = 1
+
+	" For input completion
+	" NOTE: if you use laxy load: neosnppet filetype is not set correctly
+	Plug 'Shougo/neosnippet'
 	LazyPlug 'Shougo/neosnippet-snippets' " default snippets
 	let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
