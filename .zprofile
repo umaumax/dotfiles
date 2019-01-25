@@ -15,6 +15,7 @@ if [[ -z "$LANG" ]]; then
 	export LANG='en_US.UTF-8'
 fi
 export LANGUAGE=''
+export LANG='ja_JP.UTF-8'
 # if [[ -z "$LANGUAGE" ]]; then
 # 	export LANGUAGE='en_US.UTF-8'
 # fi
