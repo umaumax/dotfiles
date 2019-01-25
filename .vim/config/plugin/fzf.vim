@@ -102,7 +102,7 @@ let g:fzf_buffers_jump = 1
 " --------------------------------
 command! FZFMru silent! call fzf#run({
 			\ 'source':  reverse(s:all_files()),
-			\ 'sink*': s:fzf_nvim_wrapper_create(function('FZF_simple_tab_open_handler')),
+			\ 'sink*': s:fzf_nvim_wrapper_create(function('FZF_simple_open_handler')),
 			\ 'options': '-m -x +s --expect=ctrl-c',
 			\ 'down':    '40%' })
 
