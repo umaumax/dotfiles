@@ -32,7 +32,7 @@ if ! type rustc >/dev/null 2>&1; then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-sudo apt-get install cmake libfreetype6-dev libfontconfig1-dev xclip
+sudo apt-get install -y cmake libfreetype6-dev libfontconfig1-dev xclip
 
 git clone https://github.com/jwilm/alacritty.git
 git checkout v0.2.7
