@@ -278,8 +278,8 @@ function mkcd() {
 }
 
 alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
-alias fix-terminal='stty sane'
-alias clear-terminal='stty sane'
+alias fix-terminal='stty sane; resize; reset'
+alias clear-terminal=' fix-terminal'
 
 alias u='cd ..'
 alias uu='cd ../..'
