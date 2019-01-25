@@ -422,6 +422,17 @@ if [[ $(uname) == "Linux" ]]; then
 	}
 fi
 
+if cmdcheck baobab; then
+	alias diskusage='nohup baobab &> $(echo $(mktemp) | tee $(tty)) &'
+	function baobab() {
+		if [[ $# == 0 ]]; then
+			diskusage
+			return 1
+		fi
+		command baobab "$@"
+	}
+fi
+
 function pipe-EOF-do() {
 	local v=$(cat)
 	printf "%s" $v | ${@}
