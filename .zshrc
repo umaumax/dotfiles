@@ -2008,6 +2008,8 @@ EOF
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+# NOTE: run after compinit
+[[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
 # NOTE: run after zplug to avoid overwrite keybind
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc

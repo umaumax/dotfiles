@@ -19,6 +19,7 @@ ln -sf ~/dotfiles/.gdb-dashboard ~/
 ln -sf ~/dotfiles/.git.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.peco.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.zplug.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.comp.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.nugget.zshrc ~/.zsh/
