@@ -155,6 +155,38 @@ alias lsatr='ls -altr'
 alias lsalt='ls -alt'
 alias lsaltr='ls -altr'
 
+# NOTE: ls abspath
+# -d: only directory
+# -f: only file
+function lsabs() {
+	local args=()
+	function get_n() {
+		local n=$(($1 + 1))
+		shift
+		eval echo \$${n}
+	}
+	function arg_n() { get_n ${1:-0} "${args[@]}"; }
+	local file_type=""
+	for OPT in "$@"; do
+		case $OPT in
+		'-d' | '-f')
+			local file_type=$OPT
+			;;
+		*)
+			local args=("${args[@]}" $1)
+			;;
+		esac
+		shift
+	done
+	local arg=$(arg_n 0)
+	local dirpath=${arg:-.}
+
+	local options=()
+	[[ -n $file_type ]] && local options=(-type ${file_type#-})
+	find $dirpath -maxdepth 1 "${options[@]}"
+}
+alias absls='lsabs'
+
 alias rmf='rm -rf'
 
 # NOTE: windowsの処理が重いので，処理を省略
