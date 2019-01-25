@@ -115,6 +115,8 @@ alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
 alias rcvim='rdvim'
+[[ -d ~/dotfiles/neosnippet/ ]] && alias neopeco='lsabs -f ~/dotfiles/neosnippet | pecovim'
+
 function rdvim() {
 	local wd=${1:-$(pwd)}
 	viminfo-ls | grep -E '^'"$wd" | pecovim
