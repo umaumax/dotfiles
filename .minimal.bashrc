@@ -13,6 +13,8 @@ cmdcheck vim && alias vi='vim'
 
 alias grep='grep --color=auto'
 
+alias h='history'
+alias ls='ls --color=auto'
 alias l='ls'
 alias ll='lsal'
 alias lsal='ls -al'
