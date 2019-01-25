@@ -2044,6 +2044,7 @@ function man-signal() {
 EOF
 }
 
+alias opencppref='open https://cpprefjp.github.io/index.html'
 
 # NOTE: below line is added by fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
