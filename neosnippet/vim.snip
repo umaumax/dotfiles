@@ -139,3 +139,10 @@ snippet UPPER
   substitute(${1:#:str},'\(.\+\)', '\U\1','')
 snippet Upper
   substitute(${1:#:str},'\(.\+\)', '\u\1','')
+
+snippet lambda
+  { ${1:#:args x,y} -> ${2:#:expression} }
+snippet lambda_curry
+  function({ ${1:#:function}, [${2:#:args}])
+snippet call_lambda
+  call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])
