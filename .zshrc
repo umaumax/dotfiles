@@ -2044,19 +2044,19 @@ function man-signal() {
 EOF
 }
 
-# ---- don't add code here by your hand
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# ---- don't add code here by your hand
 
-[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
+# NOTE: below line is added by fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 # NOTE: run after compinit
 [[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
 # NOTE: run after zplug to avoid overwrite keybind
+
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
+[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 
 # ---------------------
 
@@ -2065,3 +2065,4 @@ if [[ $ZSH_NAME == zsh ]]; then
 	cd .
 fi
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
+# ---- don't add code here by your hand
