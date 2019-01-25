@@ -249,6 +249,7 @@
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
+[patch] p@ | patch -p1'
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
@@ -812,8 +813,9 @@
 [shell var regexp] ${FILEPATH@##*/} # basename
 [shell var regexp] ${FILEPATH@##*.} # ext
 
-[complete relogin  zsh] su $(whoami) -s env zsh
-[complete relogin bash] su $(whoami) -s env bash
+[complete relogin] su -l $(whoami)
+[complete relogin  zsh(linux)] su $(whoami) -s $(which zsh)
+[complete relogin bash(linux)] su $(whoami) -s $(which bash)
 
 # diff
 [diff ignore space(blank)] diff -b @
@@ -822,6 +824,7 @@
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
+[brew switch version] brew switch $formula@ $version
 
 # heredoc
 [heredoc to filename] cat > $FILEPATH@ << 'EOF'
@@ -945,3 +948,10 @@
 [copy with progress] cp -v @
 [copy directory] cp -R @ # Do not use -r: symbolic link -> no symbolic link
 [show copy progress] watch -n 0.1 progress -q
+
+[restart xbindkeys] pkill xbindkeys && xbindkeys
+
+# [bash \- How to solve the issue that a Terminal screen is messed up? \(usually after a resizing\) \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/61584/how-to-solve-the-issue-that-a-terminal-screen-is-messed-up-usually-after-a-res )
+[fix terminal] stty sane; resize; reset
+
+[nohup] nohup ls &> $(echo $(mktemp) | tee $(tty)) &
