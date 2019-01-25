@@ -648,12 +648,12 @@ abbr can't use string as dummy value use number
   ${0}
 snippet float_test_clear_assert
   assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));
-snippet float_test_clear_assert
+snippet float_test_clear
 abbr can't use string as dummy value use number
   #undef VAR_NAME
   #define VAR_NAME(x) (#x "")
   !std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
   !std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
   //  (std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__);
-  std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
+  std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT %s\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
   ${0}
