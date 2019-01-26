@@ -2008,6 +2008,14 @@ function cmd_fuzzy_error_check() {
 	fi
 }
 
+# NOTE: decolate bash -x output
+function colorbash() {
+	[[ $# -le 0 ]] && echo "$0 [target bash file]" && return 1
+	bash -x "$@" |& awk 'BEGIN{print "#!/bin/bash"} /^\+/{match($0, /^\++/); s=""; for(i=0;i<RLENGTH;i++) s=s"\\+"; printf "%s%s\n", s, substr($0, RLENGTH+1, length($0)-RLENGTH)} !/^\+/{print $0}' | cat
+	local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
+	return $exit_code
+}
+
 function man-signal() {
 	command cat <<EOF
      No    Name         Default Action       Description
