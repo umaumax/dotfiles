@@ -250,6 +250,8 @@ alias desktop='cd ~/Desktop/'
 [[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 
+[[ -e ~/.vim/plugged ]] && alias vim3rdplug='cd ~/.vim/plugged'
+
 [[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* [n]vim"'
 [[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
 
