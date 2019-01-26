@@ -402,7 +402,6 @@ function! AirlineInit()
 	endif
 	" NOTE: condition: $HOME doesn't include regex
 	let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", emoji, 'file', spc, 'readonly'])
-	let g:airline_section_x = ''
 	let g:airline_section_y = ''
 	let g:airline_symbols.linenr=':'
 	let g:airline_section_z = airline#section#create(['%2p%%', 'linenr', '/%L', ':%3v'])
