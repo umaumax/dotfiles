@@ -67,8 +67,8 @@ function! s:toggle(value)
 	endif
 endfunction
 nnoremap <C-a> :call <SID>toggle(1)<CR>
-nnoremap <C-s> :call <SID>toggle(1)<CR>
-nnoremap <C-x> :call <SID>toggle(-1)<CR>
+vnoremap <C-s> :call <SID>toggle(1)<CR>
+" nnoremap <C-x> :call <SID>toggle(-1)<CR>
 
 nnoremap + :call <SID>toggle(1)<CR>
 nnoremap - :call <SID>toggle(-1)<CR>

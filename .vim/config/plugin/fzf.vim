@@ -98,6 +98,8 @@ augroup END
 " --------------------------------
 " --------------------------------
 
+let g:fzf_my_bind='--bind=ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down'
+
 " [Vimの:tabsからfzfで検索してタブを開く \- Qiita]( https://qiita.com/kmszk/items/16f6129c4732a053ace1 )
 nnoremap <leader>tab :FZFTabOpen<CR>
 command! FZFTabOpen call s:FZFTabOpenFunc()
@@ -129,7 +131,7 @@ function! s:FZFTabOpenFunc()
 	silent! call fzf#run({
 				\ 'sink*': function('s:TabListSink'),
 				\ 'source': l:tab_list,
-				\ 'options': '-m -x +s --expect=ctrl-c',
+				\ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind,
 				\ 'down':    '20%'
 				\ })
 endfunction
@@ -230,7 +232,7 @@ function! FZFOpenFileFunc()
 	silent! call fzf#run({
 				\ 'source': 'if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then git ls-files; else find . -type d -name .git -prune -o ! -name .DS_Store; fi',
 				\ 'sink': 'tabedit',
-				\ 'options': '-x +s --multi --query=' . shellescape(s:filepath),
+				\ 'options': '-x +s --multi '.g:fzf_my_bind.' --query=' . shellescape(s:filepath),
 				\ 'down':    '100%'})
 endfunction
 
@@ -249,7 +251,8 @@ function! FZF_find(dir, query)
 	" 				\ 'options': '-x +s --multi '.query_option,
 	" 				\ 'dir': a:dir,
 	" 				\ 'down': '100%'})
-	silent! call fzf#vim#files(a:query, fzf#vim#with_preview({'dir': a:dir}), 0)
+	let fullscreen=1
+	silent! call fzf#vim#files('', fzf#vim#with_preview({'options': '--prompt='.shellescape(a:dir.'> ').' --reverse '.g:fzf_my_bind.' --query='.shellescape(a:query), 'dir': a:dir, 'down':'100%'},'down:50%'), fullscreen)
 endfunction
 
 function! FZF_grep(dir, query)
@@ -262,9 +265,10 @@ function! FZF_grep(dir, query)
 		let nth_opt='--nth 3..'
 	endif
 	" NOTE: --nth 4..: only match file content (not filepath)
+	let fullscreen=1
 	silent! call fzf#vim#grep(
 				\ cmd, 1,
-				\ fzf#vim#with_preview({'options': '--delimiter : '.nth_opt, 'dir': a:dir,'up':'100%' }),0)
+				\ fzf#vim#with_preview({'options': '--prompt='.shellescape(a:dir.'> ').' --reverse '.g:fzf_my_bind.' --delimiter : '.nth_opt, 'dir': a:dir, 'down':'100%'},'down:50%'),fullscreen)
 endfunction
 
 " NOTE: 新規tabや新規ウィンドウでバッファを開いたときに，project root基準でのファイル検索となることの防止策で
@@ -299,24 +303,32 @@ let g:fzf_action = {
 let g:fzf_buffers_jump = 0
 
 nnoremap <C-p> :FZF
-imap <c-x><c-f> <ESC>:FZFfg<CR>
+inoremap <c-x><c-f> <ESC>:FZFf
+inoremap <c-x>f     <ESC>:FZFf
+nnoremap <c-x><c-f> :FZFf
+nnoremap <c-x>f     :FZFf
 command! -nargs=* -complete=file FZFf  call FZF_find(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
 command! -nargs=* -complete=file FZFfc call FZF_find(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
 command! -nargs=* -complete=file FZFfg call FZF_find(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
 
 " NOTE: :cnext <leader>g
 " NOTE: :cprev <leader>G
-imap <c-x><c-g> <ESC>:FZFgg<CR>
+inoremap <c-x><c-g> <ESC>:FZFg
+inoremap <c-x>g     <ESC>:FZFg
+nnoremap <c-x><c-g> :FZFg
+nnoremap <c-x>g     :FZFg
 command! -nargs=* FZFg  call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
 command! -nargs=* FZFgc call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
 command! -nargs=* FZFgg call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
 
 command! -nargs=0 FZFt       call s:FZFTabOpenFunc()
 command! -nargs=0 FZFtabs    call s:FZFTabOpenFunc()
-imap <c-x><c-b> <ESC>:FZFb<CR>
+inoremap <c-x><c-b> <ESC>:FZFb<CR>
+inoremap <c-x>b     <ESC>:FZFb<CR>
 command! -nargs=0 FZFb       :Buffers
 command! -nargs=0 FZFbuffers :Buffers
-imap <c-x><c-h> <ESC>:FZFh<CR>
+inoremap <c-x><c-h> <ESC>:FZFh<CR>
+inoremap <c-x>h     <ESC>:FZFh<CR>
 command! -nargs=0 FZFh       :History
 command! -nargs=0 FZFhistory :History
 command! -nargs=0 FZFtags    :Tags
@@ -336,6 +348,10 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 " imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x>k     <plug>(fzf-complete-word)
+imap <c-x>p     <plug>(fzf-complete-path)
+" imap <c-x>j <plug>(fzf-complete-file-ag)
+imap <c-x>l     <plug>(fzf-complete-line)
 
 " function! s:join_lines(lines)
 " 	return join(a:lines, "\n")."\n"
