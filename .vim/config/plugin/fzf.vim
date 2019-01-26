@@ -243,19 +243,28 @@ function! FZF_find(dir, query)
 	let sink = expand('%')!='' ? 'tabe' : 'e'
 	" NOTE: 関数内でfzf#runを呼び出す場合にはsinkのfunction内には'<sid>'は使えない(commandとして，定義して呼び出す場合には可能)
 	" NOTE: below function is asynchronous
-	silent! call fzf#run({
-				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
-				\ 'sink': sink,
-				\ 'options': '-x +s --multi '.query_option,
-				\ 'dir': a:dir,
-				\ 'down': '100%'})
+	" 	silent! call fzf#run({
+	" 				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
+	" 				\ 'sink': sink,
+	" 				\ 'options': '-x +s --multi '.query_option,
+	" 				\ 'dir': a:dir,
+	" 				\ 'down': '100%'})
+	silent! call fzf#vim#files(a:query, fzf#vim#with_preview({'dir': a:dir}), 0)
 endfunction
 
 function! FZF_grep(dir, query)
+	let ret=system('cd '.shellescape(a:dir).' && git rev-parse --is-inside-work-tree | tr -d "\n"')
+	let is_git_repo = ret == 'true'
+	let nth_opt='--nth 4..'
+	let cmd='pt --column --ignore=.git --global-gitignore '.shellescape(a:query)
+	if is_git_repo
+		let cmd='git grep --color=always '.shellescape(a:query)
+		let nth_opt='--nth 3..'
+	endif
+	" NOTE: --nth 4..: only match file content (not filepath)
 	silent! call fzf#vim#grep(
-				\   'pt --column --ignore=.git --global-gitignore '.shellescape(a:query), 1,
-				\ " NOTE: --nth 4..: only match file content (not filepath)
-				\           fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'dir': a:dir,'up':'100%' }),0)
+				\ cmd, 1,
+				\ fzf#vim#with_preview({'options': '--delimiter : '.nth_opt, 'dir': a:dir,'up':'100%' }),0)
 endfunction
 
 " NOTE: 新規tabや新規ウィンドウでバッファを開いたときに，project root基準でのファイル検索となることの防止策で
@@ -283,11 +292,56 @@ function! s:argsWithDefaultArg(index, default, ...)
 	return l:arg
 endfunction
 
-nnoremap <C-p> :FZF
-command! -nargs=* FZFf  :call FZF_find(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFfc :call FZF_find(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFfg :call FZF_find(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+let g:fzf_action = {
+			\ 'enter': 'tab split',
+			\ 'ctrl-s': 'split',
+			\ 'ctrl-x': 'vsplit' }
+let g:fzf_buffers_jump = 0
 
-command! -nargs=* FZFg  :call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFgc :call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFgg :call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+nnoremap <C-p> :FZF
+imap <c-x><c-f> <ESC>:FZFfg<CR>
+command! -nargs=* -complete=file FZFf  call FZF_find(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* -complete=file FZFfc call FZF_find(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* -complete=file FZFfg call FZF_find(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+
+" NOTE: :cnext <leader>g
+" NOTE: :cprev <leader>G
+imap <c-x><c-g> <ESC>:FZFgg<CR>
+command! -nargs=* FZFg  call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFgc call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFgg call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+
+command! -nargs=0 FZFt       call s:FZFTabOpenFunc()
+command! -nargs=0 FZFtabs    call s:FZFTabOpenFunc()
+imap <c-x><c-b> <ESC>:FZFb<CR>
+command! -nargs=0 FZFb       :Buffers
+command! -nargs=0 FZFbuffers :Buffers
+imap <c-x><c-h> <ESC>:FZFh<CR>
+command! -nargs=0 FZFh       :History
+command! -nargs=0 FZFhistory :History
+command! -nargs=0 FZFtags    :Tags
+
+nnoremap sbn :cnext<CR>
+nnoremap sbp :cprev<CR>
+
+" ----
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-p> <plug>(fzf-complete-path)
+" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" function! s:join_lines(lines)
+" 	return join(a:lines, "\n")."\n"
+" endfunction
+" inoremap <expr> <c-x><c-l> fzf#vim#complete({
+" 			\ 'source':  'bat --style=plain --color always '.shellescape(expand('%:p')),
+" 			\ 'reducer': function('<sid>join_lines'),
+" 			\ 'options': '--ansi --multi --reverse --margin 15%,0',
+" 			\ 'down':    50})
