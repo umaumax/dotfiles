@@ -62,6 +62,7 @@ function fccat() {
 	eval $CAT $@
 }
 function pecocat() {
+	local query=$(echo ${1:-} | clear_path)
 	{
 		if cmdcheck fzf; then
 			local ls_force_color='ls --color=always -alh'
@@ -74,14 +75,14 @@ function pecocat() {
 				# DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
 				# NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
 				# NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
-				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%'
+				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%' --query=$query
 				return
 			elif cmdcheck bat; then
 				local CAT='bat --color=always'
 			elif cmdcheck ccat; then
 				local CAT='ccat -C=always'
 			fi
-			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%'
+			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
 		else
 			peco
 		fi
@@ -91,7 +92,9 @@ function pecocat() {
 alias pv='pecovim'
 alias pvim='pecovim'
 alias cpeco='command peco'
-alias pecovim='pecocat | xargs-vim'
+function pecovim() {
+	pecocat "$@" | xargs-vim
+}
 # peco copy
 alias pc='peco | c'
 alias pecopy='peco | c'
@@ -141,10 +144,14 @@ function cdpeco() {
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 # NOTE: only dir
 alias cdg='gcd'
-alias gcd='is_git_repo_with_message && cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | pecocat)"'
+function gcd() {
+	is_git_repo_with_message && cd "$(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
+}
 # NOTE: includes file
 alias cdgf='gfcd'
-alias gfcd='is_git_repo_with_message && cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|`git rev-parse --show-toplevel`/|" | pecocat))"'
+function gfcd() {
+	is_git_repo_with_message && cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*))"
+}
 
 function _up() {
 	dir="$PWD"
