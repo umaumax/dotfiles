@@ -44,12 +44,16 @@
 [gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 
 # tar
-[tar 解凍(extract)  .tar.gz] tar zxvf @
-[tar 解凍(extract)  .tar   ] tar  xvf @
-[tar 圧縮(compress) .tar.gz] tar zcvf @ # tar.gz dir
-[tar 圧縮(compress) .tar   ] tar  cvf @ # .tar dir
+# [tar 解凍(extract)  .tar.gz] tar zxvf @ -C .
+[tar 解凍(extract)  .tar.?   ] tar  xvf @ -C .
+[tar 圧縮(compress) .tar.gz] tar zcvf @ # [tar.gz] [dir]
+[tar 圧縮(compress) .tar.  ] tar  cvf @ # [.tar] [dir]
 [tar 圧縮(compress) .tar.gz] DIRECTORY=@ && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
 [tar 圧縮(compress) .tar   ] DIRECTORY=@ && tar  cvf $DIRECTORY.tar    $DIRECTORY
+# [findの結果をtarでアーカイブしたい \- 浦安市在住＋デジカメ]( https://fei-yen.jp/maya/wordpress/blog/2013/01/15/find%E3%81%AE%E7%B5%90%E6%9E%9C%E3%82%92tar%E3%81%A7%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%96%E3%81%97%E3%81%9F%E3%81%84/ )
+[tar find print0 pipe to file] tar -cvz -T - --null -f @.tar.gz
+[tar find print0 pipe to pipe] tar -cvz -T - --null | @
+[tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
 # filter
 [filter only number] echo "1samp4le\n2.3echo" | perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
