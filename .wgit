@@ -40,3 +40,6 @@ chmod u+x comment_asm
 
 https://github.com/umaumax/lessbat/blob/master/lessbat.sh lessbat
 chmod u+x lessbat
+
+https://github.com/umaumax/findtar findtar
+chmod u+x findtar
