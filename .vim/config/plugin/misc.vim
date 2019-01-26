@@ -23,6 +23,7 @@ let g:shebang#shebangs = {
 			\ 'awk': '#!/usr/bin/awk -f',
 			\ 'sh':  '#!/usr/bin/env bash',
 			\ 'python':  '#!/usr/bin/env python3',
+			\ 'bats':  '#!/usr/bin/env bats',
 			\ }
 
 " NOTE: cpp is not supported
@@ -259,7 +260,7 @@ elseif g:colorscheme == 'tender'
 endif
 
 " auto chmod +x
-Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk']}
+Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats']}
 
 " file manager
 " Plug 'ryanoasis/vim-devicons'
