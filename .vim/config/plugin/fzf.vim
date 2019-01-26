@@ -193,15 +193,11 @@ if Doctor('pt', 'find command')
 	" 				\            '--color hl:68,hl+:110',
 	" 				\ 'down':    '50%'
 	" 				\ })
-
-	function! s:find_git_root()
-		return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-	endfunction
 	command! -bang -nargs=* Pt
 				\ call fzf#vim#grep(
 				\   'pt --column --ignore=.git --global-gitignore '.shellescape(<q-args>), 1,
 				\   <bang>0 ? fzf#vim#with_preview('up:100%')
-				\           : fzf#vim#with_preview({ 'dir': s:find_git_root(),'up':'100%' }),
+				\           : fzf#vim#with_preview({ 'dir': Find_git_root(),'up':'100%' }),
 				\   <bang>0)
 endif
 
@@ -238,7 +234,8 @@ function! FZFOpenFileFunc()
 				\ 'down':    '100%'})
 endfunction
 
-function! FZF_find(dir)
+function! FZF_find(dir, query)
+	let query_option='--query=' . shellescape(a:query)
 	" FYI: [Examples \(vim\) · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/Examples-(vim) )
 	" NOTE:    e means :edit
 	"       tabe means :tabedit
@@ -249,9 +246,16 @@ function! FZF_find(dir)
 	silent! call fzf#run({
 				\ 'source': substitute(g:ctrlp_user_command,'%s', '.', 'g'),
 				\ 'sink': sink,
-				\ 'options': '-x +s --multi',
+				\ 'options': '-x +s --multi '.query_option,
 				\ 'dir': a:dir,
 				\ 'down': '100%'})
+endfunction
+
+function! FZF_grep(dir, query)
+	silent! call fzf#vim#grep(
+				\   'pt --column --ignore=.git --global-gitignore '.shellescape(a:query), 1,
+				\ " NOTE: --nth 4..: only match file content (not filepath)
+				\           fzf#vim#with_preview({'options': '--delimiter : --nth 4..', 'dir': a:dir,'up':'100%' }),0)
 endfunction
 
 " NOTE: 新規tabや新規ウィンドウでバッファを開いたときに，project root基準でのファイル検索となることの防止策で
@@ -263,5 +267,27 @@ augroup save_filedirpath_group
 augroup END
 
 " NOTE: these fzf keymapping overload ctrl-p mappings
-nnoremap <silent> <C-p><C-p> :call FZF_find(g:prev_filedirpath)<CR>
-nnoremap <silent> <C-p><C-u> :call FZF_find(getcwd())<CR>
+" nnoremap <silent> <C-p><C-p> :call FZF_find(g:prev_filedirpath)<CR>
+" nnoremap <silent> <C-p><C-u> :call FZF_find(getcwd())<CR>
+
+function! Find_git_root()
+	return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+" pick up arg
+function! s:argsWithDefaultArg(index, default, ...)
+	let l:arg = get(a:, a:index, a:default)
+	if l:arg == ''
+		return a:default
+	endif
+	return l:arg
+endfunction
+
+nnoremap <C-p> :FZF
+command! -nargs=* FZFf  :call FZF_find(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFfc :call FZF_find(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFfg :call FZF_find(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+
+command! -nargs=* FZFg  :call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFgc :call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* FZFgg :call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
