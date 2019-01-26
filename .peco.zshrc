@@ -417,6 +417,7 @@ if cmdcheck fzf; then
 			echo $eval_cmd
 		fi
 	}
+	alias gt='googletrans'
 	function googletrans() {
 		local port="12800"
 		! cmdcheck gtrans && echo "REQUIRED: gtrans" && echo "pip install https://github.com/umaumax/gtrans/archive/master.tar.gz" && return 1
