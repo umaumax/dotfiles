@@ -9,6 +9,7 @@ brew install rust
 brew install colormake
 brew install sshfs
 brew install ghq
+brew install bats
 # for c++ lib
 brew install google-benchmark
 
