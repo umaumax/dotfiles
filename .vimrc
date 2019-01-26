@@ -71,9 +71,12 @@ if has('nvim')
 else
 	source $VIMRUNTIME/defaults.vim
 endif
+
 " old seting?
 " filetype off | filetype plugin indent off " temporarily disable
 " set nocompatible
+
+set noswapfile | set nobackup
 
 " NOTE: doctor mode
 " VIM_DOCTOR='on' vim
@@ -171,6 +174,7 @@ let s:cwd = getcwd()
 if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off'
 	runtime! config/package_manager/*.vim
 endif
+
 " NOTE: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
 command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 runtime! config/setting-start/*.vim
