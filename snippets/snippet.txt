@@ -908,8 +908,6 @@
 
 [malloc free check] MALLOC_CHECK_=1@ # 1:print stderr and continue, 2:abort
 
-[daemon background exec] nohup @ &
-
 # root
 [fakeroot] fakeroot
 
@@ -954,4 +952,6 @@
 # [bash \- How to solve the issue that a Terminal screen is messed up? \(usually after a resizing\) \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/61584/how-to-solve-the-issue-that-a-terminal-screen-is-messed-up-usually-after-a-res )
 [fix terminal] stty sane; resize; reset
 
-[nohup] nohup ls &> $(echo $(mktemp) | tee $(tty)) &
+# nohup
+[nohup] nohup @ < /dev/null &> $(echo $(mktemp) | tee $(tty)) &
+[nohup] nohup @ < /dev/null 2>&1 /dev/null &
