@@ -5,14 +5,14 @@ endfunction
 
 " TODO: define other colors (auto generation?)
 " [ANSI escape code \- Wikipedia]( https://en.wikipedia.org/wiki/ANSI_escape_code )
-if 0 && has('syntax')
-	augroup ansi_color_group
-		autocmd!
-		autocmd ColorScheme       * call s:ansi_color_set()
-		autocmd VimEnter,WinEnter * call matchadd("Red", '\\e\[31m.*\\e\[m')
-		autocmd VimEnter,WinEnter * call matchadd("Red", 'red')
-		autocmd VimEnter,WinEnter * call matchadd("Blue", '\\e\[34m.*\\e\[m')
-		autocmd VimEnter,WinEnter * call matchadd("Blue", 'blue')
-	augroup END
-	call s:ansi_color_set()
-endif
+" if has('syntax')
+" 	augroup ansi_color_group
+" 		autocmd!
+" 		autocmd ColorScheme       * call s:ansi_color_set()
+" 		autocmd VimEnter,WinEnter * call matchadd("Red", '\\e\[31m.*\\e\[m')
+" 		autocmd VimEnter,WinEnter * call matchadd("Red", 'red')
+" 		autocmd VimEnter,WinEnter * call matchadd("Blue", '\\e\[34m.*\\e\[m')
+" 		autocmd VimEnter,WinEnter * call matchadd("Blue", 'blue')
+" 	augroup END
+" 	call s:ansi_color_set()
+" endif
