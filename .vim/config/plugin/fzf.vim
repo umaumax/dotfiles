@@ -267,7 +267,7 @@ function! FZF_grep(dir, query)
 	" NOTE: --nth 4..: only match file content (not filepath)
 	let fullscreen=1
 	silent! call fzf#vim#grep(
-				\ cmd, 1,
+				\ cmd, 0,
 				\ fzf#vim#with_preview({'options': '--prompt='.shellescape(a:dir.'> ').' --reverse '.g:fzf_my_bind.' --delimiter : '.nth_opt, 'dir': a:dir, 'down':'100%'},'down:50%'),fullscreen)
 endfunction
 
@@ -300,7 +300,7 @@ let g:fzf_action = {
 			\ 'enter': 'tab split',
 			\ 'ctrl-s': 'split',
 			\ 'ctrl-x': 'vsplit' }
-let g:fzf_buffers_jump = 0
+" let g:fzf_buffers_jump = 0
 
 nnoremap <C-p> :FZF
 inoremap <c-x><c-f> <ESC>:FZFf
