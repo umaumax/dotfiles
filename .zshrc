@@ -709,6 +709,7 @@ cmdcheck 'go' && function got() {
 	local args=()
 	for arg in ${@}; do
 		arg=${arg#https://}
+		arg=${arg%.git}
 		args+=$arg
 	done
 	go get ${args}
