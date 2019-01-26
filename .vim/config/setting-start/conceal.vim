@@ -1,4 +1,4 @@
-set conceallevel=1
+set conceallevel=2
 " NOTE: enable conceal which vim mode?
 set concealcursor=nvic
 
