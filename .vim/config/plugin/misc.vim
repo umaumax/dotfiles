@@ -269,7 +269,6 @@ let g:NERDTreeShowHidden = 1
 " NOTE: NERDTreeでルートを変更したらchdirする
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeIgnore = ['.[oa]$', '.cm[aiox]$', '.cmxa$', '.(aux|bbl|blg|dvi|log)$', '.(tgz|gz|zip)$', 'Icon' ]
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle','NERDTree']}
 " Require: fontforge
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'

@@ -927,7 +927,7 @@ endfunction
 
 " NOTE: no arg  : just exec :NERDTreeCWD
 " NOTE: with arg: exec :NERDTreeCWD at specific wd
-function! s:NERDTreeCD(...)
+function! NERDTreeCD(...)
 	let new_wd = get(a:, 1, '')
 	let cwd = getcwd()
 	if &rtp =~ 'nerdtree'
@@ -949,17 +949,31 @@ endfunction
 function! CD()
 	cd %:h
 	" NOTE: cd with nerdtree
-	call s:NERDTreeCD()
+	call NERDTreeCD()
 endfunction
 function! LCD()
 	lcd %:h
 	" NOTE: cd with nerdtree
-	call s:NERDTreeCD()
+	call NERDTreeCD()
 endfunction
 command! -nargs=0 CD :call CD()
 command! -nargs=0 LCD :call LCD()
-" NERDTree cd
-command! -nargs=0 NCD :call s:NERDTreeCD(expand('%:h'))
+
+if &rtp =~ 'nerdtree'
+	function! NERDTreeToggleWrapper()
+		if exists(':NERDTreeCWD')
+			:NERDTreeToggle
+		else
+			" NOTE: 初回はそのファイルパスを基準に開く
+			let dirpath=expand('%:p:h')
+			:NERDTreeToggle
+			call NERDTreeCD(dirpath)
+		endif
+	endfunction
+	command! -nargs=0 NCD :call NERDTreeCD(expand('%:p:h'))
+	nnoremap <silent><C-e> :call NERDTreeToggleWrapper()<CR>
+endif
+
 " up dir
 command! U lcd %:h:h
 command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
