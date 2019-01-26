@@ -9,9 +9,9 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile *gitignore setlocal ft=gitignore
 	autocmd BufRead,BufNewFile Vagrantfile setlocal ft=ruby
 	" NOTE: .tigrc file syntax is similer to .tmux.conf syntax
-	autocmd BufRead,BufNewFile .tigrc setlocal ft=tig syntax=tmux
-	autocmd BufRead,BufNewFile .textlintrc setlocal ft=json syntax=json
-	autocmd BufRead,BufNewFile *.csv setlocal ft=csv syntax=csv
+	autocmd BufRead,BufNewFile .tigrc setlocal ft=tmux
+	autocmd BufRead,BufNewFile .textlintrc setlocal ft=json
+	autocmd BufRead,BufNewFile *.csv setlocal ft=csv
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 	" NOTE: for ~/dotfiles/snippets/snippet.txt
