@@ -529,6 +529,8 @@ alias gstvim='git-status-pecovim'
 
 alias rvgrep="viminfo-ls | xargs-grep"
 
+[[ -f ~/dotfiles/.min.plug.vimrc ]] && alias vimplugtest='vim -u ~/dotfiles/.min.plug.vimrc'
+
 alias xargs1='xargs -L 1'
 
 alias ls-non-dotfiles="find . -name '*' -maxdepth 1 | sed 's:^\./::g' | grep -E -v '\..*'"
