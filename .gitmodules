@@ -1,0 +1,3 @@
+[submodule "bats-assertion"]
+	path = bats-assertion
+	url = https://github.com/thingsym/bats-assertion.git

@@ -515,3 +515,5 @@ Plug 'nhooyr/neoman.vim', {'on':[]}
 " NOTE: interactive renamer at directory
 LazyPlug 'qpkorr/vim-renamer'
 let g:RenamerWildIgnoreSetting=''
+
+Plug 'umaumax/bats.vim', {'for':'bats'}

@@ -130,6 +130,8 @@ if [[ $ZSH_NAME == zsh ]]; then
 	# 	setopt magic_equal_subst
 fi
 
+[[ -e ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
+
 # ----
 # NOTE: source bellow file to unalias git commands
 [[ -e ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc

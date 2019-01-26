@@ -30,7 +30,7 @@ augroup END
 
 if &rtp =~ 'rainbow'
 	function! s:rainbow_group_func(action)
-		if &ft=='cmake'
+		if &ft=='cmake' || &ft=='bats'
 			if a:action=='enter'
 				call rainbow_main#clear()
 			endif
