@@ -75,14 +75,15 @@ function pecocat() {
 				# DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
 				# NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
 				# NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
-				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%' --query=$query
+				# NOTE: eval echo $filepath: extract ~ to $HOME
+				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(eval echo {} | cut -d":" -f1; ); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%' --query=$query
 				return
 			elif cmdcheck bat; then
 				local CAT='bat --color=always'
 			elif cmdcheck ccat; then
 				local CAT='ccat -C=always'
 			fi
-			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(echo {} | cut -d":" -f1); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
+			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(eval echo {} | cut -d":" -f1); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
 		else
 			peco
 		fi
@@ -114,7 +115,7 @@ alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 # [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-alias rvim="viminfo-ls | peco | tee /dev/tty | xargs-vim"
+alias rvim="viminfo-ls | pecovim"
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
 alias rcvim='rdvim'

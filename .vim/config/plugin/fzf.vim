@@ -213,7 +213,8 @@ command! FZFOpenFile call FZFOpenFileFunc()
 " NOTE: ファイルが一意に決定する場合には開き，そうでない場合には絞り込む
 function! FZFOpenFileFunc()
 	" カーソル下のファイルパスを取得
-	let s:file_path = expand("<cfile>")
+	" NOTE: outer exapnd extract ~ to $HOME
+	let s:file_path = expand(expand("<cfile>"))
 	" 空行などで実行されたりした場合の考慮
 	if s:file_path == ''
 		echo '[Error] <cfile> return empty string.'
@@ -227,13 +228,13 @@ function! FZFOpenFileFunc()
 		execute ':tabedit '.s:file_path_with_line
 		return
 	endif
+	let s:file_path=s:file_path_without_line
 
-	" fzf実行
 	" .DS_Store はmacの不要なファイル
 	silent! call fzf#run({
-				\ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
+				\ 'source': 'if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then git ls-files; else find . -type d -name .git -prune -o ! -name .DS_Store; fi',
 				\ 'sink': 'tabedit',
-				\ 'options': '-x +s --multi --query=' . shellescape(s:file_path_without_line),
+				\ 'options': '-x +s --multi --query=' . shellescape(s:filepath),
 				\ 'down':    '100%'})
 endfunction
 
