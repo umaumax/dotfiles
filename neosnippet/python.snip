@@ -350,3 +350,6 @@ snippet get_parent_pathes
 			if dirpath == '/':
 				break
 		return l
+
+snippet any_in_list
+	any(${1:#:target} in x for x in ${2:#:list})${0}
