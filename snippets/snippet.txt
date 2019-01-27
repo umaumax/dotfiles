@@ -263,13 +263,13 @@
 [realtime log viewer] tail -f
 
 # mac
-[brew clean cache] brew clean -s
-[brew clean cache dry-run] brew clean -n
+[brew clean cache] brew cleanup -s
+[brew clean cache dry-run] brew cleanup -n
 [check SIP status] csrutil status
 [brew install local formula] brew install $FORMULA_FILEPATH
 [brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
 # linux
-[linuxbrew clean cache] brew clean -s && rm -rf $HOME/.cache/Homebrew/
+[linuxbrew clean cache] brew cleanup -s && rm -rf $HOME/.cache/Homebrew/
 [linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
 
 # export proxy
