@@ -101,6 +101,12 @@ LazyPlug 'LeafCage/cheapcmd.vim'
 "for cmdline
 cmap <Tab> <Plug>(cheapcmd-expand)
 
+function! s:backword_delete_word()
+	let cmd = getcmdline()
+	return substitute(cmd, '.[^ (),.:"'."'".']*$', '', '')
+endfunction
+cnoremap <S-Tab> <C-\>e<SID>backword_delete_word()<CR>
+
 "for cmdwin
 aug cheapcmd-cmdwin
 	autocmd!
