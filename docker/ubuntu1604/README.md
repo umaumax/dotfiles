@@ -45,7 +45,8 @@ nugget rtags
 nugget fzy
 nugget fzf
 nugget bat
-nugget benchmark
+nugget googlebenchmark
+nugget googletest
 
 # NOTE: DISPLAY env?
 # nvimの画面が起動しないときにはsshで接続し直すと解決した

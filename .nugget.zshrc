@@ -3,6 +3,10 @@
 # TODO: list or show
 # TODO: with out sudo option
 
+NUGGET_SUCCESS=0
+NUGGET_FAILURE=1
+NUGGET_ALREADY_INSTALLED=2
+
 function nugget-h() {
 	echo "nugget [-h] [-l] <package>"
 	echo '  -h: help'
@@ -18,7 +22,7 @@ function nugget-l() {
 	local OS=$(_os)
 	# NOTE: this eval is to avoid only zsh syntax (for shfmt)
 	local install_function_list=($(eval 'print -l ${(ok)functions}' | grep '^nugget_'"$OS"))
-	echo "${install_function_list[@]}" | tr ' ' '\n' | sort
+	echo "${install_function_list[@]}" | tr ' ' '\n' | cut -d_ -f3- | sort
 }
 
 function nugget() {
@@ -33,6 +37,7 @@ function nugget() {
 	local package="$1"
 	case $package in
 	-l | -h)
+		# NOTE: call function
 		"nugget$package"
 		return
 		;;
@@ -44,25 +49,28 @@ function nugget() {
 		debug brew install "$package"
 		return
 	fi
-
 	if [[ $OS == "ubuntu" ]] && $(echo ${apt_get_list[@]} | grep -E -q "(^| )${package}( |$)"); then
 		debug sudo apt-get install "$package"
 		return
 	fi
 
+	if ! cmdcheck "nugget_${OS}_${package}"; then
+		echo "${RED}I don't know how to install it($package)\nUm, google it! ${DEFAULT}"
+	fi
+
 	# init
 	mkdir -p ~/local/bin
 	mkdir -p ~/opt
-	# NOTE: don't use local
-	tmpdir="$HOME/tmp"
+
+	local tmpdir=$(mktemp -d)
+	[[ -z $tmpdir ]] && echo 1>&2 "Fail to mktemp -d!" && return 1
 	mkdir -p "$tmpdir"
 
-	if cmdcheck "nugget_${OS}_${package}"; then
-		debug "nugget_${OS}_${package}"
-		return
-	fi
-
-	echo "${RED}I don't know how to install it($package)\nUm, google it! ${DEFAULT}"
+	debug "nugget_${OS}_${package}"
+	local exit_code=$?
+	[[ $exit_code == $NUGGET_SUCCESS ]] && echo "${GREEN}SUCCESS${DEFAULT}"
+	[[ $exit_code == $NUGGET_FAILURE ]] && echo "${RED}FAILED${DEFAULT}"
+	[[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo "${PURPLE}already installed${DEFAULT}"
 	return
 }
 
@@ -73,9 +81,9 @@ function nugget() {
 # ################################
 # nvim for linux
 function nugget_ubuntu_nvim() {
-	cmdcheck nvim && return
+	cmdcheck nvim && return $NUGGET_ALREADY_INSTALLED
 
-	pushd ~/opt
+	pushd "$tmpdir"
 	# nightly build
 	wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 	# stable build
@@ -106,7 +114,7 @@ function nugget_ubuntu_nvim() {
 # ################################
 # tig for linux
 function nugget_ubuntu_tig() {
-	cmdcheck tig && return
+	cmdcheck tig && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	# for fatal error: curses.h: No such file or directory
@@ -114,7 +122,7 @@ function nugget_ubuntu_tig() {
 	# for Japanese language
 	sudo apt-get install -y libncursesw5-dev
 	git clone git://github.com/jonas/tig.git
-	pushd "$tmpdir"/tig
+	pushd "$tmpdir/tig"
 	./autogen.sh
 	# for Japanese language
 	./configure --without-ncurses
@@ -122,7 +130,7 @@ function nugget_ubuntu_tig() {
 	make install prefix=$HOME/local
 	popd
 	popd
-	rm -rf "$tmpdir"/tig
+	rm -rf "$tmpdir/tig"
 }
 # ################################
 
@@ -135,18 +143,18 @@ function nugget_ubuntu_tmux() {
 	sudo apt install -y build-essential automake libevent-dev ncurses-dev
 	pushd "$tmpdir"
 	git clone https://github.com/tmux/tmux.git
-	pushd "$tmpdir"/tmux
+	pushd "$tmpdir/tmux"
 	sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 	popd
 	popd
-	rm -rf "$tmpdir"/tmux
+	rm -rf "$tmpdir/tmux"
 }
 # ################################
 
 # ################################
 # rtags for linux
 function nugget_ubuntu_rtags() {
-	cmdcheck rdm && return
+	cmdcheck rdm && return $NUGGET_ALREADY_INSTALLED
 
 	# for <clang-c/Index.h>
 	sudo apt-get install -y libclang-3.8-dev
@@ -154,18 +162,18 @@ function nugget_ubuntu_rtags() {
 	sudo apt-get install -y libcppunit-dev
 	pushd "$tmpdir"
 	git clone --recursive https://github.com/Andersbakken/rtags.git
-	pushd "$tmpdir"/rtags
+	pushd "$tmpdir/rtags"
 	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
 	popd
 	popd
-	rm -rf "$tmpdir"/rtags
+	rm -rf "$tmpdir/rtags"
 }
 # ################################
 
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzy() {
-	cmdcheck fzy && return
+	cmdcheck fzy && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
@@ -178,7 +186,7 @@ function nugget_ubuntu_fzy() {
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzf() {
-	cmdcheck fzf && return
+	cmdcheck fzf && return $NUGGET_ALREADY_INSTALLED
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --no-key-bindings --completion --no-update-rc
@@ -201,7 +209,7 @@ function nugget_ubuntu_vim_deoplete() {
 # ################################
 # for peco
 function nugget_ubuntu_peco() {
-	cmdcheck peco && return
+	cmdcheck peco && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
@@ -215,7 +223,7 @@ function nugget_ubuntu_peco() {
 
 # ################################
 function nugget_ubuntu_bat() {
-	cmdcheck bat && return
+	cmdcheck bat && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/sharkdp/bat/releases/download/v0.7.0/bat_0.7.0_amd64.deb
@@ -227,7 +235,7 @@ function nugget_ubuntu_bat() {
 
 # ################################
 # NOTE: for c++ library
-function nugget_ubuntu_benchmark() {
+function nugget_ubuntu_googlebenchmark() {
 	pushd "$tmpdir"
 	git clone https://github.com/google/benchmark.git
 	cd benchmark
@@ -236,8 +244,26 @@ function nugget_ubuntu_benchmark() {
 	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
 	make -j
 	sudo make install
-	rm -rf "$tmpdir/benchmark"
 	popd
+	rm -rf "$tmpdir/benchmark"
+}
+
+function nugget_ubuntu_googletest() {
+	[[ -d /usr/local/include/gtest ]] && return $NUGGET_ALREADY_INSTALLED
+
+	pushd "$tmpdir"
+	git clone https://github.com/google/googletest
+	cd googletest
+	mkdir build
+	cd build
+	cmake ..
+	make -j
+	sudo make install
+	popd
+	rm -rf "$tmpdir/googletest"
+}
+function nugget_mac_googletest() {
+	nugget_ubuntu_googletest "$@"
 }
 # ################################
 
