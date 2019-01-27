@@ -1052,6 +1052,12 @@ else
 		_p
 	}
 fi
+# NOTE: for p | sed xxx | c
+function p2c() {
+	local tmp=$(cat)
+	echo "$tmp" | c
+}
+# NOTE: alias p -> function p
 alias "p" >/dev/null 2>&1 && unalias "p"
 
 function remove_clipboard_format() {
