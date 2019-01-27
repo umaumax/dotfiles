@@ -6,16 +6,45 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'
+" NOTE: deoplete and neosnippet
+let g:python_host_prog  = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
+" endif
 
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-command! -bang -nargs=* Pt
-      \ call fzf#vim#grep(
-      \   'pt --column --ignore=.git --global-gitignore '.shellescape(<q-args>), 1,
-      \   <bang>0 ? fzf#vim#with_preview('up:100%')
-      \           : fzf#vim#with_preview({ 'dir': s:find_git_root(),'up':'100%' }),
-      \   <bang>0)
+let python3_path = substitute(system('which python3'),"\n","","")
+let g:deoplete#sources#jedi#python_path = python3_path
+
+if has('nvim')
+  " if error occurs, do :UpdateRemotePlugins
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+else
+  " NOTE: don't use lazy load
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets' " default snippets
+let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
+
+" not essencial
+
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#enable_camel_case = 0
+let g:deoplete#enable_ignore_case = 0
+let g:deoplete#enable_refresh_always = 0
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#max_list = 10000
+
 call plug#end()
+
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" :
+      \ neosnippet#expandable_or_jumpable() ?
+      \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)

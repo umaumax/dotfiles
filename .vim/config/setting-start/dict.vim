@@ -3,6 +3,14 @@ let s:dict_delim='__CR__'
 let s:cursor='__CURSOR__'
 
 function! s:dict_replacer()
+	let item = v:completed_item
+	let menu = item['menu']
+	let abbr = item['abbr']
+	let ns_flag = menu =~ '^\[ns\] '
+	if ns_flag
+		return
+	endif
+
 	" NOTE: 本来は v:completed_item['word'] の範囲のみを対象に置換するべき
 	let line=getline('.')
 	if !(stridx(line, s:dict_delim) >=0 || stridx(line, s:cursor) >=0)
