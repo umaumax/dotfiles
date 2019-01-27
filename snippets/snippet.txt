@@ -957,5 +957,5 @@
 [fix terminal] stty sane; resize; reset
 
 # nohup
-[nohup] nohup @ < /dev/null &> $(echo $(mktemp) | tee $(tty)) &
-[nohup] nohup @ < /dev/null 2>&1 /dev/null &
+[nohup] nohup @ </dev/null &> $(echo $(mktemp) | tee $(tty)) &
+[nohup] nohup @ </dev/null 1>/dev/null 2>/dev/null &
