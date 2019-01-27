@@ -58,8 +58,22 @@ snippet iszsh_if
 snippet iszsh
   [[ $ZSH_NAME == zsh ]] ${0}
 
-snippet ispipe
+snippet ispipe_out
   [[ -p /dev/stdout ]] ${0}
+snippet ispipe_out_if
+  if [[ -p /dev/stdout ]]; then
+    ${0}
+  else
+    
+  fi
+snippet ispipe_in
+  [[ -p /dev/stdin ]] ${0}
+snippet ispipe_in_if
+  if [[ -p /dev/stdin ]]; then
+    ${0}
+  else
+    
+  fi
 
 snippet trimspace
   sed "s/^[ \t]*//"
