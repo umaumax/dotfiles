@@ -436,10 +436,15 @@ if cmdcheck baobab; then
 		command baobab "$@"
 	}
 fi
-
+# NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
+# sudo対応
 function pipe-EOF-do() {
-	local v=$(cat)
-	printf "%s" $v | ${@}
+	read -r LINE
+	{
+		echo $LINE
+		cat
+	} | ${@}
+	return
 }
 
 alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
