@@ -302,14 +302,25 @@ let g:fzf_action = {
 			\ 'ctrl-x': 'vsplit' }
 " let g:fzf_buffers_jump = 0
 
+function! s:clean_filepath(orig_filepath)
+	let filepath=a:orig_filepath
+	let prev_filepath=''
+	while prev_filepath != filepath
+		let prev_filepath=filepath
+		let filepath=substitute(filepath, '//\+', '/', 'g')
+		let filepath=substitute(filepath, '\(\([^/]*/\)\?\.\./\|\./\)', '', 'g')
+	endwhile
+	return filepath
+endfunction
+
 nnoremap <C-p> :FZF
 inoremap <c-x><c-f> <ESC>:FZFf
 inoremap <c-x>f     <ESC>:FZFf
 nnoremap <c-x><c-f> :FZFf
 nnoremap <c-x>f     :FZFf
-command! -nargs=* -complete=file FZFf  call FZF_find(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* -complete=file FZFfc call FZF_find(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* -complete=file FZFfg call FZF_find(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=* -complete=file FZFf  call FZF_find(g:prev_filedirpath, s:clean_filepath(s:argsWithDefaultArg(1, '', <f-args>)))
+command! -nargs=* -complete=file FZFfc call FZF_find(getcwd(),           s:clean_filepath(s:argsWithDefaultArg(1, '', <f-args>)))
+command! -nargs=* -complete=file FZFfg call FZF_find(Find_git_root(),    s:clean_filepath(s:argsWithDefaultArg(1, '', <f-args>)))
 
 " NOTE: :cnext <leader>g
 " NOTE: :cprev <leader>G
