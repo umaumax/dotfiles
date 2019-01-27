@@ -140,10 +140,9 @@ fi
 cmdcheck tac || alias tac='tail -r'
 
 # ls
-[[ $(uname) == "Darwin" ]] && alias ls='ls -G'
-[[ $(uname) == "Linux" ]] && alias ls='ls --color=auto'
+[[ $(uname) == "Darwin" ]] && alias ls='ls -Gh'
+[[ $(uname) == "Linux" ]] && alias ls='ls --color=auto -h'
 
-alias ls='ls -h'
 alias l='ls'
 alias la='ls -al'
 alias lal='ls -al'

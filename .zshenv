@@ -7,7 +7,7 @@
 
 cmdcheck() { type >/dev/null 2>&1 "$1"; }
 
-alias ls='ls -G'
+alias ls='ls -Gh'
 alias lsal='ls -alG'
 alias lat='ls -altrG'
 alias history='history 1'
