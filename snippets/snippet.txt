@@ -646,6 +646,7 @@
 # sudo
 [enter root as user env] sudo su
 [enter root as root env] sudo su -
+[sudoable or not] sudo -n true >/dev/null 2>&1
 
 # echo
 [echo  x char] echo -e "\\x61"
