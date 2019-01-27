@@ -236,6 +236,8 @@ function! FZFOpenFileFunc()
 				\ 'down':    '100%'})
 endfunction
 
+" FYI: [junegunn/fzf: A command\-line fuzzy finder]( https://github.com/junegunn/fzf#git-ls-tree-for-fast-traversal )
+let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || find . -path "*/\.*" -prune -o -type f -print -o -type l -print | sed s/^..//) 2> /dev/null'
 function! FZF_find(dir, query)
 	let query_option='--query=' . shellescape(a:query)
 	" FYI: [Examples \(vim\) · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/Examples-(vim) )
