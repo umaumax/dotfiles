@@ -143,6 +143,7 @@ cmdcheck tac || alias tac='tail -r'
 [[ $(uname) == "Darwin" ]] && alias ls='ls -G'
 [[ $(uname) == "Linux" ]] && alias ls='ls --color=auto'
 
+alias ls='ls -h'
 alias l='ls'
 alias la='ls -al'
 alias lal='ls -al'
