@@ -236,6 +236,8 @@ function nugget_ubuntu_bat() {
 # ################################
 # NOTE: for c++ library
 function nugget_ubuntu_googlebenchmark() {
+	[[ -d /usr/local/include/benchmark ]] && return $NUGGET_ALREADY_INSTALLED
+
 	pushd "$tmpdir"
 	git clone https://github.com/google/benchmark.git
 	cd benchmark
