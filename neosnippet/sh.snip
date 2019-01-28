@@ -152,15 +152,19 @@ abbr get_n 0 "${array[@]}" # bash[0~], zsh[1~]
   }
 
 snippet array_assign
-    ${2:#:dst array name}a=("${${0:#:src array name}[@]}")
+    local ${2:#:dst array name}a=("${${0:#:src array name}[@]}")
 
 snippet append_array
 alias array_append
-    ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
+    local ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
 
-snippet append_array_self
-alias array_append_self
-    ${1:#:dst array}+=(${0})
+snippet append_array_self_bash
+alias array_append_self_bash
+    local ${1:#:dst array}+=(${0})
+
+snippet append_array_self_zsh_bash
+alias array_append_self_zsh_bash
+    local ${1:#:dst array}=(\$$1 ${0})
 
 snippet search_array
 alias array_search
