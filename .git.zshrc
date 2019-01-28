@@ -144,7 +144,7 @@ function git_diff() {
 	# 	[[ $# -ge 1 ]] && local diff_cmd="$1"
 	# FYI: [\[git\]git diff \-\-stat でパスを省略しない方法 \- dackdive's blog]( https://dackdive.hateblo.jp/entry/2014/05/13/112549 )
 	local files=($(git diff --stat --stat-width=9999 "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
-	tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
+	local tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
 	for e in "${files[@]}"; do
 		[[ -e "$e" ]] && echo $e >>$tmpfile
 	done
@@ -451,6 +451,52 @@ function git-branch-old-to-new() {
 }
 function git-branch-new-to-old() {
 	git branch --sort=-authordate
+}
+
+function vimgit() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) [commit hash] [files...]" && return 1
+	local commit_hash=$1
+	if git rev-parse --verify $commit_hash >/dev/null 2>&1; then
+		shift
+	else
+		local commit_hash=$(_git-commit-peco)
+		git rev-parse --verify $commit_hash >/dev/null 2>&1 || return 1
+	fi
+
+	local tmpfile_list=()
+	for filepath in $@; do
+		[[ ! -e $filepath ]] && echo "No such file $filepath" 1>&2 && continue
+		local tmpfile_list=($tmpfile_list $(git show $commit_hash:$filepath 2>/dev/null | pipe_tmpfile $filepath))
+	done
+	vim -p ${tmpfile_list[@]}
+}
+
+function vimgitdiff() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) [commit hash] [files]" && return 1
+	local commit_hash=$1
+	if git rev-parse --verify $commit_hash >/dev/null 2>&1; then
+		shift
+	else
+		local commit_hash=$(_git-commit-peco)
+		git rev-parse --verify $commit_hash >/dev/null 2>&1 || return 1
+	fi
+
+	local filepath=$1
+	[[ ! -e $filepath ]] && echo "No such file $filepath" 1>&2 && return 1
+	local tmpfile=$(git show $commit_hash:$filepath 2>/dev/null | pipe_tmpfile $filepath)
+	vimdiff $filepath $tmpfile
+}
+
+# NOTE: input pipe
+# NOTE: output tmp filepath
+function pipe_tmpfile() {
+	[[ $# == 0 ]] && echo "$0 [filepath]" && return 0
+	local filepath=$1
+	# NOTE: 過去にも未来にも他のファイルにも重複しない名称
+	local filepath_hash=$(echo "$filepath:$(date +%s%3N)" | md5sum | cut -d' ' -f1)
+	local tmpfile=$(mktemp "/tmp/$filepath_hash.$(basename $filepath)")
+	cat >$tmpfile
+	echo "$tmpfile"
 }
 
 if $(cmdcheck fzf); then
