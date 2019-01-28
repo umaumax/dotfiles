@@ -45,6 +45,7 @@ nugget rtags
 nugget fzy
 nugget fzf
 nugget bat
+nugget bats
 nugget googlebenchmark
 nugget googletest
 
