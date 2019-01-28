@@ -153,7 +153,7 @@ function cdpeco() {
 # NOTE: only dir
 alias cdg='gcd'
 function gcd() {
-	is_git_repo_with_message && cd "$(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
+	is_git_repo_with_message && cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
 }
 # NOTE: includes file
 alias cdgf='gfcd'
