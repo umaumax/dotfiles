@@ -46,12 +46,19 @@
 # wget https://raw.githubusercontent.com/umaumax/window-toggle/master/window-toggle.sh -P ~/local/bin/
 "~/local/bin/window-toggle Terminator terminator"
 	Alt + space
+# "~/local/bin/wintoggle terminator.Terminator"
+# 	Alt + space
 
 # "~/local/bin/window-toggle Hyper hyper"
 # 	Control+Alt + space
 
 "~/local/bin/window-toggle Gnome-terminal gnome-terminal"
 	Control + space
+# "~/local/bin/wintoggle 'gnome-terminal-server.Gnome-terminal'"
+# 	Control + space
+
+"~/local/bin/wintoggle 'Alacritty.Alacritty'"
+	Control + Alt + space
 
 # set directly keycode (here control + f with my keyboard)
 #"xterm"
