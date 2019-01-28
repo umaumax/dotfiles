@@ -132,22 +132,23 @@ function rdvim() {
 alias rvcd="cd \${~\$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
 alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
 function cdpeco() {
-	if [[ -p /dev/stdin ]]; then
-		cd $(peco | sed 's:$:/:g')./
-	else
-		cd $(find . -type d | peco | sed 's:$:/:g')./
-	fi
-	return
-
-	# 	# NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
-	# 	if [[ $(uname) == "Darwin" ]]; then
-	# 		{cd $({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./}
+	# NOTE: mac ok
+	# 	if [[ -p /dev/stdin ]]; then
+	# 		cd $(cat /dev/stdin | peco | sed 's:$:/:g')./
 	# 	else
-	# 		{cd $({
-	# 			[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find . -type d)
-	# 			echo $RET
-	# 		} | peco | sed 's:$:/:g')./}
+	# 		cd $(find . -type d | peco | sed 's:$:/:g')./
 	# 	fi
+	# 	return
+
+	# NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
+	if [[ $(uname) == "Darwin" ]]; then
+		{cd $({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./}
+	else
+		{cd $({
+			[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find . -type d)
+			echo $RET
+		} | peco | sed 's:$:/:g')./}
+	fi
 }
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 # NOTE: only dir
