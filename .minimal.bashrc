@@ -14,7 +14,12 @@ cmdcheck vim && alias vi='vim'
 alias grep='grep --color=auto'
 
 alias h='history'
-alias ls='ls --color=auto'
+
+if [[ $(uname) == "Darwin" ]]; then
+	alias ls='ls -G'
+else
+	alias ls='ls --color=auto'
+fi
 alias l='ls'
 alias ll='lsal'
 alias lsal='ls -al'
