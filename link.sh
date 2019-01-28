@@ -1,5 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 set -x
+
+# git submodule
+git submodule update -i
+
+# link
+
 ln -sf ~/dotfiles/.vimrc ~/
 ln -sf ~/dotfiles/.tmux.conf ~/
 ln -sf ~/dotfiles/.screenrc ~/
