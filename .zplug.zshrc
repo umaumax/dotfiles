@@ -63,11 +63,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 
 		# pip
 		cmdcheck pip && [[ ! -e $zsh_completion_dir/_pip ]] && pip completion --zsh >$zsh_completion_dir/_pip
-		cmdcheck pip2 && [[ ! -e $zsh_completion_dir/_pip2 ]] && pip2 completion --zsh >$zsh_completion_dir/_pip2
-		cmdcheck pip3 && [[ ! -e $zsh_completion_dir/_pip3 ]] && pip3 completion --zsh >$zsh_completion_dir/_pip3
-		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip
-		[[ -e $zsh_completion_dir/_pip2 ]] && source $zsh_completion_dir/_pip2
-		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip
+		[[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip && compctl -K _pip_completion pip2 && compctl -K _pip_completion pip3
 
 		# NOTE: enbale zsh completion
 		# [zshの起動が遅いのでなんとかしたい 2 \- Qiita]( https://qiita.com/vintersnow/items/c29086790222608b28cf )
