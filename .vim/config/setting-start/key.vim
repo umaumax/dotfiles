@@ -856,7 +856,7 @@ let surround_key_mappings=[
 			\{'keys':["(","pa","pt","kakko"],        'prefix':"(",     'suffix':")"},
 			\{'keys':["[","br","ary","list"],        'prefix':"[",     'suffix':"]"},
 			\{'keys':["{","sb","dict","map","func"], 'prefix':"{",     'suffix':"}"},
-			\{'keys':["code","tbq"],                 'prefix':'```\n', 'suffix':'\n```'},
+			\{'keys':["c","tbq"],                    'prefix':'```\n', 'suffix':'\n```'},
 			\{'keys':["$","var"],                    'prefix':'${',    'suffix':'}'},
 			\{'keys':["do","run","exec"],            'prefix':'$(',    'suffix':')'},
 			\{'keys':["_","us","ub","ud","fold"],    'prefix':"__",    'suffix':"__"},
