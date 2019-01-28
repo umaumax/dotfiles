@@ -24,8 +24,8 @@ nmap <leader>g :cnext<CR>
 nmap <leader>G :cprev<CR>
 
 if &rtp =~ 'vim-submode'
-	call submode#enter_with('vimgrep', 'n', '', '<Space>n', ':cnext<CR>')
-	call submode#enter_with('vimgrep', 'n', '', '<Space>N', ':cprev<CR>')
-	call submode#map('vimgrep', 'n', '', 'n', ':cnext<CR>')
-	call submode#map('vimgrep', 'n', '', 'N', ':cprev<CR>')
+	call submode#enter_with('vimgrep', 'n', '', '<leader>g', ':cnext<CR>')
+	call submode#enter_with('vimgrep', 'n', '', '<leader>G', ':cprev<CR>')
+	call submode#map('vimgrep', 'n', '', 'g', ':cnext<CR>')
+	call submode#map('vimgrep', 'n', '', 'G', ':cprev<CR>')
 endif
