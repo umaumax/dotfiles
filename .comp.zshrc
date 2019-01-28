@@ -7,6 +7,8 @@
 # NOTE: copy completion
 cmdcheck oressh && compdef oressh=ssh
 cmdcheck clip-share && compdef clip-share=ssh
+cmdcheck pip2 && compdef pip2=pip
+cmdcheck pip3 && compdef pip3=pip
 
 function _color() {
 	compadd $(
