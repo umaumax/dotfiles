@@ -15,5 +15,8 @@ augroup set_filetype
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 	" NOTE: for ~/dotfiles/snippets/snippet.txt
-	autocmd BufRead,BufNewFile snippet.txt setlocal syntax=sh
+	autocmd BufRead,BufNewFile snippet.txt setlocal ft=log
+
+	" NOTE: for cpp library header files
+	autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
 augroup END
