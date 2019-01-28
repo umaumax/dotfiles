@@ -305,7 +305,7 @@ let g:fzf_action = {
 " let g:fzf_buffers_jump = 0
 
 function! s:clean_filepath(orig_filepath)
-	let filepath=a:orig_filepath
+	let filepath=substitute(a:orig_filepath, ':.*$', '', '')
 	let prev_filepath=''
 	while prev_filepath != filepath
 		let prev_filepath=filepath

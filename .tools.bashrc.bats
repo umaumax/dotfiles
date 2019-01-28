@@ -14,6 +14,8 @@ load bats-assertion/bats-assertion
   # NOTE: using $() version
   result=$(echo -n "../hoge" | ./.tools.bashrc clear_path)
   assert_equal "hoge" "$result"
+  result=$(echo -n "../hoge:10:2" | ./.tools.bashrc clear_path)
+  assert_equal "hoge" "$result"
   result=$(echo -n "../hoge/./" | ./.tools.bashrc clear_path)
   assert_equal "hoge/" "$result"
   result=$(echo -n "../hoge/../piyo" | ./.tools.bashrc clear_path)
