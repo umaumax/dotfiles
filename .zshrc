@@ -449,12 +449,19 @@ fi
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
 # sudo対応
 function pipe-EOF-do() {
+	# NOTE: mac ok
+	# NOTE: ubuntu cannot deal with sudo before pipe
 	read -r LINE
 	{
 		echo $LINE
 		cat
 	} | ${@}
 	return
+}
+
+function sudowait() {
+	local v=$(cat)
+	printf "%s" $v | ${@}
 }
 
 alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
@@ -1030,8 +1037,7 @@ function shell_string_escape() {
 }
 
 function remove_terminal_extra_string_from_clipboard() {
-	local clipboard=$(p)
-	printf "%s" $clipboard | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | c
+	p | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | p2c
 }
 
 if [[ -z $DISPLAY ]]; then
@@ -1808,10 +1814,10 @@ fi
 function text_center() {
 	local columns=$(tput cols)
 	local line=
-	if [ -p /dev/stdin ]; then
+	if [[ -p /dev/stdin ]]; then
 		while IFS= read -r line || [ -n "$line" ]; do
 			printf "%*s\n" $(((${#line} + columns) / 2)) "$line"
-		done </dev/stdin
+		done
 	else
 		line="$@"
 		printf "%*s\n" $(((${#line} + columns) / 2)) "$line"
