@@ -13,9 +13,9 @@ snippet ismac
 snippet islinux
   [[ $(uname) == "Linux" ]]
 snippet isubuntu
-  [[ "$(uname -a)" =~ "Ubuntu" ]]
+  [[ "$(uname -a)" =~ Ubuntu ]]
 snippet iswindows
-  [[ "$OS" =~ "Windows" ]]
+  [[ "$OS" =~ Windows ]]
 snippet isdocker
   [[ -f /.dockerenv ]]
 snippet istmux
@@ -29,11 +29,11 @@ snippet islinux_if
         ${0}
     fi
 snippet isubuntu_if
-    if [[ "$(uname -a)" =~ "Ubuntu" ]]; then
+    if [[ "$(uname -a)" =~ Ubuntu ]]; then
         ${0}
     fi
 snippet iswindows_if
-    if [[ "$OS" =~ "Windows" ]]; then
+    if [[ "$OS" =~ Windows ]]; then
         ${0}
     fi
 snippet isdocker_if
@@ -122,10 +122,10 @@ snippet for_pwd
 
 snippet arg_check_exit
 alias argcheck_exit
-  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$0 ${0:#: description}" && exit 1
+  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && exit 1
 snippet arg_check_return
 alias argcheck_return
-  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$0 ${0:#: description}" && return 1
+  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && return 1
 
 snippet cmdcheck
   function cmdcheck() { type >/dev/null 2>&1 "$@"; }
@@ -534,3 +534,16 @@ snippet is_symbolic_link_if
 snippet length_of_var
 abbr depend LANG env var
   ${#${1:#:var}}
+
+snippet var_dirpath
+abbr /path/to/foo.tar.gz -> /path/to
+  ${${0:#:path var}%/*}
+snippet var_filepath_without_last_ext
+abbr /path/to/foo.tar.gz -> /path/to/foo.tar
+  ${${0:#:path var}%.*}
+snippet var_basename
+abbr /path/to/foo.tar.gz -> foo.tar.gz
+  ${${0:#:path var}##*/}
+snippet var_ext
+abbr /path/to/foo.tar.gz -> gz, foo -> foo
+  ${${0:#:path var}##*.}
