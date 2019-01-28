@@ -2024,7 +2024,9 @@ function cmd_fuzzy_error_check() {
 	local grep_exit_code=$?
 	if [[ $exit_code != 0 || $grep_exit_code == 0 ]]; then
 		{
+			echo -ne "${RED}"
 			hr_log '#' "MAYBE $cmd ERROR"
+			echo -ne "${DEFAULT}"
 			echo "[log]: $tmpfile"
 			hr '#'
 			cat "$tmpfile" | grep ': '
