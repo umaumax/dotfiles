@@ -149,6 +149,9 @@
 [git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git clone rename] git clone @ $NEW_NAME
 [git commit log grep] git log --stat -S "@"
+[git is commit hash?] git rev-parse --verify @ >/dev/null 2>&1
+
+[git copy file/dir from another branch] git checkout @ #$BRANCH $FILE_PATH
 
 [git rebase interactive] git rebase -i HEAD~$NUM@
 [git rebase continue] git rebase --continue
@@ -507,6 +510,7 @@
 
 # time
 [unix timestamp] date +%s
+[unix timestamp with millsec] date +%s%3N
 
 # pgrep
 [pgrep with user info 1] ps wup $(pgrep -f @)
