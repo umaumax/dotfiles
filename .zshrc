@@ -962,7 +962,22 @@ else
 	fi
 fi
 # brew install bat or access [sharkdp/bat: A cat\(1\) clone with wings\.]( https://github.com/sharkdp/bat )
-cmdcheck bat && alias cat='bat'
+if cmdcheck bat; then
+	alias cat='bat'
+	# NOTE: you can use with grep e.g. git diff | grep include | diffbat
+	alias diffbat='bat -l diff'
+	alias vimbat='bat -l vim'
+	alias cppbat='bat -l cpp'
+
+	# NOTE: decolate bash -x output
+	# NOTE: * colorbash required bat more than v0.7.0 (0.9.0 ok)
+	function colorbash() {
+		[[ $# -le 0 ]] && echo "$0 [target bash file]" && return 1
+		bash -x "$@" |& awk '/^\+/{match($0, /^\++/); s=""; for(i=0;i<RLENGTH;i++) s=s"\\+"; printf "%s%s\n", s, substr($0, RLENGTH+1, length($0)-RLENGTH)} !/^\+/{print $0}' | bat -l bash
+		local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
+		return $exit_code
+	}
+fi
 # original cat
 alias ocat='command cat'
 
@@ -2036,14 +2051,6 @@ function cmd_fuzzy_error_check() {
 	else
 		[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 	fi
-}
-
-# NOTE: decolate bash -x output
-function colorbash() {
-	[[ $# -le 0 ]] && echo "$0 [target bash file]" && return 1
-	bash -x "$@" |& awk 'BEGIN{print "#!/bin/bash"} /^\+/{match($0, /^\++/); s=""; for(i=0;i<RLENGTH;i++) s=s"\\+"; printf "%s%s\n", s, substr($0, RLENGTH+1, length($0)-RLENGTH)} !/^\+/{print $0}' | cat
-	local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
-	return $exit_code
 }
 
 function man-signal() {

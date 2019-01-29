@@ -3,7 +3,17 @@
 ## install
 ```sh
 git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
+```
+
+## update
+```sh
 git submodule update -i
+
+# first time
+./link.sh
+
+# after setting end
+colorbash ./link.sh
 ```
 
 ### vim setup
