@@ -11,6 +11,8 @@ stty stop undef
 function cmdcheck() { type "$1" >/dev/null 2>&1; }
 cmdcheck vim && alias vi='vim'
 
+alias fix-terminal='stty sane; resize; reset'
+
 alias grep='grep --color=auto'
 
 alias h='history'
