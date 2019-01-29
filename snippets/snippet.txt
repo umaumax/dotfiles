@@ -230,6 +230,7 @@
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [awk uniq without sort] awk '!a[$0]++'
 [awk drop blank line] awk 'NF'
+[awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
 
 [number of CPU] nproc --all # linux only
 
