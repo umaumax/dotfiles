@@ -453,6 +453,10 @@ function git-branch-new-to-old() {
 	git branch --sort=-authordate
 }
 
+function gitdiffgrep() {
+	grep '^[+-]' | bat -l diff --color=always | grep "$@"
+}
+
 function vimgit() {
 	[[ $# -lt 1 ]] && echo "$(basename $0) [commit hash] [files...]" && return 1
 	local commit_hash=$1
