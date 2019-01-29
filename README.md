@@ -2,7 +2,7 @@
 
 ## install
 ```sh
-git clone https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
+git clone --recursive https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 ```
 
 ## update
