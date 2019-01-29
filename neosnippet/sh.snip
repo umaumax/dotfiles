@@ -158,12 +158,12 @@ snippet append_array
 alias array_append
     local ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
 
-snippet append_array_self_bash
-alias array_append_self_bash
-    local ${1:#:dst array}+=(${0})
+# snippet append_array_self_new_bash
+# alias array_append_self_new_bash
+#     local ${1:#:dst array}+=(${0})
 
-snippet append_array_self_zsh_bash
-alias array_append_self_zsh_bash
+snippet append_array_self
+alias array_append_self
     local ${1:#:dst array}=(\$$1 ${0})
 
 snippet search_array
