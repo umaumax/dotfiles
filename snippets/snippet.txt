@@ -128,7 +128,7 @@
 [git commit without hook] git commit --no-verify
 [git reload git hooks]  rm -rf $(git rev-parse --show-toplevel)/.git/hooks && git init # NOTE: don't delete local git hooks
 [git first empty commit] git commit --allow-empty -m "first commit"
-[git submodule init and update] git submodule update -i
+[git submodule init and update] git submodule update --init --recursive
 [git submodule force add] git submodule add -f @
 [git Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
@@ -148,6 +148,7 @@
 [git grep ext ng filter] git grep "@" -- ':!*.'
 [git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git clone rename] git clone @ $NEW_NAME
+[git clone with submodule] git clone --recursive @
 [git commit log grep] git log --stat -S "@"
 [git is commit hash?] git rev-parse --verify @ >/dev/null 2>&1
 
@@ -199,6 +200,9 @@
 [git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/@"
 
 [git sed] git sed "s/\.a/\.so/g" "*/Makefile" # convert .a to .so
+
+[git archive master] git archive master --format=zip --output=master.zip
+[git local page] git instaweb --port=11111
 
 # tig
 [tig file history] tig $FILE
