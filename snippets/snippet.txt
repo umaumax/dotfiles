@@ -57,7 +57,7 @@
 [tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
 # filter
-[filter only number] echo "1samp4le\n2.3echo" | perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
+[filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
