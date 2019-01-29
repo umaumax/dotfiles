@@ -190,7 +190,7 @@ function lsabs() {
 		shift
 	done
 	local arg=$(arg_n 0)
-	local dirpath=${arg:-.}
+	local dirpath=${arg:-$PWD}
 
 	local options=()
 	[[ -n $file_type ]] && local options=(-type ${file_type#-})
