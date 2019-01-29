@@ -431,6 +431,7 @@
 # FYI: [software installation \- How can I check dependency list for a deb package \- Ask Ubuntu]( https://askubuntu.com/questions/80655/how-can-i-check-dependency-list-for-a-deb-package )
 [apt-cache search] apt-cache search @
 [apt-cache check dependency] apt-cache depends @
+[apt-cache check dependency(detail)] apt-cache show @ # with version
 [dpkg check dependency] dpkg -I @
 
 [ubuntu code name] lsb_release -cs # 16.04: xenial
