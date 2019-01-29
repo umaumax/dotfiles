@@ -297,3 +297,30 @@ function! s:gitopen()
 	call OpenURL(url)
 endfunction
 command! GitOpen :call s:gitopen()
+
+function! s:get_active_buffers()
+	let result = ""
+	silent! redir => result
+	silent! exe "ls"
+	redir END
+	let active_buffer_filepath_list = []
+	for line in split(result, "\n")
+		let m=matchlist(line, '\m[0-9][0-9]* .a.. "\(.*\)"')
+		if len(m) >= 2
+			let filepath=m[1]
+			if filepath == '[No Name]' | continue | endif
+			let active_buffer_filepath_list +=[filepath]
+		endif
+	endfor
+	return active_buffer_filepath_list
+endfunction
+function! s:paste_clipboard_to_active_buffers()
+	let active_buffer_filepath_list=s:get_active_buffers()
+	if len(active_buffer_filepath_list) > 0
+		let @+ = join(active_buffer_filepath_list, "\n")
+		echo '[COPY!]: buffers'
+	else
+		echo '[NO COPY!]: buffers'
+	endif
+endfunction
+command! Tabs :call s:paste_clipboard_to_active_buffers()
