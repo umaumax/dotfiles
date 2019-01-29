@@ -246,6 +246,22 @@ function nugget_ubuntu_bats() {
 # ################################
 
 # ################################
+# * [Ubuntu 16\.04 LTS 上で Pandoc を使って markdown から PDF を生成する]( http://cotaro-science.blogspot.com/2016/04/ubuntu-1604-lts-pandoc-markdown-pdf.html )
+#   * [Pandoc \- Installing pandoc]( http://pandoc.org/installing.html )
+#     * [Release pandoc 2\.5 · jgm/pandoc · GitHub]( https://github.com/jgm/pandoc/releases/tag/2.5 )
+function nugget_ubuntu_pandoc() {
+	cmdcheck pandoc && return $NUGGET_ALREADY_INSTALLED
+
+	sudo apt install -y texlive texlive-lang-cjk texlive-luatex texlive-xetex texlive-math-extra
+	pushd "$tmpdir"
+	wget https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb
+	sudo dpkg -i pandoc-*-amd64.deb
+	rm -rf pandoc-*-amd64.deb
+	popd
+}
+# ################################
+
+# ################################
 # NOTE: for c++ library
 function nugget_ubuntu_googlebenchmark() {
 	[[ -d /usr/local/include/benchmark ]] && return $NUGGET_ALREADY_INSTALLED

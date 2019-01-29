@@ -46,6 +46,7 @@ nugget fzy
 nugget fzf
 nugget bat
 nugget bats
+nugget pandoc
 nugget googlebenchmark
 nugget googletest
 
