@@ -135,7 +135,6 @@ function git-find-last-space-vim() {
 }
 
 cmdcheck 'git-ls' && alias gls='git-ls'
-alias gd='git_diff'
 # NOTE: 差分が少ないファイルから順番にdiffを表示
 function git_diff() {
 	is_git_repo_with_message || return
@@ -152,6 +151,7 @@ function git_diff() {
 	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
 	[[ -e $tmpfile ]] && rm -f $tmpfile
 }
+alias gd='git_diff'
 alias gdh='      gd HEAD'
 alias gdhh='     gd HEAD~     HEAD'
 alias gdhhh='    gd HEAD~~     HEAD~'
@@ -168,6 +168,24 @@ alias gdhhhhc='   gdhhhh    --relative=.'
 alias gdhhhhhc='  gdhhhhh   --relative=.'
 alias gdhhhhhhc=' gdhhhhhh  --relative=.'
 alias gdhhhhhhhc='gdhhhhhhh --relative=.'
+
+alias gdw='gd --word-diff'
+alias gdhw='gdh --word-diff'
+alias gdhhw='gdhh --word-diff'
+alias gdhhhw='gdhhh --word-diff'
+alias gdhhhhw='gdhhhh --word-diff'
+alias gdhhhhhw='gdhhhhh --word-diff'
+alias gdhhhhhhw='gdhhhhhh --word-diff'
+alias gdhhhhhhhw='gdhhhhhhh --word-diff'
+
+alias gdcw='gdc --word-diff'
+alias gdhcw='gdhc --word-diff'
+alias gdhhcw='gdhhc --word-diff'
+alias gdhhhcw='gdhhhc --word-diff'
+alias gdhhhhcw='gdhhhhc --word-diff'
+alias gdhhhhhcw='gdhhhhhc --word-diff'
+alias gdhhhhhhcw='gdhhhhhhc --word-diff'
+alias gdhhhhhhhcw='gdhhhhhhhc --word-diff'
 
 alias ga='git add --all'
 alias gc='git commit'
