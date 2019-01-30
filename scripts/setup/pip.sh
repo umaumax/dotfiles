@@ -58,3 +58,6 @@ pip3 install requests
 pip3 install urllib3
 pip3 install certifi
 pip3 install clang
+
+# NOTE: pip install colout failed...(colout v0.5)
+pip3 install https://github.com/nojhan/colout/archive/master.tar.gz
