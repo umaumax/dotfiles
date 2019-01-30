@@ -18,6 +18,8 @@
 	amend = commit --amend --no-edit
 	fix-typo = commit --amend
 
+	apply-3 = apply --3way
+
 	b = branch
 	branch-current-name = rev-parse --abbrev-ref HEAD
 	branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
@@ -76,6 +78,7 @@
 # 	ls = ~/local/bin/git-ls
 	ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
 	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
+	ls-newfiles = !git status --porcelain | grep "^A" | cut -c 4-
 
 	m = merge
 	mt = mergetool
@@ -122,6 +125,7 @@
 	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
 
 	unstage = reset HEAD
+	unstage-only-newfiles = !git unstage $(git ls-newfiles)
 	unstage-permanent = rm --cached -r
 
 	urls = remote -v
@@ -142,6 +146,7 @@
 	changed = red
 	untracked = yellow
 [color "diff"]
+	whitespace = magenta magenta
 	meta = 247 235
 	frag = 242 236
 	old = red normal
