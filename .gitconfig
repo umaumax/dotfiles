@@ -185,3 +185,5 @@
 	# cannot through proxy
 	# 	InsteadOf = https://github.com/
 	InsteadOf = git@github.com:
+[include]
+	path = ~/dotfiles/.dummy_alias.gitconfig

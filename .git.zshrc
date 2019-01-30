@@ -13,6 +13,16 @@ function git() {
 	"$cmd" "$@"
 }
 
+function git-update-dummy-alias() {
+	local dummy_alias_filepath="$HOME/dotfiles/.dummy_alias.gitconfig"
+	cat <<'EOF' >$dummy_alias_filepath
+# NOTE: dummy alias list for zsh completion
+#
+[alias]
+EOF
+	functions-list | grep '^git-' | sed -E 's/^git-(.*)$/'"$(printf '\t')"'\1 = :/g' >>~/dotfiles/.dummy_alias.gitconfig
+}
+
 # FYI: [prezto/git\-branch\-current at master · sorin\-ionescu/prezto]( https://github.com/sorin-ionescu/prezto/blob/master/modules/git/functions/git-branch-current )
 # NOTE: 下記のコマンドはpreztoで実装されている
 # git-branch-current

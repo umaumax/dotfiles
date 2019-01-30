@@ -130,6 +130,8 @@ if [[ $ZSH_NAME == zsh ]]; then
 	# 	setopt magic_equal_subst
 fi
 
+alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
+
 [[ -e ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
 
 # ----
@@ -904,7 +906,6 @@ function allcmds() {
 	pathcmds
 	alias
 }
-alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
 # create markdown table body (not including header)
 # e.g. paste <(seq 1 10) <(seq 11 20) | mdt "\t"
