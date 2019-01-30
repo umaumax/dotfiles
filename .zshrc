@@ -1615,15 +1615,13 @@ function gsync() {
 	echo "${YELLOW}ID:$ID${DEFAULT}"
 
 	echo "# ${GREEN}downloading...${DEFAULT}"
-	local ret=$(gdrive sync download $ID . 2>&1)
-	echo "$ret"
+	local ret=$(gdrive sync download $ID . 2>&1 | tee $(tty))
 	local code=0
 	echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
 	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && exit $code
 
 	echo "# ${GREEN}uploading...${DEFAULT}"
-	local ret=$(gdrive sync upload . $ID 2>&1)
-	echo "$ret"
+	local ret=$(gdrive sync upload . $ID 2>&1 | tee $(tty))
 	local code=0
 	echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
 	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && exit $code
