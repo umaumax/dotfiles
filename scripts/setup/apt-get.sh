@@ -180,6 +180,9 @@ if which colorgcc >/dev/null 2>&1; then
 	ln -s $(which colorgcc) ~/local/bin/color-cc
 fi
 
+# NOTE: for git instaweb
+sudo apt-get install lighttpd
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
