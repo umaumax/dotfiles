@@ -16,6 +16,7 @@ alias fix-terminal='stty sane; resize; reset'
 alias grep='grep --color=auto'
 
 alias h='history'
+alias cl='clear'
 
 if [[ $(uname) == "Darwin" ]]; then
 	alias ls='ls -G'
