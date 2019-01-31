@@ -5,7 +5,7 @@ nnoremap cc vc
 nnoremap co i<CR><ESC>
 
 " NOTE: nnoremap上で利用する場合に，`|`をescapeする必要がある
-nnoremap <CR> :call setline('.', substitute(getline('.'), '\(\s\\|　\\|\r\)\+$', '', ''))<CR><CR>
+nnoremap <silent> <CR> :call setline('.', substitute(getline('.'), '\(\s\\|　\\|\r\)\+$', '', ''))<CR><CR>
 
 nnoremap <Leader>p %
 
@@ -77,8 +77,8 @@ endfunction
 " NOTE: neocomplete cache, omni補完(<expr>を利用するべき?)では適切に動作しない<C-o>が意図した動作にならない<C-r>を利用する必要がある
 " inoremap <Up> <C-o>:call <SID>Up()<CR>
 " inoremap <Down> <C-o>:call <SID>Down()<CR>
-inoremap <Up> <C-r>=<SID>Up()<CR>
-inoremap <Down> <C-r>=<SID>Down()<CR>
+inoremap <silent> <Up> <C-r>=<SID>Up()<CR>
+inoremap <silent> <Down> <C-r>=<SID>Down()<CR>
 
 " [Big Sky :: vimでスクリプト内関数を書き換える]( https://mattn.kaoriya.net/software/vim/20090826003359.htm )
 " fnameは完全一致後に正規表現で比較
