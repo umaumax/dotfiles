@@ -330,9 +330,9 @@ inoremap <c-x><c-g> <ESC>:FZFg
 inoremap <c-x>g     <ESC>:FZFg
 nnoremap <c-x><c-g> :FZFg
 nnoremap <c-x>g     :FZFg
-command! -nargs=* FZFg  call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFgc call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
-command! -nargs=* FZFgg call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=1 FZFg  call FZF_grep(g:prev_filedirpath, s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=1 FZFgc call FZF_grep(getcwd(),           s:argsWithDefaultArg(1, '', <f-args>))
+command! -nargs=1 FZFgg call FZF_grep(Find_git_root(),    s:argsWithDefaultArg(1, '', <f-args>))
 
 command! -nargs=0 FZFt       call s:FZFTabOpenFunc()
 command! -nargs=0 FZFtabs    call s:FZFTabOpenFunc()
