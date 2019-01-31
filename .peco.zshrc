@@ -230,7 +230,7 @@ function git-checkout-branch-peco() {
 
 function _git-commit-peco() {
 	# NOTE: escape {7} -> {'7'} to avoid fzf replacing
-	gl --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
+	git log --oneline --decorate --graph --branches --tags --remotes --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
 }
 function git-commits-peco() {
 	_git-commit-peco --multi
@@ -245,22 +245,29 @@ function git-cherry-pick-peco() {
 	[[ -z $commit ]] && return 1
 	git cherry-pick "$commit"
 }
-function git-cherry-pick-peco-range() {
+function git-commits-range-peco() {
+	local range_text=${1:-".."}
+
 	local commits=($(git-commits-peco))
 	[[ -z $commits ]] && return 1
-	[[ ${#commits[@]} != 2 ]] && echo "choose two commit! not ${#commis[@]} ($commits)" && return 1
+	[[ ${#commits[@]} != 2 ]] && echo "choose two commit! not ${#commis[@]} ($commits)" 1>&2 && return 1
 	local commit1=$(echo $commits | awk '{print $1}') # new
 	local commit2=$(echo $commits | awk '{print $2}') # old
 
-	git log "${commit2}^..${commit1}"
+	echo "${commit2}${range_text}${commit1}"
+}
+function git-cherry-pick-peco-range() {
+	local commits_range=$(git-commits-range-peco '^..')
+	[[ -z $commits_range ]] && return 1
+	git log $commits_range
 	hr '#'
-	echo git cherry-pick "'${commit2}^..${commit1}'"
+	echo git cherry-pick "'$commits_range'"
 
 	# NOTE: only for zsh
 	echo -n "ok?(y/N): "
 	read -q || return 1
 
-	git cherry-pick "${commit2}^..${commit1}"
+	git cherry-pick $commits_range
 }
 
 function git-rename-to-backup-branch-peco() {

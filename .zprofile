@@ -100,6 +100,7 @@ exist() {
 VIM=vim
 cmdcheck nvim && VIM=nvim
 export EDITOR=$VIM
+export GIT_EDITOR=$VIM
 export VISUAL=$VIM
 export PAGER='less'
 # [manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
