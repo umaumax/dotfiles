@@ -136,7 +136,7 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 
 # ----
 # NOTE: source bellow file to unalias git commands
-[[ -e ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
+[[ -e ~/.zsh/.prezto.git.init.zshrc ]] && source ~/.zsh/.prezto.git.init.zshrc
 # ----
 
 cmdcheck tac || alias tac='tail -r'
@@ -2110,12 +2110,13 @@ alias opencppref='open https://cpprefjp.github.io/index.html'
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 # NOTE: run after compinit
 [[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
-# NOTE: run after zplug to avoid overwrite keybind
 
+# NOTE: run after zplug to avoid overwrite keybind
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
+[[ -e ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
 
 # ---------------------
 

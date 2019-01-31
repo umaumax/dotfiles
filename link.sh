@@ -31,6 +31,7 @@ ln -sf ~/dotfiles/.bindkey.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.windows.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.nugget.zshrc ~/.zsh/
 ln -sf ~/dotfiles/.ros.zshrc ~/.zsh/
+ln -sf ~/dotfiles/.prezto.git.init.zshrc ~/.zsh/
 
 # cp not ln -f
 [[ ! -f ~/.gitconfig ]] && cp ~/dotfiles/.tmpl.gitconfig ~/.gitconfig
