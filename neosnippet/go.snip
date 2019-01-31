@@ -1,11 +1,31 @@
-snippet     funcname
-    `cfi#get_func_name()`
+snippet funcname
+  `cfi#get_func_name()`
 
-snippet removeext
-    ${1:#:filename} := strings.TrimSuffix($1, filepath.Ext($1))
+snippet remove_ext
+  ${1:#:filename} := strings.TrimSuffix($1, filepath.Ext($1))
 
-snippet removeext_func
-    func removeExt(fname string) string {
-        ext := filepath.Ext(fname)
-        return fname[:len(fname)-len(ext)]
+snippet remove_ext_func
+  func removeExt(fname string) string {
+      ext := filepath.Ext(fname)
+      return fname[:len(fname)-len(ext)]
+  }
+
+# [Go Slice Tricks \(Japanese\) · golang\.shop]( https://golang.shop/post/go-slice-tricks-ja/ )
+snippet append_self
+  ${1} = append($1, ${0:#:var...})
+snippet slice_copy
+  ${1} = append([]${2:#:type}(nil), ${0:#:var}...)
+snippet slice_delete_at
+  ${1} = append(${1}[:${2:#:index}], $1[$2+1:]...)
+snippet slice_filtering_without_allocate_memory
+  ${2:#:dst} := ${1:#:src}[:0]
+  for _, x := range $1 {
+    if ${0:#:condition} {
+      $1 = append($2, x)
     }
+  }
+snippet slice_reverse
+  for i := len(${1})/2-1; i >= 0; i-- {
+    j := len($1)-1-i
+    $1[i], $1[j] = $1[j], $1[i]
+  }
