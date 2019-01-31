@@ -228,6 +228,9 @@ function git-checkout-branch-peco() {
 	[[ -n $branch ]] && git checkout $branch
 }
 
+function git-log-peco() {
+	_git-commit-peco --multi
+}
 function _git-commit-peco() {
 	# NOTE: escape {7} -> {'7'} to avoid fzf replacing
 	git log --oneline --decorate --graph --branches --tags --remotes --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7} ' | grep -o -E '[0-9a-zA-Z]{7}'
