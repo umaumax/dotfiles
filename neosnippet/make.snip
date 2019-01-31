@@ -1,0 +1,6 @@
+snippet shell
+abbr `` means just text in Makefile
+  $(shell ${0:#:pkg-config --cflags libpng})
+
+snippet pkg-config
+  $(shell pkg-config --cflags ${0})
