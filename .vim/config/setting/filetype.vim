@@ -17,6 +17,7 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 	" NOTE: for ~/dotfiles/snippets/snippet.txt
 	autocmd BufRead,BufNewFile snippet.txt setlocal ft=log
+	autocmd BufRead,BufNewFile README setlocal ft=markdown
 
 	" NOTE: for cpp library header files
 	autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
