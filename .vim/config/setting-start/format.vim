@@ -3,6 +3,19 @@
 " まず，autocmd FileType 駆動で初回のみイベントを登録する
 " FileTypeイベントを発行させるために，:e!をすることを推奨
 
+function! IsInGitRepo(file)
+	let ret=system('cd $(dirname '.shellescape(a:file).') && git rev-parse --is-inside-work-tree | tr -d "\n"')
+	return ret == 'true'
+endfunction
+function! GetGitRepoRoot(file)
+	return system('cd $(dirname '.shellescape(a:file).') && git rev-parse --show-toplevel 2>/dev/null | tr -d "\n"')
+endfunction
+function! IsInSameGitRepo(file1, file2)
+	let root1=GetGitRepoRoot(a:file1)
+	let root2=GetGitRepoRoot(a:file2)
+	return root1 != "" && root1 == root2
+endfunction
+
 " git logのauthorが自分と一致する場合はプライベートなファイルであると仮定する
 let g:is_private_work_cache={}
 function! IsPrivateWork(...)
@@ -33,7 +46,7 @@ function! IsPrivateWork(...)
 		endif
 	endif
 
-	let l:authors = system("cd " . l:dir_path . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log --format='%an' > /dev/null 2>&1 | sort | uniq | tr -d '\n')")
+	let l:authors = system("cd " . shellescape(l:dir_path) . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log --format='%an' > /dev/null 2>&1 | sort | uniq | tr -d '\n')")
 	let l:is_private = l:authors == "" || l:authors == l:author
 	let g:is_private_work_cache[l:dir_path] = l:is_private
 	return l:is_private
@@ -242,12 +255,27 @@ function! s:work_setting()
 	endif
 endfunction
 
+function! s:detect_clang_format_style_file() abort
+	let dirname = fnameescape(expand('%:p:h'))
+	let filepathes = [findfile('.clang-format', dirname.';')]+[findfile('_clang-format', dirname.';')]
+	return len(filepathes) > 0 ? filepathes[0] : ''
+endfunction
+function! s:clang_format_setting()
+	let g:auto_format_flag=1
+	let clang_format_filepath=s:detect_clang_format_style_file()
+	if IsInGitRepo(expand('%:p')) && !IsInSameGitRepo(expand('%:p'), clang_format_filepath)
+		let g:auto_format_flag=0
+	endif
+endfunction
+
 " NOTE: to speed up starting
 function! s:private_or_public_work_set()
 	augroup private_or_public_work
 		autocmd!
 		autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
 		autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
+		" TODO: .clang-format finder 
+		autocmd BufWinEnter,TabEnter *.{c,cc,cxx,cpp,h,hh,hpp} :call <SID>clang_format_setting()
 	augroup END
 	call <SID>work_setting()
 	if &filetype=='go'
