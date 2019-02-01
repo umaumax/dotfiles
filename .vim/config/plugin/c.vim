@@ -6,7 +6,11 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_no_function_highlight = 1
 
 if Doctor('clang-format', 'rhysd/vim-clang-format')
+	" NOTE: search .clang-format or _clang-format option ON
+	let g:clang_format#detect_style_file=1
 	Plug 'rhysd/vim-clang-format', {'for': ['c','cpp']}
+	" NOTE: below style is used when no .clang-format
+	let g:clang_format#code_style = "Google"
 	let g:clang_format#style_options = {
 				\ "AccessModifierOffset" : -4,
 				\ "AllowShortIfStatementsOnASingleLine" : "true",
@@ -23,7 +27,6 @@ if Doctor('clang-format', 'rhysd/vim-clang-format')
 				\ "BreakConstructorInitializersBeforeComma" : "true",
 				\ "ContinuationIndentWidth" : 2,
 				\ }
-	let g:clang_format#code_style = "Google"
 endif
 
 Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
