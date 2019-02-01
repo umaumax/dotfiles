@@ -45,4 +45,4 @@ https://github.com/umaumax/findtar/blob/master/findtar.sh findtar
 chmod u+x findtar
 
 https://github.com/umaumax/awkst/blob/master/awkst.awk awkst
-chmod u+X awkst
+chmod u+x awkst
