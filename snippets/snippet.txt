@@ -610,7 +610,8 @@
 [roslog] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
-[roscore url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
+[ros set rosmaster url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
+[ros publish rosmaster] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
 
 [ros log] ~/.ros/log/latest/master.log
 [ros log] ~/.ros/log/latest/$ROS_NODE_NAME@-1-stdout.log
