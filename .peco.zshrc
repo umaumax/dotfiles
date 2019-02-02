@@ -274,14 +274,16 @@ function git-cherry-pick-peco() {
 	[[ -z $commit ]] && return 1
 	git cherry-pick "$commit"
 }
+# NOTE: select 1 or 2 commits by peco -> return commit range by given range text
 function git-commits-range-peco() {
 	local range_text=${1:-".."}
 
 	local commits=($(git-commits-peco))
 	[[ -z $commits ]] && return 1
-	[[ ${#commits[@]} != 2 ]] && echo "choose two commit! not ${#commis[@]} ($commits)" 1>&2 && return 1
+	[[ ${#commits[@]} -gt 2 ]] && echo "${RED}choose one commit or two commits! not ${#commis[@]} ($commits)${DEFAULT}" 1>&2 && return 1
 	local commit1=$(echo $commits | awk '{print $1}') # new
 	local commit2=$(echo $commits | awk '{print $2}') # old
+	[[ -z $commit2 ]] && local commit2=$commit1
 
 	echo "${commit2}${range_text}${commit1}"
 }
