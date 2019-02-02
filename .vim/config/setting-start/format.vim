@@ -56,6 +56,9 @@ function! IsPrivateWork(...)
 	return l:is_private
 endfunction
 
+" NOTE: [vim で markdown を書いているときに prettier で整形する \(プラグイン使わずに\) \- Qiita]( https://qiita.com/pankona/items/a493bf97f46e3d52d0de )
+" formatargを設定する手法を利用してみると範囲指定のformatがやりやすいのでは?
+
 " NOTE: default format command
 function! s:format_file()
 	" FYI: [Vim:カーソル位置を移動せずにファイル全体を整形する \- ぼっち勉強会]( http://kannokanno.hatenablog.com/entry/2014/03/16/160109 )
