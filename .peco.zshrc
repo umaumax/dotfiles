@@ -97,6 +97,9 @@ function pecovim() {
 	pecocat "$@" | xargs-vim
 }
 # peco copy
+alias ranking_color_cat='cat'
+# NOTE: green high rank, red low rank
+cmdcheck lolcat && alias ranking_color_cat='lolcat -F 0.01 -d 8 -f -S 1'
 alias pc='peco | c'
 alias pecopy='peco | c'
 alias cmdpeco='{ alias; functions-list; } | peco'
@@ -109,13 +112,13 @@ alias fvim='find . -type f | pecovim'
 # m: modified
 alias gmvim='git status -s | cut -c4- | pecovim'
 alias ftvim='pvft'
-alias epeco='env | peco | tee /dev/tty | c'
+alias epeco='env | peco | tee $(tty) | c'
 alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
 # [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-alias rvim="viminfo-ls | pecovim"
+alias rvim="viminfo-ls | ranking_color_cat | pecovim"
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
 alias rcvim='rdvim'
@@ -123,14 +126,14 @@ alias rcvim='rdvim'
 
 function rdvim() {
 	local wd=${1:-$(pwd)}
-	viminfo-ls | grep -E '^'"$wd" | pecovim
+	viminfo-ls | grep -E '^'"$wd" | ranking_color_cat | pecovim
 }
 # 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
 # 存在しない場合には空白となる
 # 最終的に'./'を加えても動作は変更されない
 # NOTE: echo ${~$(echo '~')} means expand '~'
-alias rvcd="cd \${~\$(viminfo-ls | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
-alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | peco | sed 's:$:/:g')./"
+alias rvcd="cd \${~\$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
+alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | ranking_color_cat | peco | sed 's:$:/:g')./"
 function cdpeco() {
 	# NOTE: mac ok
 	# 	if [[ -p /dev/stdin ]]; then
@@ -183,10 +186,10 @@ alias pvls='peco-ls | xargs-vim'
 alias pvlst='peco-lstr | xargs-vim'
 alias pvlstr='peco-lst | xargs-vim'
 alias pf='fpeco'
-alias pft='find-time-sortr | peco | awk "{print \$9}"'
-alias pftr='find-time-sort | peco | awk "{print \$9}"'
-alias pvft='find-time-sortr | peco | awk "{print \$9}" | xargs-vim'
-alias pvftr='find-time-sort | peco | awk "{print \$9}" | xargs-vim'
+alias pft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}"'
+alias pftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}"'
+alias pvft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}" | xargs-vim'
+alias pvftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}" | xargs-vim'
 
 # [pecoでcdを快適にした｜bashでもpeco \- マクロ生物学徒の備忘録]( http://bio-eco-evo.hatenablog.com/entry/2017/04/30/044703 )
 function peco-cd() {

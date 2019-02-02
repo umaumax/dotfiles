@@ -182,6 +182,7 @@ fi
 
 # NOTE: for git instaweb
 sudo apt-get install lighttpd
+sudo apt-get install -y lolcat
 
 # --------------------------------
 # below packages are WIP
