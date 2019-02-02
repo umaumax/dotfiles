@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # NOTE: for remote ssh
-[[ -f ~/.bashrc ]] && source ~/.bashrc
+if [[ -r /etc/profile ]]; then source /etc/profile; fi
+if [[ -r ~/.bash_profile ]]; then
+	source ~/.bash_profile
+elif [[ -r ~/.bash_login ]]; then
+	source ~/.bash_login
+elif [[ -r ~/.profile ]]; then
+	source ~/.profile
+fi
+
+# NOTE: oressh use --rcfile (not login shell)
+! shopt login_shell >/dev/null 2>&1 && [[ -f ~/.bashrc ]] && source ~/.bashrc
 
 PS1='\[\e[1;33m\]\u@\h \w\n\[\e[1;36m\]\$\[\e[m\] '
 
