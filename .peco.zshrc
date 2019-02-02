@@ -311,10 +311,11 @@ function cheat() {
 	# below commands enable alias
 	# for 高速vim起動
 	# vim -u NONE -N
-	export VIM_FAST_MODE='on'
 	local cheat_root="$HOME/dotfiles/cheatsheets/"
-	local _=$(grep -rns ".\+" $cheat_root | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim)
-	unset VIM_FAST_MODE
+	local _=$(
+		export VIM_FAST_MODE='on'
+		grep -rns -v -e '^$' -e '^----' -e '```' $cheat_root --color=always | sed 's:'$cheat_root'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$cheat_root'\1!g' | xargs-vim
+	)
 }
 
 # copy example file peco
