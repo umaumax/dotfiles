@@ -490,10 +490,14 @@ snippet zcompile
   [[ ${1:#:zsh file} -nt $1.zwc ]] && zcompile $1
 
 snippet async_wait_sample
+alias wait_sample
   sleep 1 &
   sleep 2 &
   sleep 3 &
-  wait
+  wait # wait all
+  sleep 4 &
+  pid=$!
+  wait $pid
 
 snippet help_oneline
 alias easy_help
