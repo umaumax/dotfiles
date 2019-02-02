@@ -475,13 +475,14 @@ function! OpenURL(...)
 		echom 'not supported at windows!'
 	endif
 endfunction
-" to rewrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
-augroup gx_group
-	autocmd!
-	" BufReadPost is for unnamed tab and load file
-	autocmd User VimEnterDrawPost nnoremap <buffer> gx :call OpenURL()<CR>
-	autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
-augroup END
+" to overwrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
+" augroup gx_group
+" autocmd!
+" " NOTE: BufReadPost is for unnamed tab and load file
+" autocmd User VimEnterDrawPost nnoremap <buffer> gx :call OpenURL()<CR>
+" autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
+" augroup END
+nnoremap gx :call OpenURL()<CR>
 
 function! s:yank_pwd()
 	let @+ = '.' " default value

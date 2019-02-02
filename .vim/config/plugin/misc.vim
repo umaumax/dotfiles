@@ -345,8 +345,12 @@ LazyPlug 'bronson/vim-trailing-whitespace'
 " :TableFormat
 Plug 'godlygeek/tabular', {'for': 'markdown'} " The tabular plugin must come before vim-markdown.
 command! -nargs=0 TF :TableFormat
+
 " NOTE: indentがたまにおかしい
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+" FYI: https://github.com/plasticboy/vim-markdown/blob/be5e60fa2d85fec3b585411844846678a775a5d3/ftplugin/markdown.vim#L663
+" disable overwrite 'gx'
+let g:vim_markdown_no_default_key_mappings=1
 let g:vim_markdown_folding_disabled = 1
 " to avoid conceal of `xxx` ```xxx``` and so on
 let g:vim_markdown_conceal = 0 " for `
