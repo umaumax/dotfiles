@@ -49,6 +49,10 @@ set isfname+=:
 " to avoid die vim by too long line
 set synmaxcol=256
 
+" NOTE: speedup draw?
+" set lazyredraw
+" set ttyfast
+
 " default 1000, -1
 set timeout timeoutlen=500 ttimeoutlen=50
 
