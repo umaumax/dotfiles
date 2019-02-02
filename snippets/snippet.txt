@@ -412,6 +412,7 @@
 [ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
 [sshpass ssh] sshpass -p $PASSWORD@ ssh $HOST
 [sshpass scp] sshpass -p $PASSWORD@ scp $HOST
+[sshpass rsync] sshpass -p $PASSWORD@ rsync $HOST
 # [Run Remote ssh command with Full Login Shell \- Super User]( https://superuser.com/questions/306530/run-remote-ssh-command-with-full-login-shell )
 [ssh run command with full login shell] ssh $HOST@ -t 'bash -l -c "env"'
 
