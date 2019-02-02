@@ -2098,17 +2098,25 @@ EOF
 
 alias opencppref='open https://cpprefjp.github.io/index.html'
 
+# NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
+# NOTE: default emacs mode
+# bindkey -e
+# NOTE: set current mode as viins
+# NOTE: ESC -> vicmd
+bindkey -v
+
 # NOTE: below line is added by fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
-# NOTE: run after zsh-abbrev-alias plugin
-[[ -e ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
 # NOTE: run after compinit
 [[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
 
 # NOTE: run after zplug to avoid overwrite keybind
 [[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
+# NOTE: run after zsh-abbrev-alias plugin and bindkey
+[[ -e ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
+
 [[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 [[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc

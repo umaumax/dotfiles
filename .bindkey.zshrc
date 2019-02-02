@@ -9,6 +9,24 @@ function bindkey_default_all_events_list() {
 	echo 1>&2 '[18 Zsh Line Editor \(zsh\)]( http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets )'
 }
 
+bindkey -M vicmd '^A' beginning-of-line
+bindkey -M vicmd '^E' end-of-line
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
+bindkey -M vicmd "^X^A" backward-kill-line
+bindkey -M vicmd "^X^E" kill-line
+
+# NOTE: vicmd mode prezto format
+zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{white}❮%f%b%B%F{magenta}❮%f%b%B%F{blue}❮%f%b'
+
+# FYI: [hchbaw/zce\.zsh: \# zsh EasyMotion/ace\-jump\-mode]( https://github.com/hchbaw/zce.zsh )
+bindkey "^G" zce
+# FYI: [IngoHeimbach/zsh\-easy\-motion: Vim's easy\-motion for zsh]( https://github.com/IngoHeimbach/zsh-easy-motion )
+# NOTE: register vicmd 'space' as prefix of vi-easy-motion plugin
+# e.g. ' '+{b, B, w, W, e, E, ge, gE, f, F, t, T, c}などで移動が可能
+# bindkey "^G" vi-easy-motion
+bindkey -M vicmd ' ' vi-easy-motion
+
 #--------------------------------
 
 function _insert_strs() {
@@ -51,6 +69,8 @@ bindkey '^X^E' kill-line
 
 # F:fix
 bindkey '^X^F' edit-command-line
+# L:line
+bindkey '^X^L' edit-command-line
 
 function _set_only_LBUFFER() {
 	if [[ -z "$BUFFER" ]]; then
@@ -61,9 +81,9 @@ function _insert_sudo() { _set_only_LBUFFER 'sudo '; }
 zle -N _insert_sudo
 bindkey "^S" _insert_sudo
 
-function _insert_git() { _set_only_LBUFFER 'git '; }
-zle -N _insert_git
-bindkey "^G" _insert_git
+# function _insert_git() { _set_only_LBUFFER 'git '; }
+# zle -N _insert_git
+# bindkey "^G" _insert_git
 
 function _search_history() { _set_only_LBUFFER "$(hpeco)"; }
 zle -N _search_history
@@ -76,6 +96,11 @@ function _pecoole() { pecoole; }
 zle -N _pecoole
 bindkey "^X^P" _pecoole
 bindkey "^X^G" _pecoole
+
+function _cedit() { cedit; }
+zle -N _cedit
+bindkey "^X^V" _cedit
+bindkey "^X^O" _cedit
 
 # function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
 # zle -N _insert_cd_home
@@ -161,32 +186,32 @@ zle -N my-backward-delete-word
 # shift+tab
 bindkey '^[[Z' my-backward-delete-word
 
-function _peco-select-history() {
-	BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
-	CURSOR=$#BUFFER
-	zle -R -c # refresh
-}
-zle -N _peco-select-history
-bindkey '^X^P' _peco-select-history
+# function _peco-select-history() {
+# BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
+# CURSOR=$#BUFFER
+# zle -R -c # refresh
+# }
+# zle -N _peco-select-history
+# bindkey '^X^P' _peco-select-history
 
-function peco-select-history() {
-	local tac
-	if which tac >/dev/null; then
-		tac="tac"
-	else
-		tac="tail -r"
-	fi
-	local query="$LBUFFER"
-	local opts=("--query" "$LBUFFER")
-	[[ -z $query ]] && local opts=()
-	BUFFER=$(builtin history -nr 1 |
-		eval $tac |
-		command peco "${opts[@]}")
-	CURSOR=$#BUFFER
-	zle clear-screen
-}
-zle -N peco-select-history
-bindkey '^X^O' peco-select-history
+# function peco-select-history() {
+# local tac
+# if which tac >/dev/null; then
+# tac="tac"
+# else
+# tac="tail -r"
+# fi
+# local query="$LBUFFER"
+# local opts=("--query" "$LBUFFER")
+# [[ -z $query ]] && local opts=()
+# BUFFER=$(builtin history -nr 1 |
+# eval $tac |
+# command peco "${opts[@]}")
+# CURSOR=$#BUFFER
+# zle clear-screen
+# }
+# zle -N peco-select-history
+# bindkey '^X^O' peco-select-history
 
 # [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
 # Ctrl-Zを使ってVimにスイッチバックする

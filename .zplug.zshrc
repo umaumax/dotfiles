@@ -20,6 +20,13 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/zsh-abbrev-alias ]] && git clone https://github.com/momo-lab/zsh-abbrev-alias $zshdir/zsh-abbrev-alias
 		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
 
+		# NOTE: original version
+		[[ ! -e $zshdir/zce.zsh ]] && git clone https://github.com/hchbaw/zce.zsh $zshdir/zce.zsh
+		source $zshdir/zce.zsh/zce.zsh
+		# NOTE: extended version
+		[[ ! -e $zshdir/zsh-easy-motion ]] && git clone https://github.com/IngoHeimbach/zsh-easy-motion $zshdir/zsh-easy-motion
+		source $zshdir/zsh-easy-motion/easy_motion.plugin.zsh
+
 		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 		# NOTE: set variable before source
 		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
