@@ -32,6 +32,9 @@ chmod u+x git-recent
 https://github.com/umaumax/oressh/blob/master/oressh.sh oressh
 chmod u+x oressh
 
+https://github.com/umaumax/sshpass_wrapper/blob/master/sshpass_wrapper.sh ssh
+chmod u+x ssh
+
 https://github.com/umaumax/wcat/blob/master/wcat.sh wcat
 chmod u+x wcat
 
