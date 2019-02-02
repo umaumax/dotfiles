@@ -163,7 +163,7 @@ sudo apt-get install -y ldap-utils
 sudo apt-get install -y ntp
 
 # for nfs mount
-sudo apt-get install nfs-common
+sudo apt-get install -y nfs-common
 
 # for arm corss build
 ## 32bit(arm)
@@ -171,7 +171,7 @@ sudo apt install -y g++-arm-linux-gnueabihf
 ## 64bit(arm64)
 sudo apt install -y g++-aarch64-linux-gnu
 
-sudo apt-get install colorgcc
+sudo apt-get install -y colorgcc
 if which colorgcc >/dev/null 2>&1; then
 	mkdir -p ~/local/bin/
 	ln -s $(which colorgcc) ~/local/bin/color-g++
@@ -181,7 +181,8 @@ if which colorgcc >/dev/null 2>&1; then
 fi
 
 # NOTE: for git instaweb
-sudo apt-get install lighttpd
+sudo apt-get install -y lighttpd
+
 sudo apt-get install -y lolcat
 
 # --------------------------------
