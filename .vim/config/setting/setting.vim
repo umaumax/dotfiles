@@ -89,16 +89,11 @@ if cursor_highlight_opt_flag != 0
 	augroup END
 endif
 
-" these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
+" NOTE: these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
 " if textwidth == 0 no auto new line
-augroup tab_setting
-	autocmd!
-	" NOTE: default tab setting
-	" 	autocmd BufWinEnter * execute 'setlocal tabstop='.&shiftwidth | execute 'setlocal tabstop='.&shiftwidth | if &softtabstop==0 | set expandtab | else | set noexpandtab | endif
-	" 	autocmd BufWinEnter *.py exec 'setlocal softtabstop='.&tabstop
-augroup END
 set smartindent
 command! -nargs=1 SetTab call s:set_tab(<f-args>)
+" NOTE: force set tab function
 function! s:set_tab(n)
 	setlocal expandtab
 	execute "setlocal tabstop="    .a:n
@@ -107,6 +102,11 @@ function! s:set_tab(n)
 endfunction
 " default tab setting
 call s:set_tab(2)
+" FYI: [autocmd FileType \*]( https://github.com/tpope/vim-sleuth/blob/master/plugin/sleuth.vim#L196 )
+augroup tab_setting
+	autocmd!
+	autocmd FileType * call s:set_tab(2)
+augroup END
 
 set undofile
 execute 'set undodir='.g:tempfiledir
