@@ -1544,10 +1544,27 @@ cmdcheck stop || alias stop='kill -TSTP'
 # [command line \- Print a 256\-color test pattern in the terminal \- Ask Ubuntu]( https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal )
 function color-test-256() {
 	for i in {0..255}; do
-		printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
-		if ((i == 15)) || ((i > 15)) && (((i - 15) % 6 == 0)); then
+		# NOTE: bg
+		# printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
+		# NOTE: fg
+		printf "\x1b[38;5;%sm%3d\e[0m " "$i" "$i"
+		if ((i == 7)) || ((i == 15)) || { ((i > 15)) && (((i - 15) % 6 == 0)); }; then
 			printf "\n"
 		fi
+	done
+	echo "tput setaf <number>"
+}
+function _color-test-256-tput() {
+	echo "tput setaf <number>"
+	n=0
+	for ((j = 0; j < 2; j++)); do
+		for ((i = 0; i < 8; i++, n++)); do printf "%s%03d " $(tput setaf $n) $n; done
+		echo
+	done
+	n=16
+	for ((j = 0; j < $(((256 - 16) / 6)); j++)); do
+		for ((i = 0; i < 6; i++, n++)); do printf "%s%03d " $(tput setaf $n) $n; done
+		echo
 	done
 }
 function color-test-full() {
