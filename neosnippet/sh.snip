@@ -129,6 +129,13 @@ alias argcheck_return
 
 snippet cmdcheck
   function cmdcheck() { type >/dev/null 2>&1 "$@"; }
+snippet typecmd
+  type >/dev/null 2>&1 ${0}
+
+snippet find_next_path_cmd
+  local now_cmd=${0}
+	local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
+	[[ -z $next_cmd ]] && echo 1>&2 "Not found original command!" && return 1
 
 snippet alias
   alias ${1}='${0}'
