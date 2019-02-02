@@ -34,5 +34,5 @@ colorbash ./link.sh
 <!-- * `snippets/snippet.txt` -->
 
 ## NOTE
-* `.gitignore`: this .gitignore file is only for this repo
-* `.config/git/ignore`: this will be link to ~/.gitignore
+* `./.gitignore`: This `.gitignore` file is for this repo not for a host machine setting.
+* `./.config/git/ignore`: this will be link to ~/.gitignore

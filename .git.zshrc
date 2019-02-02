@@ -535,3 +535,5 @@ if $(cmdcheck fzf); then
 		git log --color --oneline | fzf --reverse --ansi --multi --preview 'git -c color.diff=always show {+1}'
 	}
 fi
+
+alias vim_repo_local_gitignore='vim $(git rev-parse --show-toplevel)/.git/info/exclude'
