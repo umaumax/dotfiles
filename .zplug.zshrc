@@ -17,6 +17,9 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
 		source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+		[[ ! -e $zshdir/zsh-abbrev-alias ]] && git clone https://github.com/momo-lab/zsh-abbrev-alias $zshdir/zsh-abbrev-alias
+		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
+
 		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 		# NOTE: 変数を設定してからsourceする必要がある
 		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
@@ -103,6 +106,7 @@ if [[ -e ~/.zplug ]]; then
 	zplug "zsh-users/zsh-syntax-highlighting", defer:2
 	zplug "zsh-users/zsh-completions"
 	zplug "zsh-users/zsh-autosuggestions"
+	zplug "momo-lab/zsh-abbrev-alias"
 	zplug 'Valodim/zsh-curl-completion'
 	zplug "chrissicool/zsh-256color"
 

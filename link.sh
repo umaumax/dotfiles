@@ -32,6 +32,7 @@ zsh_dotfiles=(
 	.git.zshrc
 	.peco.zshrc
 	.zplug.zshrc
+	.abbrev.zshrc
 	.comp.zshrc
 	.bindkey.zshrc
 	.windows.zshrc

@@ -2108,6 +2108,8 @@ alias opencppref='open https://cpprefjp.github.io/index.html'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
 [[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+# NOTE: run after zsh-abbrev-alias plugin
+[[ -e ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
 # NOTE: run after compinit
 [[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
 
