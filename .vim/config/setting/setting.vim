@@ -107,9 +107,23 @@ call s:set_tab(2)
 set undofile
 execute 'set undodir='.g:tempfiledir
 
-" 全角スペースに色を付加
-hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue " 全角スペースの定義
-match ZenkakuSpace /　/ 			" 全角スペースの色を変更
+" NOTE: 以下のような複数行のコマンドをコピーして，コマンドラインに貼り付けるときに，強制的にset pasteとなる
+" :echo 1
+" :echo 2
+augroup no_paste_group
+	autocmd!
+	autocmd CmdlineLeave * set nopaste
+augroup END
+" NOTE:???
+" [configuration \- Turning off auto indent when pasting text into vim \- Stack Overflow]( https://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim )
+" let &t_SI .= "\<Esc>[?2004h"
+" let &t_EI .= "\<Esc>[?2004l"
+" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+" function! XTermPasteBegin()
+" set pastetoggle=<Esc>[201~
+" set nopaste
+" return ''
+" endfunction
 
 " 全角記号問題対策
 " Terminal or iTerm の対策も必要
