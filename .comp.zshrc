@@ -7,6 +7,9 @@
 # NOTE: copy completion
 cmdcheck oressh && compdef oressh=ssh
 cmdcheck clip-share && compdef clip-share=ssh
+cmdcheck autosshpass && compdef autosshpass=ssh
+cmdcheck autoscppass && compdef autoscppass=scp
+cmdcheck autorsyncpass && compdef autorsyncpass=rsync
 
 function _color() {
 	compadd $(

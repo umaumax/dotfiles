@@ -32,8 +32,8 @@ chmod u+x git-recent
 https://github.com/umaumax/oressh/blob/master/oressh.sh oressh
 chmod u+x oressh
 
-https://github.com/umaumax/sshpass_wrapper/blob/master/sshpass_wrapper.sh ssh
-chmod u+x ssh
+https://github.com/umaumax/sshpass_wrapper/blob/master/autosshpass.sh autosshpass
+chmod u+x autosshpass && ln -sf autosshpass autoscppass && ln -sf autosshpass autorsyncpass
 
 https://github.com/umaumax/wcat/blob/master/wcat.sh wcat
 chmod u+x wcat
