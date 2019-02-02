@@ -25,7 +25,7 @@ dotfiles=(
 	.wgit
 )
 for filepath in "${dotfiles[@]}"; do
-	echo ln -sf ~/dotfiles/"$filepath" ~/
+	ln -sf ~/dotfiles/"$filepath" ~/
 done
 
 zsh_dotfiles=(
@@ -41,7 +41,7 @@ zsh_dotfiles=(
 )
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
 for filepath in "${zsh_dotfiles[@]}"; do
-	echo ln -sf ~/dotfiles/"$filepath" ~/.zsh/
+	ln -sf ~/dotfiles/"$filepath" ~/.zsh/
 done
 
 # cp not ln -f
