@@ -31,20 +31,23 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
 let g:ale_linters = {
+			\   'awk': ['gawk'],
 			\   'python': ['pylint', 'autopep8', 'flake8'],
 			\   'json': ['jsonlint'],
 			\   'cmakelint': ['cmakelint'],
-			\   'bash': ['shellcheck'],
+			\   'sh': ['shellcheck'],
 			\   'vim': ['vint'],
 			\   'cpp': ['cpplint','clang'],
-			\   'md': ['textlint'],
+			\   'markdown': ['alex','vale'],
 			\   'txt': ['textlint'],
+			\   'make': ['checkmake'],
 			\}
-" ['clangcheck', 'clangtidy'],
-" NOTE: check linter commands
+" NOTE: maybe cause little spped down
+" 'cpp': ['clangcheck', 'clangtidy'],
+" NOTE: check linter commands existence
 for [key, linters] in items(g:ale_linters)
 	for linter in linters
-		if Doctor(linter, 'for '.key.' linter')
+		if !Doctor(linter, 'for '.key.' linter')
 			call remove(g:ale_linters[key], linter)
 		endif
 	endfor
@@ -61,8 +64,3 @@ map <C-k> [ale]
 " エラー行にジャンプ
 nmap <silent> [ale]<C-P> <Plug>(ale_previous)
 nmap <silent> [ale]<C-N> <Plug>(ale_next)
-
-" 	" [シェルスクリプトを簡単にチェックできるShellCheck, Vimでも使える]( http://rcmdnk.github.io/blog/2014/11/26/computer-bash-zsh/ )
-" 	if Doctor('shellcheck', 'vim-syntastic/syntastic')
-" 		Plug 'vim-syntastic/syntastic', {'for': ['sh','zsh']}
-" 	endif

@@ -18,6 +18,7 @@ pip install jedi
 pip3 install cpplint
 pip3 install pylint
 pip install python-language-server
+# for vim linting
 pip install vim-vint
 
 pip install Pygments
