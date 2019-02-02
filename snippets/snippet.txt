@@ -1,7 +1,7 @@
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
-[current dir find] find . -name "@" -exec grep --color=auto -H -n {} +
-[root dir find] sudo find / -name "@" -exec grep --color=auto -H -n {} +
+[find current dir] find . -name "@" -exec grep --color=auto -H -n {} +
+[find root dir] sudo find / -name "@" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.@"
 
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
@@ -30,18 +30,18 @@
 
 # ubuntu
 # ubuntu vim /etc files
-[hosts] vim /etc/hosts !
-[network/interfaces] vim /etc/network/interfaces !
-[resolv.conf] vim /etc/resolv.conf !
+[ubuntu hosts] vim /etc/hosts !
+[ubuntu network/interfaces] vim /etc/network/interfaces !
+[ubuntu resolv.conf] vim /etc/resolv.conf !
 # ubuntu cd
-[GUI app autostart] cd ~/.config/autostart !
-[apps] cd /usr/share/applications !
+[ubuntu GUI app autostart] cd ~/.config/autostart !
+[ubuntu apps] cd /usr/share/applications !
 # ubuntu network
-[network reboot] sudo service networking restart
-[ip flush] sudo ip addr flush
-[ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
+[ubuntu network reboot] sudo service networking restart
+[ubuntu ip flush] sudo ip addr flush
+[ubuntu ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
 # ubuntu *.deb install
-[gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
+[ubuntu gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 [ubuntu mdfind] locate # updatedb
 
 # tar
@@ -55,9 +55,6 @@
 [tar find print0 pipe to file] tar -cvz -T - --null -f @.tar.gz
 [tar find print0 pipe to pipe] tar -cvz -T - --null | @
 [tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
-
-# filter
-[filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
@@ -218,23 +215,24 @@
 [git gerrit base64 patch] cat @ | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
 
 # tree
-[lsとsedによる簡易treeコマンド] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+[tree link ls and sed] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 [tree depth] tree -L $DEPTH
 
 # shell one liner
-[space まとめる] sed -e 's/\s\+/ /g'
-[line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
-[sed template :] sed -e 's:@::g'
-[sed template /] sed -e 's/@//g'
-[join line with char] awk '{printf "%s\\\\n", $0}'
-[join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
-[filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
-[awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
-[awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
+[ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
+[ol compact space] sed -e 's/\s\+/ /g'
+[ol line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
+[ol sed template :] sed -e 's:@::g'
+[ol sed template /] sed -e 's/@//g'
+[ol join line with char] awk '{printf "%s\\\\n", $0}'
+[ol join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
+[ol filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
+[ol awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
+[ol awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
-[awk uniq without sort] awk '!a[$0]++'
-[awk drop blank line] awk 'NF'
-[awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
+[ol awk uniq without sort] awk '!a[$0]++'
+[ol awk drop blank line] awk 'NF'
+[ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
 
 [number of CPU] nproc --all # linux only
 
@@ -244,7 +242,7 @@
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
 [cpp pch] PCH_HEADER=@ && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
 [cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
-[c++ demangle] echo "@" | c++filt
+[cpp demangle] echo "@" | c++filt
 [cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 [g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
