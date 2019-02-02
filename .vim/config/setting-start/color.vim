@@ -15,7 +15,7 @@ function! s:init_color()
 	highlight CursorLine   term=underline cterm=underline guibg=Black ctermbg=Black
 	highlight CursorColumn guibg=Black ctermbg=Black
 
-	" NOTE: visualize fullsidth space
+	" NOTE: visualize fullwidth space
 	highlight TrailingSpaces term=underline guibg=#ff0000 ctermbg=Red
 	match TrailingSpaces /　/
 endfunction
