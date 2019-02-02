@@ -29,3 +29,9 @@ snippet slice_reverse
     j := len($1)-1-i
     $1[i], $1[j] = $1[j], $1[i]
   }
+snippet help_overwrite
+  flag.Usage = func() {
+    fmt.Fprintf(os.Stderr, \`${0}
+    \`)
+    flag.PrintDefaults()
+  }
