@@ -551,3 +551,7 @@ abbr /path/to/foo.tar.gz -> foo.tar.gz
 snippet var_ext
 abbr /path/to/foo.tar.gz -> gz, foo -> foo
   ${${0:#:path var}##*.}
+
+snippet cd_abspath_of_current_file
+  current_abs_directory_path=$(cd $(dirname \$0) && pwd)
+  cd ${current_abs_directory_path%/}
