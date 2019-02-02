@@ -31,8 +31,6 @@ PROMPT_COLS_BOUNDARY=48
 export HISTSIZE=100000
 
 # Customize to your needs...
-# ---- bash ----
-# set -x #for debug
 
 _NO_CMD=''
 function doctor() {
@@ -48,10 +46,6 @@ function cmdcheck() {
 	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
 	return $code
 }
-function alias_if_exist() {
-	local tmp="${@:3:($# - 2)}"
-	[[ -e "$2" ]] && alias $1=\'"$2"\'" $tmp"
-}
 function traverse_path_list() {
 	local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' ${1:-$PWD})
 	while true; do
@@ -61,12 +55,20 @@ function traverse_path_list() {
 	done
 }
 
+# NOTE: save and load setting of original pwd alias
 function source() {
+	if ! alias pwd >/dev/null 2>&1; then
+		builtin source "$@"
+		return
+	fi
+
 	local pwd_tmp=$(alias pwd)
-	alias pwd >/dev/null 2>&1 && unalias pwd
+	unalias pwd
+	#
 	builtin source "$@"
+	#
 	local exit_code=$?
-	[[ -n $pwd_tmp ]] && eval alias $pwd_tmp
+	eval alias $pwd_tmp
 	return $exit_code
 }
 
@@ -99,7 +101,6 @@ function exportf() {
 
 exportf funccheck
 exportf cmdcheck
-exportf alias_if_exist
 
 # [iandeth. - bashにて複数端末間でコマンド履歴(history)を共有する方法]( http://iandeth.dyndns.org/mt/ian/archives/000651.html )
 function share_history() {
@@ -192,15 +193,13 @@ function lsabs() {
 		shift
 	done
 	local arg=$(arg_n 0)
-	local dirpath=${arg:-$PWD}
+	local dirpath=$(abspath_raw ${arg:-$PWD})
 
 	local options=()
 	[[ -n $file_type ]] && local options=(-type ${file_type#-})
 	find $dirpath -maxdepth 1 "${options[@]}"
 }
 alias absls='lsabs'
-
-alias rmf='rm -rf'
 
 # NOTE: windowsの処理が重いので，処理を省略
 if [[ $OS == Windows_NT ]]; then
@@ -211,9 +210,9 @@ fi
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
-# delete all file without starting . prefix at 'build' dir
+# NOTE: delete all file without starting . prefix at 'build' dir
 cmdcheck 'cmake' && function cmake-clean() {
-	[[ ! $(basename $PWD) =~ ^build ]] && echo "cwd is not cmake build dir '^build'" && return 1
+	[[ ! $(basename $PWD) =~ build ]] && echo "${RED}[WARN]${DEFAULT}current wd may be not cmake build dir" && return 1
 	# -f option is for rm: remove write-protected regular file
 	find . -maxdepth 1 -not -name '.*' -exec rm -rf {} +
 }
@@ -322,12 +321,11 @@ alias h='history'
 alias hgrep='h | grep'
 alias envgrep='env | grep'
 
-# 年号コマンド
+# 年号コマンド only for H
 # name of an era; year number
 #date | awk '{print "H"$6-2000+12}'
 alias era='echo H$(($(date +"%y") + 12))'
 
-# exit
 alias q!='exit'
 alias qq='exit'
 alias :q='exit'
@@ -339,19 +337,21 @@ alias quit='exit'
 alias type='type -af'
 
 # [command line \- Disable crontab's remove option in CLI \- Ask Ubuntu]( https://askubuntu.com/questions/871178/disable-crontabs-remove-option-in-cli )
-function crontab() { [[ $@ =~ -[iel]*r ]] && echo "$RED'r' NOT ALLOWED!$DEFAULT" || command crontab "$@"; }
+function crontab() {
+	[[ $@ =~ -[iel]*r ]] && echo "${RED}'r' NOT ALLOWED!${DEFAULT}" && return 1
+	command crontab "$@"
+}
 
 ################
 ####  Mac   ####
 ################
 if [[ $(uname) == "Darwin" ]]; then
 	# cmds
-	alias_if_exist airport '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
+	alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
 	alias sysinfo='system_profiler SPSoftwareDataType'
 	alias js='osascript -l JavaScript'
-	alias_if_exist jsc '/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
-	alias_if_exist vmrun '/Applications/VMware Fusion.app/Contents/Library/vmrun'
-	# 	alias_if_exist subl '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+	alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
+	alias vmrun='/Applications/VMware Fusion.app/Contents/Library/vmrun'
 
 	# browser
 	alias safari='open -a /Applications/Safari.app'
@@ -436,17 +436,16 @@ if [[ $(uname) == "Linux" ]]; then
 			done
 		done
 	}
-fi
-
-if cmdcheck baobab; then
-	alias diskusage='nohup baobab &> $(echo $(mktemp) | tee $(tty)) &'
-	function baobab() {
-		if [[ $# == 0 ]]; then
-			diskusage
-			return 1
-		fi
-		command baobab "$@"
-	}
+	if cmdcheck baobab; then
+		alias diskusage='nohup baobab &> $(echo $(mktemp) | tee $(tty)) &'
+		function baobab() {
+			if [[ $# == 0 ]]; then
+				diskusage
+				return 1
+			fi
+			command baobab "$@"
+		}
+	fi
 fi
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
 # sudo対応
@@ -471,28 +470,17 @@ alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
 
 # window path -> unix path
 alias w2upath='sed "s:\\\:/:g"'
-alias w2p='p|w2upath|c'
+alias w2p='p|w2upath|p2c'
 
 alias relogin='exec $SHELL -l'
 
 alias trimspace='sed "s/^[ \t]*//"'
 
-# add ast prefix
-alias add-ast="'sed 's/\(^\|\s*\)/\1* /g'"
-
 alias filter-exist-line="awk '/.+/{print "'$0'"}'"
-
-function sed-range() {
-	[[ $# < 3 ]] && echo "$0 filepath start-line-no end-line-no" && return
-	name=$1
-	start=$2
-	end=$3
-	cat -n $name | sed -n ${start},${end}p
-}
 
 # NOTE: 普通に出力するとゴミデータ?が混じっている
 function mancat() {
-	# 	MANPAGER="sed \"s/.$(echo \"\\x08\")//g\"" man "$@"
+	# MANPAGER="sed \"s/.$(echo \"\\x08\")//g\"" man "$@"
 	MANPAGER="col -b -x" man "$@"
 }
 
@@ -504,51 +492,41 @@ alias httpserver.python3='python3 -m http.server'
 alias httpserver.ruby='ruby -run -e httpd . -p 8000'
 alias httpserver.php='php -S localhost:3000'
 
-executable_filter() {
+function filter_test() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) [test flag]" && return 1
+	local test_flag=$1
 	while read line; do
-		[[ -x $line ]] && echo $line
+		test $test_flag $line && echo $line
 	done
 }
-readable_filter() {
-	while read line; do
-		[[ -r $line ]] && echo $line
-	done
-}
-writable_filter() {
-	while read line; do
-		[[ -w $line ]] && echo $line
-	done
-}
+function filter_executable() { filter_test '-x'; }
+function filter_readable() { filter_test '-r'; }
+function filter_writable() { filter_test '-w'; }
 
 if cmdcheck pandoc; then
 	function html2md-pandoc() {
 		[[ $# == 0 ]] && echo "$0 <input file> [<output file>]" && return 1
 		local input=$1
-		local output=$2
-		[[ $output == "" ]] && local output=${input%.*}.html
+		local output=${2:-${input%.*}.html}
 		pandoc -s "$input" -t html5 -c github.css -o "$output"
 	}
 fi
 
-#       sudo ansi-color          search_algo
-# fzf:  NG   OK                  NG(for me)
-# peco: OK   NG                  OK
-# fzy:  OK   Input OK, Output NG OK
-# 結論として，fzyの出力からansiコードを取り除いた場合が最適解?
+#       sudo ansi-color
+# fzf:  NG   OK(char unit)
+# peco: OK   NG
+# fzy:  OK   Input OK(not char unit), Output NG
 
-# alias pvim="xargs -L 1 -IXXX sh -c 'vim \$1 < /dev/tty' - 'XXX'"
 alias view='vim -R'
 alias pipevim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
-# alias viminfo-ls="egrep '^>' ~/.viminfo | cut -c3- | perl -E 'say for map { chomp; \$_ =~ s/^~/\$ENV{HOME}/e; -f \$_ ? \$_ : () } <STDIN>'"
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
-alias git-status-allvim='vim -p `git status -s | grep "^ M" | cut -c4-`'
+alias git-status-tabvim='vim -p `git status -s | grep "^ M" | cut -c4-`'
 alias git-status-allvim='git-status-tabvim'
 alias gsttabvim='git-status-tabvim'
-
 alias git-status-pecovim='git status -s | grep "^ M" | cut -c4- | pecovim'
 alias vim-git-modified='git-status-pecovim'
 alias gst-pecovim='git-status-pecovim'
@@ -564,16 +542,31 @@ alias xargs1='xargs -L 1'
 alias ls-non-dotfiles="find . -name '*' -maxdepth 1 | sed 's:^\./::g' | grep -E -v '\..*'"
 
 function _sed_check_test() {
-	echo '# in function (alias is disable)'
+	echo '# "alias" in function (alias is extracted at defined)'
 	sed --version
-	echo '# in $() in function (alias is enable)'
+	echo '# "alias" in $() in function (alias is extracted at running)'
 	echo $(sed --version)
 }
 
-# 各行に同じテキストを挿入する
-## md表記の"> "追加などに役立つ
+# NOTE: for md('> ', '* ')
 function prefix() { while read n; do echo "${@}${n}"; done; }
 function suffix() { while read n; do echo "${n}${@}"; done; }
+# NOTE: wrap stdin each line
+function sand() {
+	[[ $# -gt 2 ]] && echo "$0 text [suffix_text]" && return
+	local B=${1:-\"}
+	local E
+	[[ $B == \( ]] && local E=")"
+	[[ $B == \[ ]] && local E="]"
+	[[ $B == \< ]] && local E=">"
+	[[ $B == \{ ]] && local E="}"
+	[[ $B == \" ]] && local B=\\\"
+	local E=${E:-${2:-$B}}
+	[[ $B == "\\" ]] && local B="\\\\"
+	[[ $E == \" ]] && local E=\\\"
+	[[ $E == "\\" ]] && local E="\\\\"
+	awk '{printf "'$B'%s'$E'\n", $0}'
+}
 
 # awk
 # n~m列のみを表示(省略時には先頭または最後となる)
@@ -732,8 +725,8 @@ cmdcheck 'go' && function got() {
 	[[ $1 == get ]] && shift
 	local args=()
 	for arg in ${@}; do
-		arg=${arg#https://}
-		arg=${arg%.git}
+		local arg=${arg#https://}
+		local arg=${arg%.git}
 		args+=$arg
 	done
 	go get ${args}
@@ -761,7 +754,7 @@ function vim() {
 		local cmd="$vim_cmd $@"
 	fi
 	eval $cmd
-	local code=$?
+	local exit_code=$?
 	# NOTE: nvim crash with changing window size
 	# ### window size change crash
 	# [tui\_flush: Assertion \`r\.bot < grid\->height && r\.right < grid\->width' failed\. Core dumped · Issue \#8774 · neovim/neovim · GitHub]( https://github.com/neovim/neovim/issues/8774 )
@@ -773,7 +766,7 @@ function vim() {
 	# ```
 	# 	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
 	set-dirname-title
-	return $code
+	return $exit_code
 }
 function _xargs-vim() {
 	if [[ $1 == - ]]; then
@@ -925,18 +918,18 @@ function homedir_normalization() {
 alias pwd='pwd | homedir_normalization'
 
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
-function abspath() {
+function abspath_raw() {
 	local target=${1:-.}/
 	if [[ $(uname) == "Darwin" ]]; then
 		local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
 		local ret=$(echo ${abspathdir%/}/$(basename $target))
-		{
-			[[ -f $ret ]] && echo $ret
-			[[ -d $ret ]] && dirname $ret
-		} | homedir_normalization
+		[[ -f $ret || -d $ret ]] && echo $ret
 	else
 		readlink -f $target
 	fi
+}
+function abspath() {
+	abspath_raw "$1" | homedir_normalization
 }
 
 # `$`付きコマンドでも実行可能に(bashではinvalid)
@@ -1025,7 +1018,7 @@ function htmlencode() {
 # 改行削除
 alias one="tr -d '\r' | tr -d '\n'"
 # クリップボードの改行削除
-alias poc="p | one | c"
+alias poc="p | one | p2c"
 
 if cmdcheck nkf; then
 	alias udec='nkf -w --url-input'
@@ -1111,7 +1104,7 @@ function remove_clipboard_format() {
 #function cd() { builtin cd $@ && ls; }
 
 function set-dirname-title() {
-	title=$(echo $PWD | sed -E "s:^.+/::g")
+	local title=$(echo $PWD | sed -E "s:^.+/::g")
 	echo -en '\e]0;'"$title"'\a'
 }
 # when cd
@@ -1404,22 +1397,6 @@ function mdlink() {
 	ln -sf "$abspathfile" "$MDLINK/$link_name"
 }
 
-# NOTE: wrap stdin each line
-function sand() {
-	[[ $# -ge 2 ]] && echo "$0 <string>" && return
-	local B=${1:-\"}
-	local E
-	[[ $B == \( ]] && local E=")"
-	[[ $B == \[ ]] && local E="]"
-	[[ $B == \< ]] && local E=">"
-	[[ $B == \{ ]] && local E="}"
-	[[ $B == \" ]] && local B=\\\"
-	local E=${E:-$B}
-	[[ $B == "\\" ]] && local B="\\\\"
-	[[ $E == \" ]] && local E=\\\"
-	[[ $E == "\\" ]] && local E="\\\\"
-	awk '{printf "'$B'%s'$E'\n", $0}'
-}
 # NOTE: print string which fill terminal line
 function line() {
 	local C=${1:-=}
@@ -1739,13 +1716,13 @@ function detail_history() {
 	cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'
 }
 function recent_history() {
-	local n=${1:-10}
+	local n=${1:-20}
 	cat ~/.detail_history | grep "$TTY" | cut -d"@" -f4 | tail -n $n
 }
 alias current_history='wd_history'
 function wd_history() {
 	local n=${1:-20}
-	cat ~/.detail_history $n | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
+	cat ~/.detail_history | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
 }
 
 # FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
@@ -1758,7 +1735,7 @@ function show-all-files-which-processes-grab() {
 		sort -n -u
 }
 
-# edit clipboard
+# edit clipboard on vim
 function cedit() {
 	local tmpfile=$(mktemp '/tmp/cedit.tmp.orderfile.XXXXX')
 	p >"$tmpfile"
