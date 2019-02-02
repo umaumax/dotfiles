@@ -65,7 +65,7 @@ function _insert_git() { _set_only_LBUFFER 'git '; }
 zle -N _insert_git
 bindkey "^G" _insert_git
 
-function _search_history() { hpeco; }
+function _search_history() { _set_only_LBUFFER "$(hpeco)"; }
 zle -N _search_history
 # NOTE: overwrite default fzf history search setting
 bindkey "^R" _search_history

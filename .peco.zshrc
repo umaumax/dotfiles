@@ -125,7 +125,7 @@ alias pecopy='peco | c'
 alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
 function hpeco() {
-	builtin history -nr 1 | shell_color_filter | fzf | tee $(tty) | c
+	builtin history -nr 1 | shell_color_filter | fzf
 }
 alias apeco='alias | peco'
 alias envpeco='env | peco'
@@ -135,7 +135,7 @@ alias fvim='find . -type f | pecovim'
 # m: modified
 alias gmvim='git status -s | cut -c4- | pecovim'
 alias ftvim='pvft'
-alias epeco='env | peco | tee $(tty) | c'
+alias epeco='env | peco'
 alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
