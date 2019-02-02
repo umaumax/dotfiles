@@ -1,178 +1,178 @@
 [core]
-	editor = vim
-	# for japanese chars
-	quotepath = false
-	# NOTE: don't use $HOME as ~
-	# [Applying a git post\-commit hook to all current and future repos \- Stack Overflow]( https://stackoverflow.com/questions/2293498/applying-a-git-post-commit-hook-to-all-current-and-future-repos )
-	# global git hooks dirpath (from git 2.9+ (June 2016)) but this setting disables local git hooks...
-	# hooksPath = ~/.config/git/hooks
+  editor = vim
+  # for japanese chars
+  quotepath = false
+  # NOTE: don't use $HOME as ~
+  # [Applying a git post\-commit hook to all current and future repos \- Stack Overflow]( https://stackoverflow.com/questions/2293498/applying-a-git-post-commit-hook-to-all-current-and-future-repos )
+  # global git hooks dirpath (from git 2.9+ (June 2016)) but this setting disables local git hooks...
+  # hooksPath = ~/.config/git/hooks
 [init]
-	templatedir = ~/.git_template
+  templatedir = ~/.git_template
 [alias]
-	a = add --all
-	add-changed-deleted = add . --update
-	add-all = add . --all
+  a = add --all
+  add-changed-deleted = add . --update
+  add-all = add . --all
 
-	alias = config --get-regexp 'alias.*'
+  alias = config --get-regexp 'alias.*'
 
-	amend = commit --amend --no-edit
-	fix-typo = commit --amend
+  amend = commit --amend --no-edit
+  fix-typo = commit --amend
 
-	apply-3 = apply --3way
+  apply-3 = apply --3way
 
-	b = branch
-	branch-current-name = rev-parse --abbrev-ref HEAD
-	branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
-	tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
+  b = branch
+  branch-current-name = rev-parse --abbrev-ref HEAD
+  branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
+  tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
 
-	co = checkout
-	checkout-new-branch = checkout -b
-	checkout--orphan-images = checkout --orphan images
+  co = checkout
+  checkout-new-branch = checkout -b
+  checkout--orphan-images = checkout --orphan images
 
-	c = commit
-	cm = commit
-	commit-first = commit -m 'First commit'
-	commits-of-file = log -p
-	commit-id-short = show -s --format=%h
-	commit-id-long = show -s --format=%H
+  c = commit
+  cm = commit
+  commit-first = commit -m 'First commit'
+  commits-of-file = log -p
+  commit-id-short = show -s --format=%h
+  commit-id-long = show -s --format=%H
 
-	conflicts = !git ls-files -u | cut -f 2 | sort -u
+  conflicts = !git ls-files -u | cut -f 2 | sort -u
 
-	change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
+  change-author-and-committer-logs = filter-branch -f --env-filter 'GIT_AUTHOR_NAME=$(git config user.name) && GIT_AUTHOR_EMAIL=$(git config user.email) && GIT_COMMITTER_NAME=$(git config user.name) && GIT_COMMITTER_EMAIL=$(git config user.email)' HEAD
 
-	# for ubuntu
-	# [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
-	# for mac
-	# [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
-	d     = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
-	cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
-	wdiff = diff --word-diff-regex='\\w+'
-	diff-head = diff HEAD
-	diff-head1 = diff HEAD~
-	diff-head2 = diff HEAD~~
-	diff-head3 = diff HEAD~~~
-	diff-head4 = diff HEAD~~~~
-	dt = difftool
-	modified-files = diff --name-only
+  # for ubuntu
+  # [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
+  # for mac
+  # [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+  d     = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
+  cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
+  wdiff = diff --word-diff-regex='\\w+'
+  diff-head = diff HEAD
+  diff-head1 = diff HEAD~
+  diff-head2 = diff HEAD~~
+  diff-head3 = diff HEAD~~~
+  diff-head4 = diff HEAD~~~~
+  dt = difftool
+  modified-files = diff --name-only
 
-	find = ls-files
+  find = ls-files
 
-	grep-code-diff = log -p -S
-	grep-commit-message = log --grep
-	grep-reg = grep -E
+  grep-code-diff = log -p -S
+  grep-commit-message = log --grep
+  grep-reg = grep -E
 
-	l = log
-	# NOTE: git 2.7.4 has no option --decorate-refs=tags
-	log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso
-	log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 day ago'
-	log-one-line-a-week = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 week ago'
-	# [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	graph = log --oneline --decorate --graph --branches --tags --remotes
-	stat = log --stat
-	diff-log = log -p
+  l = log
+  # NOTE: git 2.7.4 has no option --decorate-refs=tags
+  log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso
+  log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 day ago'
+  log-one-line-a-week = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 week ago'
+  # [美しき git log \-\-graph のエイリアス \- Hack Your Design\!]( https://blog.toshimaru.net/git-log-graph/ )
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  graph = log --oneline --decorate --graph --branches --tags --remotes
+  stat = log --stat
+  diff-log = log -p
 
-	# [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
-	# NOTE: this alias is auto generated
-# 	ls = ~/local/bin/git-ls
-	ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
-	ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
-	ls-newfiles = !git status --porcelain | grep "^A" | cut -c 4-
+  # [stedolan/git\-ls: List files, annotated by git status]( https://github.com/stedolan/git-ls )
+  # NOTE: this alias is auto generated
+#   ls = ~/local/bin/git-ls
+  ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
+  ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
+  ls-newfiles = !git status --porcelain | grep "^A" | cut -c 4-
 
-	m = merge
-	mt = mergetool
-	merge-undo-from-pre-commit = reset --hard HEAD
-	merge-undo-from-post-commit = reset --hard ORIG_HEAD
-	# [Gitで特定のコミットを含むマージコミットを検索する \- Qiita]( https://qiita.com/shigezo/items/6df2a0515d31e6e0432b )
-	# コマンドの引数として，<SHA-1> [branch name]
-	find-merge-commit = "!bash -c 'commit=${1:-HEAD} && branch=${2:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-	show-merge-commit = "!bash -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  m = merge
+  mt = mergetool
+  merge-undo-from-pre-commit = reset --hard HEAD
+  merge-undo-from-post-commit = reset --hard ORIG_HEAD
+  # [Gitで特定のコミットを含むマージコミットを検索する \- Qiita]( https://qiita.com/shigezo/items/6df2a0515d31e6e0432b )
+  # コマンドの引数として，<SHA-1> [branch name]
+  find-merge-commit = "!bash -c 'commit=${1:-HEAD} && branch=${2:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge-commit = "!bash -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
-	# 単体の差分
-	monod    = "!f() { git diff "$1"^.."$1"; }; f"
-	monodiff = "!f() { git diff "$1"^.."$1"; }; f"
-	monol    = "!f() { git log --stat "$1"^.."$1"; }; f"
-	monolog  = "!f() { git log --stat "$1"^.."$1"; }; f"
+  # 単体の差分
+  monod    = "!f() { git diff "$1"^.."$1"; }; f"
+  monodiff = "!f() { git diff "$1"^.."$1"; }; f"
+  monol    = "!f() { git log --stat "$1"^.."$1"; }; f"
+  monolog  = "!f() { git log --stat "$1"^.."$1"; }; f"
 
-	push-origin-master   = push -u origin   master
-	push-upstream-master = push -u upstream master
-	push-origin-images   = push -u origin   images
+  push-origin-master   = push -u origin   master
+  push-upstream-master = push -u upstream master
+  push-origin-images   = push -u origin   images
 
-	pull-rebase-upstream-master = pull --rebase upstream master
-	pull-rebase-origin-master = pull --rebase origin master
+  pull-rebase-upstream-master = pull --rebase upstream master
+  pull-rebase-origin-master = pull --rebase origin master
 
-	rebase-abort = rebase --abort
-	rebase-undo-from-pre-commit = reset --hard HEAD
-	rebase-undo-from-post-commit = reset --hard ORIG_HEAD
+  rebase-abort = rebase --abort
+  rebase-undo-from-pre-commit = reset --hard HEAD
+  rebase-undo-from-post-commit = reset --hard ORIG_HEAD
 
-	remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
-	remote-remove-origin = remote remove origin
+  remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
+  remote-remove-origin = remote remove origin
 
-	rename = branch -m
+  rename = branch -m
 
-	s = status
-	st = status
-	st-all = status --ignored
+  s = status
+  st = status
+  st-all = status --ignored
 
-	# e.g. --since="2018/04/01"
-	tag-time-sort-w = log --no-walk --tags --since='1 week ago'
-	tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
-	tag-time-sort-2w = log --no-walk --tags --since='2 weeks ago'
-	tag-list = for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags
-	tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
+  # e.g. --since="2018/04/01"
+  tag-time-sort-w = log --no-walk --tags --since='1 week ago'
+  tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
+  tag-time-sort-2w = log --no-walk --tags --since='2 weeks ago'
+  tag-list = for-each-ref --sort=-taggerdate --format='%(taggerdate:short) %(tag) %(taggername) %(subject)' refs/tags
+  tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
 
-	tree = ls-tree -dr --name-only --full-name --full-tree HEAD
+  tree = ls-tree -dr --name-only --full-name --full-tree HEAD
 
-	unstage = reset HEAD
-	unstage-only-newfiles = !git unstage $(git ls-newfiles)
-	unstage-permanent = rm --cached -r
+  unstage = reset HEAD
+  unstage-only-newfiles = !git unstage $(git ls-newfiles)
+  unstage-permanent = rm --cached -r
 
-	urls = remote -v
-	# NOTE: maybe overwrite by shell function(only for my shell setting) or command
-	url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
+  urls = remote -v
+  # NOTE: maybe overwrite by shell function(only for my shell setting) or command
+  url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
 [color]
-	# Use colors in Git commands that are capable of colored output when
-	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-	ui = auto
-	status = auto
-	diff = auto
-	branch = auto
-	interactive = auto
-	grep = auto
-	# for proxy env git:// -> https://
+  # Use colors in Git commands that are capable of colored output when
+  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+  ui = auto
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+  # for proxy env git:// -> https://
 [color "status"]
-	added = green
-	changed = red
-	untracked = yellow
+  added = green
+  changed = red
+  untracked = yellow
 [color "diff"]
-	whitespace = magenta magenta
-	meta = 247 235
-	frag = 242 236
-	old = red normal
-	new = green normal
-	context = 243
+  whitespace = magenta magenta
+  meta = 247 235
+  frag = 242 236
+  old = red normal
+  new = green normal
+  context = 243
 [color "grep"]
-	match = cyan
-	linenumber = bold white
-	filename = yellow
-	function = green
+  match = cyan
+  linenumber = bold white
+  filename = yellow
+  function = green
 
 [push]
-	default = simple
+  default = simple
 [diff]
-	compactionHeuristic = true
+  compactionHeuristic = true
 [grep]
-	lineNumber = true
+  lineNumber = true
 
 # [merge]
-# 	tool = vimdiff
-# # 	conflictstyle = diff3
+#   tool = vimdiff
+# #   conflictstyle = diff3
 # [mergetool]
-# 	# [version control \- Git mergetool generates unwanted \.orig files \- Stack Overflow]( https://stackoverflow.com/questions/1251681/git-mergetool-generates-unwanted-orig-files )
-# 	# keepBackup = false
-# 	prompt = false
-# 	trustExitCode = false
+#   # [version control \- Git mergetool generates unwanted \.orig files \- Stack Overflow]( https://stackoverflow.com/questions/1251681/git-mergetool-generates-unwanted-orig-files )
+#   # keepBackup = false
+#   prompt = false
+#   trustExitCode = false
 
 # [neovim\+diffchar\.vimでgitコンフリクト解消時に単語の差分も見れるようにする \- Qiita]( https://qiita.com/mkiken/items/ddc2ee55731b01fac187 )
 # Requires: nvim and 'rickhowe/diffchar.vim'
@@ -182,13 +182,13 @@
   cmd = nvim -c '2wincmd w | diffthis | 3wincmd w | diffthis | 1wincmd w | wincmd J' -O $MERGED $LOCAL $REMOTE
 
 [rerere]
-	# [git\-rerereのメモ \- unpushの日記]( http://d.hatena.ne.jp/unpush/20091010/1255186302 )
-	enabled = true
+  # [git\-rerereのメモ \- unpushの日記]( http://d.hatena.ne.jp/unpush/20091010/1255186302 )
+  enabled = true
 [url "https://"]
-	insteadOf = git://
+  insteadOf = git://
 [url "github:"]
-	# cannot through proxy
-	# 	InsteadOf = https://github.com/
-	InsteadOf = git@github.com:
+  # cannot through proxy
+  #   InsteadOf = https://github.com/
+  InsteadOf = git@github.com:
 [include]
-	path = ~/dotfiles/.dummy_alias.gitconfig
+  path = ~/dotfiles/.dummy_alias.gitconfig
