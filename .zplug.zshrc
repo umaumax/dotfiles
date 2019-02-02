@@ -21,11 +21,15 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
 
 		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
-		# NOTE: 変数を設定してからsourceする必要がある
+		# NOTE: set variable before source
 		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
 		EASY_ONE_KEYBIND='^x^x' # default "^x^x"
-		EASY_ONE_FILTER_COMMAND="fzy"
-		EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
+		# NOTE: for fzy(文字列の色が途中で変化するとその文字の色が初期化されてしまう)
+		# EASY_ONE_FILTER_COMMAND="fzy"
+		# EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
+		# NOTE: for fzf
+		EASY_ONE_FILTER_COMMAND="fzf"
+		EASY_ONE_FILTER_OPTS="--no-mouse --ansi --reverse --height 50%"
 		source $zshdir/easy-oneliner/easy-oneliner.zsh
 
 		# [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
