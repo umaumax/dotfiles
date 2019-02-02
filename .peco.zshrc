@@ -99,13 +99,36 @@ function pecovim() {
 # peco copy
 alias ranking_color_cat='cat'
 # NOTE: green high rank, red low rank
-cmdcheck lolcat && alias ranking_color_cat='lolcat -F 0.01 -d 8 -f -S 1'
+# NOTE: Fの値を下げることで，色の変化までの文字数が増える(擬似的に1行は同じ色になる)
+cmdcheck lolcat && alias ranking_color_cat='lolcat -F 0.005 -d 8 -f -S 1'
+
+if cmdcheck cgrep; then
+	function shell_color_filter() {
+		cgrep '(\$)(\().*(\))' 28,28,28 |
+			cgrep '(\$[a-zA-Z_0-9]*)' |
+			cgrep '(\|)' 201 |
+			cgrep '(\||)|(&&)' 90,198 |
+			cgrep '(;)' 211,88,88 |
+			cgrep '(^\[[^\]]*\])' 38 |
+			cgrep '(\$\(|^\t*|\| *|; *|\|\| *|&& *)([a-zA-Z_][a-zA-Z_0-9.\-]*)' ,10 |
+			cgrep '('"'"'[^'"'"']+'"'"')' 226 |
+			cgrep '(#.*$)' 239
+	}
+else
+	function shell_color_filter() {
+		cat
+	}
+fi
+
 alias pc='peco | c'
 alias pecopy='peco | c'
 alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
-alias hpeco='builtin history -nr 1 | fzf | tee $(tty) | c'
+function hpeco() {
+	builtin history -nr 1 | shell_color_filter | fzf | tee $(tty) | c
+}
 alias apeco='alias | peco'
+alias envpeco='env | peco'
 alias fpeco='find . -type f | peco'
 alias fpecovim='find . -type f | pecovim'
 alias fvim='find . -type f | pecovim'

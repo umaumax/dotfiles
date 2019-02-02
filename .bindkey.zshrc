@@ -67,8 +67,10 @@ bindkey "^G" _insert_git
 
 function _search_history() { hpeco; }
 zle -N _search_history
+# NOTE: overwrite default fzf history search setting
+bindkey "^R" _search_history
 bindkey "^X^H" _search_history
-bindkey "^X^R" _search_history
+bindkey "^X^R" fzf-history-widget
 
 function _pecoole() { pecoole; }
 zle -N _pecoole
