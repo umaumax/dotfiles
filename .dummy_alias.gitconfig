@@ -2,6 +2,7 @@
 #
 [alias]
 	add-peco  = :
+	apply-stashes  = :
 	branch-current  = :
 	branch-new-to-old  = :
 	branch-old-to-new  = :
@@ -15,6 +16,7 @@
 	comments-todo  = :
 	commit-lost  = :
 	commits-peco  = :
+	commits-range-peco  = :
 	dir  = :
 	find-conflict  = :
 	find-last-space  = :
@@ -26,6 +28,7 @@
 	hub-shorten-url  = :
 	info  = :
 	log-file-find-peco  = :
+	log-peco  = :
 	log-src-grep-peco  = :
 	open  = :
 	pull-all  = :
@@ -41,6 +44,7 @@
 	root  = :
 	search-open  = :
 	sed  = :
+	show-stashes  = :
 	stash-clear-interactive  = :
 	stash-dropped  = :
 	stash-recover  = :
