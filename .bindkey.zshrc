@@ -29,6 +29,10 @@ bindkey -M vicmd ' ' vi-easy-motion
 
 #--------------------------------
 
+function _vicmd_insert_strs() {
+	CURSOR=$((CURSOR + 1))
+	_insert_strs "$@"
+}
 function _insert_strs() {
 	local n=${2:-$#1}
 	local BUFFER_="${LBUFFER}$1${RBUFFER}"
@@ -133,8 +137,13 @@ bindkey '^X^P' _copy_command
 bindkey '^Y' _copy_command
 
 function _paste_command() { _insert_strs "$(p)"; }
+function _vicmd_paste_command() { _vicmd_insert_strs "$(p)"; }
 zle -N _paste_command
+zle -N _vicmd_paste_command
 bindkey '^V' _paste_command
+
+bindkey -M vicmd 'p' _vicmd_paste_command
+bindkey -M vicmd 'P' _paste_command
 
 function _goto_middle_of_line() {
 	CURSOR=$#BUFFER
