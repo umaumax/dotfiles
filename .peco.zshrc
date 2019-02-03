@@ -61,6 +61,7 @@ function fccat() {
 	fi
 	eval $CAT $@
 }
+# FYI: [grep の結果をインタラクティブに確認する \- Qiita]( https://qiita.com/m5d215/items/013f466fb21f7d7f52d6 )
 function pecocat() {
 	local query=$(echo ${1:-} | clear_path)
 	{
