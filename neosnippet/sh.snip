@@ -540,9 +540,16 @@ abbr default no
 
 snippet is_symbolic_link
   [[ -h ${0} ]]
-
 snippet is_symbolic_link_if
   if [[ -h ${1} ]]; then
+    ${0}
+  fi
+
+# FYI: [linux \- How do I test if a variable is a number in Bash? \- Stack Overflow]( https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash )
+snippet is_number
+  [[ ${0} =~ ^[0-9]+$ ]]
+snippet is_number_if
+  if [[ ${1} =~ ^[0-9]+$ ]]; then
     ${0}
   fi
 
