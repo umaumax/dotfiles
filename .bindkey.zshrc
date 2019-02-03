@@ -63,6 +63,8 @@ bindkey "^L" forward-char
 # NOTE: Shift + arrow
 bindkey '^[[1;2D' emacs-backward-word
 bindkey '^[[1;2C' emacs-forward-word
+bindkey -M vicmd '^[[1;2D' emacs-backward-word
+bindkey -M vicmd '^[[1;2C' emacs-forward-word
 
 bindkey '^X^A' backward-kill-line
 bindkey '^X^E' kill-line
@@ -185,6 +187,7 @@ function my-backward-delete-word() {
 zle -N my-backward-delete-word
 # shift+tab
 bindkey '^[[Z' my-backward-delete-word
+bindkey -M vicmd '^[[Z' my-backward-delete-word
 
 # function _peco-select-history() {
 # BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
