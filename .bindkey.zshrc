@@ -32,8 +32,8 @@ bindkey -M vicmd ' ' vi-easy-motion
 function gen_PROMPT_2_text() {
 	local PROMPT_texts=("$@")
 	local n=${#PROMPT_texts[@]}
-	for ((i = 0; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cud1]"; done
-	for ((i = 0; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cuu1]"; done
+	for ((i = 1; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cud1]"; done
+	for ((i = 1; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cuu1]"; done
 	local terminfo_down_sc="${terminfo_down_sc}$terminfo[sc]$terminfo[cud1]"
 	local PROMPT_2
 	for text in "${PROMPT_texts[@]}"; do
@@ -73,18 +73,16 @@ function cat_PROMPT_2_text() {
 
 _auto_show_prompt_pre_keyword=''
 function _auto_show_prompt() {
-	if cmdcheck cgrep; then
+	if cmdcheck cgrep && cmdcheck fixedgrep; then
+		# NOTE: 最大n個分の引数の履歴
+		# local arg_max=4
+		# local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
 		local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
 		if [[ $_auto_show_prompt_pre_keyword != $keyword ]]; then
-			if ! cgrep -n "(^$keyword)" >/dev/null 2>&1; then
-				local keyword='.'
-			fi
 			{
-				echo -ne "$GRAY"
-				echo -e "[history]"
-				echo -ne "$DEFUALT"
-				builtin history -nr 1 | grep "^$keyword" 2>/dev/null | cgrep '(^.*$)' 8 | cgrep "(^$keyword)" green | head -n 10 | command cat -n
-				echo -ne "$DEFAULT"
+				echo -e "${GRAY}[history]${DEFUALT}"
+				# NOTE: grep is to late, ag is faster than grep
+				builtin history -nr 1 | fixedgrep -prefix="$keyword" -max=8 2>/dev/null | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
 			} | cat_PROMPT_2_text
 			_auto_show_prompt_pre_keyword=$keyword
 		fi
@@ -163,7 +161,7 @@ bindkey "^S" _insert_sudo
 # zle -N _insert_git
 # bindkey "^G" _insert_git
 
-function _search_history() { _set_only_LBUFFER "$(hpeco)"; }
+function _search_history() { _set_only_LBUFFER "$(hpeco $LBUFFER)"; }
 zle -N _search_history
 # NOTE: overwrite default fzf history search setting
 bindkey "^R" _search_history
