@@ -37,8 +37,13 @@ color cursor white 104 bold
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
-# you can't use pipe(|)
-bind generic Y !bash -c "echo file:; echo %(file); echo commit id:; echo %(commit)"
+# line
+# NOTE: 期待する行が得られない
+bind generic L !>bash -c 'echo %(text)'
+# dump info
+bind generic I !>bash -c 'echo :file; echo %(file):%(lineno); echo :commit id; echo %(commit); echo :branch; echo %(branch); echo :stash id; echo %(stash); echo :text; echo %(text)'
+
+bind generic T !>git notes edit %(commit)
 
 # NOTE: ?: confirm
 # NOTE: ["Press Enter to continue" after a commit message · Issue \#463 · jonas/tig]( https://github.com/jonas/tig/issues/463 )
@@ -99,3 +104,11 @@ bind generic <Ctrl-r> find-prev
 # NOTE: change split-view position
 bind generic | :set vertical-split = yes
 bind generic - :set vertical-split = no
+
+bind generic <Delete> back
+bind generic <Backspace> back
+
+bind generic * search
+bind generic n find-next
+
+bind generic P parent
