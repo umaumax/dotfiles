@@ -179,8 +179,16 @@ command! -nargs=0 BoxEdit :execute "normal! \<C-v>"
 
 command! -range=% -nargs=0 RemoveWinCR :<line1>,<line2>/\r//g
 
+function! NeoSnippetWrapLine(name, prefix, suffix)
+	let cursor_mark='@'
+	let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
+	call feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len(a:name))."x\<C-o>".stridx(line, cursor_mark)."\<Right>", 'n')
+	let line=substitute(line, cursor_mark, '', '')
+	return line
+endfunction
+
 " NOTE: for c++ member initialization
-function! MemberInitialization() range
+function! CppMemberInitialization() range
 	let lines=getline(a:firstline, a:lastline)
 
 	let arg_list=[]
@@ -218,8 +226,8 @@ function! MemberInitialization() range
 
 	call append(line('.')-1, [arg_list_output,init_list_output])
 endfunction
-command! -nargs=0 -range CPPConstructorInitialization <line1>,<line2>call MemberInitialization()
-command! -nargs=0 -range MemberInitialization <line1>,<line2>call MemberInitialization()
+command! -nargs=0 -range CppConstructorInitialization <line1>,<line2>call CppMemberInitialization()
+command! -nargs=0 -range CppMemberInitialization <line1>,<line2>call CppMemberInitialization()
 
 if Doctor('ctags', 'for getting funcname')
 	function! CppFuncName()
@@ -232,24 +240,16 @@ else
 	endfunction
 endif
 
-function! NeoSnippetWrapLine(name, prefix, suffix)
-	let cursor_mark='@'
-	let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
-	call feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len(a:name))."x\<C-o>".stridx(line, cursor_mark)."\<Right>", 'n')
-	let line=substitute(line, cursor_mark, '', '')
-	return line
-endfunction
-
 " NOTE
 " xxx = yyy; -> yyy = xxx;
-function! SwapCPPEqual() range
+function! CppSwapVarEqual() range
 	for n in range(a:firstline, a:lastline)
 		let line = getline(n)
 		let line = substitute(line, '^\(.*\)=\(.*\);$', '\2=\1;', 'g')
 		call setline(n, line)
 	endfor
 endfunction
-command! -nargs=0 -range SwapCPPEqual <line1>,<line2>call SwapCPPEqual()
+command! -nargs=0 -range CppSwapVarEqual <line1>,<line2>call CppSwapVarEqual()
 
 command! -nargs=1 -range E    :exe "e    ".expand('%:p:h').'/'.<q-args>
 command! -nargs=1 -range Tabe :exe "tabe ".expand('%:p:h').'/'.<q-args>
@@ -318,9 +318,9 @@ function! s:paste_clipboard_to_active_buffers()
 	let active_buffer_filepath_list=s:get_active_buffers()
 	if len(active_buffer_filepath_list) > 0
 		let @+ = join(active_buffer_filepath_list, "\n")
-		echo '[COPY!]: buffers'
+		echo '[COPY!]'
 	else
-		echo '[NO COPY!]: buffers'
+		echo '[NO COPY!]'
 	endif
 endfunction
-command! Tabs :call s:paste_clipboard_to_active_buffers()
+command! Tabs2Clipboard :call s:paste_clipboard_to_active_buffers()
