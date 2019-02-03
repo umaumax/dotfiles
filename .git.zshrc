@@ -537,3 +537,17 @@ if $(cmdcheck fzf); then
 fi
 
 alias vim_repo_local_gitignore='vim $(git rev-parse --show-toplevel)/.git/info/exclude'
+
+function git-show-stashes() {
+	is_git_repo_with_message || return
+	for stash in "$@"; do
+		[[ $stash =~ ^[0-9]+$ ]] && stash='stash@{'$stash'}'
+		echo $stash
+		git stash show -p $stash
+	done
+}
+function git-apply-stashes() {
+	is_git_repo_with_message || return
+	[[ $# -lt 0 ]] && echo "$(basename $0) stashes" && return 1
+	git-show-stashes "$@" | git apply -3
+}

@@ -35,6 +35,8 @@
   commits-of-file = log -p
   commit-id-short = show -s --format=%h
   commit-id-long = show -s --format=%H
+  tmp = tmp-commit
+  tmp-commit = commit -m '[WIP] tmp commit instead of stash'
 
   conflicts = !git ls-files -u | cut -f 2 | sort -u
 
