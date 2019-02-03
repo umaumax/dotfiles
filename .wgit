@@ -20,6 +20,9 @@ chmod u+x git-ls
 https://github.com/umaumax/git-url/blob/master/git-url.sh git-url
 chmod u+x git-url
 
+https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame
+chmod u+x git-diff-blame
+
 https://github.com/umaumax/imv/blob/master/imv.sh imv
 chmod u+x imv
 
