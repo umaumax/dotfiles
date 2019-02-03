@@ -139,8 +139,8 @@ function git_diff() {
 	# FYI: [\[git\]git diff \-\-stat でパスを省略しない方法 \- dackdive's blog]( https://dackdive.hateblo.jp/entry/2014/05/13/112549 )
 	local files=($(git diff --stat --stat-width=9999 "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
 	local tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
-	for e in "${files[@]}"; do
-		[[ -e "$e" ]] && echo $e >>$tmpfile
+	for file in "${files[@]}"; do
+		[[ -e "$file" ]] && echo $file >>$tmpfile
 	done
 	local files=($(cat $tmpfile))
 	bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
