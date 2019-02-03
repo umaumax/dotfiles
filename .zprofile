@@ -201,7 +201,7 @@ export BLUE="\033[0;34m"
 export PURPLE="\033[0;35m"
 export LIGHT_BLUE="\033[0;36m"
 export WHITE="\033[0;37m"
-export GRAY="\033[0;39m"
+export GRAY="\033[0;90m"
 export DEFAULT="\033[0m"
 
 # brew install source-highlight
