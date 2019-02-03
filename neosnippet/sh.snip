@@ -578,3 +578,9 @@ snippet string_find_index_and_replace
     # zsh
     local t="${t/$searchstring/}"
   fi
+
+snippet stdout_to_array
+  _IFS=$IFS
+  IFS=$'\r\n'
+  array=($(${0}))
+  IFS=$_IFS
