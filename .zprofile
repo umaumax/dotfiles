@@ -214,6 +214,10 @@ export MORE='--quit-if-one-screen -MR'
 export GREP_COLOR='4;1;31'
 export GREP_COLORS='sl=0:cx=1;32:mt=1;31:ms=4;1;31:mc=1;31:fn=1;32:ln=34:bn=36:se=0;37'
 
+# NOTE: for bat
+# FYI: bat --list-themes
+export BAT_THEME=TwoDark
+
 [[ $(uname) == "Darwin" ]] && export LSCOLORS=gxfxcxdxbxegexabagacad
 
 # NOTE: X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
