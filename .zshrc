@@ -129,6 +129,11 @@ if [[ $ZSH_NAME == zsh ]]; then
 	# 	setopt equals
 	## --prefix=/usr などの = 以降も補完
 	# 	setopt magic_equal_subst
+
+	# FYI: [zshでオプション一覧の出力を分かりやすくする \- Qiita]( https://qiita.com/mollifier/items/26c67347734f9fcda274 )
+	function showoptions() {
+		set -o | sed -e 's/^no\(.*\)on$/\1  off/' -e 's/^no\(.*\)off$/\1  on/'
+	}
 fi
 
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
