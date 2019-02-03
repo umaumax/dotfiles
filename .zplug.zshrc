@@ -120,6 +120,8 @@ if [[ -e ~/.zplug ]]; then
 	zplug "umaumax/zsh-abbrev-alias"
 	zplug 'Valodim/zsh-curl-completion'
 	zplug "chrissicool/zsh-256color"
+	zplug 'hchbaw/zce.zsh'
+	zplug 'IngoHeimbach/zsh-easy-motion'
 
 	# Install easy-oneliner (If fzf is already installed)
 	zplug "b4b4r07/easy-oneliner", if:"which fzf"
