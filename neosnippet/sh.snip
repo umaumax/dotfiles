@@ -64,7 +64,7 @@ snippet ispipe_out_if
   if [[ -p /dev/stdout ]]; then
     ${0}
   else
-    
+
   fi
 snippet ispipe_in
   [[ -p /dev/stdin ]] ${0}
@@ -72,7 +72,7 @@ snippet ispipe_in_if
   if [[ -p /dev/stdin ]]; then
     ${0}
   else
-    
+
   fi
 
 snippet trimspace
@@ -134,8 +134,8 @@ snippet typecmd
 
 snippet find_next_path_cmd
   local now_cmd=${0}
-	local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
-	[[ -z $next_cmd ]] && echo 1>&2 "Not found original command!" && return 1
+  local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
+  [[ -z $next_cmd ]] && echo 1>&2 "Not found original command!" && return 1
 
 snippet alias
   alias ${1}='${0}'
@@ -566,3 +566,15 @@ abbr /path/to/foo.tar.gz -> gz, foo -> foo
 snippet cd_abspath_of_current_file
   current_abs_directory_path=$(cd $(dirname \$0) && pwd)
   cd ${current_abs_directory_path%/}
+
+snippet string_find_index_and_replace
+  local t=${1:#:target}
+  local searchstring=${2:#:keyword}
+  local rest=${t#*$searchstring}
+  local index=$((${#t} - ${#rest} - ${#searchstring}))
+  if [[ $index -ge 0 ]]; then
+    # bash
+    local t="${t/$(printf %q $searchstring)/}"
+    # zsh
+    local t="${t/$searchstring/}"
+  fi
