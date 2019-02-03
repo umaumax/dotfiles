@@ -14,4 +14,14 @@ abbrev-alias -g exd="./."
 abbrev-alias -g GC=" git checkout ."
 abbrev-alias -g D='.'
 
+abbrev-alias -g g='git '
+abbrev-alias -g s='sudo '
+abbrev-alias -g apt='sudo apt-get '
+abbrev-alias -g b='brew '
+abbrev-alias -g l='ls '
+abbrev-alias -g v='vim '
+
+# for miss type
+abbrev-alias -g gti='git '
+
 abbrev-alias -f B="git symbolic-ref --short HEAD"
