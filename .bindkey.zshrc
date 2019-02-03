@@ -29,6 +29,78 @@ bindkey -M vicmd ' ' vi-easy-motion
 
 #--------------------------------
 
+function gen_PROMPT_2_text() {
+	local PROMPT_texts=("$@")
+	local n=${#PROMPT_texts[@]}
+	for ((i = 0; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cud1]"; done
+	for ((i = 0; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cuu1]"; done
+	local terminfo_down_sc="${terminfo_down_sc}$terminfo[sc]$terminfo[cud1]"
+	local PROMPT_2
+	for text in "${PROMPT_texts[@]}"; do
+		local PROMPT_2="${PROMPT_2}${text}$terminfo[cud1]"
+	done
+	echo "%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}"
+}
+function show_PROMPT_2_text_by_array() {
+	# FYI: [dotfiles/\.zshrc at master · asmsuechan/dotfiles]( https://github.com/asmsuechan/dotfiles/blob/master/.zshrc )
+	# FYI: man 5 terminfo
+	# NOTE: prompt下に領域を確保
+	# NOTE: $terminfo[cud1] x 出力するline+1
+	# NOTE: $terminfo[cuu1] x 出力するline+1
+	# NOTE: カーソル位置のsave
+	# NOTE: $terminfo[sc]
+	# NOTE: prompt下に移動
+	# NOTE: $terminfo[cud1]
+	# NOTE: 1行出力 + $terminfo[cud1] を繰り返す
+	# NOTE: カーソル位置のrestore
+	# NOTE: terminfo[rc]
+	# NOTE: %{, %}で囲む理由は不明
+	local PROMPT_texts=("$@")
+	local PROMPT_2=$(gen_PROMPT_2_text "${PROMPT_texts[@]}")
+	_PROMPT=$PROMPT
+	PROMPT="${PROMPT_2}$PROMPT"
+	zle reset-prompt
+	abc=$PROMPT
+	PROMPT=$_PROMPT
+}
+function cat_PROMPT_2_text() {
+	_IFS=$IFS
+	IFS=$'\r\n'
+	PROMPT_text=($(command cat))
+	IFS=$_IFS
+	show_PROMPT_2_text_by_array "${PROMPT_text[@]}"
+}
+
+_auto_show_prompt_pre_keyword=''
+function _auto_show_prompt() {
+	if cmdcheck cgrep; then
+		local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
+		if [[ $_auto_show_prompt_pre_keyword != $keyword ]]; then
+			if ! cgrep -n "(^$keyword)" >/dev/null 2>&1; then
+				local keyword='.'
+			fi
+			{
+				echo -ne "$GRAY"
+				echo -e "[history]"
+				echo -ne "$DEFUALT"
+				builtin history -nr 1 | grep "^$keyword" 2>/dev/null | cgrep '(^.*$)' 8 | cgrep "(^$keyword)" green | head -n 10 | command cat -n
+				echo -ne "$DEFAULT"
+			} | cat_PROMPT_2_text
+			_auto_show_prompt_pre_keyword=$keyword
+		fi
+	fi
+
+	# NOTE: choose one from below
+	# LBUFFER+=' '
+	zle __abbrev_alias::magic_abbrev_expand
+}
+bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
+
+# NOTE: for test only
+function _bindkey_test() {
+}
+bindkey '^P' _bindkey_test && zle -N _bindkey_test
+
 function _vicmd_insert_strs() {
 	CURSOR=$((CURSOR + 1))
 	_insert_strs "$@"
