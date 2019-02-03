@@ -12,4 +12,6 @@ abbrev-alias -g home="~/"
 abbrev-alias -g ex="./"
 abbrev-alias -g exd="./."
 abbrev-alias -g GC=" git checkout ."
+abbrev-alias -g D='.'
+
 abbrev-alias -f B="git symbolic-ref --short HEAD"
