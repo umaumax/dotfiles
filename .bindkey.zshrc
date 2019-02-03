@@ -309,3 +309,50 @@ function fancy-ctrl-z() {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+####
+# FYI: [Plugins: vi\-mode: extra vi\-like bindings, vi\-like commands clipboard by alx741 · Pull Request \#3616 · robbyrussell/oh\-my\-zsh]( https://github.com/robbyrussell/oh-my-zsh/pull/3616/commits/0f6e49b455e498bd051d1d18d62dec4e6872d3e8 )
+# Allow Copy/Paste with the system clipboard
+# behave as expected with vim commands ( y/p/d/c/s )
+[[ -n $DISPLAY ]] && (($ + commands[xclip])) && {
+
+	function cutbuffer() {
+		# NOTE: original widget call?
+		zle .$WIDGET
+		echo $CUTBUFFER | c
+	}
+
+	zle_cut_widgets=(
+		vi-backward-delete-char
+		vi-change
+		vi-change-eol
+		vi-change-whole-line
+		vi-delete
+		vi-delete-char
+		vi-kill-eol
+		vi-substitute
+		vi-yank
+		vi-yank-eol
+	)
+	for widget in $zle_cut_widgets; do
+		# NOTE: widget alias?
+		zle -N $widget cutbuffer
+	done
+
+	function putbuffer() {
+		zle copy-region-as-kill "$(p)"
+		zle .$WIDGET
+	}
+
+	zle_put_widgets=(
+		vi-put-after
+		vi-put-before
+	)
+	for widget in $zle_put_widgets; do
+		zle -N $widget putbuffer
+	done
+
+	bindkey -M visual 'v' vi-yank
+}
+
+# FYI: [zsh zle \- List of zsh bindkey commands \- Stack Overflow]( https://stackoverflow.com/questions/18042685/list-of-zsh-bindkey-commands )
