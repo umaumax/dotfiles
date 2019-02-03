@@ -62,6 +62,7 @@
   grep-reg = grep -E
 
   l = log
+  log-with-note = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset - %N' --date=iso --show-notes
   # NOTE: git 2.7.4 has no option --decorate-refs=tags
   log-one-line = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso
   log-one-line-a-day = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset' --date=iso --since='1 day ago'
