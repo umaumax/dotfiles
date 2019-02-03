@@ -120,12 +120,17 @@ else
 	}
 fi
 
+[[ "$(uname -a)" =~ Ubuntu ]] && alias mdfind='locate'
+function mdfindpeco() {
+	mdfind | fzf
+}
+
 alias pc='peco | c'
 alias pecopy='peco | c'
 alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
 function hpeco() {
-	builtin history -nr 1 | shell_color_filter | fzf
+	builtin history -nr 1 | shell_color_filter | fzf --query=$1
 }
 alias apeco='alias | peco'
 alias envpeco='env | peco'
