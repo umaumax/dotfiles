@@ -89,6 +89,8 @@ function! Sand(prefix, suffix) range
 	endfor
 endfunction
 command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
+command! -nargs=1 -range AddPrefix <line1>,<line2>call Sand(<q-args>, "")
+command! -nargs=1 -range AddSuffix <line1>,<line2>call Sand("", <q-args>)
 
 function! NoDiffStyle() range
 	for n in range(a:firstline, a:lastline)
