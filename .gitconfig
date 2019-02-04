@@ -127,6 +127,8 @@
 
   tree = ls-tree -dr --name-only --full-name --full-tree HEAD
 
+  unlock = ! rm -rf $(git rev-parse --show-toplevel)/.git/index.lock
+
   unstage = reset HEAD
   unstage-only-newfiles = !git unstage $(git ls-newfiles)
   unstage-permanent = rm --cached -r
