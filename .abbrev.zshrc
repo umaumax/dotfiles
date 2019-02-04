@@ -9,6 +9,7 @@ abbrev-alias -g H="'HEAD\%#'"
 abbrev-alias -g R=" rm -rf "
 abbrev-alias -g pipe="| "
 abbrev-alias -g HOME="~/"
+# WARN: find -type d
 # abbrev-alias -g d='./'
 abbrev-alias -g ex="./"
 abbrev-alias -g exd="./."
@@ -18,8 +19,7 @@ abbrev-alias -g HAT="'HEAD^' "
 abbrev-alias -g STASH="'stash@{\%#}'"
 abbrev-alias -g hat='^'
 # exec, run
-abbrev-alias -g e='$(\%#)'
-abbrev-alias -g r='$(\%#)'
+abbrev-alias -g E='$(\%#)'
 abbrev-alias -g N='>/dev/null '
 abbrev-alias -g STD='>/dev/null 2>&1 '
 abbrev-alias -g gpp='g++ '
