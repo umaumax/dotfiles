@@ -419,6 +419,10 @@ cmdcheck wmctrl && cmdcheck wintoggle && function wintogglepeco() {
 }
 
 if cmdcheck fzf; then
+	function manpeco() {
+		local args=($(man -k . | fzf --query="'"${1} | cut -d' ' -f1 | sed -E 's/(.*)\(([0-9]+)\)/\2 \1/g'))
+		[[ ${#args[@]} == 2 ]] && man "${args[@]}"
+	}
 	alias icalc='calc'
 	function calc() {
 		: | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
