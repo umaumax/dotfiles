@@ -1,0 +1,358 @@
+#!/usr/bin/env zsh
+alias bindkey_events_list='bindkey -L'
+alias bindkey_default_events_list='zsh -c "bindkey"'
+function bindkey_default_all_events_list() {
+	# NOTE: show only default events
+	zsh -c 'zle -all'
+	echo 1>&2 ''
+	echo 1>&2 'If you want to know more, please access below page!'
+	echo 1>&2 '[18 Zsh Line Editor \(zsh\)]( http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets )'
+}
+
+bindkey -M vicmd '^A' beginning-of-line
+bindkey -M vicmd '^E' end-of-line
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
+bindkey -M vicmd "^X^A" backward-kill-line
+bindkey -M vicmd "^X^E" kill-line
+
+# NOTE: vicmd mode prezto format
+zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{white}❮%f%b%B%F{magenta}❮%f%b%B%F{blue}❮%f%b'
+
+# FYI: [hchbaw/zce\.zsh: \# zsh EasyMotion/ace\-jump\-mode]( https://github.com/hchbaw/zce.zsh )
+bindkey "^G" zce
+# FYI: [IngoHeimbach/zsh\-easy\-motion: Vim's easy\-motion for zsh]( https://github.com/IngoHeimbach/zsh-easy-motion )
+# NOTE: register vicmd 'space' as prefix of vi-easy-motion plugin
+# e.g. ' '+{b, B, w, W, e, E, ge, gE, f, F, t, T, c}などで移動が可能
+# bindkey "^G" vi-easy-motion
+bindkey -M vicmd ' ' vi-easy-motion
+
+#--------------------------------
+
+function gen_PROMPT_2_text() {
+	local PROMPT_texts=("$@")
+	local n=${#PROMPT_texts[@]}
+	for ((i = 1; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cud1]"; done
+	for ((i = 1; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cuu1]"; done
+	local terminfo_down_sc="${terminfo_down_sc}$terminfo[sc]$terminfo[cud1]"
+	local PROMPT_2
+	for text in "${PROMPT_texts[@]}"; do
+		local PROMPT_2="${PROMPT_2}${text}$terminfo[cud1]"
+	done
+	echo "%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}"
+}
+function show_PROMPT_2_text_by_array() {
+	# FYI: [dotfiles/\.zshrc at master · asmsuechan/dotfiles]( https://github.com/asmsuechan/dotfiles/blob/master/.zshrc )
+	# FYI: man 5 terminfo
+	# NOTE: prompt下に領域を確保
+	# NOTE: $terminfo[cud1] x 出力するline+1
+	# NOTE: $terminfo[cuu1] x 出力するline+1
+	# NOTE: カーソル位置のsave
+	# NOTE: $terminfo[sc]
+	# NOTE: prompt下に移動
+	# NOTE: $terminfo[cud1]
+	# NOTE: 1行出力 + $terminfo[cud1] を繰り返す
+	# NOTE: カーソル位置のrestore
+	# NOTE: terminfo[rc]
+	# NOTE: %{, %}で囲む理由は不明
+	local PROMPT_texts=("$@")
+	local PROMPT_2=$(gen_PROMPT_2_text "${PROMPT_texts[@]}")
+	_PROMPT=$PROMPT
+	PROMPT="${PROMPT_2}$PROMPT"
+	zle reset-prompt
+	abc=$PROMPT
+	PROMPT=$_PROMPT
+}
+function cat_PROMPT_2_text() {
+	_IFS=$IFS
+	IFS=$'\r\n'
+	PROMPT_text=($(command cat))
+	IFS=$_IFS
+	show_PROMPT_2_text_by_array "${PROMPT_text[@]}"
+}
+
+_auto_show_prompt_pre_keyword=''
+function _auto_show_prompt() {
+	if cmdcheck cgrep && cmdcheck fixedgrep; then
+		# NOTE: 最大n個分の引数の履歴
+		# local arg_max=4
+		# local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
+		local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
+		if [[ $_auto_show_prompt_pre_keyword != $keyword ]]; then
+			{
+				echo -e "${GRAY}[history]${DEFUALT}"
+				# NOTE: grep is to late, ag is faster than grep
+				builtin history -nr 1 | fixedgrep -prefix="$keyword" -max=8 2>/dev/null | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
+			} | cat_PROMPT_2_text
+			_auto_show_prompt_pre_keyword=$keyword
+		fi
+	fi
+
+	# NOTE: choose one from below
+	# LBUFFER+=' '
+	zle __abbrev_alias::magic_abbrev_expand
+}
+bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
+
+# NOTE: for test only
+function _bindkey_test() {
+}
+bindkey '^P' _bindkey_test && zle -N _bindkey_test
+
+function _vicmd_insert_strs() {
+	CURSOR=$((CURSOR + 1))
+	_insert_strs "$@"
+}
+function _insert_strs() {
+	local n=${2:-$#1}
+	local BUFFER_="${LBUFFER}$1${RBUFFER}"
+	local CURSOR_=$CURSOR
+	# NOTE: to avoid show unnecessary completion
+	zle kill-buffer
+	BUFFER="$BUFFER_"
+	# NOTE: don't use below command because this cause mono color
+	# 	CURSOR=$((CURSOR_ + 1))
+	CURSOR=$((CURSOR_))
+	for i in $(seq $n); do
+		zle forward-char
+	done
+	zle -R -c # refresh
+}
+bindkey '"' _double_quotes && zle -N _double_quotes && function _double_quotes() { _insert_strs '""' 1; }
+bindkey "'" _single_quotes && zle -N _single_quotes && function _single_quotes() { _insert_strs "''" 1; }
+bindkey "\`" _exec_quotes && zle -N _exec_quotes && function _exec_quotes() { _insert_strs '``' 1; }
+bindkey "^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes() { _insert_strs '$()' 2; }
+bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; }
+bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
+bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
+
+bindkey "^F" backward-delete-char
+bindkey "^D" delete-char
+
+bindkey "^H" backward-char
+bindkey "^K" up-line-or-history
+bindkey "^J" down-line-or-history
+bindkey "^L" forward-char
+
+# NOTE: Shift + arrow
+bindkey '^[[1;2D' emacs-backward-word
+bindkey '^[[1;2C' emacs-forward-word
+bindkey -M vicmd '^[[1;2D' emacs-backward-word
+bindkey -M vicmd '^[[1;2C' emacs-forward-word
+
+bindkey '^X^A' backward-kill-line
+bindkey '^X^E' kill-line
+
+# F:fix
+bindkey '^X^F' edit-command-line
+# L:line
+bindkey '^X^L' edit-command-line
+
+function _set_only_LBUFFER() {
+	if [[ -z "$BUFFER" ]]; then
+		LBUFFER="$1"
+	fi
+}
+function _insert_sudo() { _set_only_LBUFFER 'sudo '; }
+zle -N _insert_sudo
+bindkey "^S" _insert_sudo
+
+# function _insert_git() { _set_only_LBUFFER 'git '; }
+# zle -N _insert_git
+# bindkey "^G" _insert_git
+
+function _search_history() { _set_only_LBUFFER "$(hpeco $LBUFFER)"; }
+zle -N _search_history
+# NOTE: overwrite default fzf history search setting
+bindkey "^R" _search_history
+bindkey "^X^H" _search_history
+bindkey "^X^R" fzf-history-widget
+
+function _pecoole() { pecoole; }
+zle -N _pecoole
+bindkey "^X^P" _pecoole
+bindkey "^X^G" _pecoole
+
+function _cedit() { cedit; }
+zle -N _cedit
+bindkey "^X^V" _cedit
+bindkey "^X^O" _cedit
+
+# function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
+# zle -N _insert_cd_home
+# bindkey "^X^H" _insert_cd_home
+
+# function _insert_run_secret_dotfile() { _set_only_LBUFFER './.'; }
+# zle -N _insert_run_secret_dotfile
+# bindkey "^X." _insert_run_secret_dotfile
+
+# function _insert_exec() { _set_only_LBUFFER './'; }
+# zle -N _insert_exec
+# bindkey "^X^E" _insert_exec
+
+# function _no_history_rm() { _set_only_LBUFFER ' rm '; }
+# zle -N _no_history_rm
+# bindkey "^X^R" _no_history_rm
+
+function _copy_command() {
+	# NOTE: don't use echo (because e.g. \\ -> \ )
+	printf '%s' "$BUFFER" | tr -d '\n' | c
+	zle kill-whole-line
+	zle -R -c # refresh
+	echo "[clipboard]: $(p)"
+	zle accept-line
+}
+zle -N _copy_command
+bindkey '^X^P' _copy_command
+bindkey '^Y' _copy_command
+
+function _paste_command() { _insert_strs "$(p)"; }
+function _vicmd_paste_command() { _vicmd_insert_strs "$(p)"; }
+zle -N _paste_command
+zle -N _vicmd_paste_command
+bindkey '^V' _paste_command
+
+bindkey -M vicmd 'p' _vicmd_paste_command
+bindkey -M vicmd 'P' _paste_command
+
+function _goto_middle_of_line() {
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 2))
+	zle -R -c # refresh
+}
+zle -N _goto_middle_of_line
+bindkey '^X^M' _goto_middle_of_line
+
+function _goto_line_n() {
+	local n=${1:-1}
+	CURSOR=$#BUFFER
+	CURSOR=$((CURSOR / 11 * n))
+	zle -R -c # refresh
+}
+zle -N _goto_line_1 && bindkey '^X1' _goto_line_1 && function _goto_line_1() { _goto_line_n 1; }
+zle -N _goto_line_2 && bindkey '^X2' _goto_line_2 && function _goto_line_2() { _goto_line_n 2; }
+zle -N _goto_line_3 && bindkey '^X3' _goto_line_3 && function _goto_line_3() { _goto_line_n 3; }
+zle -N _goto_line_4 && bindkey '^X4' _goto_line_4 && function _goto_line_4() { _goto_line_n 4; }
+zle -N _goto_line_5 && bindkey '^X5' _goto_line_5 && function _goto_line_5() { _goto_line_n 5; }
+zle -N _goto_line_6 && bindkey '^X6' _goto_line_6 && function _goto_line_6() { _goto_line_n 6; }
+zle -N _goto_line_7 && bindkey '^X7' _goto_line_7 && function _goto_line_7() { _goto_line_n 7; }
+zle -N _goto_line_8 && bindkey '^X8' _goto_line_8 && function _goto_line_8() { _goto_line_n 8; }
+zle -N _goto_line_9 && bindkey '^X9' _goto_line_9 && function _goto_line_9() { _goto_line_n 9; }
+zle -N _goto_line_0 && bindkey '^X0' _goto_line_0 && function _goto_line_0() { _goto_line_n 10; }
+
+# [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
+# quote previous word in single or double quote
+autoload -U modify-current-argument
+_quote-previous-word-in-single() {
+	modify-current-argument '${(qq)${(Q)ARG}}'
+	zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-single
+bindkey '^Xs' _quote-previous-word-in-single
+bindkey '^X^S' _quote-previous-word-in-single
+
+_quote-previous-word-in-double() {
+	modify-current-argument '${(qqq)${(Q)ARG}}'
+	zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-double
+bindkey '^Xd' _quote-previous-word-in-double
+bindkey '^X^D' _quote-previous-word-in-double
+
+function my-backward-delete-word() {
+	local WORDCHARS=${WORDCHARS/\//}
+	zle backward-delete-word
+}
+zle -N my-backward-delete-word
+# shift+tab
+bindkey '^[[Z' my-backward-delete-word
+bindkey -M vicmd '^[[Z' my-backward-delete-word
+
+# function _peco-select-history() {
+# BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
+# CURSOR=$#BUFFER
+# zle -R -c # refresh
+# }
+# zle -N _peco-select-history
+# bindkey '^X^P' _peco-select-history
+
+# function peco-select-history() {
+# local tac
+# if which tac >/dev/null; then
+# tac="tac"
+# else
+# tac="tail -r"
+# fi
+# local query="$LBUFFER"
+# local opts=("--query" "$LBUFFER")
+# [[ -z $query ]] && local opts=()
+# BUFFER=$(builtin history -nr 1 |
+# eval $tac |
+# command peco "${opts[@]}")
+# CURSOR=$#BUFFER
+# zle clear-screen
+# }
+# zle -N peco-select-history
+# bindkey '^X^O' peco-select-history
+
+# [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
+# Ctrl-Zを使ってVimにスイッチバックする
+# vim -> C-z -> zsh -> Ctrl-z or fg
+function fancy-ctrl-z() {
+	if [[ $#BUFFER -eq 0 ]]; then
+		BUFFER="fg"
+		zle accept-line
+	else
+		zle push-input
+		zle clear-screen
+	fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+####
+# FYI: [Plugins: vi\-mode: extra vi\-like bindings, vi\-like commands clipboard by alx741 · Pull Request \#3616 · robbyrussell/oh\-my\-zsh]( https://github.com/robbyrussell/oh-my-zsh/pull/3616/commits/0f6e49b455e498bd051d1d18d62dec4e6872d3e8 )
+# Allow Copy/Paste with the system clipboard
+# behave as expected with vim commands ( y/p/d/c/s )
+[[ -n $DISPLAY ]] && (($ + commands[xclip])) && {
+
+	function cutbuffer() {
+		# NOTE: original widget call?
+		zle .$WIDGET
+		echo $CUTBUFFER | c
+	}
+
+	zle_cut_widgets=(
+		vi-backward-delete-char
+		vi-change
+		vi-change-eol
+		vi-change-whole-line
+		vi-delete
+		vi-delete-char
+		vi-kill-eol
+		vi-substitute
+		vi-yank
+		vi-yank-eol
+	)
+	for widget in $zle_cut_widgets; do
+		# NOTE: widget alias?
+		zle -N $widget cutbuffer
+	done
+
+	function putbuffer() {
+		zle copy-region-as-kill "$(p)"
+		zle .$WIDGET
+	}
+
+	zle_put_widgets=(
+		vi-put-after
+		vi-put-before
+	)
+	for widget in $zle_put_widgets; do
+		zle -N $widget putbuffer
+	done
+
+	bindkey -M visual 'v' vi-yank
+}
+
+# FYI: [zsh zle \- List of zsh bindkey commands \- Stack Overflow]( https://stackoverflow.com/questions/18042685/list-of-zsh-bindkey-commands )
