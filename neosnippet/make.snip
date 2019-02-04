@@ -4,3 +4,16 @@ abbr `` means just text in Makefile
 
 snippet pkg-config
   $(shell pkg-config --cflags ${0})
+
+snippet install_example
+  PREFIX ?= /usr/local
+  INSTALLDIR ?=
+  install:
+    @ mkdir -p $(INSTALLDIR)$(PREFIX)/lib/
+    @ mkdir -p $(INSTALLDIR)$(PREFIX)/include/
+    @ for f in $(LIB); do \
+      cp -R $$f $(INSTALLDIR)$(PREFIX)/lib/; \
+    done
+    @ for d in $(filter-out /%,$(subst -I,,$(INCLUDE))); do \
+      cp -R $$d/* $(INSTALLDIR)$(PREFIX)/include/; \
+    done
