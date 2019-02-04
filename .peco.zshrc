@@ -133,6 +133,9 @@ alias pe='peco'
 function hpeco() {
 	builtin history -nr 1 | shell_color_filter | fzf --query=$1
 }
+function hpecopy() {
+	hpeco | tr -d '\n' | c
+}
 alias apeco='alias | peco'
 alias envpeco='env | peco'
 alias fpeco='find . -type f | peco'
