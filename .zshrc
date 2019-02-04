@@ -243,7 +243,7 @@ alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
 alias desktop='cd ~/Desktop/'
 
-[[ -d ~/git ]] && alias cdgit='cd ~/git' && alias git-repo='cdgit' && alias ghome='cdgit' && alias mygit='cdgit' && alias devgit='cdgit'
+[[ -d ~/git ]] && alias cdgit='cd ~/git' && alias git-repo='cdgit' && alias ghome='cdgit' && alias devgit='cdgit'
 [[ -d ~/local/bin ]] && alias local-bin='cd ~/local/bin'
 [[ -d ~/github.com ]] && alias github='cd ~/github.com'
 [[ -d ~/github.com/cpp-examples ]] && alias cpp-examples='cd ~/github.com/cpp-examples'
