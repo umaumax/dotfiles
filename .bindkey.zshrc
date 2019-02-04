@@ -248,6 +248,7 @@ _quote-previous-word-in-single() {
 	zle vi-forward-blank-word
 }
 zle -N _quote-previous-word-in-single
+bindkey '^X'"'" _quote-previous-word-in-single
 bindkey '^Xs' _quote-previous-word-in-single
 bindkey '^X^S' _quote-previous-word-in-single
 
@@ -256,8 +257,26 @@ _quote-previous-word-in-double() {
 	zle vi-forward-blank-word
 }
 zle -N _quote-previous-word-in-double
+bindkey '^X"' _quote-previous-word-in-double
 bindkey '^Xd' _quote-previous-word-in-double
 bindkey '^X^D' _quote-previous-word-in-double
+
+_modify-previous-word-to-uppercase() {
+	modify-current-argument '${(U)${(Q)ARG}}'
+	zle vi-forward-blank-word
+}
+zle -N _modify-previous-word-to-uppercase
+bindkey '^Xu' _modify-previous-word-to-uppercase
+bindkey '^XU' _modify-previous-word-to-uppercase
+bindkey '^X^U' _modify-previous-word-to-uppercase
+
+_modify-previous-word-paren() {
+	modify-current-argument '(${(Q)ARG})'
+	zle vi-forward-blank-word
+}
+zle -N _modify-previous-word-paren
+bindkey '^X(' _modify-previous-word-paren
+bindkey '^X)' _modify-previous-word-paren
 
 function my-backward-delete-word() {
 	local WORDCHARS=${WORDCHARS/\//}
