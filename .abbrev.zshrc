@@ -7,6 +7,7 @@ abbrev-alias -g F="| fzf "
 abbrev-alias -g C="| c"
 abbrev-alias -g H="'HEAD\%#'"
 abbrev-alias -g R=" rm -rf "
+abbrev-alias -g rmf=" rm -rf "
 abbrev-alias -g pipe="| "
 abbrev-alias -g HOME="~/"
 # WARN: find -type d
