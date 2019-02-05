@@ -67,9 +67,10 @@ let g:sleuth_neighbor_limit=0
 LazyPlug 'Shougo/unite.vim'
 
 " no dependency on vim swapfile option
-LazyPlug 'LeafCage/autobackup.vim'
+LazyPlug 'umaumax/autobackup.vim'
 let g:autobackup_backup_dir = g:tempfiledir
-let g:autobackup_backup_limit = 1024
+" NOTE: # of each file backups
+let g:autobackup_backup_limit = 256
 
 LazyPlug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
