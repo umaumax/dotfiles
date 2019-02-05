@@ -17,3 +17,20 @@ snippet install_example
     @ for d in $(filter-out /%,$(subst -I,,$(INCLUDE))); do \
       cp -R $$d/* $(INSTALLDIR)$(PREFIX)/include/; \
     done
+
+snippet echo
+alias info
+  $(info ${0})
+snippet echo_var
+alias info_var
+  $(info [DEBUG] $$${1:#:var} is [${$1}])
+
+# FYI: [GNU make での条件コンパイル \- IKB: 雑記帖]( http://d.hatena.ne.jp/i_k_b/20120302/1330704183 )
+snippet if_grep
+  ifneq ($(filter ${1:#:keyword}, $(${2:#:var})),)
+    ${0}
+  endif
+snippet if_or
+  ifneq ($(findstring ${1:#:keyword},$(${2:#:var1}) $(${3:#:var2...})),)
+    ${0}
+  endif
