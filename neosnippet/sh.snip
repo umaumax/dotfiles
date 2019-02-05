@@ -182,18 +182,28 @@ alias array_search_not_found
   ! $(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
 
 snippet tmpfile
-  tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
-
+  tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
 snippet tmpfile_with_trap
 alias trap_tmpfile
 abbr don't use trap in .xxxrc or .xxx_profile
-  tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
+  tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
   trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
-
 snippet tmpfile_in_function
-  local tmpfile=$(mktemp "/tmp/$(basename \$0).$$.tmp.XXXXX")
+  local tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
   ${0}
   [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+
+snippet tmpdir
+  tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+snippet tmpdir_with_trap
+alias trap_tmpdir
+abbr don't use trap in .xxxrc or .xxx_profile
+  tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+  trap "[[ -d $tmpdir ]] && rm -rf $tmpdir" 0 1 2 3 15
+snippet tmpdir_in_function
+  local tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+  ${0}
+  [[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
 
 snippet tac
     awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
