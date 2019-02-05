@@ -177,3 +177,19 @@ snippet version_if
   if(${CMAKE_VERSION} VERSION_LESS ${1:#:version e.g. 3.6})
     ${0:option(CMAKE_CXX_CLANG_TIDY "clang-tidy command" OFF)}
   endif()
+
+# FYI:
+# [CMakeを使ってみた \(7\) find\_packageとpkg\_check\_modulesによるライブラリ探索 \- wagavulin's blog]( https://www.wagavulin.jp/entry/2017/02/20/082608 )
+# [CMake: Of what use is find\_package\(\) if you need to specify CMAKE\_MODULE\_PATH anyway? \- Stack Overflow]( https://stackoverflow.com/questions/20746936/cmake-of-what-use-is-find-package-if-you-need-to-specify-cmake-module-path-an )
+snippet hook_find_package
+  list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+  # find_package(${1:#:package name} REQUIRED)
+
+  mkdir -p ./cmake
+  cat > ./cmake/Find$1.cmake << 'EOF'
+  find_package($1 REQUIRED NO_MODULE)
+  
+  set($1_LIBRARIES xxx;yyy;zzz)
+  set($1_LIBS ${$1_LIBRARIES})
+  set($1_LIB_COMPONENTS ${$1_LIBRARIES})
+  EOF
