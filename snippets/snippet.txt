@@ -912,7 +912,8 @@
 [route add default gateway] sudo route add default gw @ # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
 
 [ldd tree] lddtree -a @ # sudo apt-get install pax-utils
-[ldd] LD_TRACE_LOADED_OBJECTS=1 @
+[ldd] LD_TRACE_LOAADED_OBJECTS=1 @ # exec command
+[ldd] readelf -d @
 
 [nm: with object filename] nm -A @
 [nm: dynamic symbol] nm -D @ # e.g. calloc, free
