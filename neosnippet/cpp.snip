@@ -662,3 +662,15 @@ snippet get_number_of_supporting_threads
 abbr USE HINT ONLY
   #include <thread>
   std::thread::hardware_concurrency()
+
+snippet split_whitespaces
+  std::vector<std::string> split_whitespaces(const std::string& str) {
+    std::vector<std::string> rets;
+    auto trimed_str = str;
+    boost::algorithm::trim(trimed_str);
+    if (trimed_str == "") {
+      return rets;
+    }
+    boost::algorithm::split(rets, trimed_str, boost::is_any_of(" "), boost::token_compress_on);
+    return rets;
+  }
