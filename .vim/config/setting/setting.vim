@@ -111,9 +111,12 @@ augroup END
 " NOTE: to disable `E828: Cannot open undo file for writing:`
 " FYI: [undo file file name too long on linux · Issue \#346 · vim/vim]( https://github.com/vim/vim/issues/346 )
 " FYI: [linux \- Limit on file name length in bash \- Stack Overflow]( https://stackoverflow.com/questions/6571435/limit-on-file-name-length-in-bash )
-set noundofile
-" set undofile
-" execute 'set undodir='.g:tempfiledir
+set undofile
+execute 'set undodir='.g:tempfiledir
+augroup noundofile_group
+	autocmd!
+	autocmd BufWritePre,FileWritePre,FileAppendPre * if len(expand('%:p')) >= 255 | setlocal noundofile | endif
+augroup END
 
 " NOTE: 以下のような複数行のコマンドをコピーして，コマンドラインに貼り付けるときに，強制的にset pasteとなる
 " :echo 1
