@@ -185,6 +185,9 @@ sudo apt-get install -y lighttpd
 
 sudo apt-get install -y lolcat
 
+# NOTE: for lddtree
+sudo apt-get install pax-utils
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
