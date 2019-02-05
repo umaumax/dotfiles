@@ -657,3 +657,8 @@ abbr can't use string as dummy value use number
   //  (std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__);
   std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT %s\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
   ${0}
+
+snippet get_number_of_supporting_threads
+abbr USE HINT ONLY
+  #include <thread>
+  std::thread::hardware_concurrency()
