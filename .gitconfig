@@ -28,6 +28,7 @@
   co = checkout
   checkout-new-branch = checkout -b
   checkout--orphan-images = checkout --orphan images
+  checkout-root = ! git checkout $(git rev-parse --show-toplevel)
 
   c = commit
   cm = commit
@@ -113,6 +114,8 @@
   remote-remove-origin = remote remove origin
 
   rename = branch -m
+
+  root = rev-parse --show-toplevel
 
   s = status
   st = status
