@@ -75,6 +75,13 @@ snippet ispipe_in_if
 
   fi
 
+snippet isfunction_bash
+  [[ $(type -t ${1}) == "function" ]] ${0}
+snippet isfunction_bash_if
+  if [[ $(type -t ${1}) == "function" ]]; then
+    ${0}
+  fi
+
 snippet trimspace
   sed "s/^[ \t]*//"
 
@@ -601,3 +608,6 @@ snippet stdout_to_array
   IFS=$'\r\n'
   array=($(${0}))
   IFS=$_IFS
+
+snippet echo_var_raw
+  printf '%s' "${0}"
