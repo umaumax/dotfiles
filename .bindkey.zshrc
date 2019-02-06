@@ -161,11 +161,13 @@ bindkey "^S" _insert_sudo
 # zle -N _insert_git
 # bindkey "^G" _insert_git
 
-function _search_history() { _set_only_LBUFFER "$(hpeco $LBUFFER)"; }
+function _search_history() { _set_only_LBUFFER "$(HPECO_NUM=${HPECO_NUM:--1000} hpeco \'$LBUFFER)"; }
+function _search_full_history() { _set_only_LBUFFER "$(HPECO_NUM=1 hpeco \'$LBUFFER)"; }
 zle -N _search_history
+zle -N _search_full_history
 # NOTE: overwrite default fzf history search setting
 bindkey "^R" _search_history
-bindkey "^X^H" _search_history
+bindkey "^X^H" _search_full_history
 bindkey "^X^R" fzf-history-widget
 
 function _pecoole() { pecoole; }
