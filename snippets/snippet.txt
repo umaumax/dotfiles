@@ -135,6 +135,7 @@
 [git keep] touch @.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
+[git checkout root]  git checkout $(git rev-parse --show-toplevel)
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 [git man grep] man git-grep
@@ -144,6 +145,8 @@
 [git grep ext ok filter] git grep "@" -- '*.'
 [git grep ext ng filter] git grep "@" -- ':!*.'
 [git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
+[git grep filename example] git grep -H "c++11" -- "*[Mm]akefile" # include and with hit line
+[git grep filename example] git grep -L "c++11" -- "*[Mm]akefile" # not include
 [git clone rename] git clone @ $NEW_NAME
 [git clone with submodule] git clone --recursive @
 [git commit log grep] git log --stat -S "@"
@@ -196,7 +199,7 @@
 
 [git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/@"
 
-[git sed] git sed "s/\.a/\.so/g" "*/Makefile" # convert .a to .so
+[git sed makefile example] git sed "s/\.a/\.so/g" "*/[m|M]akefile" # convert .a to .so
 
 [git archive master] git archive master --format=zip --output=master.zip
 [git local page] git instaweb --port=11111
@@ -257,9 +260,12 @@
 [find and rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
 
 # line filter
+[sed add header] sed '1i@'
 [sed line filter] sed -n @,p # index starts with 1
 [sed (before) <= some line] sed -n '1,/@/p'
 [sed (after)  >= some line] sed -n '/@/,$p'
+[sed remove BOM UTF-8] sed "s|\xef\xbb\xbf||g"
+[sed convert CR] tr '\\n' $(echo -e "\x1E") | sed 's/'$(echo -e "\x1E")'/\\\\n/g'
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
