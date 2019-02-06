@@ -52,3 +52,6 @@ chmod u+x findtar
 
 https://github.com/umaumax/awkst/blob/master/awkst.awk awkst
 chmod u+x awkst
+
+https://github.com/umaumax/oresed/blob/master/oresed.sh oresed
+chmod u+x oresed
