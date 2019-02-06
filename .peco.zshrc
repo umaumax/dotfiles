@@ -424,7 +424,7 @@ cmdcheck wmctrl && cmdcheck wintoggle && function wintogglepeco() {
 
 if cmdcheck fzf; then
 	function manpeco() {
-		local args=($(man -k . | fzf --query="'"${1} | cut -d' ' -f1 | sed -E 's/(.*)\(([0-9]+)\)/\2 \1/g'))
+		local args=($(man -k . | fzf --query="'"${1} | cut -d' ' -f1 | sed -E -e 's/(.*)\(([0-9a-zA-Z]+)\)/\2 \1/g' -e 's/,//g'))
 		[[ ${#args[@]} == 2 ]] && man "${args[@]}"
 	}
 	alias icalc='calc'
