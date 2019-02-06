@@ -131,7 +131,8 @@ alias pecopy='peco | c'
 alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
 function hpeco() {
-	builtin history -nr 1 | shell_color_filter | fzf --query=$1
+	local HPECO_NUM=${HPECO_NUM:-1}
+	builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1
 }
 function hpecopy() {
 	hpeco | tr -d '\n' | c
