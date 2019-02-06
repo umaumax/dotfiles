@@ -15,6 +15,7 @@ abbrev-alias -g HOME="~/"
 abbrev-alias -g ex="./"
 abbrev-alias -g exd="./."
 abbrev-alias -g GC=" git checkout ."
+abbrev-alias -g gco=" git checkout ."
 abbrev-alias -g D='.'
 abbrev-alias -g HAT="'HEAD^' "
 abbrev-alias -g STASH="'stash@{\%#}'"
