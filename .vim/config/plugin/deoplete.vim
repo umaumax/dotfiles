@@ -5,7 +5,8 @@
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
 	" NOTE: 普通のvimでも使用可能らしい
-	LazyPlug 'autozimu/LanguageClient-neovim', {
+	" NOTE: don't use LazyPlug
+	Plug 'autozimu/LanguageClient-neovim', {
 				\ 'branch': 'next',
 				\ 'do': 'bash install.sh',
 				\ }
