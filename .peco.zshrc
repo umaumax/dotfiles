@@ -494,4 +494,25 @@ if cmdcheck fzf; then
 			echo '(\.|\?)$'
 		} | fzf --ansi --multi --preview 'echo {q} | grep ''^ \\+'' && QUERY={} || QUERY=$(echo {q} | awk ''{gsub(/^ +/,"")} {print $0}''); [[ -z $QUERY ]] && QUERY=".*"; echo "PAT=''$QUERY'' [[ xxx =~ \$PAT ]]"; echo; cat '"$TARGET_FILE"' | awk 1 | while read -r LINE; do; [[ $LINE =~ $QUERY ]] && echo "$LINE"; done' --print-query
 	}
+	function opendoc() {
+		local doc_list=(
+			'cmake~3.9'
+			'c'
+			'cpp'
+			'docker~17'
+			'go'
+			'git'
+			'gcc~7'
+			'gcc~7_cpp'
+			'homebrew'
+			'markdown'
+			'python~3.6'
+			'python~2.7'
+		)
+		local ret=$(for doc_list in ""${doc_list[@]}""; do
+			echo $doc_list
+		done | fzf)
+		local base_url='http://docs.w3cub.com'
+		[[ -n $ret ]] && open "$base_url/$ret"
+	}
 fi
