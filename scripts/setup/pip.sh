@@ -17,6 +17,7 @@ pip install flake8
 pip install jedi
 pip3 install cpplint
 pip3 install pylint
+# don't run pip install pyls
 pip install python-language-server
 # for vim linting
 pip install vim-vint
