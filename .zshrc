@@ -408,7 +408,11 @@ if [[ $(uname) == "Linux" ]]; then
 		alias pbpaste='xsel --clipboard --output'
 	fi
 	# 	alias gsed='sed'
-	alias open='xdg-open &>/dev/null'
+	function open() {
+		for arg in "$@"; do
+			xdg-open &>/dev/null "$arg"
+		done
+	}
 
 	alias apt-upgrade='sudo apt-get upgrade'
 	alias apt-update='sudo apt-get update'
