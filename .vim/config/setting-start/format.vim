@@ -219,7 +219,8 @@ function! s:highlight_backup(name)
 	silent! redir => result
 	execute 'silent! highlight '.a:name
 	redir END
-	return substitute(result, "\n",'','')
+	" NOTE: terminalサイズによって，redirの出力には間に無駄に改行が入るので注意
+	return substitute(result, "\n",'','g')
 endfunction
 function! s:save_highlight_to_backup_if_not_exist(list)
 	for key in a:list
