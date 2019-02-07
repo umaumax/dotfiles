@@ -63,5 +63,9 @@ pip3 install clang
 pip3 install bokeh
 pip3 install pandas
 
+# FYI: [Exporting Plots — Bokeh 1\.0\.4 documentation]( https://bokeh.pydata.org/en/latest/docs/user_guide/export.html )
+# for bokeh svg
+pip3 install selenium
+
 # NOTE: pip install colout failed...(colout v0.5)
 pip3 install https://github.com/nojhan/colout/archive/master.tar.gz

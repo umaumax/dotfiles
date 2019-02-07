@@ -28,3 +28,6 @@ npm install -g vue-language-server
 npm install -g node-notifier-cli
 # for markdown linting
 npm install -g alex
+# FYI: [Exporting Plots — Bokeh 1\.0\.4 documentation]( https://bokeh.pydata.org/en/latest/docs/user_guide/export.html )
+# for bokeh svg
+npm install -g phantomjs-prebuilt --unsafe-perm
