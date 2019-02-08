@@ -186,6 +186,28 @@ endif
 " NOTE: original GoFmt has no '-bar' option
 command! -bar GoFmtWrapper :GoFmt
 
+" NOTE: コメントが消える不具合がある
+" augroup yaml_format_group
+" autocmd!
+" autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! Format YAMLFormat
+" autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YAMLFormatWrapper | endif
+" autocmd FileType yaml autocmd! yaml_format_group FileType
+" augroup END
+" " NOTE: original YAMLFormat has no '-bar' option
+" command! -bar YAMLFormatWrapper :YAMLFormat
+
+if Doctor('align', 'yaml format')
+	augroup yaml_format_group
+		autocmd!
+		autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! Format YAMLFormat
+		autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YAMLFormat | endif
+		autocmd FileType yaml autocmd! yaml_format_group FileType
+	augroup END
+	" command! YAMLFormat :
+	" NOTE: original YAMLFormat has no '-bar' option
+	" command! -bar YAMLFormatWrapper :YAMLFormat
+endif
+
 " error表示のwindowの制御方法が不明
 " Plug 'tell-k/vim-autopep8'
 function! Preserve(command)

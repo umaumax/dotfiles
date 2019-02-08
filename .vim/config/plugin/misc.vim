@@ -527,3 +527,10 @@ LazyPlug 'qpkorr/vim-renamer'
 let g:RenamerWildIgnoreSetting=''
 
 Plug 'umaumax/bats.vim', {'for':'bats'}
+
+" NOTE: コメントが消える不具合がある
+" Plug 'tarekbecker/vim-yaml-formatter', {'for':'yaml'}
+" let g:yaml_formatter_indent_collection=1
+
+" NOTE: indentの整形がない
+Plug 'umaumax/vim-yaml-format', {'for':'yaml'}

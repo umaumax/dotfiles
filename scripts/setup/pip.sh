@@ -49,6 +49,10 @@ sudo -E pip3 install xkeysnail
 # for perf command visualization
 pip3 install gprof2dot
 
+# for yaml
+pip3 install pyyaml
+pip3 install yamllint
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------

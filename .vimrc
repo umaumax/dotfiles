@@ -115,6 +115,7 @@ endif
 " \'yapf':'pip install yapf',
 let s:doctor_map={
 			\'ag':           'brew install ag || sudo apt install silversearcher-ag',
+			\'algin':        'npm install -g align-yaml',
 			\'autopep8':     'pip install autopep8',
 			\'clang':        '',
 			\'cmake-format': 'pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz (pip install cmake_format)',
