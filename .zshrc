@@ -984,6 +984,8 @@ if cmdcheck bat; then
 	alias diffbat='bat -l diff'
 	alias vimbat='bat -l vim'
 	alias cppbat='bat -l cpp'
+	alias markdownbat='bat -l markdown'
+	alias mdbat='markdownbat'
 
 	# NOTE: decolate bash -x output
 	# NOTE: * colorbash required bat more than v0.7.0 (0.9.0 ok)
