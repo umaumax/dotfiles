@@ -1064,7 +1064,7 @@ function paste_to_file() {
 }
 # [printf %q "$v"]( https://qiita.com/kawaz/items/f8d68f11d31aa3ea3d1c )
 function shell_string_escape() {
-	printf %q "$v" "$(cat)"
+	printf %q "$(cat)"
 }
 
 function remove_terminal_extra_string_from_clipboard() {
