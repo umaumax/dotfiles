@@ -2,6 +2,7 @@
 #
 [alias]
 	add-peco  = :
+	alias-list = :
 	apply-stashes  = :
 	branch-current  = :
 	branch-new-to-old  = :
@@ -18,14 +19,19 @@
 	commits-peco  = :
 	commits-range-peco  = :
 	dir  = :
+	filter = :
 	find-conflict  = :
 	find-last-space  = :
 	find-last-space-vim  = :
+	find-non-up-to-date-repo = :
+	find-repo = :
+	find-repo-and-show-head-commit-hash-id = :
 	grep-japanese  = :
 	grep-japanese-current  = :
 	grep-japanese-root  = :
 	hub-browse  = :
 	hub-shorten-url  = :
+	icdiff = :
 	info  = :
 	log-file-find-peco  = :
 	log-peco  = :
@@ -48,6 +54,9 @@
 	stash-clear-interactive  = :
 	stash-dropped  = :
 	stash-recover  = :
+	status-allvim = :
+	status-pecovim = :
+	status-tabvim = :
 	submodule-move  = :
 	submodule-remove  = :
 	update-dummy-alias  = :
