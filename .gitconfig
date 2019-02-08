@@ -64,6 +64,9 @@
   grep-commit-message = log --grep
   grep-reg = grep -E
 
+  repo-init = init-repo
+  init-repo = !git init && git commit --allow-empty -m 'first commit'
+
   l = log
   log-with-note = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset - %N' --date=iso --show-notes
   # NOTE: git 2.7.4 has no option --decorate-refs=tags
