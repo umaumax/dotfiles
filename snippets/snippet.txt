@@ -56,6 +56,8 @@
 [tar find print0 pipe to pipe] tar -cvz -T - --null | @
 [tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
+[zip unzip broken file] zip -FF $SRC@ --output $DST
+
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
 # size
@@ -236,6 +238,9 @@
 [ol awk uniq without sort] awk '!a[$0]++'
 [ol awk drop blank line] awk 'NF'
 [ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
+[ol cut] cut -d' ' -f @
+[ol awk cut] awk '{ print $@; }'
+[ol awk unbuffer] '{fflush()}'
 
 [number of CPU] nproc --all # linux only
 
@@ -509,7 +514,7 @@
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
 [sed fixed string replace] rpl @ # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
-[cut before] sed -E 's/^([^ ]+?( )+?){@}//'
+[sed cut before] sed -E 's/^([^ ]+?( )+?){@}//'
 
 # json,yaml
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
