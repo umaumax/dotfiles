@@ -928,11 +928,16 @@ alias pwd='pwd | homedir_normalization'
 
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath_raw() {
-	local target=${1:-.}/
+	local target=${1:-.}
 	if [[ $(uname) == "Darwin" ]]; then
-		local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
-		local ret=$(echo ${abspathdir%/}/$(basename $target))
-		[[ -f $ret || -d $ret ]] && echo $ret
+		# local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
+		# local ret=$(echo ${abspathdir%/}/$(basename $target))
+		# [[ -f $ret || -d $ret ]] && echo $ret
+		if [[ $target =~ ^/.* ]]; then
+			printf '%s' "$target"
+		else
+			printf '%s' "$PWD/${target#./}"
+		fi
 	else
 		readlink -f $target
 	fi
