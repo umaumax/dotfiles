@@ -18,7 +18,7 @@ let g:loaded_netrwFileHandlers = 1
 let g:plug_home=$HOME."/.vim/plugged"
 
 function! Is_invalid_ext()
-	for pattern in ['tu[^.]*', 'zip', 'tar.gz', 'gz', 'jp[e]g', 'png', 'exe', 'pdf', 'pch']
+	for pattern in ['tu[^.]*', 'zip', 'tar.gz', 'gz', 'tar.bz2', 'bz2', 'jp[e]g', 'png', 'exe', 'pdf', 'pch', 'out']
 		" NOTE: e: ext
 		if expand('%:e') =~ pattern
 			" NOTE: below command quit force even if multi buffer was opening
