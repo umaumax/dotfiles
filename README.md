@@ -18,6 +18,12 @@ colorbash update_tools.sh
 git-update-dummy-alias
 ```
 
+## debug
+```
+GIT_WGET_DEBUG=1 colorbash update_tools.sh
+```
+
+
 ### vim setup
 <!-- [junegunn/vim\-plug: Minimalist Vim Plugin Manager]( https://github.com/junegunn/vim-plug ) -->
 <!--  -->
