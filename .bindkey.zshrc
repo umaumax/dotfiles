@@ -153,11 +153,26 @@ function _set_only_LBUFFER() {
 		LBUFFER="$1"
 	fi
 }
-function _insert_sudo() { _set_only_LBUFFER 'sudo '; }
+
+function _add_prefix_to_line() {
+	BUFFER="$1$BUFFER"
+	CURSOR=$((CURSOR + ${#1}))
+	# NOTE: for refresh color
+	zle backward-char
+	zle forward-char
+}
+function _change_no_history_log() {
+	_add_prefix_to_line " "
+}
+zle -N _change_no_history_log
+bindkey "^X " _change_no_history_log
+bindkey "^X^ " _change_no_history_log
+
+function _insert_sudo() { _add_prefix_to_line 'sudo '; }
 zle -N _insert_sudo
 bindkey "^S" _insert_sudo
 
-# function _insert_git() { _set_only_LBUFFER 'git '; }
+# function _insert_git() { _add_prefix_to_line 'git '; }
 # zle -N _insert_git
 # bindkey "^G" _insert_git
 
