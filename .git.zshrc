@@ -272,15 +272,18 @@ if cmdcheck tig; then
 	}
 fi
 
+alias git-find-repo='find-git-repo'
 function find-git-repo() {
 	local args=(${@})
 	[[ $# -le 0 ]] && local args=(".")
 	for dirpath in ""${args[@]}""; do
 		local dirpath=$(echo $dirpath | sed "s:^~:$HOME:g")
 		[[ ! -d $dirpath ]] && continue
-		find "$dirpath" -name '.git' | sed 's:/.git$::g'
+		# NOTE: -follow: traverse symbolic link
+		find "$dirpath" -follow -name '.git' | sed 's:/.git$::g'
 	done
 }
+alias git-find-repo-and-show-head-commit-hash-id='find-git-repo-and-show-head-commit-hash-id'
 function find-git-repo-and-show-head-commit-hash-id() {
 	find-git-repo | xargs -L 1 -IXXX bash -c "cd XXX && echo XXX && git rev-parse HEAD"
 }
@@ -324,6 +327,7 @@ function find-my-git-non-up-to-date-repo() {
 	) | find-git-non-up-to-date-repo-pipe
 }
 
+alias git-find-non-up-to-date-repo='find-git-non-up-to-date-repo'
 function find-git-non-up-to-date-repo() {
 	find-git-repo "$@" | find-git-non-up-to-date-repo-pipe
 }
