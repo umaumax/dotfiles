@@ -364,7 +364,7 @@ function pecoole() {
 				cat $filepath
 				echo ""
 			done
-		} | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""}' | peco
+		} | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' | bat -l markdown --color=always --plain --unbuffered | fzf --query="'"
 	)
 	local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
 	[[ -n $url ]] && open "$url"
