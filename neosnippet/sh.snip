@@ -1,12 +1,14 @@
-snippet     funcname
-    `cfi#get_func_name()`
+snippet funcname
+  `cfi#get_func_name()`
 
 snippet readline
-    # awk: process last line even without CR or LF
-    # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-    ${0} | awk '{print \$0; fflush();}' | while IFS= read -r LINE; do
-      ${1:printf 'LINE: %s' "$LINE"}
-    done
+  # awk: process last line even without CR or LF
+  # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+  ${0} | awk '{print \$0; fflush();}' | while IFS= read -r LINE; do
+    ${1:printf 'LINE: %s' "$LINE"}
+  done
+snippet read
+  IFS= read -r ${1:#:var}
 
 snippet ismac
   [[ $(uname) == "Darwin" ]]
@@ -21,21 +23,21 @@ snippet isdocker
 snippet istmux
   [[ -n "$TMUX" ]]
 snippet ismac_if
-    if [[ $(uname) == "Darwin" ]]; then
-        ${0}
-    fi
+  if [[ $(uname) == "Darwin" ]]; then
+    ${0}
+  fi
 snippet islinux_if
-    if [[ $(uname) == "Linux" ]]; then
-        ${0}
-    fi
+  if [[ $(uname) == "Linux" ]]; then
+    ${0}
+  fi
 snippet isubuntu_if
-    if [[ "$(uname -a)" =~ Ubuntu ]]; then
-        ${0}
-    fi
+  if [[ "$(uname -a)" =~ Ubuntu ]]; then
+    ${0}
+  fi
 snippet iswindows_if
-    if [[ "$OS" =~ Windows ]]; then
-        ${0}
-    fi
+  if [[ "$OS" =~ Windows ]]; then
+    ${0}
+  fi
 snippet isdocker_if
   if [[ -f /.dockerenv ]]; then
     ${0}
@@ -105,7 +107,7 @@ alias defvar
 
 snippet alias_enable
 abbr to enable alias at bash
-    shopt -s expand_aliases
+  shopt -s expand_aliases
 
 snippet for_array
 alias array_for
@@ -127,7 +129,7 @@ snippet for_args
   done
 
 snippet for_pwd
-  dirpath=$PWD && while true; do
+  dirpath=$PWD && while :; do
     echo $dirpath
     [[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
   done
@@ -153,13 +155,13 @@ snippet alias
   alias ${1}='${0}'
 
 snippet echoerr
-    echo 1>&2 ${0}
+  echo 1>&2 ${0}
 
 snippet array
-    "${${0:#:array name}[@]}"
+  "${${0:#:array name}[@]}"
 
 snippet array_len
-    ${#${0:#:array name}[@]}
+  ${#${0:#:array name}[@]}
 
 # [Bash/Zshで配列のn番目を取得する、を統一する]( https://rcmdnk.com/blog/2018/08/19/computer-bash-zsh/ )
 snippet array_n_func
@@ -171,11 +173,11 @@ abbr get_n 0 "${array[@]}" # bash[0~], zsh[1~]
   }
 
 snippet array_assign
-    local ${2:#:dst array name}a=("${${0:#:src array name}[@]}")
+  local ${2:#:dst array name}a=("${${0:#:src array name}[@]}")
 
 snippet append_array
 alias array_append
-    local ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
+  local ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
 
 # snippet append_array_self_new_bash
 # alias array_append_self_new_bash
@@ -183,7 +185,7 @@ alias array_append
 
 snippet append_array_self
 alias array_append_self
-    local ${1:#:dst array}=(\$$1 ${0})
+  local ${1:#:dst array}=(\$$1 ${0})
 
 snippet search_array
 alias array_search
@@ -218,19 +220,19 @@ snippet tmpdir_in_function
   [[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
 
 snippet tac
-    awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
+  awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
 
 snippet uniq
-    awk '!a[\$0]++'
+  awk '!a[\$0]++'
 
 snippet wcc
-    awk '{n+=length(\$0)} END{print n}'
+  awk '{n+=length(\$0)} END{print n}'
 
 snippet wcw
-    awk '{n+=NF} END{print n}'
+  awk '{n+=NF} END{print n}'
 
 snippet wcl
-    awk 'END{print NR}'
+  awk 'END{print NR}'
 
 snippet     getopts
 abbr        getopts
@@ -250,13 +252,13 @@ snippet lineno
 
 snippet try_catch
   function try_catch() {
-      {
-          eval "$@"
-      } ||
-      {
-          echo "${0:An error occurred}"
-          return -1
-      }
+    {
+        eval "$@"
+    } ||
+    {
+      echo "${0:An error occurred}"
+    return -1
+    }
   }
 
 snippet date-for-file
@@ -616,3 +618,8 @@ snippet stdout_to_array
 
 snippet echo_var_raw
   printf '%s' "${0}"
+
+snippet local_cmd_ret_with_exit_code
+  local ${1:#:varname}
+  $1=$(${0:#:cmds})
+  local exit_code=$?
