@@ -121,6 +121,11 @@ alias ls_for
     ${0}
   done
 
+snippet for_args
+  for arg in "$@"; do
+    ${0}
+  done
+
 snippet for_pwd
   dirpath=$PWD && while true; do
     echo $dirpath
