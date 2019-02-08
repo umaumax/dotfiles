@@ -482,6 +482,8 @@ alias w2upath='sed "s:\\\:/:g"'
 alias w2p='p|w2upath|p2c'
 
 alias relogin='exec $SHELL -l'
+alias clean-login-zsh='ZDOTDIR= zsh -l'
+alias clean-login-bash='bash --rcfile <(:)'
 
 alias trimspace='sed "s/^[ \t]*//"'
 
