@@ -14,6 +14,7 @@ git submodule update -i
 
 # after setting end
 colorbash ./link.sh
+colorbash update_tools.sh
 ```
 
 ### vim setup
