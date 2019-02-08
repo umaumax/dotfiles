@@ -984,7 +984,7 @@ if cmdcheck bat; then
 	# NOTE: * colorbash required bat more than v0.7.0 (0.9.0 ok)
 	function colorbash() {
 		[[ $# -le 0 ]] && echo "$0 [target bash file]" && return 1
-		bash -x "$@" |& awk '/^\+/{match($0, /^\++/); s=""; for(i=0;i<RLENGTH;i++) s=s"\\+"; printf "%s%s\n", s, substr($0, RLENGTH+1, length($0)-RLENGTH)} !/^\+/{print $0}' | bat -l bash
+		bash -x "$@" |& awk '/^\+/{match($0, /^\++/); s=""; for(i=0;i<RLENGTH;i++) s=s"\\+"; printf "%s%s\n", s, substr($0, RLENGTH+1, length($0)-RLENGTH)} !/^\+/{print $0} {fflush()}' | bat -l bash --paging=never --plain --unbuffered
 		local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
 		return $exit_code
 	}
