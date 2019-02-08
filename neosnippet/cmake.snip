@@ -25,6 +25,8 @@ abbr NOTE: 1st arg is not target
 
 snippet find
     find_package(${1:#:library}${0: REQUIRED})
+    include_directories(${$1_INCLUDE_DIRS})
+    target_link_libraries(${2:#:project target} ${$1_LIBS})
 
 snippet glob
     file(glob ${1:#:srcs} *.${0:cpp})
