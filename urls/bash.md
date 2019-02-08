@@ -6,3 +6,6 @@ bash pitfalls
 
 bash google coding style guide
 [Shell Style Guide]( https://google.github.io/styleguide/shell.xml?showone=Use_Local_Variables#Use_Local_Variables )
+
+bash best practices
+[polohb/bash\-best\-practices: Just simple methods to keep the code clean]( https://github.com/polohb/bash-best-practices )
