@@ -89,6 +89,9 @@ bind stage   n      :/^@@
 bind stage   p      :?^@@
 bind stage   <Esc>n :/^diff --(git|cc)
 bind stage   <Esc>p :?^diff --(git|cc)
+# NOTE: easy for switching status view
+bind stage   C      view-close
+bind stage   A      view-close
 bind pager   n      :/^@@
 bind pager   p      :?^@@
 bind pager   <Esc>n :/^diff --(git|cc)
