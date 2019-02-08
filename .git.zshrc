@@ -20,7 +20,10 @@ function git-update-dummy-alias() {
 #
 [alias]
 EOF
-	functions-list | grep '^git-' | sed -E 's/^git-(.*)$/'"$(printf '\t')"'\1 = :/g' >>~/dotfiles/.dummy_alias.gitconfig
+	{
+		alias | grep '^git-' | sed -E 's/^(git-[^=]*)=.*$/\1/g'
+		functions-list | grep '^git-'
+	} | sort | uniq | sed -E 's/^git-(.*)$/'"$(printf '\t')"'\1 = :/g' >>~/dotfiles/.dummy_alias.gitconfig
 }
 
 alias gm='git mergetool'
