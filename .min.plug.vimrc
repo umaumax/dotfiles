@@ -14,6 +14,19 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 let python3_path = substitute(system('which python3'),"\n","","")
 let g:deoplete#sources#jedi#python_path = python3_path
 
+" NOTE: pylsのlinterの結果がソースコード上に表示されるのは仕様?
+" ただし，その結果がredrawしないと消えないのは他の設定の影響?
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
+" Required: 'autozimu/LanguageClient-neovim'
+" python: auopep8 linter -> ale
+let g:LanguageClient_serverCommands = {
+      \ 'vue': ['vls'],
+      \ 'python': ['pyls'],
+      \ }
+
 if has('nvim')
   " if error occurs, do :UpdateRemotePlugins
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
