@@ -53,7 +53,7 @@ alias cmdparse_example
 	parser.add_argument('-o', '--output-filepath', default='')
 	parser.add_argument('-v', '--verbose', default=True, type=bool)
 	parser.add_argument('required-arg')
-    parser.add_argument('args', nargs='*') # any length of args is ok
+	parser.add_argument('args', nargs='*') # any length of args is ok
 
 	args, extra_args = parser.parse_known_args()
 	# args.output_filepath
@@ -353,3 +353,10 @@ snippet get_parent_pathes
 
 snippet any_in_list
 	any(${1:#:target} in x for x in ${2:#:list})${0}
+
+snippet dict_merge_itself
+alias merge_dict_itself
+	${1:#:target}.update(${2:#:data})
+snippet dict_merge_new
+alias merge_dict_new
+	dict(${1:#:a}, **${2:#:b})
