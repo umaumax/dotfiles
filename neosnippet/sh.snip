@@ -134,6 +134,11 @@ snippet for_pwd
     [[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
   done
 
+snippet for_i
+  for ((i=${1:1}; i < ${2}; i++)); do
+    ${0}
+  done
+
 snippet arg_check_exit
 alias argcheck_exit
   [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && exit 1
