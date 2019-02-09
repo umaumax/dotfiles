@@ -1079,10 +1079,6 @@ function shell_string_escape() {
 	printf %q "$(cat)"
 }
 
-function remove_terminal_extra_string_from_clipboard() {
-	p | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | p2c
-}
-
 if [[ -z $DISPLAY ]]; then
 	function c() {
 		mkdir -p ~/tmp
@@ -1112,8 +1108,8 @@ else
 fi
 # NOTE: for p | sed xxx | c
 function p2c() {
-	local tmp=$(cat)
-	echo "$tmp" | c
+	local tmp=$(command cat)
+	printf '%s' "$tmp" | c
 }
 # NOTE: alias p -> function p
 alias "p" >/dev/null 2>&1 && unalias "p"
@@ -1122,6 +1118,10 @@ function remove_clipboard_format() {
 	local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
 	p >"$tmpfile" && command cat "$tmpfile" | c
 	[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+}
+
+function remove_terminal_extra_string_from_clipboard() {
+	p | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | p2c
 }
 
 # aliasでは引数がうまく取れないので、関数化
