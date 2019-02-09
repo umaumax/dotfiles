@@ -2,22 +2,22 @@
 ! cmdcheck peco && return
 
 if [[ $(uname) == "Linux" ]]; then
-	# [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
+	# FYI: [Sample Usage · peco/peco Wiki]( https://github.com/peco/peco/wiki/Sample-Usage#peco--apt )
 	function peco-apt() {
-		if [ -z "$1" ]; then
+		if [[ -z "$1" ]]; then
 			echo "Usage: peco-apt <initial search string> - select packages on peco and they will be installed"
-		else
-			sudo apt-cache search $1 | peco | awk '{ print $1 }' | tr "\n" " " | xargs -- sudo apt-get install
+			return 1
 		fi
+		sudoenable || return 1
+		sudo apt-cache search $1 | peco | awk '{ print $1 }' | tr "\n" " " | xargs -- sudo apt-get install
 	}
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
-	# [Find the Wi\-Fi Network Password from Windows, Mac or Linux]( https://www.labnol.org/software/find-wi-fi-network-password/28949/ )
+	# FYI: [Find the Wi\-Fi Network Password from Windows, Mac or Linux]( https://www.labnol.org/software/find-wi-fi-network-password/28949/ )
 	function show-Wi-Fi-password() {
 		local SSID=$(networksetup -listpreferredwirelessnetworks $(networksetup -listallhardwareports | grep -A1 Wi-Fi | sed -n 2,2p | sed 's/Device: //g') | peco | sed "s/^[ \t]*//")
-		echo $SSID
-		[[ -n $SSID ]] && security -i find-generic-password -wa "$SSID"
+		[[ -n $SSID ]] && echo $SSID && security -i find-generic-password -wa "$SSID"
 	}
 fi
 
@@ -132,7 +132,12 @@ alias cmdpeco='{ alias; functions-list; } | peco'
 alias pe='peco'
 function hpeco() {
 	local HPECO_NUM=${HPECO_NUM:-1}
-	builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1
+	local ret=$(builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1)
+	if [[ ! -o zle ]]; then
+		printf '%s' "$ret"
+	else
+		print -z "$ret"
+	fi
 }
 function hpecopy() {
 	hpeco | tr -d '\n' | c
@@ -454,14 +459,21 @@ if cmdcheck fzf; then
 		: | fzf --ansi --multi --preview '[[ -n {q} ]] && { pgrep -l {q}; echo "----"; pgrep -alf {q}; }' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
 	}
 	# interactive tree
+	alias pecotree='itree'
+	alias treepeco='itree'
 	function itree() {
 		seq 1 100 | fzf --ansi --multi --preview 'tree -L {}'
 	}
+	alias lsofpeco='ilsof'
+	alias pecolsof='ilsof'
 	function ilsof() {
 		seq 0 65536 | fzf --ansi --multi --preview 'lsof -i :{}'
 	}
+	alias lsofsudopeco='isudolsof'
+	alias pecosudolsof='isudolsof'
 	function isudolsof() {
-		sudo echo >/dev/null 2>&1 && seq 0 65536 | fzf --ansi --multi --preview 'sudo lsof -i :{}'
+		sudoenable || return 1
+		seq 0 65536 | fzf --ansi --multi --preview 'sudo lsof -i :{}'
 	}
 	# e.g. printf-check float 1234.5678
 	function printf-check() {
@@ -532,5 +544,30 @@ if cmdcheck fzf; then
 		done | fzf)
 		local base_url='http://docs.w3cub.com'
 		[[ -n $ret ]] && open "$base_url/$ret"
+	}
+	alias pecols='lspeco'
+	function lspeco() {
+		local ls_force_color='ls --color=always'
+		[[ $(uname) == "Darwin" ]] && ls_force_color='CLICOLOR_FORCE=1 ls -G'
+		eval $ls_force_color | pecocat
+	}
+	if cmdcheck gomi; then
+		alias pecogomi='gomipeco'
+		function gomipeco() {
+			for target in $(lspeco); do
+				gomi "$target"
+			done
+		}
+	fi
+	alias pecorm='rmpeco'
+	function rmpeco() {
+		local ret=$(
+			{
+				for target in $(lspeco); do
+					printf '%q ' "$target"
+				done
+			}
+		)
+		[[ -n $ret ]] && print -z ' rm -rf '"$ret"
 	}
 fi
