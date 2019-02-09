@@ -7,8 +7,11 @@
 	branch-current  = :
 	branch-new-to-old  = :
 	branch-old-to-new  = :
+	branch-peco  = :
 	check-up-to-date  = :
 	checkout-branch-peco  = :
+	checkout-commit-peco  = :
+	checkout-tag-peco  = :
 	cherry-pick-peco  = :
 	cherry-pick-peco-range  = :
 	comments  = :
@@ -59,4 +62,5 @@
 	status-tabvim = :
 	submodule-move  = :
 	submodule-remove  = :
+	tag-peco  = :
 	update-dummy-alias  = :
