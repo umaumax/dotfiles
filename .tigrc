@@ -54,6 +54,7 @@ bind generic A ?>git commit --amend --allow-empty
 bind status D ?@rm -f %(file)
 # NOTE: default is !git commit
 bind status C !>git commit
+bind status i Enter
 
 bind generic R refresh
 
