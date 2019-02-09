@@ -266,7 +266,8 @@
 
 # line filter
 [sed add header] sed '1i@'
-[sed line filter] sed -n @,p # index starts with 1
+[sed line filter] sed -n $START@,${END}p # index starts with 1
+[sed line filter] sed -n @P # only line (index starts with 1)
 [sed (before) <= some line] sed -n '1,/@/p'
 [sed (after)  >= some line] sed -n '/@/,$p'
 [sed remove BOM UTF-8] sed "s|\xef\xbb\xbf||g"
