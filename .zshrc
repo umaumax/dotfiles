@@ -178,6 +178,9 @@ alias oldls='lsold'
 alias new='lsnew'
 alias old='lsold'
 
+alias 2l='tree -L 2'
+alias l2='tree -L 2'
+
 # NOTE: ls abspath
 # -d: only directory
 # -f: only file
