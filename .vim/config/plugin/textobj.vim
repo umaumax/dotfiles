@@ -57,9 +57,6 @@ augroup textobj
 	" space
 	autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
 	autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
-	" code block
-	" autocmd VimEnter * omap <expr> is textobj#from_regexp#mapexpr('```.\+```')
-	" autocmd VimEnter * xmap <expr> is textobj#from_regexp#mapexpr('```.\+```')
 	autocmd VimEnter * call s:init_textobj()
 augroup END
 
@@ -69,6 +66,7 @@ augroup END
 " 'ih' my command
 " 'id' my command
 " ic, ac: 'pocke/vim-textobj-markdown'
+LazyPlug 'terryma/vim-expand-region'
 vmap j <Plug>(expand_region_expand)
 vmap k <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {
@@ -117,5 +115,5 @@ function! s:expand_visual_range(n)
 		execute "normal! gv\<Left>o\<Right>o"
 	endif
 endfunction
-vnoremap J :<C-u>call <SID>expand_visual_range(1)<CR>
-vnoremap K :<C-u>call <SID>expand_visual_range(-1)<CR>
+vnoremap <silent> J :<C-u>call <SID>expand_visual_range(1)<CR>
+vnoremap <silent> K :<C-u>call <SID>expand_visual_range(-1)<CR>
