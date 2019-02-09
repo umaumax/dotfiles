@@ -72,6 +72,7 @@ function cat_PROMPT_2_text() {
 }
 
 _auto_show_prompt_pre_keyword=''
+AUTO_PROMPT_LIST_MAX=10
 function _auto_show_prompt() {
 	if cmdcheck cgrep && cmdcheck fixedgrep; then
 		# NOTE: 最大n個分の引数の履歴
@@ -79,13 +80,17 @@ function _auto_show_prompt() {
 		# local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
 		local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
 		if [[ $_auto_show_prompt_pre_keyword != $keyword ]] && [[ -n $keyword ]]; then
-			{
-				echo -e "${GRAY}[history]${DEFUALT}"
-				# NOTE: grep is to late, ag is faster than grep
-				builtin history -nr 1 | fixedgrep -prefix="$keyword" -max=8 2>/dev/null | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
-			} | cat_PROMPT_2_text
+			export _AUTO_PROMPT_LIST=$(builtin history -nr 1 | fixedgrep -prefix="$keyword" -max=$AUTO_PROMPT_LIST_MAX 2>/dev/null)
+			export _AUTO_PROMPT_LIST_WITH_COLOR=$(
+				{
+					echo -e "${GRAY}[history]${DEFUALT}"
+					# NOTE: grep is to late, ag is faster than grep
+					printf '%s' $_AUTO_PROMPT_LIST | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
+				}
+			)
 			_auto_show_prompt_pre_keyword=$keyword
 		fi
+		printf '%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" | cat_PROMPT_2_text
 	fi
 
 	# NOTE: choose one from below
@@ -154,12 +159,15 @@ function _set_only_LBUFFER() {
 	fi
 }
 
+function _zle_refresh_cmd_color() {
+	zle backward-char
+	zle forward-char
+}
+
 function _add_prefix_to_line() {
 	BUFFER="$1$BUFFER"
 	CURSOR=$((CURSOR + ${#1}))
-	# NOTE: for refresh color
-	zle backward-char
-	zle forward-char
+	_zle_refresh_cmd_color
 }
 function _change_no_history_log() {
 	_add_prefix_to_line " "
@@ -246,16 +254,29 @@ function _goto_line_n() {
 	CURSOR=$((CURSOR / 11 * n))
 	zle -R -c # refresh
 }
-zle -N _goto_line_1 && bindkey '^X1' _goto_line_1 && function _goto_line_1() { _goto_line_n 1; }
-zle -N _goto_line_2 && bindkey '^X2' _goto_line_2 && function _goto_line_2() { _goto_line_n 2; }
-zle -N _goto_line_3 && bindkey '^X3' _goto_line_3 && function _goto_line_3() { _goto_line_n 3; }
-zle -N _goto_line_4 && bindkey '^X4' _goto_line_4 && function _goto_line_4() { _goto_line_n 4; }
-zle -N _goto_line_5 && bindkey '^X5' _goto_line_5 && function _goto_line_5() { _goto_line_n 5; }
-zle -N _goto_line_6 && bindkey '^X6' _goto_line_6 && function _goto_line_6() { _goto_line_n 6; }
-zle -N _goto_line_7 && bindkey '^X7' _goto_line_7 && function _goto_line_7() { _goto_line_n 7; }
-zle -N _goto_line_8 && bindkey '^X8' _goto_line_8 && function _goto_line_8() { _goto_line_n 8; }
-zle -N _goto_line_9 && bindkey '^X9' _goto_line_9 && function _goto_line_9() { _goto_line_n 9; }
-zle -N _goto_line_0 && bindkey '^X0' _goto_line_0 && function _goto_line_0() { _goto_line_n 10; }
+for ((i = 1; i <= 10; i++)); do
+	zle -N _goto_line_$i
+	bindkey '^X'"$(($i % 10))" _goto_line_$i
+	eval "function _goto_line_$i() { _goto_line_n $i; }"
+done
+
+function _select_prompt_list_n() {
+	local n=${1:-1}
+	local cmd=$(printf '%s' "$_AUTO_PROMPT_LIST" | sed -n "${n}P")
+	if [[ -n $cmd ]]; then
+		# NOTE: to avoid show unnecessary completion
+		zle kill-buffer
+		BUFFER="${cmd} "
+		CURSOR=$#BUFFER
+		zle -R -c # refresh
+		_zle_refresh_cmd_color
+	fi
+}
+for ((i = 1; i <= 10; i++)); do
+	zle -N _select_prompt_list_$i
+	bindkey '^X'"$(($i % 10))" _select_prompt_list_$i
+	eval "function _select_prompt_list_$i() { _select_prompt_list_n $i; }"
+done
 
 # [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
 # quote previous word in single or double quote
