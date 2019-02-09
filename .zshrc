@@ -695,7 +695,7 @@ if cmdcheck tmux; then
 		local tag_id=$(echo $output | peco | cut -d : -f 1)
 		[[ -n $tag_id ]] && tmux a -t $tag_id
 	}
-	# [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
+	# FYI: [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
 	function tmux-rename-session() {
 		if [ $# -lt 1 ]; then
 			git status >/dev/null 2>&1
@@ -2145,6 +2145,11 @@ bindkey -v
 # FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
 if [[ $ZSH_NAME == zsh ]]; then
 	cd .
+	if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
+		local tmux_ls
+		tmux_ls=$(tmux ls 2>/dev/null)
+		[[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
+	fi
 fi
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
 # ---- don't add code here by your hand
