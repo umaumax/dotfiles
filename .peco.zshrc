@@ -260,7 +260,7 @@ alias sd='peco-cd'
 function git-branch-peco() {
 	local options=(refs/heads/ refs/remotes/ refs/tags/)
 	[[ $# -gt 0 ]] && options=("$@")
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative)%(taggerdate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
 		fzf --reverse --ansi --multi --preview 'git log --oneline --decorate --graph --branches --tags --remotes --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' |
 		awk '{print $1}')
 	printf '%s' "$branch"
