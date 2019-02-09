@@ -203,6 +203,7 @@ alias gstp='git log HEAD...HEAD~ --stat'
 
 alias glog='git log'
 alias gstlog='git log --stat'
+alias gstlogp='git log --stat -p'
 alias glst='git log --stat'
 alias glogst='git log --stat'
 alias glogstat='git log --stat'
