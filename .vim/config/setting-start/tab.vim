@@ -1,3 +1,14 @@
+function! s:nosmartindent_tab()
+	" NOTE: for enable indent comment line (which stars with top of # (e.g. python file))
+	if &smartindent == 1
+		setlocal nosmartindent
+		execute "normal! >>"
+		setlocal smartindent
+	else
+		execute "normal! >>"
+	endif
+endfunction
+
 function! s:Tab()
 	if pumvisible()
 		return "\<C-n>"
@@ -28,7 +39,7 @@ function! s:Tab()
 		return ''
 	endif
 
-	execute "normal! >>"
+	call s:nosmartindent_tab()
 	" NOTE: for empty line
 	if getline('.')==''
 		call setline(line('.'), &expandtab?repeat(' ', &shiftwidth):"\t")
@@ -97,7 +108,8 @@ function! s:count_tab()
 			endif
 			let left_move_n+=1
 		endfor
-		execute "normal! >>"
+
+		call s:nosmartindent_tab()
 		let left_move_n=left_move_n>0?left_move_n:1
 		execute "normal! ".repeat("\<Right>",left_move_n)
 	else
@@ -105,7 +117,7 @@ function! s:count_tab()
 			if i>0
 				execute "normal! \<Down>"
 			endif
-			execute "normal! >>"
+			call s:nosmartindent_tab()
 		endfor
 	endif
 endfunction
@@ -137,7 +149,9 @@ function! s:untab()
 	if col('.')>=col('$')-&shiftwidth
 		let left_move_n=col('$')-col('.')-(&shiftwidth-1)
 	endif
-	execute "normal! <<".repeat("\<Left>",left_move_n)
+	call cursor('.', col('.')-left_move_n)
+	execute "normal! <<"
+	" execute "normal! ".repeat("\<Left>",left_move_n)
 	" 	execute "normal! ".repeat("\<Left>",(&expandtab?1:&shiftwidth))."<<"
 	" 	(col('.')-1>=(&expandtab?1:&shiftwidth))?&shiftwidth:1)
 endfunction
