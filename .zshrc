@@ -136,6 +136,10 @@ if [[ $ZSH_NAME == zsh ]]; then
 	}
 fi
 
+function sudoenable() {
+	sudo -n true >/dev/null 2>&1 || sudo true
+}
+
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
 [[ -e ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
@@ -470,6 +474,10 @@ function pipe-EOF-do() {
 }
 
 function sudowait() {
+	if sudoenable; then
+		command cat
+		return 0
+	fi
 	local v=$(cat)
 	printf "%s" $v | ${@}
 }
