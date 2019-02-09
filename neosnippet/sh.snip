@@ -628,3 +628,8 @@ snippet local_cmd_ret_with_exit_code
   local ${1:#:varname}
   $1=$(${0:#:cmds})
   local exit_code=$?
+
+snippet sudoenable
+  sudo -n true >/dev/null 2>&1 || sudo true
+snippet sudoable
+  sudo -n true >/dev/null 2>&1

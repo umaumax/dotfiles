@@ -1,1 +1,8 @@
-sh.snip
+include sh.snip
+
+snippet is_zle
+  [[ ! -o zle ]] && ${0}
+snippet is_zle_if
+  if [[ ! -o zle ]]; then
+    ${0}
+  fi
