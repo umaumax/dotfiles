@@ -12,6 +12,19 @@ LazyPlug 'sgur/vim-textobj-parameter'
 " i2,
 " let g:vim_textobj_parameter_mapping = ','
 
+LazyPlug 'pocke/vim-textobj-markdown'
+" ic, ac
+
+function! s:init_textobj()
+	call textobj#user#plugin('php', {
+				\   'code': {
+				\     'pattern': ['<?php\>', '?>'],
+				\     'select-a': 'aP',
+				\     'select-i': 'iP',
+				\   },
+				\ })
+endfunction
+
 LazyPlug 'osyo-manga/vim-textobj-from_regexp'
 augroup textobj
 	autocmd!
@@ -25,8 +38,8 @@ augroup textobj
 	autocmd VimEnter * omap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
 	autocmd VimEnter * xmap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
 	" comma
-	autocmd VimEnter * omap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
-	autocmd VimEnter * xmap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+	" autocmd VimEnter * omap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+	" autocmd VimEnter * xmap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
 	" file path
 	autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
 	autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
@@ -44,6 +57,10 @@ augroup textobj
 	" space
 	autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
 	autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
+	" code block
+	" autocmd VimEnter * omap <expr> is textobj#from_regexp#mapexpr('```.\+```')
+	" autocmd VimEnter * xmap <expr> is textobj#from_regexp#mapexpr('```.\+```')
+	autocmd VimEnter * call s:init_textobj()
 augroup END
 
 " [Vimメモ : vim\-expand\-regionでビジュアルモードの選択領域を拡大／縮小 \- もた日記]( https://wonderwall.hatenablog.com/entry/2016/03/31/231621 )
@@ -51,7 +68,7 @@ augroup END
 " ie: 'kana/vim-textobj-entire'
 " 'ih' my command
 " 'id' my command
-LazyPlug 'terryma/vim-expand-region'
+" ic, ac: 'pocke/vim-textobj-markdown'
 vmap j <Plug>(expand_region_expand)
 vmap k <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {
@@ -67,6 +84,8 @@ let g:expand_region_text_objects = {
 			\ 'a''' :0,
 			\ 'i`'  :0,
 			\ 'a`'  :0,
+			\ 'ic'  :0,
+			\ 'ac'  :0,
 			\ 'i]'  :1,
 			\ 'a]'  :1,
 			\ 'ib'  :1,
