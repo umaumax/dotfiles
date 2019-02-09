@@ -257,11 +257,24 @@ function peco-cd() {
 }
 alias sd='peco-cd'
 
-function git-checkout-branch-peco() {
-	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate refs/heads/ refs/remotes/ refs/tags/ | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
+function git-branch-peco() {
+	local options=(refs/heads/ refs/remotes/ refs/tags/)
+	[[ $# -gt 0 ]] && options=("$@")
+	local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
 		fzf --reverse --ansi --multi --preview 'git log --oneline --decorate --graph --branches --tags --remotes --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' |
 		awk '{print $1}')
+	printf '%s' "$branch"
+}
+function git-checkout-branch-peco() {
+	local branch=$(git-branch-peco)
 	[[ -n $branch ]] && git checkout $branch
+}
+function git-tag-peco() {
+	git-branch-peco "refs/tags/"
+}
+function git-checkout-tag-peco() {
+	local tag=$(git-tag-peco)
+	[[ -n $tag ]] && git checkout $tag
 }
 
 function git-log-peco() {
@@ -309,6 +322,11 @@ function git-cherry-pick-peco-range() {
 	read -q || return 1
 
 	git cherry-pick $commits_range
+}
+function git-checkout-commit-peco() {
+	local commit=$(_git-commit-peco)
+	[[ -z $commit ]] && return 1
+	git checkout "$commit"
 }
 
 function git-rename-to-backup-branch-peco() {
