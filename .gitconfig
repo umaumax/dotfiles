@@ -65,7 +65,7 @@
   grep-reg = grep -E
 
   repo-init = init-repo
-  init-repo = !git init && git commit --allow-empty -m 'first commit'
+  init-repo = ! ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && git init && git commit --allow-empty -m 'first commit'
 
   l = log
   log-with-note = log --pretty=format:'%C(yellow)[%ad] %C(green)%h %Creset: %s %C(red)%D%Creset - %N' --date=iso --show-notes
