@@ -1776,9 +1776,12 @@ function c() {
 	if [[ $# == 0 ]]; then
 		_c
 	else
-		cat $1 | _c
+		command cat $1 | _c
 	fi
 }
+
+# NOTE: one line copy
+alias oc='perl -pe "chomp if eof" | tr '"'"'\n'"'"' " " | c'
 
 # global aliases
 alias -g PV="| pecovim"
