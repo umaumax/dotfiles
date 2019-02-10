@@ -567,3 +567,7 @@ function git-remove-submodule() {
 	local submodule_path=$1
 	git submodule deinit -f $submodule_path && git rm -f $submodule_path
 }
+
+function git-logs-HEAD() {
+	cat "$(git rev-parse --show-toplevel)/.git/logs/HEAD"
+}
