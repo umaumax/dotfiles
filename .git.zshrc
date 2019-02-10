@@ -275,12 +275,12 @@ fi
 alias git-find-repo='find-git-repo'
 function find-git-repo() {
 	local args=(${@})
-	[[ $# -le 0 ]] && local args=(".")
-	for dirpath in ""${args[@]}""; do
-		local dirpath=$(echo $dirpath | sed "s:^~:$HOME:g")
+	[[ $# -le 0 ]] && args=(".")
+	for dirpath in "${args[@]}"; do
+		local dirpath=$(printf '%s' "$dirpath" | sed "s:^~:$HOME:g")
 		[[ ! -d $dirpath ]] && continue
 		# NOTE: -follow: traverse symbolic link
-		find "$dirpath" -follow -name '.git' | sed 's:/.git$::g'
+		find "$dirpath" -follow -type d -name '.git' | sed 's:/\.git$::'
 	done
 }
 alias git-find-repo-and-show-head-commit-hash-id='find-git-repo-and-show-head-commit-hash-id'
