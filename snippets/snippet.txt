@@ -476,6 +476,9 @@
 [proxy npm] sudo -E npm install -g @
 [proxy pip] sudo -E pip install @
 
+# npm
+[npm list package version] npm list -g --depth=0
+
 # dns
 [dns Google Public DNS] 8.8.8.8
 [dns Google Public DNS] 8.8.4.4
