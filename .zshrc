@@ -1702,14 +1702,9 @@ REPORTTIME=10
 ## preztoや他のライブラリとの兼ね合いで効かなくなるので注意(次のzsh command hookで対応)
 #unsetopt promptcr
 
-# [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
-# function precmd_function() {
-# 	local cmd="$history[$((HISTCMD - 1))]"
-# }
-# cmdcheck precmd_function && autoload -Uz add-zsh-hook && add-zsh-hook precmdprecmd_function
-
+# FYI: [シェルでコマンドの実行前後をフックする - Hibariya]( http://note.hibariya.org/articles/20170219/shell-postexec.html )
 _pre_cmd=''
-function zshaddhistory_function() {
+function zshaddhistory_hook() {
 	local cmd=${1%%$'\n'}
 	if [[ $(uname) == "Linux" ]]; then
 		# NOTE: macのiTermでは必要ない
@@ -1738,7 +1733,13 @@ function zshaddhistory_function() {
 		PS1="$_PS1"
 	fi
 }
-cmdcheck zshaddhistory_function && autoload -Uz add-zsh-hook && add-zsh-hook zshaddhistory zshaddhistory_function
+function precmd_hook() {
+	cmdcheck cmdstack && cmdcheck cmdstack_len && [[ $(cmdstack_len) != 0 ]] && cmdstack
+	# local cmd="$history[$((HISTCMD - 1))]"
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook zshaddhistory zshaddhistory_hook
+add-zsh-hook precmd precmd_hook
 
 function detail_history() {
 	cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'

@@ -29,6 +29,29 @@ bindkey -M vicmd ' ' vi-easy-motion
 
 #--------------------------------
 
+function _set_buffer() {
+	local cmd=${1:-}
+	# NOTE: to avoid show unnecessary completion
+	zle kill-buffer
+	zle reset-prompt
+	BUFFER="${cmd}"
+	CURSOR=$#BUFFER
+	zle -R -c # refresh
+	_zle_refresh_cmd_color
+}
+function _set_only_LBUFFER() {
+	if [[ -z "$BUFFER" ]]; then
+		LBUFFER="$1"
+	fi
+}
+
+#--------------------------------
+
+# ----
+# ----
+# ----
+# ----
+
 function gen_PROMPT_2_text() {
 	local PROMPT_texts=("$@")
 	local n=${#PROMPT_texts[@]}
@@ -71,38 +94,142 @@ function cat_PROMPT_2_text() {
 	show_PROMPT_2_text_by_array "${PROMPT_text[@]}"
 }
 
-_auto_show_prompt_pre_keyword=''
-AUTO_PROMPT_LIST_MAX=10
-function _auto_show_prompt() {
-	if cmdcheck cgrep && cmdcheck fixedgrep; then
-		# NOTE: 最大n個分の引数の履歴
-		# local arg_max=4
-		# local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
-		local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
-		if [[ $_auto_show_prompt_pre_keyword != $keyword ]] && [[ -n $keyword ]]; then
-			export _AUTO_PROMPT_LIST=$(builtin history -nr 1 | fixedgrep -prefix="$keyword" -max=$AUTO_PROMPT_LIST_MAX 2>/dev/null)
-			export _AUTO_PROMPT_LIST_WITH_COLOR=$(
-				{
-					echo -e "${GRAY}[history]${DEFUALT}"
-					# NOTE: grep is to late, ag is faster than grep
-					printf '%s' $_AUTO_PROMPT_LIST | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
-				}
-			)
-			_auto_show_prompt_pre_keyword=$keyword
-		fi
-		printf '%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" | cat_PROMPT_2_text
-	fi
+if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep; then
+	# NOTE: for 0~9 key
+	AUTO_PROMPT_LIST_MAX=10
+	_AUTO_PROMPT_LIST_RAW_CMD=()
+	function _AUTO_PROMPT_LIST_SETUP() {
+		local keyword=$1
+		local output=$(builtin history -r 1 | fixedgrep -max=$AUTO_PROMPT_LIST_MAX "$keyword" 2>/dev/null)
+		_AUTO_PROMPT_LIST_RAW_CMD=()
+		for hist_no in $(printf '%s' "$output" | grep -o '^[0-9]*'); do
+			_AUTO_PROMPT_LIST_RAW_CMD=($_AUTO_PROMPT_LIST_RAW_CMD "${history[$hist_no]}")
+		done
+		export _AUTO_PROMPT_LIST_WITH_COLOR=$(
+			{
+				echo -e "${GRAY}[history]${DEFUALT}"
+				# NOTE: grep is to late, ag is faster than grep
+				printf '%s' "$output" | sed -E 's/^[0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
+			}
+		)
+	}
 
-	# NOTE: choose one from below
-	# LBUFFER+=' '
-	zle __abbrev_alias::magic_abbrev_expand
-}
-bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
+	_auto_show_prompt_pre_keyword=''
+	function _auto_show_prompt() {
+		if cmdcheck cgrep && cmdcheck fixedgrep; then
+			# NOTE: 最大n個分の引数の履歴
+			# local arg_max=4
+			# local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
+			local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
+			if [[ $_auto_show_prompt_pre_keyword != $keyword ]] && [[ -n $keyword ]]; then
+				_AUTO_PROMPT_LIST_SETUP "$keyword"
+				_auto_show_prompt_pre_keyword=$keyword
+			fi
+			printf '%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" "$p_buffer_stack" | cat_PROMPT_2_text
+		fi
+
+		# NOTE: choose one from below
+		# LBUFFER+=' '
+		zle __abbrev_alias::magic_abbrev_expand
+	}
+	bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
+
+	# ----
+
+	ORIG_CMD_STACK=()
+	function cmdstack() {
+		if [[ $# == 1 ]]; then
+			local n=$1
+			[[ $n == 0 ]] && echo 1>&2 'REQUIRED: 1,2,3...' && return 1
+			if [[ $n -le ${#ORIG_CMD_STACK[@]} ]]; then
+				if [[ ! -o zle ]]; then
+					printf '%s' "${ORIG_CMD_STACK[$n]}"
+				else
+					print -z "${ORIG_CMD_STACK[$n]}"
+				fi
+			else
+				cmdstack
+				return 1
+			fi
+			return
+		fi
+		local CAT='cat'
+		cmdcheck bat && CAT="bat --color=always -l=bash --plain"
+		{
+			echo "# [cmdstack]"
+			local i=1
+			for CMD in "${ORIG_CMD_STACK[@]}"; do
+				printf '[%s]| %s\n' "$i" "$CMD"
+				((i++))
+			done
+		} | eval $CAT | perl -pe "chomp if eof"
+	}
+	# NOTE: number is how many stack not stack number
+	function cmdstack_delete() {
+		local n=${1:-1}
+		[[ $n -le 0 ]] && return 1
+		[[ $n -gt ${#ORIG_CMD_STACK} ]] && return 1
+		# FYI: [shell \- Remove entry from array \- Stack Overflow]( https://stackoverflow.com/questions/3435355/remove-entry-from-array )
+		# NOTE: this eval precent shfmt parse error
+		eval 'ORIG_CMD_STACK=("${(@)ORIG_CMD_STACK[1,$n-1]}" "${(@)ORIG_CMD_STACK[$n+1,$#ORIG_CMD_STACK]}")'
+	}
+	function cmdstack_shift() {
+		local n=${1:-1}
+		shift $n ORIG_CMD_STACK
+	}
+	function cmdstack_len() {
+		echo "${#ORIG_CMD_STACK[@]}"
+	}
+	function _orig_command_push() {
+		local CURRENT_CMD=$(printf "%s" "$BUFFER" | perl -pe "chomp if eof")
+		[[ -n $CURRENT_CMD ]] && ORIG_CMD_STACK=("$CURRENT_CMD" "${ORIG_CMD_STACK[@]}")
+		zle kill-buffer
+		zle -R -c # refresh
+		echo ''
+		cmdstack
+		zle reset-prompt
+	}
+	zle -N _orig_command_push
+	bindkey '^P' _orig_command_push
+
+	function _pecocmdstack() {
+		cmdstack | sed -n '2,$p' | sed -e '$d' | fzf --height '20%' | grep -o '^\[[0-9]\]*' | sed 's/\[\|\]//g'
+	}
+	alias pecocmdstack='pecocmdstack_pop'
+	function pecocmdstack_apply() {
+		local ret=$(_pecocmdstack)
+		[[ -z $ret ]] && return 1
+		cmdstack $ret
+	}
+	function pecocmdstack_pop() {
+		local ret=$(_pecocmdstack)
+		[[ -z $ret ]] && return 1
+		cmdstack $ret
+		cmdstack_delete $ret
+	}
+	function _pecocmdstack_pop() {
+		# NOTE: if you call function inner $(), [[ ! -o zle ]] works well
+		local ret="$(_pecocmdstack)"
+		if [[ -z $ret ]]; then
+			_set_buffer ""
+			return 1
+		fi
+		_set_buffer "$(cmdstack $ret)"
+		cmdstack_delete $ret
+	}
+	zle -N _pecocmdstack_pop
+	bindkey '^X^P' _pecocmdstack_pop
+fi
+
+# ----
+# ----
+# ----
+# ----
 
 # NOTE: for test only
 function _bindkey_test() {
 }
-bindkey '^P' _bindkey_test && zle -N _bindkey_test
+bindkey '^O' _bindkey_test && zle -N _bindkey_test
 
 function _vicmd_insert_strs() {
 	CURSOR=$((CURSOR + 1))
@@ -126,7 +253,7 @@ function _insert_strs() {
 bindkey '"' _double_quotes && zle -N _double_quotes && function _double_quotes() { _insert_strs '""' 1; }
 bindkey "'" _single_quotes && zle -N _single_quotes && function _single_quotes() { _insert_strs "''" 1; }
 bindkey "\`" _exec_quotes && zle -N _exec_quotes && function _exec_quotes() { _insert_strs '``' 1; }
-bindkey "^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes() { _insert_strs '$()' 2; }
+bindkey "^X^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes() { _insert_strs '$()' 2; }
 bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; }
 bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
 bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
@@ -152,12 +279,6 @@ bindkey '^X^E' kill-line
 bindkey '^X^F' edit-command-line
 # L:line
 bindkey '^X^L' edit-command-line
-
-function _set_only_LBUFFER() {
-	if [[ -z "$BUFFER" ]]; then
-		LBUFFER="$1"
-	fi
-}
 
 function _zle_refresh_cmd_color() {
 	zle backward-char
@@ -195,7 +316,6 @@ bindkey "^X^R" fzf-history-widget
 
 function _pecoole() { pecoole; }
 zle -N _pecoole
-bindkey "^X^P" _pecoole
 bindkey "^X^G" _pecoole
 
 function _cedit() { cedit; }
@@ -220,15 +340,23 @@ bindkey "^X^O" _cedit
 # bindkey "^X^R" _no_history_rm
 
 function _copy_command() {
-	# NOTE: don't use echo (because e.g. \\ -> \ )
-	printf '%s' "$BUFFER" | tr -d '\n' | c
-	zle kill-whole-line
+	printf '%s' "$BUFFER" | perl -pe "chomp if eof" | c
+	zle kill-buffer
 	zle -R -c # refresh
-	echo "[clipboard]: $(p)"
-	zle accept-line
+	echo ''
+	if cmdcheck bat; then
+		{
+			echo "# [clipboard]"
+			printf '%s' "$(p)"
+		} | bat --color -l=bash --plain
+	else
+		echo "# [clipboard]"
+		printf '%s\n' "$(p)"
+	fi
+	zle reset-prompt
 }
 zle -N _copy_command
-bindkey '^X^P' _copy_command
+# yank
 bindkey '^Y' _copy_command
 
 function _paste_command() { _insert_strs "$(p)"; }
@@ -254,22 +382,22 @@ function _goto_line_n() {
 	CURSOR=$((CURSOR / 11 * n))
 	zle -R -c # refresh
 }
-for ((i = 1; i <= 10; i++)); do
-	zle -N _goto_line_$i
-	bindkey '^X'"$(($i % 10))" _goto_line_$i
-	eval "function _goto_line_$i() { _goto_line_n $i; }"
-done
-
+# for ((i = 1; i <= 10; i++)); do
+# zle -N _goto_line_$i
+# bindkey '^X'"$(($i % 10))" _goto_line_$i
+# eval "function _goto_line_$i() { _goto_line_n $i; }"
+# done
 function _select_prompt_list_n() {
 	local n=${1:-1}
-	local cmd=$(printf '%s' "$_AUTO_PROMPT_LIST" | sed -n "${n}P")
+	local cmd="$_AUTO_PROMPT_LIST_RAW_CMD[$n]"
 	if [[ -n $cmd ]]; then
-		# NOTE: to avoid show unnecessary completion
-		zle kill-buffer
-		BUFFER="${cmd} "
-		CURSOR=$#BUFFER
-		zle -R -c # refresh
-		_zle_refresh_cmd_color
+		_set_buffer "${cmd} "
+		# # NOTE: to avoid show unnecessary completion
+		# zle kill-buffer
+		# BUFFER="${cmd} "
+		# CURSOR=$#BUFFER
+		# zle -R -c # refresh
+		# _zle_refresh_cmd_color
 	fi
 }
 for ((i = 1; i <= 10; i++)); do
@@ -411,3 +539,37 @@ done
 bindkey -M visual 'v' vi-yank
 
 # FYI: [zsh zle \- List of zsh bindkey commands \- Stack Overflow]( https://stackoverflow.com/questions/18042685/list-of-zsh-bindkey-commands )
+
+local p_buffer_stack=""
+local -a buffer_stack_arr
+
+function make_p_buffer_stack() {
+	if [[ ! $#buffer_stack_arr > 0 ]]; then
+		p_buffer_stack=""
+		return
+	fi
+	p_buffer_stack="%F{cyan}<stack:$buffer_stack_arr>%f"
+}
+
+function show_buffer_stack() {
+	local cmd_str_len=$#LBUFFER
+	[[ cmd_str_len > 10 ]] && cmd_str_len=10
+	buffer_stack_arr=("[$LBUFFER[1,${cmd_str_len}]]" $buffer_stack_arr)
+	make_p_buffer_stack
+	zle push-line-or-edit
+	zle reset-prompt
+}
+
+function check_buffer_stack() {
+	[[ $#buffer_stack_arr > 0 ]] && shift buffer_stack_arr
+	make_p_buffer_stack
+}
+
+# zle -N show_buffer_stack
+# bindkey "^S" show_buffer_stack
+# add-zsh-hook precmd check_buffer_stack
+#
+# bindkey "^P" push-line-or-edit
+# bindkey "^O" get-line
+
+# RPROMPT='${p_buffer_stack}'
