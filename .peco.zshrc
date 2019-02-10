@@ -570,4 +570,9 @@ if cmdcheck fzf; then
 		)
 		[[ -n $ret ]] && print -z ' rm -rf '"$ret"
 	}
+	alias git-repo-peco='peco-git-repo'
+	function peco-git-repo() {
+		local dirpath=$(find-git-repo | fzf)
+		[[ -n $dirpath ]] && cd "$dirpath"
+	}
 fi
