@@ -555,8 +555,6 @@ alias gst-pecovim='git-status-pecovim'
 alias gstpv='git-status-pecovim'
 alias gstvim='git-status-pecovim'
 
-alias rvgrep="viminfo-ls | xargs-grep"
-
 [[ -f ~/dotfiles/.min.plug.vimrc ]] && alias vimplugtest='vim -u ~/dotfiles/.min.plug.vimrc'
 
 alias xargs1='xargs -L 1'
@@ -1347,12 +1345,14 @@ function cmake() {
 	command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
 }
 
+alias rvgrep="rgrep"
 function rgrep() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) keyword" && return 1
 	# to expand alias
-	local _=$(viminfo-ls | xargs-grep $@ | pecovim)
+	local _=$(viminfo-ls | sed "s:^~:$HOME:g" | xargs-grep $@ | pecovim)
 }
 
-# [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
+# FYI: [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
 function find() {
 	$(command which find) "$@" -not -iwholename '*/.git/*'
 }
