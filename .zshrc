@@ -2127,6 +2127,14 @@ EOF
 
 alias opencppref='open https://cpprefjp.github.io/index.html'
 
+# FYI: [How to view\-source of a Chrome extension]( https://gist.github.com/paulirish/78d6c1406c901be02c2d )
+function chrome-extension-code() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) [url]" && return 1
+	local extension_id=$(printf '%s' "$1" | sed -E 's:^.*chrome.google.com/webstore/detail/[^/]*/([^/]*).*$:\1:g')
+	curl -L -o "$extension_id.zip" "https://clients2.google.com/service/update2/crx?response=redirect&os=mac&arch=x86-64&nacl_arch=x86-64&prod=chromecrx&prodchannel=stable&prodversion=44.0.2403.130&x=id%3D$extension_id%26uc"
+	unzip -d "$extension_id-source" "$extension_id.zip"
+}
+
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
 # bindkey -e
