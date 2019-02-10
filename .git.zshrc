@@ -559,3 +559,11 @@ function git-apply-stashes() {
 	[[ $# -lt 0 ]] && echo "$(basename $0) stashes" && return 1
 	git-show-stashes "$@" | git apply -3
 }
+
+alias git-submodule-remove='git-remove-submodule'
+function git-remove-submodule() {
+	is_git_repo_with_message || return
+	[[ $# -le 0 ]] && echo "$(basename $0) submodule file path" && return 1
+	local submodule_path=$1
+	git submodule deinit -f $submodule_path && git rm -f $submodule_path
+}

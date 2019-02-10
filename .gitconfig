@@ -126,6 +126,9 @@
   st = status
   st-all = status --ignored
 
+  submodule-pull-master = submodule foreach git pull origin master
+  submodule-add-master = submodule add -f -b master
+
   # e.g. --since="2018/04/01"
   tag-time-sort-w = log --no-walk --tags --since='1 week ago'
   tag-time-sort-1w = log --no-walk --tags --since='1 week ago'
