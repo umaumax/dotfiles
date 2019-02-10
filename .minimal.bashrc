@@ -14,6 +14,9 @@ fi
 
 PS1='\[\e[1;33m\]\u@\h \w\n\[\e[1;36m\]\$\[\e[m\] '
 
+# ignoredups,ignorespace
+export HISTCONTROL=ignoreboth
+
 # [Bashでコマンド履歴から検索して実行する \- Qiita]( https://qiita.com/quwa/items/3a23c9dbe510e3e0f58e )
 # NOTE: change stop=^S keymap to stop=<undef>
 stty stop undef
