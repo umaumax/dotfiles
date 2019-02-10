@@ -1679,8 +1679,8 @@ SAVEHIST=100000
 if [[ $ZSH_NAME == zsh ]]; then
 	# [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
 	alias -s txt='cat'
+	alias -s log='cat'
 	alias -s rb='ruby'
-	alias -s py='python3' # for python2 and python3
 	alias -s php='php -f'
 	alias -s gp='gnuplot'
 	alias -s {gz,tar,zip,rar,7z}='unarchive' # preztoのarchiveモジュールのコマンド(https://github.com/sorin-ionescu/prezto/tree/master/modules)
@@ -1689,9 +1689,9 @@ if [[ $ZSH_NAME == zsh ]]; then
 	setopt magic_equal_subst              # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 	setopt GLOB_DOTS                      # 明確なドットの指定なしで.から始まるファイルをマッチ
 	zstyle ':completion:*' use-cache true # apt-getとかdpkgコマンドをキャッシュを使って速くする
-	setopt list_packed                    # 保管結果をできるだけ詰める
-	setopt rm_star_wait                   # rm * を実行する前に確認
-	setopt numeric_glob_sort              # 辞書順ではなく数字順に並べる。
+	setopt list_packed                    # 補完結果をできるだけ詰める
+	# setopt rm_star_wait                   # rm * を実行する前に確認
+	setopt numeric_glob_sort # 辞書順ではなく数字順に並べる。
 fi
 
 # 実行したプロセスの消費時間がn秒以上かかったら
