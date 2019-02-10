@@ -62,7 +62,8 @@
 
 # size
 ## h: human readable
-[file size] du -sh * # * means file or directories
+[file size] du -sh * # for zsh (setopt GLOB_DOTS)
+[file size for bash] du -sh .[^.]* *
 [disk size] df -h
 
 # docker
