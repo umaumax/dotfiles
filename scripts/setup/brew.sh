@@ -10,6 +10,7 @@ brew install colormake
 brew install sshfs
 brew install ghq
 brew install bats
+brew install colordiff
 # for c++ lib
 brew install google-benchmark
 # for git instaweb
