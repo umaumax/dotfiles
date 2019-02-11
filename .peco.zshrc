@@ -171,7 +171,7 @@ function rdvim() {
 # 最終的に'./'を加えても動作は変更されない
 # NOTE: echo ${~$(echo '~')} means expand '~'
 alias rvcd="cd \${~\$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
-alias rcd="cd \$(command cat ~/.cdinfo | sort | uniq | ranking_color_cat | peco | sed 's:$:/:g')./"
+alias rcd="cd \$(command cat ~/.cdinfo | tac| awk '!a[\$0]++' | ranking_color_cat | peco | sed 's:$:/:g')./"
 function cdpeco() {
 	# NOTE: mac ok
 	# 	if [[ -p /dev/stdin ]]; then

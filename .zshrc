@@ -1211,7 +1211,7 @@ function ls_abbrev() {
 function clean-cdinfo() {
 	local tmpfile=$(mktemp)
 	command cp ~/.cdinfo "$tmpfile"
-	cat "$tmpfile" | sort | uniq | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
+	cat "$tmpfile" | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
 	rm -f "$tmpfile"
 }
 
