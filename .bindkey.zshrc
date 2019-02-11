@@ -110,7 +110,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 	_AUTO_PROMPT_LIST_RAW_CMD=()
 	function _AUTO_PROMPT_LIST_SETUP() {
 		local keyword=$1
-		local output=$(builtin history -r 1 | fixedgrep -max=$AUTO_PROMPT_LIST_MAX "$keyword" 2>/dev/null)
+		local output=$(builtin history -r 1 | fixedgrep -max=$AUTO_PROMPT_LIST_MAX " $keyword" 2>/dev/null)
 		_AUTO_PROMPT_LIST_RAW_CMD=()
 		for hist_no in $(printf '%s' "$output" | grep -o '^[0-9]*'); do
 			_AUTO_PROMPT_LIST_RAW_CMD=($_AUTO_PROMPT_LIST_RAW_CMD "${history[$hist_no]}")
