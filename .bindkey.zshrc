@@ -63,7 +63,7 @@ function gen_PROMPT_2_text() {
 		PROMPT_2=$(
 			for text in "${PROMPT_texts[@]}"; do
 				printf "%s\n" "$text"
-			done | terminal-truncate -max=$(tput cols) -tab=8
+			done | terminal-truncate -max=$(tput cols) -tab=4
 		)
 	else
 		for text in "${PROMPT_texts[@]}"; do
