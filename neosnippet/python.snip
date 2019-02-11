@@ -168,7 +168,8 @@ snippet exists_of_os.path
 snippet listdir_of_os
 	os.listdir(${0})
 snippet makedirs_of_os
-	os.makedirs(${0})
+alias mkdir
+	os.makedirs(${0}, exist_ok=True)
 
 snippet subprocess.check_output
 	subprocess.check_output(${0:#:["ls", "."]}).decode("utf8")
@@ -360,3 +361,11 @@ alias merge_dict_itself
 snippet dict_merge_new
 alias merge_dict_new
 	dict(${1:#:a}, **${2:#:b})
+
+alias dict_safe_access
+	${1:#:dict}.get(${2:#:key})${0}
+alias dict_with_default_value
+	${1:#:dict}.get(${2:#:key}, ${3:#:default value})${0}
+alias dict_force_default_value
+abbr None and so on -> defualt value
+	${1:#:dict}.get(${2:#:key}) or ${3:#:default value}
