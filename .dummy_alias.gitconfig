@@ -46,8 +46,10 @@
 	reload-global-hooks  = :
 	reload-local-hooks  = :
 	remote-add-upstream  = :
+	remove-submodule  = :
 	rename-cpp-field  = :
 	rename-to-backup-branch-peco  = :
+	repo-peco = :
 	restore-stash  = :
 	revert-files  = :
 	root  = :
@@ -61,6 +63,7 @@
 	status-pecovim = :
 	status-tabvim = :
 	submodule-move  = :
+	submodule-remove = :
 	submodule-remove  = :
 	tag-peco  = :
 	update-dummy-alias  = :
