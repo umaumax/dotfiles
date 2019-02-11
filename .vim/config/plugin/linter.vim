@@ -41,8 +41,10 @@ let g:ale_linters = {
 			\   'markdown': ['alex','vale'],
 			\   'txt': ['textlint'],
 			\   'make': ['checkmake'],
-			\   'yaml': ['yamllint'],
+			\   'yaml': [''],
 			\}
+" NOTE: doesn't fit for me
+" 'yaml': ['yamllint'],
 " NOTE: maybe cause little spped down
 " 'cpp': ['clangcheck', 'clangtidy'],
 " NOTE: check linter commands existence
