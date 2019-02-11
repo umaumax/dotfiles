@@ -575,4 +575,14 @@ if cmdcheck fzf; then
 		local dirpath=$(find-git-repo | fzf)
 		[[ -n $dirpath ]] && cd "$dirpath"
 	}
+	cmdcheck sedry && function sedcheck() {
+		[[ $# -lt 1 ]] && echo "$(basename $0) [filepath]..." && return 1
+		local SED='sed'
+		type >/dev/null 2>&1 gsed && SED='gsed'
+		{
+			echo 's/hgoe/fuga/g'
+			echo '1iSAMPLE'
+			echo '1aSAMPLE'
+		} | fzf --ansi --multi --preview 'echo '"$SED"' -E {q}; SEDRY_SED='"$SED"' sedry -E {q} '"$@" --preview-window 'down:70%' --height '80%' --print-query
+	}
 fi
