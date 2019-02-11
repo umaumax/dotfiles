@@ -24,6 +24,7 @@ let g:shebang#shebangs = {
 			\ 'sh':  '#!/usr/bin/env bash',
 			\ 'python':  '#!/usr/bin/env python3',
 			\ 'bats':  '#!/usr/bin/env bats',
+			\ 'javascript': '#!/usr/bin/env node'
 			\ }
 
 " NOTE: cpp is not supported
@@ -267,7 +268,7 @@ elseif g:colorscheme == 'tender'
 endif
 
 " auto chmod +x
-Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats']}
+Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats','javascript','ruby','perl','php']}
 
 " file manager
 " Plug 'ryanoasis/vim-devicons'
