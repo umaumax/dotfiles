@@ -10,7 +10,7 @@ snippet remove_ext_func
       return fname[:len(fname)-len(ext)]
   }
 
-# [Go Slice Tricks \(Japanese\) · golang\.shop]( https://golang.shop/post/go-slice-tricks-ja/ )
+# FYI: [Go Slice Tricks \(Japanese\) · golang\.shop]( https://golang.shop/post/go-slice-tricks-ja/ )
 snippet append_self
   ${1} = append($1, ${0:#:var...})
 snippet slice_copy
@@ -35,3 +35,12 @@ snippet help_overwrite
     \`)
     flag.PrintDefaults()
   }
+
+snippet readline
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		text := scanner.Text()
+	}
+	if err := scanner.Err(); err != nil {
+		log.Printf("stdin read err:%s\n", err)
+	}
