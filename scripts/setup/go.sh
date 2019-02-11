@@ -32,7 +32,8 @@ go get -u github.com/umaumax/gocat
 go get -u github.com/umaumax/golfix
 go get -u github.com/umaumax/gonetcat
 go get -u github.com/umaumax/fixedgrep
-go get -u github.com/umaumax/cgrep
+go get -u github.com/umaumax/cgrep/...
+go get -u github.com/umaumax/terminal-truncate
 
 # go get -v github.com/zquestz/s
 # cd $GOPATH/src/github.com/zquestz/s
