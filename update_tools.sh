@@ -22,6 +22,7 @@ git wget https://github.com/umaumax/lessbat/blob/master/lessbat
 git wget https://github.com/umaumax/findtar/blob/master/findtar
 git wget https://github.com/umaumax/awkst/blob/master/awkst
 git wget https://github.com/umaumax/oresed/blob/master/oresed
+git wget https://github.com/umaumax/sedry/blob/master/sedry
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autosshpass
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autoscppass
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autorsyncpass
