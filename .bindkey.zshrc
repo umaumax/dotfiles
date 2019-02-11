@@ -59,9 +59,18 @@ function gen_PROMPT_2_text() {
 	for ((i = 1; i <= n; i++)); do local terminfo_down_sc="${terminfo_down_sc}$terminfo[cuu1]"; done
 	local terminfo_down_sc="${terminfo_down_sc}$terminfo[sc]$terminfo[cud1]"
 	local PROMPT_2
-	for text in "${PROMPT_texts[@]}"; do
-		local PROMPT_2="${PROMPT_2}${text}$terminfo[cud1]"
-	done
+	if cmdcheck terminal-truncate; then
+		PROMPT_2=$(
+			for text in "${PROMPT_texts[@]}"; do
+				printf "%s\n" "$text"
+			done | terminal-truncate -max=$(tput cols) -tab=8
+		)
+	else
+		for text in "${PROMPT_texts[@]}"; do
+			# NOTE: $terminfo[cud1] = '\n'
+			local PROMPT_2="${PROMPT_2}${text}$terminfo[cud1]"
+		done
+	fi
 	echo "%{$terminfo_down_sc$PROMPT_2$terminfo[rc]%}"
 }
 function show_PROMPT_2_text_by_array() {
@@ -80,6 +89,7 @@ function show_PROMPT_2_text_by_array() {
 	# NOTE: %{, %}で囲む理由は不明
 	local PROMPT_texts=("$@")
 	local PROMPT_2=$(gen_PROMPT_2_text "${PROMPT_texts[@]}")
+	# cmdcheck terminal-truncate && PROMPT_2=$(printf '%s' "$PROMPT_2" | terminal-truncate -max=$(tput cols) -tab=8)
 	_PROMPT=$PROMPT
 	PROMPT="${PROMPT_2}$PROMPT"
 	zle reset-prompt
@@ -94,7 +104,7 @@ function cat_PROMPT_2_text() {
 	show_PROMPT_2_text_by_array "${PROMPT_text[@]}"
 }
 
-if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep; then
+if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdcheck terminal-truncate; then
 	# NOTE: for 0~9 key
 	AUTO_PROMPT_LIST_MAX=10
 	_AUTO_PROMPT_LIST_RAW_CMD=()
