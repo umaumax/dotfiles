@@ -200,6 +200,27 @@ snippet search_array_not_found
 alias array_search_not_found
   ! $(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
 
+snippet array_index_common
+abbr 0~
+  ${${0:#:var}[@]:${1:1}:(($1+1))}
+snippet array_index_zsh
+abbr 1~
+  ${${0:#:var}[${1:1}]}
+snippet arrray_index_bash
+abbr 0~,(-1~ bash3.2:x, bash5:o)
+  ${${0:#:var}[${1:0}]}
+snippet array_slice_zsh
+abbr 1~,-1~
+  ${${0:#:var}[@]:${1:1}}
+snippet arrray_slice_bash
+abbr 0~,(-1~ bash3.2:x, bash5:o)
+  ${${0:#:var}[@]:${1:0}}
+
+# FYI: [shell \- Remove entry from array \- Stack Overflow]( https://stackoverflow.com/questions/3435355/remove-entry-from-array )
+snippet array_remove_index_zsh
+abbr 1~, eval for avoiding shfmt error
+  eval "${1:#:var}=("${(@)$1[1,${2:1}-1]}" "${(@)$1[$2+1,$#$1]}")${0}"
+
 snippet tmpfile
   tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
 snippet tmpfile_with_trap
