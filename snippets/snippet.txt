@@ -999,3 +999,6 @@
 # nohup
 [nohup] nohup @ </dev/null &> $(echo $(mktemp) | tee $(tty)) &
 [nohup] nohup @ </dev/null 1>/dev/null 2>/dev/null &
+
+# vmstat
+[vmstat to csv] grep -v '^procs' | grep -v '^ r' | sed -E 's/ +/,/g' | sed -E 's/^,//g'
