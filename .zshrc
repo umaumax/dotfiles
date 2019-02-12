@@ -555,6 +555,12 @@ alias gst-pecovim='git-status-pecovim'
 alias gstpv='git-status-pecovim'
 alias gstvim='git-status-pecovim'
 
+function gstlogfiles() {
+	local n=${1:-1}
+	git show --pretty="format:" --name-status "HEAD~$n" | grep "^M" | cut -c3-
+}
+alias gstlogvim='gstlogfiles | pecovim'
+
 [[ -f ~/dotfiles/.min.plug.vimrc ]] && alias vimplugtest='vim -u ~/dotfiles/.min.plug.vimrc'
 
 alias xargs1='xargs -L 1'
