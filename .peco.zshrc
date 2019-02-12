@@ -364,13 +364,15 @@ function pecoexamples() {
 }
 
 function umountpeco() {
-	local ret=$(mount | peco | sed 's/.* on//g' | awk '{print$1}')
-	[[ -z $ret ]] && return
-	if [[ $(uname) == "Darwin" ]]; then
-		sudo diskutil unmount $ret
-	else
-		sudo umount $ret
-	fi
+	local filepathes=($(mount | peco | sed 's/.* on//g' | awk '{print$1}'))
+	for filepath in "${filepathes[@]}"; do
+		if [[ $(uname) == "Darwin" ]]; then
+			sudo diskutil unmount "$filepath"
+		else
+			sudo umount "$filepath"
+		fi
+		[[ $? == 0 ]] && echo "'$filepath' umount success"
+	done
 }
 
 # NOTE: peco google
