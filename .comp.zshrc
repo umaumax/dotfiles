@@ -10,6 +10,8 @@ cmdcheck clip-share && compdef clip-share=ssh
 cmdcheck autosshpass && compdef autosshpass=ssh
 cmdcheck autoscppass && compdef autoscppass=scp
 cmdcheck autorsyncpass && compdef autorsyncpass=rsync
+cmdcheck autooresshpass && compdef autooresshpass=ssh
+cmdcheck sshpass && compdef sshpass=ssh
 
 function _color() {
 	compadd $(
