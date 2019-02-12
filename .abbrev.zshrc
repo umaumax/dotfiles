@@ -48,6 +48,7 @@ abbrev-alias -g tgi='tig '
 abbrev-alias -g ehco='echo '
 abbrev-alias -g sl='ls '
 abbrev-alias -g chekcout='checkout '
+abbrev-alias -g staus='status '
 
 abbrev-alias -f B="git symbolic-ref --short HEAD"
 abbrev-alias -f dir='basename $PWD'
