@@ -24,6 +24,10 @@ stty stop undef
 function cmdcheck() { type "$1" >/dev/null 2>&1; }
 cmdcheck vim && alias vi='vim'
 
+! cmdcheck tree && function tree() {
+	ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+}
+
 alias fix-terminal='stty sane; resize; reset'
 
 alias grep='grep --color=auto'
