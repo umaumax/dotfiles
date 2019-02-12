@@ -35,13 +35,11 @@ function catkin_make() {
 	return $exit_code
 }
 alias ctcl='catkin_make_all_clean'
+alias ctmk_clean_all='catkin_make_all_clean'
 function catkin_make_all_clean() {
 	local ros_ws_root=$(rosroot)
 	[[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}, but if this is first catkin_make to init, please run 'command catkin_make'" && return 1
-
-	pushd $ros_ws_root >/dev/null 2>&1
-	[[ -d src ]] && rm -rf build devel install || echo "\033[0;31m"'here is not catkin workspace'"\033[0m"
-	popd >/dev/null 2>&1
+	[[ -d "$ros_ws_root/src" ]] && rm -rf "$ros_ws_root/build" "$ros_ws_root/devel" "$ros_ws_root/install" || echo "\033[0;31m"'here is not catkin workspace'"\033[0m"
 }
 function ros_gitignore_download() {
 	local ros_ws_root=$(rosroot)
@@ -59,13 +57,14 @@ function cdrosroot() {
 	cd $ros_ws_root
 }
 function rosroot() {
-	local dirpath=$PWD && while true; do
+	local dirpath=$PWD
+	while :; do
 		local target_filepath="$dirpath/src/CMakeLists.txt"
 		if [[ -L "$target_filepath" ]] && [[ $(basename $(readlink $target_filepath)) == 'toplevel.cmake' ]]; then
-			echo $dirpath
+			printf '%s' "$dirpath"
 			return
 		fi
-		[[ "$dirpath" == "/" ]] && break || local dirpath="$(dirname $dirpath)"
+		[[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
 	done
 	return 1
 }
