@@ -77,6 +77,8 @@ sudo apt-get install -y colormake
 sudo apt-get install -y ninja-build
 sudo apt-get install -y ccache
 
+sudo apt-get install -y gnuplot
+
 # tags
 sudo apt-get install -y ctags
 # sudo apt-get install -y global # gtags 5.7.1-2
