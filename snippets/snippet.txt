@@ -571,10 +571,11 @@
 [rostopic list] rostopic list -v
 [rostopic list] rostopic list -p
 [rostopic list] rostopic list -s
-[ros] rostopic info $TOPIC_OR_NODE
-[ros] rostopic echo $TOPIC # /hoge/piyo
-[ros] rostopic echo --noarr $TOPIC # for big topic output
-[ros] rostopic hz   $TOPIC
+[rosparam] rosparam dump
+[rostopic] rostopic info $TOPIC_OR_NODE
+[rostopic] rostopic echo $TOPIC # /hoge/piyo
+[rostopic] rostopic echo --noarr $TOPIC # for big topic output
+[rostopic] rostopic hz $TOPIC
 [ros node graph] rosrun rqt_graph rqt_graph
 [ros tf tree GUI] rosrun rqt_tf_tree rqt_tf_tree
 [ros tf tree pdf] rosrun tf view_frames
