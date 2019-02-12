@@ -112,14 +112,14 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 		local keyword=$1
 		local output=$(builtin history -r 1 | fixedgrep -max=$AUTO_PROMPT_LIST_MAX " $keyword" 2>/dev/null)
 		_AUTO_PROMPT_LIST_RAW_CMD=()
-		for hist_no in $(printf '%s' "$output" | grep -o '^[0-9]*'); do
+		for hist_no in $(printf '%s' "$output" | grep -o '^[ 0-9]*' | grep -o '[0-9]*'); do
 			_AUTO_PROMPT_LIST_RAW_CMD=($_AUTO_PROMPT_LIST_RAW_CMD "${history[$hist_no]}")
 		done
 		export _AUTO_PROMPT_LIST_WITH_COLOR=$(
 			{
 				echo -e "${GRAY}[history]${DEFUALT}"
 				# NOTE: grep is to late, ag is faster than grep
-				printf '%s' "$output" | sed -E 's/^[0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
+				printf '%s' "$output" | sed -E 's/^[ 0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
 			}
 		)
 	}
