@@ -43,6 +43,19 @@
                     }
                 ],
                 "type": "basic"
+            },
+            {
+                "from": {
+                    "key_code": "escape"
+                },
+                "to": [{
+                        "key_code": "escape"
+                    },
+                    {
+                        "key_code": "japanese_eisuu"
+                    }
+                ],
+                "type": "basic"
             }
         ]
     }]
