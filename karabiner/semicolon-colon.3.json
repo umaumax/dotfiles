@@ -14,9 +14,7 @@
                 },
                 "to": [{
                     "key_code": "semicolon",
-                    "modifiers": [
-                        "left_shift"
-                    ]
+                    "modifiers": "left_shift"
                 }]
             },
             {
