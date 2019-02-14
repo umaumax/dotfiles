@@ -242,7 +242,10 @@
 [ol cut] cut -d' ' -f @
 [ol awk cut] awk '{ print $@; }'
 [ol awk unbuffer] '{fflush()}'
+[ol each N lines to one line] awk -v N=@ '{printf "%s", $0; } (NR%N==0){print ""}'
 [ol remove last blank line] perl -pe "chomp if eof"
+[ol repeat text] printf '$TEXT@%.0s' {1..$N}
+[ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+@[-a-zA-Z0-9\.]+"
 
 [number of CPU] nproc --all # linux only
 
@@ -1002,3 +1005,7 @@
 
 # vmstat
 [vmstat to csv] grep -v '^procs' | grep -v '^ r' | sed -E 's/ +/,/g' | sed -E 's/^,//g'
+
+# image
+[image convert extend] convert $IMAGE@ -append -background none -gravity center -extent 320x320 $OUTPUT
+[image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
