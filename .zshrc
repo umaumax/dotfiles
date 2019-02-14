@@ -798,7 +798,7 @@ function vim() {
 	# wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ~/local/bin/nvim && chmod u+x ~/local/bin/nvim
 	# ```
 	# 	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
-	set-dirname-title
+	# set-dirname-title
 	return $exit_code
 }
 function _xargs-vim() {
@@ -1750,10 +1750,13 @@ function zshaddhistory_hook() {
 	else
 		PS1="$_PS1"
 	fi
+
+	set-dirname-title
 }
 function precmd_hook() {
 	cmdcheck cmdstack && cmdcheck cmdstack_len && [[ $(cmdstack_len) != 0 ]] && cmdstack
 	# local cmd="$history[$((HISTCMD - 1))]"
+	set-dirname-title
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook zshaddhistory zshaddhistory_hook
