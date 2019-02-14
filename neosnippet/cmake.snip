@@ -58,7 +58,7 @@ snippet cpp_flags
 alias cxx_flags
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${0}")
 
-snippet Ext_url
+snippet ExternalProject_Add_url
     include(ExternalProject)
     ExternalProject_Add(${1:#:googletest}
       URL ${2:#:http://googletest.googlecode.com/files/gtest-1.7.0.zip}
@@ -71,7 +71,20 @@ snippet Ext_url
       TEST_COMMAND      ""
     )
 
-snippet Ext_git
+snippet ExternalProject_Add_googletest
+abbr with googlemock
+    include(ExternalProject)
+    ExternalProject_Add(googletest
+        DOWNLOAD_COMMAND ""
+        SOURCE_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/googletest"
+        BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/googletest"
+        INSTALL_COMMAND   cp -R ${CMAKE_CURRENT_BINARY_DIR}/googletest/lib/ ${CMAKE_INSTALL_PREFIX}/ &&
+                          cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/include/ ${CMAKE_INSTALL_PREFIX}/ &&
+                          cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googlemock/include/ ${CMAKE_INSTALL_PREFIX}/
+        TEST_COMMAND      ""
+    )
+
+snippet ExternalProject_Add_git
     include(ExternalProject)
     ExternalProject_Add(${1:#:googletest}
       GIT_REPOSITORY    ${2:#:https://github.com/google/googletest.git}
@@ -83,6 +96,22 @@ snippet Ext_git
       INSTALL_COMMAND   ""
       TEST_COMMAND      ""
     )
+
+snippet ExternalProject_Add_patch
+    # project()
+    include(ExternalProject)
+    ExternalProject_Add(${PROJECT_NAME}
+        PREFIX ${PROJECT_NAME}
+        GIT_REPOSITORY ${1:#:URL}
+        GIT_TAG master
+        PATCH_COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -maxdepth 1 -name "*.patch" -print0 | xargs --no-run-if-empty -0 -L 1 patch -p1 --input
+        CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/lib"
+        INSTALL_COMMAND ""
+    )
+
+snippet ExternalProject_Add_make
+    BUILD_IN_SOURCE TRUE
+    BUILD_COMMAND bash -c "${1:#:cd XXX && make release}"
 
 snippet props
     set_target_properties(${1:#:target}
