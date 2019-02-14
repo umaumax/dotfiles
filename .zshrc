@@ -546,14 +546,21 @@ alias xargs-vim='_xargs-vim -'
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
-alias git-status-tabvim='vim -p `git status -s | grep "^ M" | cut -c4-`'
-alias git-status-allvim='git-status-tabvim'
-alias gsttabvim='git-status-tabvim'
-alias git-status-pecovim='git status -s | grep "^ M" | cut -c4- | pecovim'
-alias vim-git-modified='git-status-pecovim'
-alias gst-pecovim='git-status-pecovim'
-alias gstpv='git-status-pecovim'
-alias gstvim='git-status-pecovim'
+# alias git-status-tabvim='vim -p `git status -s | -e "^ M" -e "^A" | cut -c4-`'
+# alias git-status-allvim='git-status-tabvim'
+# alias gsttabvim='git-status-tabvim'
+# alias git-status-pecovim='git status -s | -e "^ M" -e "^A" | cut -c4- | pecovim'
+# alias vim-git-modified='git-status-pecovim'
+# alias gst-pecovim='git-status-pecovim'
+# alias gstpv='git-status-pecovim'
+# alias gstvim='git-status-pecovim'
+
+alias gstvim='git status -s | -e "^ M" -e "^A" | cut -c4- | pecovim'
+alias gstvimm='git status -s | -e "^ M" | cut -c4- | pecovim'
+alias gstvima='git status -s | -e "^A" | cut -c4- | pecovim'
+alias gsttabvim='vim -p `gstvim`'
+alias gsttabvimm='vim -p `gsttabvimm`'
+alias gsttabvima='vim -p `gsttabvima`'
 
 function gstlogfiles() {
 	local n=${1:-1}
