@@ -188,7 +188,10 @@ sudo apt-get install -y lighttpd
 sudo apt-get install -y lolcat
 
 # NOTE: for lddtree
-sudo apt-get install pax-utils
+sudo apt-get install -y pax-utils
+
+# NOTE: for bookmark sarcher
+sudo apt-get install -y buku
 
 # --------------------------------
 # below packages are WIP
