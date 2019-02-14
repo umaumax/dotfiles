@@ -77,6 +77,7 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   graph = log --oneline --decorate --graph --branches --tags --remotes
+  graph-stat = log --oneline --decorate --graph --branches --tags --remotes --stat
   graph-with-date-and-author = log --graph --oneline --decorate --date=relative --format='%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %s %C(magenta)[%ad]%C(reset) %C(cyan)@%an%C(reset)'
   graph-stat-with-date-and-author = log --graph --stat --decorate --date=relative --format='%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %s %C(magenta)[%ad]%C(reset) %C(cyan)@%an%C(reset)'
   stat = log --stat

@@ -366,8 +366,8 @@ cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 # }
 
 ## git
-alias gl='git graph-with-date-and-author'
-alias glst='git graph-stat-with-date-and-author'
+alias gl='git graph'
+alias glst='git graph-stat'
 
 # [\`git remote add upstream\`を楽にする \| Tomorrow Never Comes\.]( http://blog.sgr-ksmt.org/2016/03/04/git_remote_add_upstream/ )
 function git-remote-add-upstream() {
