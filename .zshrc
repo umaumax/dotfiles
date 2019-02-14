@@ -1152,7 +1152,7 @@ function chpwd() {
 	ls_abbrev
 	# NOTE: cdr
 	# [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366#cdr%E3%81%A7peco%E3%82%8B )
-	echo $PWD >>"$HOME/.cdinfo"
+	printf '%s\n' "$PWD" >>"$HOME/.cdinfo"
 	set-dirname-title
 
 	# NOTE: auto python venv activate and deactivate
