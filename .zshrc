@@ -1221,10 +1221,15 @@ function ls_abbrev() {
 	fi
 }
 
-function clean-cdinfo() {
+alias cdinfo="tac ~/.cdinfo | awk '!a[\$0]++'"
+alias cdinfo-clean='clean-cdinfo'
+cmdcheck tac && function clean-cdinfo() {
 	local tmpfile=$(mktemp)
-	command cp ~/.cdinfo "$tmpfile"
-	cat "$tmpfile" | awk '{if(system("test -f " "\""$0"\"")) print $0}' >~/.cdinfo
+	local cdinfo_filepath="$HOME/.cdinfo"
+	command cp "$cdinfo_filepath" "$tmpfile"
+	tac "$tmpfile" | awk '!a[$0]++' | awk '{print $0; fflush();}' | while IFS= read -r LINE; do
+		[[ -d "$LINE" ]] && printf '%s\n' "$LINE"
+	done | tac | tee "$cdinfo_filepath"
 	rm -f "$tmpfile"
 }
 
