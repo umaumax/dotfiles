@@ -587,4 +587,15 @@ if cmdcheck fzf; then
 			echo '1aSAMPLE'
 		} | fzf --ansi --multi --preview 'echo '"$SED"' -E {q}; SEDRY_SED='"$SED"' sedry -E {q} '"$@" --preview-window 'down:70%' --height '80%' --print-query
 	}
+	if cmdcheck buku; then
+		alias bukupeco='bookpeco'
+		function bookpeco() {
+			local keyword=${1:-}
+			local urls=($(buku -p | awk '{printf "%s", $0; } (NR%4==0){print ""}' | grep "$keyword" | fzf --query="'" | grep -o -E 'https?://[^ ]*'))
+			for url in "${urls[@]}"; do
+				echo "open $url"
+				open "$url"
+			done
+		}
+	fi
 fi
