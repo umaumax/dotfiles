@@ -59,7 +59,9 @@ function nugget() {
 	fi
 
 	# init
-	mkdir -p ~/local/bin
+	export NUGGET_INSTALL_PREIFX=${NUGGET_INSTALL_PREIFX:-~/local}
+	export NUGGET_INSTALL_BIN_PREIFX="$NUGGET_INSTALL_PREIFX/bin"
+	mkdir -p "$NUGGET_INSTALL_BIN_PREIFX"
 	mkdir -p ~/opt
 
 	local tmpdir=$(mktemp -d)
@@ -103,10 +105,10 @@ function nugget_ubuntu_nvim() {
 		# NOTE: fuse pattern
 		sudo apt-get install -y fuse
 		chmod u+x nvim.appimage
-		mv nvim.appimage ~/local/bin/nvim
+		mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
 	fi
 
-	echo "${GREEN}Add ~/local/bin to \$PATH${DEFAULT}"
+	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
 	popd
 }
 # ################################
@@ -214,9 +216,10 @@ function nugget_ubuntu_peco() {
 	pushd "$tmpdir"
 	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
 	tar zxvf peco_linux_amd64.tar.gz
-	cp peco_linux_amd64/peco ~/local/bin
+	cp peco_linux_amd64/peco "$NUGGET_INSTALL_BIN_PREIFX"
 	rm -rf peco_linux_amd64.tar.gz
 	rm -rf peco_linux_amd64
+	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
 	popd
 }
 # ################################
@@ -241,6 +244,21 @@ function nugget_ubuntu_bats() {
 	wget https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1.1_all.deb
 	sudo gdebi bats_0.4.0-1.1_all.deb
 	rm -rf bats_0.4.0-1.1_all.deb
+	popd
+}
+# ################################
+
+# ################################
+function nugget_ubuntu_exa() {
+	cmdcheck exa && return $NUGGET_ALREADY_INSTALLED
+
+	pushd "$tmpdir"
+	wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+	unzip exa-linux-x86_64-*.zip
+	cp exa-linux-x86_64 "$NUGGET_INSTALL_BIN_PREIFX/exa"
+	rm -rf exa-linux-x86_64-*.zip
+	rm -rf exa-linux-x86_64
+	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
 	popd
 }
 # ################################

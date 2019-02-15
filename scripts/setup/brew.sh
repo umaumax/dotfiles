@@ -17,6 +17,8 @@ brew_install_formula_list=(
 	coreutils
 	datamash
 	direnv
+	# NOTE: enhance ls
+	exa
 	ext4fuse
 	ffmpeg
 	figlet
