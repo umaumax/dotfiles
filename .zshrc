@@ -565,6 +565,10 @@ alias xargs-vim='_xargs-vim -'
 alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
+function clean-vim-undofile() {
+	find ~/.vim/tmp -type f -maxdepth 1 -size +1M -ls -delete
+}
+
 # alias git-status-tabvim='vim -p `git status -s | -e "^ M" -e "^A" | cut -c4-`'
 # alias git-status-allvim='git-status-tabvim'
 # alias gsttabvim='git-status-tabvim'
