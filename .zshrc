@@ -260,7 +260,8 @@ alias find-orig-files-and-delete="find . -name '*.orig' -delete"
 # [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
 
-alias vars='declare -p'
+# alias vars='declare -p'
+alias vars='typeset'
 
 # cd
 alias ho='cd ~'
