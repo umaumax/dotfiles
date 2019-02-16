@@ -535,3 +535,9 @@ Plug 'umaumax/bats.vim', {'for':'bats'}
 
 " NOTE: indentの整形がない
 Plug 'umaumax/vim-yaml-format', {'for':'yaml'}
+
+" NOTE: for remote file editing
+" e.g. :VimFiler ssh://localhost/$HOME/tmp/README.md
+" To open absolute path, you must use "ssh://HOSTNAME//" instead of "ssh://HOSTNAME/".
+Plug 'Shougo/neossh.vim', {'on': ['VimFiler']}
+Plug 'Shougo/vimfiler.vim', {'on': ['VimFiler']}
