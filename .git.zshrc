@@ -249,9 +249,15 @@ function git-grep-japanese-root() { ggr-japanese; }
 function git-grep-japanese-current() { ggc-japanese; }
 
 alias gfvc='gfvimc'
-alias gfvimc='git ls-files | pecovim'
+function gfvimc() {
+	is_git_repo_with_message || return
+	git ls-files | pecovim
+}
 alias gfv='gfvim'
-alias gfvim='git ls-files $(git rev-parse --show-toplevel) | pecovim'
+function gfvim() {
+	is_git_repo_with_message || return
+	git ls-files $(git rev-parse --show-toplevel) | pecovim
+}
 
 function is_git_repo() { git rev-parse --is-inside-work-tree >/dev/null 2>&1; }
 function is_git_repo_with_message() {
