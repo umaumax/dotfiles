@@ -320,7 +320,7 @@ function mkcd() {
 		echo "'$dirpath' already exists" 1>&2
 		return 1
 	fi
-	mkdir -p $dirpath && cd $dirpath
+	mkdir -p "$dirpath" && cd "$_"
 }
 
 alias clear-by-ANSI='echo -n "\x1b[2J\x1b[1;1H"'
