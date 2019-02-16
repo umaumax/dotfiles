@@ -50,7 +50,8 @@ function! IsPrivateWork(...)
 		endif
 	endif
 
-	let l:authors = system("cd " . shellescape(l:dir_path) . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log --format='%an' > /dev/null 2>&1 | sort | uniq | tr -d '\n')")
+	" NOTE: 高速化のため，use only 10 latest commits
+	let l:authors = system("cd " . shellescape(l:dir_path) . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log --format='%an' -10 > /dev/null 2>&1 | sort | uniq | tr -d '\n')")
 	let l:is_private = l:authors == "" || l:authors == l:author
 	let g:is_private_work_cache[l:dir_path] = l:is_private
 	return l:is_private

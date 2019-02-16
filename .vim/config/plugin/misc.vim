@@ -65,7 +65,7 @@ let g:sleuth_neighbor_limit=0
 " [Vimで自動的にファイルタイプを設定してくれる便利プラグインvim\-autoftを作りました！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2015/01/15/100000 )
 " Plug 'itchyny/vim-autoft'
 
-LazyPlug 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim', {'on':['Unite']}
 
 " no dependency on vim swapfile option
 LazyPlug 'umaumax/autobackup.vim'
@@ -322,7 +322,7 @@ LazyPlug 'tpope/vim-abolish'
 
 Plug 'lervag/vimtex', {'for': 'tex'}
 " css
-Plug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css']}
+LazyPlug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css', 'markdown']}
 augroup unmap_colorizer
 	autocmd!
 	autocmd VimEnter * silent! nunmap <Leader>tc
@@ -503,7 +503,6 @@ Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 " NOTE: vim-open-googletranslate requires open-browser
 Plug 'tyru/open-browser.vim', {'on':'OpenGoogleTranslate'}
 Plug 'umaumax/vim-open-googletranslate', {'on':'OpenGoogleTranslate'}
-
 
 " only for :PlugInstall
 Plug 'rhysd/committia.vim', {'on':[]}
