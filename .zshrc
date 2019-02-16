@@ -1343,7 +1343,7 @@ alias f.make='find . \( -name "[mM]akefile" -o -name "*.mk" \)'
 alias fg.make='f.make -print0 | xargs-grep-0'
 alias f.cmake='find . \( \( -name "CMakeLists.txt" -o -name "*.cmake" \) -not -iwholename "*build*" \)'
 alias fg.cmake='f.cmake -print0 | xargs-grep-0'
-alias f.readme='find . \( \( -iname readme*.txt -o -iname readme*.md \) -not -iwholename "*build*" \)'
+alias f.readme='find . \( \( -iname readme*.txt -o -iname readme*.md -o -iname readme*.mkd \) -not -iwholename "*build*" \)'
 alias fg.readme='f.readme -print0 | xargs-grep-0'
 
 alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \)'
