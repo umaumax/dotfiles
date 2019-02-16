@@ -20,8 +20,9 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/zsh-abbrev-alias ]] && git clone https://github.com/umaumax/zsh-abbrev-alias $zshdir/zsh-abbrev-alias
 		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
 
-		[[ ! -e $zshdir/zsh-syntax-highlighting-filetypes ]] && git clone https://github.com/trapd00r/zsh-syntax-highlighting-filetypes $zshdir/zsh-syntax-highlighting-filetypes
-		source $zshdir/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+		# NOTE: 補完の候補の灰色が見えにくくなる
+		# [[ ! -e $zshdir/zsh-syntax-highlighting-filetypes ]] && git clone https://github.com/trapd00r/zsh-syntax-highlighting-filetypes $zshdir/zsh-syntax-highlighting-filetypes
+		# source $zshdir/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
 
 		# NOTE: original version
 		[[ ! -e $zshdir/zce.zsh ]] && git clone https://github.com/hchbaw/zce.zsh $zshdir/zce.zsh
