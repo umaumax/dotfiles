@@ -20,9 +20,36 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/zsh-abbrev-alias ]] && git clone https://github.com/umaumax/zsh-abbrev-alias $zshdir/zsh-abbrev-alias
 		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
 
-		# NOTE: 補完の候補の灰色が見えにくくなる
-		# [[ ! -e $zshdir/zsh-syntax-highlighting-filetypes ]] && git clone https://github.com/trapd00r/zsh-syntax-highlighting-filetypes $zshdir/zsh-syntax-highlighting-filetypes
-		# source $zshdir/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+		# NOTE: this plugin includes zsh-syntax-highlighting
+		[[ ! -e $zshdir/zsh-syntax-highlighting-filetypes ]] && git clone https://github.com/trapd00r/zsh-syntax-highlighting-filetypes $zshdir/zsh-syntax-highlighting-filetypes
+		source $zshdir/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+		# NOTE: 補完の候補の灰色が見えにくくなるため，修正
+		# FYI: [zsh\-syntax\-highlighting/main\-highlighter\.zsh at 1e34c4aa0bcbdde5173aab15600784edf0a212fd · zsh\-users/zsh\-syntax\-highlighting]( https://github.com/zsh-users/zsh-syntax-highlighting/blob/1e34c4aa0bcbdde5173aab15600784edf0a212fd/highlighters/main/main-highlighter.zsh#L31 )
+		# FYI: [zsh\-syntax\-highlighting/main\.md at db6cac391bee957c20ff3175b2f03c4817253e60 · zsh\-users/zsh\-syntax\-highlighting]( https://github.com/zsh-users/zsh-syntax-highlighting/blob/db6cac391bee957c20ff3175b2f03c4817253e60/docs/highlighters/main.md )
+		ZSH_HIGHLIGHT_STYLES+=(
+			default 'fg=255'
+			# -v
+			single-hyphen-option 'fg=250'
+			# --version
+			double-hyphen-option 'fg=250'
+			# var=val
+			assign 'fg=111,bold'
+			redirection 'fg=magenta'
+			comment 'fg=240'
+			# | ; || && and so on...
+			commandseparator 'fg=magenta'
+			path 'underline'
+			# unknown options
+			command-substitution 'fg=magenta'
+			process-substitution 'fg=magenta'
+			command-substitution-delimiter 'fg=magenta'
+			process-substitution-delimiter 'fg=magenta'
+		)
+		# NOTE: default is only 'main'
+		ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+		ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+		# <() process-substitution?
+		# $() command-substitution?
 
 		# NOTE: original version
 		[[ ! -e $zshdir/zce.zsh ]] && git clone https://github.com/hchbaw/zce.zsh $zshdir/zce.zsh
