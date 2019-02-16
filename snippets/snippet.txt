@@ -1009,3 +1009,5 @@
 # image
 [image convert extend] convert $IMAGE@ -append -background none -gravity center -extent 320x320 $OUTPUT
 [image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
+
+[getconf 32 bits or 64 bits] getconf LONG_BIT
