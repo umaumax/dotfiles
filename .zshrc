@@ -17,7 +17,10 @@ fi
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+	# NOTE: overwrite $LS_COLORS
+	[[ -n $LS_COLORS ]] && export _LS_COLORS="$LS_COLORS"
 	source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+	[[ -n $_LS_COLORS ]] && export LS_COLORS="$_LS_COLORS" && unset _LS_COLORS
 else
 	# NOTE: install zprezto
 	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
@@ -159,13 +162,22 @@ alias la='ls -al'
 alias lat='ls -alt'
 alias latr='ls -altr'
 if cmdcheck exa; then
-	alias exa='exa -h'
+	alias exa='LS_COLORS= exa -h --sort modified --sort oldest --color-scale --git --time-style iso'
 	alias l='exa'
 	alias la='exa -al'
 	alias lat='exa -alt modified'
 	alias latr='exa -alrt modified'
+	unalias ls
+	function ls() {
+		if [[ $# == 0 ]]; then
+			LS_COLORS= exa -h
+		else
+			command ls "$@"
+		fi
+	}
 fi
 
+alias ll='la'
 alias lll='la'
 alias lal='la'
 alias lalt='lat'
@@ -1717,6 +1729,9 @@ if [[ $ZSH_NAME == zsh ]]; then
 	setopt list_packed                    # 補完結果をできるだけ詰める
 	# setopt rm_star_wait                   # rm * を実行する前に確認
 	setopt numeric_glob_sort # 辞書順ではなく数字順に並べる。
+	# NOTE: enable color file completion
+	# NOTE: this eval is used to avoid shfmt error
+	eval 'zstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"'
 fi
 
 # 実行したプロセスの消費時間がn秒以上かかったら
