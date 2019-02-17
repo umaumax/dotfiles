@@ -577,3 +577,14 @@ function git-remove-submodule() {
 function git-logs-HEAD() {
 	cat "$(git rev-parse --show-toplevel)/.git/logs/HEAD"
 }
+
+# NOTE: for my forked project for golang
+function go-get-fork() {
+	[[ $# -lt 1 ]] && echo "$(basename $0) [https url]" && return 1
+	local git_url="$1"
+	local api_url=$(echo "$git_url" | sed -E 's:github.com:api.github.com/repos:' | sed -E 's/.git$//g')
+	[[ -z $api_url ]] && return 1
+	local fork_user_repo=$(curl "$api_url" | jq -r '.parent.full_name')
+	[[ -z $fork_user_repo ]] && return 1
+	git clone "$git_url" "${GOPATH#*:}/src/github.com/$fork_user_repo"
+}
