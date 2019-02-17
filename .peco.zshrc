@@ -561,6 +561,19 @@ if cmdcheck fzf; then
 			done
 		}
 	fi
+	if cmdcheck jq; then
+		alias pecojq='jqpeco'
+		function jqpeco() {
+			local input_filepath=${1:-}
+			if [[ -p /dev/stdin ]]; then
+				local tmpfile=$(mktemp "$(basename $0).$$.tmp.XXXXXX")
+				cat /dev/stdin >"$tmpfile"
+				input_filepath="$tmpfile"
+			fi
+			cat "$input_filepath" | fzf --ansi --multi --preview "cat '$input_filepath' | jq -C {q}" --preview-window 'down:70%' --height '80%' --print-query
+			[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+		}
+	fi
 	alias pecorm='rmpeco'
 	function rmpeco() {
 		local ret=$(
