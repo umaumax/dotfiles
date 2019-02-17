@@ -591,14 +591,25 @@ if cmdcheck fzf; then
 		[[ -n $dirpath ]] && cd "$dirpath"
 	}
 	cmdcheck sedry && function sedcheck() {
-		[[ $# -lt 1 ]] && echo "$(basename $0) [filepath]..." && return 1
+		local input_filepath=${1:-}
+		local args=("$@")
+		if [[ -p /dev/stdin ]]; then
+			local tmpfile=$(mktemp "$(basename $0).$$.tmp.XXXXXX")
+			cat /dev/stdin >"$tmpfile"
+			cat $tmpfile
+			args=("$@" "$tmpfile")
+		else
+			[[ $# -lt 1 ]] && echo "$(basename $0) [filepath]..." && return 1
+		fi
+
 		local SED='sed'
 		type >/dev/null 2>&1 gsed && SED='gsed'
 		{
 			echo 's/hgoe/fuga/g'
 			echo '1iSAMPLE'
 			echo '1aSAMPLE'
-		} | fzf --ansi --multi --preview 'echo '"$SED"' -E {q}; SEDRY_SED='"$SED"' sedry -E {q} '"$@" --preview-window 'down:70%' --height '80%' --print-query
+		} | fzf --ansi --multi --preview 'echo '"$SED"' -E {q}; SEDRY_SED='"$SED"' sedry -E {q} '"${args[@]}" --preview-window 'down:70%' --height '80%' --print-query
+		[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 	}
 	if cmdcheck buku; then
 		alias bukupeco='bookpeco'
