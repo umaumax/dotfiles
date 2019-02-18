@@ -172,6 +172,7 @@ function rdvim() {
 # NOTE: echo ${~$(echo '~')} means expand '~'
 alias rvcd="cd \${~\$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
 alias rcd="cd \$(cdinfo | ranking_color_cat | peco | sed 's:$:/:g')./"
+alias lcdpeco='ls | cdpeco'
 function cdpeco() {
 	# NOTE: mac ok
 	# 	if [[ -p /dev/stdin ]]; then
