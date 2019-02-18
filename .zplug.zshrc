@@ -46,7 +46,8 @@ if [[ $USE_ZPLUG == 0 ]]; then
 			process-substitution-delimiter 'fg=magenta'
 		)
 		# NOTE: default is only 'main'
-		ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+		# WARN: don't add cursor to avoid losing cursor
+		ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 		ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 		# <() process-substitution?
 		# $() command-substitution?
