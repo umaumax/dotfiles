@@ -597,7 +597,6 @@ if cmdcheck fzf; then
 		if [[ -p /dev/stdin ]]; then
 			local tmpfile=$(mktemp "$(basename $0).$$.tmp.XXXXXX")
 			cat /dev/stdin >"$tmpfile"
-			cat $tmpfile
 			args=("$@" "$tmpfile")
 		else
 			[[ $# -lt 1 ]] && echo "$(basename $0) [filepath]..." && return 1
