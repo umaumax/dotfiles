@@ -579,9 +579,9 @@ function clean-vim-undofile() {
 # alias gstpv='git-status-pecovim'
 # alias gstvim='git-status-pecovim'
 
-alias gstvim='git status -s | -e "^ M" -e "^A" | cut -c4- | pecovim'
-alias gstvimm='git status -s | -e "^ M" | cut -c4- | pecovim'
-alias gstvima='git status -s | -e "^A" | cut -c4- | pecovim'
+alias gstvim='git status -s | grep -e "^ M" -e "^A" | cut -c4- | pecovim'
+alias gstvimm='git status -s | grep -e "^ M" | cut -c4- | pecovim'
+alias gstvima='git status -s | grep -e "^A" | cut -c4- | pecovim'
 alias gsttabvim='vim -p `gstvim`'
 alias gsttabvimm='vim -p `gsttabvimm`'
 alias gsttabvima='vim -p `gsttabvima`'
