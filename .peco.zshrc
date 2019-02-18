@@ -341,6 +341,36 @@ function git-rename-to-backup-branch-peco() {
 	[[ -n $branch ]] && git rename {,$prefix}"$branch"
 }
 
+function git-reflog-commit-id() {
+	function color_filter() { command cat; }
+	cmdcheck cgrep && function color_filter() { cgrep '([0-9a-zA-Z]+) (HEAD@{[0-9]+})(: [^:]+: )(.*)$' 'green,yellow,default,magenta'; }
+	git reflog | color_filter | fzf | cut -d" " -f1
+}
+function git-reset-hard-peco() {
+	is_git_repo_with_message || return
+	local commit=$(git-reflog-commit-id)
+	[[ -z $commit ]] && return 1
+
+	git show --stat "$commit"
+	# NOTE: only for zsh
+	echo -n "${RED}git reset --hard '$commit' ok?${DEFAULT}(y/N): "
+	read -q || return 1
+
+	git reset --soft "$commit"
+}
+function git-reset-soft-peco() {
+	is_git_repo_with_message || return
+	local commit=$(git-reflog-commit-id)
+	[[ -z $commit ]] && return 1
+
+	git show --stat "$commit"
+	# NOTE: only for zsh
+	echo -n "git reset --soft '$commit' ok?(y/N): "
+	read -q || return 1
+
+	git reset --soft "$commit"
+}
+
 function cheat() {
 	# below commands enable alias
 	# for 高速vim起動
