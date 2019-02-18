@@ -38,7 +38,8 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
-Plug 'Shougo/neosnippet'
+" WARN: next commit 381bc21 has bug, be careful!
+Plug 'Shougo/neosnippet', {'commit': 'a943f93'}
 Plug 'Shougo/neosnippet-snippets' " default snippets
 let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
