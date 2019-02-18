@@ -5,11 +5,11 @@ abbrev-alias -g L="| less "
 abbrev-alias -g P="| peco "
 abbrev-alias -g F="| fzf "
 abbrev-alias -g C="| c"
-abbrev-alias -g H="'HEAD\%#'"
+abbrev-alias -g head="'HEAD\%#'"
 abbrev-alias -g R=" rm -rf "
 abbrev-alias -g rmf=" rm -rf "
 abbrev-alias -g pipe="| "
-abbrev-alias -g HOME="~/"
+abbrev-alias -g H="~/"
 # WARN: find -type d
 # abbrev-alias -g d='./'
 abbrev-alias -g ex="./"
