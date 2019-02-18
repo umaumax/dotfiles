@@ -45,7 +45,7 @@ if $(cmdcheck pbcopy && cmdcheck pbpaste); then
 	alias op="p | tr -d '\n'"
 fi
 
-alias t='touch'
+# alias t='touch'
 
 # for webcat
 export WEBCAT_PORT=3939

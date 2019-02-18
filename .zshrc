@@ -300,6 +300,8 @@ alias desktop='cd ~/Desktop/'
 [[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* [n]vim"'
 [[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
 
+cmdcheck tig && alias t='tig'
+
 alias vp='cdvproot'
 alias vpr='cdvproot'
 alias vproot='cdvproot'
@@ -1427,7 +1429,7 @@ alias CR2LF='sed "s/\r/\n/g"'
 alias remove-blank-line='awk "NF > 0"'
 
 alias cl='clear'
-alias t='touch'
+# alias t='touch'
 
 alias ty='type'
 alias wh='which'
