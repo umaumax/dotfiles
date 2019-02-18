@@ -623,4 +623,14 @@ if cmdcheck fzf; then
 			done
 		}
 	fi
+	alias sshdelpeco='ssh-keygen-R-peco'
+	function ssh-keygen-R-peco() {
+		local ret=$(command cat ~/.ssh/known_hosts | sed -E 's/^([^, ]*),?([^, ]*) .*$/\1\t\2/g' | peco)
+		[[ -z $ret ]] && return 1
+		# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+		printf '%s' "$ret" | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+			local hostname=$(printf '%s' "$LINE" | awk '{ print $1; }')
+			ssh-keygen -R "$hostname"
+		done
+	}
 fi
