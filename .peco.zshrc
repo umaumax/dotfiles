@@ -77,14 +77,14 @@ function pecocat() {
 				# NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
 				# NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
 				# NOTE: eval echo $filepath: extract ~ to $HOME
-				pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(eval echo $(echo {} | cut -d":" -f1)); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%' --query=$query
+				fzf --multi --ansi --reverse --preview 'F=$(eval echo $(echo {} | cut -d":" -f1)); FL=$(echo {} | awk "{ print \$1; }" | awk -F":" "{ printf \"%s:%s\\n\", \$1, \$2; }"; ); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && echo $FL:'"$range"' && '"$CAT"' $FL:'"$range"';' --preview-window 'down:60%' --query=$query
 				return
 			elif cmdcheck bat; then
 				local CAT='bat --color=always'
 			elif cmdcheck ccat; then
 				local CAT='ccat -C=always'
 			fi
-			pipe-EOF-do fzf --multi --ansi --reverse --preview 'F=$(eval echo $(echo {} | cut -d":" -f1)); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
+			fzf --multi --ansi --reverse --preview 'F=$(eval echo $(echo {} | cut -d":" -f1)); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
 		else
 			peco
 		fi

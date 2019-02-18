@@ -484,14 +484,14 @@ if [[ $(uname) == "Linux" ]]; then
 	fi
 fi
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
-# sudo対応
+# macのみsudo対応
 function pipe-EOF-do() {
 	# NOTE: mac ok
 	# NOTE: ubuntu cannot deal with sudo before pipe
 	read -r LINE
 	{
-		echo $LINE
-		cat
+		printf '%s\n' "$LINE"
+		command cat /dev/stdin
 	} | ${@}
 	return
 }
