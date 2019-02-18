@@ -1,142 +1,142 @@
 # [vim\-snippets\-neosnippet/cmake\.snip at master · gisphm/vim\-snippets\-neosnippet]( https://github.com/gisphm/vim-snippets-neosnippet/blob/master/neosnippets/cmake.snip )
 snippet init
-    cmake_minimum_required(version ${1:2.8.2})
-    project(${2:#:ProjectName})
+  cmake_minimum_required(version ${1:2.8.2})
+  project(${2:#:ProjectName})
 
-    find_package(${3:#:library})
+  find_package(${3:#:library})
 
-    include_directories(${$3_INCLUDE_DIRS})
+  include_directories(${$3_INCLUDE_DIRS})
 
-    add_subdirectory(${0:#:src})
+  add_subdirectory(${0:#:src})
 
-    add_executable($2)
+  add_executable($2)
 
-    target_link_libraries($2 ${$3_LIBRARIES})
+  target_link_libraries($2 ${$3_LIBRARIES})
 
 snippet proj
-    project(${0:Name})
+  project(${0:Name})
 
 snippet min
-    cmake_minimum_required(version ${0:2.8.2})
+  cmake_minimum_required(version ${0:2.8.2})
 
 snippet include
 abbr NOTE: 1st arg is not target
-    include_directories(${${0:#:include_dir}})
+  include_directories(${${0:#:include_dir}})
 
 snippet find
-    find_package(${1:#:library}${0: REQUIRED})
-    include_directories(${$1_INCLUDE_DIRS})
-    target_link_libraries(${2:#:project target} ${$1_LIBS})
+  find_package(${1:#:library} ${0: REQUIRED})
+  include_directories(${$1_INCLUDE_DIRS})
+  target_link_libraries(${2:#:project target} ${$1_LIBS})
 
 snippet glob
-    file(glob ${1:#:srcs} *.${0:cpp})
+  file(glob ${1:#:srcs} *.${0:cpp})
 
 snippet subdir
-    add_subdirectory(${0:#:src})
+  add_subdirectory(${0:#:src})
 
 snippet lib
-    add_library(${1:#:lib} ${${0:#:srcs}})
+  add_library(${1:#:lib} ${${0:#:srcs}})
 
 snippet link
-    target_link_libraries(${1:#:bin} ${0:#:somelib})
+  target_link_libraries(${1:#:bin} ${0:#:somelib})
 
 snippet bin
-    add_executable(${1:#:bin})
+  add_executable(${1:#:bin})
 
 snippet set
-    set(${1:#:var} ${0:#:val})
+  set(${1:#:var} ${0:#:val})
 
 snippet dep
-    add_dependencies(${1:#:target}
-        ${0:#:dep}
-    )
+  add_dependencies(${1:#:target}
+      ${0:#:dep}
+  )
 
 snippet c_flags
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${0}")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${0}")
 
 snippet cpp_flags
 alias cxx_flags
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${0}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${0}")
 
 snippet ExternalProject_Add_url
-    include(ExternalProject)
-    ExternalProject_Add(${1:#:googletest}
-      URL ${2:#:http://googletest.googlecode.com/files/gtest-1.7.0.zip}
-      URL_HASH SHA1=${3:#:f85f6d2481e2c6c4a18539e391aa4ea8ab0394af}
-      SOURCE_DIR "${CMAKE_BINARY_DIR}/${4:#:gtest-src}"
-      BINARY_DIR "${CMAKE_BINARY_DIR}/${0:#:gtest-build}"
-      CONFIGURE_COMMAND ""
-      BUILD_COMMAND     ""
-      INSTALL_COMMAND   ""
-      TEST_COMMAND      ""
-    )
+  include(ExternalProject)
+  ExternalProject_Add(${1:#:googletest}
+    URL ${2:#:http://googletest.googlecode.com/files/gtest-1.7.0.zip}
+    URL_HASH SHA1=${3:#:f85f6d2481e2c6c4a18539e391aa4ea8ab0394af}
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/${4:#:gtest-src}"
+    BINARY_DIR "${CMAKE_BINARY_DIR}/${0:#:gtest-build}"
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND     ""
+    INSTALL_COMMAND   ""
+    TEST_COMMAND      ""
+  )
 
 snippet ExternalProject_Add_googletest
 abbr with googlemock
-    include(ExternalProject)
-    ExternalProject_Add(googletest
-        DOWNLOAD_COMMAND ""
-        SOURCE_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/googletest"
-        BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/googletest"
-        INSTALL_COMMAND   cp -R ${CMAKE_CURRENT_BINARY_DIR}/googletest/lib/ ${CMAKE_INSTALL_PREFIX}/ &&
-                          cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/include/ ${CMAKE_INSTALL_PREFIX}/ &&
-                          cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googlemock/include/ ${CMAKE_INSTALL_PREFIX}/
-        TEST_COMMAND      ""
-    )
+  include(ExternalProject)
+  ExternalProject_Add(googletest
+    DOWNLOAD_COMMAND ""
+    SOURCE_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/googletest"
+    BINARY_DIR        "${CMAKE_CURRENT_BINARY_DIR}/googletest"
+    INSTALL_COMMAND   cp -R ${CMAKE_CURRENT_BINARY_DIR}/googletest/lib/ ${CMAKE_INSTALL_PREFIX}/ &&
+                      cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/include/ ${CMAKE_INSTALL_PREFIX}/ &&
+                      cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googlemock/include/ ${CMAKE_INSTALL_PREFIX}/
+    TEST_COMMAND      ""
+  )
 
 snippet ExternalProject_Add_git
-    include(ExternalProject)
-    ExternalProject_Add(${1:#:googletest}
-      GIT_REPOSITORY    ${2:#:https://github.com/google/googletest.git}
-      GIT_TAG           ${3:master}
-      SOURCE_DIR        "${CMAKE_BINARY_DIR}/${4:#:googletest-src}"
-      BINARY_DIR        "${CMAKE_BINARY_DIR}/${0:#:googletest-build}"
-      CONFIGURE_COMMAND ""
-      BUILD_COMMAND     ""
-      INSTALL_COMMAND   ""
-      TEST_COMMAND      ""
-    )
+  include(ExternalProject)
+  ExternalProject_Add(${1:#:googletest}
+    GIT_REPOSITORY    ${2:#:https://github.com/google/googletest.git}
+    GIT_TAG           ${3:master}
+    SOURCE_DIR        "${CMAKE_BINARY_DIR}/${4:#:googletest-src}"
+    BINARY_DIR        "${CMAKE_BINARY_DIR}/${0:#:googletest-build}"
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND     ""
+    INSTALL_COMMAND   ""
+    TEST_COMMAND      ""
+  )
 
 snippet ExternalProject_Add_patch
-    # project()
-    include(ExternalProject)
-    ExternalProject_Add(${PROJECT_NAME}
-        PREFIX ${PROJECT_NAME}
-        GIT_REPOSITORY ${1:#:URL}
-        GIT_TAG master
-        PATCH_COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -maxdepth 1 -name "*.patch" -print0 | xargs --no-run-if-empty -0 -L 1 patch -p1 --input
-        CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/lib"
-        INSTALL_COMMAND ""
-    )
+  # project()
+  include(ExternalProject)
+  ExternalProject_Add(${PROJECT_NAME}
+    PREFIX ${PROJECT_NAME}
+    GIT_REPOSITORY ${1:#:URL}
+    GIT_TAG master
+    PATCH_COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -maxdepth 1 -name "*.patch" -print0 | xargs --no-run-if-empty -0 -L 1 patch -p1 --input
+    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/lib"
+    INSTALL_COMMAND ""
+  )
 
 snippet ExternalProject_Add_make
-    BUILD_IN_SOURCE TRUE
-    BUILD_COMMAND bash -c "${1:#:cd XXX && make release}"
+  BUILD_IN_SOURCE TRUE
+  BUILD_COMMAND bash -c "${1:#:cd XXX && make release}"
 
 snippet props
-    set_target_properties(${1:#:target}
-        ${2:#:properties} ${3:#:compile_flags}
-        ${0:"-O3 -Wall -pedantic"}
-    )
+  set_target_properties(${1:#:target}
+    ${2:#:properties} ${3:#:compile_flags}
+    ${0:"-O3 -Wall -pedantic"}
+  )
 
 snippet test
-    add_test(${1:#:TestName} ${0:#:testCommand --options})
+  add_test(${1:#:TestName} ${0:#:testCommand --options})
 
 snippet dump_var
-    message(STATUS "*** dump start cmake variables ***")
-    get_cmake_property(_variableNames VARIABLES)
-    foreach(_variableName ${_variableNames})
-      message(STATUS "${_variableName}=${${_variableName}}")
-    endforeach()
-    message(STATUS "*** dump end ***")
+  message(STATUS "*** dump start cmake variables ***")
+  get_cmake_property(_variableNames VARIABLES)
+  foreach(_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+  endforeach()
+  message(STATUS "*** dump end ***")
 
 snippet message
 alias echo
-    message(${0})
+  message(${0})
 
 snippet messages_list
 alias echo_list echo_var
-    message("\${${0:#: list var name}}")
+  message("\${${0:#: list var name}}")
 
 snippet foreach_list
 abbr    don't use ${} as var name here
@@ -146,9 +146,9 @@ options head
   endforeach()
 
 snippet list_append_all
-    foreach(${1:item} IN LISTS ${2:#:items})
-      list(APPEND ${3:#:new_item} "${4:#:prefix}\${$1}${0:#:suffix}")
-    endforeach()
+  foreach(${1:item} IN LISTS ${2:#:items})
+    list(APPEND ${3:#:new_item} "${4:#:prefix}\${$1}${0:#:suffix}")
+  endforeach()
 
 snippet list_length
   list(LENGTH ${1:#:list} ${2:#:out-var})
@@ -219,7 +219,7 @@ snippet hook_find_package
   mkdir -p ./cmake
   cat > ./cmake/Find$1.cmake << 'EOF'
   find_package($1 REQUIRED NO_MODULE)
-  
+
   set($1_LIBRARIES xxx;yyy;zzz)
   set($1_LIBS ${$1_LIBRARIES})
   set($1_LIB_COMPONENTS ${$1_LIBRARIES})
