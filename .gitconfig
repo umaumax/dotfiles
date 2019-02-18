@@ -22,6 +22,7 @@
 
   b = branch
   branch-current-name = rev-parse --abbrev-ref HEAD
+  branch-name = branch-current-name
   branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
   tag-or-branch-name = !git describe --tags 2> /dev/null || git rev-parse --abbrev-ref HEAD
 
