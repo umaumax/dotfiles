@@ -15,7 +15,7 @@ function! s:Tab()
 	endif
 	if &rtp =~ 'neosnippet'
 		if neosnippet#jumpable()
-			execute "normal a\<Plug>(neosnippet_jump)"
+			silent! execute "normal a\<Plug>(neosnippet_jump)"
 			let cursorPos = col(".")
 			let maxColumn = col("$")
 			if cursorPos == maxColumn - 1
