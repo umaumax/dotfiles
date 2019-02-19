@@ -41,7 +41,7 @@ snippet link
 	target_link_libraries(${1:#:bin} ${0:#:somelib})
 
 snippet bin
-	add_executable(${1:#:bin})
+	add_executable(${1:#:bin})${0}
 
 snippet set
 	set(${1:#:var} ${0:#:val})
@@ -82,7 +82,7 @@ abbr with googlemock
 	                   cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googletest/include/ ${CMAKE_INSTALL_PREFIX}/ &&
 	                   cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googlemock/include/ ${CMAKE_INSTALL_PREFIX}/
 	  TEST_COMMAND     ""
-	)
+	)${0}
 
 snippet ExternalProject_Add_git
 	include(ExternalProject)
@@ -107,11 +107,11 @@ snippet ExternalProject_Add_patch
 	  PATCH_COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -maxdepth 1 -name "*.patch" -print0 | xargs --no-run-if-empty -0 -L 1 patch -p1 --input
 	  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/lib"
 	  INSTALL_COMMAND ""
-	)
+	)${0}
 
 snippet ExternalProject_Add_make
 	BUILD_IN_SOURCE TRUE
-	BUILD_COMMAND bash -c "${1:#:cd XXX && make release}"
+	BUILD_COMMAND bash -c "${1:#:cd XXX && make release}"${0}
 
 snippet props
 	set_target_properties(${1:#:target}
@@ -129,6 +129,7 @@ snippet dump_var
 	  message(STATUS "${_variableName}=${${_variableName}}")
 	endforeach()
 	message(STATUS "*** dump end ***")
+	${0}
 
 snippet message
 alias echo
@@ -151,33 +152,33 @@ snippet list_append_all
 	endforeach()
 
 snippet list_length
-	list(LENGTH ${1:#:list} ${2:#:out-var})
+	list(LENGTH ${1:#:list} ${2:#:out-var})${0}
 snippet list_get
-	list(GET ${1:#:list} ${2:#:element index} ${3:#:[index...]} ${4:#:out-var})
+	list(GET ${1:#:list} ${2:#:element index} ${3:#:[index...]} ${4:#:out-var})${0}
 snippet list_join
-	list(JOIN ${1:#:list} ${2:#:glue} ${3:#:out-var})
+	list(JOIN ${1:#:list} ${2:#:glue} ${3:#:out-var})${0}
 snippet list_sublist
-	list(SUBLIST ${1:#:list} ${2:#:begin} ${3:#:length} ${4:#:out-var})
+	list(SUBLIST ${1:#:list} ${2:#:begin} ${3:#:length} ${4:#:out-var})${0}
 snippet list_find
-	list(FIND ${1:#:list} ${2:#:value} ${3:#:out-var})
+	list(FIND ${1:#:list} ${2:#:value} ${3:#:out-var})${0}
 snippet list_append
-	list(APPEND ${1:#:list} [${2:#:element...]})
+	list(APPEND ${1:#:list} [${2:#:element...]})${0}
 snippet list_filter
-	list(FILTER ${1:#:list} ${2:#:INCLUDE or EXCLUDE} REGEX ${3:#:regex})
+	list(FILTER ${1:#:list} ${2:#:INCLUDE or EXCLUDE} REGEX ${3:#:regex})${0}
 snippet list_insert
-	list(INSERT ${1:#:list} ${2:#:index} ${3:#:[element...]})
+	list(INSERT ${1:#:list} ${2:#:index} ${3:#:[element...]})${0}
 snippet list_remove_ietm
-	list(REMOVE_ITEM ${1:#:list} ${2:#:value...})
+	list(REMOVE_ITEM ${1:#:list} ${2:#:value...})${0}
 snippet list_at
-	list(REMOVE_AT ${1:#:list} ${2:#:index...})
+	list(REMOVE_AT ${1:#:list} ${2:#:index...})${0}
 snippet list_duplicates
-	list(REMOVE_DUPLICATES ${1:#:list})
+	list(REMOVE_DUPLICATES ${1:#:list})${0}
 snippet list_transform
-	list(TRANSFORM ${1:#:list} ${2:#:ACTION} ${3:#:[...]})
+	list(TRANSFORM ${1:#:list} ${2:#:ACTION} ${3:#:[...]})${0}
 snippet list_reverse
-	list(REVERSE ${1:#:list})
+	list(REVERSE ${1:#:list})${0}
 snippet list_sort
-	list(SORT ${2:#:list})
+	list(SORT ${2:#:list})${0}
 
 snippet get_filename
 abbr File name without directory
@@ -224,3 +225,4 @@ snippet hook_find_package
 	set($1_LIBS ${$1_LIBRARIES})
 	set($1_LIB_COMPONENTS ${$1_LIBRARIES})
 	EOF
+	${0}

@@ -2,34 +2,34 @@ snippet host
 	Host ${1:#:name}
 		HostName ${2:#:hostname}
 		User ${3:#:login user name}
-		IdentityFile ~/.ssh/${4:#:secret key filepath(not .pub)}
+		IdentityFile ~/.ssh/${4:#:secret key filepath(not .pub)}${0}
 
 snippet port
 	Port ${0}
 
 snippet portforward
 alias LocalForward
-	LocalForward ${1:#: local port} ${2:#: target host from remote host}:${3:#: target port from remote host}
+	LocalForward ${1:#: local port} ${2:#: target host from remote host}:${3:#: target port from remote host}${0}
 
 snippet proxy
 alias ProxyCommand
-	ProxyCommand ssh ${1:#: proxy ssh host name} -W %h:%p
+	ProxyCommand ssh ${1:#: proxy ssh host name} -W %h:%p${0}
 
 snippet xwindow
 	XAuthLocation /opt/X11/bin/xauth
 	ForwardX11 yes
-	ForwardX11Trusted yes
+	ForwardX11Trusted yes${0}
 
 snippet Compression
 	Compression yes
-	CompressionLevel 3
+	CompressionLevel 3${0}
 
 snippet high_sierra
 	## NOTE: for High Sierra
 	AddKeysToAgent yes
-	UseKeychain yes
+	UseKeychain yes${0}
 
 snippet ServerAliveInterval
-	ServerAliveInterval ${1:#: sec}
+	ServerAliveInterval ${1:#: sec}${0}
 snippet ServerAliveCountMax
-	ServerAliveCountMax ${1:#: count}
+	ServerAliveCountMax ${1:#: count}${0}

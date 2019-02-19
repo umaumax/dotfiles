@@ -1,25 +1,25 @@
 # wrap command
 snippet wcout
 options word
-  `NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`
+  `NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`${0}
 snippet werr
 options word
-  `NeoSnippetWrapLine('werr', 'std::err << @', ' << std::endl;')`
+  `NeoSnippetWrapLine('werr', 'std::err << @', ' << std::endl;')`${0}
 snippet wlog
 options word
-  `NeoSnippetWrapLine('wlog', 'std::log << @', ' << std::endl;')`
+  `NeoSnippetWrapLine('wlog', 'std::log << @', ' << std::endl;')`${0}
 snippet wif
 options word
-  `NeoSnippetWrapLine('wif', 'if (', '@)')`
+  `NeoSnippetWrapLine('wif', 'if (', '@)')`${0}
 
 # REQUIRED: ctags
 snippet funcname
-  `CppFuncName()`
+  `CppFuncName()`${0}
 
 snippet contains
 alias find_string
 abbr !=: found, ==: not found
-  (${1:#:str}.find(${2:#:keyword}) != std::string::npos)
+  (${1:#:str}.find(${2:#:keyword}) != std::string::npos)${0}
 
 snippet prefix_string
 alias string_prefix
@@ -54,13 +54,13 @@ alias bool
 # NOTE: pp is too short to select
 snippet pppp
 alias ppp
-  #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint
+  #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint${0}
 snippet streampp
   #include "umaumaxcpp/streampp.hpp" // FORBIDDEN_COMMIT_MAGIC_KEYWORD${0}
 
 snippet std
 alias s
-  std::
+  std::${0}
 
 snippet stdcout
 alias cout
@@ -77,7 +77,7 @@ alias clog
 # [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
 # for vector etc...
 snippet cout_all
-  std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));
+  std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));${0}
 
 snippet precision
 abbr e.g. std::cout << HERE #include <iomanip>
@@ -94,7 +94,7 @@ snippet fstream
   ${0}
 
 snippet sleep
-  std::this_thread::sleep_for(std::chrono::${1:milliseconds}(${2:1000}));
+  std::this_thread::sleep_for(std::chrono::${1:milliseconds}(${2:1000}));${0}
 
 snippet numeric_limits
   std::numeric_limits<${1:int}>::${0:#:max or min}()
@@ -114,18 +114,18 @@ abbr std::vector<T> <vector>
 
 snippet vector2d
 abbr std::vector<std::vector<T> > <vector>
-  std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))
+  std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))${0}
 
 snippet vector_copy_with_cast_constractor
-  std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());
+  std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());${0}
 snippet vector_copy_with_cast
   ${1:#:dst var name}.resize(${2:#:src var name}.size());
-  std::copy($2.begin(), $2.end(), $1.begin());
+  std::copy($2.begin(), $2.end(), $1.begin());${0}
 snippet stream_vector
-  std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));
+  std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));${0}
 
 snippet random
-  std::${1:mt19937} ${2:rnd}((std::random_device())())
+  std::${1:mt19937} ${2:rnd}((std::random_device())())${0}
 
 snippet thread
   std::thread ${1:#:name}([${2:&}]{
@@ -192,7 +192,7 @@ abbr std::any_of <algorithm>
 
 snippet sort
 abbr std::sort <algorithm>
-  std::sort(std::begin(${1}), std::end($1))
+  std::sort(std::begin(${1}), std::end($1))${0}
 
 snippet sort_lambda
 abbr std::sort <algorithm>
@@ -205,7 +205,7 @@ abbr std::sort <algorithm>
 
 snippet sort_stable
 abbr std::stable_sort <algorithm>
-  std::stable_sort(std::begin(${1}), std::end($1))
+  std::stable_sort(std::begin(${1}), std::end($1))${0}
 
 snippet sort_stable_lmabda
 abbr std::stable_sort <algorithm>
@@ -227,15 +227,15 @@ snippet max
 
 snippet min_element
 abbr std::min_element <algorithm>
-  std::min_element(std::begin(${1}), std::end($1))
+  std::min_element(std::begin(${1}), std::end($1))${0}
 
 snippet max_element
 abbr std::max_element <algorithm>
-  std::max_element(std::begin(${1}), std::end($1))
+  std::max_element(std::begin(${1}), std::end($1))${0}
 
 snippet find
 abbr std::find <algorithm>
-  std::find(std::begin(${1}), std::end($1), ${2:#:value})
+  std::find(std::begin(${1}), std::end($1), ${2:#:value})${0}
 
 snippet find_if
 abbr std::find_if <algorithm>
@@ -248,7 +248,7 @@ abbr std::find_if <algorithm>
 
 snippet remove
 abbr std::remove <algorithm>
-  std::remove(std::begin(${1}), std::end($1), ${2:#:value})
+  std::remove(std::begin(${1}), std::end($1), ${2:#:value})${0}
 
 snippet remove_if
 abbr std::remove_if <algorithm>
@@ -260,7 +260,7 @@ abbr std::remove_if <algorithm>
     });
 
 snippet remove_erase
-  ${1}.erase(std::remove(std::begin($1), std::end($1), ${2:#:value}), std::end($1));
+  ${1}.erase(std::remove(std::begin($1), std::end($1), ${2:#:value}), std::end($1));${0}
 
 snippet remove_erase_if
   ${1}.erase(
@@ -274,7 +274,7 @@ snippet remove_erase_if
 
 snippet unique
 abbr std::unique <algorithm>
-  std::unique(std::begin(${1}), std::end($1))
+  std::unique(std::begin(${1}), std::end($1))${0}
 
 snippet unique_lambda
 abbr std::unique <algorithm>
@@ -286,7 +286,7 @@ abbr std::unique <algorithm>
     });
 
 snippet unique_erase
-  ${1}.erase(std::unique(std::begin($1), std::end($1)), std::end($1));
+  ${1}.erase(std::unique(std::begin($1), std::end($1)), std::end($1));${0}
 
 snippet unique_erase_lambda
   ${1}.erase(
@@ -300,10 +300,10 @@ snippet unique_erase_lambda
 
 snippet copy
 abbr std::copy <algorithm>
-  std::copy(std::begin(${1}), std::end($1), std::begin(${2}))
+  std::copy(std::begin(${1}), std::end($1), std::begin(${2}))${0}
 
 snippet sum
-  std::accumulate(std::begin(${1}), std::end($1), ${2:decltype($1)::value_type()})
+  std::accumulate(std::begin(${1}), std::end($1), ${2:decltype($1)::value_type()})${0}
 
 snippet time_measurement
 alias chrono_time, stopwatch, calc_time
@@ -368,7 +368,7 @@ snippet split_by_char
   ${0}
 
 snippet regex
-  std::regex ${1:#:name}("${2:#:pattern}");
+  std::regex ${1:#:name}("${2:#:pattern}");${0}
 
 snippet regex_match_loop
   for (std::sregex_iterator ${1:itr} = std::sregex_iterator(std::begin(${2:#:text}), std::end($2), ${3:#:regex}), ${4:end}; $1 != $4; ++$1) {
@@ -381,7 +381,7 @@ snippet regex_split_loop
   }
 
 snippet regex_replace
-  std::regex_replace(${1:#:text}, std::regex("${2:#:pattern}"), "${3:#:after}");
+  std::regex_replace(${1:#:text}, std::regex("${2:#:pattern}"), "${3:#:after}");${0}
 
 snippet extern_c
   #ifdef __cplusplus
@@ -433,6 +433,7 @@ snippet class_template
   inline int $1<char>::$2(char xxx) {
     return 0;
   }
+  ${0}
 
 snippet stream_eof_detection
     std::streampos archive_offset    = iss.tellg();
@@ -452,12 +453,13 @@ alias serialization_headers
     #include <boost/serialization/shared_ptr.hpp>
     #include <boost/serialization/string.hpp>
     #include <boost/serialization/vector.hpp>
+    ${0}
 snippet serialization
 alias boost_serialization
-    boost::archive::text_oarchive toa(${1:#:ostream});
+    boost::archive::text_oarchive toa(${1:#:ostream});${0}
 snippet deserialization
 alias boost_deserialization
-    boost::archive::text_iarchive tia(${1:#:istream});
+    boost::archive::text_iarchive tia(${1:#:istream});${0}
 
 snippet include-guard
     #ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
@@ -471,7 +473,7 @@ snippet include-guard-with-include-prefix
 
 snippet namespace
     namespace ${1:#: namespace} {
-    }  // namespace $1
+    }  // namespace $1${0}
 
 snippet ros_info
 alias ros_cout
@@ -498,6 +500,7 @@ alias get_home_dir
 
   struct passwd *pw = getpwuid(getuid());
   const char *homedir = pw->pw_dir;
+  ${0}
 
 snippet is_file_exist
 alias file_exist
@@ -510,13 +513,14 @@ alias file_exist
       std::ifstream ifs(str);
       return ifs.is_open();
   }
+  ${0}
 
 snippet push_back
-  emplace_back
+  emplace_back${0}
 
 snippet breakpoint
 abbr REQUIRED: <signal.h>
-  raise(SIGTRAP);
+  raise(SIGTRAP);${0}
 
 snippet include__user
 alias incl__user
@@ -527,19 +531,19 @@ alias incl__system
 
 snippet include_chrono
 alias incl_chrono
-  #include <chrono>
+  #include <chrono>${0}
 snippet include_functional
 alias incl_functional
-  #include <functional>
+  #include <functional>${0}
 snippet include_iomanip
 alias incl_iomanip
-  #include <iomanip>
+  #include <iomanip>${0}
 alias incl_algorithm
-  #include <algorithm>
+  #include <algorithm>${0}
 
 snippet clang-format-off-on
   // clang-format off
-  // clang-format on
+  // clang-format on${0}
 
 snippet sprintf_string
 alias snprintf_string
@@ -547,7 +551,7 @@ alias snprintf_string
     char buf[1024];
     std::snprintf(buf, sizeof(buf), ${1:#:format});
     return std::string(buf);
-  }();
+  }();${0}
 
 snippet string_lambda
 alias lambda_string
@@ -561,37 +565,37 @@ snippet sprintf_library
 alias library_sprintf
   // clang-format off
   namespace fmt { template <class... Args> std::string snprintf(char* buff, std::size_t n, const char* const format, Args... args) { std::snprintf(buff, n, format, args...); return std::string(buff); } template <class... Args> std::string snprintf(std::size_t n, const char* const format, Args... args) { char buff[n]; return snprintf(buff, n, format, args...); } template <class... Args> std::string sprintf(const char* const format, Args... args) { std::size_t n = std::snprintf(nullptr, 0, format, args...); return snprintf(n, format, args...); } }  // namespace fmt
-  // clang-format on
+  // clang-format on${0}
 
 snippet float_equal
 abbr #include <limits>
-  (std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())
+  (std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())${0}
 
 snippet double_equal
 abbr #include <limits>
-  (std::abs(${1} - ${2}) <= std::numeric_limits<double>::epsilon())
+  (std::abs(${1} - ${2}) <= std::numeric_limits<double>::epsilon())${0}
 
 snippet __FUNC__
 alias func_macro, FUNC
 abbr no mangling name(method without class name)
-  __func__
+  __func__${0}
 
 snippet __LINE__
 alias line_macro, LINE
-  __LINE__
+  __LINE__${0}
 
 snippet __FILE__
 alias file_macro, FILE
-  __FILE__
+  __FILE__${0}
 
 snippet using_typedef
-  using ${1:#:new type name} = ${2:#: type};
+  using ${1:#:new type name} = ${2:#: type};${0}
 
 snippet typedef
-  typedef ${1:#:type} ${2:#:new type name};
+  typedef ${1:#:type} ${2:#:new type name};${0}
 
 snippet malloc
-  ${1:#:type} ${2:#:var name} = malloc(sizeof($1)*${3:#:number});
+  ${1:#:type} ${2:#:var name} = malloc(sizeof($1)*${3:#:number});${0}
 
 snippet for_bloking
   #include <algorithm>
@@ -622,12 +626,12 @@ snippet pp_2d_array
 snippet alignas_malloc_at_any_target
 abbr #include <cstlib>, std::free()
   ${1:#:type}* ${2:#:var name};
-  (int)posix_memalign(reinterpret_cast<void**>(&$2), ${3:#:alignment}, sizeof($1) * ${4:#:size});
+  (int)posix_memalign(reinterpret_cast<void**>(&$2), ${3:#:alignment}, sizeof($1) * ${4:#:size});${0}
 
 
 snippet alias_malloc_at_linux
 abbr not Mac OS X
-  ${1:#:type}* ${2:#:var name} = static_cast<$1*>(aligned_alloc(${3:#:alignment}, (sizeof($1) * ${4:#:size} + ($3 - 1)) & ~($3 - 1)));
+  ${1:#:type}* ${2:#:var name} = static_cast<$1*>(aligned_alloc(${3:#:alignment}, (sizeof($1) * ${4:#:size} + ($3 - 1)) & ~($3 - 1)));${0}
 
 snippet alignas_alignof
   alignas(alignof(${0:float32x4_t}))
@@ -639,6 +643,7 @@ snippet float_test_headers
   #include <limits>
   #include <string>
   #include <typeinfo>
+  ${0}
 snippet float_test_assert
 abbr can't use string as dummy value use number
   #undef VAR_NAME
@@ -647,7 +652,7 @@ abbr can't use string as dummy value use number
   assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
   ${0}
 snippet float_test_clear_assert
-  assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));
+  assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));${0}
 snippet float_test_clear
 abbr can't use string as dummy value use number
   #undef VAR_NAME
@@ -661,7 +666,7 @@ abbr can't use string as dummy value use number
 snippet get_number_of_supporting_threads
 abbr USE HINT ONLY
   #include <thread>
-  std::thread::hardware_concurrency()
+  std::thread::hardware_concurrency()${0}
 
 snippet split_whitespaces
   std::vector<std::string> split_whitespaces(const std::string& str) {
@@ -673,4 +678,4 @@ snippet split_whitespaces
     }
     boost::algorithm::split(rets, trimed_str, boost::is_any_of(" "), boost::token_compress_on);
     return rets;
-  }
+  }${0}

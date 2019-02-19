@@ -1,11 +1,11 @@
 # vim: set noexpandtab ts=4 sw=4 :
 
 snippet     funcname
-	`cfi#get_func_name()`
+	`cfi#get_func_name()`${0}
 
 snippet find_first
 	def find_first(list, predicate):
-		return next((e for e in list if predicate(e)), None)
+		return next((e for e in list if predicate(e)), None)${0}
 
 snippet open_file
 alias with_open_file
@@ -20,30 +20,30 @@ snippet class
 snippet stdin_readline
 abbr input speed up tech
 	input = sys.stdin.readline
-	line = input()
+	line = input()${0}
 
 snippet stdin_readlines
-	lines = sys.stdin.readlines()
+	lines = sys.stdin.readlines()${0}
 
 snippet for_range
 	for ${2:i} in range(${1:#: 0 ~ n-1}):
 		${0}
 
 snippet init_list
-	[None] * ${1:#:N}
+	[None] * ${1:#:N}${0}
 snippet init_list2
-	[[None] * ${2:#:N2} for _ in range(${1:#:N1})]
+	[[None] * ${2:#:N2} for _ in range(${1:#:N1})]${0}
 
 snippet write_file
 	def write_file(file_name, text, flag='w'):
 		with open(file_name, flag) as file:
 			file.write(text)
-			file.truncate()
+			file.truncate()${0}
 
 snippet read_file
 	def read_file(file_name, flag='r')
 		with open(file_name, flag) as file:
-			return file.read()
+			return file.read(${0})
 
 snippet argparse_example
 alias cmdparse_example
@@ -60,9 +60,10 @@ alias cmdparse_example
 	# args.verbose
 	# args.required_arg
 	# args.args
+	${0}
 
 snippet self
-	self.
+	self.${0}
 
 snippet from
 	from ${1:#: specificated name} import ${0:#: package name}
@@ -70,7 +71,7 @@ snippet from
 snippet mean_def_np
 	def mean(self):
 		mean = np.mean(self.vec, axis=0)
-		return mean
+		return mean${0}
 
 snippet mean_np
 	${0:#:output} = np.mean(${1:#:input}, axis=0)
@@ -80,7 +81,7 @@ snippet exit
 
 snippet abspath_of_script_file
 abbr abspath of script path # required: import pathlib
-	script_abspath = pathlib.Path(__file__).resolve().parent
+	script_abspath = pathlib.Path(__file__).resolve().parent${0}
 
 snippet relpath_of_os_path
 	os.path.relpath(${1:#:target filepath}, start=${0:#:base filepath})
@@ -103,7 +104,7 @@ abbr e.g. 'あ' -> '%E3%81%82'
 	urllib.parse.quote(${0})
 
 snippet decode_uft_8
-	decode("utf-8")
+	decode("utf-8")${0}
 
 snippet getenv
 	os.getenv(${1:#:key}, ${0:#:default value})
@@ -121,7 +122,7 @@ snippet urllib3_proxy_support
 abbr urllib3 doesn't use http_proxy env
 	option = {'': ''}
 	http_proxy = os.getenv("http_proxy")
-	http = urllib3.ProxyManager(http_proxy, **option) if http_proxy else urllib3.PoolManager(**option)
+	http = urllib3.ProxyManager(http_proxy, **option) if http_proxy else urllib3.PoolManager(**option)${0}
 
 # NOTE: order: printf < print_with_end < printf_
 snippet printf_
@@ -133,7 +134,7 @@ snippet print_with_end
 	print("${1:#:message}", end="${0}")
 
 snippet argv
-	sys.argv
+	sys.argv${0}
 
 snippet pprint
 	pprint.pprint(${0})
@@ -179,7 +180,7 @@ snippet json_from_file
 		import json
 		with open(filepath, 'r', encoding='utf-8') as f:
 			json_dict = json.loads(f.read())
-			return json_dict
+			return json_dict${0}
 
 snippet main
 	def main():
@@ -191,12 +192,12 @@ snippet main
 snippet args
 alias argv
 abbr argv list
-	sys.argv
+	sys.argv${0}
 
 snippet argc
 alias argn
 abbr # of argv list
-	len(sys.argv)
+	len(sys.argv)${0}
 
 snippet time_day_range
 abbr end is not contained
@@ -221,7 +222,7 @@ snippet is_pipe
 
 snippet clipboard
 	text = pyperclip.paste()
-	pyperclip.copy(text)
+	pyperclip.copy(text)${0}
 
 snippet variable_arguments_function
 	def ${1:#:func name}(*${2:#:variable arguments list name}):
@@ -260,7 +261,7 @@ snippet unittest_for_only_script
 			pass # no run
 
 	if __name__ == "__main__":
-		unittest.main()
+		unittest.main()${0}
 
 snippet unittest_in_main_file
 	import unittest
@@ -273,7 +274,7 @@ snippet unittest_in_main_file
 		def tearDown(self):
 			pass
 		def fun_not_run(self):
-			pass # no run
+			pass # no run${0}
 
 snippet flatten
 abbr [["a", "b"], ["c", "d"]] -> ["a", "b", "c", "d"]
@@ -314,6 +315,7 @@ snippet strip_functions
 	strip_left = (lambda text, prefix: text if not text.startswith(prefix) else text[len(prefix):])
 	strip_right = (lambda text, suffix: text if not text.endswith(suffix) else text[:len(text) - len(suffix)])
 	strip = (lambda text, prefix, suffix: strip_right(strip_left(text, prefix), suffix))
+	${0}
 
 snippet regexp_example
 	m = re.search(r"${1:#: pattern (group1)}", ${2:#:input})
@@ -339,7 +341,7 @@ abbr this can exapnd ~
 	os.path.expanduser('${0}')
 
 snippet list_function_for_each_example
-	pathes = list(map(lambda x: os.path.join('.', x), p.glob('*.pch')))
+	pathes = list(map(lambda x: os.path.join('.', x), p.glob('*.pch')))${0}
 
 snippet get_parent_pathes
 	def get_parent_pathes(filepath):
@@ -350,17 +352,17 @@ snippet get_parent_pathes
 			l += [dirpath]
 			if dirpath == '/':
 				break
-		return l
+		return l${0}
 
 snippet any_in_list
 	any(${1:#:target} in x for x in ${2:#:list})${0}
 
 snippet dict_merge_itself
 alias merge_dict_itself
-	${1:#:target}.update(${2:#:data})
+	${1:#:target}.update(${2:#:data})${0}
 snippet dict_merge_new
 alias merge_dict_new
-	dict(${1:#:a}, **${2:#:b})
+	dict(${1:#:a}, **${2:#:b})${0}
 
 alias dict_safe_access
 	${1:#:dict}.get(${2:#:key})${0}
@@ -368,4 +370,4 @@ alias dict_with_default_value
 	${1:#:dict}.get(${2:#:key}, ${3:#:default value})${0}
 alias dict_force_default_value
 abbr None and so on -> defualt value
-	${1:#:dict}.get(${2:#:key}) or ${3:#:default value}
+	${1:#:dict}.get(${2:#:key}) or ${3:#:default value}${0}

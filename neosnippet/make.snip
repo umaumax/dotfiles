@@ -17,13 +17,14 @@ snippet install_example
 		@ for d in $(filter-out /%,$(subst -I,,$(INCLUDE))); do \
 		  cp -R $$d/* $(INSTALLDIR)$(PREFIX)/include/; \
 		done
+	${0}
 
 snippet echo
 alias info
 	$(info ${0})
 snippet echo_var
 alias info_var
-	$(info [DEBUG] $$${1:#:var} is [${$1}])
+	$(info [DEBUG] $$${1:#:var} is [${$1}])${0}
 
 # FYI: [GNU make での条件コンパイル \- IKB: 雑記帖]( http://d.hatena.ne.jp/i_k_b/20120302/1330704183 )
 snippet if_grep

@@ -10,43 +10,43 @@ options     word
 snippet filepath
 alias   fpath
 options word
-	`substitute(expand("%:p"), '\', '/', "g")`
+	`substitute(expand("%:p"), '\', '/', "g")`${0}
 
 snippet dirpath
 alias   dpath
 options word
-	`substitute(expand("%:p:h"), '\', '/', "g")`
+	`substitute(expand("%:p:h"), '\', '/', "g")`${0}
 
 snippet dirname
 alias   dname
 options word
-	`substitute(expand("%:p:h:t"), '\', '/', "g")`
+	`substitute(expand("%:p:h:t"), '\', '/', "g")`${0}
 
 snippet filename_without_ext
 options word
-	`substitute(expand("%:r"), '\', '/', "g")`
+	`substitute(expand("%:r"), '\', '/', "g")`${0}
 
 snippet note
-	NOTE: 
+	NOTE: ${0}
 snippet todo
-	TODO: 
+	TODO: ${0}
 snippet fix
-	FIX: 
+	FIX: ${0}
 snippet hint
-	HINT: 
+	HINT: ${0}
 snippet question
-	QUESTION: 
+	QUESTION: ${0}
 
 snippet FORBIDDEN_COMMIT_MAGIC_KEYWORD_
-	FORBIDDEN_COMMIT_MAGIC_KEYWORD
+	FORBIDDEN_COMMIT_MAGIC_KEYWORD${0}
 
 snippet copyright
 	// Copyright `strftime("%Y")` ${0} Corporation
 snippet copyright-sony
-	// Copyright `strftime("%Y")` Sony Corporation
+	// Copyright `strftime("%Y")` Sony Corporation${0}
 snippet copyright-ms
-	// Copyright `strftime("%Y")` Microsoft Corporation
+	// Copyright `strftime("%Y")` Microsoft Corporation${0}
 snippet copyright-intel
-	// Copyright `strftime("%Y")` Intel Corporation
+	// Copyright `strftime("%Y")` Intel Corporation${0}
 snippet copyright-google
-	// Copyright `strftime("%Y")` Google Corporation
+	// Copyright `strftime("%Y")` Google Corporation${0}

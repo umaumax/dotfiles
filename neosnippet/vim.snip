@@ -1,5 +1,5 @@
 snippet     funcname
-	`cfi#get_func_name()`
+	`cfi#get_func_name()`${0}
 
 snippet vimplug
 alias plug
@@ -54,13 +54,13 @@ snippet execute_normal
 	execute 'normal! ${0}'
 
 snippet rand
-	reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:#: 0 ~ n})
+	reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:#: 0 ~ n})${0}
 
 snippet len_multi_bytes
 	substitute(${0}, ".", "x", "g")
 
 snippet len_multi_bytes_func
-	let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
+	let Len = { s -> strlen(substitute(s, ".", "x", "g"))}${0}
 
 snippet split_multi_bytes
 	split(${0}, '\zs')
@@ -75,12 +75,12 @@ snippet get_def_b
 	let b:${1:#: var name} = get(b:, '$1', ${0:#:default value})
 
 snippet f-args
-	<f-args>
+	<f-args>${0}
 snippet q-args
-	<q-args>
+	<q-args>${0}
 
 snippet command-options-all
-	-nargs -complete -range -count -bang -bar -register -buffer
+	-nargs -complete -range -count -bang -bar -register -buffer${0}
 
 snippet for_string
 	for ${1:char} in split(${2:#:string}, '\zs')
@@ -117,31 +117,31 @@ alias default_dict
 
 snippet visual_lines
 alias range_lines
-	let lines=getline(a:firstline, a:lastline)
+	let lines=getline(a:firstline, a:lastline)${0}
 
 snippet grep_command
 	filter /${1:#:keyword}/ ${0:#:command}
 
 snippet expand_cword
-	expand('<cword>')
+	expand('<cword>')${0}
 snippet expand_cfile
-	expand('<cfile>')
+	expand('<cfile>')${0}
 snippet expand_quote
 abbr e.g. for system()
 	expand('${0}:S')
 
 snippet lower
-	substitute(${1:#:str},'\(.\+\)', '\L\1','')
+	substitute(${1:#:str},'\(.\+\)', '\L\1','')${0}
 snippet lOWER
-	substitute(${1:#:str},'\(.\+\)', '\l\1','')
+	substitute(${1:#:str},'\(.\+\)', '\l\1','')${0}
 snippet UPPER
-	substitute(${1:#:str},'\(.\+\)', '\U\1','')
+	substitute(${1:#:str},'\(.\+\)', '\U\1','')${0}
 snippet Upper
-	substitute(${1:#:str},'\(.\+\)', '\u\1','')
+	substitute(${1:#:str},'\(.\+\)', '\u\1','')${0}
 
 snippet lambda
-	{ ${1:#:args x,y} -> ${2:#:expression} }
+	{ ${1:#:args x,y} -> ${2:#:expression} }${0}
 snippet lambda_curry
-	function({ ${1:#:function}, [${2:#:args}])
+	function({ ${1:#:function}, [${2:#:args}])${0}
 snippet call_lambda
-	call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])
+	call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])${0}

@@ -1,14 +1,15 @@
 snippet funcname
-	`cfi#get_func_name()`
+	`cfi#get_func_name()`${0}
 
 snippet remove_ext
-	${1:#:filename} := strings.TrimSuffix($1, filepath.Ext($1))
+	${1:#:filename} := strings.TrimSuffix($1, filepath.Ext($1))${0}
 
 snippet remove_ext_func
 	func removeExt(fname string) string {
 			ext := filepath.Ext(fname)
 			return fname[:len(fname)-len(ext)]
 	}
+	${0}
 
 # FYI: [Go Slice Tricks \(Japanese\) · golang\.shop]( https://golang.shop/post/go-slice-tricks-ja/ )
 snippet append_self
@@ -16,7 +17,7 @@ snippet append_self
 snippet slice_copy
 	${1} = append([]${2:#:type}(nil), ${0:#:var}...)
 snippet slice_delete_at
-	${1} = append(${1}[:${2:#:index}], $1[$2+1:]...)
+	${1} = append(${1}[:${2:#:index}], $1[$2+1:]...)${0}
 snippet slice_filtering_without_allocate_memory
 	${2:#:dst} := ${1:#:src}[:0]
 	for _, x := range $1 {
@@ -29,6 +30,7 @@ snippet slice_reverse
 		j := len($1)-1-i
 		$1[i], $1[j] = $1[j], $1[i]
 	}
+	${0}
 snippet help_overwrite
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, \`${0}
@@ -44,3 +46,4 @@ snippet readline
 	if err := scanner.Err(); err != nil {
 		log.Printf("stdin read err:%s\n", err)
 	}
+	${0}

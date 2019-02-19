@@ -1,12 +1,12 @@
 snippet install_tools
-	RUN apt-get install -y openssh-server git tree wget less vim tmux zsh
+	RUN apt-get install -y openssh-server git tree wget less vim tmux zsh${0}
 snippet install_catkin
-	RUN apt-get install -y ros-kinetic-desktop-full ros-kinetic-octomap-ros ros-kinetic-octomap-server ros-kinetic-octomap-rviz-plugins ros-kinetic-jsk-visualization ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server python-wstool python-catkin-tools protobuf-compiler
+	RUN apt-get install -y ros-kinetic-desktop-full ros-kinetic-octomap-ros ros-kinetic-octomap-server ros-kinetic-octomap-rviz-plugins ros-kinetic-jsk-visualization ros-kinetic-hector-mapping ros-kinetic-hector-trajectory-server python-wstool python-catkin-tools protobuf-compiler${0}
 snippet install_x_window_apps
 abbr e.g. xeyes
-	RUN apt-get install -y x11-apps
+	RUN apt-get install -y x11-apps${0}
 snippet install_sudo
-	RUN apt-get install -y sudo
+	RUN apt-get install -y sudo${0}
 
 snippet add_user
 	# replace user, uid, gid by adding below flags at docker build
@@ -21,6 +21,7 @@ snippet add_user
 
 	USER ${user}
 	WORKDIR /home/${user}
+	${0}
 
 snippet add_user_same_password_sudoer
 	ARG user=docker
@@ -32,10 +33,12 @@ snippet add_user_same_password_sudoer
 	    usermod -aG sudo $user && \
 	    usermod  --uid $uid $user && \
 	    groupmod --gid $gid $user
+	${0}
 
 snippet add_sudo_right_witout_password
 	RUN usermod -aG sudo ${user}
 	RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+	${0}
 
 snippet add_proxy_settings_to_etc_environment
 	# replace proxy setting by adding below flags at docker build
@@ -46,10 +49,11 @@ snippet add_proxy_settings_to_etc_environment
 	RUN echo http_proxy="${http_proxy}"   | tee -a /etc/environment
 	RUN echo https_proxy="${https_proxy}" | tee -a /etc/environment
 	RUN echo ftp_proxy="${ftp_proxy}"     | tee -a /etc/environment
+	${0}
 
 snippet from_ros_kinetic_full
 alias ros_kinetic_full
-	FROM osrf/ros:kinetic-desktop-full-xenial
+	FROM osrf/ros:kinetic-desktop-full-xenial${0}
 
 snippet from_ros_kinetic_tutorials
 	FROM ros:kinetic
@@ -58,9 +62,10 @@ snippet from_ros_kinetic_tutorials
 	RUN apt-get install -y zsh
 	RUN apt-get install -y ros-kinetic-ros-tutorials ros-kinetic-common-tutorials
 	# HINT: source /opt/ros/kinetic/share/rosbash/roszsh
+	${0}
 
 snippet apt_init
-	RUN apt-get update && apt-get upgrade -y
+	RUN apt-get update && apt-get upgrade -y${0}
 
 snippet apt_add_apt_repository
-	RUN apt-get install -y software-properties-common
+	RUN apt-get install -y software-properties-common${0}

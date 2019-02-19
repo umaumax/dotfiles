@@ -12,17 +12,17 @@ snippet printf
 	printf "${1}", ${0}
 
 snippet join_string
-	${1:#:var name}""${2:#:var name}
+	${1:#:var name}""${2:#:var name}${0}
 
 snippet replace
 abbr ret is replace count (not replace str ret)
 alias gsub
-	gsub(${1:#:src}, ${2:#:dst}, ${3:#:var})
+	gsub(${1:#:src}, ${2:#:dst}, ${3:#:var})${0}
 
 snippet match_gawk
-	match(${1:#:input}, /${2:#:regex}/, ${3:#:var})
+	match(${1:#:input}, /${2:#:regex}/, ${3:#:var})${0}
 snippet match_gawk_with_var_regex
-	match(${1:#:input}, ${2:#:var regex without //}, ${3:#:var})
+	match(${1:#:input}, ${2:#:var regex without //}, ${3:#:var})${0}
 
 snippet for_dict
 alias for_map
@@ -33,21 +33,21 @@ alias for_map
 
 snippet next
 abbr skip to next line
-	next
+	next${0}
 
 snippet shebang_awk
 	#!/bin/sh
-	true + /; exec awk -f "\$0"; exit; / {}
+	true + /; exec awk -f "\$0"; exit; / {}${0}
 snippet shebang_gawk
 	#!/bin/sh
-	true + /; exec gawk -f "\$0"; exit; / {}
+	true + /; exec gawk -f "\$0"; exit; / {}${0}
 
 snippet line_no
 alias NR
-	NR
+	NR${0}
 snippet field_number
 alias NF
-	NF
+	NF${0}
 
 snippet begin
 alias BEGIN
