@@ -321,7 +321,8 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 LazyPlug 'tpope/vim-abolish'
 
 Plug 'lervag/vimtex', {'for': 'tex'}
-" css
+
+" NOTE: slow
 LazyPlug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css', 'markdown']}
 augroup unmap_colorizer
 	autocmd!
