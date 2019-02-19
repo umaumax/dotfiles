@@ -1,187 +1,187 @@
 snippet funcname
-  `cfi#get_func_name()`
+	`cfi#get_func_name()`
 
 snippet readline
-  # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-  ${0} | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
-    ${1:printf 'LINE: %s' "$LINE"}
-  done
+	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+	${0} | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+		${1:printf 'LINE: %s' "$LINE"}
+	done
 snippet read
-  IFS= read -r ${1:#:var}
+	IFS= read -r ${1:#:var}
 
 snippet ismac
-  [[ $(uname) == "Darwin" ]]
+	[[ $(uname) == "Darwin" ]]
 snippet islinux
-  [[ $(uname) == "Linux" ]]
+	[[ $(uname) == "Linux" ]]
 snippet isubuntu
-  [[ "$(uname -a)" =~ Ubuntu ]]
+	[[ "$(uname -a)" =~ Ubuntu ]]
 snippet iswindows
-  [[ "$OS" =~ Windows ]]
+	[[ "$OS" =~ Windows ]]
 snippet isdocker
-  [[ -f /.dockerenv ]]
+	[[ -f /.dockerenv ]]
 snippet istmux
-  [[ -n "$TMUX" ]]
+	[[ -n "$TMUX" ]]
 snippet ismac_if
-  if [[ $(uname) == "Darwin" ]]; then
-    ${0}
-  fi
+	if [[ $(uname) == "Darwin" ]]; then
+		${0}
+	fi
 snippet islinux_if
-  if [[ $(uname) == "Linux" ]]; then
-    ${0}
-  fi
+	if [[ $(uname) == "Linux" ]]; then
+		${0}
+	fi
 snippet isubuntu_if
-  if [[ "$(uname -a)" =~ Ubuntu ]]; then
-    ${0}
-  fi
+	if [[ "$(uname -a)" =~ Ubuntu ]]; then
+		${0}
+	fi
 snippet iswindows_if
-  if [[ "$OS" =~ Windows ]]; then
-    ${0}
-  fi
+	if [[ "$OS" =~ Windows ]]; then
+		${0}
+	fi
 snippet isdocker_if
-  if [[ -f /.dockerenv ]]; then
-    ${0}
-  fi
+	if [[ -f /.dockerenv ]]; then
+		${0}
+	fi
 snippet istmux_if
-  if [[ -n "$TMUX" ]]; then
-    ${0}
-  fi
+	if [[ -n "$TMUX" ]]; then
+		${0}
+	fi
 
 snippet isbash_if
-  if [[ -n $BASH ]]; then
-    ${0}
-  fi
+	if [[ -n $BASH ]]; then
+		${0}
+	fi
 snippet isbash
-  [[ -n $BASH ]] && ${0}
+	[[ -n $BASH ]] && ${0}
 snippet iszsh_if
-  if [[ $ZSH_NAME == zsh ]]; then
-    ${0}
-  fi
+	if [[ $ZSH_NAME == zsh ]]; then
+		${0}
+	fi
 snippet iszsh
-  [[ $ZSH_NAME == zsh ]] ${0}
+	[[ $ZSH_NAME == zsh ]] ${0}
 
 snippet ispipe_out
-  [[ -p /dev/stdout ]] ${0}
+	[[ -p /dev/stdout ]] ${0}
 snippet ispipe_out_if
-  if [[ -p /dev/stdout ]]; then
-    ${0}
-  else
+	if [[ -p /dev/stdout ]]; then
+		${0}
+	else
 
-  fi
+	fi
 snippet ispipe_in
-  [[ -p /dev/stdin ]] ${0}
+	[[ -p /dev/stdin ]] ${0}
 snippet ispipe_in_if
-  if [[ -p /dev/stdin ]]; then
-    ${0}
-  else
+	if [[ -p /dev/stdin ]]; then
+		${0}
+	else
 
-  fi
+	fi
 
 snippet isfunction_bash
-  [[ $(type -t ${1}) == "function" ]] ${0}
+	[[ $(type -t ${1}) == "function" ]] ${0}
 snippet isfunction_bash_if
-  if [[ $(type -t ${1}) == "function" ]]; then
-    ${0}
-  fi
+	if [[ $(type -t ${1}) == "function" ]]; then
+		${0}
+	fi
 
 snippet trimspace
-  sed "s/^[ \t]*//"
+	sed "s/^[ \t]*//"
 
 snippet devnull
-  >/dev/null 2>&1
+	>/dev/null 2>&1
 snippet stdout_to_err
 abbr stdout -> stderr
-  1>&2
+	1>&2
 snippet stderr_to_out
 abbr stderr -> stdout
-  2>&1
+	2>&1
 # [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
 snippet pipe_only_stderr
-  3>&1 1>&2 2>&3 3>&- @
-  # in zsh do setopt nomultios
-  ${0}
+	3>&1 1>&2 2>&3 3>&- @
+	# in zsh do setopt nomultios
+	${0}
 
 snippet default_var
 alias defvar
-  ${1:#:dst var name}=\${${2:#:src var name}:-"${3:#:default value}"}
+	${1:#:dst var name}=\${${2:#:src var name}:-"${3:#:default value}"}
 
 snippet alias_enable
 abbr to enable alias at bash
-  shopt -s expand_aliases
+	shopt -s expand_aliases
 
 snippet for_array
 alias array_for
-  for ${2:#: element name} in "${${1:#:array name}[@]}"; do
-    echo $$2
-    ${0}
-  done
+	for ${2:#: element name} in "${${1:#:array name}[@]}"; do
+		echo $$2
+		${0}
+	done
 
 snippet for_ls
 alias ls_for
-  for ${2:#: element name} in \`ls ${1:#: ls target}\`; do
-    echo $$2
-    ${0}
-  done
+	for ${2:#: element name} in \`ls ${1:#: ls target}\`; do
+		echo $$2
+		${0}
+	done
 
 snippet for_args
-  for arg in "$@"; do
-    ${0}
-  done
+	for arg in "$@"; do
+		${0}
+	done
 
 snippet for_pwd
-  dirpath=$PWD && while :; do
-    echo $dirpath
-    [[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
-  done
+	dirpath=$PWD && while :; do
+		echo $dirpath
+		[[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
+	done
 
 snippet for_i
-  for ((i=${1:1}; i < ${2}; i++)); do
-    ${0}
-  done
+	for ((i=${1:1}; i < ${2}; i++)); do
+		${0}
+	done
 
 snippet arg_check_exit
 alias argcheck_exit
-  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && exit 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && exit 1
 snippet arg_check_return
 alias argcheck_return
-  [[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && return 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && return 1
 
 snippet cmdcheck
-  function cmdcheck() { type >/dev/null 2>&1 "$@"; }
+	function cmdcheck() { type >/dev/null 2>&1 "$@"; }
 snippet typecmd
-  type >/dev/null 2>&1 ${0}
+	type >/dev/null 2>&1 ${0}
 
 snippet find_next_path_cmd
-  local now_cmd=${0}
-  local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
-  [[ -z $next_cmd ]] && echo 1>&2 "Not found original command!" && return 1
+	local now_cmd=${0}
+	local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
+	[[ -z $next_cmd ]] && echo 1>&2 "Not found original command!" && return 1
 
 snippet alias
-  alias ${1}='${0}'
+	alias ${1}='${0}'
 
 snippet echoerr
-  echo 1>&2 ${0}
+	echo 1>&2 ${0}
 
 snippet array
-  "${${0:#:array name}[@]}"
+	"${${0:#:array name}[@]}"
 
 snippet array_len
-  ${#${0:#:array name}[@]}
+	${#${0:#:array name}[@]}
 
 # [Bash/Zshで配列のn番目を取得する、を統一する]( https://rcmdnk.com/blog/2018/08/19/computer-bash-zsh/ )
 snippet array_n_func
 abbr get_n 0 "${array[@]}" # bash[0~], zsh[1~]
-  function get_n() {
-    local n=$((\$1+1))
-    shift
-    eval echo \\$${n}
-  }
+	function get_n() {
+		local n=$((\$1+1))
+		shift
+		eval echo \\$${n}
+	}
 
 snippet array_assign
-  local ${2:#:dst array name}=("${${0:#:src array name}[@]}")
+	local ${2:#:dst array name}=("${${0:#:src array name}[@]}")
 
 snippet append_array
 alias array_append
-  ${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
+	${2:#:dst array}=("${${1:#:src array}[@]}" ${0})
 
 # snippet append_array_self_new_bash
 # alias array_append_self_new_bash
@@ -189,467 +189,467 @@ alias array_append
 
 snippet append_array_self
 alias array_append_self
-  ${1:#:dst array}=("\${$1[@]}" ${0})
+	${1:#:dst array}=("\${$1[@]}" ${0})
 
 snippet search_array
 alias array_search
-  $(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
+	$(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
 
 snippet search_array_not_found
 alias array_search_not_found
-  ! $(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
+	! $(echo ${${1:#:array name}[@]} | grep -E -q "(^| )${0:#:keyword}( |$)")
 
 snippet array_index_common
 abbr 0~
-  ${${0:#:var}[@]:${1:1}:(($1+1))}
+	${${0:#:var}[@]:${1:1}:(($1+1))}
 snippet array_index_zsh
 abbr 1~
-  ${${0:#:var}[${1:1}]}
+	${${0:#:var}[${1:1}]}
 snippet arrray_index_bash
 abbr 0~,(-1~ bash3.2:x, bash5:o)
-  ${${0:#:var}[${1:0}]}
+	${${0:#:var}[${1:0}]}
 snippet array_slice_zsh
 abbr 1~,-1~
-  ${${0:#:var}[@]:${1:1}}
+	${${0:#:var}[@]:${1:1}}
 snippet arrray_slice_bash
 abbr 0~,(-1~ bash3.2:x, bash5:o)
-  ${${0:#:var}[@]:${1:0}}
+	${${0:#:var}[@]:${1:0}}
 
 # FYI: [shell \- Remove entry from array \- Stack Overflow]( https://stackoverflow.com/questions/3435355/remove-entry-from-array )
 snippet array_remove_index_zsh
 abbr 1~, eval for avoiding shfmt error
-  eval "${1:#:var}=("${(@)$1[1,${2:1}-1]}" "${(@)$1[$2+1,$#$1]}")${0}"
+	eval "${1:#:var}=("${(@)$1[1,${2:1}-1]}" "${(@)$1[$2+1,$#$1]}")${0}"
 
 snippet tmpfile
-  tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
+	tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
 snippet tmpfile_with_trap
 alias trap_tmpfile
 abbr don't use trap in .xxxrc or .xxx_profile
-  tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
-  trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
+	tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
+	trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
 snippet tmpfile_in_function
-  local tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
-  ${0}
-  [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+	local tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
+	${0}
+	[[ -e "$tmpfile" ]] && rm -f "$tmpfile"
 
 snippet tmpdir
-  tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+	tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
 snippet tmpdir_with_trap
 alias trap_tmpdir
 abbr don't use trap in .xxxrc or .xxx_profile
-  tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
-  trap "[[ -d $tmpdir ]] && rm -rf $tmpdir" 0 1 2 3 15
+	tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+	trap "[[ -d $tmpdir ]] && rm -rf $tmpdir" 0 1 2 3 15
 snippet tmpdir_in_function
-  local tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
-  ${0}
-  [[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
+	local tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
+	${0}
+	[[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
 
 snippet tac
-  awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
+	awk '{a[i++]=\$0} END{for(j=i-1; j>=0;) print a[j--]}'
 
 snippet uniq
-  awk '!a[\$0]++'
+	awk '!a[\$0]++'
 
 snippet wcc
-  awk '{n+=length(\$0)} END{print n}'
+	awk '{n+=length(\$0)} END{print n}'
 
 snippet wcw
-  awk '{n+=NF} END{print n}'
+	awk '{n+=NF} END{print n}'
 
 snippet wcl
-  awk 'END{print NR}'
+	awk 'END{print NR}'
 
 snippet     getopts
 abbr        getopts
 options     head
-  while getopts ":a:" opt "$@"; do
-    case "$opt" in
-      \?)
-        echo "Invalid option -$OPTARG was ignored." >&2;;
-      :)
-        echo "Option -$OPTARG requires an argument." >&2
-        exit 1;;
-    esac
-  done
+	while getopts ":a:" opt "$@"; do
+		case "$opt" in
+			\?)
+				echo "Invalid option -$OPTARG was ignored." >&2;;
+			:)
+				echo "Option -$OPTARG requires an argument." >&2
+				exit 1;;
+		esac
+	done
 
 snippet lineno
-  $LINENO
+	$LINENO
 
 snippet try_catch
-  function try_catch() {
-    {
-        eval "$@"
-    } ||
-    {
-      echo "${0:An error occurred}"
-    return -1
-    }
-  }
+	function try_catch() {
+		{
+				eval "$@"
+		} ||
+		{
+			echo "${0:An error occurred}"
+		return -1
+		}
+	}
 
 snippet date-for-file
-  date +"%Y-%m-%d_%k-%M-%S"
+	date +"%Y-%m-%d_%k-%M-%S"
 
 snippet sum
-  awk '{for(i=1;i<=NF;i++)sum+=$i;} END{print sum}'
+	awk '{for(i=1;i<=NF;i++)sum+=$i;} END{print sum}'
 
 # [Bash Templating: How to build configuration files from templates with Bash? \- Stack Overflow]( https://stackoverflow.com/questions/2914220/bash-templating-how-to-build-configuration-files-from-templates-with-bash )
 snippet template
 abbr you can use bash var in a template file
-  eval "cat <<EOF
-  $(<${1:#:template file path})
-  EOF
-  " > ${0:#:output file path}
+	eval "cat <<EOF
+	$(<${1:#:template file path})
+	EOF
+	" > ${0:#:output file path}
 
 snippet lambda
 abbr pseudo lambda function which is formattable by shfmt
-  function lambda() {
-    ${0}
-  } && lambda
+	function lambda() {
+		${0}
+	} && lambda
 
 snippet slice
 abbr ${@:0} == $@
-  ${${1:#:array name}:${0:#:1,2,3,...}}
+	${${1:#:array name}:${0:#:1,2,3,...}}
 
 snippet debug
 alias log_run
-  function debug() { echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
+	function debug() { echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
 
 snippet switch_case_example
-  case $TERM in
-    linux) LANG=C ;;
-    *)     LANG=ja_JP.UTF-8;;
-  esac
+	case $TERM in
+		linux) LANG=C ;;
+		*)     LANG=ja_JP.UTF-8;;
+	esac
 
 snippet second_to_humanreadable_time
-  $(printf "%02d : %02d" $((${1:#:second}/60)) $(($1 % 60)))${0}
+	$(printf "%02d : %02d" $((${1:#:second}/60)) $(($1 % 60)))${0}
 
 snippet substr_function
-  function substr(){ echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
+	function substr(){ echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
 
 snippet hr
 alias line_char
-  function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
+	function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
 
 snippet snake
-  function snake(){ sed -r 's/([A-Z])/_\L\1\E/g'; }
+	function snake(){ sed -r 's/([A-Z])/_\L\1\E/g'; }
 snippet camel
-  function camel(){ sed -r 's/_(.)/\U\1\E/g'; }
+	function camel(){ sed -r 's/_(.)/\U\1\E/g'; }
 snippet lower
-  function lower(){ tr '[:upper:]' '[:lower:]'; }
+	function lower(){ tr '[:upper:]' '[:lower:]'; }
 snippet upper
-  function upper(){ tr '[:lower:]' '[:upper:]'; }
+	function upper(){ tr '[:lower:]' '[:upper:]'; }
 
 snippet pid
-  $$
+	$$
 
 snippet heredoc_cat
-  cat << EOF
-  ${0}
-  EOF
+	cat << EOF
+	${0}
+	EOF
 
 snippet heredoc_cat_no_expand_var
-  cat << 'EOF'
-  ${0}
-  EOF
+	cat << 'EOF'
+	${0}
+	EOF
 
 snippet heredoc_var
-  ${1:#:var name}=\`cat << EOF
-  ${0}
-  EOF
-  \`
+	${1:#:var name}=\`cat << EOF
+	${0}
+	EOF
+	\`
 
 snippet heredoc_var_no_expand_var
-  ${1:#:var name}=\`cat << 'EOF'
-  ${0}
-  EOF
-  \`
+	${1:#:var name}=\`cat << 'EOF'
+	${0}
+	EOF
+	\`
 
 snippet heredoc_pipe
-  cat << EOF | cat
-  ${0}
-  EOF
+	cat << EOF | cat
+	${0}
+	EOF
 
 snippet heredoc_file
-  cat << EOF > ${1:#:file path}
-  ${0}
-  EOF
+	cat << EOF > ${1:#:file path}
+	${0}
+	EOF
 
 snippet heredoc_file_no_expand_var
-  cat << 'EOF' > ${1:#:file path}
-  ${0}
-  EOF
+	cat << 'EOF' > ${1:#:file path}
+	${0}
+	EOF
 
 snippet lock_script
 abbr avoid multiple starts
-  exec 9< \$0
-  perl -mFcntl=:flock -e "open(LOCK,'<&=9');exit(!flock(LOCK,LOCK_EX|LOCK_NB))" || {
-      echo "\$0 is already running. (duplicate process)" >&2
-      exit 1
-  }
+	exec 9< \$0
+	perl -mFcntl=:flock -e "open(LOCK,'<&=9');exit(!flock(LOCK,LOCK_EX|LOCK_NB))" || {
+			echo "\$0 is already running. (duplicate process)" >&2
+			exit 1
+	}
 
 snippet ok
 alias check
-  echo -e "${GREEN}✔${DEFAULT}" "$@"
+	echo -e "${GREEN}✔${DEFAULT}" "$@"
 
 snippet ng
 alias failure
-  echo -e "${RED}✘${DEFAULT}" "$@"
+	echo -e "${RED}✘${DEFAULT}" "$@"
 
 snippet help_0
-  [[ $# == 0 ]] && echo "\$0 <${0}>" && return 1
+	[[ $# == 0 ]] && echo "\$0 <${0}>" && return 1
 
 snippet docker_build_with_proxy_settings
-  tag="${1:#:image name}:latest"
+	tag="${1:#:image name}:latest"
 
-  httpproxy="${HTTP_PROXY:-$http_proxy}"
-  httpsproxy="${HTTPS_PROXY:-$https_proxy}"
-  ftpproxy="${FTP_PROXY:-$ftp_proxy}"
+	httpproxy="${HTTP_PROXY:-$http_proxy}"
+	httpsproxy="${HTTPS_PROXY:-$https_proxy}"
+	ftpproxy="${FTP_PROXY:-$ftp_proxy}"
 
-  docker build \
-    -t $tag \
-    --build-arg HTTP_PROXY=$httpproxy \
-    --build-arg http_proxy=$httpproxy \
-    --build-arg FTP_PROXY=$ftpproxy \
-    --build-arg ftp_proxy=$ftpproxy \
-    --build-arg HTTPS_PROXY=$httpsproxy \
-    --build-arg https_proxy=$httpsproxy "$@" .
+	docker build \
+		-t $tag \
+		--build-arg HTTP_PROXY=$httpproxy \
+		--build-arg http_proxy=$httpproxy \
+		--build-arg FTP_PROXY=$ftpproxy \
+		--build-arg ftp_proxy=$ftpproxy \
+		--build-arg HTTPS_PROXY=$httpsproxy \
+		--build-arg https_proxy=$httpsproxy "$@" .
 snippet docker_build_user_flags
-  --build-arg user="$(whoami)" --build-arg uid="$(id -u)" --build-arg gid="$(id -g)"
+	--build-arg user="$(whoami)" --build-arg uid="$(id -u)" --build-arg gid="$(id -g)"
 snippet docker_build_proxy_flags
-  --build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"--build-arg http_proxy="$http_proxy" --build-arg https_proxy="$https_proxy" --build-arg ftp_proxy="$ftp_proxy"
+	--build-arg HTTP_PROXY="$HTTP_PROXY" --build-arg HTTPS_PROXY="$HTTPS_PROXY" --build-arg FTP_PROXY="$FTP_PROXY"--build-arg http_proxy="$http_proxy" --build-arg https_proxy="$https_proxy" --build-arg ftp_proxy="$ftp_proxy"
 
 snippet docker_run_snippets
-  tag="${1:#:image name}"
+	tag="${1:#:image name}"
 
-  val=$(stty size)
-  rows=$(echo $val | cut -d ' ' -f 1)
-  cols=$(echo $val | cut -d ' ' -f 2)
+	val=$(stty size)
+	rows=$(echo $val | cut -d ' ' -f 1)
+	cols=$(echo $val | cut -d ' ' -f 2)
 
-  proxyurl="${HTTP_PROXY:-$http_proxy}"
-  docker run -e http_proxy=${proxyurl} -e https_proxy=${proxyurl} -i -t $tag /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
+	proxyurl="${HTTP_PROXY:-$http_proxy}"
+	docker run -e http_proxy=${proxyurl} -e https_proxy=${proxyurl} -i -t $tag /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
 snippet docker_run_flags_with_terminal_size_settings
-  val=$(stty size)
-  rows=$(echo $val | cut -d ' ' -f 1)
-  cols=$(echo $val | cut -d ' ' -f 2)
-  /bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
-  #or
-  -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
+	val=$(stty size)
+	rows=$(echo $val | cut -d ' ' -f 1)
+	cols=$(echo $val | cut -d ' ' -f 2)
+	/bin/bash -c "stty rows $rows cols $cols; exec /bin/bash -l"
+	#or
+	-e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
 snippet docker_run_flags_with_proxy_settings
-  proxyurl="${HTTP_PROXY:-$http_proxy}"
-  -e http_proxy=${proxyurl} -e https_proxy=${proxyurl}
+	proxyurl="${HTTP_PROXY:-$http_proxy}"
+	-e http_proxy=${proxyurl} -e https_proxy=${proxyurl}
 snippet docker_run_flags_with_x_window_system
-  --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix
+	--privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix
 snippet docker_run_flags_with_workdir
-  --privileged -v $PWD/docker-ws:/home/${1:#:user}/ws --workdir /home/$1/ws
+	--privileged -v $PWD/docker-ws:/home/${1:#:user}/ws --workdir /home/$1/ws
 snippet docker_run_it_bash
-  docker run -it $tag /bin/bash
+	docker run -it $tag /bin/bash
 
 snippet function_list_bash
-  compgen -A function
+	compgen -A function
 snippet function_list_zsh
-  print -l ${(ok)functions}
+	print -l ${(ok)functions}
 
 snippet docker_run_login_shell
-  val=$(stty size)
-  rows=$(echo $val | cut -d ' ' -f 1)
-  cols=$(echo $val | cut -d ' ' -f 2)
-  login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
-  /bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"
+	val=$(stty size)
+	rows=$(echo $val | cut -d ' ' -f 1)
+	cols=$(echo $val | cut -d ' ' -f 2)
+	login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+	/bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"
 
 snippet var_regexp_prefix_remove_min
-  ${${1:#:var name}%${0:#:pattern}}
+	${${1:#:var name}%${0:#:pattern}}
 snippet var_regexp_prefix_remove_max
-  ${${1:#:var name}%%${0:#:pattern}}
+	${${1:#:var name}%%${0:#:pattern}}
 snippet var_regexp_suffix_remove_min
-  ${${1:#:var name}#${0:#:pattern}}
+	${${1:#:var name}#${0:#:pattern}}
 snippet var_regexp_suffix_remove_max
-  ${${1:#:var name}##${0:#:pattern}}
+	${${1:#:var name}##${0:#:pattern}}
 
 # [$PATH から特定のパスだけを削除する]( https://qiita.com/ironsand/items/10e28d7589298090ec23 )
 snippet path_operation
-  function path_append ()  { path_remove \$1; export PATH="$PATH:\$1"; }
-  function path_prepend () { path_remove \$1; export PATH="\$1:$PATH"; }
-  function path_remove ()  { export PATH=\`echo -n $PATH | awk -v RS=: -v ORS=: '\$0 != "'\$1'"' | sed 's/:$//'\`; }
+	function path_append ()  { path_remove \$1; export PATH="$PATH:\$1"; }
+	function path_prepend () { path_remove \$1; export PATH="\$1:$PATH"; }
+	function path_remove ()  { export PATH=\`echo -n $PATH | awk -v RS=: -v ORS=: '\$0 != "'\$1'"' | sed 's/:$//'\`; }
 
 snippet normalize_path
 alias clean path
-  perl -MCwd -e 'print Cwd::abs_path shift' ${0:#:path}
+	perl -MCwd -e 'print Cwd::abs_path shift' ${0:#:path}
 
 snippet normalize_path_linux_only_readlink
-  readlink -f ${0:#:path}
+	readlink -f ${0:#:path}
 snippet normalize_path_linux_only_realpath
-  readpath ${0:#:path}
+	readpath ${0:#:path}
 
 snippet traverse_path_list
-  function traverse_path_list() {
-    local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
-    while true; do
-      echo $dirpath
-      [[ "$dirpath" == "/" ]] && break
-      local dirpath="$(dirname $dirpath)"
-    done
-  }
+	function traverse_path_list() {
+		local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
+		while true; do
+			echo $dirpath
+			[[ "$dirpath" == "/" ]] && break
+			local dirpath="$(dirname $dirpath)"
+		done
+	}
 
 snippet envrc_recursive_source
-  function traverse_path_list() {
-    local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
-    while true; do
-      echo $dirpath
-      [[ "$dirpath" == "/" ]] && break
-      local dirpath="$(dirname $dirpath)"
-    done
-  }
-  for dir in $(traverse_path_list $PWD/..); do
-    envrc_filepath="$dir/.envrc"
-    [[ -f $envrc_filepath ]] && source "$envrc_filepath"
-  done
+	function traverse_path_list() {
+		local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' \${1:-$PWD})
+		while true; do
+			echo $dirpath
+			[[ "$dirpath" == "/" ]] && break
+			local dirpath="$(dirname $dirpath)"
+		done
+	}
+	for dir in $(traverse_path_list $PWD/..); do
+		envrc_filepath="$dir/.envrc"
+		[[ -f $envrc_filepath ]] && source "$envrc_filepath"
+	done
 
 snippet tmporary_disable_alias
-  $${1:#:cmd}_tmp=$(alias $1)
-  alias $1 >/dev/null 2>&1 && unalias $1
-  ${0}
-  [[ -n $$1_tmp ]] && eval alias $$1_tmp
+	$${1:#:cmd}_tmp=$(alias $1)
+	alias $1 >/dev/null 2>&1 && unalias $1
+	${0}
+	[[ -n $$1_tmp ]] && eval alias $$1_tmp
 
 snippet next_cmd
-  hook_cmd_path="${0}"
-  hook_cmd=$(basename "$hook_cmd_path")
-  next_hook_cmd=$(for i in $(command which -a "$hook_cmd"); do ! [[ "$i" == "$hook_cmd_path" ]] && echo "$i" && break; done)
+	hook_cmd_path="${0}"
+	hook_cmd=$(basename "$hook_cmd_path")
+	next_hook_cmd=$(for i in $(command which -a "$hook_cmd"); do ! [[ "$i" == "$hook_cmd_path" ]] && echo "$i" && break; done)
 
 snippet read_sudo_pass
 alias sudo_read_pass
-  echo -n "Password:🔑"
-  read -s sudo_pass || exit 1
-  echo ""
+	echo -n "Password:🔑"
+	read -s sudo_pass || exit 1
+	echo ""
 # -k: --reset-timestamp
 # -S: --stdin
-  echo $sudo_pass | sudo -k -S echo >/dev/null
-  [[ $? != 0 ]] && exit 1
+	echo $sudo_pass | sudo -k -S echo >/dev/null
+	[[ $? != 0 ]] && exit 1
 
  echo $sudo_pass | sudo -p '' -S ${0:#:command}
 
 snippet expect_example
-  expect -f - << EOF
-  set timeout 5
-  spawn /bin/sh -c "sudo -k -p password: pwd"
-  expect "password:"; send "${sudo_pass}\n"
-  expect eof; exit
-  EOF
+	expect -f - << EOF
+	set timeout 5
+	spawn /bin/sh -c "sudo -k -p password: pwd"
+	expect "password:"; send "${sudo_pass}\n"
+	expect eof; exit
+	EOF
 
 snippet cache_as_file
-  # NOTE: cache file (24 hours)
-  mkdir -p ~/.cache/${1:#:app name}
-  if [[ ! -e ~/.cache/$1/${2:#:file name} ]] || [[ -n "$(find ~/.cache/$1/$2 -mtime +0 -type f)" ]]; then
-    ${0:#: command} >~/.cache/$1/$2
-  fi
+	# NOTE: cache file (24 hours)
+	mkdir -p ~/.cache/${1:#:app name}
+	if [[ ! -e ~/.cache/$1/${2:#:file name} ]] || [[ -n "$(find ~/.cache/$1/$2 -mtime +0 -type f)" ]]; then
+		${0:#: command} >~/.cache/$1/$2
+	fi
 
 snippet zcompile
-  [[ ${1:#:zsh file} -nt $1.zwc ]] && zcompile $1
+	[[ ${1:#:zsh file} -nt $1.zwc ]] && zcompile $1
 
 snippet async_wait_sample
 alias wait_sample
-  sleep 1 &
-  sleep 2 &
-  sleep 3 &
-  wait # wait all
-  sleep 4 &
-  pid=$!
-  wait $pid
+	sleep 1 &
+	sleep 2 &
+	sleep 3 &
+	wait # wait all
+	sleep 4 &
+	pid=$!
+	wait $pid
 
 snippet help_oneline
 alias easy_help
-  { [[ \$1 == '-h' ]] || [[ \$1 == '-help' ]] || [[ \$1 == '--help' ]]; } && echo "\$0 "'${0}' && exit 1
+	{ [[ \$1 == '-h' ]] || [[ \$1 == '-help' ]] || [[ \$1 == '--help' ]]; } && echo "\$0 "'${0}' && exit 1
 
 snippet trap
-  trap "${0}; exit 1" 1 2 3 15
+	trap "${0}; exit 1" 1 2 3 15
 
 snippet single_quote_in_single_quote
 alias sqinsq
-  '"'"'
+	'"'"'
 
 snippet no_auto_shfmt
-  source <(
-    cat <<EOF
-  ${0}
-  EOF
-  )
+	source <(
+		cat <<EOF
+	${0}
+	EOF
+	)
 
 snippet pipestatus_bash_and_zsh
 alias pipe_exit_code
-  local exit_code=${PIPESTATUS[${1:#:cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
+	local exit_code=${PIPESTATUS[${1:#:cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
 
 snippet yes_or_no_zsh
 abbr default no
-  echo -n "ok?(y/N): "
-  read -q || return 1
+	echo -n "ok?(y/N): "
+	read -q || return 1
 
 snippet yes_or_no_bash
 abbr default no
-  read -n1 -p "ok? (y/N): " yn
-  [[ $yn = [yY] ]] || return 1
+	read -n1 -p "ok? (y/N): " yn
+	[[ $yn = [yY] ]] || return 1
 
 snippet is_symbolic_link
-  [[ -h ${0} ]]
+	[[ -h ${0} ]]
 snippet is_symbolic_link_if
-  if [[ -h ${1} ]]; then
-    ${0}
-  fi
+	if [[ -h ${1} ]]; then
+		${0}
+	fi
 
 # FYI: [linux \- How do I test if a variable is a number in Bash? \- Stack Overflow]( https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash )
 snippet is_number
-  [[ ${0} =~ ^[0-9]+$ ]]
+	[[ ${0} =~ ^[0-9]+$ ]]
 snippet is_number_if
-  if [[ ${1} =~ ^[0-9]+$ ]]; then
-    ${0}
-  fi
+	if [[ ${1} =~ ^[0-9]+$ ]]; then
+		${0}
+	fi
 
 snippet length_of_var
 abbr depend LANG env var
-  ${#${1:#:var}}
+	${#${1:#:var}}
 
 snippet var_dirpath
 abbr /path/to/foo.tar.gz -> /path/to
-  ${${0:#:path var}%/*}
+	${${0:#:path var}%/*}
 snippet var_filepath_without_last_ext
 abbr /path/to/foo.tar.gz -> /path/to/foo.tar
-  ${${0:#:path var}%.*}
+	${${0:#:path var}%.*}
 snippet var_basename
 abbr /path/to/foo.tar.gz -> foo.tar.gz
-  ${${0:#:path var}##*/}
+	${${0:#:path var}##*/}
 snippet var_ext
 abbr /path/to/foo.tar.gz -> gz, foo -> foo
-  ${${0:#:path var}##*.}
+	${${0:#:path var}##*.}
 
 snippet cd_abspath_of_current_file
-  current_abs_directory_path=$(cd $(dirname \$0) && pwd)
-  cd ${current_abs_directory_path%/}
+	current_abs_directory_path=$(cd $(dirname \$0) && pwd)
+	cd ${current_abs_directory_path%/}
 
 snippet string_find_index_and_replace
-  local t=${1:#:target}
-  local searchstring=${2:#:keyword}
-  local rest=${t#*$searchstring}
-  local index=$((${#t} - ${#rest} - ${#searchstring}))
-  if [[ $index -ge 0 ]]; then
-    # bash
-    local t="${t/$(printf %q $searchstring)/}"
-    # zsh
-    local t="${t/$searchstring/}"
-  fi
+	local t=${1:#:target}
+	local searchstring=${2:#:keyword}
+	local rest=${t#*$searchstring}
+	local index=$((${#t} - ${#rest} - ${#searchstring}))
+	if [[ $index -ge 0 ]]; then
+		# bash
+		local t="${t/$(printf %q $searchstring)/}"
+		# zsh
+		local t="${t/$searchstring/}"
+	fi
 
 snippet stdout_to_array
-  _IFS=$IFS
-  IFS=$'\r\n'
-  array=($(${0}))
-  IFS=$_IFS
+	_IFS=$IFS
+	IFS=$'\r\n'
+	array=($(${0}))
+	IFS=$_IFS
 
 snippet echo_var_raw
-  printf '%s' "${0}"
+	printf '%s' "${0}"
 
 snippet local_cmd_ret_with_exit_code
-  local ${1:#:varname}
-  $1=$(${0:#:cmds})
-  local exit_code=$?
+	local ${1:#:varname}
+	$1=$(${0:#:cmds})
+	local exit_code=$?
 
 snippet sudoenable
-  sudo -n true >/dev/null 2>&1 || sudo true
+	sudo -n true >/dev/null 2>&1 || sudo true
 snippet sudoable
-  sudo -n true >/dev/null 2>&1
+	sudo -n true >/dev/null 2>&1

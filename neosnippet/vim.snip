@@ -1,148 +1,147 @@
 snippet     funcname
-    `cfi#get_func_name()`
+	`cfi#get_func_name()`
 
 snippet vimplug
 alias plug
 options head
-    Plug '${0}'
+	Plug '${0}'
 
 snippet     augroup
 abbr        augroup with autocmds
 options     head
-    augroup ${1:#:augroup_name}_group
-      autocmd!
-      autocmd ${0}
-    augroup END
+	augroup ${1:#:augroup_name}_group
+		autocmd!
+		autocmd ${0}
+	augroup END
 snippet     augroup_once
 options     head
-    augroup ${1:#:augroup_name}_group
-      autocmd!
-      autocmd ${0} \
-        autocmd! $1_group
-    augroup END
-
+	augroup ${1:#:augroup_name}_group
+		autocmd!
+		autocmd ${0} \
+			autocmd! $1_group
+	augroup END
 
 snippet     function
 options     head
-    function! ${1:#:function_name}
-        ${0}
-    endfunction
+	function! ${1:#:function_name}
+		${0}
+	endfunction
 
 snippet     prettyprint
 alias       PP
 abbr        echomsg PrettyPrint(...)
-  echomsg PrettyPrint(${0})
+	echomsg PrettyPrint(${0})
 
 snippet is_plugin_loaded
-  if &rtp =~ '${1:#:plugin_name}'
-    ${0}
-  endif
+	if &rtp =~ '${1:#:plugin_name}'
+		${0}
+	endif
 
 snippet command_no_args_no_call_func
-  command! -nargs=0 ${1:#:command name} ${0}
+	command! -nargs=0 ${1:#:command name} ${0}
 snippet command_call_func
-  command! -nargs=${1:#:n of args} ${2:#:command name} :call <SID>${3:#:funciton name}(<f-args>)
-  function s:$3(${0:#:function args})
-    ${0}
-  endfunction
+	command! -nargs=${1:#:n of args} ${2:#:command name} :call <SID>${3:#:funciton name}(<f-args>)
+	function s:$3(${0:#:function args})
+		${0}
+	endfunction
 snippet command_range_call_func
-  command! -range -nargs=${1:#:n of args} ${2:#:command name} :<line1>,<line2>call <SID>${3:#:funciton name}(<f-args>)
-  function s:$3(${0:#:function args}) range
-    ${0}
-  endfunction
+	command! -range -nargs=${1:#:n of args} ${2:#:command name} :<line1>,<line2>call <SID>${3:#:funciton name}(<f-args>)
+	function s:$3(${0:#:function args}) range
+		${0}
+	endfunction
 
 snippet execute_normal
-  execute 'normal! ${0}'
+	execute 'normal! ${0}'
 
 snippet rand
-  reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:#: 0 ~ n})
+	reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (${1:#: 0 ~ n})
 
 snippet len_multi_bytes
-  substitute(${0}, ".", "x", "g")
+	substitute(${0}, ".", "x", "g")
 
 snippet len_multi_bytes_func
-  let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
+	let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
 
 snippet split_multi_bytes
-  split(${0}, '\zs')
+	split(${0}, '\zs')
 
 snippet get_arg
-  get(a:, ${1:#: 1,2,3,...}, ${0:#:default value})
+	get(a:, ${1:#: 1,2,3,...}, ${0:#:default value})
 
 snippet get_def_g
-  let g:${1:#: var name} = get(g:, '$1', ${0:#:default value})
+	let g:${1:#: var name} = get(g:, '$1', ${0:#:default value})
 
 snippet get_def_b
-  let b:${1:#: var name} = get(b:, '$1', ${0:#:default value})
+	let b:${1:#: var name} = get(b:, '$1', ${0:#:default value})
 
 snippet f-args
-  <f-args>
+	<f-args>
 snippet q-args
-  <q-args>
+	<q-args>
 
 snippet command-options-all
-  -nargs -complete -range -count -bang -bar -register -buffer
+	-nargs -complete -range -count -bang -bar -register -buffer
 
 snippet for_string
-  for ${1:char} in split(${2:#:string}, '\zs')
-    ${0}
-  endfor
+	for ${1:char} in split(${2:#:string}, '\zs')
+		${0}
+	endfor
 snippet for_dict_key_val
-  for [key, val] in items(${1:#:dict})
-    ${0}
-  endfor
+	for [key, val] in items(${1:#:dict})
+		${0}
+	endfor
 snippet for_dict_key
-  for key in keys(${1:#:dict})
-    ${0}
-  endfor
+	for key in keys(${1:#:dict})
+		${0}
+	endfor
 snippet for_dict_values
-  for val in values(${1:#:dict})
-    ${0}
-  endfor
+	for val in values(${1:#:dict})
+		${0}
+	endfor
 snippet for_list
-  for ${2:e} in ${1:#:list}
-    ${0}
-  endfor
+	for ${2:e} in ${1:#:list}
+		${0}
+	endfor
 
 snippet system_nohup
 abbr for nvim
-  system('zsh -c "(${0:#:command}) &" 2>&1 > /dev/null')
+	system('zsh -c "(${0:#:command}) &" 2>&1 > /dev/null')
 
 snippet shellescape
 abbr for 'system' function
-  shellescape(${0:#:})
+	shellescape(${0:#:})
 
 snippet dict_default
 alias default_dict
-  get(${1:#:dict}, ${2:#:key}, ${3:#:default value})${0}
+	get(${1:#:dict}, ${2:#:key}, ${3:#:default value})${0}
 
 snippet visual_lines
 alias range_lines
-  let lines=getline(a:firstline, a:lastline)
+	let lines=getline(a:firstline, a:lastline)
 
 snippet grep_command
-  filter /${1:#:keyword}/ ${0:#:command}
+	filter /${1:#:keyword}/ ${0:#:command}
 
 snippet expand_cword
-  expand('<cword>')
+	expand('<cword>')
 snippet expand_cfile
-  expand('<cfile>')
+	expand('<cfile>')
 snippet expand_quote
 abbr e.g. for system()
-  expand('${0}:S')
+	expand('${0}:S')
 
 snippet lower
-  substitute(${1:#:str},'\(.\+\)', '\L\1','')
+	substitute(${1:#:str},'\(.\+\)', '\L\1','')
 snippet lOWER
-  substitute(${1:#:str},'\(.\+\)', '\l\1','')
+	substitute(${1:#:str},'\(.\+\)', '\l\1','')
 snippet UPPER
-  substitute(${1:#:str},'\(.\+\)', '\U\1','')
+	substitute(${1:#:str},'\(.\+\)', '\U\1','')
 snippet Upper
-  substitute(${1:#:str},'\(.\+\)', '\u\1','')
+	substitute(${1:#:str},'\(.\+\)', '\u\1','')
 
 snippet lambda
-  { ${1:#:args x,y} -> ${2:#:expression} }
+	{ ${1:#:args x,y} -> ${2:#:expression} }
 snippet lambda_curry
-  function({ ${1:#:function}, [${2:#:args}])
+	function({ ${1:#:function}, [${2:#:args}])
 snippet call_lambda
-  call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])
+	call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])

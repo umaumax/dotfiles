@@ -3,10 +3,10 @@ include sh.snip
 snippet is_zle
 alias iszle
 abbr only if called inner $()
-  [[ ! -o zle ]] && ${0}
+	[[ ! -o zle ]] && ${0}
 snippet is_zle_if
 alias iszle_if
 abbr only if called inner $()
-  if [[ ! -o zle ]]; then
-    ${0}
-  fi
+	if [[ ! -o zle ]]; then
+		${0}
+	fi
