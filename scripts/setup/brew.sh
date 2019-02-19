@@ -81,9 +81,6 @@ brew install progress
 # coloring output
 brew install lolcat
 
-# for bookmark searcher
-brew install buku
-
 # brew tap
 # WIP
 
