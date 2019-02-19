@@ -323,11 +323,18 @@ LazyPlug 'tpope/vim-abolish'
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 " NOTE: slow
-LazyPlug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css', 'markdown']}
-augroup unmap_colorizer
-	autocmd!
-	autocmd VimEnter * silent! nunmap <Leader>tc
-augroup END
+" Plug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css', 'markdown', 'yaml']}
+" augroup unmap_colorizer
+" autocmd!
+" autocmd VimEnter * silent! nunmap <Leader>tc
+" augroup END
+" NOTE:
+" ある程度の速度だが，起動時には時間がかかる(tab移動時にはそれほど時間を消費しない)
+let filetype_list=['vim', 'html', 'css', 'javascript', 'yaml']
+Plug 'chrisbra/Colorizer', {'for': filetype_list, 'on':['ColorHighlight']}
+let g:colorizer_auto_color = 1
+let g:colorizer_auto_filetype=join(filetype_list,',')
+let g:colorizer_disable_bufleave = 1
 
 " this plugin fix vim's awk bugs
 Plug 'vim-scripts/awk.vim', {'for': 'awk'}
