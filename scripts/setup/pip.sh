@@ -53,6 +53,12 @@ pip3 install gprof2dot
 pip3 install pyyaml
 pip3 install yamllint
 
+# NOTE: --user is used to avoid below message
+# Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'
+# Consider using the `--user` option or check the permissions.
+# NOTE: for bookmark searcher
+pip3 install --user buku
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------
