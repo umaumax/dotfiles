@@ -1019,3 +1019,5 @@
 [glob sub] *~@ # multi ok: *~hoge~fuga
 [glob mv all files except some dir] mv ^$DIR $DIR
 [glob mv all files except some dir] mv *~$DIR $DIR
+
+[hostname to ip] dig +short @
