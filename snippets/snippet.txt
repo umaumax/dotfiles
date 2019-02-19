@@ -1013,3 +1013,9 @@
 [image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
+
+# glob examples
+[glob without] ^@
+[glob sub] *~@ # multi ok: *~hoge~fuga
+[glob mv all files except some dir] mv ^$DIR $DIR
+[glob mv all files except some dir] mv *~$DIR $DIR
