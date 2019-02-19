@@ -1753,11 +1753,7 @@ REPORTTIME=10
 _pre_cmd=''
 function zshaddhistory_hook() {
 	local cmd=${1%%$'\n'}
-	if [[ $(uname) == "Linux" ]]; then
-		# NOTE: macのiTermでは必要ない
-		# to prevent `Vimを使ってくれてありがとう` at tab
-		set-dirname-title
-	elif [[ $(uname) == "Darwin" ]]; then
+	if [[ $(uname) == "Darwin" ]]; then
 		# NOTE: to warn LD_PRELOAD at mac
 		({ printf '%s' $cmd | grep -s 'LD_PRELOAD'; } || [[ -n $LD_PRELOAD ]]) && echo "$RED THERE IS NO '"'$LD_PRELOAD'"' IN MAC. USE BELOW ENV!$DEFAULT" && echo "DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES="
 	fi
@@ -1779,13 +1775,15 @@ function zshaddhistory_hook() {
 	else
 		PS1="$_PS1"
 	fi
-
-	set-dirname-title
 }
 function precmd_hook() {
 	cmdcheck cmdstack && cmdcheck cmdstack_len && [[ $(cmdstack_len) != 0 ]] && cmdstack
 	# local cmd="$history[$((HISTCMD - 1))]"
-	set-dirname-title
+	if [[ $(uname) == "Linux" ]]; then
+		# NOTE: macのiTermでは必要ない
+		# to prevent `Vimを使ってくれてありがとう` at tab
+		set-dirname-title
+	fi
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook zshaddhistory zshaddhistory_hook
