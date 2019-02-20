@@ -663,7 +663,8 @@ if cmdcheck fzf; then
 	alias sshdelpeco='ssh-keygen-R-peco'
 	function ssh-keygen-R-peco() {
 		local ret=$({
-			command cat ~/.ssh/known_hosts | sed -E 's/^([^, ]*),?([^, ]*) .*$/\1\t\2/g'
+			# NOTE: start with '|1|' is hashed host info
+			command cat ~/.ssh/known_hosts | grep -v '^|1|' | sed -E 's/^([^, ]*),?([^, ]*) .*$/\1\t\2/g'
 			sshconfig_host_hostname | awk '{printf "%-32s # %s\n",$2,$1}'
 		} | fzf)
 		[[ -z $ret ]] && return 1
