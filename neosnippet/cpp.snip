@@ -1,681 +1,743 @@
 # wrap command
 snippet wcout
 options word
-  `NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`${0}
+	`NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`${0}
 snippet werr
 options word
-  `NeoSnippetWrapLine('werr', 'std::err << @', ' << std::endl;')`${0}
+	`NeoSnippetWrapLine('werr', 'std::err << @', ' << std::endl;')`${0}
 snippet wlog
 options word
-  `NeoSnippetWrapLine('wlog', 'std::log << @', ' << std::endl;')`${0}
+	`NeoSnippetWrapLine('wlog', 'std::log << @', ' << std::endl;')`${0}
 snippet wif
 options word
-  `NeoSnippetWrapLine('wif', 'if (', '@)')`${0}
+	`NeoSnippetWrapLine('wif', 'if (', '@)')`${0}
 
 # REQUIRED: ctags
 snippet funcname
-  `CppFuncName()`${0}
+	`CppFuncName()`${0}
 
 snippet contains
 alias find_string
 abbr !=: found, ==: not found
-  (${1:#:str}.find(${2:#:keyword}) != std::string::npos)${0}
+	(${1:#:str}.find(${2:#:keyword}) != std::string::npos)${0}
 
 snippet prefix_string
 alias string_prefix
-  if (${1:#:target}.size() >= ${2:#:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
-    ${0}
-  }
+	if (${1:#:target}.size() >= ${2:#:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
+	  ${0}
+	}
 
 snippet cast_dynamic
 abbr for class
-  dynamic_cast<${1:#:Type}>(${2:#:TARGET})${0}
+	dynamic_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_static
 abbr for not pointer
-  static_cast<${1:#:Type}>(${2:#:TARGET})${0}
+	static_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_reinterpret
 abbr for pointer
-  reinterpret_cast<${1:#:Type}>(${2:#:TARGET})${0}
+	reinterpret_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet cast_const
 abbr for const cast
-  const_cast<${1:#:Type}>(${2:#:TARGET})${0}
+	const_cast<${1:#:Type}>(${2:#:TARGET})${0}
 snippet void_pointer_to_rvalue_cast
-  auto &${0} == static_cast<$2&>(*reinterpret_cast<${2:#:type}*>(${1:#:pointer}));
+	auto &${0} == static_cast<$2&>(*reinterpret_cast<${2:#:type}*>(${1:#:pointer}));
 
 snippet debug_print
 options head
 abbr << __func__ << ...
-  std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
+	std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
 
 snippet to_bool
 alias bool
-  ((${0:#:bool value})?"true":"false")
+	((${0:#:bool value})?"true":"false")
 
 # NOTE: pp is too short to select
 snippet pppp
 alias ppp
-  #include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint${0}
+	#include "cxx-prettyprint/prettyprint.hpp" // https://github.com/louisdx/cxx-prettyprint${0}
 snippet streampp
-  #include "umaumaxcpp/streampp.hpp" // FORBIDDEN_COMMIT_MAGIC_KEYWORD${0}
+	#include "umaumaxcpp/streampp.hpp" // FORBIDDEN_COMMIT_MAGIC_KEYWORD${0}
 
 snippet std
 alias s
-  std::${0}
+	std::${0}
 
 snippet stdcout
 alias cout
-  std::cout << ${0} << std::endl;
+	std::cout << ${0} << std::endl;
 
 snippet stdcerr
 alias cerr
-  std::cerr << ${0} << std::endl;
+	std::cerr << ${0} << std::endl;
 
 snippet stdclog
 alias clog
-  std::clog << ${0} << std::endl;
+	std::clog << ${0} << std::endl;
 
 # [iq1snippets/cpp\.snip at master · koturn/iq1snippets]( https://github.com/koturn/iq1snippets/blob/master/cpp11/cpp.snip )
 # for vector etc...
 snippet cout_all
-  std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));${0}
+	std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));${0}
 
 snippet precision
 abbr e.g. std::cout << HERE #include <iomanip>
-  std::fixed << std::setprecision(${1}) << ${0}
+	std::fixed << std::setprecision(${1}) << ${0}
 
 snippet setfill
-  std::setw(${1:#:n}) << std::setfill(${2:'0'}) << ${0}
+	std::setw(${1:#:n}) << std::setfill(${2:'0'}) << ${0}
 
 snippet fstream
-  std::${1:fstream} ${2:fs}(${3:#:filename}${4:, std::ios::binary});
-  if (!$2.is_open()) {
-    ${5:std\:\:cerr << "Failed to open\: " << $3 << std\:\:endl;}
-  }
-  ${0}
+	std::${1:fstream} ${2:fs}(${3:#:filename}${4:, std::ios::binary});
+	if (!$2.is_open()) {
+	  ${5:std\:\:cerr << "Failed to open\: " << $3 << std\:\:endl;}
+	}
+	${0}
 
 snippet sleep
-  std::this_thread::sleep_for(std::chrono::${1:milliseconds}(${2:1000}));${0}
+	std::this_thread::sleep_for(std::chrono::${1:milliseconds}(${2:1000}));${0}
 
 snippet numeric_limits
-  std::numeric_limits<${1:int}>::${0:#:max or min}()
+	std::numeric_limits<${1:int}>::${0:#:max or min}()
 
 snippet foreach_iterator
-  for (std::${1:vector}<${2}>::iterator ${3:itr} = ${4}.begin(); $3 != $4.end(); ++$3) {
-    ${0}
-  }
+	for (std::${1:vector}<${2}>::iterator ${3:itr} = ${4}.begin(); $3 != $4.end(); ++$3) {
+	  ${0}
+	}
 
 snippet string
 abbr std::string <string>
-  std::string ${0}
+	std::string ${0}
 
 snippet vector
 abbr std::vector<T> <vector>
-  std::vector<${1:int}> ${0}
+	std::vector<${1:int}> ${0}
 
 snippet vector2d
 abbr std::vector<std::vector<T> > <vector>
-  std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))${0}
+	std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))${0}
 
 snippet vector_copy_with_cast_constractor
-  std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());${0}
+	std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());${0}
 snippet vector_copy_with_cast
-  ${1:#:dst var name}.resize(${2:#:src var name}.size());
-  std::copy($2.begin(), $2.end(), $1.begin());${0}
+	${1:#:dst var name}.resize(${2:#:src var name}.size());
+	std::copy($2.begin(), $2.end(), $1.begin());${0}
 snippet stream_vector
-  std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));${0}
+	std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));${0}
 
 snippet random
-  std::${1:mt19937} ${2:rnd}((std::random_device())())${0}
+	std::${1:mt19937} ${2:rnd}((std::random_device())())${0}
 
 snippet thread
-  std::thread ${1:#:name}([${2:&}]{
-    ${0}
-  });
+	std::thread ${1:#:name}([${2:&}]{
+	  ${0}
+	});
 
 snippet async
-  auto ${1:#:name} = std::async(std::launch::${2:async}, [${3:&}]{
-    ${0}
-  });
+	auto ${1:#:name} = std::async(std::launch::${2:async}, [${3:&}]{
+	  ${0}
+	});
 
 snippet unused
 abbr avoid unused variable warning
-  (void)${0:#:var};
+	(void)${0:#:var};
 
 snippet for_auto
-  for (auto&& ${1:e} : ${2:#:container}) {
-    ${0}
-  }
+	for (auto&& ${1:e} : ${2:#:container}) {
+	  ${0}
+	}
 
 snippet try
-  try {
-    ${0}
-  } catch (${1:const std::exception&} ${2:e}) {
-    ${3:std::cerr << $2.what() << std::endl;}
-  }
+	try {
+	  ${0}
+	} catch (${1:const std::exception&} ${2:e}) {
+	  ${3:std::cerr << $2.what() << std::endl;}
+	}
 
 # <algorithm>
 snippet for_each
 abbr std::for_each <algorithm>
-  std::for_each(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      ${0}
-    });
+	std::for_each(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    ${0}
+	  });
 
 snippet all_of
 abbr std::all_of <algorithm>
-  std::all_of(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      return ${0};
-    });
+	std::all_of(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    return ${0};
+	  });
 
 snippet none_of
 abbr std::none_of <algorithm>
-  std::none_of(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      return ${0};
-    });
+	std::none_of(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    return ${0};
+	  });
 
 snippet any_of
 abbr std::any_of <algorithm>
-  std::any_of(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      return ${0};
-    });
+	std::any_of(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    return ${0};
+	  });
 
 snippet sort
 abbr std::sort <algorithm>
-  std::sort(std::begin(${1}), std::end($1))${0}
+	std::sort(std::begin(${1}), std::end($1))${0}
 
 snippet sort_lambda
 abbr std::sort <algorithm>
-  std::sort(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& x, const decltype($1)::value_type& y) {
-      return ${0:#:x < y};
-    });
+	std::sort(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& x, const decltype($1)::value_type& y) {
+	    return ${0:#:x < y};
+	  });
 
 snippet sort_stable
 abbr std::stable_sort <algorithm>
-  std::stable_sort(std::begin(${1}), std::end($1))${0}
+	std::stable_sort(std::begin(${1}), std::end($1))${0}
 
 snippet sort_stable_lmabda
 abbr std::stable_sort <algorithm>
-  std::stable_sort(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& x, const decltype($1)::value_type& y) {
-      return ${0:#:x < y};
-    });
+	std::stable_sort(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& x, const decltype($1)::value_type& y) {
+	    return ${0:#:x < y};
+	  });
 
 snippet min_assigne
-  $1 = ${1} < ${2} ? $1 : $2;${0}
+	$1 = ${1} < ${2} ? $1 : $2;${0}
 snippet max_assigne
-  $1 = ${1} > ${2} ? $1 : $2;${0}
+	$1 = ${1} > ${2} ? $1 : $2;${0}
 snippet min
-  (${1} < ${2} ? $1 : $2)${0}
+	(${1} < ${2} ? $1 : $2)${0}
 snippet max
-  (${1} > ${2} ? $1 : $2)${0}
+	(${1} > ${2} ? $1 : $2)${0}
 
 snippet min_element
 abbr std::min_element <algorithm>
-  std::min_element(std::begin(${1}), std::end($1))${0}
+	std::min_element(std::begin(${1}), std::end($1))${0}
 
 snippet max_element
 abbr std::max_element <algorithm>
-  std::max_element(std::begin(${1}), std::end($1))${0}
+	std::max_element(std::begin(${1}), std::end($1))${0}
 
 snippet find
 abbr std::find <algorithm>
-  std::find(std::begin(${1}), std::end($1), ${2:#:value})${0}
+	std::find(std::begin(${1}), std::end($1), ${2:#:value})${0}
 
 snippet find_if
 abbr std::find_if <algorithm>
-  std::find_if(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      return ${0};
-    });
+	std::find_if(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    return ${0};
+	  });
 
 snippet remove
 abbr std::remove <algorithm>
-  std::remove(std::begin(${1}), std::end($1), ${2:#:value})${0}
+	std::remove(std::begin(${1}), std::end($1), ${2:#:value})${0}
 
 snippet remove_if
 abbr std::remove_if <algorithm>
-  std::remove_if(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:e}) {
-      return ${0};
-    });
+	std::remove_if(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:e}) {
+	    return ${0};
+	  });
 
 snippet remove_erase
-  ${1}.erase(std::remove(std::begin($1), std::end($1), ${2:#:value}), std::end($1));${0}
+	${1}.erase(std::remove(std::begin($1), std::end($1), ${2:#:value}), std::end($1));${0}
 
 snippet remove_erase_if
-  ${1}.erase(
-    std::remove_if(
-      std::begin($1),
-      std::end($1),
-      [](const decltype($1)::value_type& ${2:e}) {
-        return ${0};
-      }),
-    std::end($1));
+	${1}.erase(
+	  std::remove_if(
+	    std::begin($1),
+	    std::end($1),
+	    [](const decltype($1)::value_type& ${2:e}) {
+	      return ${0};
+	    }),
+	  std::end($1));
 
 snippet unique
 abbr std::unique <algorithm>
-  std::unique(std::begin(${1}), std::end($1))${0}
+	std::unique(std::begin(${1}), std::end($1))${0}
 
 snippet unique_lambda
 abbr std::unique <algorithm>
-  std::unique(
-    std::begin(${1}),
-    std::end($1),
-    [](const decltype($1)::value_type& ${2:x}, const decltype($1)::value_type& ${3:y}) {
-      return ${0:#:x == y};
-    });
+	std::unique(
+	  std::begin(${1}),
+	  std::end($1),
+	  [](const decltype($1)::value_type& ${2:x}, const decltype($1)::value_type& ${3:y}) {
+	    return ${0:#:x == y};
+	  });
 
 snippet unique_erase
-  ${1}.erase(std::unique(std::begin($1), std::end($1)), std::end($1));${0}
+	${1}.erase(std::unique(std::begin($1), std::end($1)), std::end($1));${0}
 
 snippet unique_erase_lambda
-  ${1}.erase(
-    std::unique(
-      std::begin($1),
-      std::end($1),
-      [](const decltype($1)::value_type& ${2:x}, const decltype($1)::value_type& ${3:y}) {
-        return ${0:#:x == y};
-      }),
-    std::end($1));
+	${1}.erase(
+	  std::unique(
+	    std::begin($1),
+	    std::end($1),
+	    [](const decltype($1)::value_type& ${2:x}, const decltype($1)::value_type& ${3:y}) {
+	      return ${0:#:x == y};
+	    }),
+	  std::end($1));
 
 snippet copy
 abbr std::copy <algorithm>
-  std::copy(std::begin(${1}), std::end($1), std::begin(${2}))${0}
+	std::copy(std::begin(${1}), std::end($1), std::begin(${2}))${0}
 
 snippet sum
-  std::accumulate(std::begin(${1}), std::end($1), ${2:decltype($1)::value_type()})${0}
+	std::accumulate(std::begin(${1}), std::end($1), ${2:decltype($1)::value_type()})${0}
 
 snippet time_measurement
 alias chrono_time, stopwatch, calc_time
 abbr REQUIRED: #include <chrono>
-  std::chrono::system_clock::time_point ${1:#:start}_start = std::chrono::system_clock::now();
-  ${0}
-  double $1_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - $1_start).count();
+	std::chrono::system_clock::time_point ${1:#:start}_start = std::chrono::system_clock::now();
+	${0}
+	double $1_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - $1_start).count();
 
 snippet duration_cast
 abbr std::chrono::duration_cast<T>() <chrono>
-  std::chrono::duration_cast<std::chrono::${1:milliseconds}>(${2})
+	std::chrono::duration_cast<std::chrono::${1:milliseconds}>(${2})
 snippet shared_void_pointer_cast
 alias cast_shared_void_pointer
 abbr cast std::shared_ptr<void> to some pointer (also unique pointer)
-  (${0:#:dst pointer type}*)${1:#:smart pointer var name}.get()
+	(${0:#:dst pointer type}*)${1:#:smart pointer var name}.get()
 
 snippet lock_guard
-  {
-    std::lock_guard<decltype($2)> ${1:lock}(${2:#:mutex});
-    ${0}
-  }
+	{
+	  std::lock_guard<decltype($2)> ${1:lock}(${2:#:mutex});
+	  ${0}
+	}
 
 snippet lock_guard_adopt
-  {
-    std::lock_guard<decltype($2)> ${1:lock}(${2:#:mutex}, std::adopt_lock);
-    ${0}
-  }
+	{
+	  std::lock_guard<decltype($2)> ${1:lock}(${2:#:mutex}, std::adopt_lock);
+	  ${0}
+	}
 
 snippet join
-  std::ostringstream ${1:oss};
-  if (!${2}.empty()) {
-    std::copy(std::begin($2), std::prev(std::end($2)), std::ostream_iterator<const decltype($2)::value_type&>($1, ${3:","}));
-    $1 << *std::rbegin($2);
-  }
-  ${0}
+	std::ostringstream ${1:oss};
+	if (!${2}.empty()) {
+	  std::copy(std::begin($2), std::prev(std::end($2)), std::ostream_iterator<const decltype($2)::value_type&>($1, ${3:","}));
+	  $1 << *std::rbegin($2);
+	}
+	${0}
 
 snippet join_to_string
-  ${1}.empty() ? "" : std::accumulate(
-    std::next(std::begin($1)),
-    std::end($1),
-    std::to_string($1[0]),
-    [](const std::string& ${2:acc}, const decltype($1)::value_type& ${3:e}) {
-      return $2 + ${4:","} + std::to_string($3);
-    })${0}
+	${1}.empty() ? "" : std::accumulate(
+	  std::next(std::begin($1)),
+	  std::end($1),
+	  std::to_string($1[0]),
+	  [](const std::string& ${2:acc}, const decltype($1)::value_type& ${3:e}) {
+	    return $2 + ${4:","} + std::to_string($3);
+	  })${0}
 
 snippet split
-  std::vector<std::string> ${1:tokens};
-  std::string::size_type ${2:spos} = 0, ${3:epos}, ${4:delimlen} = sizeof(${5:","}) - 1;
-  while (($3 = ${6:#:string}.find_first_of(",", $2)) != std::string::npos) {
-    $1.emplace_back($6.substr($2, $3 - $2));
-    $2 = $3 + $4;
-  }
-  $1.emplace_back($6.substr($2));
-  ${0}
+	std::vector<std::string> ${1:tokens};
+	std::string::size_type ${2:spos} = 0, ${3:epos}, ${4:delimlen} = sizeof(${5:","}) - 1;
+	while (($3 = ${6:#:string}.find_first_of(",", $2)) != std::string::npos) {
+	  $1.emplace_back($6.substr($2, $3 - $2));
+	  $2 = $3 + $4;
+	}
+	$1.emplace_back($6.substr($2));
+	${0}
 
 snippet split_by_char
-  std::vector<std::string> ${1:tokens};
-  std::istringstream ${2:iss}(${3:#:string});
-  for (std::string ${4:token}; std::getline($2, $4, ${5:','});) {
-    $1.push_back($4);
-  }
-  ${0}
+	std::vector<std::string> ${1:tokens};
+	std::istringstream ${2:iss}(${3:#:string});
+	for (std::string ${4:token}; std::getline($2, $4, ${5:','});) {
+	  $1.push_back($4);
+	}
+	${0}
 
 snippet regex
-  std::regex ${1:#:name}("${2:#:pattern}");${0}
+	std::regex ${1:#:name}("${2:#:pattern}");${0}
 
 snippet regex_match_loop
-  for (std::sregex_iterator ${1:itr} = std::sregex_iterator(std::begin(${2:#:text}), std::end($2), ${3:#:regex}), ${4:end}; $1 != $4; ++$1) {
-    ${0}
-  }
+	for (std::sregex_iterator ${1:itr} = std::sregex_iterator(std::begin(${2:#:text}), std::end($2), ${3:#:regex}), ${4:end}; $1 != $4; ++$1) {
+	  ${0}
+	}
 
 snippet regex_split_loop
-  for (std::sregex_iterator ${1:itr} = std::sregex_iterator(std::begin(${2:#:text}), std::end($2), ${3:#:regex}, -1), ${4:end}; $1 != $4; ++$1) {
-    ${0}
-  }
+	for (std::sregex_iterator ${1:itr} = std::sregex_iterator(std::begin(${2:#:text}), std::end($2), ${3:#:regex}, -1), ${4:end}; $1 != $4; ++$1) {
+	  ${0}
+	}
 
 snippet regex_replace
-  std::regex_replace(${1:#:text}, std::regex("${2:#:pattern}"), "${3:#:after}");${0}
+	std::regex_replace(${1:#:text}, std::regex("${2:#:pattern}"), "${3:#:after}");${0}
 
 snippet extern_c
-  #ifdef __cplusplus
-  extern "C" {
-  #endif  // __cplusplus
+	#ifdef __cplusplus
+	extern "C" {
+	#endif  // __cplusplus
 
-  ${0}
+	${0}
 
-  #ifdef __cplusplus
-  }
-  #endif  // __cplusplus
+	#ifdef __cplusplus
+	}
+	#endif  // __cplusplus
 
 snippet if_cpp11
-  #if __cplusplus >= 201103L
-  ${0}
-  #endif  // __cplusplus >= 201103L
+	#if __cplusplus >= 201103L
+	${0}
+	#endif  // __cplusplus >= 201103L
 
 snippet if_cpp14
-  #if __cplusplus >= 201402L
-  ${0}
-  #endif  // __cplusplus >= 201402L
+	#if __cplusplus >= 201402L
+	${0}
+	#endif  // __cplusplus >= 201402L
 
 snippet if_gcc
-  #ifdef __GNUC__
-  ${0}
-  #endif  // __GNUC__
+	#ifdef __GNUC__
+	${0}
+	#endif  // __GNUC__
 
 snippet if_x64
-  #if defined(__x86_64__) || defined(_WIN64) || defined(__MINGW64__)
-  ${0}
-  #endif  // defined(__x86_64__) || defined(_WIN64) || defined(__MINGW64__)
+	#if defined(__x86_64__) || defined(_WIN64) || defined(__MINGW64__)
+	${0}
+	#endif  // defined(__x86_64__) || defined(_WIN64) || defined(__MINGW64__)
 
 snippet class_template
-  template <class T>
-  class ${1:#:class name} {
-   public:
-    $1(){};
-    ~$1(){};
+	template <class T>
+	class ${1:#:class name} {
+	  public:
+	  $1(){};
+	  ~$1(){};
 
-   private:
-    int ${2:#:method name}(T xxx);
-  };
+	  private:
+	  int ${2:#:method name}(T xxx);
+	};
 
-  template <>
-  inline int $1<int>::$2(int xxx) {
-    return 0;
-  }
-  template <>
-  inline int $1<char>::$2(char xxx) {
-    return 0;
-  }
-  ${0}
+	template <>
+	inline int $1<int>::$2(int xxx) {
+	  return 0;
+	}
+	template <>
+	inline int $1<char>::$2(char xxx) {
+	  return 0;
+	}
+	${0}
 
 snippet stream_eof_detection
-    std::streampos archive_offset    = iss.tellg();
-    std::streamoff stream_end_offset = iss.seekg(0, std::ios_base::end).tellg();
-    iss.seekg(archive_offset);
-    // some processing
-    if (iss.tellg() == stream_end_offset - 1) {
-      ${0:#: eof processing}
-    }
+	  std::streampos archive_offset    = iss.tellg();
+	  std::streamoff stream_end_offset = iss.seekg(0, std::ios_base::end).tellg();
+	  iss.seekg(archive_offset);
+	  // some processing
+	  if (iss.tellg() == stream_end_offset - 1) {
+	    ${0:#:eof processing}
+	  }
 
 snippet boost_serialization_headers
 alias serialization_headers
-    #include <boost/archive/text_iarchive.hpp>
-    #include <boost/archive/text_oarchive.hpp>
-    #include <boost/serialization/map.hpp>
-    #include <boost/serialization/serialization.hpp>
-    #include <boost/serialization/shared_ptr.hpp>
-    #include <boost/serialization/string.hpp>
-    #include <boost/serialization/vector.hpp>
-    ${0}
+	#include <boost/archive/text_iarchive.hpp>
+	#include <boost/archive/text_oarchive.hpp>
+	#include <boost/serialization/map.hpp>
+	#include <boost/serialization/serialization.hpp>
+	#include <boost/serialization/shared_ptr.hpp>
+	#include <boost/serialization/string.hpp>
+	#include <boost/serialization/vector.hpp>
+	${0}
 snippet serialization
 alias boost_serialization
-    boost::archive::text_oarchive toa(${1:#:ostream});${0}
+	boost::archive::text_oarchive toa(${1:#:ostream});${0}
 snippet deserialization
 alias boost_deserialization
-    boost::archive::text_iarchive tia(${1:#:istream});${0}
+	boost::archive::text_iarchive tia(${1:#:istream});${0}
 
 snippet include-guard
-    #ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
-    #define $1
-    #endif  // $1${0}
+	#ifndef ${1:`substitute(toupper(expand('%')),'\.', '_', 'g')`}
+	#define $1
+	#endif  // $1${0}
 
 snippet include-guard-with-include-prefix
-    #ifndef ${1:INCLUDE_`substitute(toupper(expand('%')),'\.', '_', 'g')`}
-    #define $1
-    #endif  // $1${0}
+	#ifndef ${1:INCLUDE_`substitute(toupper(expand('%')),'\.', '_', 'g')`}
+	#define $1
+	#endif  // $1${0}
 
 snippet namespace
-    namespace ${1:#: namespace} {
-    }  // namespace $1${0}
+	namespace ${1:#: namespace} {
+	}  // namespace $1${0}
 
 snippet ros_info
 alias ros_cout
-  ROS_INFO_STREAM(${0});
+	ROS_INFO_STREAM(${0});
 snippet ros_error
 alias ros_cerr
-  ROS_ERROR_STREAM(${0});
+	ROS_ERROR_STREAM(${0});
 snippet ros_warn
 alias ros_clog
-  ROS_WARN_STREAM(${0});
+	ROS_WARN_STREAM(${0});
 
 snippet assert_with_fixed_message
-  assert((${1:#:condition}) && "${0:#:message}");
+	assert((${1:#:condition}) && "${0:#:message}");
 
 snippet assert_with_formated_message
-  assert((${1:#:condition}) || !std::fprintf(stderr, "%s:%d ${0:#:format}\n", __FILE__, __LINE__));
+	assert((${1:#:condition}) || !std::fprintf(stderr, "%s:%d ${0:#:format}\n", __FILE__, __LINE__));
 
 # [c\+\+ \- Get home directory in Linux \- Stack Overflow]( https://stackoverflow.com/questions/2910377/get-home-directory-in-linux/2910392#2910392 )
 snippet home_dir
 alias get_home_dir
-  #include <unistd.h>
-  #include <sys/types.h>
-  #include <pwd.h>
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <pwd.h>
 
-  struct passwd *pw = getpwuid(getuid());
-  const char *homedir = pw->pw_dir;
-  ${0}
+	struct passwd *pw = getpwuid(getuid());
+	const char *homedir = pw->pw_dir;
+	${0}
 
 snippet is_file_exist
 alias file_exist
-  #include<string>
-  #include<fstream>
-  #include<iostream>
+	#include<string>
+	#include<fstream>
+	#include<iostream>
 
-  bool checkFileExistence(const std::string& str)
-  {
-      std::ifstream ifs(str);
-      return ifs.is_open();
-  }
-  ${0}
+	bool checkFileExistence(const std::string& str)
+	{
+	    std::ifstream ifs(str);
+	    return ifs.is_open();
+	}
+	${0}
 
 snippet push_back
-  emplace_back${0}
+	emplace_back${0}
 
 snippet breakpoint
 abbr REQUIRED: <signal.h>
-  raise(SIGTRAP);${0}
+	raise(SIGTRAP);${0}
 
 snippet include__user
 alias incl__user
-  #include "${0}"
+	#include "${0}"
 snippet include__system
 alias incl__system
-  #include <${0}>
+	#include <${0}>
 
 snippet include_chrono
 alias incl_chrono
-  #include <chrono>${0}
+	#include <chrono>${0}
 snippet include_functional
 alias incl_functional
-  #include <functional>${0}
+	#include <functional>${0}
 snippet include_iomanip
 alias incl_iomanip
-  #include <iomanip>${0}
+	#include <iomanip>${0}
 alias incl_algorithm
-  #include <algorithm>${0}
+	#include <algorithm>${0}
 
 snippet clang-format-off-on
-  // clang-format off
-  // clang-format on${0}
+	// clang-format off
+	// clang-format on${0}
 
 snippet sprintf_string
 alias snprintf_string
-  [&]() {
-    char buf[1024];
-    std::snprintf(buf, sizeof(buf), ${1:#:format});
-    return std::string(buf);
-  }();${0}
+	[&]() {
+	  char buf[1024];
+	  std::snprintf(buf, sizeof(buf), ${1:#:format});
+	  return std::string(buf);
+	}();${0}
 
 snippet string_lambda
 alias lambda_string
-  [&]() {
-    std::stringstream ss;
-    ss << "${0}";
-    return ss.str();
-  }();
+	[&]() {
+	  std::stringstream ss;
+	  ss << "${0}";
+	  return ss.str();
+	}();
 
 snippet sprintf_library
 alias library_sprintf
-  // clang-format off
-  namespace fmt { template <class... Args> std::string snprintf(char* buff, std::size_t n, const char* const format, Args... args) { std::snprintf(buff, n, format, args...); return std::string(buff); } template <class... Args> std::string snprintf(std::size_t n, const char* const format, Args... args) { char buff[n]; return snprintf(buff, n, format, args...); } template <class... Args> std::string sprintf(const char* const format, Args... args) { std::size_t n = std::snprintf(nullptr, 0, format, args...); return snprintf(n, format, args...); } }  // namespace fmt
-  // clang-format on${0}
+	// clang-format off
+	namespace fmt { template <class... Args> std::string snprintf(char* buff, std::size_t n, const char* const format, Args... args) { std::snprintf(buff, n, format, args...); return std::string(buff); } template <class... Args> std::string snprintf(std::size_t n, const char* const format, Args... args) { char buff[n]; return snprintf(buff, n, format, args...); } template <class... Args> std::string sprintf(const char* const format, Args... args) { std::size_t n = std::snprintf(nullptr, 0, format, args...); return snprintf(n, format, args...); } }  // namespace fmt
+	// clang-format on${0}
 
 snippet float_equal
 abbr #include <limits>
-  (std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())${0}
+	(std::abs(${1} - ${2}) <= std::numeric_limits<float>::epsilon())${0}
 
 snippet double_equal
 abbr #include <limits>
-  (std::abs(${1} - ${2}) <= std::numeric_limits<double>::epsilon())${0}
+	(std::abs(${1} - ${2}) <= std::numeric_limits<double>::epsilon())${0}
 
 snippet __FUNC__
 alias func_macro, FUNC
 abbr no mangling name(method without class name)
-  __func__${0}
+	__func__${0}
 
 snippet __LINE__
 alias line_macro, LINE
-  __LINE__${0}
+	__LINE__${0}
 
 snippet __FILE__
 alias file_macro, FILE
-  __FILE__${0}
+	__FILE__${0}
 
 snippet using_typedef
-  using ${1:#:new type name} = ${2:#: type};${0}
+	using ${1:#:new type name} = ${2:#: type};${0}
 
 snippet typedef
-  typedef ${1:#:type} ${2:#:new type name};${0}
+	typedef ${1:#:type} ${2:#:new type name};${0}
 
 snippet malloc
-  ${1:#:type} ${2:#:var name} = malloc(sizeof($1)*${3:#:number});${0}
+	${1:#:type} ${2:#:var name} = malloc(sizeof($1)*${3:#:number});${0}
 
 snippet for_bloking
-  #include <algorithm>
-  const int $1$1_step = ${5:1};
-  const int $2$2_step = ${6:1};
-  for (int $1$1 = 0; $1$1 < ${3:#:j_max}; $1$1 += $1$1_step) {
-    const auto& $1$1_end = std::min($1$1 + $1$1_step, $3);
-    for (int $2$2 = 0; $2$2 < ${4:#:i_max}; $2$2 += $2$2_step) {
-      const auto& $2$2_end = std::min($2$2 + $2$2_step, $4);
-      for (int ${1:j} = $1$1; $1 < $1$1_end; ++$1) {
-        for (int ${2:i} = $2$2; $2 < $2$2_end; ++$2) {
-          ${0}
-        }
-      }
-    }
-  }
+	#include <algorithm>
+	const int $1$1_step = ${5:1};
+	const int $2$2_step = ${6:1};
+	for (int $1$1 = 0; $1$1 < ${3:#:j_max}; $1$1 += $1$1_step) {
+	  const auto& $1$1_end = std::min($1$1 + $1$1_step, $3);
+	  for (int $2$2 = 0; $2$2 < ${4:#:i_max}; $2$2 += $2$2_step) {
+	    const auto& $2$2_end = std::min($2$2 + $2$2_step, $4);
+	    for (int ${1:j} = $1$1; $1 < $1$1_end; ++$1) {
+	      for (int ${2:i} = $2$2; $2 < $2$2_end; ++$2) {
+	        ${0}
+	      }
+	    }
+	  }
+	}
 
 snippet pp_2d_array
-  #include <iomanip>
-  for (int j = 0; j < ${2:#:j_max}; j++) {
-    for (int i = 0; i < ${3:#:i_max}; i++) {
-      std::cout << std::setw(4) << ${1:#:array}[j][i];
-    }
-    std::cout << std::endl;
-  }
-  ${0}
+	#include <iomanip>
+	for (int j = 0; j < ${2:#:j_max}; j++) {
+	  for (int i = 0; i < ${3:#:i_max}; i++) {
+	    std::cout << std::setw(4) << ${1:#:array}[j][i];
+	  }
+	  std::cout << std::endl;
+	}
+	${0}
 
 snippet alignas_malloc_at_any_target
 abbr #include <cstlib>, std::free()
-  ${1:#:type}* ${2:#:var name};
-  (int)posix_memalign(reinterpret_cast<void**>(&$2), ${3:#:alignment}, sizeof($1) * ${4:#:size});${0}
-
+	${1:#:type}* ${2:#:var name};
+	(int)posix_memalign(reinterpret_cast<void**>(&$2), ${3:#:alignment}, sizeof($1) * ${4:#:size});${0}
 
 snippet alias_malloc_at_linux
 abbr not Mac OS X
-  ${1:#:type}* ${2:#:var name} = static_cast<$1*>(aligned_alloc(${3:#:alignment}, (sizeof($1) * ${4:#:size} + ($3 - 1)) & ~($3 - 1)));${0}
+	${1:#:type}* ${2:#:var name} = static_cast<$1*>(aligned_alloc(${3:#:alignment}, (sizeof($1) * ${4:#:size} + ($3 - 1)) & ~($3 - 1)));${0}
 
 snippet alignas_alignof
-  alignas(alignof(${0:float32x4_t}))
+	alignas(alignof(${0:float32x4_t}))
 
 snippet float_test_headers
-  #include <cassert>
-  #include <cfenv>
-  #include <cstdio>
-  #include <limits>
-  #include <string>
-  #include <typeinfo>
-  ${0}
+	#include <cassert>
+	#include <cfenv>
+	#include <cstdio>
+	#include <limits>
+	#include <string>
+	#include <typeinfo>
+	${0}
 snippet float_test_assert
 abbr can't use string as dummy value use number
-  #undef VAR_NAME
-  #define VAR_NAME(x) (#x "")
-  assert(!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str()));
-  assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
-  ${0}
+	#undef VAR_NAME
+	#define VAR_NAME(x) (#x "")
+	assert(!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str()));
+	assert(!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid($1).name(), VAR_NAME($1), std::to_string($1).c_str()));
+	${0}
 snippet float_test_clear_assert
-  assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));${0}
+	assert((std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__));${0}
 snippet float_test_clear
 abbr can't use string as dummy value use number
-  #undef VAR_NAME
-  #define VAR_NAME(x) (#x "")
-  !std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
-  !std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
-  //  (std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__);
-  std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT %s\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
-  ${0}
+	#undef VAR_NAME
+	#define VAR_NAME(x) (#x "")
+	!std::fetestexcept(FE_OVERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT OVERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
+	!std::fetestexcept(FE_UNDERFLOW) || !std::fprintf(stderr, "%s:%d RAISED FLOATING-POINT UNDERFLOW: %s %s = %s\n", __FILE__, __LINE__, typeid(${1:#:var name}).name(), VAR_NAME($1), std::to_string($1).c_str());
+	//  (std::feclearexcept(FE_ALL_EXCEPT) == 0) || !std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT FAILED\n", __FILE__, __LINE__);
+	std::fprintf(stderr, "%s:%d FE_ALL_EXCEPT %s\n", __FILE__, __LINE__, (std::feclearexcept(FE_ALL_EXCEPT) == 0) ? "SUCCESS" : "FAILED");
+	${0}
 
 snippet get_number_of_supporting_threads
 abbr USE HINT ONLY
-  #include <thread>
-  std::thread::hardware_concurrency()${0}
+	#include <thread>
+	std::thread::hardware_concurrency()${0}
 
 snippet split_whitespaces
-  std::vector<std::string> split_whitespaces(const std::string& str) {
-    std::vector<std::string> rets;
-    auto trimed_str = str;
-    boost::algorithm::trim(trimed_str);
-    if (trimed_str == "") {
-      return rets;
-    }
-    boost::algorithm::split(rets, trimed_str, boost::is_any_of(" "), boost::token_compress_on);
-    return rets;
-  }${0}
+	std::vector<std::string> split_whitespaces(const std::string& str) {
+	  std::vector<std::string> rets;
+	  auto trimed_str = str;
+	  boost::algorithm::trim(trimed_str);
+	  if (trimed_str == "") {
+	    return rets;
+	  }
+	  boost::algorithm::split(rets, trimed_str, boost::is_any_of(" "), boost::token_compress_on);
+	  return rets;
+	}${0}
+
+snippet rm_file
+alias rm
+	std::remove(${0});
+
+# FYI: [How can I get the list of files in a directory using C or C\+\+? \- Stack Overflow]( https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c )
+snippet opendir
+alias ls
+	std::vector<std::string> Opendir(const std::string &path) {
+	  std::vector<std::string> files;
+	  DIR *dir;
+	  struct dirent *ent;
+	  if ((dir = opendir(path.c_str())) != nullptr) {
+	    while ((ent = readdir(dir)) != nullptr) {
+	      files.emplace_back(ent->d_name);
+	    }
+	    closedir(dir);
+	  }
+	  return files;
+	}${0}
+
+snippet filter_regexp
+	std::vector<std::string> FilterRegex(const std::vector<std::string> &src, const std::string &regex_pattern) {
+	  std::vector<std::string> ret;
+	  std::regex re(regex_pattern);
+	  std::copy_if(src.begin(), src.end(), std::back_inserter(ret), [&re](std::string filename) {
+	    return std::regex_match(filename, re);
+	  });
+	  return ret;
+	}${0}
+
+snippet file_write
+	{
+	  std::ofstream ofs;
+	  ofs.open(${1:#:filename}, std::ios::out | std::ios::binary | std::ios::trunc);
+	  if (!ofs) {
+	    std::cerr << "open failed :" << $1 << std::endl;
+	    return 1;
+	  }
+	  ofs.write(${2:#:address}, ${3:#:size});
+	}${0}
+
+snippet exec
+	#include <array>
+	#include <stdexcept>
+	#include <string>
+
+	int Exec(const std::string& cmd, std::string& output) {
+	  constexpr std::size_t buffer_size = 128;
+	  std::array<char, buffer_size> buffer;
+	  auto pipe = popen(cmd.data(), "r");
+	  if (!pipe) throw std::runtime_error("popen() failed!");
+
+	  while (!std::feof(pipe)) {
+	    // NOTE: only capture stdout
+	    if (std::fgets(buffer.data(), buffer.size(), pipe)) {
+	      output += buffer.data();
+	    }
+	  }
+	  auto status    = pclose(pipe);
+	  auto exit_code = WEXITSTATUS(status);
+	  return exit_code;
+	}
