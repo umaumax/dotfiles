@@ -1403,9 +1403,22 @@ function rgrep() {
 }
 
 # FYI: [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
+# WARN: ただの検索では除外されるが，特殊なオプションを使用する場合には無効になるので，注意
+# OK: find . -not -iwholename '*/.git/*' -ls
+# NG: find . -ls -not -iwholename '*/.git/*'
 function find() {
-	$(command which find) "$@" -not -iwholename '*/.git/*'
+	command find "$@" -not -iwholename '*/.git/*'
 }
+
+# NOTE: A breadth-first version of the UNIX find command
+# FYI: [tavianator/bfs: A breadth\-first version of the UNIX find command]( https://github.com/tavianator/bfs )
+if cmdcheck bfs; then
+	alias f='bfs'
+	function bfs() {
+		# NOTE: bfsはoptionの順番は問わないので，こちらのほうが都合が良い
+		command bfs -not -iwholename '*/.git/*' "$@"
+	}
+fi
 
 alias jagrep="grep -P '\p{Hiragana}'"
 
