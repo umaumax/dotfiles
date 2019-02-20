@@ -733,11 +733,22 @@ if [[ -f /.dockerenv ]]; then
 fi
 
 if cmdcheck tmux; then
-	function tmux-attach() {
-		if [ -n "$TMUX" ]; then
-			echo 'Do not use this command in a tmux session.'
+	alias reload-tmux-config='tmux source ~/.tmux.conf'
+	alias rctmux='reload-tmux-config'
+	function is_in_tmux_with_message() {
+		if [[ -n "$TMUX" ]]; then
+			echo "${RED}Do not use this command in a tmux session.${DEFAULT}" 1>&2
 			return 1
 		fi
+	}
+	function is_not_in_tmux_with_message() {
+		if [[ ! -n "$TMUX" ]]; then
+			echo "${RED}Do not use this command outside of a tmux session.${DEFAULT}" 1>&2
+			return 1
+		fi
+	}
+	function tmux-attach() {
+		is_in_tmux_with_message || return
 		local output=$(tmux ls)
 		[[ -z $output ]] && return 1
 		local tag_id=$(echo $output | peco | cut -d : -f 1)
@@ -745,17 +756,16 @@ if cmdcheck tmux; then
 	}
 	# FYI: [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
 	function tmux-rename-session() {
-		if [ $# -lt 1 ]; then
-			git status >/dev/null 2>&1
-			if [ $? -eq 0 ]; then
-				local name=$(basename $(git rev-parse --show-toplevel))
+		is_not_in_tmux_with_message || return
+		local name=${1:-}
+		if [[ -z $name ]]; then
+			if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+				name="$(basename $(git rev-parse --show-toplevel))"
 			else
-				local name=$(basename $(pwd))
+				name="$(basename $(pwd))"
 			fi
-		else
-			local name=$1
 		fi
-		tmux rename-session ${name//./_}
+		tmux rename-session "${name//./_}"
 	}
 fi
 
