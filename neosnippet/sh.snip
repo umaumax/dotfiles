@@ -21,6 +21,8 @@ snippet isdocker
 	[[ -f /.dockerenv ]]${0}
 snippet istmux
 	[[ -n "$TMUX" ]]${0}
+snippet isgit
+	git rev-parse --is-inside-work-tree >/dev/null 2>&1${0}
 snippet ismac_if
 	if [[ $(uname) == "Darwin" ]]; then
 		${0}
@@ -43,6 +45,10 @@ snippet isdocker_if
 	fi
 snippet istmux_if
 	if [[ -n "$TMUX" ]]; then
+		${0}
+	fi
+snippet isgit_if
+	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 		${0}
 	fi
 
