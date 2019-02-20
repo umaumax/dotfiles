@@ -617,8 +617,9 @@ if cmdcheck fzf; then
 	function rmpeco() {
 		local ret=$(
 			{
-				for target in $(lspeco); do
-					printf '%q ' "$target"
+				# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+				lspeco | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+					printf "'%s' " "$LINE"
 				done
 			}
 		)
