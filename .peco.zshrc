@@ -685,12 +685,14 @@ if cmdcheck fzf; then
 fi
 
 alias gfvc='gfvimc'
-function gfvimc() {
-	is_git_repo_with_message || return
-	git ls-files | pecovim
-}
+# function gfvimc() {
+# is_git_repo_with_message || return
+# git ls-files | pecovim
+# }
+alias gfvim='git ls-files | pecovim'
 alias gfv='gfvim'
-function gfvim() {
-	is_git_repo_with_message || return
-	git ls-files $(git rev-parse --show-toplevel) | pecovim
-}
+# function gfvim() {
+# is_git_repo_with_message || return
+# git ls-files $(git rev-parse --show-toplevel) | pecovim
+# }
+alias gfvim='git ls-files $(git rev-parse --show-toplevel) | pecovim'
