@@ -1802,11 +1802,9 @@ function zshaddhistory_hook() {
 function precmd_hook() {
 	cmdcheck cmdstack && cmdcheck cmdstack_len && [[ $(cmdstack_len) != 0 ]] && cmdstack
 	# local cmd="$history[$((HISTCMD - 1))]"
-	if [[ $(uname) == "Linux" ]]; then
-		# NOTE: macのiTermでは必要ない
-		# to prevent `Vimを使ってくれてありがとう` at tab
-		set-dirname-title
-	fi
+	# NOTE: macのiTermでは必要ない(vimに関しては)
+	# to prevent `Vimを使ってくれてありがとう` at tab
+	set-dirname-title
 }
 autoload -Uz add-zsh-hook
 add-zsh-hook zshaddhistory zshaddhistory_hook
