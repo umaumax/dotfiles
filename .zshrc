@@ -773,9 +773,9 @@ fi
 # [xargs で標準入力が空だったら何もしない \- Qiita]( https://qiita.com/m_doi/items/432b9145b69a0ba3132d )
 # --no-run-if-empty: macでは使用不可
 function pipecheck() {
-	local val=$(cat)
+	local val="$(cat)"
 	[[ -z $val ]] && return 1
-	echo $val | $@
+	printf '%s\n' "$val" | $@
 }
 
 # n秒後に通知する
