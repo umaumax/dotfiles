@@ -166,12 +166,15 @@ function rdvim() {
 	local wd=${1:-$(pwd)}
 	viminfo-ls | grep -E '^'"$wd" | ranking_color_cat | pecovim
 }
-# 選択したファイルが存在する場合にはそのディレクトリを取得し，'/'を加える
-# 存在しない場合には空白となる
+
 # 最終的に'./'を加えても動作は変更されない
-# NOTE: echo ${~$(echo '~')} means expand '~'
-alias rvcd="cd \${~\$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g')}./"
-alias rcd="cd \$(cdinfo | ranking_color_cat | peco | sed 's:$:/:g')./"
+# NOTE: echo ${~$(echo '~')} means expand '~' at zsh
+function rvcd() {
+	cd "$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g' | sed 's:^~:'$HOME':')./"
+}
+function rcd() {
+	cd "$(cdinfo | ranking_color_cat | peco | sed 's:$:/:g')./"
+}
 alias lcdpeco='ls | cdpeco'
 function cdpeco() {
 	# NOTE: mac ok
@@ -184,34 +187,36 @@ function cdpeco() {
 
 	# NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
 	if [[ $(uname) == "Darwin" ]]; then
-		{cd $({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./}
+		{ cd "$({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./"; }
 	else
-		{cd $({
-			[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find . -type d)
-			echo $RET
-		} | peco | sed 's:$:/:g')./}
+		{
+			cd "$({
+				[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find . -type d)
+				echo $RET
+			} | peco | sed 's:$:/:g')./"
+		}
 	fi
 }
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 # NOTE: only dir
 alias cdg='gcd'
 function gcd() {
-	is_git_repo_with_message && cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
+	is_git_repo_with_message && cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
 }
 # NOTE: includes file
 alias cdgf='gfcd'
 function gfcd() {
-	is_git_repo_with_message && cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed -e "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*))"
+	is_git_repo_with_message && cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*))"
 }
 
 function _up() {
-	dir="$PWD"
-	while [[ $dir != / ]]; do
-		echo $dir
+	local dir="$PWD"
+	while [[ $dir != "/" ]]; do
+		printf '%s\n' "$dir"
 		dir=${dir%/*}
-		[[ $dir == '' ]] && break
+		[[ -z $dir ]] && break
 	done
-	echo /
+	echo "/"
 }
 alias up='cd `_up | peco`/.'
 

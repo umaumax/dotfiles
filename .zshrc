@@ -799,20 +799,17 @@ cmdcheck nvim && alias vt='vterminal'
 function vim() {
 	local vim_cmd='command vim'
 	cmdcheck nvim && vim_cmd='nvim'
+	local args=("$@")
 	if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
 		local file_path="${1%%:*}"
-		local line_no=$(echo "$1" | cut -d":" -f2)
+		local line_no=$(printf '%s' "$1" | cut -d":" -f2)
 		# "" => 0
 		line_no=$((line_no))
 		shift
-		# 		eval $vim_cmd -c $line_no $file_path $@
 		# -c: do command
-		local cmd="$vim_cmd -c $line_no $file_path $@"
-	else
-		# 		eval $vim_cmd $@
-		local cmd="$vim_cmd $@"
+		args=("-c" "$line_no" "$file_path" "$@")
 	fi
-	eval $cmd
+	$vim_cmd "${args[@]}"
 	local exit_code=$?
 	# NOTE: nvim crash with changing window size
 	# ### window size change crash
