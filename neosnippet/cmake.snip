@@ -3,15 +3,22 @@ snippet init
 	cmake_minimum_required(version ${1:2.8.2})
 	project(${2:#:ProjectName})
 
-	find_package(${3:#:library})
 
+	# add_subdirectory()
+
+	set(${PROJECT_NAME}_SRCS xxx.cpp)
+
+	set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+	add_definitions(-DXXX)
+	add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SRCS})
+
+	# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+	find_package(${3:#:library} REQUIRED)
 	include_directories(${$3_INCLUDE_DIRS})
+	target_link_libraries(${PROJECT_NAME} ${$3_LIBRARIES})
 
-	add_subdirectory(${0:#:src})
-
-	add_executable($2)
-
-	target_link_libraries($2 ${$3_LIBRARIES})
+	install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+	${0}
 
 snippet proj
 	project(${0:Name})
@@ -226,3 +233,4 @@ snippet hook_find_package
 	set($1_LIB_COMPONENTS ${$1_LIBRARIES})
 	EOF
 	${0}
+
