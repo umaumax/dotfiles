@@ -1525,7 +1525,23 @@ function tree() {
 	command tree -a -I "\.git" "${COLOR_OPT[@]}" "$@" | sed "s/$(echo -e "\xc2\xa0")/ /g"
 }
 
-# onlyd for zsh
+# backup file command
+function bk() {
+	[[ $# -lt 0 ]] && echo "$(basename $0) [files...]" && return 1
+
+	for filepath in "$@"; do
+		local src="$filepath"
+		local dst="$filepath"
+		local max=128
+		[[ ! -e "$src" ]] && echo "Not found '$src'!" 1>&2 && continue
+		for ((i = 0; i < $max; i++)); do
+			dst="${dst}~"
+			[[ ! -e "$dst" ]] && cp "$src" "$dst" && echo "[DONE]: cp '$src' '$dst'" && break
+		done
+	done
+}
+
+# only for zsh
 alias wtty='() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Tokyo}" }'
 alias weather.tokyo.en='wtty'
 alias weather.tokyo.ja='() { curl -H "Accept-Language: ja" wttr.in/"${1:-Tokyo}" }'
