@@ -90,6 +90,8 @@
   ls-unstage = !git ls-files -o --exclude-standard `git rev-parse --show-toplevel`
   ls-unstage-full-path = !export _git_root=`git rev-parse --show-toplevel` && git ls-files -o --exclude-standard "$_git_root" | xargs -L 1 printf '%s/%s\\n' $_git_root
   ls-newfiles = !git status --porcelain | grep "^A" | cut -c 4-
+  ls-dir  = !"f(){ git ls-files | sed -e '/^[^\\/]*$/d' -e 's/\\/[^\\/]*$//g' | sort | uniq; }; f"
+  ls-dirs = ls-dir
 
   m = merge
   mt = mergetool
