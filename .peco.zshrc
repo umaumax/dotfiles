@@ -563,6 +563,8 @@ if cmdcheck fzf; then
 			echo '(\.|\?)$'
 		} | fzf --ansi --multi --preview 'echo {q} | grep ''^ \\+'' && QUERY={} || QUERY=$(echo {q} | awk ''{gsub(/^ +/,"")} {print $0}''); [[ -z $QUERY ]] && QUERY=".*"; echo "PAT=''$QUERY'' [[ xxx =~ \$PAT ]]"; echo; cat '"$TARGET_FILE"' | awk 1 | while read -r LINE; do; [[ $LINE =~ $QUERY ]] && echo "$LINE"; done' --print-query
 	}
+	alias docpeco='opendoc'
+	alias pecodoc='opendoc'
 	function opendoc() {
 		local doc_list=(
 			'cmake~3.9'
