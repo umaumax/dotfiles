@@ -48,7 +48,7 @@ abbr << __func__ << ...
 	std::cerr << __func__ << ": " << ${1:#:msg} << " (" __FILE__ ":" << __LINE__ << ')' << std::endl;${0}
 
 snippet to_bool
-alias bool
+alias bool_to_string
 	((${0:#:bool value})?"true":"false")
 
 # NOTE: pp is too short to select
@@ -741,3 +741,28 @@ snippet exec
 	  auto exit_code = WEXITSTATUS(status);
 	  return exit_code;
 	}
+
+snippet fps_loop
+	#include <algorithm>
+	#include <chrono>
+	#include <thread>
+
+	double fps               = ${1:#:fps};
+	double sleep_interval_us = 1000.0 * 1000.0 / fps;
+
+	double pre_unix_timestamp_us = -1.0;
+	for (int i = 0; i < ${2:#:max loop number}; i++) {
+	  double unix_timestamp_us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	  if (pre_unix_timestamp_us >= 0) {
+	    std::this_thread::sleep_for(std::chrono::duration<double, std::micro>(std::max(0.0, sleep_interval_us - (unix_timestamp_us - pre_unix_timestamp_us))));
+	  }
+	  pre_unix_timestamp_us = unix_timestamp_us;
+	  ${0}
+	}
+
+snippet time_duration_conv
+abbr from double(us)
+	std::chrono::duration<double, std::micro>(${0})
+
+snippet unix_timestamp_us
+	std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()
