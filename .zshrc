@@ -589,7 +589,7 @@ alias gsttabvimm='vim -p `gsttabvimm`'
 alias gsttabvima='vim -p `gsttabvima`'
 
 function gstlogfiles() {
-	local n=${1:-1}
+	local n=${1:-0}
 	git show --pretty="format:" --name-status "HEAD~$n" | grep "^M" | cut -c3-
 }
 alias gstlogvim='gstlogfiles | pecovim'
