@@ -185,7 +185,8 @@ if [[ -d ~/.linuxbrew ]]; then
 	export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 	export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 	export PKG_CONFIG_PATH="$HOME/.linuxbrew/lib64/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
-	export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
+	# to avoid ~/.linuxbrew/lib/libxxx.so.x: no version information available (required by xxx)
+	# export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
 
 # for vim
