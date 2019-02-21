@@ -128,7 +128,7 @@ function nugget_ubuntu_tig() {
 	./autogen.sh
 	# for Japanese language
 	./configure --without-ncurses
-	make -j$(nproc --all) prefix=$HOME/local
+	make -j$(nproc --all)
 	make install prefix=$HOME/local
 	popd
 	popd
