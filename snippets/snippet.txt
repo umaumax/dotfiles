@@ -221,7 +221,9 @@
 [git gerrit base64 patch] cat @ | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
 
 # tree
-[tree by ls and sed] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+# [tree by ls and sed] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+# FYI: [tree コマンドが無い環境で tree コマンドを実現 \- Qiita]( https://qiita.com/yone098@github/items/bba8a42de6b06e40983b )
+[tree not found] pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
 [tree depth] tree -L $DEPTH
 
 # shell one liner
