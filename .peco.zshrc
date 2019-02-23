@@ -748,3 +748,14 @@ function gftvim() {
 	is_git_repo_with_message || return
 	git log --name-only --pretty=':%ai' . | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}' | ranking_color_cat | pecovim
 }
+
+function git-typo-peco-vim() {
+	is_git_repo_with_message || return
+	# FYI: [mattn/typogrep]( https://github.com/mattn/typogrep )
+	if ! type >/dev/null 2>&1 typogrep; then
+		echo 1>&2 "Not found typogrep"
+		echo 1>&2 "go get github.com/mattn/typogrep"
+		return 1
+	fi
+	typogrep $(git ls-files) | pecovim
+}
