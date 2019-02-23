@@ -1023,3 +1023,8 @@
 [glob mv all files except some dir] mv *~$DIR $DIR
 
 [hostname to ip] dig +short @
+
+# argcheck
+[argcheck bash] command echo -n @
+[argcheck python3] python3 -c 'import sys; print(sys.argv[1:])' @
+[argcheck python2] python2 -c 'import sys; print sys.argv[1:] ' @
