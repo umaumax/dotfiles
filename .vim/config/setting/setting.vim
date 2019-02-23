@@ -39,9 +39,15 @@ set wildignore+=*.o,*.so,*.out,*.obj,.git,.svn,build,build*,CMakeFiles,node_modu
 set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
 set scrolloff=8 " 最低でも上下に表示する行数
 set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
-" vim-abolish some commands can be reversible
-" [vim\-abolish/abolish\.txt at master - tpope/vim\-abolish]( https://github.com/tpope/vim-abolish/blob/master/doc/abolish.txt#L167 )
-setlocal iskeyword+=- " 単語境界の追加(any char is ok)
+
+" NOTE: vim-abolish some commands can be reversible
+" FYI: [vim\-abolish/abolish\.txt at master - tpope/vim\-abolish]( https://github.com/tpope/vim-abolish/blob/master/doc/abolish.txt#L167 )
+setlocal iskeyword+=-
+augroup iskeyword_group
+	autocmd!
+	" NOTE: to avoid 'var_name-' as word at var_name->func()
+	autocmd FileType cpp setlocal iskeyword-=-
+augroup END
 
 " NOTE: to open file with line no
 set isfname+=:
