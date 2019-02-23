@@ -43,7 +43,7 @@ Plug 'Shougo/neosnippet', {'commit': 'a943f93'}
 Plug 'Shougo/neosnippet-snippets' " default snippets
 let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
-" not essencial
+" not essential
 
 let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#enable_camel_case = 0

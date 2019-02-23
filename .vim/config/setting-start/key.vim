@@ -105,7 +105,7 @@ function! GetScriptID(fname)
 endfunction
 
 function! GetFunc(fname, funcname, ...)
-	" NOTE: function's captial has to start uppercase
+	" NOTE: function's capital has to start uppercase
 	let Default_func = get(a:, 1, {x->x})
 	let sid = GetScriptID(a:fname)
 	" NOTE: 関数の存在確認(global関数ならばexists())
