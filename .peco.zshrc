@@ -759,3 +759,13 @@ function git-typo-peco-vim() {
 	fi
 	typogrep $(git ls-files) | pecovim
 }
+
+function git-add-force-peco() {
+	is_git_repo_with_message || return
+	git ls-files -o | pecocat | while IFS= read -r filepath || [[ -n "$filepath" ]]; do
+		echo -n "$YELLOW"
+		printf '# git add -f %s\n' "$filepath"
+		echo -n "$DEFAULT"
+		git add -f "$filepath"
+	done
+}
