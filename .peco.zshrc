@@ -63,7 +63,7 @@ function fccat() {
 }
 # FYI: [grep の結果をインタラクティブに確認する \- Qiita]( https://qiita.com/m5d215/items/013f466fb21f7d7f52d6 )
 function pecocat() {
-	local query=$(echo ${1:-} | clear_path)
+	local query=$(printf '%s' "${1:-}" | clear_path)
 	{
 		if cmdcheck fzf; then
 			local ls_force_color='ls --color=always -alh'
@@ -88,14 +88,14 @@ function pecocat() {
 		else
 			peco
 		fi
-	} | sed -E 's/:([0-9]+):.*$/:\1/g'
+	} | sed -E -e 's/:([0-9]+):.*$/:\1/g' -e 's/ +:.*$//g'
 }
 
 alias pv='pecovim'
 alias pvim='pecovim'
 alias cpeco='command peco'
 function pecovim() {
-	pecocat "$@" | xargs-vim
+	pecocat "$@" | expand_home | xargs-vim
 }
 # peco copy
 alias ranking_color_cat='cat'
@@ -185,13 +185,15 @@ function cdpeco() {
 	# 	fi
 	# 	return
 
+	local basedir=${1:-.}
+
 	# NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
 	if [[ $(uname) == "Darwin" ]]; then
-		{ cd "$({ [[ -p /dev/stdin ]] && cat || find . -type d; } | peco | sed 's:$:/:g')./"; }
+		{ cd "$({ [[ -p /dev/stdin ]] && cat || find "$basedir" -type d; } | peco | sed 's:$:/:g')./"; }
 	else
 		{
 			cd "$({
-				[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find . -type d)
+				[[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find "$basedir" -type d)
 				echo $RET
 			} | peco | sed 's:$:/:g')./"
 		}
@@ -218,7 +220,11 @@ function _up() {
 	done
 	echo "/"
 }
-alias up='cd `_up | peco`/.'
+function up() {
+	local dir=$(_up | peco)
+	[[ -z $dir ]] && return 1
+	cd "$dir"
+}
 
 alias peco-ls='ls -al | peco | awk "{print \$9}"'
 alias peco-lst='ls -alt | peco | awk "{print \$9}"'
@@ -690,7 +696,7 @@ alias gfvc='gfvimc'
 # is_git_repo_with_message || return
 # git ls-files | pecovim
 # }
-alias gfvim='git ls-files | pecovim'
+alias gfvimc='git ls-files | pecovim'
 alias gfv='gfvim'
 # function gfvim() {
 # is_git_repo_with_message || return

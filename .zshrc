@@ -238,6 +238,14 @@ if [[ $OS == Windows_NT ]]; then
 	return
 fi
 
+function expand_home() {
+	sed -E 's:(^~/+)|(^~$):'"$HOME"'/:g'
+}
+# show user home dir as `~`
+function homedir_normalization() {
+	sed 's:'"$(printf '%s' "$HOME" | sed "s/\//\\\\\//g")"':~:'
+}
+
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
@@ -264,7 +272,6 @@ alias uniq-without-sort='awk "!a[\$0]++"'
 alias vars='typeset'
 
 # cd
-alias ho='cd ~'
 alias home='cd ~'
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
@@ -572,28 +579,6 @@ function clean-vim-undofile() {
 	find ~/.vim/tmp -type f -maxdepth 1 -size +1M -ls -delete
 }
 
-# alias git-status-tabvim='vim -p `git status -s | -e "^ M" -e "^A" | cut -c4-`'
-# alias git-status-allvim='git-status-tabvim'
-# alias gsttabvim='git-status-tabvim'
-# alias git-status-pecovim='git status -s | -e "^ M" -e "^A" | cut -c4- | pecovim'
-# alias vim-git-modified='git-status-pecovim'
-# alias gst-pecovim='git-status-pecovim'
-# alias gstpv='git-status-pecovim'
-# alias gstvim='git-status-pecovim'
-
-alias gstvim='git status -s | grep -e "^ M" -e "^A" | cut -c4- | pecovim'
-alias gstvimm='git status -s | grep -e "^ M" | cut -c4- | pecovim'
-alias gstvima='git status -s | grep -e "^A" | cut -c4- | pecovim'
-alias gsttabvim='vim -p `gstvim`'
-alias gsttabvimm='vim -p `gsttabvimm`'
-alias gsttabvima='vim -p `gsttabvima`'
-
-function gstlogfiles() {
-	local n=${1:-0}
-	git show --pretty="format:" --name-status "HEAD~$n" | grep "^M" | cut -c3-
-}
-alias gstlogvim='gstlogfiles | pecovim'
-
 [[ -f ~/dotfiles/.min.plug.vimrc ]] && alias vimplugtest='vim -u ~/dotfiles/.min.plug.vimrc'
 
 alias xargs1='xargs -L 1'
@@ -837,14 +822,11 @@ function vim() {
 function _xargs-vim() {
 	if [[ $1 == - ]]; then
 		shift
-		# [bash の read でバックスラッシュをエスケープ文字として扱わない \- ひとりごと]( http://d.hatena.ne.jp/youhey/20120809/1344496466 )
 		local files=()
-		cat | awk 1 | while read -r file_path; do
-			# recursive call
-			abspath $file_path
-			local files=("${files[@]}" $file_path)
+		cat | while IFS= read -r file_path || [[ -n "$file_path" ]]; do
+			files=("${files[@]}" "$file_path")
 			# NOTE: open each file
-			# 			vim "$file_path" $@ </dev/tty >/dev/tty
+			# vim "$file_path" $@ </dev/tty >/dev/tty
 		done
 		# NOTE: my vim setting (buffers -> tab)
 		[[ ${#files[@]} -gt 0 ]] && vim "${files[@]}" $@ </dev/tty >/dev/tty
@@ -977,10 +959,6 @@ function mdt() {
 # NOTE: for line message app(drop time and username)
 alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ //g"'
 
-# show user home dir. as `~`
-function homedir_normalization() {
-	sed 's:'"$(echo $HOME | sed "s/\//\\\\\//g")"':~:'
-}
 alias pwd='pwd | homedir_normalization'
 
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
@@ -1000,7 +978,7 @@ function abspath_raw() {
 	fi
 }
 function abspath() {
-	abspath_raw "$1" | homedir_normalization
+	abspath_raw $(printf '%s' "$1" | expand_home) | homedir_normalization
 }
 
 # `$`付きコマンドでも実行可能に(bashではinvalid)
@@ -1699,12 +1677,16 @@ end
 end
 print "\n"
 EOF
-	)
+	)EOF
 	ruby -e "$PROGRAM"
 }
 
 # required: gdrive
-alias memosync='gsync-gshare'
+function memosync() {
+	for ((i = 0; i < 5; i++)); do
+		gsync-gshare && break
+	done
+}
 function gsync-gshare() {
 	# NOTE: zsh cd message stdout
 	# NOTE: gsync  message stderr
@@ -1720,13 +1702,13 @@ function gsync() {
 	local ret=$(gdrive sync download $ID . 2>&1 | tee $(tty))
 	local code=0
 	echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
-	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && exit $code
+	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && return $code
 
 	echo "# ${GREEN}uploading...${DEFAULT}"
 	local ret=$(gdrive sync upload . $ID 2>&1 | tee $(tty))
 	local code=0
 	echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
-	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && exit $code
+	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && return $code
 }
 function gsync-download() {
 	local ID=$1
