@@ -359,6 +359,25 @@ cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 # function git-log-peco() {
 # 	cat ~/.git-logs/*.log | peco
 # }
+function git-log-example-add-repo() {
+	[[ -d ~/.git-logs ]] || return
+	[[ $# -lt 1 ]] && echo "$(basename "$0") [repo url...]" && return 1
+	pushd ~/.git-logs
+	for repo in "$@"; do
+		git clone "$repo"
+		local basename=${repo##*/}
+		(cd "$basename" && git log --pretty=oneline --abbrev-commit | sed 's/^[0-9a-zA-Z]* //g' | sort -f >"../$basename.log")
+	done
+	popd
+}
+function git-log-example-init() {
+	mkdir -p ~/.git-logs
+	git-log-example-add-repo "https://github.com/fatih/vim-go" "https://github.com/vim/vim"
+}
+function git-log-example-peco() {
+	[[ -d ~/.git-logs/ ]] || return
+	cat ~/.git-logs/*.log | peco
+}
 
 ## git
 alias gl='git graph'
