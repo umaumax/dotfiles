@@ -53,7 +53,7 @@ augroup END
 set isfname+=:
 
 " to avoid die vim by too long line
-set synmaxcol=256
+set synmaxcol=512
 
 " NOTE: speedup draw?
 " set lazyredraw
@@ -77,7 +77,7 @@ setlocal cursorline | setlocal cursorcolumn
 let cursor_highlight_opt_flag = 0
 lockvar cursor_highlight_opt_flag
 if cursor_highlight_opt_flag != 0
-	" basically, highlight cursor while searching
+	" NOTE: basically, highlight cursor while searching
 	function! s:auto_highlight()
 		if v:hlsearch == 0
 			setlocal nocursorline | setlocal nocursorcolumn
@@ -182,7 +182,7 @@ set whichwrap=b,s,[,],<,>
 set viminfo='1000,/5000,%,<1000,f1,s100,:10000,c,h,!
 " NOTE: move cursor to last position
 augroup reopen_cursor_position
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 " NOTE: use .viminfo
