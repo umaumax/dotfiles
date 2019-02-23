@@ -28,5 +28,7 @@ fi
 ## If the egrep command has any hits - echo a warning and exit with non-zero status.
 if [[ $exit_code == 0 ]]; then
   echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
+  echo -e "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
+  echo -e "${RED}git commit --no-verify${DEFAULT}"
   exit 1
 fi
