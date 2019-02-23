@@ -194,16 +194,16 @@ fi
 
 # for color output
 ## easy color output
-export BLACK="\033[0;30m"
-export RED="\033[0;31m"
-export GREEN="\033[0;32m"
-export YELLOW="\033[0;33m"
-export BLUE="\033[0;34m"
-export PURPLE="\033[0;35m"
-export LIGHT_BLUE="\033[0;36m"
-export WHITE="\033[0;37m"
-export GRAY="\033[0;90m"
-export DEFAULT="\033[0m"
+export BLACK=$'\e[0;30m'
+export RED=$'\e[0;31m'
+export GREEN=$'\e[0;32m'
+export YELLOW=$'\e[0;33m'
+export BLUE=$'\e[0;34m'
+export PURPLE=$'\e[0;35m'
+export LIGHT_BLUE=$'\e[0;36m'
+export WHITE=$'\e[0;37m'
+export GRAY=$'\e[0;90m'
+export DEFAULT=$'\e[0m'
 
 # brew install source-highlight
 # cmdcheck src-hilite-lesspipe.sh && export LESSOPEN="| src-hilite-lesspipe.sh %s"
