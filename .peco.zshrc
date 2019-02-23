@@ -199,16 +199,29 @@ function cdpeco() {
 		}
 	fi
 }
+alias bropeco='find .. -type d -maxdepth 1 | cdpeco'
+alias sispeco='bropeco'
+alias brocd='bropeco'
+alias cdbro='bropeco'
+alias siscd='bropeco'
+alias cdsis='bropeco'
+
 # [git ls\-tree]( https://qiita.com/sasaplus1/items/cff8d5674e0ad6c26aa9 )
 # NOTE: only dir
 alias cdg='gcd'
 function gcd() {
-	is_git_repo_with_message && cd "$(git ls-tree -dr --name-only --full-name --full-tree HEAD | sed "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*)"
+	is_git_repo_with_message || return
+	local target=$(git ls-tree -dr --name-only --full-name --full-tree HEAD | git_add_root_rel_pwd_rev_prefix | pecocat $*)
+	[[ -z $target ]] && return
+	cd "$target"
 }
 # NOTE: includes file
 alias cdgf='gfcd'
 function gfcd() {
-	is_git_repo_with_message && cd "$(dirname $(git ls-tree -r --name-only --full-name --full-tree HEAD | sed "s|^|$(git rev-parse --show-toplevel)/|" | pecocat $*))"
+	is_git_repo_with_message || return
+	local target=$(git ls-tree -r --name-only --full-name --full-tree HEAD | git_add_root_rel_pwd_rev_prefix | pecocat $*)
+	[[ -z $target ]] && return
+	cd "$(dirname "$target")"
 }
 
 function _up() {
@@ -238,8 +251,8 @@ alias pvlstr='peco-lst | xargs-vim'
 alias pf='fpeco'
 alias pft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}"'
 alias pftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}"'
-alias pvft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}" | xargs-vim'
-alias pvftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}" | xargs-vim'
+alias pvft='find-time-sortr | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
+alias pvftr='find-time-sort | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
 
 # [pecoでcdを快適にした｜bashでもpeco \- マクロ生物学徒の備忘録]( http://bio-eco-evo.hatenablog.com/entry/2017/04/30/044703 )
 function peco-cd() {
@@ -703,3 +716,35 @@ alias gfv='gfvim'
 # git ls-files $(git rev-parse --show-toplevel) | pecovim
 # }
 alias gfvim='git ls-files $(git rev-parse --show-toplevel) | pecovim'
+
+# alias git-status-tabvim='vim -p `git status -s | -e "^ M" -e "^A" | cut -c4-`'
+# alias git-status-allvim='git-status-tabvim'
+# alias gsttabvim='git-status-tabvim'
+# alias git-status-pecovim='git status -s | -e "^ M" -e "^A" | cut -c4- | pecovim'
+# alias vim-git-modified='git-status-pecovim'
+# alias gst-pecovim='git-status-pecovim'
+# alias gstpv='git-status-pecovim'
+# alias gstvim='git-status-pecovim'
+
+alias gstvim='git status -s | grep -e "^ M" -e "^A" | cut -c4- | pecovim'
+alias gstvimm='git status -s | grep -e "^ M" | cut -c4- | pecovim'
+alias gstvima='git status -s | grep -e "^A" | cut -c4- | pecovim'
+alias gsttabvim='vim -p `gstvim`'
+alias gsttabvimm='vim -p `gsttabvimm`'
+alias gsttabvima='vim -p `gsttabvima`'
+
+function gstlogvim() {
+	is_git_repo_with_message || return
+	gstlogfiles "$@" | git_add_root_rel_pwd_rev_prefix | pecovim
+}
+function gstlogallvim() {
+	is_git_repo_with_message || return
+	local prefix="$(git_root_rel_pwd_rev)"
+	[[ -n "$prefix" ]] && prefix="$prefix/"
+	git log HEAD --pretty="" --name-only | awk '!a[$0]++' | git_add_root_rel_pwd_rev_prefix | ranking_color_cat | pecovim
+}
+
+function gftvim() {
+	is_git_repo_with_message || return
+	git log --name-only --pretty=':%ai' . | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}' | ranking_color_cat | pecovim
+}
