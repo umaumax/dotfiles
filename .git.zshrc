@@ -572,3 +572,59 @@ function go-get-fork() {
 	[[ -z $fork_user_repo ]] && return 1
 	git clone "$git_url" "${GOPATH#*:}/src/github.com/$fork_user_repo"
 }
+
+function git-find-rename() {
+	is_git_repo_with_message || return
+	[[ $# == 0 ]] && echo "$0 <pattern> [PATH [PATH[...]]]" >&2 && return 1
+	local rename_pattern="$1"
+	shift
+	{
+		git ls-files "$@"
+		git ls-files "$@" | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq
+	} | FIND_RENAME_GIT_MV_CMD=1 find-rename-pipe "$rename_pattern"
+}
+
+function gstlogfiles() {
+	local n=${1:-0}
+	git show --pretty="format:" --name-status "HEAD~$n" | grep "^M" | cut -c3-
+}
+# git_root/abc/def/ -> abc/def
+function git_root_rel_pwd() {
+	local git_root="$(git rev-parse --show-toplevel)"
+	printf '%s' "${PWD:$((${#git_root} + 1))}"
+}
+# git_root/abc/def/ -> ../..
+function git_root_rel_pwd_rev() {
+	git_root_rel_pwd | sed -E 's:([^/]+):..:g'
+}
+
+function git_remove_root_rel_pwd_prefix() {
+	local prefix="$(git_root_rel_pwd)"
+	[[ -n "$prefix" ]] && prefix="$prefix/"
+	sed -E "s:^$prefix::"
+}
+function git_add_root_rel_pwd_rev_prefix() {
+	local prefix="$(git_root_rel_pwd_rev)"
+	[[ -n "$prefix" ]] && prefix="$prefix/"
+	awk -v prefix="$prefix" '{printf "%s%s\n", prefix, $0;}'
+}
+
+function git-tmp-commit-force() {
+	echo "${GREEN}# [git status]${DEFAULT}"
+	git status
+	echo "${BLUE}# [git add]${DEFAULT}"
+	git add $(git rev-parse --show-toplevel) || return
+	echo "${GREEN}# [git status]${DEFAULT}"
+	git status
+	echo "${PURPLE}# [git commit]${DEFAULT}"
+	git commit -m '[WIP] TMP COMMIT ALTERNATIVE FOR STASH' || return
+	echo -n "${YELLOW}"
+	echo "# [git undo command]"
+	echo 'git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset'
+	echo '# or'
+	echo 'git-tmp-commit-force-undo'
+	echo -n "${DEFAULT}"
+}
+function git-tmp-commit-force-undo() {
+	git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset
+}
