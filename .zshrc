@@ -1628,11 +1628,46 @@ function magenta() { printf "\e[35m$*\e[m"; }
 function cyan() { printf "\e[36m$*\e[m"; }
 function white() { printf "\e[37m$*\e[m"; }
 
-# [正規表現でスネークケース↔キャメルケース/パスカルケースの変換 - Qiita]( http://qiita.com/ryo0301/items/7c7b3571d71b934af3f8 )
-alias snake="sed -r 's/([A-Z])/_\L\1\E/g'"
-alias camel="sed -r 's/_(.)/\U\1\E/g'"
+# FYI: [正規表現でスネークケース↔キャメルケース/パスカルケースの変換 - Qiita]( http://qiita.com/ryo0301/items/7c7b3571d71b934af3f8 )
 alias lower="tr '[:upper:]' '[:lower:]'"
 alias upper="tr '[:lower:]' '[:upper:]'"
+alias camel2snake="sed -r 's/([A-Z])/_\L\1\E/g'"
+alias camel2upper="camel2snake|upper"
+alias camel2lower="camel2snake|lower"
+alias camel2kebab="camel2snake|sed 's/_/-/g'"
+alias camel2space="camel2snake|sed 's/_/ /g'"
+alias camel2pascal="sed -r 's/(^.)/\U\1\E/g'"
+alias snake2camel="sed -r 's/_(.)/\U\1\E/g'"
+
+# * UpperCamelCase(PascalCase): AbcDef
+# * UPPERCASW(CONSTANT_CASE): ABC_DEF
+# * (lower)camelCase: abcDef
+# * snake_case: abc_def
+# * kebab-case: abc-def
+# * space-case: anc def
+function git-sed-gen-name() {
+	[[ $# -lt 2 ]] && echo "$(basename $0) [old_camelcase_name] [new_camel_case_name]" && return 1
+	local old_camel="$1"
+	local new_camel="$2"
+	local old_snake=$(printf '%s' "$old_camel" | camel2snake)
+	local old_upper=$(printf '%s' "$old_camel" | camel2upper)
+	local old_kebab=$(printf '%s' "$old_camel" | camel2kebab)
+	local old_pascal=$(printf '%s' "$old_camel" | camel2pascal)
+	local old_space=$(printf '%s' "$old_camel" | camel2space)
+	local new_snake=$(printf '%s' "$new_camel" | camel2snake)
+	local new_upper=$(printf '%s' "$new_camel" | camel2upper)
+	local new_kebab=$(printf '%s' "$new_camel" | camel2kebab)
+	local new_pascal=$(printf '%s' "$new_camel" | camel2pascal)
+	local new_space=$(printf '%s' "$new_camel" | camel2space)
+	command cat <<EOF
+:  "camel"; git sed 's/$old_camel/$new_camel/g'
+:  "snake"; git sed 's/$old_snake/$new_snake/g'
+:  "upper"; git sed 's/$old_upper/$new_upper/g'
+:  "kebak"; git sed 's/$old_kebab/$new_kebab/g'
+: "pascal"; git sed 's/$old_pascal/$new_pascal/g'
+:  "space"; git sed 's/$old_space/$new_space/g'
+EOF
+}
 
 alias jobs='jobs -l'
 # [裏と表のジョブを使い分ける \- ザリガニが見ていた\.\.\.。]( http://d.hatena.ne.jp/zariganitosh/20141212/fore_back_ground_job )
