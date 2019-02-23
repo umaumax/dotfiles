@@ -4,6 +4,8 @@ set -ex
 
 [[ $1 == '--sudo' ]] && function pip() {
 	sudo -E pip "$@"
+} && function pip2() {
+	sudo -E pip2 "$@"
 } && function pip3() {
 	sudo -E pip3 "$@"
 }
@@ -17,8 +19,8 @@ pip install flake8
 pip install jedi
 pip3 install cpplint
 pip3 install pylint
-# don't run pip install pyls
-pip install python-language-server
+# WARN: don't run pip install pyls
+pip install 'python-language-server[all]'
 # for vim linting
 pip install vim-vint
 
@@ -27,10 +29,12 @@ pip install icdiff
 
 pip install neovim
 pip3 install neovim
+pip install pynvim
+pip3 install pynvim
 
 # for ptpython ptipython
 pip install ptpython
-pip3 install "ipython[notebook]"
+pip3 install 'ipython[notebook]'
 # jupyter notebook
 pip3 install jupyter
 
@@ -52,6 +56,9 @@ pip3 install gprof2dot
 # for yaml
 pip3 install pyyaml
 pip3 install yamllint
+
+# for git
+pip2 install git-tree
 
 # NOTE: --user is used to avoid below message
 # Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'
