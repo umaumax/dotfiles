@@ -3,8 +3,8 @@ snippet funcname
 
 snippet readline
 	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-	${0} | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
-		${1:printf 'LINE: %s' "$LINE"}
+	${2:cat} | while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
+		${0}
 	done
 snippet read
 	IFS= read -r ${1:#:var}${0}
@@ -147,10 +147,10 @@ snippet for_i
 
 snippet arg_check_exit
 alias argcheck_exit
-	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && exit 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" && exit 1
 snippet arg_check_return
 alias argcheck_return
-	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename \$0) ${0:#: description}" && return 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" && return 1
 
 snippet cmdcheck
 	function cmdcheck() { type >/dev/null 2>&1 "$@"; }${0}
