@@ -207,6 +207,8 @@
 [git archive master] git archive master --format=zip --output=master.zip
 [git local page] git instaweb --port=11111
 
+[git xargs] git ls-files -z | xargs -0 -I{} echo {}
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
