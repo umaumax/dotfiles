@@ -112,6 +112,7 @@ call s:set_tab(2)
 augroup tab_setting
 	autocmd!
 	autocmd FileType * call s:set_tab(2)
+	autocmd FileType python call s:set_tab(4)
 augroup END
 
 " NOTE: to disable `E828: Cannot open undo file for writing:`
