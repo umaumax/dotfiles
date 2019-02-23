@@ -748,13 +748,17 @@ snippet fps_loop
 	#include <thread>
 
 	double fps               = ${1:#:fps};
-	double sleep_interval_us = 1000.0 * 1000.0 / fps;
+	int64_t sleep_interval_us = static_cast<int64_t>(1000.0 * 1000.0 / fps);
 
-	double pre_unix_timestamp_us = -1.0;
+	int64_t pre_unix_timestamp_us = -1;
 	for (int i = 0; i < ${2:#:max loop number}; i++) {
-	  double unix_timestamp_us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	  int64_t unix_timestamp_us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	  if (pre_unix_timestamp_us >= 0) {
-	    std::this_thread::sleep_for(std::chrono::duration<double, std::micro>(std::max(0.0, sleep_interval_us - (unix_timestamp_us - pre_unix_timestamp_us))));
+	    int64_t sleep_us = sleep_interval_us - (unix_timestamp_us - pre_unix_timestamp_us);
+	    if (sleep_us > 0) {
+	      std::this_thread::sleep_for(std::chrono::microseconds(sleep_us));
+	      unix_timestamp_us += sleep_us;
+	    }
 	  }
 	  pre_unix_timestamp_us = unix_timestamp_us;
 	  ${0}
@@ -765,4 +769,4 @@ abbr from double(us)
 	std::chrono::duration<double, std::micro>(${0})
 
 snippet unix_timestamp_us
-	std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()
+	std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()${0}
