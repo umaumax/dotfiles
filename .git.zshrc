@@ -353,12 +353,6 @@ function git-pull-all() {
 
 cmdcheck diff-filter && alias git-filter='diff-filter -v file=<(git ls-files)'
 
-# function git-diff() {
-# 	git diff --color-words
-# }
-# function git-log-peco() {
-# 	cat ~/.git-logs/*.log | peco
-# }
 function git-log-example-add-repo() {
 	[[ -d ~/.git-logs ]] || return
 	[[ $# -lt 1 ]] && echo "$(basename "$0") [repo url...]" && return 1
@@ -435,24 +429,6 @@ function substr() { echo -n ${1:$2:${3:-${#1}}}; } #substr( str, pos[, len] )
 
 function git-search-open() {
 	open https://github.com/search
-}
-
-# FYI: [Git 管理下のファイルを一括置換する git\-sed コマンドを作った \- Qiita]( https://qiita.com/tonluqclml/items/13b323cea92425b85218 )
-# HINT: git sed 's|find_by_admin|find_by(type: :admin)|g' spec/ test/
-function git-sed() {
-	[[ $# == 0 ]] && echo "$0 <pattern> [PATH [PATH[...]]]" >&2 && return 1
-	[[ $(uname) == "Darwin" ]] && ! cmdcheck gsed && echo 'install gsed!'
-
-	local SED=sed
-	cmdcheck gsed && local SED=gsed
-
-	local pattern="$1"
-	shift
-
-	while read -r line; do
-		# NOTE: -L: symbolic link
-		[[ -f "$line" ]] && [[ ! -L "$line" ]] && "$SED" -i -E -e "$pattern" "$line"
-	done < <(git ls-files -- "$@")
 }
 
 function git-comments() {
