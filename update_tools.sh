@@ -11,6 +11,8 @@ git wget https://github.com/umaumax/wgit/blob/master/wgit
 git wget https://github.com/umaumax/oressh/blob/master/oressh
 git wget https://github.com/umaumax/diff-filter/blob/master/diff-filter
 git wget https://github.com/stedolan/git-ls/blob/master/git-ls
+git wget https://github.com/umaumax/git-sed/blob/master/git-sed
+git wget https://github.com/umaumax/git-sed/blob/master/git-fixedsed
 git wget https://github.com/umaumax/git-url/blob/master/git-url
 git wget https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame
 git wget https://github.com/umaumax/imv/blob/master/imv
