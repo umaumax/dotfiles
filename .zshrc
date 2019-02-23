@@ -265,7 +265,41 @@ alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" 
 alias find-orig-files="find . -name '*.orig'"
 alias find-orig-files-and-delete="find . -name '*.orig' -delete"
 
-# [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
+function find-rename-pipe() {
+	if ! type >/dev/null 2>&1 rename; then
+		echo 1>&2 'Not found rename command!'
+		return 1
+	fi
+	# if ! type >/dev/null 2>&1 tac; then
+	# echo 1>&2 'Not found tac command!'
+	# return 1
+	# fi
+	if [[ $# -lt 1 ]]; then
+		cat <<EOF
+$(basename $0) <rename sed pattern>
+# e.g.
+find . | $(basename $0) 's///g'
+{ git ls-files | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq; git ls-files } | $(basename $0) 's///g'
+EOF
+		return 1
+	fi
+	local rename_pattern="$1"
+	local mv_cmds=(mv)
+	[[ -n $FIND_RENAME_GIT_MV_CMD ]] && mv_cmds=(git mv)
+	# NOTE: rename command version: find . -name "*test*" | tac | xargs -L 1 -I{} rename -v 's:^(.*/)test([^/]*)$:$1XXXXXXXX$2:' '{}'
+	# NOTE: tacを噛ませる意味として，先に深い階層のファイルのbasenameを置換する，その後，ディレクトリのbasenameを置換するということをファイルのリストアップを終了してから行うため
+	# NOTE: findの代わりに幅優先探索のbfsでも特に問題ない
+	sort -r | uniq | while IFS= read -r target_path || [[ -n "$target_path" ]]; do
+		local dirpath=$(dirname "$target_path")
+		local target_name=$(basename "$target_path")
+		local new_target_name=$(printf '%s' "$target_name" | sed -E "$rename_pattern")
+		if [[ "$target_name" != "$new_target_name" ]]; then
+			"${mv_cmds[@]}" -v "$dirpath/$target_name" "$dirpath/$new_target_name" || return
+		fi
+	done
+}
+
+# FYI: [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
 
 # alias vars='declare -p'
