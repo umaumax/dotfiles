@@ -451,7 +451,7 @@ function git-comments-fix() {
 }
 
 # NOTE: cpp private '_field' to 'field_'
-function git-rename-cpp-field() {
+function git-sed-rename-cpp-field() {
 	git-sed 's/([^_A-Za-z0-9])_([A-Za-z0-9][_A-Za-z0-9]*)/\1\2_/g' ':*.hpp' ':*.cpp' ':*.cc' ':*.cxx' ':.c' ':*.h'
 }
 
