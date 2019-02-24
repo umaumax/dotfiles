@@ -976,7 +976,12 @@ if &rtp =~ 'nerdtree'
 endif
 
 " up dir
-command! U lcd %:h:h
+command! U lcd ..
+command! Up lcd ..
+command! CDU cd ..
+command! LCDU lcd ..
+command! CDFile cd %:h
+command! LCDFile lcd %:h
 command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
 command! LCDGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
 
