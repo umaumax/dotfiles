@@ -1,6 +1,7 @@
 # NOTE: dummy alias list for zsh completion
 #
 [alias]
+	add-force-peco  = :
 	add-peco  = :
 	alias-list = :
 	apply-stashes  = :
@@ -37,6 +38,7 @@
 	hub-shorten-url  = :
 	icdiff = :
 	info  = :
+	log-example-add-repo  = :
 	log-example-init  = :
 	log-example-peco  = :
 	log-file-find-peco  = :
@@ -72,4 +74,5 @@
 	tag-peco  = :
 	tmp-commit-force  = :
 	tmp-commit-force-undo  = :
+	typo-peco-vim  = :
 	update-dummy-alias  = :
