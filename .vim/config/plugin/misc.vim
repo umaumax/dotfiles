@@ -137,12 +137,13 @@ endfunction
 " command line window modeでの動作しない?
 " Plug 'osyo-manga/vim-over'
 
+" NOTE: 特に必要ではなさそうなので，temporarily disabled
 " color picker
 " :VCoolor
 " :VCoolIns r		" For rgb color insertion
 " :VCoolIns h		" For hsl color insertion
 " :VCoolIns ra	" For rgba color insertion
-Plug 'KabbAmine/vCoolor.vim', {'on':['VCoolor','VCoolIns']}
+" Plug 'KabbAmine/vCoolor.vim', {'on':['VCoolor','VCoolIns']}
 
 " IMEがOFFにならない...
 " Plug 'fuenor/im_control.vim'
