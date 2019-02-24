@@ -38,13 +38,16 @@ if v:version >= 800 && has('python3')
 	LazyPlug 'Shougo/neosnippet-snippets' " default snippets
 	let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
-	if Doctor('pyls','python lsp')
-	else
-		" NOTE: for no lsp env
-		" 詳細な解析はできない(e.g. re.compile()の結果の補完は不可)
-		" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
-		Plug 'zchee/deoplete-jedi', {'for':'python', 'do':'pip3 install jedi'}
-	endif
+	" if Doctor('pyls','python lsp')
+	" else
+	" NOTE: for no lsp env
+	" 詳細な解析はできない(e.g. re.compile()の結果の補完は不可)
+	" [Setting up Python for Neovim · zchee/deoplete\-jedi Wiki]( https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim )
+	" NOTE: pylsでは外部のpluginの補完ができない(これは仕様?)が，jediで可能
+	" FYI: [VimとPythonの補完についてのメモ — kashew\_nuts\-blog]( https://kashewnuts.github.io/2018/08/22/jedivim_memo.html )
+	" > Pythonの標準ライブラリにとどまらず、PyPIからインストールしたライブラリに対してもヌルヌルと補完候補を絞り込んでくれます。
+	Plug 'zchee/deoplete-jedi', {'for':'python', 'do':'pip3 install jedi'}
+	" endif
 
 	if Doctor('go','zchee/deoplete-go')
 		Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}
