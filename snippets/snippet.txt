@@ -673,7 +673,13 @@
 [pipe only stderr] 3>&1 1>&2 2>&3 3>&- @ # in zsh do setopt nomultios
 
 # login shell
-[set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
+# you can check login shell easily by ssh localhost
+## chsh: PAM authentication failed
+## [Personal Memos: CHSHコマンドで失敗して]( https://takeshinho-24.blogspot.com/2011/04/chsh.html )
+## > 現在のユーザのシェルをチェックして
+## > 存在しないとchshを実行させないようになっているようです。
+[login shell: set new zsh shell to /etc/shells] { cat /etc/shells | grep -q $(command which zsh); } || command which zsh | sudo tee -a /etc/shells
+[login shell: set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
 [relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 [relogin] exec $SHELL -l # WARN same env
 # really?
