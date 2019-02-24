@@ -24,6 +24,11 @@
   apply-3 = apply --3way
 
   b = branch
+
+  # NOTE: git alias of ohter alias (depends on git version)
+  # Expansion of alias 'branch-name' failed; 'branch-current-name' is not a git command
+  # OK: git version 2.20.1
+  # NG: git version 2.7.4
   branch-current-name = rev-parse --abbrev-ref HEAD
   branch-name = branch-current-name
   branch-list = for-each-ref --format='%(refname:short) (%(authordate:relative))' --sort=-committerdate refs/heads/
