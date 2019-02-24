@@ -56,6 +56,9 @@ bind status D ?@rm -f %(file)
 bind status C !>git commit
 bind status i Enter
 
+# stash
+bind stash D ?>git stash drop %(stash)
+
 bind generic R refresh
 
 # NOTE: rebase
