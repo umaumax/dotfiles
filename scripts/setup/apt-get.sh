@@ -191,7 +191,10 @@ sudo apt-get install -y lolcat
 sudo apt-get install -y pax-utils
 
 # NOTE: for bookmark sarcher
-sudo apt-get install -y buku
+# Ubuntu:16.04 use pip
+# sudo apt-get install -y buku
+
+sudo apt-get install -y parallel
 
 # --------------------------------
 # below packages are WIP

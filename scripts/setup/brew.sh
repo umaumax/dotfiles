@@ -81,6 +81,8 @@ brew install progress
 # coloring output
 brew install lolcat
 
+brew install parallel
+
 # brew tap
 # WIP
 
