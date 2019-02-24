@@ -1036,3 +1036,8 @@
 [argcheck bash] command echo -n @
 [argcheck python3] python3 -c 'import sys; print(sys.argv[1:])' @
 [argcheck python2] python2 -c 'import sys; print sys.argv[1:] ' @
+
+# image
+# FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
+[image convert raw to png] find . -name "*@.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert raw to png] find . -name "*@.raw" | parallel -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
