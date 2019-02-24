@@ -1752,14 +1752,17 @@ EOF
 
 # required: gdrive
 function memosync() {
-	for ((i = 0; i < 5; i++)); do
+	local n=${1:-5}
+	for ((i = 0; i < $n; i++)); do
 		gsync-gshare && break
+		sleep 2
 	done
 }
 function gsync-gshare() {
 	# NOTE: zsh cd message stdout
 	# NOTE: gsync  message stderr
-	local _=$(gshare && gsync 1>&2)
+	local _
+	_=$(gshare && gsync 1>&2)
 }
 function gsync() {
 	local ID=$1
@@ -1778,6 +1781,7 @@ function gsync() {
 	local code=0
 	echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
 	[[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && return $code
+	return $code
 }
 function gsync-download() {
 	local ID=$1
