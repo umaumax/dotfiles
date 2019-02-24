@@ -771,3 +771,29 @@ abbr from double(us)
 
 snippet unix_timestamp_us
 	std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()${0}
+
+snippet log_tmp
+	#include <fstream>
+	{
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << ${0} << std::endl;
+	}
+snippet log_tmp_with_time
+	#include <fstream>
+	#include <ctime>
+	#include <iomanip>
+	{
+	  auto t  = std::time(nullptr);
+	  auto tm = *std::localtime(&t);
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&tm, "%Y/%m/%d %H:%M:%S ") << ${0} << std::endl;
+	}
+
+# FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
+snippet now_time_string
+	#include <ctime>
+	#include <iomanip>
+	#include <sstream>
+	auto t = std::time(nullptr);
+	auto tm = *std::localtime(&t);
+	std::ostringstream oss;
+	oss << std::put_time(&tm,"%Y/%m/%d %H:%M:%S");
+	auto str = oss.str();
