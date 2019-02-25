@@ -27,6 +27,8 @@ else
 	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
 fi
 
+unalias scp
+
 [[ -z $_PS1 ]] && _PS1="$PS1"
 PROMPT_COLS_BOUNDARY=48
 
