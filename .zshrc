@@ -1757,7 +1757,7 @@ function memosync() {
 	local n=${1:-5}
 	for ((i = 0; i < $n; i++)); do
 		gsync-gshare && break
-		sleep 4
+		sleep 10
 	done
 }
 function gsync-gshare() {
