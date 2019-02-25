@@ -464,13 +464,13 @@ function lnpeco() {
 		ls $TARGET_DIR
 	} | peco)
 	if [[ -n $dst ]]; then
-		[[ ! -e $dst ]] && echo "No such file or directory '$dst'" && return 1
+		[[ ! -e $TARGET_DIR/$dst ]] && echo "No such file or directory '$TARGET_DIR/$dst'" && return 1
 		if $(is_wd_owner_root $TARGET_DIR); then
-			sudo bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
+			{ sudo -n true >/dev/null 2>&1 || sudo true; } && sudo bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
 		else
 			bash -c "cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
 		fi
-		echo "[DONE] cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
+		[[ $? == 0 ]] && echo "[DONE] cd $TARGET_DIR && ln -snf $dst $SYM_SRC_NAME"
 	fi
 }
 
