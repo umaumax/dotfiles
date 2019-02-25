@@ -907,6 +907,7 @@
 
 # gdb
 [gdb bind process] gdb -p $PID # bt detach quit
+[gdb with args] gdb --args # [exec command] [args...]
 
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
