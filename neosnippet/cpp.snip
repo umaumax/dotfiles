@@ -39,7 +39,7 @@ abbr for pointer
 snippet cast_const
 abbr for const cast
 	const_cast<${1:#:Type}>(${2:#:TARGET})${0}
-snippet void_pointer_to_rvalue_cast
+snippet cast_void_pointer_to_rvalue
 	auto &${0} == static_cast<$2&>(*reinterpret_cast<${2:#:type}*>(${1:#:pointer}));
 
 snippet debug_print
@@ -360,12 +360,26 @@ snippet split
 	${0}
 
 snippet split_by_char
+	#include <sstream>
+	#include <vector>
 	std::vector<std::string> ${1:tokens};
 	std::istringstream ${2:iss}(${3:#:string});
 	for (std::string ${4:token}; std::getline($2, $4, ${5:','});) {
-	  $1.push_back($4);
+	  $1.emplace_back($4);
 	}
 	${0}
+
+snippet vector_cout
+  for (auto&& v : ${1:#:vector}) {
+    std::cout << v << " ";
+  }
+  std::cout << std::endl;${0}
+
+# FYI: [c\+\+ \- std::string to char\* \- Stack Overflow]( https://stackoverflow.com/questions/7352099/stdstring-to-char/42308974 )
+snippet string_to_char_vector
+	std::vector<char> cstr(${1}.c_str(), $1.c_str() + $1.size() + 1);
+snippet string_to_char_snprintf
+	std::snprintf(${1:#:pointer}, ${2:#:size}, "%s", ${0:#:str})
 
 snippet regex
 	std::regex ${1:#:name}("${2:#:pattern}");${0}
@@ -741,7 +755,7 @@ snippet exec
 	  auto status    = pclose(pipe);
 	  auto exit_code = WEXITSTATUS(status);
 	  return exit_code;
-	}
+	}${0}
 
 snippet fps_loop
 	#include <algorithm>
@@ -777,7 +791,8 @@ snippet log_tmp
 	{
 	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << ${0} << std::endl;
 	}
-snippet log_tmp_with_time
+# FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
+snippet log_tmp_with_time_c++11
 	#include <fstream>
 	#include <ctime>
 	#include <iomanip>
@@ -785,6 +800,17 @@ snippet log_tmp_with_time
 	  auto t  = std::time(nullptr);
 	  auto tm = *std::localtime(&t);
 	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&tm, "%Y/%m/%d %H:%M:%S ") << ${0} << std::endl;
+	}
+snippet log_tmp_with_time
+	#include <ctime>
+	{
+	  time_t rawtime;
+	  struct tm *timeinfo;
+	  char buffer[32];
+	  time(&rawtime);
+	  timeinfo = localtime(&rawtime);
+	  strftime(buffer, sizeof(buffer), "%Y/%m/%d %H:%M:%S ", timeinfo);
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::string(buffer) << ${0} << std::endl;
 	}
 
 # FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
@@ -796,4 +822,4 @@ snippet now_time_string
 	auto tm = *std::localtime(&t);
 	std::ostringstream oss;
 	oss << std::put_time(&tm,"%Y/%m/%d %H:%M:%S");
-	auto str = oss.str();
+	auto str = oss.str();${0}
