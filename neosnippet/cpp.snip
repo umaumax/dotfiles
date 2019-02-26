@@ -825,3 +825,41 @@ snippet now_time_string
 	std::ostringstream oss;
 	oss << std::put_time(&timeinfo,"%Y/%m/%d %H:%M:%S");
 	auto str = oss.str();${0}
+
+# FYI : [C\+\+ version for mkdir \- p](http:  //mylinuxtechcorner.blogspot.com/2012/09/c-version-for-mkdir-p.html )
+snippet mkdir_all
+	#include <dirent.h>
+	#include <sys/stat.h>
+	#include <algorithm>
+	bool MkdirAll(const std::string& full_filepath, const mode_t mode) {
+	  std::string path(full_filepath);
+	  struct stat st;
+	  for (std::string::iterator iter = path.begin(); iter != path.end();) {
+	    std::string::iterator next_iter = std::find(iter, path.end(), '/');
+	    std::string target_path         = std::string(path.begin(), next_iter);
+	    iter                            = next_iter;
+	    if (iter != path.end()) {
+	      iter++;
+	    }
+
+	    if (stat(target_path.c_str(), &st) == 0) {
+	      if (!S_ISDIR(st.st_mode)) {
+	        errno = ENOTDIR;
+	        // NOTE: not a dir
+	        return false;
+	      } else {
+	        // NOTE: already exists
+	        continue;
+	      }
+	    }
+	    if (mkdir(target_path.c_str(), mode) != 0 && errno != EEXIST) {
+	      // NOTE: cannot create dir
+	      return false;
+	    }
+	    // NOTE: create success
+	  }
+	  return true;
+	}
+
+
+
