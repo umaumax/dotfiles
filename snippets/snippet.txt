@@ -391,6 +391,8 @@
 [curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'@ $URL
 [curl dump response header] curl --dump-header - $URL
 [curl check SSL expire date] curl --verbose @ 2>&1 | grep 'expire date'
+[curl sh with arg] curl @ | sh -s -- # args
+[curl bash with arg] curl @ | bash -s -- # args
 
 # dmesg
 [dmesg with human readable time] dmesg -T @
