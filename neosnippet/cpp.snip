@@ -861,5 +861,18 @@ snippet mkdir_all
 	  return true;
 	}
 
+snippet file_to_string
+	std::string filepath = ${0};
+	std::ifstream ifs(filepath, std::ios::in);
+	if (ifs.fail()) {
+	  std::cerr << "failed to read " << filepath << std::endl;
+	  return 1;
+	}
+	std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+	ifs.close();
+	if (ifs.fail()) {
+	  std::cerr << "failed to close " << filepath << std::endl;
+	  return 1;
+	}
 
 
