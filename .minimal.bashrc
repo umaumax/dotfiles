@@ -25,7 +25,8 @@ function cmdcheck() { type "$1" >/dev/null 2>&1; }
 cmdcheck vim && alias vi='vim'
 
 ! cmdcheck tree && function tree() {
-	ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+	pwd
+	find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
 }
 
 alias fix-terminal='stty sane; resize; reset'
