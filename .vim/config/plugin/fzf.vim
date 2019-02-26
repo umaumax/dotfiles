@@ -352,19 +352,19 @@ nnoremap sbp :cprev<CR>
 " ----
 
 " Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <leader><tab> <Plug>(fzf-maps-n)
+xmap <leader><tab> <Plug>(fzf-maps-x)
+omap <leader><tab> <Plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-p> <plug>(fzf-complete-path)
-" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-imap <c-x>k     <plug>(fzf-complete-word)
-imap <c-x>p     <plug>(fzf-complete-path)
-" imap <c-x>j <plug>(fzf-complete-file-ag)
-imap <c-x>l     <plug>(fzf-complete-line)
+imap <c-x><c-k> <Plug>(fzf-complete-word)
+imap <c-x><c-p> <Plug>(fzf-complete-path)
+" imap <c-x><c-j> <Plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <Plug>(fzf-complete-line)
+imap <c-x>k     <Plug>(fzf-complete-word)
+imap <c-x>p     <Plug>(fzf-complete-path)
+" imap <c-x>j <Plug>(fzf-complete-file-ag)
+imap <c-x>l     <Plug>(fzf-complete-line)
 
 " function! s:join_lines(lines)
 " 	return join(a:lines, "\n")."\n"
