@@ -875,4 +875,57 @@ snippet file_to_string
 	  return 1;
 	}
 
+snippet picojson_from_str
+	picojson::value json;
+	std::string err = picojson::parse(v, ${0});
+	if (err.empty() == false) {
+	  std::cerr << err << std::endl;
+	  return 1;
+	}
+	std::cout << json << std::endl;
 
+snippet picojson_from_file
+	#include "picojson.h"
+	#include <fstream>
+	#include <iostream>
+	#include <iterator>
+	#include <sstream>
+	#include <string>
+	std::string filepath = ${0};
+	std::ifstream ifs(filepath, std::ios::in);
+	if (ifs.fail()) {
+	  std::cerr << "failed to read " << filepath << std::endl;
+	  return 1;
+	}
+	std::istream_iterator<char> input(ifs);
+	picojson::value json;
+	std::string err;
+	input = picojson::parse(json, input, std::istream_iterator<char>(), &err);
+	if (!err.empty()) {
+	  std::cerr << err << std::endl;
+	  return 1;
+	}
+	std::cout << json << std::endl;
+
+snippet picojson_get_obj
+	picojson::object& ${0:obj} = ${1}.get<picojson::object>();
+
+snippet picojson_get
+abbr double, int64_t, std::string, picojson::array
+	${1:obj}[${2:#key}].get<${0:#:type}>()
+snippet picojson_get_array
+	picojson::array& ${0:#:var name} =${1:obj}[${2:#key}].get<picojson::array}>();
+
+snippet picojson_to_str_example
+	picojson::object obj;
+	obj.emplace(std::make_pair("key", "value"));
+	picojson::value val(obj);
+	val.serialize();
+	std::stringstream ss;
+	ss << val.serialize();
+
+snippet picojson_to_file_example
+	picojson::object obj;
+	obj.emplace(std::make_pair("key", "value"));
+	picojson::value v(obj);
+	v.serialize(std::ostream_iterator<char>(std::cout));
