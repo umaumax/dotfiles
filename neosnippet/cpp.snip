@@ -798,18 +798,19 @@ snippet log_tmp_with_time_c++11
 	#include <iomanip>
 	{
 	  auto t  = std::time(nullptr);
-	  auto tm = *std::localtime(&t);
-	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&tm, "%Y/%m/%d %H:%M:%S ") << ${0} << std::endl;
+	  struct tm timeinfo;
+	  std::localtime_r(&t, &timeinfo);
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&timeinfo, "%Y/%m/%d %H:%M:%S ") << ${0} << std::endl;
 	}
 snippet log_tmp_with_time
 	#include <ctime>
 	{
 	  time_t rawtime;
-	  struct tm *timeinfo;
+	  struct tm timeinfo;
 	  char buffer[32];
 	  time(&rawtime);
-	  timeinfo = localtime(&rawtime);
-	  strftime(buffer, sizeof(buffer), "%Y/%m/%d %H:%M:%S ", timeinfo);
+	  localtime_r(&rawtime, &timeinfo);
+	  strftime(buffer, sizeof(buffer), "%Y/%m/%d %H:%M:%S ", &timeinfo);
 	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::string(buffer) << ${0} << std::endl;
 	}
 
@@ -819,7 +820,8 @@ snippet now_time_string
 	#include <iomanip>
 	#include <sstream>
 	auto t = std::time(nullptr);
-	auto tm = *std::localtime(&t);
+	struct tm timeinfo;
+	std::localtime_r(&t, &timeinfo);
 	std::ostringstream oss;
-	oss << std::put_time(&tm,"%Y/%m/%d %H:%M:%S");
+	oss << std::put_time(&timeinfo,"%Y/%m/%d %H:%M:%S");
 	auto str = oss.str();${0}
