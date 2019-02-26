@@ -280,6 +280,21 @@ function nugget_ubuntu_pandoc() {
 # ################################
 
 # ################################
+function nugget_ubuntu_rust() {
+	[[ -d ~/.cargo/bin/rustc ]] && return $NUGGET_ALREADY_INSTALLED
+
+	# NOTE: Dont't use brew because we cannot use rustup
+	# -y                  Disable confirmation prompt.
+	# --no-modify-path    Don't configure the PATH environment variable
+	curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+	rustup update
+}
+function nugget_mac_rust() {
+	nugget_ubuntu_rust "$@"
+}
+# ################################
+
+# ################################
 # NOTE: for c++ library
 function nugget_ubuntu_googlebenchmark() {
 	[[ -d /usr/local/include/benchmark ]] && return $NUGGET_ALREADY_INSTALLED
