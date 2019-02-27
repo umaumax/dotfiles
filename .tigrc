@@ -58,6 +58,8 @@ bind status i Enter
 
 # stash
 bind stash D ?>git stash drop %(stash)
+# NOTE: default stash has confirmation prompt
+bind stash A ?>git stash apply %(stash)
 
 bind generic R refresh
 
