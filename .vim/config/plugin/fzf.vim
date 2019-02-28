@@ -397,3 +397,7 @@ endfunction
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
 command FZFCppIncludeHeader :call feedkeys("i\<Plug>(fzf#cpp_include_header)", '')
+
+" NOTE: for :FZFxxx
+" NOTE: type ff and xxx and tab
+cnoremap ff fzf
