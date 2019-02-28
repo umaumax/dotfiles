@@ -226,15 +226,15 @@ snippet max
 	(${1} > ${2} ? $1 : $2)${0}
 
 snippet min_element
-abbr std::min_element <algorithm>
-	std::min_element(std::begin(${1}), std::end($1))${0}
+abbr nullptr? <algorithm>
+	*std::min_element(std::begin(${1}), std::end($1))${0}
 
 snippet max_element
-abbr std::max_element <algorithm>
-	std::max_element(std::begin(${1}), std::end($1))${0}
+abbr nullptr? <algorithm>
+	*std::max_element(std::begin(${1}), std::end($1))${0}
 
 snippet find
-abbr std::find <algorithm>
+abbr <algorithm>
 	std::find(std::begin(${1}), std::end($1), ${2:#:value})${0}
 
 snippet find_if
@@ -505,6 +505,20 @@ snippet assert_with_fixed_message
 snippet assert_with_formated_message
 	assert((${1:#:condition}) || !std::fprintf(stderr, "%s:%d ${0:#:format}\n", __FILE__, __LINE__));
 
+snippet sto_exception_try_catch
+abbr <stdexcept> throw for gdb bt
+	try {
+	  ${0}
+	} catch (const std::invalid_argument& e) {
+	  std::fprintf(stderr, "invalid_argument %s\n", e.what());
+	  std::flush(std::cerr);
+	  throw;
+	} catch (const std::out_of_range& e) {
+	  std::fprintf(stderr, "invalid_argument %s\n", e.what());
+	  std::flush(std::cerr);
+	  throw;
+	}
+
 # [c\+\+ \- Get home directory in Linux \- Stack Overflow]( https://stackoverflow.com/questions/2910377/get-home-directory-in-linux/2910392#2910392 )
 snippet home_dir
 alias get_home_dir
@@ -531,6 +545,11 @@ alias file_exist
 
 snippet push_back
 	emplace_back${0}
+
+snippet transform
+	std::transform(${1:#:src}.begin(), $1.end(), std::back_inserter(${2:#:dst}), [](${3:#:src type} ${4:#:src var}) {
+	  return ${5:#:dst val};
+	});
 
 snippet breakpoint
 abbr REQUIRED: <signal.h>
@@ -789,7 +808,7 @@ snippet unix_timestamp_us
 snippet log_tmp
 	#include <fstream>
 	{
-	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << ${0} << std::endl;
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << "${0}" << std::endl;
 	}
 # FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
 snippet log_tmp_with_time_c++11
@@ -800,7 +819,7 @@ snippet log_tmp_with_time_c++11
 	  auto t  = std::time(nullptr);
 	  struct tm timeinfo;
 	  std::localtime_r(&t, &timeinfo);
-	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&timeinfo, "%Y/%m/%d %H:%M:%S ") << ${0} << std::endl;
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&timeinfo, "%Y/%m/%d %H:%M:%S ") << "${0}" << std::endl;
 	}
 snippet log_tmp_with_time
 	#include <ctime>
@@ -811,7 +830,7 @@ snippet log_tmp_with_time
 	  time(&rawtime);
 	  localtime_r(&rawtime, &timeinfo);
 	  strftime(buffer, sizeof(buffer), "%Y/%m/%d %H:%M:%S ", &timeinfo);
-	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::string(buffer) << ${0} << std::endl;
+	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::string(buffer) << "${0}" << std::endl;
 	}
 
 # FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
@@ -918,7 +937,8 @@ snippet picojson_get_array
 
 snippet picojson_to_str_example
 	picojson::object obj;
-	obj.emplace(std::make_pair("key", "value"));
+	obj.emplace(std::make_pair("key", picojson::value("value")));
+	obj.emplace(std::make_pair("key", picojson::value(static_cast<double>(123))));
 	picojson::value val(obj);
 	val.serialize();
 	std::stringstream ss;
@@ -926,6 +946,7 @@ snippet picojson_to_str_example
 
 snippet picojson_to_file_example
 	picojson::object obj;
-	obj.emplace(std::make_pair("key", "value"));
+	obj.emplace(std::make_pair("key", picojson::value("value")));
+	obj.emplace(std::make_pair("key", picojson::value(static_cast<double>(123))));
 	picojson::value v(obj);
 	v.serialize(std::ostream_iterator<char>(std::cout));
