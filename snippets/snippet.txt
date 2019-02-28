@@ -56,6 +56,7 @@
 [tar find print0 pipe to pipe] tar -cvz -T - --null | @
 [tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
+[zip compress] zip -r @ # [.zip] [dir]
 [zip unzip broken file] zip -FF $SRC@ --output $DST
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
