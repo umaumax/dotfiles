@@ -370,10 +370,10 @@ snippet split_by_char
 	${0}
 
 snippet vector_cout
-  for (auto&& v : ${1:#:vector}) {
-    std::cout << v << " ";
-  }
-  std::cout << std::endl;${0}
+	for (auto&& v : ${1:#:vector}) {
+	  std::cout << v << " ";
+	}
+	std::cout << std::endl;${0}
 
 # FYI: [c\+\+ \- std::string to char\* \- Stack Overflow]( https://stackoverflow.com/questions/7352099/stdstring-to-char/42308974 )
 snippet string_to_char_vector
