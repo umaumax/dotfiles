@@ -53,7 +53,7 @@ augroup END
 set isfname+=:
 
 " to avoid die vim by too long line
-set synmaxcol=512
+set synmaxcol=256
 
 " NOTE: speedup draw?
 " set lazyredraw
