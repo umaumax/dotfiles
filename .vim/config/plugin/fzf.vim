@@ -374,3 +374,26 @@ imap <c-x>l     <Plug>(fzf-complete-line)
 " 			\ 'reducer': function('<sid>join_lines'),
 " 			\ 'options': '--ansi --multi --reverse --margin 15%,0',
 " 			\ 'down':    50})
+
+function! FZF_make_sentence(lines)
+	let ret=[]
+	for header in a:lines
+		let header = substitute(header, ' *#.*$', '', '')
+		let ret+=['#include <'.header.'>']
+	endfor
+	if len(ret)>0
+		let ret+=['']
+	endif
+	return join(ret, "\n")
+endfunction
+function! fzf#cpp_include_header()
+	return fzf#vim#complete({
+				\ 'source':  'cat ~/dotfiles/dict/cpp/headers/c++11-headers.txt',
+				\ 'reducer': function('FZF_make_sentence'),
+				\ 'options': '--multi --reverse '."--query=\"'\"",
+				\ 'up':    '50%'})
+endfunction
+
+" NOTE: call function of inoremap expr
+inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
+command FZFCppIncludeHeader :call feedkeys("i\<Plug>(fzf#cpp_include_header)", '')
