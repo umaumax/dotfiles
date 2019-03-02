@@ -628,3 +628,10 @@ function git-tmp-commit-force() {
 function git-tmp-commit-force-undo() {
 	git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset
 }
+
+function git-wc() {
+	git ls-files -z | xargs -0 -I{} bash -c "[[ -f '{}' ]] && wc '{}'"
+}
+function git-wc-total() {
+	git-wc | awk '{s1+=$1;s2+=$2;s3+=$3}END{print s1,s2,s3}'
+}
