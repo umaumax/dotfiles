@@ -18,6 +18,10 @@ snippet replace
 abbr ret is replace count (not replace str ret)
 alias gsub
 	gsub(${1:#:src}, ${2:#:dst}, ${3:#:var})${0}
+snippet replace
+alias gensub
+abbr group match "\\1"
+	${0} = gensub(${1:#:src}, ${2:#:dst}, ${3:"g"}, ${4:#:var})
 
 snippet match_gawk
 	match(${1:#:input}, /${2:#:regex}/, ${3:#:var})${0}
@@ -59,3 +63,6 @@ alias END
 	END {
 		${0}
 	}
+
+snippet esc
+	\033${0}
