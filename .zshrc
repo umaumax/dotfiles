@@ -389,6 +389,8 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
+alias lcd='cd -P'
+
 # history
 alias history='history 1'
 function history_ranking() {

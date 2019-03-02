@@ -1051,3 +1051,6 @@
 
 # cmds
 [pup: Parsing HTML at the command line] pup
+
+# cd
+[cd symbolic link dst dir] cd -P @
