@@ -109,16 +109,18 @@ snippet foreach_iterator
 	}
 
 snippet string
-abbr std::string <string>
 	std::string ${0}
 
 snippet vector
-abbr std::vector<T> <vector>
+abbr std::vector<T>
 	std::vector<${1:int}> ${0}
 
 snippet vector2d
-abbr std::vector<std::vector<T> > <vector>
-	std::vector<std::vector<${1:int}> > ${2:#:varname}(${3:#:height}, std::vector<$1>(${4:#:width}))${0}
+abbr std::vector<std::vector<T>>
+	std::vector<std::vector<${1:int}>> ${2:#:varname}(${3:#:height}, std::vector<$1>(${0:#:width}))
+snippet vector3d
+abbr std::vector<std::vector<std::vector<T>>>
+	std::vector<std::vector<std::vector<${1:int}>>> ${2:#:varname}(${3:#:out}, std::vector<std::vector<$1>>(${4:#:mid}, std::vector<$1>(${0:#:in})))
 
 snippet vector_copy_with_cast_constractor
 	std::vector<${1:#:dst type}> ${2:#:dst var name}(${3:#:src var name}.begin(), $3.end());${0}
@@ -991,3 +993,18 @@ snippet regexp_match_group
 	  std::regex re(${1:#:regex pattern});
 	  std::smatch match;
 	  bool ret = std::regex_match(${0:#:str}, match, re);
+
+# FYI: [本の虫: C\+\+0xにおけるenable\_ifの新しい使い方]( https://cpplover.blogspot.com/2011/04/c0xenableif.html )
+# [std::enable\_ifを使ってオーバーロードする時、enablerを使う？ \- Qiita]( https://qiita.com/kazatsuyu/items/203584ef4cb8b9e52462 )
+# [C\+\+メタ関数のまとめ \- Qiita]( https://qiita.com/_EnumHack/items/ee2141ad47915c55d9cb )
+# [C\+\+ で楽しいメタプログラミングをしよう \- Qiita]( https://qiita.com/pink_bangbi/items/929916d77054988f626e )
+# [型があるtemplate class型であるかチェックするメタ関数 \- Qiita]( https://qiita.com/tyanmahou/items/a0d67e221b8971e895c6 )
+snippet template_is_same
+	template <typename T, typename std::enable_if<std::is_same<T, ${1:#:type}>::value, std::nullptr_t>::type = nullptr>
+	void foo(T t) {
+	  std::cout << "$1" << std::endl;
+	}
+	template <typename T, typename std::enable_if<!std::is_same<T, $1>::value, std::nullptr_t>::type = nullptr>
+	void foo(T t) {
+	  std::cout << "not $1" << std::endl;
+	}${0}
