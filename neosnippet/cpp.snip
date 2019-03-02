@@ -16,6 +16,10 @@ options word
 snippet funcname
 	`CppFuncName()`${0}
 
+# NOTE: below join wrapper always return ""
+snippet include_fzf
+	`join([], feedkeys("\<Plug>(fzf#cpp_include_header)", ''))`${0}
+
 snippet contains
 alias find_string
 abbr !=: found, ==: not found
