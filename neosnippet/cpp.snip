@@ -942,11 +942,12 @@ snippet picojson_to_str_example
 	picojson::value val(obj);
 	val.serialize();
 	std::stringstream ss;
-	ss << val.serialize();
+	ss << val.serialize();${0}
 
 snippet picojson_to_file_example
 	picojson::object obj;
 	obj.emplace(std::make_pair("key", picojson::value("value")));
 	obj.emplace(std::make_pair("key", picojson::value(static_cast<double>(123))));
 	picojson::value v(obj);
-	v.serialize(std::ostream_iterator<char>(std::cout));
+	v.serialize(std::ostream_iterator<char>(std::cout));${0}
+
