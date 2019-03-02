@@ -36,6 +36,9 @@ if &rtp =~ 'rainbow'
 			endif
 		else
 			if a:action=='enter'
+				" NOTE:
+				" pluginの行儀が良くないので，同じ&ftで複数回loadするとその分増えていく
+				call rainbow_main#clear()
 				call rainbow_main#load()
 			endif
 		endif

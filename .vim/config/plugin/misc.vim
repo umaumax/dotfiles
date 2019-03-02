@@ -439,7 +439,10 @@ augroup END
 " The issue it turns out is a conflict with the Rainbow Parenthesis plugin:
 " NOTE' for raibow ()
 " If you want to lazy load run :RainbowToggle after loaded
-Plug 'luochen1990/rainbow'
+" NOTE: 場合によっては複数の同じsyntax matchが実行される
+" ~/.vim/plugged/rainbow/autoload/rainbow.vim:36
+" NOTE: fix error by pull request
+Plug 'luochen1990/rainbow', {'do': 'git remote add pull-request-KushNee https://github.com/KushNee/rainbow.git && git fetch pull-request-KushNee && git merge pull-request-KushNee/master'}
 let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
 " [Emacs のカッコの色を抵抗のカラーコードにしてみる \- Qiita]( https://qiita.com/gnrr/items/8f9efd5ced058e576f5e )
 let g:rainbow_conf = {
