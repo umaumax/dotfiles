@@ -376,7 +376,7 @@ imap <c-x>l     <Plug>(fzf-complete-line)
 " 			\ 'options': '--ansi --multi --reverse --margin 15%,0',
 " 			\ 'down':    50})
 
-function! FZF_make_sentence(lines)
+function! FZF_include_header_reducer(lines)
 	let ret=[]
 	for header in a:lines
 		let header = substitute(header, ' *#.*$', '', '')
@@ -387,17 +387,21 @@ function! FZF_make_sentence(lines)
 	endif
 	return join(ret, "\n")
 endfunction
+function! FZF_cpp_include_header()
+	call feedkeys("i\<Plug>(fzf#cpp_include_header)", '')
+	return ''
+endfunction
 function! fzf#cpp_include_header()
 	return fzf#vim#complete({
 				\ 'source':  'cat ~/dotfiles/dict/cpp/headers/c++11-headers.txt',
-				\ 'reducer': function('FZF_make_sentence'),
+				\ 'reducer': function('FZF_include_header_reducer'),
 				\ 'options': '--multi --reverse '."--query=\"'\"",
 				\ 'up':    '50%'})
 endfunction
 
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
-command FZFCppIncludeHeader :call feedkeys("i\<Plug>(fzf#cpp_include_header)", '')
+command FZFCppIncludeHeader :call FZF_cpp_include_header()
 
 " NOTE: for :FZFxxx
 " NOTE: type ff and xxx and tab
