@@ -145,3 +145,12 @@ snippet lambda_curry
 	function({ ${1:#:function}, [${2:#:args}])${0}
 snippet call_lambda
 	call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])${0}
+
+snippet redirect_command
+	let ${1:#var} = ""
+	silent! redir => $1
+	${0:#:silent! exe "ls"}
+	redir END
+
+snippet has_key_list
+	len(filter(${1:#:list}, { index, val -> ${2:#:condition} }) >= 1
