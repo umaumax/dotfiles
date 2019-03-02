@@ -951,3 +951,39 @@ snippet picojson_to_file_example
 	picojson::value v(obj);
 	v.serialize(std::ostream_iterator<char>(std::cout));${0}
 
+# FYI: [jarro2783/cxxopts: Lightweight C\+\+ command line option parser]( https://github.com/jarro2783/cxxopts )
+snippet parsearg_cxxopts_example
+alias arg_cxxopts_example
+	#include "cxxopts.hpp"
+	cxxopts::ParseResult Parse(int argc, char* argv[]) {
+	  cxxopts::Options options(argv[0], " - help message");
+	  options.positional_help("[optional args]").show_positional_help();
+	  std::string output;
+	  std::vector<std::string> args;
+	  options.allow_unrecognised_options().add_options()            //
+	      ("o,output", "output dir",                                //
+	       cxxopts::value<std::string>(output)->default_value(""))  //
+	      ("args", "[stream key [# of stream]...]...",              //
+	       cxxopts::value<std::vector<std::string>>(args))          //
+	      ("h,help", "Print help");
+	  options.parse_positional({"args"});
+	  auto result = options.parse(argc, argv);
+	  if (result.count("help")) {
+	    std::cerr << options.help({"", "Group"}) << std::endl;
+	    exit(0);
+	  }
+	  output = result["output"].as<std::string>();
+	  if (result.count("args")) {
+	    args = result["args"].as<std::vector<std::string>>();
+	  }
+	  return result;
+	}
+	auto result = Parse(argc, argv);${0}
+
+snippet regexp_test
+	  std::regex re(${1:#:regex pattern});
+	  bool ret = std::regex_match(${0:#:str}, re);
+snippet regexp_match_group
+	  std::regex re(${1:#:regex pattern});
+	  std::smatch match;
+	  bool ret = std::regex_match(${0:#:str}, match, re);
