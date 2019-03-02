@@ -91,6 +91,41 @@ abbr with googlemock
 	  TEST_COMMAND     ""
 	)${0}
 
+snippet ExternalProject_Add_header_only_library
+	include(ExternalProject)
+	ExternalProject_Add(${1:#:project name}
+	  GIT_REPOSITORY    ${2:#:url}
+	  GIT_TAG           master
+	  SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/$1-build"
+	  CONFIGURE_COMMAND ""
+	  BUILD_COMMAND     ""
+	  INSTALL_COMMAND   ""
+	  TEST_COMMAND      ""
+	  BUILD_IN_SOURCE TRUE
+	)
+	set($1_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/$1-build/${3:include})
+	target_include_directories(${PROJECT_NAME} PRIVATE
+	  ${$1_INCLUDE_DIR}
+	)${0}
+
+snippet ExternalProject_Add_cxxopts
+abbr for arg parse
+	include(ExternalProject)
+	ExternalProject_Add(cxxopts
+	  GIT_REPOSITORY    https://github.com/jarro2783/cxxopts.git
+	  GIT_TAG           master
+	  SOURCE_DIR        "${CMAKE_CURRENT_BINARY_DIR}/cxxopts-build"
+	  CONFIGURE_COMMAND ""
+	  BUILD_COMMAND     ""
+	  INSTALL_COMMAND   ""
+	  TEST_COMMAND      ""
+	  BUILD_IN_SOURCE TRUE
+	)
+	set(cxxopts_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/cxxopts-build/include)
+	target_include_directories(${PROJECT_NAME} PRIVATE
+	  ${cxxopts_INCLUDE_DIR}
+	)${0}
+
 snippet ExternalProject_Add_git
 	include(ExternalProject)
 	ExternalProject_Add(${1:#:googletest}
