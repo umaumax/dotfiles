@@ -630,8 +630,10 @@ function git-tmp-commit-force-undo() {
 }
 
 function git-wc() {
-	git ls-files -z | xargs -0 -I{} bash -c "[[ -f '{}' ]] && wc '{}'"
+	git ls-files "$@" | while IFS= read -r filepath || [[ -n "$filepath" ]]; do
+		[[ -f $filepath ]] && printf '%q\n' "$filepath"
+	done | xargs wc
 }
-function git-wc-total() {
-	git-wc | awk '{s1+=$1;s2+=$2;s3+=$3}END{print s1,s2,s3}'
+function dotfiles-wc() {
+	git-wc ':*rc' ':*.vim'
 }
