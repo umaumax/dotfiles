@@ -599,6 +599,7 @@ augroup END
 augroup cmdline_compl
 	autocmd!
 	autocmd CmdwinEnter * autocmd InsertCharPre <buffer> call feedkeys("\<C-n>\<C-p>", 'n')
+	autocmd CmdwinLeave * autocmd! cmdline_compl CmdwinEnter
 augroup END
 
 " paste

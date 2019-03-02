@@ -10,21 +10,22 @@ Plug 'junegunn/fzf.vim' ", {'on':['Pt', 'FZFTabOpen', 'FZFMru', 'FZFOpenFile']}
 
 " --------------------------------
 
-function! s:fzf_init()
-	let b:ambiwidth = &ambiwidth
-	let b:laststatus = &laststatus
-	setlocal laststatus=0 noshowmode noruler
-	" NOTE: fzfのterminalの表示はbelow settingが必要
-	setlocal ambiwidth=single
-endfunction
-function! s:fzf_term()
-	execute 'setlocal laststatus='.b:laststatus
-	execute 'setlocal ambiwidth='.b:ambiwidth
-endfunction
 augroup terminal_disable_ambiwidth_group
 	autocmd! FileType fzf
-	autocmd  FileType fzf call s:fzf_init()
-				\| autocmd BufLeave <buffer> call s:fzf_term()
+	function! s:fzf_init()
+		let b:ambiwidth = &ambiwidth
+		let b:laststatus = &laststatus
+		setlocal laststatus=0 noshowmode noruler
+		" NOTE: fzfのterminalの表示はbelow settingが必要
+		setlocal ambiwidth=single
+		autocmd BufLeave <buffer> call s:fzf_term()
+	endfunction
+	function! s:fzf_term()
+		execute 'setlocal laststatus='.b:laststatus
+		execute 'setlocal ambiwidth='.b:ambiwidth
+		autocmd! BufLeave <buffer>
+	endfunction
+	autocmd FileType fzf call s:fzf_init()
 augroup END
 
 " NOTE: 下記の設定は他のpluginとの競合を解除したため，不要
