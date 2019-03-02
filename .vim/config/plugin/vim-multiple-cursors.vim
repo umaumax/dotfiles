@@ -38,7 +38,6 @@ fu! s:Store_mappings(keys, mode, global) abort
     for l:key in a:keys
       " NOTE: 現状: ", ', [, `, {, |のマッピングは解除できていない
       let buf_local_map = maparg(l:key, a:mode, 0, 1)
-      echom 'key:'. l:key
       " NOTE: ' 'と'\<Space>'が別々に登録されている場合に2重削除が発生しうる
       if empty(buf_local_map)
         continue
