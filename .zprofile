@@ -194,15 +194,15 @@ fi
 
 # for color output
 ## easy color output
-export BLACK=$'\e[0;30m'
-export RED=$'\e[0;31m'
-export GREEN=$'\e[0;32m'
-export YELLOW=$'\e[0;33m'
-export BLUE=$'\e[0;34m'
-export PURPLE=$'\e[0;35m'
-export LIGHT_BLUE=$'\e[0;36m'
-export WHITE=$'\e[0;37m'
-export GRAY=$'\e[0;90m'
+export BLACK=$'\e[30m'
+export RED=$'\e[31m'
+export GREEN=$'\e[32m'
+export YELLOW=$'\e[33m'
+export BLUE=$'\e[34m'
+export PURPLE=$'\e[35m'
+export LIGHT_BLUE=$'\e[36m'
+export WHITE=$'\e[37m'
+export GRAY=$'\e[90m'
 export DEFAULT=$'\e[0m'
 
 # brew install source-highlight
