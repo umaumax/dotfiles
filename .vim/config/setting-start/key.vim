@@ -55,6 +55,8 @@ nnoremap <C-Up>   gg
 nnoremap <C-Down> G
 
 command! NoFoldenable set nofoldenable
+command! UnFoldenable set nofoldenable
+command! FoldenableNo set nofoldenable
 command! Foldenable set foldenable
 
 " pumvisible(): completion list?
