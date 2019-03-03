@@ -89,13 +89,6 @@ snippet isfunction_bash_if
 		${0}
 	fi
 
-snippet isgit_bash
-	git rev-parse --is-inside-work-tree >/dev/null 2>&1 ${0}
-snippet isgit_if
-	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-		${0}
-	fi
-
 snippet trimspace
 	sed "s/^[ \t]*//"${0}
 
