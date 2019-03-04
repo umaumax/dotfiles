@@ -49,3 +49,7 @@ AlterCommand cmd CmdlineWindow
 AlterCommand wc[md] Wcmd
 AlterCommand ws[earch] Wsearch
 AlterCommand tac Tac
+
+AlterCommand dup  Duplicate
+AlterCommand dups Duplicates
+AlterCommand dupv Duplicatev

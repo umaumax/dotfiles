@@ -326,3 +326,7 @@ function! s:paste_clipboard_to_active_buffers()
 	endif
 endfunction
 command! Tabs2Clipboard :call s:paste_clipboard_to_active_buffers()
+
+command! Duplicate  execute("vnew ".expand('%'))
+command! Duplicates execute("new ".expand('%'))
+command! Duplicatev execute("vnew ".expand('%'))
