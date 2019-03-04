@@ -236,6 +236,7 @@
 [ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
 [ol compact space] sed -e 's/\s\+/ /g'
 [ol line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
+[ol join n-block line] awk -v n=@ -v delim=":" 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\n";}'
 [ol sed template :] sed -e 's:@::g'
 [ol sed template /] sed -e 's/@//g'
 [ol join line with char] awk '{printf "%s\\\\n", $0}'
