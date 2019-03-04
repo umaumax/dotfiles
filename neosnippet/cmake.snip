@@ -77,6 +77,7 @@ snippet ExternalProject_Add_url
 	  INSTALL_COMMAND   ""
 	  TEST_COMMAND      ""
 	)
+	add_dependencies(${PROJECT_NAME} $1)
 
 snippet ExternalProject_Add_googletest
 abbr with googlemock
@@ -90,6 +91,7 @@ abbr with googlemock
 	                   cp -R ${CMAKE_CURRENT_SOURCE_DIR}/googletest/googlemock/include/ ${CMAKE_INSTALL_PREFIX}/
 	  TEST_COMMAND     ""
 	)${0}
+	add_dependencies(${PROJECT_NAME} googletest)
 
 snippet ExternalProject_Add_header_only_library
 	include(ExternalProject)
@@ -107,6 +109,7 @@ snippet ExternalProject_Add_header_only_library
 	target_include_directories(${PROJECT_NAME} PRIVATE
 	  ${$1_INCLUDE_DIR}
 	)${0}
+	add_dependencies(${PROJECT_NAME} $1)
 
 snippet ExternalProject_Add_cxxopts
 abbr for arg parse
@@ -125,6 +128,7 @@ abbr for arg parse
 	target_include_directories(${PROJECT_NAME} PRIVATE
 	  ${cxxopts_INCLUDE_DIR}
 	)${0}
+	add_dependencies(${PROJECT_NAME} cxxopts)
 
 snippet ExternalProject_Add_git
 	include(ExternalProject)
@@ -138,18 +142,20 @@ snippet ExternalProject_Add_git
 	  INSTALL_COMMAND   ""
 	  TEST_COMMAND      ""
 	)
+	add_dependencies(${PROJECT_NAME} $1)
 
 snippet ExternalProject_Add_patch
 	# project()
 	include(ExternalProject)
-	ExternalProject_Add(${PROJECT_NAME}
-	  PREFIX ${PROJECT_NAME}
-	  GIT_REPOSITORY ${1:#:URL}
+	ExternalProject_Add(${1:#:project name}
+	  PREFIX $1
+	  GIT_REPOSITORY ${2:#:URL}
 	  GIT_TAG master
 	  PATCH_COMMAND find ${CMAKE_CURRENT_SOURCE_DIR} -maxdepth 1 -name "*.patch" -print0 | xargs --no-run-if-empty -0 -L 1 patch -p1 --input
 	  CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/lib"
 	  INSTALL_COMMAND ""
 	)${0}
+	add_dependencies(${PROJECT_NAME} $1)
 
 snippet ExternalProject_Add_make
 	BUILD_IN_SOURCE TRUE
