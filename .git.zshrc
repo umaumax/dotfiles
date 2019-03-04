@@ -637,3 +637,8 @@ function git-wc() {
 function dotfiles-wc() {
 	git-wc ':*rc' ':*.vim'
 }
+function git-file-ranking() {
+	is_git_repo_with_message || return
+	local target=${1:-.}
+	git log --name-only --pretty='' "$target" | awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
+}

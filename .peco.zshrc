@@ -769,3 +769,8 @@ function git-add-force-peco() {
 		git add -f "$filepath"
 	done
 }
+function git-file-ranking-peco() {
+	is_git_repo_with_message || return
+	local target=${1:-.}
+	git-file-ranking "$target" | ranking_color_cat | fzf
+}
