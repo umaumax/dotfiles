@@ -275,3 +275,10 @@ snippet hook_find_package
 	EOF
 	${0}
 
+snippet mkdir
+	file(MAKE_DIRECTORY ${0:#:dirpath})
+
+snippet env_var
+	$ENV{${0}}
+snippet home
+	$ENV{HOME}${0}
