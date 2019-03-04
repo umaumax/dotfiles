@@ -1055,3 +1055,8 @@
 
 # cd
 [cd symbolic link dst dir] cd -P @
+
+# ar
+# FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
+[ar archive archives(libtool)] libtool -static -o $NEW.a@ # archives...
+[ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a@ *.o # non-safe use tmp dir
