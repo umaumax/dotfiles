@@ -143,7 +143,6 @@ fi
 
 # clang(LLVM)
 prepend_path /usr/local/bin
-prepend_path ~/local/bin
 # for pip
 # [systemd\-path user\-binaries]( https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path )
 append_path ~/.local/bin
@@ -188,6 +187,10 @@ if [[ -d ~/.linuxbrew ]]; then
 	# to avoid ~/.linuxbrew/lib/libxxx.so.x: no version information available (required by xxx)
 	# export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
+# NOTE: force alias to system pkg-config (the priority is higher than linuxbrew)
+[[ -f ~/.linuxbrew/bin/pkg-config ]] && ln -sf /usr/bin/pkg-config ~/local/bin/pkg-config
+
+prepend_path ~/local/bin
 
 # for vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
