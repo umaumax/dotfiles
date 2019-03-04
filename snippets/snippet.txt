@@ -255,6 +255,7 @@
 [ol remove last blank line] perl -pe "chomp if eof"
 [ol repeat text] printf '$TEXT@%.0s' {1..$N}
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+@[-a-zA-Z0-9\.]+"
+[ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 
 [number of CPU] nproc --all # linux only
 
