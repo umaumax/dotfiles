@@ -899,6 +899,28 @@ snippet file_to_string
 	  std::cerr << "failed to close " << filepath << std::endl;
 	  return 1;
 	}
+# FYI: [c\+\+ \- How to read a binary file into a vector of unsigned chars \- Stack Overflow]( https://stackoverflow.com/questions/15138353/how-to-read-a-binary-file-into-a-vector-of-unsigned-chars )
+snippet file_to_vector
+	#include <fstream>
+	#include <iostream>
+	#include <iterator>
+	#include <vector>
+	${0}
+	template <class T>
+	std::vector<T> FileToVector(const std::string filepath) {
+	  std::ifstream file(filepath, std::ios::binary);
+		// WARN: error handling
+	  file.unsetf(std::ios::skipws);
+	  std::streampos file_size;
+	  file.seekg(0, std::ios::end);
+	  file_size = file.tellg();
+	  file.seekg(0, std::ios::beg);
+	  std::vector<T> vec;
+	  vec.reserve(file_size);
+	  vec.insert(vec.begin(), std::istream_iterator<T>(file),
+	             std::istream_iterator<T>());
+	  return vec;
+	}
 
 snippet picojson_from_str
 	picojson::value json;
