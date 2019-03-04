@@ -561,3 +561,6 @@ Plug 'cespare/vim-toml', {'for':'toml'}
 " To open absolute path, you must use "ssh://HOSTNAME//" instead of "ssh://HOSTNAME/".
 Plug 'Shougo/neossh.vim', {'on': ['VimFiler']}
 Plug 'Shougo/vimfiler.vim', {'on': ['VimFiler']}
+
+" NOTE: vim plugin to dim inactive windows (highlight active window background)
+LazyPlug 'blueyed/vim-diminactive'
