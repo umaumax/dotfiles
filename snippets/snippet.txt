@@ -98,6 +98,8 @@
 [make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 [make variables debug] make -p -f/dev/null
 [make good looking color output] make SHELL='sh -ex' @ | ccze -A -o nolookups
+# FYI: [linux \- How do you force a makefile to rebuild a target \- Stack Overflow]( https://stackoverflow.com/questions/816370/how-do-you-force-a-makefile-to-rebuild-a-target )
+[make force phony] make -B @# --always-make
 
 # ctest
 [ctest] ctest --output-on-failure
@@ -1059,5 +1061,5 @@
 
 # ar
 # FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
-[ar archive archives(libtool)] libtool -static -o $NEW.a@ # archives...
-[ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a@ *.o # non-safe use tmp dir
+[ar archive archives(libtool)] libtool -static -o $NEW.a@ # archives... WARN: order of .o load order is important
+[ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a@ *.o # non-safe use tmp dir WARN: order of .o load order is important
