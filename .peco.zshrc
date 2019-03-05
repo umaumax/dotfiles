@@ -744,9 +744,58 @@ function gstlogallvim() {
 	git log HEAD --pretty="" --name-only | awk '!a[$0]++' | git_add_root_rel_pwd_rev_prefix | ranking_color_cat | pecovim
 }
 
+function git-ls-time() {
+	is_git_repo_with_message || return
+	local target=${1:-.}
+	git log --name-only --pretty=':%ai' "$target" | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}'
+}
 function gftvim() {
 	is_git_repo_with_message || return
-	git log --name-only --pretty=':%ai' . | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}' | ranking_color_cat | pecovim
+	git-ls-time | ranking_color_cat | pecovim
+}
+
+function git-grep-time() {
+	is_git_repo_with_message || return
+	local ls_find_args=(.)
+	local i=1
+	for arg in "$@"; do
+		[[ $arg == '--' ]] && ls_find_args=(${@:$i})
+		((i++))
+	done
+	# NOTE: first commitの方からの走査であるが，実際には通常の出力の逆がほしい
+	# [[ -n $GIT_GREP_TIME_REVERSE ]] && ls_find_args=(--reverse "${ls_find_args[@]}")
+	# NOTE: 初回カウントをtime orderの基準とする
+	# 2回目以降は連想配列に保存し，ENDでprintする
+	{
+		git log --name-only --pretty='' "${ls_find_args[@]}" | awk '!a[$0]++' | {
+			if [[ -n $GIT_GREP_TIME_REVERSE ]]; then
+				tac
+			else
+				command cat
+			fi
+		} | git_remove_root_rel_pwd_prefix
+		git grep --color=always "$@"
+		# NOTE: 色付きにするとファイル名の一致ができなくなるため，除去
+	} | awk -F":" 'BEGIN{idx=0;}{file=gensub(/\033\[[0-9]*m/, "", "g", $1); c=++cnt[file];if(c==1){idx++;files[idx]=file;}if(c>=2){m[file][c]=$0;}} END{for(i=1;i<=idx;i++){file=files[i]; for(j=2;j<=cnt[file];j++){printf "%s\n",m[file][j];}}}'
+}
+function git-grep-time-reverse() {
+	GIT_GREP_TIME_REVERSE=1 git-grep-time "$@"
+}
+function git-grep-time-pecovim() {
+	is_git_repo_with_message || return
+	git-grep-time "$@" | pecovim
+}
+function git-grep-time-color-pecovim() {
+	is_git_repo_with_message || return
+	git-grep-time "$@" | ranking_color_cat | pecovim
+}
+function git-grep-time-reverse-pecovim() {
+	is_git_repo_with_message || return
+	git-grep-time-reverse "$@" | pecovim
+}
+function git-grep-time-reverse-color-pecovim() {
+	is_git_repo_with_message || return
+	git-grep-time-reverse "$@" | ranking_color_cat | pecovim
 }
 
 function git-typo-peco-vim() {
