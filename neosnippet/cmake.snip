@@ -282,3 +282,6 @@ snippet env_var
 	$ENV{${0}}
 snippet home
 	$ENV{HOME}${0}
+
+snippet global_var
+	set(${1:#:var name} ${2:#:value} CACHE ${3:STRING} "${0:#:description}")
