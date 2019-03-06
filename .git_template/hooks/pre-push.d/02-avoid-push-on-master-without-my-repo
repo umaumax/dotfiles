@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+
+BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'
+
+remote="$1"
+url="$2"
+
+is_own_repo() {
+  # NOTE: git shortlog has no output... why???
+  # [[ $(git shortlog -s | cut -c8-) == $(git config --get user.name) ]]
+  [[ $(git log --all --format='%aN' | sort -u) == $(git config --get user.name) ]]
+}
+
+IFS=' ' read local_ref local_sha remote_ref remote_sha
+if [[ $local_ref == "refs/heads/master" ]] || [[ $remote_ref == "refs/heads/master" ]]; then
+  echo "${YELLOW}[WARN]${DEFAULT} local or remote is master branch"
+  if ! is_own_repo; then
+    echo "${RED}Do not push at master branch!${DEFAULT}"
+    echo "${YELLOW}If you want to skip pre-push hook, add --no-verify option to git push command.${DEFAULT}"
+    echo "${YELLOW}!! --no-verify${DEFAULT}"
+    exit 1
+  fi
+fi
