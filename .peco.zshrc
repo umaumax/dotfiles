@@ -787,7 +787,7 @@ function git-grep-time-pecovim() {
 }
 function git-grep-time-color-pecovim() {
 	is_git_repo_with_message || return
-	git-grep-time "$@" | ranking_color_cat | pecovim
+	git-grep-time "$@" | remove-ansi | ranking_color_cat | pecovim
 }
 function git-grep-time-reverse-pecovim() {
 	is_git_repo_with_message || return
@@ -795,7 +795,7 @@ function git-grep-time-reverse-pecovim() {
 }
 function git-grep-time-reverse-color-pecovim() {
 	is_git_repo_with_message || return
-	git-grep-time-reverse "$@" | ranking_color_cat | pecovim
+	git-grep-time-reverse "$@" | remove-ansi | ranking_color_cat | pecovim
 }
 
 function git-typo-peco-vim() {
