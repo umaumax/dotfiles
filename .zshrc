@@ -1754,12 +1754,16 @@ EOF
 	ruby -e "$PROGRAM"
 }
 
+# FYI: [google driveをコマンドラインで操作する \- Qiita]( https://qiita.com/shinkoma/items/e2d80f82303bd90e9e30 )
+# Failed to get file: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded
+# Failed to find root dir: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded
+#
 # required: gdrive
 function memosync() {
-	local n=${1:-5}
+	local n=${1:-30}
 	for ((i = 0; i < $n; i++)); do
 		gsync-gshare && break
-		sleep 24
+		sleep 10
 	done
 }
 function gsync-gshare() {
