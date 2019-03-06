@@ -642,3 +642,10 @@ function git-file-ranking() {
 	local target=${1:-.}
 	git log --name-only --pretty='' "$target" | awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 }
+
+# FYI: [List all authors of a particular git project Using sort]( https://www.commandlinefu.com/commands/view/4519/list-all-authors-of-a-particular-git-project )
+function git-is-my-repo() {
+	is_git_repo_with_message || return
+	[[ $(git shortlog -s | cut -c8-) == $(git config --get user.name) ]]
+}
+alias git-is-own-repo='git-is-my-repo'
