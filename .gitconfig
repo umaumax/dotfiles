@@ -23,6 +23,8 @@
 
   apply-3 = apply --3way
 
+  authors = ! git shortlog -s | cut -c8-
+
   b = branch
 
   # NOTE: git alias of ohter alias (depends on git version)
