@@ -700,6 +700,7 @@
 
 [zsh function list] print -l ${(ok)functions}
 [zsh key bind list] bindkey @
+[zsh completion bug fix] rm -rf ~/.zcompdump ~/.zcompcache # HINT: command not found
 
 # sudo
 [enter root as user env] sudo su
@@ -1063,3 +1064,9 @@
 # FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
 [ar archive archives(libtool)] libtool -static -o $NEW.a@ # archives... WARN: order of .o load order is important
 [ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a@ *.o # non-safe use tmp dir WARN: order of .o load order is important
+
+# FYI: [macOS Mojave の WiFi をコマンドからオン・オフする \- Qiita]( https://qiita.com/KEINOS/items/21c9ca07664a641620eb )
+[wi-fi mac on] networksetup -setairportpower en0 on
+[wi-fi mac off] networksetup -setairportpower en0 off
+[wi-fi device name mac] networksetup -listallhardwareports | grep -A 1 "Wi-Fi" | grep '^Device:' | sed 's/^Device: //'
+[wi-fi dhcp update mac] networksetup -setdhcp Wi-Fi
