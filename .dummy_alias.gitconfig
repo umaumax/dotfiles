@@ -5,6 +5,7 @@
 	add-peco  = :
 	alias-list = :
 	apply-stashes  = :
+	backup  = :
 	branch-current  = :
 	branch-new-to-old  = :
 	branch-old-to-new  = :
@@ -23,6 +24,8 @@
 	commits-peco  = :
 	commits-range-peco  = :
 	dir  = :
+	file-ranking  = :
+	file-ranking-peco  = :
 	filter = :
 	find-conflict  = :
 	find-last-space  = :
@@ -34,10 +37,18 @@
 	grep-japanese  = :
 	grep-japanese-current  = :
 	grep-japanese-root  = :
+	grep-time  = :
+	grep-time-color-pecovim  = :
+	grep-time-pecovim  = :
+	grep-time-reverse  = :
+	grep-time-reverse-color-pecovim  = :
+	grep-time-reverse-pecovim  = :
 	hub-browse  = :
 	hub-shorten-url  = :
 	icdiff = :
 	info  = :
+	is-my-repo  = :
+	is-own-repo = :
 	log-example-add-repo  = :
 	log-example-init  = :
 	log-example-peco  = :
@@ -45,6 +56,7 @@
 	log-peco  = :
 	log-src-grep-peco  = :
 	logs-HEAD  = :
+	ls-time  = :
 	open  = :
 	pull-all  = :
 	ranking  = :
@@ -76,3 +88,4 @@
 	tmp-commit-force-undo  = :
 	typo-peco-vim  = :
 	update-dummy-alias  = :
+	wc  = :
