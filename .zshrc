@@ -29,6 +29,17 @@ fi
 
 unalias scp
 
+# NOTE: maybe zprezto define below function
+# slit () {
+# awk "{ print ${(j:,:):-\$${^@}} }"
+# }
+unset -f slit
+# NOTE: space区切りでの並べ替え
+function reorder() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") [1st_col_no 2nd_col_no...]" && return 1
+	eval 'awk "{ print ${(j:,:):-\$${^@}} }"'
+}
+
 [[ -z $_PS1 ]] && _PS1="$PS1"
 PROMPT_COLS_BOUNDARY=48
 
