@@ -747,7 +747,14 @@ function gstlogallvim() {
 function git-ls-time() {
 	is_git_repo_with_message || return
 	local target=${1:-.}
-	git log --name-only --pretty=':%ai' "$target" | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}'
+	# git log --name-only --pretty=':%ai' "$target" | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}'
+	# FYI: [git log \- how to git log with date\-time and file names in one line \- Stack Overflow]( https://stackoverflow.com/questions/32893773/how-to-git-log-with-date-time-and-file-names-in-one-line )
+	git log --pretty=%x0a%ci --name-only "$target" |
+		awk '
+     /^$/        { dateline=!dateline; next }
+     dateline    { date=$0; next }
+     !seen[$0]++ { printf "%-48s :%s\n", $0,date }
+' | git_remove_root_rel_pwd_prefix
 }
 function gftvim() {
 	is_git_repo_with_message || return
