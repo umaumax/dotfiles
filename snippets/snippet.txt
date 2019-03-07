@@ -1073,3 +1073,7 @@
 [wi-fi mac off] networksetup -setairportpower en0 off
 [wi-fi device name mac] networksetup -listallhardwareports | grep -A 1 "Wi-Fi" | grep '^Device:' | sed 's/^Device: //'
 [wi-fi dhcp update mac] networksetup -setdhcp Wi-Fi
+
+# dummy file
+[dummy file : linux] fallocate -l @ # 10(without B), 10K, 10M, 10G
+[dummy file : mac] mkfile -v @ # 10(without B), 10K, 10M, 10G
