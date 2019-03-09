@@ -330,3 +330,13 @@ command! Tabs2Clipboard :call s:paste_clipboard_to_active_buffers()
 command! Duplicate  execute("vnew ".expand('%'))
 command! Duplicates execute("new ".expand('%'))
 command! Duplicatev execute("vnew ".expand('%'))
+
+if Doctor('code', 'vscode')
+	function! s:vscode_open(files)
+		for file in a:files
+			call system('code '.shellescape(fnamemodify(file, ":p")))
+		endfor
+	endfunction
+	command! VSCodeOpen call s:vscode_open([expand('%')])
+	command! VSCodeOpenAll call  s:vscode_open(s:get_active_buffers())
+endif

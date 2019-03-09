@@ -466,11 +466,17 @@ if [[ $(uname) == "Darwin" ]]; then
 	# [MacOSXでstraceが欲しいけどdtrace意味わからん→dtruss使おう]( https://qiita.com/hnw/items/269f8eb44614556bd6bf )
 	alias strace='sudo dtruss -f sudo -u $(id -u -n)'
 
-	function code() {
-		VSCODE_CWD="$PWD"
-		open -n -b "com.microsoft.VSCode" --args $*
+	# FYI: [macos \- Command\-line alias for Visual Studio Code on OS X with CSH? \- Stack Overflow]( https://stackoverflow.com/questions/31178895/command-line-alias-for-visual-studio-code-on-os-x-with-csh )
+	alias vs='vscode'
+	function vscode() {
+		VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
 	}
 fi
+
+function vscode_ext_search() {
+	local search_word=${1:-}
+	open "https://marketplace.visualstudio.com/search?term=${search_word}&target=VSCode"
+}
 
 if cmdcheck mvim; then
 	alias gvim='mvim'

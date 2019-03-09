@@ -1077,3 +1077,6 @@
 # dummy file
 [dummy file : linux] fallocate -l @ # 10(without B), 10K, 10M, 10G
 [dummy file : mac] mkfile -v @ # 10(without B), 10K, 10M, 10G
+
+# vscode
+[vscode install extension] code --install-extension @
