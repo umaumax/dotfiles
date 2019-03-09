@@ -41,10 +41,10 @@ abbr skip to next line
 
 snippet shebang_awk
 	#!/bin/sh
-	true + /; exec awk -f "\$0"; exit; / {}${0}
+	true + /; exec awk -f "\$0" "\$@"; exit; / {}${0}
 snippet shebang_gawk
 	#!/bin/sh
-	true + /; exec gawk -f "\$0"; exit; / {}${0}
+	true + /; exec gawk -f "\$0" "\$@"; exit; / {}${0}
 
 snippet line_no
 alias NR
