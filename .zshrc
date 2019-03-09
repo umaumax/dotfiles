@@ -176,8 +176,8 @@ alias lat='ls -alt'
 alias latr='ls -altr'
 if cmdcheck exa; then
 	alias exa='LS_COLORS= exa -h --sort modified --sort oldest --color-scale --git --time-style iso'
-	alias l='exa'
-	alias la='exa -al'
+	alias l='exa --sort=name'
+	alias la='exa -al --sort=name'
 	alias lat='exa -alt modified'
 	alias latr='exa -alrt modified'
 	unalias ls
