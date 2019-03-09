@@ -108,13 +108,13 @@ endif
 if Doctor('npm', 'js,html,css format')
 	augroup javascript_group
 		autocmd!
-		autocmd FileType javascript autocmd BufWinEnter *.js command! Format JsBeautify()
+		autocmd FileType javascript autocmd BufWinEnter *.js command! Format call JsBeautify()
 		autocmd FileType javascript autocmd BufWritePre *.js if IsAutoFormat() | call JsBeautify() | endif
 		autocmd FileType javascript autocmd! javascript_group FileType
 	augroup END
 	augroup json_group
 		autocmd!
-		autocmd FileType json autocmd BufWinEnter *.json command! Format JsonBeautify()
+		autocmd FileType json autocmd BufWinEnter *.json command! Format call JsonBeautify()
 		autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | call JsonBeautify() | endif
 		autocmd FileType json autocmd! json_group FileType
 	augroup END
@@ -126,13 +126,13 @@ if Doctor('npm', 'js,html,css format')
 	" 		augroup END
 	augroup html_vue_group
 		autocmd!
-		autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! Format HtmlBeautify()
+		autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! Format call HtmlBeautify()
 		autocmd FileType html,vue autocmd BufWritePre *.{html,vue} if IsAutoFormat() | call HtmlBeautify() | endif
 		autocmd FileType html,vue autocmd! html_vue_group FileType
 	augroup END
 	augroup css_group
 		autocmd!
-		autocmd FileType css autocmd  BufWinEnter *.css command! Format         CSSBeautify()
+		autocmd FileType css autocmd  BufWinEnter *.css command! Format         call CSSBeautify()
 		autocmd FileType css autocmd  BufWritePre *.css if       IsAutoFormat() | call CSSBeautify() | endif
 		autocmd FileType css autocmd! css_group   FileType
 	augroup END
@@ -140,7 +140,7 @@ endif
 
 augroup awk_group
 	autocmd!
-	autocmd FileType awk autocmd BufWinEnter *.awk command! Format <SID>format_file()
+	autocmd FileType awk autocmd BufWinEnter *.awk command! Format call <SID>format_file()
 	autocmd FileType awk autocmd BufWritePre *.awk if IsAutoFormat() | call <SID>format_file() | endif
 	autocmd FileType awk autocmd! awk_group FileType
 augroup END
