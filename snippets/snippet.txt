@@ -218,6 +218,10 @@
 [git own author name] git config --get user.name
 [git list all authors] git shortlog -s | cut -c8-
 
+[git tag push] git push origin $TAG@
+[git tag push(all)] git push origin --tags
+
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
