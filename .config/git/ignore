@@ -145,3 +145,9 @@ CMakeFiles/
 # for backup
 *.bak
 *~
+
+# for node.js
+node_modules/
+package-lock.json
+## for electron-builder
+dist/
