@@ -1080,3 +1080,8 @@
 
 # vscode
 [vscode install extension] code --install-extension @
+
+# icon
+[icon icns(mac) extract] iconutil --convert iconset @
+[icon icns(mac) compress] iconutil --convert icns @
+[icon ico(windows)] convert @.png -define icon:auto-resize icon.ico

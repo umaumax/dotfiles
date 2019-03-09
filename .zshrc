@@ -2300,6 +2300,49 @@ function chrome-extension-code() {
 	unzip -d "$extension_id-source" "$extension_id.zip"
 }
 
+function icon_gen() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") png to icns(for mac) and ico(for windows)" && return 1
+	local target="$1"
+	local tmpdir=$(mktemp -d "/tmp/$(basename $0).$$.tmp.XXXXXX.iconset")
+	# ! type >/dev/null 2>&1 'identify' && echo 'install identify command!' && return 1
+	! type >/dev/null 2>&1 'convert' && echo 'install convert command!' && return 1
+	# local width=$(identify -format "%w" "$target")
+	# local height=$(identify -format "%h" "$target")
+
+	local size_list=(1024 512 256 128 32 16)
+	for size in "${size_list[@]}"; do
+		local size2x="$((size * 2))"
+		local size_str="${size}x${size}"
+		local size2x_str="${size2x}x${size2x}"
+		convert "$target" -resize "$size" "$tmpdir/icon_${size_str}.png"
+		[[ -f "$tmpdir/icon_${size2x_str}.png" ]] && ln -sf "icon_${size2x_str}.png" "$tmpdir/icon_${size_str}@2x.png"
+	done
+	# NOTE: REQUIRED files
+	# icon_16x16.png
+	# icon_16x16@2x.png
+	# icon_32x32.png
+	# icon_32x32@2x.png
+	# icon_128x128.png
+	# icon_128x128@2x.png
+	# icon_256x256.png
+	# icon_256x256@2x.png
+	# icon_512x512.png
+	# icon_512x512@2x.png
+
+	local output="${target%.*}.icns"
+	iconutil -c icns "$tmpdir" --output "$output"
+	(
+		cd "$tmpdir" >/dev/null 2>&1 && tree .
+	)
+	echo "[CREATED] $output"
+
+	output="${target%.*}.ico"
+	convert "$target" -define icon:auto-resize "$output"
+	echo "[CREATED] $output"
+
+	[[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
+}
+
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
 # bindkey -e
