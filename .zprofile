@@ -249,6 +249,8 @@ fi
 mkdir -p ~/local/bin
 cmdcheck nvim && [[ ! -f ~/local/bin/vim ]] && ln -s $(which nvim) ~/local/bin/vim
 
+append_path ~/dotfiles/cmd
+
 # ----
 
 [[ -n $BASH ]] && export HISTFILESIZE=100000
