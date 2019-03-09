@@ -285,3 +285,8 @@ snippet home
 
 snippet global_var
 	set(${1:#:var name} ${2:#:value} CACHE ${3:STRING} "${0:#:description}")
+
+snippet PIC
+alias fPIC
+abbr -fPIC
+  set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)${0}
