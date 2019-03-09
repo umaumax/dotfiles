@@ -841,3 +841,20 @@ function git-log-diff() {
 		fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query"
 	# git log --stat --color . | fzf --multi --ansi --reverse --preview 'filepath=$(echo {} | sed -E -e '"'"'s/^ *(.*) *\| [0-9]+ .*$/\1/g'"'"' -e '"'"'s/ *$//g'"'"'); fullpath="$(git rev-parse --show-toplevel)/$filepath"; echo "filepath:$filepath"; echo "$fullpath"; [[ -e "$fullpath" ]] && git diff --color "$filepath"' --preview-window 'right:80%' --query="$query"
 }
+
+alias color_peco_ansi='ansi_color_peco'
+alias color_peco_ansi256='ansi_color_256_peco'
+alias color_peco_hex256='hex_color_256_peco'
+alias color_peco_hexfull='hex_color_full_peco'
+function ansi_color_peco() {
+	cat ~/dotfiles/dict/color/ansi_color.txt | fzf | cut -d':' -f2
+}
+function ansi_color_256_peco() {
+	cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf | cut -d':' -f2
+}
+function hex_color_256_peco() {
+	cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf | cut -d':' -f3
+}
+function hex_color_full_peco() {
+	cat ~/dotfiles/dict/color/color_full.txt | fzf | cut -d':' -f3
+}

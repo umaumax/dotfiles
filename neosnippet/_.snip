@@ -26,6 +26,19 @@ snippet filename_without_ext
 options word
 	`substitute(expand("%:r"), '\', '/', "g")`${0}
 
+snippet fzf_ansi_color
+alias ansi_color
+	`join([], feedkeys("\<Plug>(fzf#ansi_color)", ''))`${0}
+snippet fzf_ansi_color_256
+alias ansi_color_256
+	`join([], feedkeys("\<Plug>(fzf#ansi_color_256)", ''))`${0}
+snippet fzf_hex_color_256
+alias hex_color_256
+	`join([], feedkeys("\<Plug>(fzf#hex_color_256)", ''))`${0}
+snippet fzf_hex_color
+alias hex_color
+	`join([], feedkeys("\<Plug>(fzf#hex_color)", ''))`${0}
+
 snippet note
 	NOTE: ${0}
 snippet todo

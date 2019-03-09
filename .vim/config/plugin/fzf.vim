@@ -403,6 +403,72 @@ endfunction
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
 command FZFCppIncludeHeader :call FZF_cpp_include_header()
 
+function! FZF_ansi_color_reducer(lines)
+	let ret=[]
+	for line in a:lines
+		let ret+=[split(line, ':')[1]]
+	endfor
+	return join(ret, " ")
+endfunction
+function! FZF_hex_color_reducer(lines)
+	let ret=[]
+	for line in a:lines
+		let ret+=[split(line, ':')[2]]
+	endfor
+	return join(ret, " ")
+endfunction
+function! FZF_ansi_color()
+	call feedkeys("i\<Plug>(fzf#ansi_color)", '')
+	return ''
+endfunction
+function! FZF_ansi_color_256()
+	call feedkeys("i\<Plug>(fzf#ansi_color_256)", '')
+	return ''
+endfunction
+function! FZF_hex_color_256()
+	call feedkeys("i\<Plug>(fzf#hex_color_256)", '')
+	return ''
+endfunction
+function! FZF_hex_color()
+	call feedkeys("i\<Plug>(fzf#hex_color)", '')
+	return ''
+endfunction
+function! fzf#ansi_color()
+	return fzf#vim#complete({
+				\ 'source':  'cat ~/dotfiles/dict/color/ansi_color.txt',
+				\ 'reducer': function('FZF_ansi_color_reducer'),
+				\ 'options': '--ansi --multi --reverse '."--query=\"'\"",
+				\ 'up':    '50%'})
+endfunction
+function! fzf#ansi_color_256()
+	return fzf#vim#complete({
+				\ 'source':  'cat ~/dotfiles/dict/color/ansi_color_256.txt',
+				\ 'reducer': function('FZF_ansi_color_reducer'),
+				\ 'options': '--ansi --multi --reverse '."--query=\"'\"",
+				\ 'up':    '50%'})
+endfunction
+function! fzf#hex_color_256()
+	return fzf#vim#complete({
+				\ 'source':  'cat ~/dotfiles/dict/color/ansi_color_256.txt',
+				\ 'reducer': function('FZF_hex_color_reducer'),
+				\ 'options': '--ansi --multi --reverse '."--query=\"'\"",
+				\ 'up':    '50%'})
+endfunction
+function! fzf#hex_color()
+	return fzf#vim#complete({
+				\ 'source':  'cat ~/dotfiles/dict/color/color_full.txt',
+				\ 'reducer': function('FZF_hex_color_reducer'),
+				\ 'options': '--ansi --multi --reverse '."--query=\"'\"",
+				\ 'up':    '50%'})
+endfunction
+
+" NOTE: call function of inoremap expr
+inoremap <silent><expr> <Plug>(fzf#ansi_color) fzf#ansi_color()
+inoremap <silent><expr> <Plug>(fzf#ansi_color_256) fzf#ansi_color_256()
+inoremap <silent><expr> <Plug>(fzf#hex_color_256) fzf#hex_color_256()
+inoremap <silent><expr> <Plug>(fzf#hex_color) fzf#hex_color()
+command FZFAnsiColorHeader :call FZF_ansi_color()
+
 " NOTE: for :FZFxxx
 " NOTE: type ff and xxx and tab
 cnoremap ff fzf

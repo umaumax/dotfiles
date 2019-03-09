@@ -1,0 +1,34 @@
+[0mdefault                           :$'\e[0m':[0m
+[04munder_bar                         :$'\e[04m':[0m
+[30mblack                             :$'\e[30m':[0m
+[31mred                               :$'\e[31m':[0m
+[32mgreen                             :$'\e[32m':[0m
+[33myellow                            :$'\e[33m':[0m
+[34mblue                              :$'\e[34m':[0m
+[35mpurple,magenta                    :$'\e[35m':[0m
+[36mlight_blue                        :$'\e[36m':[0m
+[37mwhite                             :$'\e[37m':[0m
+[40mblack (background)                :$'\e[40m':[0m
+[41mred (background)                  :$'\e[41m':[0m
+[42mgreen (background)                :$'\e[42m':[0m
+[43myellow (background)               :$'\e[43m':[0m
+[44mblue (background)                 :$'\e[44m':[0m
+[45mpurple,magenta (background)       :$'\e[45m':[0m
+[46mblue (background)                 :$'\e[46m':[0m
+[47mwhite (background)                :$'\e[47m':[0m
+[90mblack,gray,grey (light)           :$'\e[90m':[0m
+[91mred (light)                       :$'\e[91m':[0m
+[92mgreen (light)                     :$'\e[92m':[0m
+[93myellow (light)                    :$'\e[93m':[0m
+[94mblue (light)                      :$'\e[94m':[0m
+[95mpurple,magenta (light)            :$'\e[95m':[0m
+[96mblue (light)                      :$'\e[96m':[0m
+[97mwhite (light)                     :$'\e[97m':[0m
+[100mblack,gray,grey (light background):$'\e[100m':[0m
+[101mred (light background)            :$'\e[101m':[0m
+[102mgreen (light background)          :$'\e[102m':[0m
+[103myellow (light background)         :$'\e[103m':[0m
+[104mblue (light background)           :$'\e[104m':[0m
+[105mpurple,magenta (light background) :$'\e[105m':[0m
+[106mblue (light background)           :$'\e[106m':[0m
+[107mwhite (light background)          :$'\e[107m':[0m
