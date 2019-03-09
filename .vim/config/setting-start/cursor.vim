@@ -24,7 +24,11 @@ function! Set_cursor_position(direction)
 endfunction
 augroup cursor_position_register_group
   autocmd!
-  autocmd InsertEnter,CmdlineEnter,TextYankPost * call <SID>cursor_position_register()
+  if has('nvim') || v:version >= 801
+    autocmd InsertEnter,CmdlineEnter,TextYankPost * call <SID>cursor_position_register()
+  else
+    autocmd InsertEnter,CmdlineEnter * call <SID>cursor_position_register()
+  endif
 augroup END
 
 " NOTE: change listを利用する形式では，保存時のカーソル位置も登録してしまい，現在のファイル行数がそれ未満になったときに
