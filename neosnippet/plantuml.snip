@@ -1,0 +1,76 @@
+snippet sd_actor
+alias actor
+	actor ${0}
+
+snippet sd_object
+alias participant,sd_participant
+	participant "${1:#:show name}" as ${0:#:var name}
+
+snippet sd_box
+alias box
+	box "${1:#:name}" ${2:#d4e1f5}
+	  ${0}
+	end box
+
+snippet sd_loop
+alias loop
+	loop ${1:#:condition}
+	  ${0}
+	end
+
+snippet sd_message
+alias sd_send,sd_call
+abbr sync message
+	${1} -> ${2}: ${0:#:description}
+snippet sd_reply
+alias reply
+	${1} <-- ${2}: ${0:#:description}
+snippet sd_message_async
+alias sd_send_async,sd_call_async
+abbr async message
+	${1} ->> ${2}: ${0:#:description}
+snippet sd_self_message
+	${1} -> ${1}: ${0:#:description}
+
+snippet sd_lifeline_start
+alias activate,sd_activate
+	activate ${0:#:object name}
+snippet sd_lifeline_end
+alias deactivate,sd_deactivate
+	deactivate ${0:#:object name}
+
+snippet sd_branch
+alias if,sd_if,opt,sd_opt
+abbr no else
+	opt ${0:#:condition}
+	end
+snippet sd_branch_with_else
+alias if_else,sd_if_else,alt_else,sd_alt_else
+	alt ${1:#:condition}
+	else ${0:#:condition}
+	end
+
+snippet sd_memo
+alias note,sd_note
+	note ${1:#:right or left or over}: ${0}
+snippet sd_memo_multi
+alias note_multi,sd_note_multi
+	note ${1:#:right or left or over}
+	  ${0}
+	end note
+
+snippet sd_init
+	@startuml
+	skinparam backgroundColor #EEEBDC
+	title '${0}'
+
+	participant "hoge" as Hoge
+	participant "piyo" as Piyo
+
+	activate Hoge
+	Hoge -> Piyo: call
+	activate Piyo
+	Hoge <-- Piyo: ret
+	deactivate Piyo
+	deactivate Hoge
+	@enduml

@@ -564,3 +564,5 @@ Plug 'Shougo/vimfiler.vim', {'on': ['VimFiler']}
 
 " NOTE: vim plugin to dim inactive windows (highlight active window background)
 LazyPlug 'blueyed/vim-diminactive'
+
+Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
