@@ -354,6 +354,8 @@ alias desktop='cd ~/Desktop/'
 [[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* [n]vim"'
 [[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
 
+[[ -d ~/.vscode/extensions/ ]] && alias vscode-extensions='cd ~/.vscode/extensions/'
+
 cmdcheck tig && alias t='tig'
 
 alias vp='cdvproot'
@@ -467,7 +469,6 @@ if [[ $(uname) == "Darwin" ]]; then
 	alias strace='sudo dtruss -f sudo -u $(id -u -n)'
 
 	# FYI: [macos \- Command\-line alias for Visual Studio Code on OS X with CSH? \- Stack Overflow]( https://stackoverflow.com/questions/31178895/command-line-alias-for-visual-studio-code-on-os-x-with-csh )
-	alias vs='vscode'
 	function vscode() {
 		VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
 	}
@@ -546,7 +547,10 @@ if [[ $(uname) == "Linux" ]]; then
 			command baobab "$@"
 		}
 	fi
+	alias vscode='code'
 fi
+alias vs='vscode'
+
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
 # macのみsudo対応
 function pipe-EOF-do() {
