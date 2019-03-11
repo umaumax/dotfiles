@@ -196,6 +196,11 @@ sudo apt-get install -y pax-utils
 
 sudo apt-get install -y parallel
 
+# svg to pdf
+sudo apt-get install -y librsvg2-bin
+
+sudo apt-get install -y plantuml
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
