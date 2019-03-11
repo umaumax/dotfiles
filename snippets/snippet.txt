@@ -44,6 +44,8 @@
 [ubuntu gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 [ubuntu mdfind] locate # updatedb
 
+[lsusb tree] lsusb -t
+
 # tar
 # [tar 解凍(extract)  .tar.gz] tar zxvf @ -C .
 [tar 解凍(extract)  .tar.?   ] tar  xvf @ -C .
@@ -245,7 +247,7 @@
 [ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
 [ol compact space] sed -e 's/\s\+/ /g'
 [ol line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
-[ol join n-block line] awk -v n=@ -v delim=":" 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\n";}'
+[ol join n-block line] awk -v n=@ -v delim=":" 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\\n";}'
 [ol sed template :] sed -e 's:@::g'
 [ol sed template /] sed -e 's/@//g'
 [ol join line with char] awk '{printf "%s\\\\n", $0}'
@@ -266,6 +268,10 @@
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+@[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 [ol random text] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
+
+[shuffle line] shuf
+
+[ls sort version(number)] ls -v
 
 [number of CPU] nproc --all # linux only
 
@@ -339,8 +345,9 @@
 [ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user@127.0.0.1 -p 10022)
 [ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
 [ssh print configuration] ssh -G $HOST
-[sshfs] sshfs @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
-[sshfs read only] sshfs -o ro @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshfs mount] sshfs @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshfs mount read only] sshfs -o ro @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshuttle vpn] sshuttle -r @ # 192.168.0.1/24
 
 [scp dir] command tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [rsync        ] rsync -auvzh $SRC_DIR/ @ # set dst with dirname
@@ -1060,7 +1067,9 @@
 # image
 # FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
 [image convert raw to png] find . -name "*@.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
-[image convert raw to png] find . -name "*@.raw" | parallel -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert raw to png] find . -name "*@.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+
+[parallel] parallel --no-notice @
 
 # cmds
 [pup: Parsing HTML at the command line] pup
@@ -1090,3 +1099,13 @@
 [icon icns(mac) extract] iconutil --convert iconset @
 [icon icns(mac) compress] iconutil --convert icns @
 [icon ico(windows)] convert @.png -define icon:auto-resize icon.ico
+
+[svg to pdf] rsvg-convert -f pdf -o test.pdf test.svg
+
+[plantuml png] plantuml test.uml # test.png
+[plantuml svg] plantuml -tsvg test.uml
+[plantuml atxt] plantuml -ttxt test.uml # test.atxt
+[plantuml utxt] plantuml -utxt test.uml # test.utxt
+[plantuml pdf] plantuml -tpdf test.uml
+[plantuml pdf] plantuml -tpdf test.uml && rsvg-convert -f pdf -o test.pdf test.svg
+[plantuml html] plantuml -thtml test.uml
