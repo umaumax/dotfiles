@@ -290,3 +290,9 @@ snippet PIC
 alias fPIC
 abbr -fPIC
   set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)${0}
+
+snippet add_test
+  add_test(
+    NAME ${1:#:test_name}
+    COMMAND ${0:\${CMAKE_CURRENT_SOURCE_DIR\}/test.sh}
+  )
