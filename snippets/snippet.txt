@@ -414,6 +414,9 @@
 [curl sh with arg] curl @ | sh -s -- # args
 [curl bash with arg] curl @ | bash -s -- # args
 
+# FYI: [ちょっとだけ便利なワンライナー集 \| bacchi\.me]( https://bacchi.me/linux/bash-oneliner/ )
+[ssl check date] : | openssl s_client -connect @:443 2>/dev/null | openssl x509 -dates -noout
+
 # dmesg
 [dmesg with human readable time] dmesg -T @
 
@@ -505,6 +508,9 @@
 [lsof port to process] sudo lsof -i:@
 [lsof port to PID] lsof -i :8080 | awk '{l=$2} END {print l}'
 [lsof listening ports] lsof -Pan -i tcp -i udp
+[lsof port to process (kill)] sudo kill $(sudo lsof -t -i:@)
+[lsof process name to ports] lsof -Pan -i tcp -i udp -c @ | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
+[lsof process name to ports] pgrep @ | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 
 # proxy
 [proxy npm] sudo -E npm install -g @
