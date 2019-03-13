@@ -858,3 +858,10 @@ function hex_color_256_peco() {
 function hex_color_full_peco() {
 	cat ~/dotfiles/dict/color/color_full.txt | fzf | cut -d':' -f3
 }
+function pecodiff() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
+	local filepath="$1"
+	local diff_cmd='diff'
+	type >/dev/null 2>&1 icdiff && diff_cmd='icdiff -U 1 --line-numbers --cols='$(tput cols)
+	fzf --multi --ansi --reverse --preview "$diff_cmd '$filepath' {}" --preview-window 'down:80%'
+}
