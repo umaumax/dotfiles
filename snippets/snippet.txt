@@ -690,7 +690,7 @@
 
 # user
 [add new user] NEW_USER=@ && sudo adduser $NEW_USER
-[add new sudo user] NEW_USER=@ && sudo adduser $NEW_USER && gpasswd -a $NEW_USER sudo
+[add new sudo user] NEW_USER=@ && sudo adduser $NEW_USER && sudo gpasswd -a $NEW_USER sudo
 [add group to user usermod] sudo usermod -aG $GROUP@ $USER
 [add group to user gpasswd] sudo gpasswd -a $USER $GROUP@
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP@
