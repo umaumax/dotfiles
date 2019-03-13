@@ -549,7 +549,7 @@ if [[ $(uname) == "Linux" ]]; then
 	fi
 	alias vscode='code'
 fi
-alias vs='vscode'
+alias vs='code'
 
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
 # macのみsudo対応
