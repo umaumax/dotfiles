@@ -858,6 +858,17 @@ function hex_color_256_peco() {
 function hex_color_full_peco() {
 	cat ~/dotfiles/dict/color/color_full.txt | fzf | cut -d':' -f3
 }
+
+function vim-backup-peco() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
+	local filepath="$1"
+	local absfilepath="$(abspath_raw "$filepath")"
+	local filename="$(basename "$filepath")"
+	local dirpath="$(dirname "$absfilepath")"
+	local vim_backup_tmpdir="$HOME/.vim/tmp/"
+	find "$vim_backup_tmpdir/$dirpath" -name "[0-9][0-9][0-9][0-9].${filename}" -maxdepth 1 | sort -r | pecodiff "$filepath" | xargs-vim
+}
+
 function pecodiff() {
 	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
 	local filepath="$1"
