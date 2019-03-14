@@ -185,6 +185,8 @@ alias gdhhhhhcw='gdhhhhhc --word-diff'
 alias gdhhhhhhcw='gdhhhhhhc --word-diff'
 alias gdhhhhhhhcw='gdhhhhhhhc --word-diff'
 
+alias gdst='git diff --staged'
+
 alias ga='git add --all'
 alias gc='git commit'
 alias gadd='git add'
@@ -654,4 +656,11 @@ function git-backup() {
 	is_git_repo_with_message || return
 	local backup_branch_name="$(git rev-parse --abbrev-ref HEAD)_$(date +'%Y%m%d')"
 	git checkout -b "$backup_branch_name" && git checkout - && echo "${GREEN}[CREATED]${DEFAULT} $backup_branch_name backup branch"
+}
+
+alias git-checkout-stash='git-stash-checkout'
+function git-stash-checkout() {
+	is_git_repo_with_message || return
+	[[ $# -lt 1 ]] && echo "$(basename "$0") commit id or branch name and so on" && return 1
+	git stash && git checkout "$@"
 }
