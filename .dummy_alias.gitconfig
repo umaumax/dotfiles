@@ -49,6 +49,8 @@
 	info  = :
 	is-my-repo  = :
 	is-own-repo = :
+	log-diff  = :
+	log-diff-current  = :
 	log-example-add-repo  = :
 	log-example-init  = :
 	log-example-peco  = :
