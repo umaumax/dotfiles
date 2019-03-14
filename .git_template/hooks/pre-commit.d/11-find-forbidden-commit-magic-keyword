@@ -18,15 +18,21 @@ cmdcheck() { type >/dev/null 2>&1 "$@"; }
 cmdcheck 'ggrep' && grep='ggrep'
 
 files=($(echo $changed | xargs -L 1 -IXXX find XXX -type f -size -1M -maxdepth 1))
-exit_code=1
+stop_flag=0
 if [[ ${#files[@]} -ge 1 ]]; then
   # NOTE: add 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' at last of line
-  echo "${files[@]}" | xargs $grep -E 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' -C 1 -H -n --color=always
-  exit_code=$?
+  # NOTE: whole diff files
+  # if echo "${files[@]}" | xargs $grep -E 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' -C 1 -H -n --color=always; then
+  #   stop_flag=1
+  # fi
+  # NOTE: only diff
+  output=$(echo "${files[@]}" | xargs git diff --cached -G 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' --color)
+  printf '%s' "$output"
+  [[ -n $output ]] && stop_flag=1
 fi
 
 ## If the egrep command has any hits - echo a warning and exit with non-zero status.
-if [[ $exit_code == 0 ]]; then
+if [[ $stop_flag != 0 ]]; then
   echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
   echo -e "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
   echo -e "${YELLOW}git commit --no-verify${DEFAULT}"
