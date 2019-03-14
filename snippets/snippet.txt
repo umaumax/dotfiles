@@ -174,6 +174,8 @@
 [git only one commit log] COMMIT_ID=@ && git log $COMMIT_ID...$COMMIT_ID~
 [git diff from current branch] git diff $BRANCH@ $REL_FILEPATH
 [git diff between branches] git diff $OLD_BRANCH:$REL_FILEPATH $NEW_BRANCH:$REL_FILEPATH
+[git diff grep] git diff -G @
+[git diff staged] git diff --staged
 
 [git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH@ # you can use dir path
 
