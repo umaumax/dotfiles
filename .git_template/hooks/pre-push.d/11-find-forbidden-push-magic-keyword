@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+
+RED="\033[0;31m"
+DEFAULT="\033[0m"
+
+IFS=' ' read local_ref local_sha remote_ref remote_sha
+
+output=$(git diff "$remote_sha..$local_sha" -G 'FORBIDDEN_PUSH_MAGIC_KEYWORD$' --color)
+printf '%s' "$output"
+
+if [[ -n $output ]]; then
+  echo git diff "$remote_sha..$local_sha" -G 'FORBIDDEN_PUSH_MAGIC_KEYWORD$' --color
+  echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_PUSH_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
+  echo -e "${RED}If you want to skip pre-push hook, use below command.${DEFAULT}"
+  echo -e "${YELLOW}!! --no-verify${DEFAULT}"
+  exit 1
+fi
