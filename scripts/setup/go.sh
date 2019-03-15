@@ -25,6 +25,9 @@ go get -u github.com/mrtazz/checkmake
 # for markdown linting
 go get -u github.com/errata-ai/vale
 
+# NOTE: binary editor
+go get -u github.com/itchyny/bed/cmd/bed
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms
