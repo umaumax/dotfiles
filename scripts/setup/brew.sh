@@ -83,6 +83,9 @@ brew install lolcat
 
 brew install parallel
 
+# for dump struct
+brew install kaitai-struct-compiler
+
 # brew tap
 # WIP
 
