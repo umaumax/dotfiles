@@ -11,18 +11,22 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		[[ ! -e $zshdir/zsh-completions ]] && git clone https://github.com/zsh-users/zsh-completions $zshdir/zsh-completions
 		fpath=($zshdir/zsh-completions/src $fpath)
 
-		[[ ! -e $zshdir/zsh-autosuggestions ]] && git clone https://github.com/zsh-users/zsh-autosuggestions $zshdir/zsh-autosuggestions
-		source $zshdir/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-		[[ ! -e $zshdir/zsh-history-substring-search ]] && git clone https://github.com/zsh-users/zsh-history-substring-search $zshdir/zsh-history-substring-search
-		source $zshdir/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-		[[ ! -e $zshdir/zsh-abbrev-alias ]] && git clone https://github.com/umaumax/zsh-abbrev-alias $zshdir/zsh-abbrev-alias
-		source $zshdir/zsh-abbrev-alias/abbrev-alias.plugin.zsh
+		function enable_zsh_plugin() {
+			local giturl="$1"
+			local reponame="$(basename "$giturl")"
+			local source_target="$2"
+			[[ ! -e "$zshdir/$reponame" ]] && git clone "$giturl" "$zshdir/$reponame"
+			source "$zshdir/$reponame/$source_target"
+		}
+		enable_zsh_plugin "https://github.com/zsh-users/zsh-autosuggestions" "zsh-autosuggestions.zsh"
+		enable_zsh_plugin "https://github.com/zsh-users/zsh-history-substring-search" "zsh-history-substring-search.zsh"
+		enable_zsh_plugin "https://github.com/umaumax/zsh-abbrev-alias" "abbrev-alias.plugin.zsh"
 
 		# NOTE: this plugin includes zsh-syntax-highlighting
-		[[ ! -e $zshdir/zsh-syntax-highlighting-filetypes ]] && git clone https://github.com/trapd00r/zsh-syntax-highlighting-filetypes $zshdir/zsh-syntax-highlighting-filetypes
-		source $zshdir/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+		# NOTE: below plugin maybe has bug? (manly at ubuntu?)
+		# enable_zsh_plugin "https://github.com/trapd00r/zsh-syntax-highlighting-filetypes" "zsh-syntax-highlighting-filetypes.zsh"
+		enable_zsh_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "zsh-syntax-highlighting.zsh"
+
 		# NOTE: 補完の候補の灰色が見えにくくなるため，修正
 		# FYI: [zsh\-syntax\-highlighting/main\-highlighter\.zsh at 1e34c4aa0bcbdde5173aab15600784edf0a212fd · zsh\-users/zsh\-syntax\-highlighting]( https://github.com/zsh-users/zsh-syntax-highlighting/blob/1e34c4aa0bcbdde5173aab15600784edf0a212fd/highlighters/main/main-highlighter.zsh#L31 )
 		# FYI: [zsh\-syntax\-highlighting/main\.md at db6cac391bee957c20ff3175b2f03c4817253e60 · zsh\-users/zsh\-syntax\-highlighting]( https://github.com/zsh-users/zsh-syntax-highlighting/blob/db6cac391bee957c20ff3175b2f03c4817253e60/docs/highlighters/main.md )
@@ -53,13 +57,10 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		# $() command-substitution?
 
 		# NOTE: original version
-		[[ ! -e $zshdir/zce.zsh ]] && git clone https://github.com/hchbaw/zce.zsh $zshdir/zce.zsh
-		source $zshdir/zce.zsh/zce.zsh
+		enable_zsh_plugin "https://github.com/hchbaw/zce.zsh" "zce.zsh"
 		# NOTE: extended version
-		[[ ! -e $zshdir/zsh-easy-motion ]] && git clone https://github.com/IngoHeimbach/zsh-easy-motion $zshdir/zsh-easy-motion
-		source $zshdir/zsh-easy-motion/easy_motion.plugin.zsh
+		enable_zsh_plugin "https://github.com/IngoHeimbach/zsh-easy-motion" "easy_motion.plugin.zsh"
 
-		[[ ! -e $zshdir/easy-oneliner ]] && git clone https://github.com/umaumax/easy-oneliner $zshdir/easy-oneliner
 		# NOTE: set variable before source
 		EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
 		EASY_ONE_KEYBIND='^x^x' # default "^x^x"
@@ -69,7 +70,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
 		# NOTE: for fzf
 		EASY_ONE_FILTER_COMMAND="fzf"
 		EASY_ONE_FILTER_OPTS="--no-mouse --ansi --reverse --height 50% --query='"
-		source $zshdir/easy-oneliner/easy-oneliner.zsh
+		enable_zsh_plugin "https://github.com/umaumax/easy-oneliner" "easy-oneliner.zsh"
 
 		# [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
 		[[ ! -e $zshdir/cd-bookmark ]] && git clone https://github.com/mollifier/cd-bookmark.git $zshdir/cd-bookmark
