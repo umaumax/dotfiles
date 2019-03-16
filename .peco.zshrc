@@ -155,8 +155,11 @@ alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && prin
 alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
-# [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
-alias rvim="viminfo-ls | ranking_color_cat | pecovim"
+# FYI: [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
+function rvim() {
+	local n=${1:-}
+	VIMINFO_LS_N="$n" viminfo-ls | ranking_color_cat | pecovim
+}
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
 alias rcvim='rdvim'
@@ -170,10 +173,12 @@ function rdvim() {
 # 最終的に'./'を加えても動作は変更されない
 # NOTE: echo ${~$(echo '~')} means expand '~' at zsh
 function rvcd() {
-	cd "$(viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g' | sed 's:^~:'$HOME':')./"
+	local n=${1:-}
+	cd "$(VIMINFO_LS_N="$n" viminfo-ls | ranking_color_cat | peco | sed 's:/[^/]*$::g' | sed 's:$:/:g' | sed 's:^~:'$HOME':')./"
 }
 function rcd() {
-	cd "$(cdinfo | ranking_color_cat | peco | sed 's:$:/:g')./"
+	local n=${1:-}
+	cd "$(CDINFO_N="$n" cdinfo | ranking_color_cat | peco | sed 's:$:/:g')./"
 }
 alias lcdpeco='ls | cdpeco'
 function cdpeco() {

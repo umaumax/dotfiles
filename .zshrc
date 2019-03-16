@@ -631,7 +631,17 @@ alias view='vim -R'
 alias pipevim='vim -'
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
-alias viminfo-ls="cat ~/.vim_edit_log | grep -v '^$' | awk '!a[\$0]++' | tac"
+# NOTE: VIMINFO_LS_N: number of max hit
+function viminfo-ls() {
+	command cat ~/.vim_edit_log | grep -v '^$' | awk '!a[$0]++' |
+		{
+			if [[ -z $VIMINFO_LS_N ]]; then
+				cat
+			else
+				head -n "$VIMINFO_LS_N"
+			fi
+		} | tac
+}
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
 function clean-vim-undofile() {
@@ -1291,7 +1301,16 @@ function ls_abbrev() {
 	fi
 }
 
-alias cdinfo="tac ~/.cdinfo | awk '!a[\$0]++'"
+function cdinfo() {
+	tac ~/.cdinfo | awk '!a[$0]++' |
+		{
+			if [[ -z $CDINFO_N ]]; then
+				cat
+			else
+				head -n "$CDINFO_N"
+			fi
+		}
+}
 alias cdinfo-clean='clean-cdinfo'
 cmdcheck tac && function clean-cdinfo() {
 	local tmpfile=$(mktemp)
