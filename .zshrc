@@ -2366,6 +2366,16 @@ function icon_gen() {
 	[[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
 }
 
+function splitbat() {
+	! type >/dev/null 2>&1 "bat" && echo 1>&2 "install bat" && return 1
+	! type >/dev/null 2>&1 "splitcat" && echo 1>&2 "install splitcat" && return 1
+	! type >/dev/null 2>&1 "terminal-truncate" && echo 1>&2 "install terminal-truncate" && return 1
+	[[ $# -lt 2 ]] && echo "$(basename "$0") [filepath] [filepath]" && return 1
+	local filepath_1="$1"
+	local filepath_2="$2"
+	splitcat <(bat "$filepath_1" -p --color=always) <(bat "$filepath_2" -p --color=always)
+}
+
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
 # bindkey -e
