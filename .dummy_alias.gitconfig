@@ -13,6 +13,8 @@
 	check-up-to-date  = :
 	checkout-branch-peco  = :
 	checkout-commit-peco  = :
+	checkout-root  = :
+	checkout-stash = :
 	checkout-tag-peco  = :
 	cherry-pick-peco  = :
 	cherry-pick-peco-range  = :
@@ -63,6 +65,7 @@
 	pull-all  = :
 	ranking  = :
 	rebase-peco  = :
+	rebase-root-commit-from-master  = :
 	reflog-commit-id  = :
 	reload-global-hooks  = :
 	reload-local-hooks  = :
@@ -78,9 +81,15 @@
 	search-open  = :
 	sed-gen-name  = :
 	sed-rename-cpp-field  = :
+	show-root-commit-from-master  = :
 	show-stashes  = :
+	stash-checkout  = :
+	stash-checkout-branch-peco  = :
+	stash-checkout-commit-peco  = :
+	stash-checkout-tag-peco  = :
 	stash-clear-interactive  = :
 	stash-dropped  = :
+	stash-rebase-peco  = :
 	stash-recover  = :
 	submodule-move  = :
 	submodule-remove = :
