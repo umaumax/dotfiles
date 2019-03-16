@@ -881,3 +881,12 @@ function pecodiff() {
 	type >/dev/null 2>&1 icdiff && diff_cmd='icdiff -U 1 --line-numbers --cols='$(tput cols)
 	fzf --multi --ansi --reverse --preview "$diff_cmd '$filepath' {}" --preview-window 'down:80%'
 }
+
+function git-file-log-cat() {
+	! type >/dev/null 2>&1 bat && echo 1>&2 "install bat" && return 1
+	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
+	local filepath="$1"
+	local ext=${filepath##*.}
+	# git log --color=always --oneline "$filepath" | fzf --multi --ansi --reverse --preview "git cat-file -p \$(echo {} | cut -c-7):'$filepath' | bat --color=always -l '$ext'" --preview-window 'down:80%'
+	git log --color=always --oneline "$filepath" | fzf --multi --ansi --reverse --preview "splitcat <(git diff --color=always HEAD \$(echo {} | cut -c-7) '$filepath') <(git cat-file -p \$(echo {} | cut -c-7):'$filepath' | bat -p --color=always -l '$ext')" --preview-window 'down:80%'
+}
