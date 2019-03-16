@@ -664,3 +664,35 @@ function git-stash-checkout() {
 	[[ $# -lt 1 ]] && echo "$(basename "$0") commit id or branch name and so on" && return 1
 	git stash && git checkout "$@"
 }
+
+function git-stash-checkout-commit-peco() {
+	is_git_repo_with_message || return
+	git stash && git-checkout-commit-peco
+}
+function git-stash-checkout-branch-peco() {
+	is_git_repo_with_message || return
+	git stash && git-checkout-branch-peco
+}
+function git-stash-checkout-tag-peco() {
+	is_git_repo_with_message || return
+	git stash && git-checkout-tag-peco
+}
+function git-stash-rebase-peco() {
+	is_git_repo_with_message || return
+	git stash && git-rebase-peco
+}
+
+# 現在のbranchの分岐元のcommitを表示
+function git-show-root-commit-from-master() {
+	is_git_repo_with_message || return
+	git show-branch --sha1-name master HEAD | tail -n 1 | grep -o '[0-9a-z]\+' | head -n 1
+}
+function git-rebase-root-commit-from-master() {
+	is_git_repo_with_message || return
+	local commit="$(git-show-root-commit-from-master)"
+	git rebase -i "$commit^"
+}
+function git-checkout-root() {
+	is_git_repo_with_message || return
+	git checkout $(git rev-parse --show-toplevel)
+}
