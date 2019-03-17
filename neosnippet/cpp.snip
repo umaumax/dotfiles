@@ -1036,3 +1036,16 @@ snippet template_is_same
 	void foo(T t) {
 	  std::cout << "not $1" << std::endl;
 	}${0}
+
+# FYI: [スコープを持つ列挙型 \- cpprefjp C\+\+日本語リファレンス]( https://cpprefjp.github.io/lang/cpp11/scoped_enum.html )
+# FYI: [Google C\+\+ Style Guide]( https://google.github.io/styleguide/cppguide.html#Enumerator_Names )
+# kEnumName or ENUM_NAME
+snippet enum_decl
+	enum class ${1:#:enum class name} : ${2:int} {
+	 ${3:#:kEnumName} = 0,
+	 ${4:#:ENUM_NAME},
+	};
+	static_cast<$2>($1::$3)${0}
+
+snippet enum_cast
+	static_cast<${1:#:type}>(${2:#:enum class name}::${0:#:type})
