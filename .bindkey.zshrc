@@ -141,6 +141,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 		# NOTE: choose one from below
 		# LBUFFER+=' '
 		zle __abbrev_alias::magic_abbrev_expand
+		_zle_refresh_cmd_color
 	}
 	bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
 
