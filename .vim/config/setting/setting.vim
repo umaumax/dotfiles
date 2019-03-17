@@ -100,18 +100,34 @@ endif
 set smartindent
 command! -nargs=1 SetTab call s:set_tab(<f-args>)
 " NOTE: force set tab function
+function! s:set_global_tab(n)
+	setlocal expandtab
+	execute "set tabstop="    .a:n
+	execute "set shiftwidth=" .a:n
+	execute "set softtabstop=".a:n
+endfunction
 function! s:set_tab(n)
 	setlocal expandtab
 	execute "setlocal tabstop="    .a:n
 	execute "setlocal shiftwidth=" .a:n
 	execute "setlocal softtabstop=".a:n
 endfunction
+function! s:Sleuth_wrapper(n)
+	call s:set_tab(2)
+	if &rtp =~ 'tpope/vim-sleuth'
+		Sleuth
+	endif
+	" NOTE: 無理やりtabの修正
+	if &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
+		call s:set_tab(2)
+	endif
+endfunction
 " default tab setting
-call s:set_tab(2)
+call s:set_global_tab(2)
 " FYI: [autocmd FileType \*]( https://github.com/tpope/vim-sleuth/blob/master/plugin/sleuth.vim#L196 )
 augroup tab_setting
 	autocmd!
-	autocmd FileType * call s:set_tab(2)
+	autocmd FileType * call s:Sleuth_wrapper(2)
 	autocmd FileType python call s:set_tab(4)
 augroup END
 

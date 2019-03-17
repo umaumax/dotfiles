@@ -58,7 +58,8 @@ Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 Plug 'tpope/vim-sleuth'
 let g:sleuth_neighbor_limit=0
-" let g:sleuth_automatic=0
+" NOTE: 別の箇所で明示的に呼び出し
+let g:sleuth_automatic=0
 " Plug 'ciaranm/detectindent'
 
 " NOTE: 必要とあらば試してみる
