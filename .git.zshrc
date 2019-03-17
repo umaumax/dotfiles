@@ -540,17 +540,24 @@ alias vim_repo_local_gitignore='vim $(git rev-parse --show-toplevel)/.git/info/e
 
 function git-show-stashes() {
 	is_git_repo_with_message || return
+	local stash_no
 	for stash in "$@"; do
-		[[ $stash =~ ^[0-9]+$ ]] && stash='stash@{'$stash'}'
-		echo $stash
+		stash_no=${stash#stash@\{}
+		stash_no=${stash_no%\}}
+		stash_no=$((GIT_STASH_BASE + stash_no))
+		[[ $stash_no =~ ^[0-9]+$ ]] && stash='stash@{'$stash_no'}'
+		echo 1>&2 "${YELLOW}[LOG]${DEFAULT} ${GREEN}git stash show -p $stash${DEFAULT}"
+		echo 1>&2 "# $stash"
 		git stash show -p $stash
 	done
 }
+# NOTE: merge conflictした場合には一部の情報が失われるので危険
 function git-apply-stashes() {
 	is_git_repo_with_message || return
-	[[ $# -lt 0 ]] && echo "$(basename $0) stashes" && return 1
+	[[ $# -lt 1 ]] && echo "$(basename $0) stashes" && return 1
 	git-show-stashes "$@" | git apply -3
 }
+alias git-force-stash-apply='git-stash-apply-force'
 
 alias git-submodule-remove='git-remove-submodule'
 function git-remove-submodule() {
