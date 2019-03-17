@@ -2271,6 +2271,7 @@ function cmd_fuzzy_error_check() {
 	fi
 }
 
+alias signalman='man-signal'
 function man-signal() {
 	command cat <<EOF
      No    Name         Default Action       Description
