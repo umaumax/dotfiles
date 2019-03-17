@@ -2366,6 +2366,12 @@ function icon_gen() {
 	[[ -d "$tmpdir" ]] && rm -rf "$tmpdir"
 }
 
+function is_binary() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
+	local filepath="$1"
+	file --mime "$filepath" | grep -q "charset=binary"
+}
+
 function splitbat() {
 	! type >/dev/null 2>&1 "bat" && echo 1>&2 "install bat" && return 1
 	! type >/dev/null 2>&1 "splitcat" && echo 1>&2 "install splitcat" && return 1
