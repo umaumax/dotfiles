@@ -10,19 +10,19 @@ snippet read
 	IFS= read -r ${1:#:var}${0}
 
 snippet ismac
-	[[ $(uname) == "Darwin" ]]${0}
+	[[ $(uname) == "Darwin" ]] && ${0}
 snippet islinux
-	[[ $(uname) == "Linux" ]]${0}
+	[[ $(uname) == "Linux" ]] && ${0}
 snippet isubuntu
-	[[ "$(uname -a)" =~ Ubuntu ]]${0}
+	[[ "$(uname -a)" =~ Ubuntu ]] && ${0}
 snippet iswindows
-	[[ "$OS" =~ Windows ]]${0}
+	[[ "$OS" =~ Windows ]] && ${0}
 snippet isdocker
-	[[ -f /.dockerenv ]]${0}
+	[[ -f /.dockerenv ]] && ${0}
 snippet istmux
-	[[ -n "$TMUX" ]]${0}
+	[[ -n "$TMUX" ]] && ${0}
 snippet isgit
-	git rev-parse --is-inside-work-tree >/dev/null 2>&1${0}
+	git rev-parse --is-inside-work-tree >/dev/null 2>&1 ${0}
 snippet ismac_if
 	if [[ $(uname) == "Darwin" ]]; then
 		${0}
@@ -63,10 +63,10 @@ snippet iszsh_if
 		${0}
 	fi
 snippet iszsh
-	[[ $ZSH_NAME == zsh ]] ${0}
+	[[ $ZSH_NAME == zsh ]] && ${0}
 
 snippet ispipe_out
-	[[ -p /dev/stdout ]] ${0}
+	[[ -p /dev/stdout ]] && ${0}
 snippet ispipe_out_if
 	if [[ -p /dev/stdout ]]; then
 		${0}
@@ -74,7 +74,7 @@ snippet ispipe_out_if
 
 	fi
 snippet ispipe_in
-	[[ -p /dev/stdin ]] ${0}
+	[[ -p /dev/stdin ]] && ${0}
 snippet ispipe_in_if
 	if [[ -p /dev/stdin ]]; then
 		${0}
@@ -83,17 +83,24 @@ snippet ispipe_in_if
 	fi
 
 snippet isfunction_bash
-	[[ $(type -t ${1}) == "function" ]] ${0}
+	[[ $(type -t ${1}) == "function" ]] && ${0}
 snippet isfunction_bash_if
 	if [[ $(type -t ${1}) == "function" ]]; then
 		${0}
 	fi
 
+snippet isfzfpreview_if
+	if [[ -n $FZF_PREVIEW_HEIGHT ]]; then
+		${0}
+	fi
+snippet isfzfpreview
+	[[ -n $FZF_PREVIEW_HEIGHT ]] && ${0}
+
 snippet trimspace
-	sed "s/^[ \t]*//"${0}
+	sed "s/^[ \t]*//" ${0}
 
 snippet devnull
-	>/dev/null 2>&1${0}
+	>/dev/null 2>&1 ${0}
 snippet stdout_to_err
 abbr stdout -> stderr
 	1>&2${0}
@@ -112,7 +119,8 @@ alias defvar
 
 snippet alias_enable
 abbr to enable alias at bash
-	shopt -s expand_aliases${0}
+	shopt -s expand_aliases
+	${0}
 
 snippet for_array
 alias array_for
@@ -619,7 +627,7 @@ snippet is_symbolic_link_if
 
 # FYI: [linux \- How do I test if a variable is a number in Bash? \- Stack Overflow]( https://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash )
 snippet is_number
-	[[ ${0} =~ ^[0-9]+$ ]]
+	[[ ${0} =~ ^[0-9]+$ ]] && 
 snippet is_number_if
 	if [[ ${1} =~ ^[0-9]+$ ]]; then
 		${0}
