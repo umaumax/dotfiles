@@ -44,10 +44,10 @@ do
     fi
 
     # Check for WIP commit
-    commit=`git rev-list -n 1 --grep '^WIP|\[WIP\]' "$range"`
+    commit=`git rev-list -n 1 --grep '^WIP\|\[WIP\]' "$range"`
     if [ -n "$commit" ]
     then
-      echo "Found ${PURPLE}WIP${DEFAULT} commit in $local_ref, not pushing"
+      echo "Found ${PURPLE}WIP${DEFAULT} commit '$commit' in $local_ref, not pushing"
       exit 1
     fi
   fi
