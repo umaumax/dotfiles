@@ -296,3 +296,12 @@ snippet add_test
 	  NAME ${1:#:test_name}
 	  COMMAND ${0:\${CMAKE_CURRENT_SOURCE_DIR\}/test.sh}
 	)
+
+# FYI: [c \- linking a shared library with statics using CMake \- Stack Overflow]( https://stackoverflow.com/questions/19141383/linking-a-shared-library-with-statics-using-cmake )
+snippet link_start_end_group
+abbr Wrap the static libraries in to the shared library
+	target_link_libraries(${PROJECT_NAME}
+	  -Wl,--start-group
+	  ${0}
+	  -Wl,--end-group
+	)
