@@ -356,14 +356,19 @@ snippet join_to_string
 	    return $2 + ${4:","} + std::to_string($3);
 	  })${0}
 
-snippet split
-	std::vector<std::string> ${1:tokens};
-	std::string::size_type ${2:spos} = 0, ${3:epos}, ${4:delimlen} = sizeof(${5:","}) - 1;
-	while (($3 = ${6:#:string}.find_first_of(",", $2)) != std::string::npos) {
-	  $1.emplace_back($6.substr($2, $3 - $2));
-	  $2 = $3 + $4;
+snippet split_function
+	#include <string>
+	#include <vector>
+	std::vector<std::string> Split(std::string text, std::string delim) {
+	  std::vector<std::string> vec;
+	  std::string::size_type spos = 0, epos, delimlen = delim.size();
+	  while ((epos = text.find_first_of(delim, spos)) != std::string::npos) {
+	    vec.emplace_back(text.substr(spos, epos - spos));
+	    spos = epos + delimlen;
+	  }
+	  vec.emplace_back(text.substr(spos));
+	  return vec;
 	}
-	$1.emplace_back($6.substr($2));
 	${0}
 
 snippet split_by_char
