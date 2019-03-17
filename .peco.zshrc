@@ -864,6 +864,7 @@ function hex_color_full_peco() {
 	cat ~/dotfiles/dict/color/color_full.txt | fzf | cut -d':' -f3
 }
 
+alias vimbackuppeco='vim-backup-peco'
 function vim-backup-peco() {
 	[[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
 	local filepath="$1"
