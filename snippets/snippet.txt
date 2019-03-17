@@ -119,7 +119,7 @@
 [git unstage all] git reset
 [git rename branch] git branch -m @
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
-[git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" # to move commit to stash or easy to amend...
+[git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset # to move commit to stash or easy to amend...
 [git commit without pre-hook] git commit --no-verify @
 [git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
@@ -187,6 +187,7 @@
 [git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
 [git pull rebase master] git pull --rebase origin master
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
+[git log with marge commit diff] git log -p -m
 [git relative modified files] git status -s | cut -c4-
 
 [git discard staged changes in working directory] git checkout -- . # dangerous
@@ -638,6 +639,7 @@
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
+[rostest run results] catkin_test_results
 
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
@@ -1119,3 +1121,8 @@
 [plantuml pdf] plantuml -tpdf test.uml
 [plantuml pdf] plantuml -tpdf test.uml && rsvg-convert -f pdf -o test.pdf test.svg
 [plantuml html] plantuml -thtml test.uml
+
+[binary editor] bed @ # go get -u github.com/itchyny/bed/cmd/bed
+[hexdump color] hexyl # cargo install hexyl
+
+[is binary file] { file --mime @ | grep -q "charset=binary"; }
