@@ -245,7 +245,7 @@ snippet tmpfile_with_trap
 alias trap_tmpfile
 abbr don't use trap in .xxxrc or .xxx_profile
 	tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
-	trap "[[ -e $tmpfile ]] && rm -f $tmpfile" 0 1 2 3 15
+	trap "signal=\$((\$? - 128)); [[ -e $tmpfile ]] && rm -f $tmpfile; exit \$signal" 0 1 2 3 15
 	${0}
 snippet tmpfile_in_function
 	local tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
@@ -258,7 +258,7 @@ snippet tmpdir_with_trap
 alias trap_tmpdir
 abbr don't use trap in .xxxrc or .xxx_profile
 	tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
-	trap "[[ -d $tmpdir ]] && rm -rf $tmpdir" 0 1 2 3 15
+	trap "signal=\$((\$? - 128)); [[ -d $tmpdir ]] && rm -rf $tmpdir; exit \$signal" 0 1 2 3 15
 	${0}
 snippet tmpdir_in_function
 	local tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
@@ -588,8 +588,20 @@ snippet help_oneline
 alias easy_help
 	{ [[ \$1 == '-h' ]] || [[ \$1 == '-help' ]] || [[ \$1 == '--help' ]]; } && echo "\$0 "'${0}' && exit 1
 
+# FYI: [シグナルと trap コマンド \| UNIX & Linux コマンド・シェルスクリプト リファレンス]( https://shellscript.sunone.me/signal_and_trap.html )
+# FYI: [Gitブランチ名を、エディタで簡単に編集できるコマンド \- Qiita]( https://qiita.com/tonluqclml/items/13d597c68b5d35f3ce7d )
+# FYI: [linux \- Identifying received signal name in Bash \- Stack Overflow]( https://stackoverflow.com/questions/9256644/identifying-received-signal-name-in-bash )
 snippet trap
-	trap "${0}; exit 1" 1 2 3 15
+	trap "signal=\$((\$? - 128)); ${0}; exit \$signal" 0 1 2 3 15
+
+# FYI: [multiple bash traps for the same signal \- Stack Overflow]( https://stackoverflow.com/questions/3338030/multiple-bash-traps-for-the-same-signal )
+snippet trap_function
+	trap_handler() {
+		local signal=$(($? - 128))
+	  ${0}
+		return $signal
+	}
+	trap trap_handler 0 1 2 3 15
 
 snippet single_quote_in_single_quote
 alias sqinsq
