@@ -638,7 +638,7 @@ function viminfo-ls() {
 			if [[ -z $VIMINFO_LS_N ]]; then
 				cat
 			else
-				head -n "$VIMINFO_LS_N"
+				tail -n "$VIMINFO_LS_N"
 			fi
 		} | tac
 }
