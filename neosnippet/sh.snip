@@ -630,10 +630,14 @@ abbr default no
 	[[ $yn = [yY] ]] || return 1
 	${0}
 
+# FYI: [test\(1\)でシンボリックリンクか否か判定する時のオプションは\-hなのか\-Lなのか？ \- 新・日々録 by TRASH BOX@Eel]( https://eel3.hatenablog.com/entry/20121117/1353150478 )
+# FYI: [shell \- Difference between test \-h and test \-L \- Stack Overflow]( https://stackoverflow.com/questions/1997666/difference-between-test-h-and-test-l )
 snippet is_symbolic_link
-	[[ -h ${0} ]]
+abbr -h is same but use -L
+	[[ -L ${0} ]] && 
 snippet is_symbolic_link_if
-	if [[ -h ${1} ]]; then
+abbr -h is same but use -L
+	if [[ -L ${1} ]]; then
 		${0}
 	fi
 
