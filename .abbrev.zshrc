@@ -50,4 +50,4 @@ abbrev-alias -g chekcout='checkout '
 abbrev-alias -g staus='status '
 
 abbrev-alias -f B="git symbolic-ref --short HEAD"
-abbrev-alias -f dir='basename $PWD'
+abbrev-alias -f WD='basename $PWD'
