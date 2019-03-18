@@ -891,3 +891,31 @@ function git-file-log-cat() {
 	# git log --color=always --oneline "$filepath" | fzf --multi --ansi --reverse --preview "git cat-file -p \$(echo {} | cut -c-7):'$filepath' | bat --color=always -l '$ext'" --preview-window 'down:80%'
 	git log --color=always --oneline "$filepath" | fzf --multi --ansi --reverse --preview "splitcat <(git diff --color=always HEAD \$(echo {} | cut -c-7) '$filepath') <(git cat-file -p \$(echo {} | cut -c-7):'$filepath' | bat -p --color=always -l '$ext')" --preview-window 'down:80%'
 }
+
+# FYI: [Longest common prefix of two strings in bash \- Stack Overflow]( https://stackoverflow.com/questions/6973088/longest-common-prefix-of-two-strings-in-bash )
+function get_common_prefix() {
+	local string1="$1"
+	local string2="$2"
+	printf "%s\n%s\n" "$string1" "$string2" | sed -e 'N;s/^\(.*\).*\n\1.*$/\1/'
+}
+function get_common_filepath_prefix() {
+	local string1="$1"
+	local string2="$2"
+	echo $(dirname $(printf "%s\n%s\n" "$string1" "$string2" | sed -e 'N;s/^\(.*\).*\n\1.*$/\1/')".")"/"
+}
+function cmakedirs() {
+	for dir in $(traverse_path_list $PWD); do
+		for build_dir in $(find "$dir" -name '*build*' -maxdepth 1); do
+			local common_filepath_prefix=$(get_common_filepath_prefix "$build_dir/" "$PWD/")
+			local rel_pwd="${PWD:${#common_filepath_prefix}}"
+			[[ -d "$dir/$rel_pwd" ]] && [[ "$dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${dir}/${GREEN}${rel_pwd}${DEFAULT}"
+			[[ -d "$build_dir/$rel_pwd" ]] && [[ "$build_dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${build_dir}/${GREEN}${rel_pwd}${DEFAULT}"
+		done
+		# NOTE: for color
+	done | grep --color=always -e '^' -e 'build'
+}
+function cdcmake() {
+	local ret=$(cmakedirs)
+	[[ -z $ret ]] && return 1
+	printf '%s' "$ret" | cdpeco
+}
