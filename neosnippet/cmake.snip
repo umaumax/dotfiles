@@ -186,6 +186,8 @@ alias echo
 snippet messages_list
 alias echo_list echo_var
 	message("\${${0:#: list var name}}")
+snippet echo_var_with_name
+	message("$0:\${${0:#: list var name}}")
 
 snippet foreach_list
 abbr don't use ${} as var name here
@@ -305,3 +307,20 @@ abbr Wrap the static libraries in to the shared library
 	  ${0}
 	  -Wl,--end-group
 	)
+
+snippet is_root
+	if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+	  ${0}
+	endif()
+
+snippet if_exists_file_or_dir
+	if(EXISTS ${1})
+	  ${0}
+	endif()
+snippet if_exists_not_file_or_dir
+	if(NOT EXISTS ${1})
+	  ${0}
+	endif()
+
+snippet add_subdirectory_parent
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../${0} ${CMAKE_CURRENT_BINARY_DIR}/$0)
