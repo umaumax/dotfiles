@@ -591,7 +591,7 @@ if cmdcheck fzf; then
 	alias pecodoc='opendoc'
 	function opendoc() {
 		local doc_list=(
-			'cmake~3.9'
+			'cmake~3.12'
 			'c'
 			'cpp'
 			'docker~17'
