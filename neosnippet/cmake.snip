@@ -1,6 +1,6 @@
 # [vim\-snippets\-neosnippet/cmake\.snip at master · gisphm/vim\-snippets\-neosnippet]( https://github.com/gisphm/vim-snippets-neosnippet/blob/master/neosnippets/cmake.snip )
 snippet init
-	cmake_minimum_required(VERSION ${1:3.5})
+	cmake_minimum_required(VERSION ${1:3.5.1})
 	project(${2:#:ProjectName})
 
 
@@ -23,8 +23,9 @@ snippet init
 snippet proj
 	project(${0:Name})
 
+# ubuntu 16.04 default cmake: 3.5.1
 snippet min
-	cmake_minimum_required(VERSION ${0:3.5})
+	cmake_minimum_required(VERSION ${0:3.5.1})
 
 snippet include
 abbr NOTE: 1st arg is not target
