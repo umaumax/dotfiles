@@ -919,3 +919,8 @@ function cdcmake() {
 	[[ -z $ret ]] && return 1
 	printf '%s' "$ret" | FZF_DEFAULT_OPTS="--height '30%'" cdpeco
 }
+
+alias pecoerrno='errnopeco'
+function errnopeco() {
+	bat --color=always -p ~/dotfiles/dict/cpp/errno.hpp | fzf
+}
