@@ -661,8 +661,18 @@ alias git-is-own-repo='git-is-my-repo'
 
 function git-backup() {
 	is_git_repo_with_message || return
-	local backup_branch_name="$(git rev-parse --abbrev-ref HEAD)_$(date +'%Y%m%d')"
-	git checkout -b "$backup_branch_name" && git checkout - && echo "${GREEN}[CREATED]${DEFAULT} $backup_branch_name backup branch"
+	for ((i = 0; i < 10; i++)); do
+		local backup_branch_name="$(git rev-parse --abbrev-ref HEAD)_$(date +'%Y%m%d')"
+		if [[ $i -ge 1 ]]; then
+			backup_branch_name="${backup_branch_name}_${i}"
+		fi
+		if git checkout -b "$backup_branch_name"; then
+			if git checkout -; then
+				echo "${GREEN}[CREATED]${DEFAULT} $backup_branch_name backup branch"
+				return 0
+			fi
+		fi
+	done
 }
 
 alias git-checkout-stash='git-stash-checkout'
