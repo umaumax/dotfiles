@@ -917,5 +917,5 @@ function cmakedirs() {
 function cdcmake() {
 	local ret=$(cmakedirs)
 	[[ -z $ret ]] && return 1
-	printf '%s' "$ret" | cdpeco
+	printf '%s' "$ret" | FZF_DEFAULT_OPTS="--height '30%'" cdpeco
 }
