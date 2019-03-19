@@ -905,7 +905,7 @@ function get_common_filepath_prefix() {
 }
 function cmakedirs() {
 	for dir in $(traverse_path_list $PWD); do
-		for build_dir in $(find "$dir" -name '*build*' -maxdepth 1); do
+		for build_dir in $(find "$dir" -maxdepth 1 -name '*build*'); do
 			local common_filepath_prefix=$(get_common_filepath_prefix "$build_dir/" "$PWD/")
 			local rel_pwd="${PWD:${#common_filepath_prefix}}"
 			[[ -d "$dir/$rel_pwd" ]] && [[ "$dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${dir}/${GREEN}${rel_pwd}${DEFAULT}"
