@@ -2,40 +2,41 @@
 
 ## pre-commit script to prevent merge markers from being committed.
 
-##
-## This simply searches the files that you are about to commit.
-##
-
-RED="\033[0;31m"
-DEFAULT="\033[0m"
+RED=$'\e[31m'
+YELLOW=$'\e[33m'
+DEFAULT=$'\e[0m'
 
 # NOTE: cached == staged
-changed=$(git diff --cached --name-only)
-[[ -z "$changed" ]] && exit 0
+changed_files=($(git diff --cached --name-only))
+[[ ${#changed_files[@]} == 0 ]] && exit 0
 
 grep='grep'
 cmdcheck() { type >/dev/null 2>&1 "$@"; }
 cmdcheck 'ggrep' && grep='ggrep'
 
-files=($(echo $changed | xargs -L 1 -IXXX find XXX -type f -size -1M -maxdepth 1))
+# NOTE: filter files by size
+# NOTE: ubuntu find cannot run -size -1M appropriately
+files=($(
+for cahnged_file in "${changed_files[@]}"; do
+  find "$cahnged_file" -maxdepth 1 -type f -size -1000k
+done
+))
+
 stop_flag=0
 if [[ ${#files[@]} -ge 1 ]]; then
-  # NOTE: add 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' at last of line
-  # NOTE: whole diff files
-  # if echo "${files[@]}" | xargs $grep -E 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' -C 1 -H -n --color=always; then
-  #   stop_flag=1
-  # fi
+  # NOTE: add 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' at last of line to prevent commit
   # NOTE: only diff
   output=$(echo "${files[@]}" | xargs git diff --cached -G 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' --color)
-  printf '%s' "$output"
+  # NOTE: whole diff files
+  # output=$(echo "${files[@]}" | xargs $grep -E 'FORBIDDEN_COMMIT_MAGIC_KEYWORD$' -C 1 -H -n --color=always)
+  printf '%s\n' "$output"
   [[ -n $output ]] && stop_flag=1
 fi
 
-## If the egrep command has any hits - echo a warning and exit with non-zero status.
 if [[ $stop_flag != 0 ]]; then
-  echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
-  echo -e "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
-  echo -e "${YELLOW}git commit --no-verify${DEFAULT}"
-  echo -e "${YELLOW}!! --no-verify${DEFAULT}"
+  echo "${RED}WARNING: You have to get rid of 'FORBIDDEN_COMMIT_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
+  echo "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
+  echo "${YELLOW}git commit --no-verify${DEFAULT}"
+  echo "${YELLOW}!! --no-verify${DEFAULT}"
   exit 1
 fi
