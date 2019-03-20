@@ -103,6 +103,7 @@
 [make good looking color output] make SHELL='sh -ex' @ | ccze -A -o nolookups
 # FYI: [linux \- How do you force a makefile to rebuild a target \- Stack Overflow]( https://stackoverflow.com/questions/816370/how-do-you-force-a-makefile-to-rebuild-a-target )
 [make force phony] make -B @# --always-make
+[make dry-run] make -n @ # -n=--dry-run
 
 # ctest
 [ctest] ctest --output-on-failure
@@ -135,7 +136,7 @@
 [git reset deleted files] git checkout HEAD -- @ # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git commit without hook] git commit --no-verify
-[git reload git hooks]  rm -rf "$(git rev-parse --show-toplevel)/.git/hooks" && git init # WARN: don't delete local git hooks
+[git reload git hooks]  (cd $(git rev-parse --show-toplevel) >/dev/null 2>&1 && rm -rf ".git/hooks" && git init) # WARN: It's possible to delete local git hooks
 [git first empty commit] git commit --allow-empty -m "first commit"
 [git submodule init and update] git submodule update --init --recursive
 [git submodule force add] git submodule add -f @
@@ -1127,3 +1128,7 @@
 [hexdump color] hexyl # cargo install hexyl
 
 [is binary file] { file --mime @ | grep -q "charset=binary"; }
+
+[xmllint format check] xmllint --noout --valid @
+[xmllint format output] xmllint --format @ # use export XMLLINT_INDENT=" " to control indent
+[xml tidy format output] tidy -xml -i -q @
