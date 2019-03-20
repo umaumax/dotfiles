@@ -141,8 +141,10 @@ fi
 [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
 [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
 
+# WARN: no need?
 # clang(LLVM)
-prepend_path /usr/local/bin
+# prepend_path /usr/local/bin
+
 # for pip
 # [systemd\-path user\-binaries]( https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path )
 append_path ~/.local/bin
@@ -170,7 +172,8 @@ fi
 
 if cmdcheck rbenv; then
 	append_path "$HOME/.rbenv/bin"
-	eval "$(rbenv init -)"
+	# NOTE: below is needed?
+	# eval "$(rbenv init -)"
 fi
 
 # rust
@@ -195,13 +198,10 @@ fi
 # NOTE: force alias to system pkg-config (the priority is higher than linuxbrew)
 [[ -f ~/.linuxbrew/bin/pkg-config ]] && ln -sf /usr/bin/pkg-config ~/local/bin/pkg-config
 
-prepend_path ~/local/bin
-
-# for vim
+# for mac vim
 # prepend_path /Applications/MacVim.app/Contents/bin/
 
-# for color output
-## easy color output
+# for easy color output
 export BLACK=$'\e[30m'
 export RED=$'\e[31m'
 export GREEN=$'\e[32m'
@@ -250,8 +250,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.local.zprofile" ]]; then
 	source "${ZDOTDIR:-$HOME}/.local.zprofile"
 fi
 
-# for tig edit vim command
 mkdir -p ~/local/bin
+prepend_path ~/local/bin
 cmdcheck nvim && [[ ! -f ~/local/bin/vim ]] && ln -s $(which nvim) ~/local/bin/vim
 
 append_path ~/dotfiles/cmd
