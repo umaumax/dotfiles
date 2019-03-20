@@ -174,6 +174,14 @@ if Doctor('cmake-format', 'cmake format')
 		autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :CmakeFormat | endif
 		autocmd FileType cmake autocmd! cmake_format_group FileType
 	augroup END
+if Doctor('xmllint', 'xml format')
+  augroup xml_format_group
+    autocmd!
+    autocmd FileType xml autocmd BufWinEnter *.{xml} command! Format         XMLFormat
+    autocmd FileType xml autocmd BufWritePre *.{xml} if       IsAutoFormat() | :XMLFormat | endif
+    autocmd FileType xml autocmd! xml_format_group FileType
+  augroup END
+  command! -range=% -bar XMLFormat :<line1>,<line2>!xmllint --format -
 endif
 
 if Doctor('gofmt', 'go format')
