@@ -114,12 +114,14 @@ function! s:set_tab(n)
 endfunction
 function! s:Sleuth_wrapper(n)
 	call s:set_tab(2)
-	if &rtp =~ 'tpope/vim-sleuth'
+	if &rtp =~ 'vim-sleuth'
 		Sleuth
 	endif
 	" NOTE: 無理やりtabの修正
-	if &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
-		call s:set_tab(2)
+	if &expandtab==0 && &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
+		setlocal tabstop=2
+		setlocal shiftwidth=2
+		setlocal softtabstop=2
 	endif
 endfunction
 " default tab setting
