@@ -90,10 +90,19 @@ augroup END
 if Doctor('clang-format', 'clang format')
   augroup cpp_group
     autocmd!
-    autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! Format ClangFormat
+    autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% Format :<line1>,<line2>ClangFormatRange
     autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
     autocmd FileType cpp autocmd! cpp_group FileType
   augroup END
+  " NOTE: for partly ranged clang-format
+  function! s:clang_format_range() range
+    if a:firstline==1 && a:lastline==line('$')
+      call clang_format#replace(1, line('$'))
+    else
+      execute ":".a:firstline.",".a:lastline."!clang-format -"
+    endif
+  endfunction
+  command! -range=% -bar ClangFormatRange :<line1>,<line2>call s:clang_format_range()
 endif
 if Doctor('autopep8', 'python format')
   augroup python_group
