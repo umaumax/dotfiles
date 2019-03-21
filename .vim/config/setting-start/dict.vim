@@ -92,17 +92,20 @@ function! s:vimconsole_logger()
 	endif
 endfunction
 function! s:CompleteDone()
-	" 	" 補完を行わなかった場合には空の辞書
-	if v:completed_item != {}
-		call s:dict_replacer()
-		call s:vimconsole_logger()
+	if v:completed_item == {}
+		" NOTE: no completion
+		return
 	endif
+	call s:dict_replacer()
+	call s:vimconsole_logger()
 endfunction
 function! s:SetDictionary(filetype)
 	let filetype=a:filetype
+	" NOTE: use common dict
 	if filetype == 'zsh'
 		let filetype='sh'
 	endif
+	" TODO: use global variable to set path
 	let dict_path=$HOME.'/dotfiles/dict'
 	let dict_file_path=dict_path.'/'.filetype.'.dict'
 	if filereadable(dict_file_path)
