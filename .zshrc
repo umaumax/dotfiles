@@ -252,11 +252,23 @@ if [[ $OS == Windows_NT ]]; then
 fi
 
 function expand_home() {
-	sed -E 's:(^~/+)|(^~$):'"$HOME"'/:g'
+	if [[ $# == 0 ]]; then
+		sed -E 's:(^~/+)|(^~$):'"$HOME"'/:g'
+	else
+		for arg in "$@"; do
+			printf '%s\n' "$arg" | expand_home
+		done
+	fi
 }
 # show user home dir as `~`
 function homedir_normalization() {
-	sed 's:'"$(printf '%s' "$HOME" | sed "s/\//\\\\\//g")"':~:'
+	if [[ $# == 0 ]]; then
+		sed 's:'"$(printf '%s' "$HOME" | sed "s/\//\\\\\//g")"':~:'
+	else
+		for arg in "$@"; do
+			printf '%s\n' "$arg" | homedir_normalization
+		done
+	fi
 }
 
 # NOTE: -o nolookups: speedup
