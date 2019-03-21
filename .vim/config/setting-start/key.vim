@@ -125,7 +125,7 @@ augroup get_function_group
 	autocmd User VimEnterDrawPost let s:vim_smartinput__trigger_or_fallback=GetFunc('vim-smartinput/autoload/smartinput.vim','_trigger_or_fallback', s:vim_smartinput__trigger_or_fallback)
 augroup END
 
-" Enterで補完決定(no additional <CR>)
+" NOTE: Enterで補完決定(without additional <CR> after selection)
 " i  <CR>        & <SNR>71__trigger_or_fallback("\<CR>", "\<CR>")
 " inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 " [vim\-smartinput/smartinput\.vim at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/autoload/smartinput.vim#L318 )
@@ -136,7 +136,13 @@ function! s:CR()
 	" NOTE: <C-g>uは undo を分割する
 	return "\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
 endfunction
-inoremap <buffer> <script> <expr> <CR> <SID>CR()
+" NOTE:
+" bufferを付加すると優先度が高くなるため，以降にpluginで設定されてもそれは無効化されるが，最初に開いたbufferでしか有効にならないので注意
+" そのため，augroupを利用
+augroup insert_cr_mapping
+	autocmd!
+	autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <buffer> <script> <expr> <CR> <SID>CR()
+augroup END
 
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>

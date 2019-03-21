@@ -43,6 +43,9 @@ function! s:vimconsole_logger()
 		" NOTE: last \<C-o>:\<Esc> enables to show completion menu list even if after expanding neosnippet (only insert mode... this does't work well in select mode)
 		" 		call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<Esc>", '')
 		" NOTE: たまたま，visual  modeの開始地点とカーソル位置が一致しないかぎり，insert modeでもselect  modeで動作する
+		" call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
+		" NOTE:
+		" 下記のコマンドは補完を確定する際に改行をしないことが前提(現在は<CR>で選択する際に，余計な改行を除去している)
 		call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
 		return
 	endif
