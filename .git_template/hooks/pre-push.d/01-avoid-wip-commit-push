@@ -19,38 +19,28 @@
 # This sample shows how to prevent push of commits where the log message starts
 # with "WIP" (work in progress).
 
-BLACK="\033[0;30m" RED="\033[0;31m" GREEN="\033[0;32m" YELLOW="\033[0;33m" BLUE="\033[0;34m" PURPLE="\033[0;35m" LIGHT_BLUE="\033[0;36m" WHITE="\033[0;37m" GRAY="\033[0;39m" DEFAULT="\033[0m"
-function echo() { command echo -e "$@"; }
+BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'
 
 remote="$1"
 url="$2"
 
+# NOTE: default sha which is not exist
 z40=0000000000000000000000000000000000000000
 
-IFS=' '
-while read local_ref local_sha remote_ref remote_sha
-do
-  if [ "$local_sha" = $z40 ]
-  then
-    : # Handle delete
-  else
-    if [ "$remote_sha" = $z40 ]
-    then
-      # New branch, examine all commits
-      range="$local_sha"
-    else
-      # Update to existing branch, examine new commits
-      range="$remote_sha..$local_sha"
-    fi
+IFS=' ' read local_ref local_sha remote_ref remote_sha
+if [[ "$remote_sha" == $z40 ]]; then
+  # New branch, examine all commits
+  range="$local_sha"
+else
+  # NOTE: no change?
+  [[ -z $local_sha ]] && exit 0
+  # Update to existing branch, examine new commits
+  range="$remote_sha..$local_sha"
+fi
 
-    # Check for WIP commit
-    commit=`git rev-list -n 1 --grep '^WIP\|^\[WIP\]' "$range"`
-    if [ -n "$commit" ]
-    then
-      echo "Found ${PURPLE}WIP${DEFAULT} commit '$commit' in $local_ref, not pushing"
-      exit 1
-    fi
-  fi
-done
-
-exit 0
+# Check for WIP commit
+commit=`git rev-list -n 1 --grep '^WIP\|^\[WIP\]' "$range"`
+if [[ -n "$commit" ]]; then
+  echo "Found ${PURPLE}WIP${DEFAULT} comment at commit '$commit' in $local_ref, so stop pushing."
+  exit 1
+fi
