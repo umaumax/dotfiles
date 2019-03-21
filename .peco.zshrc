@@ -924,3 +924,8 @@ alias pecoerrno='errnopeco'
 function errnopeco() {
 	bat --color=always -p ~/dotfiles/dict/cpp/errno.hpp | fzf
 }
+
+function cmake-find-modules() {
+	# NOTE: ext may be rst(reStructuredText)?
+	cmake --help-module-list | grep -e '^Find' | sed 's/Find//' | fzf --preview='cmake --help-module Find{} | bat --color=always -p -l md' --preview-window='right:80%'
+}
