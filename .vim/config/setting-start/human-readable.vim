@@ -1,5 +1,3 @@
-finish
-
 function! s:nr2bin(nr)
 	let n = a:nr
 	let r = ""
@@ -37,6 +35,5 @@ function! s:humanreadable()
 endfunction
 augroup auto_human_readable_number
 	autocmd!
-	autocmd CursorMoved <buffer> call s:humanreadable()
 	autocmd CursorMoved * call s:humanreadable()
 augroup END
