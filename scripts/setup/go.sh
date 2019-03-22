@@ -28,6 +28,9 @@ go get -u github.com/errata-ai/vale
 # NOTE: binary editor
 go get -u github.com/itchyny/bed/cmd/bed
 
+# FYI: [複数のコマンドを画面分割してwatchするwatchコマンド作った \- Qiita]( https://qiita.com/jiro4989/items/867b6f96184c9c80e30c )
+go get -u github.com/jiro4989/vhwatch
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms
