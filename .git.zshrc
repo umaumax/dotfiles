@@ -711,3 +711,31 @@ function git-checkout-root() {
 	is_git_repo_with_message || return
 	git checkout $(git rev-parse --show-toplevel)
 }
+
+function gerrit-push-review() {
+	is_git_repo_with_message || return
+	[[ $# -lt 2 ]] && echo "$(basename "$0") [local_sha] [remote_branch]" && return 1
+	local local_sha="$1"
+	local remote_branch="$2"
+	git push origin "${local_sha}:refs/for/${remote_branch}"
+}
+function gerrit-push-review-haed-to-master() {
+	is_git_repo_with_message || return
+	gerrit-push-review HEAD master
+}
+function gerrit-push-review-peco-to-master() {
+	is_git_repo_with_message || return
+	local commit=$(_git-commit-peco)
+	[[ -z $commit ]] && return 1
+
+	hr '#'
+	git show $commit --stat
+	hr '#'
+
+	echo "${RED}git push origin '${commit}:refs/for/master'${DEFAULT}"
+	# NOTE: only for zsh
+	echo -n "ok?(y/N): "
+	read -q || return 1
+
+	gerrit-push-review $commit master
+}
