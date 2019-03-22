@@ -151,8 +151,8 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 	function cmdstack() {
 		if [[ $# == 1 ]]; then
 			local n=$1
-			[[ $n == 0 ]] && echo 1>&2 'REQUIRED: 1,2,3...' && return 1
-			if [[ $n -le ${#ORIG_CMD_STACK[@]} ]]; then
+			[[ "$n" == 0 ]] && echo 1>&2 'REQUIRED: 1,2,3...' && return 1
+			if [[ "$n" -le ${#ORIG_CMD_STACK[@]} ]]; then
 				if [[ ! -o zle ]]; then
 					printf '%s' "${ORIG_CMD_STACK[$n]}"
 				else
@@ -173,7 +173,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 				printf '[%s]| %s\n' "$i" "$CMD"
 				((i++))
 			done
-		} | eval $CAT | perl -pe "chomp if eof"
+		} | eval $CAT # | perl -pe "chomp if eof"
 	}
 	# NOTE: number is how many stack not stack number
 	function cmdstack_delete() {
@@ -204,7 +204,19 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
 	bindkey '^P' _orig_command_push
 
 	function _pecocmdstack() {
-		cmdstack | sed -n '2,$p' | sed -e '$d' | fzf --height '20%' | grep -o '^\[[0-9]\]*' | sed 's/\[\|\]//g'
+		# cmdstack | sed -n '2,$p' | sed -e '$d'
+		cmdstack | sed -n '2,$p' | {
+			# NOTE: 候補の数によって，fzfを使用しない
+			read -r LINE1
+			[[ -z $LINE1 ]] && return
+			read -r LINE2
+			[[ -z $LINE2 ]] && { printf '%s\n' "$LINE1" | remove-ansi; } && return
+			{
+				printf '%s\n' "$LINE1"
+				printf '%s\n' "$LINE2"
+				command cat /dev/stdin
+			} | fzf --height '20%'
+		} | grep -o '^\[[0-9]\]*' | sed 's/\[\|\]//g'
 	}
 	alias pecocmdstack='pecocmdstack_pop'
 	function pecocmdstack_apply() {
