@@ -29,6 +29,13 @@ function! s:p(text)
 	let @a = tmp
 endfunction
 
+function! s:ins_tab() range
+	let l:last_searched_pattern=@/
+	execute ":".a:firstline.",".a:lastline."s/^/\t/"
+	let @/=l:last_searched_pattern
+endfunction
+command! -nargs=0 -range InsTab <line1>,<line2>call s:ins_tab()
+
 " for visual mode
 function! CR() range
 	let selected = s:delete_visual_selection()
