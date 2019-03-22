@@ -34,15 +34,20 @@ function nugget() {
 	local apt_get_list=()
 
 	[[ $# == 0 ]] && nugget-h && return 1
-	local package="$1"
-	case $package in
+	local opt="$1"
+	case $opt in
 	-l | -h)
 		# NOTE: call function
-		"nugget$package"
+		"nugget$opt"
 		return
+		;;
+	-u | --upgrade)
+		NUGGET_UPGRADE_FLAG=1
+		shift
 		;;
 	*) ;;
 	esac
+	local package="$1"
 
 	local OS=$(_os)
 	if [[ $OS == "mac" ]] && $(echo ${brew_list[@]} | grep -E -q "(^| )${package}( |$)"); then
@@ -59,8 +64,8 @@ function nugget() {
 	fi
 
 	# init
-	export NUGGET_INSTALL_PREIFX=${NUGGET_INSTALL_PREIFX:-~/local}
-	export NUGGET_INSTALL_BIN_PREIFX="$NUGGET_INSTALL_PREIFX/bin"
+	NUGGET_INSTALL_PREIFX=${NUGGET_INSTALL_PREIFX:-~/local}
+	NUGGET_INSTALL_BIN_PREIFX="$NUGGET_INSTALL_PREIFX/bin"
 	mkdir -p "$NUGGET_INSTALL_BIN_PREIFX"
 	mkdir -p ~/opt
 
@@ -83,7 +88,7 @@ function nugget() {
 # ################################
 # nvim for linux
 function nugget_ubuntu_nvim() {
-	cmdcheck nvim && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	# nightly build
@@ -116,7 +121,7 @@ function nugget_ubuntu_nvim() {
 # ################################
 # tig for linux
 function nugget_ubuntu_tig() {
-	cmdcheck tig && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck tig && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	# for fatal error: curses.h: No such file or directory
@@ -139,8 +144,8 @@ function nugget_ubuntu_tig() {
 # ################################
 # tmux for linux
 function nugget_ubuntu_tmux() {
-	# NOTE: there is /usr/bin/tmux (2.1)
-	# 	cmdcheck tmux && return
+	# NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
+	cmdcheck tmux && [[ $(command which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	sudo apt install -y build-essential automake libevent-dev ncurses-dev
 	pushd "$tmpdir"
@@ -156,7 +161,7 @@ function nugget_ubuntu_tmux() {
 # ################################
 # rtags for linux
 function nugget_ubuntu_rtags() {
-	cmdcheck rdm && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck rdm && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	# for <clang-c/Index.h>
 	sudo apt-get install -y libclang-3.8-dev
@@ -175,7 +180,7 @@ function nugget_ubuntu_rtags() {
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzy() {
-	cmdcheck fzy && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck fzy && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
@@ -188,7 +193,7 @@ function nugget_ubuntu_fzy() {
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzf() {
-	cmdcheck fzf && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck fzf && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --no-key-bindings --completion --no-update-rc
@@ -202,16 +207,18 @@ function nugget_ubuntu_vim_deoplete() {
 	sudo apt-get install -y python3-pip
 	pip2 install neovim
 	pip3 install neovim
-	# set ~/.local.vimrc
-	# :PlugUpdate
-	# :UpdateRemotePlugins
+
+	echo "[NOTE] set python setting to e.g. ~/.local.vimrc"
+	echo "[NOTE] run below comamnds at nvim"
+	echo ":PlugUpdate"
+	echo ":UpdateRemotePlugins"
 }
 # ################################
 
 # ################################
 # for peco
 function nugget_ubuntu_peco() {
-	cmdcheck peco && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck peco && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
@@ -226,7 +233,7 @@ function nugget_ubuntu_peco() {
 
 # ################################
 function nugget_ubuntu_bat() {
-	cmdcheck bat && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck bat && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/sharkdp/bat/releases/download/v0.9.0/bat_0.9.0_amd64.deb
@@ -238,7 +245,7 @@ function nugget_ubuntu_bat() {
 
 # ################################
 function nugget_ubuntu_bats() {
-	cmdcheck bat && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck bats && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1.1_all.deb
@@ -250,7 +257,7 @@ function nugget_ubuntu_bats() {
 
 # ################################
 function nugget_ubuntu_exa() {
-	cmdcheck exa && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck exa && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
@@ -268,7 +275,7 @@ function nugget_ubuntu_exa() {
 #   * [Pandoc \- Installing pandoc]( http://pandoc.org/installing.html )
 #     * [Release pandoc 2\.5 · jgm/pandoc · GitHub]( https://github.com/jgm/pandoc/releases/tag/2.5 )
 function nugget_ubuntu_pandoc() {
-	cmdcheck pandoc && return $NUGGET_ALREADY_INSTALLED
+	cmdcheck pandoc && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	sudo apt install -y texlive texlive-lang-cjk texlive-luatex texlive-xetex texlive-math-extra
 	pushd "$tmpdir"
@@ -281,7 +288,7 @@ function nugget_ubuntu_pandoc() {
 
 # ################################
 function nugget_ubuntu_rust() {
-	[[ -d ~/.cargo/bin/rustc ]] && return $NUGGET_ALREADY_INSTALLED
+	[[ -d ~/.cargo/bin/rustc ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	# NOTE: Dont't use brew because we cannot use rustup
 	# -y                  Disable confirmation prompt.
@@ -297,31 +304,36 @@ function nugget_mac_rust() {
 # ################################
 # NOTE: for c++ library
 function nugget_ubuntu_googlebenchmark() {
-	[[ -d /usr/local/include/benchmark ]] && return $NUGGET_ALREADY_INSTALLED
+	[[ -d /usr/local/include/benchmark ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	git clone https://github.com/google/benchmark.git
-	cd benchmark
+	pushd benchmark
 	git clone https://github.com/google/googletest.git
-	mkdir build && cd build
+	mkdir build
+	pushd build
 	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
 	make -j
 	sudo make install
+	popd
+	popd
 	popd
 	rm -rf "$tmpdir/benchmark"
 }
 
 function nugget_ubuntu_googletest() {
-	[[ -d /usr/local/include/gtest ]] && return $NUGGET_ALREADY_INSTALLED
+	[[ -d /usr/local/include/gtest ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
 	pushd "$tmpdir"
 	git clone https://github.com/google/googletest
-	cd googletest
+	pushd googletest
 	mkdir build
-	cd build
+	pushd build
 	cmake ..
 	make -j
 	sudo make install
+	popd
+	popd
 	popd
 	rm -rf "$tmpdir/googletest"
 }
