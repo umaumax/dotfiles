@@ -337,10 +337,11 @@ let filetype_list=['vim', 'html', 'css', 'javascript', 'yaml']
 " auto=1とするとTextChangedIなどにもeventが登録されてしまうため危険
 " 'terryma/vim-multiple-cursors'と同時に使用するとCPU使用率が100%ほどになる
 let g:colorizer_auto_color = 0
-augroup colorizer_group
-	autocmd!
-	autocmd WinEnter, BufEnter * if len(filter(filetype_list, {index,val -> val == &ft})>=1) call Colorizer#ColorWinEnter() | endif
-augroup END
+" NOTE: 下記は必要ない?
+" augroup colorizer_group
+" autocmd!
+" autocmd WinEnter, BufEnter * if len(filter(filetype_list, {index,val -> val == &ft})>=1) call Colorizer#ColorWinEnter() | endif
+" augroup END
 Plug 'chrisbra/Colorizer', {'for': filetype_list, 'on':['ColorHighlight']}
 let g:colorizer_auto_filetype=join(filetype_list,',')
 let g:colorizer_disable_bufleave = 1
