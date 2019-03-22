@@ -286,26 +286,25 @@ function find-git-repo-and-show-head-commit-hash-id() {
 }
 
 function git-check-up-to-date() {
-	target='.'
-	[[ $# -ge 1 ]] && target="$1"
+	local target=${1:-"."}
 	# NOTE: for debug
-	echo $target
-	# NOTE: for suppressing of chpwd()
+	echo "[log][$target]"
+	local ret
 	ret=$(
-		cd "$target" >/dev/null 2>&1
+		cd $(expand_home "$target") >/dev/null 2>&1
 		git log "origin/master..master"
-	)
-	if [[ $ret != "" ]]; then
-		echo "[$target]"
-		echo $ret
+	) || return
+	if [[ -n $ret ]]; then
+		echo "[log][$target log]"
+		printf '%s\n' "$ret"
 	fi
 	ret=$(
-		cd "$target" >/dev/null 2>&1
+		cd $(expand_home "$target") >/dev/null 2>&1
 		git status --porcelain
-	)
-	if [[ $ret != "" ]]; then
-		echo "[$target] Changes not staged for commit:"
-		echo $ret
+	) || return
+	if [[ -n $ret ]]; then
+		echo "[log][$target status] Changes not staged for commit:"
+		printf '%s\n' "$ret"
 	fi
 }
 
@@ -316,12 +315,11 @@ function cdgit() {
 }
 
 function find-my-git-non-up-to-date-repo() {
-	(
+	{
 		echo '~/dotfiles'
-		echo '~/git'
-		echo '~/github.com'
-		echo '~/local_git'
-	) | find-git-non-up-to-date-repo-pipe
+		ls ~/github.com
+		# echo '~/local_git'
+	} | find-git-non-up-to-date-repo-pipe
 }
 
 alias git-find-non-up-to-date-repo='find-git-non-up-to-date-repo'
@@ -331,7 +329,7 @@ function find-git-non-up-to-date-repo() {
 function find-git-non-up-to-date-repo-pipe() {
 	local ccze="cat"
 	cmdcheck ccze && ccze="ccze -A"
-	while read line || [ -n "${line}" ]; do
+	while IFS= read -r line || [[ -n "$line" ]]; do
 		git-check-up-to-date "$line" | eval $ccze
 	done
 }
