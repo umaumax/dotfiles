@@ -28,6 +28,10 @@ set incsearch    "インクリメント検索(リアルタイム検索)
 " [vimのコマンドラインでの補完が使いづらい \- Qiita]( https://qiita.com/YamasakiKenta/items/b342f796de69f03cb5b3 )
 set wildmenu
 set wildmode=longest:full,full
+" FYI: [Neovimさんのツイート: "Popup 'wildmenu' just landed in \#neovim HEAD 0\.4\.x\. :set wildoptions=pum It supports 'pumblend', don't worry\. :set pumblend=20… https://t\.co/sFy2dljE4i"]( https://twitter.com/Neovim/status/1107014096908664832 )
+if has('nvim-0.4.0')
+	set wildoptions+=pum
+endif
 set laststatus=2 "常に編集中ファイル名表示
 
 " NOTE: disable vimgrep, findfile(), finddir(), and so on
