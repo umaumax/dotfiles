@@ -174,8 +174,11 @@ snippet test
 snippet dump_var
 	message(STATUS "*** dump start cmake variables ***")
 	get_cmake_property(_variableNames VARIABLES)
+	set(var_dump_filepath "${CMAKE_CURRENT_BINARY_DIR}/var_dump.log")
+	file(WRITE "${var_dump_filepath}") # truncate
 	foreach(_variableName ${_variableNames})
 	  message(STATUS "${_variableName}=${${_variableName}}")
+	  file(APPEND "${var_dump_filepath}" "${_variableName}=${${_variableName}}\n")
 	endforeach()
 	message(STATUS "*** dump end ***")
 	${0}
@@ -188,7 +191,7 @@ snippet messages_list
 alias echo_list echo_var
 	message("\${${0:#: list var name}}")
 snippet echo_var_with_name
-	message("$0:\${${0:#: list var name}}")
+	message("${0:#: list var name}:\${$0}")
 
 snippet foreach_list
 abbr don't use ${} as var name here
@@ -325,3 +328,9 @@ snippet if_exists_not_file_or_dir
 
 snippet add_subdirectory_parent
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../${0} ${CMAKE_CURRENT_BINARY_DIR}/$0)
+
+snippet touch
+	file(TOUCH ${0})
+
+snippet return
+	return()${0}
