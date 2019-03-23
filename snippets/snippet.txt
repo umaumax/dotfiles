@@ -89,7 +89,9 @@
 [cmake auto create build dir & cmake] [[ $(basedirname $PWD) != "build" ]] && mkdir -p build && cd build; cmake ..
 [cmake out of build dir] cmake -H. -Bbuild # -GNinja
 [cmake out of build dir] cmake --build build/
+[cmake find modules help] cmake --help-module @ # use tab completion
 [cmake find modules] cmake --help-module-list | grep -e '^Find' | sed 's/Find//'
+[cmake confirm make install files] cmake -DCMAKE_INSTALL_PREFIX=$(mktemp -d install) .. # using by tmp dir way
 
 # make
 [make debug verbose] make VERBOSE=1 @ # made by autotoools or cmake
