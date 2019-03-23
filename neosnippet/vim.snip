@@ -154,3 +154,10 @@ snippet redirect_command
 
 snippet has_key_list
 	len(filter(${1:#:list}, { index, val -> ${2:#:condition} }) >= 1
+
+snippet last_searched_pattern
+	@/${0}
+snippet last_searched_pattern_push_pop
+	let l:last_searched_pattern=@/
+	${0}
+	let @/=l:last_searched_pattern
