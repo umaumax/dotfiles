@@ -1042,10 +1042,16 @@ snippet template_is_same
 # kEnumName or ENUM_NAME
 snippet enum_decl
 	enum class ${1:#:enum class name} : ${2:int} {
-	 ${3:#:kEnumName} = 0,
-	 ${4:#:ENUM_NAME},
+	  ${3:#:kEnumName} = 0,
+	  ${4:#:ENUM_NAME},
 	};
 	static_cast<$2>($1::$3)${0}
 
 snippet enum_cast
 	static_cast<${1:#:type}>(${2:#:enum class name}::${0:#:type})
+
+snippet env_is_set
+	std::getenv(${0}) != nullptr
+snippet env_get
+	const char* env_char = std::getenv(${0});
+	std::string env = std::string(env_char != nullptr ? env_char : "${1:#:default value}");
