@@ -44,3 +44,4 @@ GIT_WGET_DEBUG=1 colorbash update_tools.sh
 ## NOTE
 * `./.gitignore`: This `.gitignore` file is for this repo not for a host machine setting.
 * `./.config/git/ignore`: this will be link to ~/.gitignore
+* `./.local.git_template`: is template for `./.git_template` (基本的には，`~/dotfiles/.git_template/`を利用するので不要)
