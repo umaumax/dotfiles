@@ -110,7 +110,7 @@ function nugget_ubuntu_nvim() {
 		# NOTE: fuse pattern
 		sudo apt-get install -y fuse
 		chmod u+x nvim.appimage
-		mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
+		command mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
 	fi
 
 	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
