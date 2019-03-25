@@ -306,7 +306,7 @@ endfunction
 function! s:clang_format_setting()
   let g:auto_format_flag=1
   let clang_format_filepath=s:detect_clang_format_style_file()
-  if IsInGitRepo(expand('%:p')) && !IsInSameGitRepo(expand('%:p'), clang_format_filepath)
+  if !IsPrivateWork() && IsInGitRepo(expand('%:p')) && !IsInSameGitRepo(expand('%:p'), clang_format_filepath)
     let g:auto_format_flag=0
   endif
 endfunction
