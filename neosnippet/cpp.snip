@@ -362,6 +362,7 @@ snippet split_function
 	std::vector<std::string> Split(std::string text, std::string delim) {
 	  std::vector<std::string> vec;
 	  std::string::size_type spos = 0, epos, delimlen = delim.size();
+	  if (text == "") return vec;
 	  while ((epos = text.find_first_of(delim, spos)) != std::string::npos) {
 	    vec.emplace_back(text.substr(spos, epos - spos));
 	    spos = epos + delimlen;
