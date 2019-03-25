@@ -160,6 +160,16 @@ snippet try
 	  ${3:std::cerr << $2.what() << std::endl;}
 	}
 
+snippet for_dump_map
+	for (auto& v:${0:#:map}) {
+	  std::cout << v.first << " : " << v.second << std::endl;
+	}
+snippet for_dump_vec
+	for (auto& v:${0:#:map}) {
+	  std::cout << v << ", ";
+	}
+	std::cout << std::endl;
+
 # <algorithm>
 snippet for_each
 abbr std::for_each <algorithm>
