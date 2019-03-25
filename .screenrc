@@ -13,7 +13,7 @@ defbce on
 term xterm-256color
 
 # ctrl + UPPER char + lower char
-escape ^Bb
+# escape ^Bb
 
 # NOTE
 # 画面分割
