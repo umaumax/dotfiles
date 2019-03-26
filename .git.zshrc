@@ -712,6 +712,15 @@ function git-checkout-root() {
 	git checkout $(git rev-parse --show-toplevel)
 }
 
+function git-local-checkout() {
+	is_git_repo_with_message || return
+	[[ $# -lt 1 ]] && echo "$(basename "$0") branch" && return 1
+	local branch=${1}
+	local local_branch=${branch#remotes/}
+	local_branch=${local_branch#origin/}
+	git checkout $local_branch
+}
+
 function gerrit-push-review() {
 	is_git_repo_with_message || return
 	[[ $# -lt 2 ]] && echo "$(basename "$0") [local_sha] [remote_branch]" && return 1
