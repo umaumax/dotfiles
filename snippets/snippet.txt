@@ -670,7 +670,8 @@
 [ros Fixed Frame map does not exist] rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 $ROOT_FRAME $CHILD_FRAME 100 # /map /xxx
 [ros tf sample] rosrun tf static_transform_publisher 0.0 0.0 0.0 0 0 0 base_link map 100
 
-[roslog] $HOME/.ros/log/
+[roslog cat] cat $HOME/.ros/log/latest/
+[roslog file] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
 [ros set rosmaster url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
