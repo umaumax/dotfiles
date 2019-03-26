@@ -17,12 +17,14 @@ if v:version >= 800 && has('python3')
 				\ 'python': ['pyls'],
 				\ }
 	" to choose deoplete <C-x>,<C-v>
+	" NOTE: for avoid fb5a1f0 Python 3.6.1+ is required commit
+	let deoplete_opt={ 'commit': '7853113', 'do': ':UpdateRemotePlugins'}
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
-		LazyPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+		LazyPlug 'Shougo/deoplete.nvim', deoplete_opt
 	else
 		" NOTE: don't use lazy load
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+		Plug 'Shougo/deoplete.nvim', deoplete_opt
 		Plug 'roxma/nvim-yarp'
 		Plug 'roxma/vim-hug-neovim-rpc'
 	endif
