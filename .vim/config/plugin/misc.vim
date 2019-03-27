@@ -19,6 +19,10 @@ Plug 'thinca/vim-prettyprint', {'on':'PP'}
 Plug 'sbdchd/vim-shebang', {'on':['ShebangInsert']}
 " override and append
 " NOTE: mac's env command can deal multiple args by env, but linux can't
+" NOTE: [Shell Style Guide]( http://google.github.io/styleguide/shell.xml?showone=File_Header#File_Header )
+" use below shebang
+" #!/bin/bash
+" by using env, you can use new version of command
 let g:shebang#shebangs = {
 			\ 'awk': '#!/usr/bin/awk -f',
 			\ 'sh':  '#!/usr/bin/env bash',
