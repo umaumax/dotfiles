@@ -19,12 +19,32 @@
 RED="\033[0;31m"
 DEFAULT="\033[0m"
 
-IFS=' ' read local_ref local_sha remote_ref remote_sha
 
-output=$(git diff "$remote_sha..$local_sha" -G 'FORBIDDEN_PUSH_MAGIC_KEYWORD$' --color)
-printf '%s' "$output"
+remote="$1"
+url="$2"
+
+# NOTE: default sha which is not exist
+z40=0000000000000000000000000000000000000000
+
+IFS=' ' read local_ref local_sha remote_ref remote_sha
+# echo $local_ref $local_sha $remote_ref $remote_sha
+if [[ "$remote_sha" == $z40 ]]; then
+  # New branch, examine all commits
+  range="$local_sha^!"
+else
+  # NOTE: no change?
+  [[ -z $local_sha ]] && exit 0
+  # Update to existing branch, examine new commits
+  range="$remote_sha..$local_sha"
+fi
+
+output=$(git diff "$range" -G 'FORBIDDEN_PUSH_MAGIC_KEYWORD$' --color)
 
 if [[ -n $output ]]; then
+  function hr() { printf '%*s\n' "$(tput cols)" '' | tr ' ' "--"; }
+  hr
+  printf '%s\n' "$output"
+  hr
   echo git diff "$remote_sha..$local_sha" -G 'FORBIDDEN_PUSH_MAGIC_KEYWORD$' --color
   echo -e "${RED}WARNING: You have to get rid of 'FORBIDDEN_PUSH_MAGIC_KEYWORD' in the above files, lines. Fix them before committing.${DEFAULT}"
   echo -e "${RED}If you want to skip pre-push hook, use below command.${DEFAULT}"
