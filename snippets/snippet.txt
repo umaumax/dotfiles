@@ -180,6 +180,9 @@
 [git diff between branches] git diff $OLD_BRANCH:$REL_FILEPATH $NEW_BRANCH:$REL_FILEPATH
 [git diff grep] git diff -G @
 [git diff staged] git diff --staged
+# FYI: [version control \- How to see the changes in a Git commit? \- Stack Overflow]( https://stackoverflow.com/questions/17563726/how-to-see-the-changes-in-a-git-commit )
+[git diff one commit] git diff "$COMMIT@^!"
+[git diff one commit] git diff-tree -p $COMMIT@
 
 [git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH@ # you can use dir path
 
