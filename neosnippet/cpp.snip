@@ -1066,3 +1066,12 @@ snippet env_is_set
 snippet env_get
 	const char* env_char = std::getenv(${0});
 	std::string env = std::string(env_char != nullptr ? env_char : "${1:#:default value}");
+
+snippet gcd
+alias cp_gcd
+	int GCD(int a, int b) {
+	  if (b == 0) {
+	    return a;
+	  }
+	  return GCD(b, a % b);
+	}
