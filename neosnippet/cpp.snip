@@ -26,6 +26,17 @@ alias find_string
 abbr !=: found, ==: not found
 	(${1:#:str}.find(${2:#:keyword}) != std::string::npos)${0}
 
+snippet contains_all
+alias find_string_all
+	std::string keyword = ${1};
+	if (keyword != "") {
+	  std::string::size_type pos = 0;
+	  while ((pos = target.find(keyword, pos)) != std::string::npos) {
+	    pos += keyword.length();
+	    ${0}
+	  }
+	}
+
 snippet prefix_string
 alias string_prefix
 	if (${1:#:target}.size() >= ${2:#:prefix}.size() && std::equal(std::begin($2), std::end($2), std::begin($1))) {
@@ -369,13 +380,13 @@ snippet join_to_string
 snippet split_function
 	#include <string>
 	#include <vector>
-	std::vector<std::string> Split(std::string text, std::string delim) {
+	std::vector<std::string> Split(std::string text, std::string delims) {
 	  std::vector<std::string> vec;
-	  std::string::size_type spos = 0, epos, delimlen = delim.size();
+	  std::string::size_type spos = 0, epos;
 	  if (text == "") return vec;
-	  while ((epos = text.find_first_of(delim, spos)) != std::string::npos) {
+	  while ((epos = text.find_first_of(delims, spos)) != std::string::npos) {
 	    vec.emplace_back(text.substr(spos, epos - spos));
-	    spos = epos + delimlen;
+	    spos = epos + 1;
 	  }
 	  vec.emplace_back(text.substr(spos));
 	  return vec;
