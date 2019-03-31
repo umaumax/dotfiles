@@ -568,12 +568,12 @@ alias vs='code'
 function pipe-EOF-do() {
 	# NOTE: mac ok
 	# NOTE: ubuntu cannot deal with sudo before pipe
-	read -r LINE
+	# NOTE: たまに，suspended (tty output)と表示され，バックグランド実行となる(at mac)
+	IFS= read -r LINE
 	{
 		printf '%s\n' "$LINE"
-		command cat /dev/stdin
-	} | ${@}
-	return
+		command cat
+	} | $@
 }
 
 function sudowait() {
