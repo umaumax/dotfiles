@@ -67,7 +67,7 @@ function! s:format_file()
   normal! gg=G
   silent call winrestview(l:view)
 endfunction
-command! Format call <SID>format_file()
+command! -bar Format call <SID>format_file()
 
 function! IsAutoFormat()
   return g:auto_format_flag == 1
@@ -84,13 +84,13 @@ command! AutoFormat let g:auto_format_flag=1
 " NOTE: register default format command
 augroup auto_format_setting_when_leaving
   autocmd!
-  autocmd BufWinLeave * command! Format call <SID>format_file()
+  autocmd BufWinLeave * command! -bar Format call <SID>format_file()
 augroup END
 
 if Doctor('clang-format', 'clang format')
   augroup cpp_group
     autocmd!
-    autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% Format :<line1>,<line2>ClangFormatRange
+    autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% -bar Format :<line1>,<line2>ClangFormatRange
     autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
     autocmd FileType cpp autocmd! cpp_group FileType
   augroup END
@@ -107,7 +107,7 @@ endif
 if Doctor('autopep8', 'python format')
   augroup python_group
     autocmd!
-    autocmd FileType python autocmd BufWinEnter *.py command! Format call Autopep8()
+    autocmd FileType python autocmd BufWinEnter *.py command! -bar Format call Autopep8()
     autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() | call Autopep8() | endif
     autocmd FileType python autocmd! python_group FileType
   augroup END
@@ -117,31 +117,31 @@ endif
 if Doctor('npm', 'js,html,css format')
   augroup javascript_group
     autocmd!
-    autocmd FileType javascript autocmd BufWinEnter *.js command! Format call JsBeautify()
+    autocmd FileType javascript autocmd BufWinEnter *.js command! -bar Format call JsBeautify()
     autocmd FileType javascript autocmd BufWritePre *.js if IsAutoFormat() | call JsBeautify() | endif
     autocmd FileType javascript autocmd! javascript_group FileType
   augroup END
   augroup json_group
     autocmd!
-    autocmd FileType json autocmd BufWinEnter *.json command! Format call JsonBeautify()
+    autocmd FileType json autocmd BufWinEnter *.json command! -bar Format call JsonBeautify()
     autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | call JsonBeautify() | endif
     autocmd FileType json autocmd! json_group FileType
   augroup END
   " 		augroup jsx_group
   " 			autocmd!
-  " 		autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! Format JsxBeautify()
+  " 		autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! -bar Format JsxBeautify()
   " 		autocmd FileType jsx      autocmd BufWritePre *.jsx        if IsAutoFormat() | :call JsxBeautify()  | endif
   " 		autocmd FileType jsx autocmd! jsx_group FileType
   " 		augroup END
   augroup html_vue_group
     autocmd!
-    autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! Format call HtmlBeautify()
+    autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! -bar Format call HtmlBeautify()
     autocmd FileType html,vue autocmd BufWritePre *.{html,vue} if IsAutoFormat() | call HtmlBeautify() | endif
     autocmd FileType html,vue autocmd! html_vue_group FileType
   augroup END
   augroup css_group
     autocmd!
-    autocmd FileType css autocmd  BufWinEnter *.css command! Format         call CSSBeautify()
+    autocmd FileType css autocmd  BufWinEnter *.css command! -bar Format         call CSSBeautify()
     autocmd FileType css autocmd  BufWritePre *.css if       IsAutoFormat() | call CSSBeautify() | endif
     autocmd FileType css autocmd! css_group   FileType
   augroup END
@@ -149,7 +149,7 @@ endif
 
 augroup awk_group
   autocmd!
-  autocmd FileType awk autocmd BufWinEnter *.awk command! Format call <SID>format_file()
+  autocmd FileType awk autocmd BufWinEnter *.awk command! -bar Format call <SID>format_file()
   autocmd FileType awk autocmd BufWritePre *.awk if IsAutoFormat() | call <SID>format_file() | endif
   autocmd FileType awk autocmd! awk_group FileType
 augroup END
@@ -170,7 +170,7 @@ augroup END
 if Doctor('shfmt', 'shell format')
   augroup shell_group
     autocmd!
-    autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! Format Shfmt
+    autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! -bar Format Shfmt
     autocmd FileType sh,zsh autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
     autocmd FileType sh,zsh autocmd! shell_group FileType
   augroup END
@@ -189,7 +189,7 @@ if Doctor('xmllint', 'xml format')
   " NOTE: tmp disable
   " augroup xml_format_group
   " autocmd!
-  " autocmd FileType xml autocmd BufWinEnter *.{xml} command! Format         XMLFormat
+  " autocmd FileType xml autocmd BufWinEnter *.{xml} command! -bar Format         XMLFormat
   " autocmd FileType xml autocmd BufWritePre *.{xml} if       IsAutoFormat() | :XMLFormat | endif
   " autocmd FileType xml autocmd! xml_format_group FileType
   " augroup END
@@ -199,7 +199,7 @@ endif
 if Doctor('gofmt', 'go format')
   augroup go_format_group
     autocmd!
-    autocmd FileType go autocmd BufWinEnter *.go command! Format GoFmt
+    autocmd FileType go autocmd BufWinEnter *.go command! -bar Format GoFmt
     autocmd FileType go autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
     autocmd FileType go autocmd! go_format_group FileType
   augroup END
@@ -210,7 +210,7 @@ endif
 " NOTE: コメントが消える不具合がある
 " augroup yaml_format_group
 " autocmd!
-" autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! Format YAMLFormat
+" autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! -bar Format YAMLFormat
 " autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YAMLFormatWrapper | endif
 " autocmd FileType yaml autocmd! yaml_format_group FileType
 " augroup END
@@ -220,7 +220,7 @@ endif
 if Doctor('align', 'yaml format')
   augroup yaml_format_group
     autocmd!
-    autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! Format YAMLFormat
+    autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! -bar Format YAMLFormat
     autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YAMLFormat | endif
     autocmd FileType yaml autocmd! yaml_format_group FileType
   augroup END
