@@ -109,6 +109,7 @@
 
 # ctest
 [ctest] ctest --output-on-failure
+[ctest verbose] ctest -V # -VV, --debug
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
