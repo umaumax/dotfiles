@@ -179,8 +179,10 @@ endif
 if Doctor('cmake-format', 'cmake format')
   augroup cmake_format_group
     autocmd!
-    autocmd FileType cmake autocmd BufWinEnter CMakeLists.txt,*.{cmake}      command! Format         CmakeFormat
-    autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :CmakeFormat | endif
+    " autocmd FileType cmake autocmd BufWinEnter CMakeLists.txt,*.{cmake}      command! -bar Format         CmakeFormat
+    " autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :CmakeFormat | endif
+    " autocmd FileType cmake autocmd! cmake_format_group FileType
+    autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :Format | endif
     autocmd FileType cmake autocmd! cmake_format_group FileType
   augroup END
 endif
