@@ -2,6 +2,21 @@
 # DEBUG_MODE='ON'
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
+_NO_CMD=''
+function doctor() {
+	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
+	echo "# These commands are missing..."
+	echo $_NO_CMD | sed 's/^://' | tr ':' '\n' | sort | uniq
+}
+function funccheck() { declare -f "$1" >/dev/null; }
+function cmdcheck() {
+	[[ $# == 0 ]] && echo "$0 <cmd>" && return
+	type "$1" >/dev/null 2>&1
+	local code=$?
+	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
+	return $code
+}
+
 # NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
 if [[ $OS == Windows_NT ]]; then
 	test -r ~/.zprofile && source ~/.zprofile
@@ -23,8 +38,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 	[[ -n $_LS_COLORS ]] && export LS_COLORS="$_LS_COLORS" && unset _LS_COLORS
 else
 	# NOTE: install zprezto
-	git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-	echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
+	if cmdcheck git; then
+		git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+		echo "${BLUE}[HINT]${DEFAULT} exec /bin/zsh -l"
+	fi
 fi
 
 unalias scp
@@ -48,20 +65,6 @@ export HISTSIZE=100000
 
 # Customize to your needs...
 
-_NO_CMD=''
-function doctor() {
-	[[ -z _NO_CMD ]] && echo "You are be in good health!" && return
-	echo "# These commands are missing..."
-	echo $_NO_CMD | sed 's/^://' | tr ':' '\n' | sort | uniq
-}
-function funccheck() { declare -f "$1" >/dev/null; }
-function cmdcheck() {
-	[[ $# == 0 ]] && echo "$0 <cmd>" && return
-	type "$1" >/dev/null 2>&1
-	local code=$?
-	[[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
-	return $code
-}
 function traverse_path_list() {
 	local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' ${1:-$PWD})
 	while true; do
