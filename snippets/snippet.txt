@@ -464,6 +464,9 @@
 [nfsd status] nfsstat -c
 [confirm filetype of system] mount
 [nfs setting file] /etc/exports
+# FYI: [exportfsコマンド：exportsファイルでのNFSの設定を反映する \| Step On Board]( http://www.lesstep.jp/step_on_board/linux/1106/ )
+[nfs update] sudo exportfs -ra
+[nfs show] sudo exportfs -v
 
 # read
 [read] read -s sudo_pass
