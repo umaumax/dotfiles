@@ -663,6 +663,8 @@
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 [rosbag rqt_bag viewer] rqt_bag # <bag file>
 
+[roslaunch output screen] roslaunch --screen @
+
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
@@ -1142,3 +1144,8 @@
 [xmllint format check] xmllint --noout --valid @
 [xmllint format output] xmllint --format @ # use export XMLLINT_INDENT=" " to control indent
 [xml tidy format output] tidy -xml -i -q @
+
+# FYI:
+# [Linux系OSにおいてディスクが読み込み専用\(readonly\)になりました。どう対処すればよいですか？ \| クラウド・エヌ・インフォメーション]( https://www.cloudn-service.com/faq/4028 )
+# [リカバリーモードでrootユーザーなのにReadOnlyだと怒られる時の対処法 \- Qiita]( https://qiita.com/ironsand/items/f40581705a7bb402c01d )
+[remount rootfs] mount -o rw,remount /
