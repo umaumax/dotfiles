@@ -2398,6 +2398,41 @@ function splitbat() {
 	splitcat <(bat "$filepath_1" -p --color=always) <(bat "$filepath_2" -p --color=always)
 }
 
+# NOTE: 高速化とするために，xargsで複数の値を一括で処理する設計とした
+# 1. check size
+# 2. check md5sum
+function pipe_same_file_check() {
+	if [[ ! -p /dev/stdin ]]; then
+		echo 1>&2 "e.g. find . | pipe_same_file_check <target file>"
+		return 1
+	fi
+	[[ $# -lt 1 ]] && echo "$(basename "$0") <target file>" && return 1
+	local filepath
+	local size
+	local md5_ret
+	filepath=$1
+	[[ -d $filepath ]] && echo 1>&2 "$filepath is dir" && return 1
+	md5_checksum=$(md5sum $filepath | cut -f 1 -d " ")
+	if [[ $(uname) == "Darwin" ]]; then
+		size=$(stat -f%z $filepath)
+		xargs stat -f%z:%N | grep "^$size:" | cut -d: -f2 | xargs md5sum | grep "^$md5_checksum"
+	else
+		size=$(stat --printf="%s" $filepath)
+		xargs stat --printf="%s:%n\n" | grep "^$size:" | cut -d: -f2 | xargs md5sum | grep "^$md5_checksum"
+	fi
+}
+
+# NOTE: maybe you can use below command also
+# du -sS | cut -f1
+# macでは-Sが使えず，Bのsuffixがついてしまう
+function stat_file_size() {
+	if [[ $(uname) == "Darwin" ]]; then
+		stat -f%z "$@"
+	else
+		stat --printf="%s\n" "$@"
+	fi
+}
+
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
 # bindkey -e
