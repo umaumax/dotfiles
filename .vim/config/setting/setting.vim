@@ -135,6 +135,8 @@ augroup tab_setting
 	autocmd!
 	autocmd FileType * call s:Sleuth_wrapper(2)
 	autocmd FileType python call s:set_tab(4)
+	" NOTE: Makefile requires hard tab
+	autocmd FileType make setlocal noexpandtab
 augroup END
 
 " NOTE: to disable `E828: Cannot open undo file for writing:`
