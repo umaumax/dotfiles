@@ -170,6 +170,7 @@ fi
 # cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
 # cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
 
+# NOTE: for :ruby
 if cmdcheck rbenv; then
 	append_path "$HOME/.rbenv/bin"
 	# NOTE: below is needed?

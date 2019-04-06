@@ -2433,6 +2433,11 @@ function stat_file_size() {
 	fi
 }
 
+# NOTE: for ruby
+# FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
+# WARN: rubyコマンドの起動が遅いための，暫定処置
+[[ -e ~/.rbenv/versions/2.3.7/bin/ruby ]] && alias ruby="~/.rbenv/versions/2.3.7/bin/ruby"
+
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
 # bindkey -e
