@@ -280,7 +280,10 @@
 [ol repeat text] printf '$TEXT@%.0s' {1..$N}
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+@[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
-[ol random text] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
+# random
+[ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
+[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 32@
+[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9_\!\#\$\%\^\&\*\(\)-+=$(echo -n "\\x40") < /dev/urandom | head -c 32
 
 [shuffle line] shuf
 
@@ -970,9 +973,6 @@
 # TERM
 [TERM tmux] export TERM=screen-256color
 [TERM xterm] export TERM=xterm-256color
-
-# random
-[random texts] (head /dev/urandom | LC_CTYPE=C tr -dc A-Za-z0-9 | head -c 13 ; echo '') # LC_CTYPE=C is for mac
 
 [cmd repeat like watch] while true; do sleep 1; @; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; @"; done
