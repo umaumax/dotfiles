@@ -1086,3 +1086,18 @@ alias cp_gcd
 	  }
 	  return GCD(b, a % b);
 	}
+
+snippet filesize
+	#include <fstream>
+	/**
+	 * @brief return file size (unit is Byte)
+	 *
+	 * @param filename
+	 *
+	 * @return file size (unit is Byte), or -1 (no such file)
+	 */
+	std::ifstream::pos_type GetFileSize(const std::string filename) {
+	  // NOTE: ate: at-end
+	  std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+	  return in.tellg();
+	}
