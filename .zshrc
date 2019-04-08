@@ -2415,10 +2415,10 @@ function pipe_same_file_check() {
 	md5_checksum=$(md5sum $filepath | cut -f 1 -d " ")
 	if [[ $(uname) == "Darwin" ]]; then
 		size=$(stat -f%z $filepath)
-		xargs stat -f%z:%N | grep "^$size:" | cut -d: -f2 | xargs md5sum | grep "^$md5_checksum"
+		xargs -I{} stat -f%z:%N '{}' | grep "^$size:" | cut -d: -f2 | xargs -I{} md5sum '{}' | grep "^$md5_checksum"
 	else
 		size=$(stat --printf="%s" $filepath)
-		xargs stat --printf="%s:%n\n" | grep "^$size:" | cut -d: -f2 | xargs md5sum | grep "^$md5_checksum"
+		xargs -I{} stat --printf="%s:%n\n" '{}' | grep "^$size:" | cut -d: -f2 | xargs -I{} md5sum '{}' | grep "^$md5_checksum"
 	fi
 }
 
