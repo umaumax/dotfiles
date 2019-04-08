@@ -667,6 +667,10 @@
 [rosbag play with rename topic] rosbag play @ $FROM_TOPIC:=$TO_TOPIC# from:=to
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 [rosbag rqt_bag viewer] rqt_bag # <bag file>
+# default is TERM signal
+[rosbag timeout] timeout -sINT rosbag record -O @ # xxx.bag /xxx/yyy
+# [rosbag file cannot be made // \.bag\.active \- ROS Answers: Open Source Q&A Forum]( https://answers.ros.org/question/40116/rosbag-file-cannot-be-made-bagactive/ )
+[rosbag fix] rosbag reindex *.bag.active && rosbag fix *.bag.active repaired.bag
 
 [roslaunch output screen] roslaunch --screen @
 
