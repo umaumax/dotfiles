@@ -110,7 +110,7 @@
 [make dry-run] make -n @ # -n=--dry-run
 
 # ctest
-[ctest] ctest --output-on-failure
+[ctest] GTEST_COLOR=yes ctest --output-on-failure
 [ctest verbose] ctest -V # -VV, --debug
 
 # timeout
