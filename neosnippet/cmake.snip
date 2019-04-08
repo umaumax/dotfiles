@@ -336,11 +336,15 @@ snippet return
 	return()${0}
 
 # FYI: [linux \- cmake : How to change file permissions when installing? \- Stack Overflow]( https://stackoverflow.com/questions/19399705/cmake-how-to-change-file-permissions-when-installing )
+# FYI: [install — CMake 3\.0\.2 Documentation]( https://cmake.org/cmake/help/v3.0/command/install.html )
+# FILESとDIRECTORYでoptionが異なる
 snippet install_files_with_permissions
 	install(
 	  FILES ${1}
 	  # TODO: choose permissions!
 	  # PERMISSIONS OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, GROUP_READ, GROUP_WRITE, GROUP_EXECUTE, WORLD_READ, WORLD_WRITE, WORLD_EXECUTE, SETUID, and SETGID
+	  # -rwxr-xr-x
+	  # PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 	  DESTINATION ${0:bin}
 	)
 
