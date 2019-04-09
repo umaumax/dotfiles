@@ -7,6 +7,8 @@
   # global git hooks dirpath (from git 2.9+ (June 2016)) but this setting disables local git hooks...
   # hooksPath = ~/.config/git/hooks
   ignorecase = false
+  # FYI: [so\-fancy/diff\-so\-fancy: Good\-lookin' diffs\. Actually… nah… The best\-lookin' diffs\.]( https://github.com/so-fancy/diff-so-fancy )
+  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || cat; } | less --tabs=4 -RFX"
 [init]
   templatedir = ~/.git_template
 [help]
