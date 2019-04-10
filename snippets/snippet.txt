@@ -1086,6 +1086,11 @@
 [image convert extend] convert $IMAGE@ -append -background none -gravity center -extent 320x320 $OUTPUT
 [image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
 [image white noise] convert -size 128x128 xc:gray +noise random -colorspace gray noise.png
+[image black] convert -size 128x128 xc:black black.png
+[image white] convert -size 128x128 xc:white white.png
+# FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
+[image convert raw to png] find . -name "*@.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert raw to png] find . -name "*@.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
 
@@ -1101,11 +1106,6 @@
 [argcheck bash] command echo -n @
 [argcheck python3] python3 -c 'import sys; print(sys.argv[1:])' @
 [argcheck python2] python2 -c 'import sys; print sys.argv[1:] ' @
-
-# image
-# FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
-[image convert raw to png] find . -name "*@.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
-[image convert raw to png] find . -name "*@.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
 
 [parallel] parallel --no-notice @
 
