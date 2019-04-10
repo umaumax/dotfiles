@@ -110,6 +110,8 @@
 [make dry-run] make -n @ # -n=--dry-run
 
 # ctest
+# FYI: [cmake \- Can ctest display googletest console colors \- Stack Overflow]( https://stackoverflow.com/questions/34253579/can-ctest-display-googletest-console-colors )
+# 強制的に色がつく(パイプしても色付き)
 [ctest] GTEST_COLOR=yes ctest --output-on-failure
 [ctest verbose] ctest -V # -VV, --debug
 
@@ -292,6 +294,8 @@
 [number of CPU] nproc --all # linux only
 
 # g++
+## g++ not clang++
+[cpp c++11 verbose help] g++ -v --help
 [cpp c++11 compile] g++ -std=c++11 @
 [cpp c++11 compile] clang++ -std=c++11 @
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
@@ -1034,6 +1038,7 @@
 # grep
 [grep without message] grep -sq @
 [grep fixed string] grep -F @ # no regex '$' -> '\$', '\' -> '\\'
+[grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
 
 # linux
 [segmentation backtrace] catchsegv @ # command
@@ -1080,6 +1085,7 @@
 # image
 [image convert extend] convert $IMAGE@ -append -background none -gravity center -extent 320x320 $OUTPUT
 [image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
+[image white noise] convert -size 128x128 xc:gray +noise random -colorspace gray noise.png
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
 
