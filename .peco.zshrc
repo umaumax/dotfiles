@@ -929,3 +929,10 @@ function cmake-find-modules() {
 	# NOTE: ext may be rst(reStructuredText)?
 	cmake --help-module-list | grep -e '^Find' | sed 's/Find//' | fzf --preview='cmake --help-module Find{} | bat --color=always -p -l md' --preview-window='right:80%'
 }
+
+function git-clone-peco() {
+	local target
+	target=$(history | cut -c8- | grep '^git clone' | fzf --query="'")
+	[[ -z $target ]] && return
+	eval "$target"
+}
