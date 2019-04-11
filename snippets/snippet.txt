@@ -122,6 +122,7 @@
 [git commit] git commit -m '@'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
+[git push dry-run] git push -n @
 [git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD)
 [git staged file diff] git diff --cached # <file> # addしたファイルの差分表示
 [git unstage file] git reset $FILE
