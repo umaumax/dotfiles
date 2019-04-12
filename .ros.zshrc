@@ -24,7 +24,8 @@ function catkin_make() {
 	if [[ $exit_code == 0 ]]; then
 		local setup_zsh_filepath="./devel/setup.zsh"
 		[[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
-		pgrep rdm >/dev/null 2>&1 && rc -J build
+		# NOTE: disable for cpu usage
+		# pgrep rdm >/dev/null 2>&1 && rc -J build
 	fi
 	# 	popd >/dev/null 2>&1
 	cd "$_PWD" >/dev/null 2>&1
