@@ -13,6 +13,11 @@ cmdcheck autorsyncpass && compdef autorsyncpass=rsync
 cmdcheck autooresshpass && compdef autooresshpass=ssh
 cmdcheck sshpass && compdef sshpass=ssh
 
+function zsh_comp_file_list() {
+	# NOTE: e.g. /usr/local/share/zsh/functions
+	echo $fpath | xargs -n 1 -I{} find {} -maxdepth 1 -name '_*'
+}
+
 function _color() {
 	compadd $(
 		cat <<EOF
