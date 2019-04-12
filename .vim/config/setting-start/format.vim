@@ -28,6 +28,12 @@ function! IsPrivateWork(...)
     return g:is_private_work_cache[l:dir_path]
   endif
 
+  " NOTE: if current file git repo has '.public_repo' file,
+  " this treats as non-private repo
+  if filereadable(GetGitRepoRoot(expand('%:p')).'/.public_repo')
+    return 0
+  endif
+
   " 	let l:author = system("git config user.name")
   " TODO: create function
   " cache data
