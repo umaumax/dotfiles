@@ -1809,6 +1809,42 @@ EOF
 	ruby -e "$PROGRAM"
 }
 
+# FYI: [Direct linking to your files on Dropbox, Google Drive and OneDrive — Milan Aryal]( https://milanaryal.com.np/direct-linking-to-your-files-on-dropbox-google-drive-and-onedrive/ )
+function google_web_url_to_wget_url() {
+	[[ $# -lt 1 ]] && echo "$(basename "$0") <google drive or docs or spreadsheets or presentation url>" && return 1
+	local url="$1"
+	# NOTE: google drive
+	if echo "$url" | grep -q '^https://drive.google.com'; then
+		local file_id=$(echo "$url" | sed -E 's|^https://drive.google.com/file/d/([^/]+)/.*|\1|')
+		local direct_url="https://drive.google.com/uc?export=download&id=$file_id"
+		echo "$direct_url"
+		return
+	fi
+	# NOTE: google docs
+	if echo "$url" | grep -q '^https://docs.google.com'; then
+		local file_id=$(echo "$url" | sed -E 's|^https://docs.google.com/document/d/([^/]+)/.*|\1|')
+		local direct_url="https://docs.google.com/document/d/$file_id/export?format=pdf" # or doc
+		echo "$direct_url"
+		return
+	fi
+	# NOTE: google spreadsheets
+	if echo "$url" | grep -q '^https://docs.google.com'; then
+		local file_id=$(echo "$url" | sed -E 's|^https://docs.google.com/spreadsheets/d/([^/]+)/.*|\1|')
+		local direct_url="https://docs.google.com/spreadsheets/d/$file_id/export?format=xlsx" # or pdf
+		echo "$direct_url"
+		return
+	fi
+	# NOTE: google presentation
+	if echo "$url" | grep -q '^https://docs.google.com'; then
+		local file_id=$(echo "$url" | sed -E 's|^https://docs.google.com/presentation/d/([^/]+)/.*|\1|')
+		local direct_url="https://docs.google.com/presentation/d/$file_id/export?format=pdf" # or pptx
+		echo "$direct_url"
+		return
+	fi
+	echo 1>&2 "unknown google url type: $url"
+	return 1
+}
+
 # FYI: [google driveをコマンドラインで操作する \- Qiita]( https://qiita.com/shinkoma/items/e2d80f82303bd90e9e30 )
 # Failed to get file: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded
 # Failed to find root dir: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded
