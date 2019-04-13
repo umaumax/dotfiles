@@ -74,6 +74,7 @@ sudo apt-get install -y graphviz
 
 # build tools
 sudo apt-get install -y cmake
+sudo apt-get install -y cmake-curses-gui
 sudo apt-get install -y colormake
 sudo apt-get install -y ninja-build
 sudo apt-get install -y ccache
