@@ -261,6 +261,12 @@
 [tree depth] tree -L $DEPTH
 
 # shell one liner
+[ol ls -a without . and ..] ls -A
+[ol ls -a without . and ..] ls -a | tail -n +3
+[ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
+[ol show only non-uniq lines] sort | uniq -d
+[ol show only uniq lines] sort | uniq -u
+[ol show n~ lines] tail -n +@ # n行目以降
 [ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
 [ol compact space] sed -e 's/\s\+/ /g'
 [ol line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
