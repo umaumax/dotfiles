@@ -678,7 +678,7 @@ if cmdcheck fzf; then
 		local SED='sed'
 		type >/dev/null 2>&1 gsed && SED='gsed'
 		{
-			echo 's/hgoe/fuga/g'
+			echo 's/hoge/fuga/g'
 			echo '1iSAMPLE'
 			echo '1aSAMPLE'
 		} | fzf --ansi --multi --preview 'echo '"$SED"' -E {q}; SEDRY_SED='"$SED"' sedry -E {q} '"${args[@]}" --preview-window 'down:70%' --height '80%' --print-query
