@@ -614,7 +614,17 @@ if cmdcheck fzf; then
 	function lspeco() {
 		local ls_force_color='ls --color=always'
 		[[ $(uname) == "Darwin" ]] && ls_force_color='CLICOLOR_FORCE=1 ls -G'
-		eval $ls_force_color | pecocat
+		eval $ls_force_color -A | pecocat
+	}
+	# NOTE: lsの結果から特定のファイル/ディレクトリを除外する
+	alias pecolsex='lsexpeco'
+	function lsexpeco() {
+		local ls_force_color='ls --color=always'
+		[[ $(uname) == "Darwin" ]] && ls_force_color='CLICOLOR_FORCE=1 ls -G'
+		{
+			eval $ls_force_color -A | pecocat
+			ls -A
+		} | sort | uniq -u
 	}
 	if cmdcheck gomi; then
 		alias pecogomi='gomipeco'
