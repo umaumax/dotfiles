@@ -941,6 +941,8 @@
 [diff ignore space(blank)] diff -b @
 [diff directory] diff -r @ # DIR_A DIR_B
 [diff directory only filepath] diff -rq @ # DIR_A DIR_B
+## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
+[git style diff at out of repo] git diff --no-index -- @
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
