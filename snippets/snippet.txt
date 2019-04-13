@@ -120,6 +120,7 @@
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
 # git
+[git init, add files, and commit] git init && git add -f . && git commit --no-verify
 [git commit] git commit -m '@'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
