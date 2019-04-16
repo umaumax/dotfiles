@@ -833,6 +833,9 @@
 
 [mac logger] logger 'hello world'
 [mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
+[mac hardware info] system_profiler SPHardwareDataType
+[mac cpu core info] sysctl -a | egrep -e "hw.ncpu*|hw.activecpu*|hw.logicalcpu*|hw.physicalcpu*" # or sysctl -n hw.ncpu
+[python cpu core info] python -c 'import multiprocessing as m; print(m.cpu_count());' # with hyper threads
 [linux cat log] cat /var/log/messages
 
 [ubuntu mother board info] sudo dmidecode -t baseboard
