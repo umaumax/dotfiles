@@ -705,8 +705,8 @@
 [roslog file] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
-[ros set rosmaster url] export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
-[ros publish rosmaster] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/
+[ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
+[ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
 
 [ros log] ~/.ros/log/latest/master.log
 [ros log] ~/.ros/log/latest/$ROS_NODE_NAME@-1-stdout.log
