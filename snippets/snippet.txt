@@ -520,6 +520,8 @@
 
 [ubuntu code name] lsb_release -cs # 16.04: xenial
 
+[ubuntu usb rules directory] /etc/udev/rules.d
+
 # so files
 [so lib path search] ldconfig -p | grep $LIB_NAME
 
