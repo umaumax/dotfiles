@@ -404,6 +404,7 @@
 [g++ macro defines] g++ -dM -E - < /dev/null | sort @
 
 # network manager
+[nmcli config files dir] /etc/NetworkManager/system-connections/
 [nmcli connection] nmcli connection
 [nmcli connection show] nmcli connection show
 [nmcli device status] nmcli device status
