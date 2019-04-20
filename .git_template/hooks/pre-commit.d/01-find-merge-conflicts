@@ -17,9 +17,10 @@ cmdcheck 'ggrep' && grep='ggrep'
 # NOTE: filter files by size
 # NOTE: ubuntu find cannot run -size -1M appropriately
 files=($(
-for cahnged_file in "${changed_files[@]}"; do
-  find "$cahnged_file" -maxdepth 1 -type f -size -1000k
-done
+  for cahnged_file in "${changed_files[@]}"; do
+    # NOTE: for git rm
+    [[ -e "$cahnged_file" ]] && find "$cahnged_file" -maxdepth 1 -type f -size -1000k
+  done
 ))
 
 stop_flag=0
