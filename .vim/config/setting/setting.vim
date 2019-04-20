@@ -44,6 +44,9 @@ set display=lastline " [個人的に便利だと思うVimの基本設定のラ�
 set scrolloff=8 " 最低でも上下に表示する行数
 set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
 
+" FYI: [crontab \-e で temp file must be edited in place \- memo\.xight\.org]( https://memo.xight.org/2017-08-30-1 )
+set backupskip=/tmp/*,/private/tmp/*
+
 " NOTE: vim-abolish some commands can be reversible
 " FYI: [vim\-abolish/abolish\.txt at master - tpope/vim\-abolish]( https://github.com/tpope/vim-abolish/blob/master/doc/abolish.txt#L167 )
 setlocal iskeyword+=-
