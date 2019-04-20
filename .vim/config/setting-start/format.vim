@@ -176,8 +176,8 @@ augroup END
 if Doctor('shfmt', 'shell format')
   augroup shell_group
     autocmd!
-    autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! -bar Format Shfmt
-    autocmd FileType sh,zsh autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt | endif
+    autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} command! -bar Format Shfmt -i 2
+    autocmd FileType sh,zsh autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile} if IsAutoFormat() | :Shfmt -i 2 | endif
     autocmd FileType sh,zsh autocmd! shell_group FileType
   augroup END
 endif
