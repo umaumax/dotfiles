@@ -95,6 +95,8 @@
 [cmake find modules] cmake --help-module-list | grep -e '^Find' | sed 's/Find//'
 [cmake confirm make install files] cmake -DCMAKE_INSTALL_PREFIX=$(mktemp -d install) .. # using by tmp dir way
 [cmake gui tool(edit cache var)] ccmake # sudo apt-get install -y cmake-curses-gui
+[cmake option list] cmake -LH ..
+[cmake option list] cmake .. && ccmake
 
 # make
 [make debug verbose] make VERBOSE=1 @ # made by autotoools or cmake
@@ -709,6 +711,7 @@
 [rosclean] rosclean check
 [rosclean] rosclean purge
 [ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
+# NOTE: default ROS_MASTER_URI is localhost (which has IP restriction)
 [ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
 
 [ros log] ~/.ros/log/latest/master.log
