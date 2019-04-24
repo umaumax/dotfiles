@@ -70,6 +70,43 @@ function rosroot() {
   return 1
 }
 
+function rosbag_to_image() {
+  [[ $# -lt 4 ]] && echo "$(basename "$0") <rosbag filepath> <image topic> <output dir> <filename_format>\n e.g. xxx.bag /xxx/yyy images_out frame%04d.png " && return 1
+  local tmpfile="/tmp/$(mktemp "$(basename $0).$$.tmp.XXXXXX")"
+  function abs_path() {
+    perl -MCwd -le '
+    for (@ARGV) {
+      if ($p = Cwd::abs_path $_) {
+        print $p;
+      } else {
+        warn "abs_path: $_: $!\n";
+        $ret = 1;
+      }
+    }
+    exit $ret' "$@"
+  }
+  # NOTE: you must use abs filepath
+  local rosbag_abs_filepath=$(abs_path $1)
+  local image_topic=$2
+  local output_abs_dirpath=$(abs_path $3)
+  local filename_format=$4
+  mkdir -p "$output_abs_dirpath"
+  cat >$tmpfile <<EOF
+<launch>
+  <arg name="rosbag" default="$rosbag_abs_filepath"/>
+  <arg name="image_topic" default="$image_topic"/>
+  <arg name="output_dir" default="$output_abs_dirpath"/>
+  <arg name="filename_format" default="$filename_format"/>
+  <node pkg="rosbag" type="play" name="rosbag" args="-d 2 \$(arg rosbag)"/>
+  <node name="extract" pkg="image_view" type="extract_images" respawn="false" output="screen">
+    <remap from="image" to="\$(arg image_topic)"/>
+    <param name="filename_format" value="\$(arg output_dir)/\$(arg filename_format)" />
+  </node>
+</launch>
+EOF
+  roslaunch $tmpfile
+}
+
 if cmdcheck peco; then
   alias roscdpeco='roscdpeco_local'
   function roscdpeco_global() {
