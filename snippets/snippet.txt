@@ -1,31 +1,31 @@
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
-[find current dir] find . -name "@" -exec grep --color=auto -H -n {} +
-[find root dir] sudo find / -name "@" -exec grep --color=auto -H -n {} +
-[find some ext file] find . -name "*.@"
+[find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
+[find root dir] sudo find / -name "\%#" -exec grep --color=auto -H -n {} +
+[find some ext file] find . -name "*.\%#"
 
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
 [find remove core] find . -name "core.*" -type f -ls -delete
 [find remove object/archives] find . \( -name "*.a" -o -name "*.so" -o -name "*.o" \) -type f -ls -delete
 [find remove orig] find . -name "*.orig" -type f -ls -delete
-[find executable mac] find @ -type f -perm +ugo+x -print
-[find executable linux] find @ -executable -type f
+[find executable mac] find \%# -type f -perm +ugo+x -print
+[find executable linux] find \%# -executable -type f
 
 [find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
 [find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
 [find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
 
 # fg
-[vim] fg.vim "@" | pecovim
-[vim] fg.my.vim "@" | pecovim
-[vim] fg.md "@" | pecovim
-[vim] fg.my.md "@" | pecovim
-[vim] fg.cpp-all "@" | pecovim
-[vim] fg.vim "@"
-[vim] fg.my.vim "@"
-[vim] fg.md "@"
-[vim] fg.my.md "@"
-[vim] fg.cpp-all "@"
+[vim] fg.vim "\%#" | pecovim
+[vim] fg.my.vim "\%#" | pecovim
+[vim] fg.md "\%#" | pecovim
+[vim] fg.my.md "\%#" | pecovim
+[vim] fg.cpp-all "\%#" | pecovim
+[vim] fg.vim "\%#"
+[vim] fg.my.vim "\%#"
+[vim] fg.md "\%#"
+[vim] fg.my.md "\%#"
+[vim] fg.cpp-all "\%#"
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
 
 # ubuntu
@@ -39,7 +39,7 @@
 # ubuntu network
 [ubuntu network reboot] sudo service networking restart
 [ubuntu ip flush] sudo ip addr flush
-[ubuntu ip down up] NIC=@ && sudo ifdown $NIC && sudo ifup $NIC
+[ubuntu ip down up] NIC=\%# && sudo ifdown $NIC && sudo ifup $NIC
 # ubuntu *.deb install
 [ubuntu gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 [ubuntu mdfind] locate # updatedb
@@ -47,19 +47,19 @@
 [lsusb tree] lsusb -t
 
 # tar
-# [tar 解凍(extract)  .tar.gz] tar zxvf @ -C .
-[tar 解凍(extract)  .tar.?   ] tar  xvf @ -C .
-[tar 圧縮(compress) .tar.gz] tar zcvf @ # [tar.gz] [dir]
-[tar 圧縮(compress) .tar.  ] tar  cvf @ # [.tar] [dir]
-[tar 圧縮(compress) .tar.gz] DIRECTORY=@ && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
-[tar 圧縮(compress) .tar   ] DIRECTORY=@ && tar  cvf $DIRECTORY.tar    $DIRECTORY
+# [tar 解凍(extract)  .tar.gz] tar zxvf \%# -C .
+[tar 解凍(extract)  .tar.?   ] tar  xvf \%# -C .
+[tar 圧縮(compress) .tar.gz] tar zcvf \%# # [tar.gz] [dir]
+[tar 圧縮(compress) .tar.  ] tar  cvf \%# # [.tar] [dir]
+[tar 圧縮(compress) .tar.gz] DIRECTORY=\%# && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
+[tar 圧縮(compress) .tar   ] DIRECTORY=\%# && tar  cvf $DIRECTORY.tar    $DIRECTORY
 # [findの結果をtarでアーカイブしたい \- 浦安市在住＋デジカメ]( https://fei-yen.jp/maya/wordpress/blog/2013/01/15/find%E3%81%AE%E7%B5%90%E6%9E%9C%E3%82%92tar%E3%81%A7%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%96%E3%81%97%E3%81%9F%E3%81%84/ )
-[tar find print0 pipe to file] tar -cvz -T - --null -f @.tar.gz
-[tar find print0 pipe to pipe] tar -cvz -T - --null | @
-[tar find ssh] find @ -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
+[tar find print0 pipe to file] tar -cvz -T - --null -f \%#.tar.gz
+[tar find print0 pipe to pipe] tar -cvz -T - --null | \%#
+[tar find ssh] find \%# -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
-[zip compress] zip -r @ # [.zip] [dir]
-[zip unzip broken file] zip -FF $SRC@ --output $DST
+[zip compress] zip -r \%# # [.zip] [dir]
+[zip unzip broken file] zip -FF $SRC\%# --output $DST
 
 [IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
@@ -70,11 +70,11 @@
 [disk size] df -h
 
 # docker
-[docker build] docker build -t $tag@ .
-[docker run] docker run --rm -it $tag@ /bin/bash
+[docker build] docker build -t $tag\%# .
+[docker run] docker run --rm -it $tag\%# /bin/bash
 [docker stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
-[docker cp  host -> guest] docker cp $HOST_FILEPATH@ $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
-[docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH@ # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+[docker cp  host -> guest] docker cp $HOST_FILEPATH\%# $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+[docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH\%# # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
 [docker force rebuild flag] --no-cache
 [docker volume list] docker volume ls
 [docker each container disk usage] docker system df -v
@@ -91,7 +91,7 @@
 [cmake auto create build dir & cmake] [[ $(basedirname $PWD) != "build" ]] && mkdir -p build && cd build; cmake ..
 [cmake out of build dir] cmake -H. -Bbuild # -GNinja
 [cmake out of build dir] cmake --build build/
-[cmake find modules help] cmake --help-module @ # use tab completion
+[cmake find modules help] cmake --help-module \%# # use tab completion
 [cmake find modules] cmake --help-module-list | grep -e '^Find' | sed 's/Find//'
 [cmake confirm make install files] cmake -DCMAKE_INSTALL_PREFIX=$(mktemp -d install) .. # using by tmp dir way
 [cmake gui tool(edit cache var)] ccmake # sudo apt-get install -y cmake-curses-gui
@@ -99,18 +99,18 @@
 [cmake option list] cmake .. && ccmake
 
 # make
-[make debug verbose] make VERBOSE=1 @ # made by autotoools or cmake
-[make debug verbose] make SHELL='sh -x' @ # made by yourself
-[make debug verbose] make --debug=j @ # made by yourself
-[make set -ex] make SHELL='sh -ex' @ # made by yourself
+[make debug verbose] make VERBOSE=1 \%# # made by autotoools or cmake
+[make debug verbose] make SHELL='sh -x' \%# # made by yourself
+[make debug verbose] make --debug=j \%# # made by yourself
+[make set -ex] make SHELL='sh -ex' \%# # made by yourself
 ## [makeの並列オプションは何を指定するべきか \- よーる]( http://lpha-z.hatenablog.com/entry/2018/12/30/231500 )
-[make -j max cpu] make -j$(($(nproc --all)+1)) @ # or simply only -j option
+[make -j max cpu] make -j$(($(nproc --all)+1)) \%# # or simply only -j option
 [make build and install with prefix]make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
 [make variables debug] make -p -f/dev/null
-[make good looking color output] make SHELL='sh -ex' @ | ccze -A -o nolookups
+[make good looking color output] make SHELL='sh -ex' \%# | ccze -A -o nolookups
 # FYI: [linux \- How do you force a makefile to rebuild a target \- Stack Overflow]( https://stackoverflow.com/questions/816370/how-do-you-force-a-makefile-to-rebuild-a-target )
-[make force phony] make -B @# --always-make
-[make dry-run] make -n @ # -n=--dry-run
+[make force phony] make -B \%## --always-make
+[make dry-run] make -n \%# # -n=--dry-run
 
 # ctest
 # FYI: [cmake \- Can ctest display googletest console colors \- Stack Overflow]( https://stackoverflow.com/questions/34253579/can-ctest-display-googletest-console-colors )
@@ -123,78 +123,78 @@
 
 # git
 [git init, add files, and commit] git init && git add -f . && git commit --no-verify
-[git commit] git commit -m '@'
+[git commit] git commit -m '\%#'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
-[git push dry-run] git push -n @
+[git push dry-run] git push -n \%#
 [git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD)
 [git staged file diff] git diff --cached # <file> # addしたファイルの差分表示
 [git unstage file] git reset $FILE
 [git unstage all] git reset
-[git rename branch] git branch -m @
+[git rename branch] git branch -m \%#
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset # to move commit to stash or easy to amend...
-[git commit without pre-hook] git commit --no-verify @
-[git amend reset] git reset --soft "HEAD$(echo -n "\\x40"){1}" # WARN: use this comand just after wrong amend
+[git commit without pre-hook] git commit --no-verify \%#
+[git amend reset] git reset --soft "HEAD@{1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
 [git merge all conflict(adopt upper one)] git checkout --ours .
 [git merge all conflict(adopt lower one)] git checkout --theirs .
 [git merge retry all conflict] git checkout -m .
 [git stash pop reset] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
 [git stash list] git stash list
-[git stash list src] git stash show "stash$(echo -n "\\x40"){0}" -p
-[git stash with name] git stash save "@"
-[git stash] git stash pop "stash$(echo -n "\\x40"){@}"
-[git reset deleted files] git checkout HEAD -- @ # <file>
+[git stash list src] git stash show "stash@{0}" -p
+[git stash with name] git stash save "\%#"
+[git stash] git stash pop "stash@{\%#}"
+[git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git commit without hook] git commit --no-verify
 [git reload git hooks]  (cd $(git rev-parse --show-toplevel) >/dev/null 2>&1 && rm -rf ".git/hooks" && git init) # WARN: It's possible to delete local git hooks
 [git first empty commit] git commit --allow-empty -m "first commit"
 [git submodule init and update] git submodule update --init --recursive
-[git submodule force add] git submodule add -f @
+[git submodule force add] git submodule add -f \%#
 [git Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
 [git tag old to new] git tag --sort=taggerdate
 [git latest named tag] git tag --sort=taggerdate | tail -n1
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
-[git keep] touch @.gitkeep
+[git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
 [git checkout root]  git checkout $(git rev-parse --show-toplevel)
-[git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH@ && git reset --hard "HEAD~1"
+[git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH\%# && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 [git man grep] man git-grep
 [git man diff] man git-diff
-[git grep submodule] git grep --recurse-submodules @
-[git grep submodule peco vim] ggpv --recurse-submodules @
-[git grep ext ok filter] git grep "@" -- '*.'
-[git grep ext ng filter] git grep "@" -- ':!*.'
-[git grep cpp ext filter] git grep "@" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
+[git grep submodule] git grep --recurse-submodules \%#
+[git grep submodule peco vim] ggpv --recurse-submodules \%#
+[git grep ext ok filter] git grep "\%#" -- '*.'
+[git grep ext ng filter] git grep "\%#" -- ':!*.'
+[git grep cpp ext filter] git grep "\%#" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git grep filename example] git grep -H "c++11" -- "*[Mm]akefile" # include and with hit line
 [git grep filename example] git grep -L "c++11" -- "*[Mm]akefile" # not include
-[git clone rename] git clone @ $NEW_NAME
-[git clone with submodule] git clone --recursive @
-[git commit log grep] git log --stat -S "@"
-[git is commit hash?] git rev-parse --verify @ >/dev/null 2>&1
+[git clone rename] git clone \%# $NEW_NAME
+[git clone with submodule] git clone --recursive \%#
+[git commit log grep] git log --stat -S "\%#"
+[git is commit hash?] git rev-parse --verify \%# >/dev/null 2>&1
 
-[git copy file/dir from another branch] git checkout @ #$BRANCH $FILE_PATH
+[git copy file/dir from another branch] git checkout \%# #$BRANCH $FILE_PATH
 
-[git rebase interactive] git rebase -i HEAD~$NUM@
+[git rebase interactive] git rebase -i HEAD~$NUM\%#
 [git rebase continue] git rebase --continue
 
 [git overwrite another commit file] git checkout $COMMIT_HASH $REL_FILE_PATH
 [git overwrite another branch file] git checkout $BRANCH_NAME $FILE_PATH_FROM_GIT_ROOT
 [git show another commit file] git show $COMMIT_ID:$FILE_PATH_FROM_GIT_ROOT
-[git only one commit log] COMMIT_ID=@ && git log $COMMIT_ID...$COMMIT_ID~
-[git diff from current branch] git diff $BRANCH@ $REL_FILEPATH
+[git only one commit log] COMMIT_ID=\%# && git log $COMMIT_ID...$COMMIT_ID~
+[git diff from current branch] git diff $BRANCH\%# $REL_FILEPATH
 [git diff between branches] git diff $OLD_BRANCH:$REL_FILEPATH $NEW_BRANCH:$REL_FILEPATH
-[git diff grep] git diff -G @
+[git diff grep] git diff -G \%#
 [git diff staged] git diff --staged
 # FYI: [version control \- How to see the changes in a Git commit? \- Stack Overflow]( https://stackoverflow.com/questions/17563726/how-to-see-the-changes-in-a-git-commit )
-[git diff one commit] git diff "$COMMIT@^!"
-[git diff one commit] git diff-tree -p $COMMIT@
+[git diff one commit] git diff "$COMMIT\%#^!"
+[git diff one commit] git diff-tree -p $COMMIT\%#
 
-[git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH@ # you can use dir path
+[git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH\%# # you can use dir path
 
 [git list ignored files] git ls-files --other --ignored --exclude-standard
 [git remove untracked files and dirs] git clean -d --dry-run
@@ -209,26 +209,26 @@
 
 [git discard staged changes in working directory] git checkout -- . # dangerous
 [git fetch remote branches] git fetch –all
-[git checkout remote branch as local] git checkout -t origin/@BRANCH_NAME
+[git checkout remote branch as local] git checkout -t origin/\%#BRANCH_NAME
 
 [git find detached commits] git fsck --lost-found
 
-[git apply patch even it has conflict] git apply --3way @
-[git apply dry-run] git apply --check @
-[git apply patch stat] git apply --stat @
+[git apply patch even it has conflict] git apply --3way \%#
+[git apply dry-run] git apply --check \%#
+[git apply patch stat] git apply --stat \%#
 [git patch apply] git apply $PATCH_FILEPATH # <(p)
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
 [git current branch name] git rev-parse --abbrev-ref HEAD
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
 
-[git find file] git ls-files "*@"
+[git find file] git ls-files "*\%#"
 
 [git clone only HEAD] git clone --depth 1 $URL
 
-[git abspath to git relative path] git ls-files --full-name @
+[git abspath to git relative path] git ls-files --full-name \%#
 
-[git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/@"
+[git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/\%#"
 
 [git sed makefile example] git sed "s/\.a/\.so/g" "*/[m|M]akefile" # convert .a to .so
 
@@ -240,7 +240,7 @@
 [git own author name] git config --get user.name
 [git list all authors] git shortlog -s | cut -c8-
 
-[git tag push] git push origin $TAG@
+[git tag push] git push origin $TAG\%#
 [git tag push(all)] git push origin --tags
 
 
@@ -248,18 +248,18 @@
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
 [tig stash] tig stash! # or press y
-[tig commit log grep] tig -S"@"
-[tig commit log grep] tig log -S"@"
+[tig commit log grep] tig -S"\%#"
+[tig commit log grep] tig log -S"\%#"
 
 # gerrit
 [git gerrit review push certain branch] git push origin HEAD:refs/for/$BRANCH_NAME # without origin/
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
 [git gerrit review push  master branch (drafts)] git push origin HEAD:refs/drafts/master
-[git gerrit base64 patch] cat @ | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
+[git gerrit base64 patch] cat \%# | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
 
 # tree
 # [tree by ls and sed] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-# FYI: [tree コマンドが無い環境で tree コマンドを実現 \- Qiita]( https://qiita.com/yone098@github/items/bba8a42de6b06e40983b )
+# FYI: [tree コマンドが無い環境で tree コマンドを実現 \- Qiita]( https://qiita.com/yone098\%#github/items/bba8a42de6b06e40983b )
 [tree not found] pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
 [tree depth] tree -L $DEPTH
 
@@ -269,34 +269,38 @@
 [ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
 [ol show only non-uniq lines] sort | uniq -d
 [ol show only uniq lines] sort | uniq -u
-[ol show n~ lines] tail -n +@ # n行目以降
-[ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\\n"' | awk 'NF' | sed -E 's/ $//g'
+[ol show n~ lines] tail -n +\%# # n行目以降
+[ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
 [ol compact space] sed -e 's/\s\+/ /g'
-[ol line join with keyword] awk '{l=l (NR==1?"":"@") $0}END{print l}'
-[ol join n-block line] awk -v n=@ -v delim=":" 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\\n";}'
-[ol sed template :] sed -e 's:@::g'
-[ol sed template /] sed -e 's/@//g'
-[ol join line with char] awk '{printf "%s\\\\n", $0}'
+[ol line join with keyword] awk '{l=l (NR==1?"":"\%#") $0}END{print l}'
+[ol join n-block line] awk -v n=\%# -v delim=":" 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\n";}'
+[ol sed template :] sed -e 's:\%#::g'
+[ol sed template /] sed -e 's/\%#//g'
+[ol join line with char] awk '{printf "%s\%#", $0}'
 [ol join block to one line] awk '!/^$/{printf "%s", $0;} /^$/{print "";}'
-[ol filter before and after line like grep -C ] awk -v base=@ -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
+[ol filter before and after line like grep -C ] awk -v base=\%# -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
 [ol awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
 [ol awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [ol awk uniq without sort] awk '!a[$0]++'
 [ol awk drop blank line] awk 'NF'
-[ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
-[ol cut] cut -d' ' -f @
-[ol awk cut] awk '{ print $@; }'
+[ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
+[ol cut] cut -d' ' -f \%#
+[ol awk cut] awk '{ print $\%#; }'
 [ol awk unbuffer] '{fflush()}'
-[ol each N lines to one line] awk -v N=@ '{printf "%s", $0; } (NR%N==0){print ""}'
+[ol each N lines to one line] awk -v N=\%# '{printf "%s", $0; } (NR%N==0){print ""}'
 [ol remove last blank line] perl -pe "chomp if eof"
-[ol repeat text] printf '$TEXT@%.0s' {1..$N}
-[ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+@[-a-zA-Z0-9\.]+"
+[ol repeat text] printf '$TEXT\%#%.0s' {1..$N}
+[ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+\%#[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 # random
 [ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
-[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 32@
-[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9_\!\#\$\%\^\&\*\(\)-+=$(echo -n "\\x40") < /dev/urandom | head -c 32
+[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 32\%#
+[ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9_\!\#\$\%\^\&\*\(\)-+=@ < /dev/urandom | head -c 32
+[ol abspath] python2 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print x' \%#
+[ol abspath] python3 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print(x)' \%#
+# FYI: [zsh \- Portable way to get script's absolute path? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/76505/portable-way-to-get-scripts-absolute-path )
+[ol abspath] perl -MCwd -le 'for (\%#ARGV) { if ($p = Cwd::abs_path $_) { print $p; } else { warn "abs_path: $_: $!\n"; $ret = 1;}} exit $ret' \%#
 
 [shuffle line] shuf
 
@@ -307,37 +311,37 @@
 # g++
 ## g++ not clang++
 [cpp c++11 verbose help] g++ -v --help
-[cpp c++11 compile] g++ -std=c++11 @
-[cpp c++11 compile] clang++ -std=c++11 @
+[cpp c++11 compile] g++ -std=c++11 \%#
+[cpp c++11 compile] clang++ -std=c++11 \%#
 [cpp c++11 compile ignore library order] -Wl,--no-as-needed
-[cpp pch] PCH_HEADER=@ && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
-[cpp pch gen] CPPFILE=@ && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
-[cpp demangle] echo "@" | c++filt
-[cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC @
+[cpp pch] PCH_HEADER=\%# && [[ -n $PCH_HEADER ]] && clang++ -Xclang -emit-pch -x c++-header -std=c++11 $PCH_HEADER -o $PCH_HEADER.pch
+[cpp pch gen] CPPFILE=\%# && [[ -n $CPPFILE ]] && cat "$CPPFILE" | grep -E -o '^#include.*' > ".${CPPFILE%.*}.hpp" && echo ".${CPPFILE%.*}.hpp"
+[cpp demangle] echo "\%#" | c++filt
+[cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC \%#
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
-[g++ extract macro] TARGET_FILE=@; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
-[g++ asm] g++ -S -fno-asynchronous-unwind-tables -g @ # -fno-asynchronous-unwind-tables: disable CFI directive
-[g++ arch native] -march=native @
-[32bit arm-linux-gnueabihf-g++] arm-linux-gnueabihf-g++ @
+[g++ extract macro] TARGET_FILE=\%#; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
+[g++ asm] g++ -S -fno-asynchronous-unwind-tables -g \%# # -fno-asynchronous-unwind-tables: disable CFI directive
+[g++ arch native] -march=native \%#
+[32bit arm-linux-gnueabihf-g++] arm-linux-gnueabihf-g++ \%#
 [alias 32bit arm-linux-gnueabihf-g++] alias g++=arm-linux-gnueabihf-g++ !
-[64bit arm-linux-gnueabihf-g++] aarch64-linux-gnu-g++ @
+[64bit arm-linux-gnueabihf-g++] aarch64-linux-gnu-g++ \%#
 [alias 64bit arm-linux-gnueabihf-g++] alias g++=aarch64-linux-gnu-g++ !
 
 # rename
-[find and rename] find . -name "@" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
+[find and rename] find . -name "\%#" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
 
 # line filter
-[sed add header] sed '1i@'
-[sed line filter] sed -n $START@,${END}p # index starts with 1
-[sed line filter] sed -n @P # only line (index starts with 1)
-[sed (before) <= some line] sed -n '1,/@/p'
-[sed (after)  >= some line] sed -n '/@/,$p'
+[sed add header] sed '1i\%#'
+[sed line filter] sed -n $START\%#,${END}p # index starts with 1
+[sed line filter] sed -n \%#P # only line (index starts with 1)
+[sed (before) <= some line] sed -n '1,/\%#/p'
+[sed (after)  >= some line] sed -n '/\%#/,$p'
 [sed remove BOM UTF-8] sed "s|\xef\xbb\xbf||g"
-[sed convert CR] tr '\\n' $(echo -e "\x1E") | sed 's/'$(echo -e "\x1E")'/\\\\n/g'
+[sed convert CR] tr '\n' $(echo -e "\x1E") | sed 's/'$(echo -e "\x1E")'/\\n/g'
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
-[patch] p@ | patch -p1'
+[patch] p\%# | patch -p1'
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
@@ -357,53 +361,53 @@
 [linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
 
 # export proxy
-[proxy env] PROXY="@" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
-[noproxy env] NO_PROXY="127.0.0.1,loacalhost@" && export no_proxy="$NO_PROXY" && export NO_PROXY="$no_proxy"
+[proxy env] PROXY="\%#" && export http_proxy="$PROXY" && export https_proxy="$PROXY" && export HTTP_PROXY="$PROXY" && export HTTPS_PROXY="$PROXY"
+[noproxy env] NO_PROXY="127.0.0.1,loacalhost\%#" && export no_proxy="$NO_PROXY" && export NO_PROXY="$no_proxy"
 
 # rm
 [rm files startwith '-' ] rm -- -
 [rm files startwith '-' ] rm ./-
-[rm avoid 10sec wait at zsh]  bash -c "rm -rf *@" # BE CAREFUL!!!!
+[rm avoid 10sec wait at zsh]  bash -c "rm -rf *\%#" # BE CAREFUL!!!!
 
 # wc
 [count japanese chars] wc -m
 
 # ssh key
-[ssh id_rsa] ssh-keygen -t rsa -f @_id_rsa
+[ssh id_rsa] ssh-keygen -t rsa -f \%#_id_rsa
 [ssh delete finger print] ssh-keygen -R $IP_ADDRESS
-[ssh local port forwarding] ssh -N -f -L $local_port@:$dst_ip:$dst_port $host
+[ssh local port forwarding] ssh -N -f -L $local_port\%#:$dst_ip:$dst_port $host
 [ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
-[ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user@127.0.0.1 -p 10022)
-[ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null @
+[ssh remote port forwarding example (run at remote host)] ssh -N -f $this_pc_ip_addr -R 10022:localhost:22 # reverse ssh tunnel(ssh remote_user\%#127.0.0.1 -p 10022)
+[ssh avoid warning] ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \%#
 [ssh print configuration] ssh -G $HOST
-[sshfs mount] sshfs @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
-[sshfs mount read only] sshfs -o ro @ # $REMOTE_HOST_AND_DIR $LOCAL_DIR
-[sshuttle vpn] sshuttle -r @ # 192.168.0.1/24
+[sshfs mount] sshfs \%# # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshfs mount read only] sshfs -o ro \%# # $REMOTE_HOST_AND_DIR $LOCAL_DIR
+[sshuttle vpn] sshuttle -r \%# # 192.168.0.1/24
 
-[scp dir] command tar -C $SRC_DIR@ -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
-[rsync        ] rsync -auvzh $SRC_DIR/ @ # set dst with dirname
-[rsync dry-run] rsync -auvzhn $SRC_DIR/ @ # set dst with dirname
+[scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
+[rsync        ] rsync -auvzh $SRC_DIR/ \%# # set dst with dirname
+[rsync dry-run] rsync -auvzhn $SRC_DIR/ \%# # set dst with dirname
 # [rsync: how can I configure it to create target directory on server? \- Stack Overflow]( https://stackoverflow.com/questions/1636889/rsync-how-can-i-configure-it-to-create-target-directory-on-server )
-[rsync same dir] [[ -z $TARGET_HOST ]] && selhost; @rsync -auvzh --rsync-path="mkdir -p $(pwd) && rsync" . $TARGET_HOST:$(pwd)
+[rsync same dir] [[ -z $TARGET_HOST ]] && selhost; \%#rsync -auvzh --rsync-path="mkdir -p $(pwd) && rsync" . $TARGET_HOST:$(pwd)
 
 # one liners
-[args checker] python -c "import sys; print(sys.argv)" @
+[args checker] python -c "import sys; print(sys.argv)" \%#
 
 # python
-[pip upgrade] pip install --upgrade @
+[pip upgrade] pip install --upgrade \%#
 [pip list] pip freeze
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 [pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
-[pip show] pip show @ # e.g. Location
-[pip show with files] pip show -f @
-[python venv] python -m venv $PROJECT_PATH@
+[pip show] pip show \%# # e.g. Location
+[pip show with files] pip show -f \%#
+[python venv] python -m venv $PROJECT_PATH\%#
 [pip(2) recover] sudo python -m pip uninstall pip && sudo apt install python-pip --reinstall
 [pip3 recover] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 
 # g++
-[g++ macro defines] g++ -dM -E - < /dev/null | sort @
+[g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
@@ -414,19 +418,19 @@
 [nmcli general status] nmcli general status
 [nmcli network reboot] echo "sudo nmcli networking off; sudo nmcli networking on" !
 [nmcli network reboot] echo "sudo service network-manager restart" !
-# [nmcli nic reboot] $CONNECTIONNAME=@ && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
-[nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME@ # you can adopt setting only up command (without down)
-[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
-[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
-[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
-[nmcli modify ipv4] sudo nmcli connection modify "Wired connection @" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
+# [nmcli nic reboot] $CONNECTIONNAME=\%# && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
+[nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME\%# # you can adopt setting only up command (without down)
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
 [nmcli add device ] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
 [nmcli list unmanaged interfaces] nmcli d
-[nmcli add gateway] sudo nmcli connection modify "Wired connection @" ipv4.gateway ""
-[nmcil add dns    ] sudo nmcli connection modify "Wired connection @" ipv4.dns "137.153.66.28" # 空白区切りで複数指定可能
-[nmcli set dhcp   ] sudo nmcli connection modify "Wired connection @" ipv4.method auto
+[nmcli add gateway] sudo nmcli connection modify "Wired connection \%#" ipv4.gateway ""
+[nmcil add dns    ] sudo nmcli connection modify "Wired connection \%#" ipv4.dns "137.153.66.28" # 空白区切りで複数指定可能
+[nmcli set dhcp   ] sudo nmcli connection modify "Wired connection \%#" ipv4.method auto
 [nmcli wi-fi info list] sudo nmcli d w
-[nmcli remote dump] ssh @ "nmcli device show"
+[nmcli remote dump] ssh \%# "nmcli device show"
 
 [search ip address range] nmap -sP 192.168.0.0/24
 [search ip address range by nbstat (NetBIOS)] sudo nmap -sU --script nbstat.nse -p137 '192.168.0.*'
@@ -439,26 +443,26 @@
 [GID] id -g
 
 # curl
-[curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' @
-[curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'@ $URL
+[curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' \%#
+[curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'\%# $URL
 [curl dump response header] curl --dump-header - $URL
-[curl check SSL expire date] curl --verbose @ 2>&1 | grep 'expire date'
-[curl sh with arg] curl @ | sh -s -- # args
-[curl bash with arg] curl @ | bash -s -- # args
+[curl check SSL expire date] curl --verbose \%# 2>&1 | grep 'expire date'
+[curl sh with arg] curl \%# | sh -s -- # args
+[curl bash with arg] curl \%# | bash -s -- # args
 
 # FYI: [ちょっとだけ便利なワンライナー集 \| bacchi\.me]( https://bacchi.me/linux/bash-oneliner/ )
-[ssl check date] : | openssl s_client -connect @:443 2>/dev/null | openssl x509 -dates -noout
+[ssl check date] : | openssl s_client -connect \%#:443 2>/dev/null | openssl x509 -dates -noout
 
 # dmesg
-[dmesg with human readable time] dmesg -T @
+[dmesg with human readable time] dmesg -T \%#
 
 # ufw
 [ufw status] sudo ufw status verbose
 [ufw reload] sudo ufw reload
 
 # serial
-[serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200@
-[serial communication screen] sudo screen /dev/ttyUSB0 115200@
+[serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200\%#
+[serial communication screen] sudo screen /dev/ttyUSB0 115200\%#
 
 # screenshot of ubuntu
 [ubuntu screenshot (all)] gnome-screenshot # PrintScreen
@@ -468,16 +472,16 @@
 
 # screen
 [screen list  ] screen -ls
-[screen attach] screen -r @
+[screen attach] screen -r \%#
 [screen run command] screen -dmS $tag $commands # don't surround command by ""
-[screen run clip-share] [[ -z $TARGET_HOST ]] && selhost; @screen -dmS clip-share-$TARGET_HOST clip-share $TARGET_HOST # use selhost to set $TARGET_HOST
+[screen run clip-share] [[ -z $TARGET_HOST ]] && selhost; \%#screen -dmS clip-share-$TARGET_HOST clip-share $TARGET_HOST # use selhost to set $TARGET_HOST
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
-[vim open tmp file from pipe input] | { local tmpfile=$(mktemp).log; cat > $tmpfile; vim $tmpfile; } @
+[vim open tmp file from pipe input] | { local tmpfile=$(mktemp).log; cat > $tmpfile; vim $tmpfile; } \%#
 
 # one liner
-[for one liner] for i in $(seq @); do echo $i; done
+[for one liner] for i in $(seq \%#); do echo $i; done
 
 # mnt
 [mount nfs] sudo mount -t nfs "$NFS_SERVER_IP:$NFS_DIR_PATH" $LOCAL_DIR_PATH # wrong fs type? ===> sudo apt-get install nfs-common
@@ -494,11 +498,11 @@
 
 # ssh
 [ssh sudo tar command which is alternative for sudo scp] [[ -z $sudo_pass ]] && echo "Remote Server Password:🔑" && read -s sudo_pass; [[ -n $sudo_pass ]] && ssh $host "echo $sudo_pass | sudo -p '' -S tar cvfz - $remote_dirpath" > $filename.tar.gz
-[sshpass ssh] sshpass -p $PASSWORD@ ssh $HOST
-[sshpass scp] sshpass -p $PASSWORD@ scp $HOST
-[sshpass rsync] sshpass -p $PASSWORD@ rsync $HOST
+[sshpass ssh] sshpass -p $PASSWORD\%# ssh $HOST
+[sshpass scp] sshpass -p $PASSWORD\%# scp $HOST
+[sshpass rsync] sshpass -p $PASSWORD\%# rsync $HOST
 # [Run Remote ssh command with Full Login Shell \- Super User]( https://superuser.com/questions/306530/run-remote-ssh-command-with-full-login-shell )
-[ssh run command with full login shell] ssh $HOST@ -t 'bash -l -c "env"'
+[ssh run command with full login shell] ssh $HOST\%# -t 'bash -l -c "env"'
 
 # compile
 [gcc llvm-config] llvm-config --cxxflags --ldflags --libs --system-libs
@@ -516,10 +520,10 @@
 [dpkg package size] dpkg-query --show -f '${Installed-Size}KB (${Package})\n'
 [ubuntu filepath to apt-get package] dpkg -S $FILEPATH
 # FYI: [software installation \- How can I check dependency list for a deb package \- Ask Ubuntu]( https://askubuntu.com/questions/80655/how-can-i-check-dependency-list-for-a-deb-package )
-[apt-cache search] apt-cache search @
-[apt-cache check dependency] apt-cache depends @
-[apt-cache check dependency(detail)] apt-cache show @ # with version
-[dpkg check dependency] dpkg -I @
+[apt-cache search] apt-cache search \%#
+[apt-cache check dependency] apt-cache depends \%#
+[apt-cache check dependency(detail)] apt-cache show \%# # with version
+[dpkg check dependency] dpkg -I \%#
 
 [ubuntu code name] lsb_release -cs # 16.04: xenial
 
@@ -529,29 +533,29 @@
 [so lib path search] ldconfig -p | grep $LIB_NAME
 
 # sha
-[hash sha256] shasum -a 256 @
-[hash sha256 mac] gsha256sum @
-[hash md5sum] md5sum @
-[hash md5sum mac] gmd5sum @
+[hash sha256] shasum -a 256 \%#
+[hash sha256 mac] gsha256sum \%#
+[hash md5sum] md5sum \%#
+[hash md5sum mac] gmd5sum \%#
 
 # kernel
-[load kernel module] insmod @.ko
-[load kernel module (with dependency resolution)] modprobe @
-[unload kernel] modprobe -r @
+[load kernel module] insmod \%#.ko
+[load kernel module (with dependency resolution)] modprobe \%#
+[unload kernel] modprobe -r \%#
 [kernel module list of fs] modprobe -lt fs
 [list kernel module] lsmod
 
 # losf
-[lsof port to process] sudo lsof -i:@
+[lsof port to process] sudo lsof -i:\%#
 [lsof port to PID] lsof -i :8080 | awk '{l=$2} END {print l}'
 [lsof listening ports] lsof -Pan -i tcp -i udp
-[lsof port to process (kill)] sudo kill $(sudo lsof -t -i:@)
-[lsof process name to ports] lsof -Pan -i tcp -i udp -c @ | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
-[lsof process name to ports] pgrep @ | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
+[lsof port to process (kill)] sudo kill $(sudo lsof -t -i:\%#)
+[lsof process name to ports] lsof -Pan -i tcp -i udp -c \%# | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
+[lsof process name to ports] pgrep \%# | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 
 # proxy
-[proxy npm] sudo -E npm install -g @
-[proxy pip] sudo -E pip install @
+[proxy npm] sudo -E npm install -g \%#
+[proxy pip] sudo -E pip install \%#
 
 # npm
 [npm list package version] npm list -g --depth=0
@@ -566,23 +570,23 @@
 [dns] nslookup $TARGET $DNS_SERVER
 [netstat] netstat antu
 
-[ping NIC ] ping -I $NIC @
+[ping NIC ] ping -I $NIC \%#
 
 # apt-get
-[apt-get install] sudo apt-get install @
-[apt-get upgrade certain package only] sudo apt-get install @ # don't use upgrade command
+[apt-get install] sudo apt-get install \%#
+[apt-get upgrade certain package only] sudo apt-get install \%# # don't use upgrade command
 [apt-get error solution]  sudo rm -f /var/lib/apt/lists/lock /var/cache/apt/archives/lock
 
-[apt-get under proxy env] sudo -E apt-get install @
-[apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install @ # http_proxyがセットしてあればsudo -EでOK
+[apt-get under proxy env] sudo -E apt-get install \%#
+[apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install \%# # http_proxyがセットしてあればsudo -EでOK
 
 [apt official repo source list file] /etc/apt/sources.list
 [apt unofficial repo source list directory] /etc/apt/sources.list.d/
 
-[apt-get remove ppa repo] sudo add-apt-repository --remove ppa:@ # xxx/yyy
+[apt-get remove ppa repo] sudo add-apt-repository --remove ppa:\%# # xxx/yyy
 [apt-get installed ppa list] dpkg -l | grep -E "ppa[0-9]+"
-[apt-get remove package] sudo apt-get remove @
-[apt-get force reinstall repo] REPO=@ && sudo apt-get remove -y $REPO && sudo apt-get install -y $REPO # for delete ppa and reinstall
+[apt-get remove package] sudo apt-get remove \%#
+[apt-get force reinstall repo] REPO=\%# && sudo apt-get remove -y $REPO && sudo apt-get install -y $REPO # for delete ppa and reinstall
 
 [add update-alternatives   ] sudo update-alternatives --install $LINK_PATH $CONFIG_NAME $REAL_CMD_PATH $PRIORITY
 [switch update-alternatives] sudo update-alternatives --config $CMD
@@ -594,13 +598,13 @@
 [sed delete end of line] sed -i '$d' $FILEPATH # for gsed
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
-[sed fixed string replace] rpl @ # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
-[sed cut before] sed -E 's/^([^ ]+?( )+?){@}//'
+[sed fixed string replace] rpl \%# # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
+[sed cut before] sed -E 's/^([^ ]+?( )+?){\%#}//'
 
 # json,yaml
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
 [yaml to json one liner] python3 -c "import sys; import yaml; import json; print(json.dumps(yaml.load(sys.stdin.read()), indent=2))"
-[yaml to inline yaml] json2yaml -d 1 <(yaml2json @.yaml) # npm install yamljs
+[yaml to inline yaml] json2yaml -d 1 <(yaml2json \%#.yaml) # npm install yamljs
 
 # ansible
 [ansible man] ansible-doc
@@ -610,8 +614,8 @@
 [unix timestamp with millsec] date +%s%3N
 
 # pgrep
-[pgrep with user info 1] ps wup $(pgrep -f @)
-[pgrep with user info 2] ps aux | grep -v grep | grep -i @
+[pgrep with user info 1] ps wup $(pgrep -f \%#)
+[pgrep with user info 2] ps aux | grep -v grep | grep -i \%#
 
 # vagrant
 [vagrant for proxy] vagrant plugin install vagrant-proxyconf
@@ -625,9 +629,9 @@
 [vagrant stop] vagrant suspend
 [vagrant force shutdown] vagrant halt
 [vagrant ssh config] vagrant ssh-config > ssh.config
-[vagrant scp] scp -F ssh.config $SRC_PATH@ vagrant$(echo -n "\\x40")default:$DST_PATH
+[vagrant scp] scp -F ssh.config $SRC_PATH\%# vagrant@default:$DST_PATH
 [vagrant ssh] ssh -F ssh.config default
-[add vagrant proxy setting] sed -i -e "/^end$/i \\  if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['HTTP_PROXY']\\n      puts '# - Proxy Setting ----------------------------------'\\n      puts '# ' + ENV['HTTP_PROXY']\\n      config.proxy.http     = ENV['HTTP_PROXY']\\n      config.proxy.https    = ENV['HTTP_PROXY']\\n      config.proxy.no_proxy = "localhost,127.0.0.1"\\n      puts '# --------------------------------------------------'\\n  end" Vagrantfile
+[add vagrant proxy setting] sed -i -e "/^end$/i \\  if Vagrant.has_plugin?("vagrant-proxyconf") && ENV['HTTP_PROXY']\n      puts '# - Proxy Setting ----------------------------------'\n      puts '# ' + ENV['HTTP_PROXY']\n      config.proxy.http     = ENV['HTTP_PROXY']\n      config.proxy.https    = ENV['HTTP_PROXY']\n      config.proxy.no_proxy = "localhost,127.0.0.1"\n      puts '# --------------------------------------------------'\n  end" Vagrantfile
 
 # python
 [python unittest] python -m unittest $SCRIPT_NAME_WITHOUT_EXT.$TEST_CLASS_NAME
@@ -655,20 +659,20 @@
 [ros tf tree GUI] rosrun rqt_tf_tree rqt_tf_tree
 [ros tf tree pdf] rosrun tf view_frames
 [ros tf echo] rosrun tf tf_echo $TF1 $TF2
-[ros echo] rostopic echo /@
+[ros echo] rostopic echo /\%#
 [ros 3d gui] rosrun rviz rviz # in docker use nvidia-docker1(not nvidia-docker2)
 [ros console] rosrun rqt_console rqt_console
-[ros show type] rostopic type /@
-[ros show field of type] rosmsg show @
-[ros show field of type] rostopic type /@ | rosmsg show
-[ros find] rospack find @
-[ros ls] rosls @
-[ros cd] roscd @
-[ros cp] roscp @
-[ros depends] rospack depends @ # all nest
-[ros depends1] rospack depends1 @ # only nest 1
-[ros publish] rostopic pub -1 /@ $TYPE -- '{$KEY: $VAL}' # '{header: {seq: 0, stamp: now, frame_id:sample_id}, data: [], position: {x: 0.0, y: 0.0, z: 0.0}}'
-[ros echo publish (pipe)] rostopic echo /@ | rostopic pub /@ $TYPE
+[ros show type] rostopic type /\%#
+[ros show field of type] rosmsg show \%#
+[ros show field of type] rostopic type /\%# | rosmsg show
+[ros find] rospack find \%#
+[ros ls] rosls \%#
+[ros cd] roscd \%#
+[ros cp] roscp \%#
+[ros depends] rospack depends \%# # all nest
+[ros depends1] rospack depends1 \%# # only nest 1
+[ros publish] rostopic pub -1 /\%# $TYPE -- '{$KEY: $VAL}' # '{header: {seq: 0, stamp: now, frame_id:sample_id}, data: [], position: {x: 0.0, y: 0.0, z: 0.0}}'
+[ros echo publish (pipe)] rostopic echo /\%# | rostopic pub /\%# $TYPE
 
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
@@ -682,15 +686,15 @@
 [rosbag] rosbag decompresss
 [rosbag] rosbag filter
 [rosbag] rosbag play
-[rosbag play with rename topic] rosbag play @ $FROM_TOPIC:=$TO_TOPIC# from:=to
+[rosbag play with rename topic] rosbag play \%# $FROM_TOPIC:=$TO_TOPIC# from:=to
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 [rosbag rqt_bag viewer] rqt_bag # <bag file>
 # default is TERM signal
-[rosbag timeout] timeout -sINT rosbag record -O @ # xxx.bag /xxx/yyy
+[rosbag timeout] timeout -sINT rosbag record -O \%# # xxx.bag /xxx/yyy
 # [rosbag file cannot be made // \.bag\.active \- ROS Answers: Open Source Q&A Forum]( https://answers.ros.org/question/40116/rosbag-file-cannot-be-made-bagactive/ )
 [rosbag fix] rosbag reindex *.bag.active && rosbag fix *.bag.active repaired.bag
 
-[roslaunch output screen] roslaunch --screen @
+[roslaunch output screen] roslaunch --screen \%#
 
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
@@ -710,46 +714,46 @@
 [roslog file] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
-[ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
+[ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
 # NOTE: default ROS_MASTER_URI is localhost (which has IP restriction)
-[ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS@ && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
+[ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
 
 [ros log] ~/.ros/log/latest/master.log
-[ros log] ~/.ros/log/latest/$ROS_NODE_NAME@-1-stdout.log
+[ros log] ~/.ros/log/latest/$ROS_NODE_NAME\%#-1-stdout.log
 
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
 [git repo local gitignore open] vim $(git rev-parse --show-toplevel)/.git/info/exclude !
 
-[show char code] hexdump -C @
+[show char code] hexdump -C \%#
 [hexdump -C] od -t x1z -A x
 [od next line] od -t x1c -A x
-[file to c++ array] od -A n -v -t x1 @ | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
+[file to c++ array] od -A n -v -t x1 \%# | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
 
 [replace c2a0 to space (e.g. for tree)] sed "s/$(echo -e "\\xc2\\xa0")/ /g"
 
-[tree show hidden file] tree -a -I "\\.git" @
+[tree show hidden file] tree -a -I "\\.git" \%#
 
 # kill
-[kill SIGKILL] sudo kill -KILL @ # same meaning as sudo kill -9
+[kill SIGKILL] sudo kill -KILL \%# # same meaning as sudo kill -9
 
 # user
-[add new user] NEW_USER=@ && sudo adduser $NEW_USER
-[add new sudo user] NEW_USER=@ && sudo adduser $NEW_USER && sudo gpasswd -a $NEW_USER sudo
-[add group to user usermod] sudo usermod -aG $GROUP@ $USER
-[add group to user gpasswd] sudo gpasswd -a $USER $GROUP@
-[add group to user adduser(ubuntu)] sudo adduser $USER $GROUP@
+[add new user] NEW_USER=\%# && sudo adduser $NEW_USER
+[add new sudo user] NEW_USER=\%# && sudo adduser $NEW_USER && sudo gpasswd -a $NEW_USER sudo
+[add group to user usermod] sudo usermod -aG $GROUP\%# $USER
+[add group to user gpasswd] sudo gpasswd -a $USER $GROUP\%#
+[add group to user adduser(ubuntu)] sudo adduser $USER $GROUP\%#
 
 [list users with ldap user] getent passwd
 
 # stdin/out/errr
-[devnull stderr       ] 2>/dev/null @
-[devnull stdout       ] >/dev/null @
-[devnull stdout/stderr] >/dev/null 2>&1 @
-[stderr > stdout      ] 2>&1 @
+[devnull stderr       ] 2>/dev/null \%#
+[devnull stdout       ] >/dev/null \%#
+[devnull stdout/stderr] >/dev/null 2>&1 \%#
+[stderr > stdout      ] 2>&1 \%#
 # [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
-[pipe only stderr] 3>&1 1>&2 2>&3 3>&- @ # in zsh do setopt nomultios
+[pipe only stderr] 3>&1 1>&2 2>&3 3>&- \%# # in zsh do setopt nomultios
 
 # login shell
 # you can check login shell easily by ssh localhost
@@ -768,7 +772,7 @@
 [enable emoji] sudo apt-get install -y language-pack-ja && sudo update-locale LANG=ja_JP.UTF-8
 
 [zsh function list] print -l ${(ok)functions}
-[zsh key bind list] bindkey @
+[zsh key bind list] bindkey \%#
 [zsh completion bug fix] rm -rf ~/.zcompdump ~/.zcompcache # HINT: command not found
 
 # sudo
@@ -780,7 +784,7 @@
 [echo  x char] echo -e "\\x61"
 [echo unicode] echo -e "\\U1F363"
 
-[unexport] unset @ # remove export
+[unexport] unset \%# # remove export
 
 [test x window system] xset q
 [x window app install] sudo apt-get install x11-apps
@@ -802,19 +806,19 @@
 
 # shell tips
 [shell to ext] $(basename ${0##-}) # without fish(bash,csh,zsh,sh ok)
-# PS1='\[\e[1;33m\]\u@\h \w ->\n\[\e[1;36m\]\$\[\e[m\] '
+# PS1='\[\e[1;33m\]\u\%#\h \w ->\n\[\e[1;36m\]\$\[\e[m\] '
 [bash PS1] echo -n "PS1="; echo J1xbXGVbMTszM21cXVx1QFxoIFx3IC0+XG5cW1xlWzE7MzZtXF1cJFxbXGVbbVxdICc= | python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))" !
 
 # cpp environment variables
-[cpp include file path] export CPATH="@:$CPATH"
-[cpp library file path] export LIBRARY_PATH="@:$LIBRARY_PATH"
+[cpp include file path] export CPATH="\%#:$CPATH"
+[cpp library file path] export LIBRARY_PATH="\%#:$LIBRARY_PATH"
 
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
 
 # compile_commands.json
-[list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\\n' ':'
-[add -I dirs list to CPATH] export CPATH="$(cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\\n' ':'):$CPATH"
+[list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'
+[add -I dirs list to CPATH] export CPATH="$(cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'):$CPATH"
 
 # dev usb
 [dev usb0] /dev/ttyUSB0
@@ -827,7 +831,7 @@
 [rtags: register build dir for rtags] pgrep rdm >/dev/null 2>&1 || (screen -dmS "rdm" rdm && sleep 0.2); rc -J .
 
 [webcatd run by screen] pgrep gotty >/dev/null 2>&1 || screen -dmS "webcatd" webcatd
-[any command run by screen] CMD=@ && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD
+[any command run by screen] CMD=\%# && pgrep "$CMD" >/dev/null 2>&1 || screen -dmS "$CMD" $CMD
 
 # shell
 [extract filepath ~] sed "s:^~:$HOME:g"
@@ -865,7 +869,7 @@
 # [linux \- How to know if a disk is an SSD or an HDD \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65595/how-to-know-if-a-disk-is-an-ssd-or-an-hdd )
 [hdd or ssd] echo 'SSD HDD' | cut -d" " -f$(($(cat /sys/block/sda/queue/rotational)+1))
 
-[confirm zsh cached comand type] builtin which @
+[confirm zsh cached comand type] builtin which \%#
 
 [confirm fonts list at ubuntu] fc-list
 
@@ -892,10 +896,10 @@
 [repeat command] watch -n $SEC "$CMD"
 
 # base64
-[mac base64 encode] base64 @
-[mac base64 decode] base64 -D @
-[ubuntu base64 encode] base64 -w 0 @
-[ubuntu base64 decode] base64 -d @
+[mac base64 encode] base64 \%#
+[mac base64 decode] base64 -D \%#
+[ubuntu base64 encode] base64 -w 0 \%#
+[ubuntu base64 decode] base64 -d \%#
 [python base64 encode] python -c "import base64; import sys; x = base64.b64encode(sys.stdin.read() if sys.version_info[0] < 3 else sys.stdin.buffer.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 [python base64 decode] python -c "import base64; import sys; x = base64.b64decode(sys.stdin.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 
@@ -914,8 +918,8 @@
 
 [mac You have new mail.] mail
 
-[filter file by < size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size -1M@
-[filter file by > size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size +1M@
+[filter file by < size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size -1M\%#
+[filter file by > size] xargs -L 1 -IXXX find XXX -type f -maxdepth 1 -size +1M\%#
 
 [shutdown] sudo shutdown -h now
 
@@ -938,57 +942,57 @@
 # space + `#` -> parse as comment
 # 'hogehoge''piyopiyo' -> "hogehoge'piyopiyo"
 # 'hogehoge'""'piyopiyo' -> "hogehogepiyopiyo"
-[c++ split hpp to cpp: lzz .hpp to .lzz] FILENAME=@ && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
-[lzz] lzz $LZZFILE@ # gen xxx.cpp xxx.h NOTE: overwrite
+[c++ split hpp to cpp: lzz .hpp to .lzz] FILENAME=\%# && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
+[lzz] lzz $LZZFILE\%# # gen xxx.cpp xxx.h NOTE: overwrite
 
 [clang-format replace file] clang-format -i $FILEPATH
 
 # bash
-[shell var regexp] ${FILEPATH@%./} # dirname(dirpath)
-[shell var regexp] ${FILEPATH@%.*} # without ext
-[shell var regexp] ${FILEPATH@##*/} # basename
-[shell var regexp] ${FILEPATH@##*.} # ext
+[shell var regexp] ${FILEPATH\%#%./} # dirname(dirpath)
+[shell var regexp] ${FILEPATH\%#%.*} # without ext
+[shell var regexp] ${FILEPATH\%###*/} # basename
+[shell var regexp] ${FILEPATH\%###*.} # ext
 
 [complete relogin] su -l $(whoami)
 [complete relogin  zsh(linux)] su $(whoami) -s $(which zsh)
 [complete relogin bash(linux)] su $(whoami) -s $(which bash)
 
 # diff
-[diff ignore space(blank)] diff -b @
-[diff directory] diff -r @ # DIR_A DIR_B
-[diff directory only filepath] diff -rq @ # DIR_A DIR_B
+[diff ignore space(blank)] diff -b \%#
+[diff directory] diff -r \%# # DIR_A DIR_B
+[diff directory only filepath] diff -rq \%# # DIR_A DIR_B
 ## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
-[git style diff at out of repo] git diff --no-index -- @
+[git style diff at out of repo] git diff --no-index -- \%#
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
-[brew switch version] brew switch $formula@ $version
+[brew switch version] brew switch $formula\%# $version
 
 # heredoc
-[heredoc to filename] cat > $FILEPATH@ << 'EOF'
+[heredoc to filename] cat > $FILEPATH\%# << 'EOF'
 
-[linux: check shared lib path objdump -p] objdump -p @ # readelf -d
+[linux: check shared lib path objdump -p] objdump -p \%# # readelf -d
 
 # nkf
-[nkf guess] nkf -g @
-[nkf auto conv] nkf -w @
+[nkf guess] nkf -g \%#
+[nkf auto conv] nkf -w \%#
 [nkf add UTF-8 BOM] nkf --oc=UTF-8-BOM
 [nkf drop(remove,delete) UTF-8 BOM] nkf --oc=UTF-8
 
 # symbolic link
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
 [ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
-[namei ubuntu] namei @
+[namei ubuntu] namei \%#
 
 # time
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
-[time command redirect tips] (time @) # |& tee $FILEPATH
-[time command redirect tips] {time @} # |& tee $FILEPATH
+[time command redirect tips] (time \%#) # |& tee $FILEPATH
+[time command redirect tips] {time \%#} # |& tee $FILEPATH
 
 # unbuffer command
 # [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
-[unbuffer command] unbuffer @
-[unbuffer command] script -c "$COMMAND@" /dev/null # |& tee $FILEPATH
+[unbuffer command] unbuffer \%#
+[unbuffer command] script -c "$COMMAND\%#" /dev/null # |& tee $FILEPATH
 
 # gdb
 [gdb bind process] gdb -p $PID # bt detach quit
@@ -996,14 +1000,14 @@
 
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
-[perf frame graph] perf script -i @ | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
+[perf frame graph] perf script -i \%# | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
 
 # TERM
 [TERM tmux] export TERM=screen-256color
 [TERM xterm] export TERM=xterm-256color
 
-[cmd repeat like watch] while true; do sleep 1; @; done
-[pseudo watch command] while true; do sleep 1; bash -c "clear; @"; done
+[cmd repeat like watch] while true; do sleep 1; \%#; done
+[pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
 
 [stopwatch] time cat # stop:c-c
 
@@ -1011,40 +1015,40 @@
 
 [from when] uptime
 
-[elf: elf header] readelf -h @
-[elf: program header] readelf -l @
-[elf: section header] readelf -S @
-[elf: elf/program/section header] readlef -e @
-[read section] readelf -x@ # -x25 # FYI: readelf -S
-[elf: symbol header] readelf -s @
-[show string table] FILE_PATH=@ && readelf -S $FILE_PATH | grep -A 1 strtab | tr -d '\\n' | xargs bash -c 'od --skip-bytes 0x$4 --read-bytes 0x$5 -t x1z '"$FILE_PATH"
-[show string table] FILE_PATH=@ && readelf -S $FILE_PATH | grep strtab | grep -o '\[[0-9]*\]' | sed 's/\[\|\]//g' | xargs -I{} readelf -x{} $FILE_PATH
+[elf: elf header] readelf -h \%#
+[elf: program header] readelf -l \%#
+[elf: section header] readelf -S \%#
+[elf: elf/program/section header] readlef -e \%#
+[read section] readelf -x\%# # -x25 # FYI: readelf -S
+[elf: symbol header] readelf -s \%#
+[show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep -A 1 strtab | tr -d '\n' | xargs bash -c 'od --skip-bytes 0x$4 --read-bytes 0x$5 -t x1z '"$FILE_PATH"
+[show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep strtab | grep -o '\[[0-9]*\]' | sed 's/\[\|\]//g' | xargs -I{} readelf -x{} $FILE_PATH
 
-[static library: list objects] ar tv @
+[static library: list objects] ar tv \%#
 
 # route
-[route add default gateway] sudo route add default gw @ # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
+[route add default gateway] sudo route add default gw \%# # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
 
-[ldd tree] lddtree -a @ # sudo apt-get install pax-utils
-[ldd] LD_TRACE_LOAADED_OBJECTS=1 @ # exec command
-[ldd] readelf -d @
+[ldd tree] lddtree -a \%# # sudo apt-get install pax-utils
+[ldd] LD_TRACE_LOAADED_OBJECTS=1 \%# # exec command
+[ldd] readelf -d \%#
 
-[nm: with object filename] nm -A @
-[nm: dynamic symbol] nm -D @ # e.g. calloc, free
-[nm: demangle] nm --demabgle @ # FYI: c++filt
-[nm: find all    -D] find . -name "@" -exec nm -AD {} \; 2>/dev/null #     include dynamic symbol table
-[nm: find all no -D] find . -name "@" -exec nm -A  {} \; 2>/dev/null # not include dynamic symbol table
+[nm: with object filename] nm -A \%#
+[nm: dynamic symbol] nm -D \%# # e.g. calloc, free
+[nm: demangle] nm --demabgle \%# # FYI: c++filt
+[nm: find all    -D] find . -name "\%#" -exec nm -AD {} \; 2>/dev/null #     include dynamic symbol table
+[nm: find all no -D] find . -name "\%#" -exec nm -A  {} \; 2>/dev/null # not include dynamic symbol table
 
-[awk args] awk -v var=@ '{print var}'
+[awk args] awk -v var=\%# '{print var}'
 
-[LD] LD_PRELOAD=@
-[LD] LD_LIBRARY_PATH=@
-[LD] LD_TRACE_LOADED_OBJECTS=1 @
-[LD] LD_SHOW_AUXV=1 @
-[LD] LD_DEBUG=help /bin/echo @
-[LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=@ # there is no LD_PRELOAD in mac
+[LD] LD_PRELOAD=\%#
+[LD] LD_LIBRARY_PATH=\%#
+[LD] LD_TRACE_LOADED_OBJECTS=1 \%#
+[LD] LD_SHOW_AUXV=1 \%#
+[LD] LD_DEBUG=help /bin/echo \%#
+[LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
 
-[malloc free check] MALLOC_CHECK_=1@ # 1:print stderr and continue, 2:abort
+[malloc free check] MALLOC_CHECK_=1\%# # 1:print stderr and continue, 2:abort
 
 # root
 [fakeroot] fakeroot
@@ -1052,22 +1056,22 @@
 # man
 [man ld] man ld.so!
 [man ascii] man ascii!
-[man seach] man -k @
-[man shell builtin command] man n @
+[man seach] man -k \%#
+[man shell builtin command] man n \%#
 
 # grep
-[grep without message] grep -sq @
-[grep fixed string] grep -F @ # no regex '$' -> '\$', '\' -> '\\'
+[grep without message] grep -sq \%#
+[grep fixed string] grep -F \%# # no regex '$' -> '\$', '\' -> '\\'
 [grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
 
 # linux
-[segmentation backtrace] catchsegv @ # command
+[segmentation backtrace] catchsegv \%# # command
 [segmentation backtrace] export LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
 
-[ltrace in mac] sudo dtrace -l @
+[ltrace in mac] sudo dtrace -l \%#
 
-[check PIE or not in linux] hardening-check @
-[check PIE or not in mac] otool -hv @
+[check PIE or not in linux] hardening-check \%#
+[check PIE or not in mac] otool -hv \%#
 
 [tput cols(terminal width)] tput cols
 [tput lines(terminal height)] tput lines
@@ -1078,16 +1082,16 @@
 [pstree with args ubuntu] ps -e f
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
-[list process which use some lib for linux] ps $(sudo grep @ /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
-[ubuntu process environment] strings /proc/$(pgrep @)/environ
-[ubuntu process environment sudo] sudo strings /proc/$(pgrep @)/environ
+[list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
+[ubuntu process environment] strings /proc/$(pgrep \%#)/environ
+[ubuntu process environment sudo] sudo strings /proc/$(pgrep \%#)/environ
 
 # performance
-[gprof: gmon.out call graph] gprof $EXEC_FILE_PATH@ | gprof2dot | dot -Tsvg -o output.svg
+[gprof: gmon.out call graph] gprof $EXEC_FILE_PATH\%# | gprof2dot | dot -Tsvg -o output.svg
 
 # copy
-[copy with progress] cp -v @
-[copy] cp -R @ # src/ dst/src # Do not use -r: symbolic link -> no symbolic link
+[copy with progress] cp -v \%#
+[copy] cp -R \%# # src/ dst/src # Do not use -r: symbolic link -> no symbolic link
 [show copy progress] watch -n 0.1 progress -q
 
 [restart xbindkeys] pkill xbindkeys && xbindkeys
@@ -1096,50 +1100,50 @@
 [fix terminal] stty sane; resize; reset
 
 # nohup
-[nohup] nohup @ </dev/null &> $(echo $(mktemp) | tee $(tty)) &
-[nohup] nohup @ </dev/null 1>/dev/null 2>/dev/null &
+[nohup] nohup \%# </dev/null &> $(echo $(mktemp) | tee $(tty)) &
+[nohup] nohup \%# </dev/null 1>/dev/null 2>/dev/null &
 
 # vmstat
 [vmstat to csv] grep -v '^procs' | grep -v '^ r' | sed -E 's/ +/,/g' | sed -E 's/^,//g'
 
 # image
-[image convert extend] convert $IMAGE@ -append -background none -gravity center -extent 320x320 $OUTPUT
-[image resize] mogrify -resize 160x $IMAGE@ # e.g. 160x or 160x160
+[image convert extend] convert $IMAGE\%# -append -background none -gravity center -extent 320x320 $OUTPUT
+[image resize] mogrify -resize 160x $IMAGE\%# # e.g. 160x or 160x160
 [image white noise] convert -size 128x128 xc:gray +noise random -colorspace gray noise.png
 [image black] convert -size 128x128 xc:black black.png
 [image white] convert -size 128x128 xc:white white.png
 # FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
-[image convert raw to png] find . -name "*@.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
-[image convert raw to png] find . -name "*@.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert raw to png] find . -name "*\%#.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert raw to png] find . -name "*\%#.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
 [image convert png to raw] convert white.png -depth 8 -size 1000x1000 gray:white.raw
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
 
 # glob examples
-[glob without] ^@
-[glob sub] *~@ # multi ok: *~hoge~fuga
+[glob without] ^\%#
+[glob sub] *~\%# # multi ok: *~hoge~fuga
 [glob mv all files except some dir] mv ^$DIR $DIR
 [glob mv all files except some dir] mv *~$DIR $DIR
 
-[hostname to ip] dig +short @
+[hostname to ip] dig +short \%#
 
 # argcheck
-[argcheck bash] command echo -n @
-[argcheck python3] python3 -c 'import sys; print(sys.argv[1:])' @
-[argcheck python2] python2 -c 'import sys; print sys.argv[1:] ' @
+[argcheck bash] command echo -n \%#
+[argcheck python3] python3 -c 'import sys; print(sys.argv[1:])' \%#
+[argcheck python2] python2 -c 'import sys; print sys.argv[1:] ' \%#
 
-[parallel] parallel --no-notice @
+[parallel] parallel --no-notice \%#
 
 # cmds
 [pup: Parsing HTML at the command line] pup
 
 # cd
-[cd symbolic link dst dir] cd -P @
+[cd symbolic link dst dir] cd -P \%#
 
 # ar
 # FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
-[ar archive archives(libtool)] libtool -static -o $NEW.a@ # archives... WARN: order of .o load order is important
-[ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a@ *.o # non-safe use tmp dir WARN: order of .o load order is important
+[ar archive archives(libtool)] libtool -static -o $NEW.a\%# # archives... WARN: order of .o load order is important
+[ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a\%# *.o # non-safe use tmp dir WARN: order of .o load order is important
 
 # FYI: [macOS Mojave の WiFi をコマンドからオン・オフする \- Qiita]( https://qiita.com/KEINOS/items/21c9ca07664a641620eb )
 [wi-fi mac on] networksetup -setairportpower en0 on
@@ -1148,16 +1152,16 @@
 [wi-fi dhcp update mac] networksetup -setdhcp Wi-Fi
 
 # dummy file
-[dummy file : linux] fallocate -l @ # 10(without B), 10K, 10M, 10G
-[dummy file : mac] mkfile -v @ # 10(without B), 10K, 10M, 10G
+[dummy file : linux] fallocate -l \%# # 10(without B), 10K, 10M, 10G
+[dummy file : mac] mkfile -v \%# # 10(without B), 10K, 10M, 10G
 
 # vscode
-[vscode install extension] code --install-extension @
+[vscode install extension] code --install-extension \%#
 
 # icon
-[icon icns(mac) extract] iconutil --convert iconset @
-[icon icns(mac) compress] iconutil --convert icns @
-[icon ico(windows)] convert @.png -define icon:auto-resize icon.ico
+[icon icns(mac) extract] iconutil --convert iconset \%#
+[icon icns(mac) compress] iconutil --convert icns \%#
+[icon ico(windows)] convert \%#.png -define icon:auto-resize icon.ico
 
 [svg to pdf] rsvg-convert -f pdf -o test.pdf test.svg
 
@@ -1169,14 +1173,14 @@
 [plantuml pdf] plantuml -tpdf test.uml && rsvg-convert -f pdf -o test.pdf test.svg
 [plantuml html] plantuml -thtml test.uml
 
-[binary editor] bed @ # go get -u github.com/itchyny/bed/cmd/bed
+[binary editor] bed \%# # go get -u github.com/itchyny/bed/cmd/bed
 [hexdump color] hexyl # cargo install hexyl
 
-[is binary file] { file --mime @ | grep -q "charset=binary"; }
+[is binary file] { file --mime \%# | grep -q "charset=binary"; }
 
-[xmllint format check] xmllint --noout --valid @
-[xmllint format output] xmllint --format @ # use export XMLLINT_INDENT=" " to control indent
-[xml tidy format output] tidy -xml -i -q @
+[xmllint format check] xmllint --noout --valid \%#
+[xmllint format output] xmllint --format \%# # use export XMLLINT_INDENT=" " to control indent
+[xml tidy format output] tidy -xml -i -q \%#
 
 # FYI:
 # [Linux系OSにおいてディスクが読み込み専用\(readonly\)になりました。どう対処すればよいですか？ \| クラウド・エヌ・インフォメーション]( https://www.cloudn-service.com/faq/4028 )
