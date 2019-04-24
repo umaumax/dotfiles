@@ -946,3 +946,24 @@ function git-clone-peco() {
   [[ -z $target ]] && return
   eval "$target"
 }
+
+function get_arm_neon_header() {
+  local cache_dir="$HOME/.cache/dotfiles/"
+  mkdir -p "$cache_dir"
+  if [[ ! -e "$cache_dir/arm_neon.h" ]]; then
+    wget https://raw.githubusercontent.com/gcc-mirror/gcc/master/gcc/config/aarch64/arm_neon.h -O "$cache_dir/arm_neon.h"
+  fi
+  echo "$cache_dir/arm_neon.h"
+  return 0
+}
+
+alias arm_neon_peco='peco_arm_neon'
+function peco_arm_neon() {
+  local arm_neon_header=$(get_arm_neon_header)
+  {
+    # NOTE: type
+    cat $arm_neon_header | grep "^typedef struct"
+    # NOTE: funcs
+    cat $arm_neon_header | grep -A 2 "__extension__" | grep -v '\--' | awk -v n=3 -v delim=" " 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\n";}' | sed -e 's/__extension__ extern __inline //' -e 's/__attribute__ //' -e 's/((__always_inline__, __gnu_inline__, __artificial__)) //'
+  } | fzf
+}
