@@ -122,7 +122,7 @@
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
 
 # git
-[git init, add files, and commit] git init && git add -f . && git commit --no-verify
+[git init, add files, and commit] git init && git add -A -f . && git commit --no-verify
 [git commit] git commit -m '\%#'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
@@ -300,7 +300,7 @@
 [ol abspath] python2 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print x' \%#
 [ol abspath] python3 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print(x)' \%#
 # FYI: [zsh \- Portable way to get script's absolute path? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/76505/portable-way-to-get-scripts-absolute-path )
-[ol abspath] perl -MCwd -le 'for (\%#ARGV) { if ($p = Cwd::abs_path $_) { print $p; } else { warn "abs_path: $_: $!\n"; $ret = 1;}} exit $ret' \%#
+[ol abspath] perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } else { warn "abs_path: $_: $!\n"; $ret = 1;}} exit $ret' \%#
 
 [shuffle line] shuf
 
