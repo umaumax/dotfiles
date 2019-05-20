@@ -243,6 +243,8 @@
 [git tag push] git push origin $TAG\%#
 [git tag push(all)] git push origin --tags
 
+[git amend unstage file] git rm --cached \%#
+
 
 # tig
 [tig file history] tig $FILE
