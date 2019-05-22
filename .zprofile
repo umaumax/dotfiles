@@ -3,7 +3,7 @@
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
 if [[ "$OSTYPE" == darwin* ]]; then
-	export BROWSER='open'
+  export BROWSER='open'
 fi
 
 #
@@ -12,7 +12,7 @@ fi
 
 # FYI: [基本の復習: 優先順位は LANGUAGE, LC\_ALL, LC\_xxx, LANG の順 \- Qiita]( https://qiita.com/kitsuyui/items/4ee5bf1baa47553be477 )
 if [[ -z "$LANG" ]]; then
-	export LANG='en_US.UTF-8'
+  export LANG='en_US.UTF-8'
 fi
 export LANGUAGE=''
 export LANG='ja_JP.UTF-8'
@@ -34,8 +34,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-	/usr/local/{bin,sbin}
-	$path
+  /usr/local/{bin,sbin}
+  $path
 )
 
 #
@@ -60,8 +60,8 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 #
 
 if [[ ! -d "$TMPDIR" ]]; then
-	export TMPDIR="/tmp/$LOGNAME"
-	mkdir -p -m 700 "$TMPDIR"
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
@@ -71,26 +71,26 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 
 funccheck() { declare -f "$1" >/dev/null; }
 cmdcheck() {
-	type "$1" >/dev/null 2>&1
-	local code=$?
-	[[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
-	return $code
+  type "$1" >/dev/null 2>&1
+  local code=$?
+  [[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
+  return $code
 }
 
 #alias cmdcheck='type > /dev/null 2>&1'
 #alias funccheck='declare -f > /dev/null'
 
 prepend_path() {
-	local p="$1"
-	[[ -d $p ]] && export PATH=$p:$PATH
+  local p="$1"
+  [[ -d $p ]] && export PATH=$p:$PATH
 }
 append_path() {
-	local p="$1"
-	[[ -d $p ]] && export PATH=$PATH:$p
+  local p="$1"
+  [[ -d $p ]] && export PATH=$PATH:$p
 }
 exist() {
-	var=$1
-	[[ -e $var ]]
+  var=$1
+  [[ -e $var ]]
 }
 
 #
@@ -117,25 +117,25 @@ export LC_MESSAGES="en_US.UTF-8"
 # golang
 mkdir -p ~/go/{3rd,my}/{bin,src,pkg}
 if [[ -d ~/go ]]; then
-	# go1.9~: If $GOPATH is not specified, $HOME/go will be used by default:
-	export GOPATH=~/go/3rd:~/go/my
-	append_path ~/go/3rd/bin
-	append_path ~/go/my/bin
+  # go1.9~: If $GOPATH is not specified, $HOME/go will be used by default:
+  export GOPATH=~/go/3rd:~/go/my
+  append_path ~/go/3rd/bin
+  append_path ~/go/my/bin
 fi
 # NOTE: for ubuntu
 if [[ -d "/usr/lib/go-1.10" ]]; then
-	append_path /usr/lib/go-1.10/bin
+  append_path /usr/lib/go-1.10/bin
 fi
 
 # c++
 mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
 if [[ -d ~/cpp ]]; then
-	CPPROOT=~/cpp
-	append_path $CPPROOT/orig/bin
-	append_path $CPPROOT/3rd/bin
-	export CPATH=$CPPROOT/orig/include:$CPPROOT/3rd/include
-	export LIBRARY_PATH=$CPPROOT/orig/lib:$CPPROOT/3rd/lib
-	unset CPPROOT
+  CPPROOT=~/cpp
+  append_path $CPPROOT/orig/bin
+  append_path $CPPROOT/3rd/bin
+  export CPATH=$CPPROOT/orig/include:$CPPROOT/3rd/include
+  export LIBRARY_PATH=$CPPROOT/orig/lib:$CPPROOT/3rd/lib
+  unset CPPROOT
 fi
 
 [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
@@ -154,16 +154,16 @@ append_path ~/.local/bin
 export PYENV_ROOT="${HOME}/.pyenv"
 export PATH=${PYENV_ROOT}/bin:$PATH
 if cmdcheck pyenv; then
-	exist ~/python/lib/ && export PYTHONPATH=$var
-	# for blender add-ons
-	[[ -d "/Applications/blender.app/Contents/Resources/2.78/scripts/addons" ]] && export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/scripts/addons:PYTHONPATH"
+  exist ~/python/lib/ && export PYTHONPATH=$var
+  # for blender add-ons
+  [[ -d "/Applications/blender.app/Contents/Resources/2.78/scripts/addons" ]] && export PYTHONPATH="/Applications/blender.app/Contents/Resources/2.78/scripts/addons:PYTHONPATH"
 
-	# NOTE: slow
-	# NOTE: if you add --no-rehash (it will be a little faster)
-	eval "$(pyenv init -)"
+  # NOTE: slow
+  # NOTE: if you add --no-rehash (it will be a little faster)
+  eval "$(pyenv init -)"
 
-	# NOTE: for virtualenv
-	# 	eval "$(pyenv virtualenv-init -)"
+  # NOTE: for virtualenv
+  # 	eval "$(pyenv virtualenv-init -)"
 fi
 
 # NOTE: slow
@@ -186,15 +186,15 @@ export HOMEBREW_NO_ANALYTICS
 # linuxbrew
 # FYI: [Linuxbrew \| The Homebrew package manager for Linux]( http://linuxbrew.sh/ )
 if [[ ! -d ~/.linuxbrew ]] && [[ $(uname) == "Linux" ]]; then
-	git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+  git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
 fi
 if [[ -d ~/.linuxbrew ]]; then
-	export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-	export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-	export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-	export PKG_CONFIG_PATH="$HOME/.linuxbrew/lib64/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
-	# to avoid ~/.linuxbrew/lib/libxxx.so.x: no version information available (required by xxx)
-	# export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
+  export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+  export PKG_CONFIG_PATH="$HOME/.linuxbrew/lib64/pkgconfig:$HOME/.linuxbrew/lib/pkgconfig:$PKG_CONFIG_PATH"
+  # to avoid ~/.linuxbrew/lib/libxxx.so.x: no version information available (required by xxx)
+  # export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
 # NOTE: force alias to system pkg-config (the priority is higher than linuxbrew)
 [[ -f ~/.linuxbrew/bin/pkg-config ]] && ln -sf /usr/bin/pkg-config ~/local/bin/pkg-config
@@ -236,8 +236,8 @@ export BAT_THEME=TwoDark
 
 # NOTE: X11が有効な場合にはクリップボードを使用可能とする(特にsshログイン時)
 if [[ -z $DISPLAY ]]; then
-	export DISPLAY=":0"
-	xset q >/dev/null 2>&1 || unset DISPLAY
+  export DISPLAY=":0"
+  xset q >/dev/null 2>&1 || unset DISPLAY
 fi
 
 # NOTE: for my markdowns
@@ -248,7 +248,7 @@ export MDLINK="$HOME/md/link"
 # cmdcheck micro && export EDITOR='micro' && export VISUAL=$EDITOR
 
 if [[ -s "${ZDOTDIR:-$HOME}/.local.zprofile" ]]; then
-	source "${ZDOTDIR:-$HOME}/.local.zprofile"
+  source "${ZDOTDIR:-$HOME}/.local.zprofile"
 fi
 
 mkdir -p ~/local/bin
