@@ -27,16 +27,16 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
-'archive' \
-'rsync' \
-'tmux' \
-'ssh' \
-'history-substring-search' \
-'syntax-highlighting' \
-'rails' \
-'git' \
-'osx' \
-'homebrew' \
+  'archive' \
+  'rsync' \
+  'tmux' \
+  'ssh' \
+  'history-substring-search' \
+  'syntax-highlighting' \
+  'git' \
+  'osx' \
+  'homebrew' \
+  \
   'environment' \
   'terminal' \
   'editor' \
@@ -46,6 +46,9 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt'
+
+# WARN: force set ~/.rbenv/shims
+# 'rails' \
 
 #
 # Autosuggestions
