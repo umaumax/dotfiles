@@ -946,6 +946,7 @@ function git-clone-peco() {
   local target
   target=$(history | cut -c8- | grep '^git clone' | fzf --query="'")
   [[ -z $target ]] && return
+  echo "$target"
   eval "$target"
 }
 
