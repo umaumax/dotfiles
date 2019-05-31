@@ -245,6 +245,7 @@
 
 [git amend unstage file] git rm --cached \%#
 
+[git show diff codes with file filtering] git show $SHA\%# -p -- "*"
 
 # tig
 [tig file history] tig $FILE
