@@ -35,3 +35,8 @@ snippet if_or
 	ifneq ($(findstring ${1:#:keyword},$(${2:#:var1}) $(${3:#:var2...})),)
 		${0}
 	endif
+
+# FYI: [makefile \- gnu make: list the values of all variables \(or "macros"\) in a particular run \- Stack Overflow]( https://stackoverflow.com/questions/7117978/gnu-make-list-the-values-of-all-variables-or-macros-in-a-particular-run )
+snippet var_dump
+alias dump
+	$(foreach v, $(.VARIABLES), $(info $(v) = $($(v))))${0}
