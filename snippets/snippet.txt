@@ -145,6 +145,10 @@
 [git stash list src] git stash show "stash@{0}" -p
 [git stash with name] git stash save "\%#"
 [git stash] git stash pop "stash@{\%#}"
+[git stash not staged] git stash --keep-index
+# FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
+[git stash staged] git stash save --keep-index "tmp stash" && git stash save "\%#" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'; git status
+[git stash interactive] git stash push --patch
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git commit without hook] git commit --no-verify
@@ -176,6 +180,7 @@
 [git clone with submodule] git clone --recursive \%#
 [git commit log grep] git log --stat -S "\%#"
 [git is commit hash?] git rev-parse --verify \%# >/dev/null 2>&1
+[git repository name] basename `git rev-parse --show-toplevel`
 
 [git copy file/dir from another branch] git checkout \%# #$BRANCH $FILE_PATH
 
@@ -246,6 +251,9 @@
 [git amend unstage file] git rm --cached \%#
 
 [git show diff codes with file filtering] git show $SHA\%# -p -- "*"
+
+[git empty tree SHA] 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+[git empty tree SHA] git hash-object -t tree /dev/null
 
 # tig
 [tig file history] tig $FILE
@@ -966,6 +974,7 @@
 [diff ignore space(blank)] diff -b \%#
 [diff directory] diff -r \%# # DIR_A DIR_B
 [diff directory only filepath] diff -rq \%# # DIR_A DIR_B
+[diff multifiles] \\diff --from-file=$SRC\%# $CMP1 $CMP2 # ... # for diff or colordiff
 ## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
 [git style diff at out of repo] git diff --no-index -- \%#
 
