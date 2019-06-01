@@ -18,6 +18,7 @@
 	checkout-tag-peco  = :
 	cherry-pick-peco  = :
 	cherry-pick-peco-range  = :
+	clone-peco  = :
 	comments  = :
 	comments-fix  = :
 	comments-note  = :
@@ -26,6 +27,7 @@
 	commits-peco  = :
 	commits-range-peco  = :
 	dir  = :
+	file-log-cat  = :
 	file-ranking  = :
 	file-ranking-peco  = :
 	filter = :
@@ -36,6 +38,7 @@
 	find-rename  = :
 	find-repo = :
 	find-repo-and-show-head-commit-hash-id = :
+	force-stash-apply = :
 	grep-japanese  = :
 	grep-japanese-current  = :
 	grep-japanese-root  = :
@@ -51,6 +54,7 @@
 	info  = :
 	is-my-repo  = :
 	is-own-repo = :
+	local-checkout  = :
 	log-diff  = :
 	log-diff-current  = :
 	log-example-add-repo  = :
@@ -72,6 +76,7 @@
 	remote-add-upstream  = :
 	remove-submodule  = :
 	rename-to-backup-branch-peco  = :
+	repo = :
 	repo-peco = :
 	reset-hard-peco  = :
 	reset-soft-peco  = :
@@ -83,6 +88,7 @@
 	sed-rename-cpp-field  = :
 	show-root-commit-from-master  = :
 	show-stashes  = :
+	stash-as-patch  = :
 	stash-checkout  = :
 	stash-checkout-branch-peco  = :
 	stash-checkout-commit-peco  = :
@@ -91,6 +97,8 @@
 	stash-dropped  = :
 	stash-rebase-peco  = :
 	stash-recover  = :
+	stash-staged-as-patch  = :
+	stash-unstaged-as-patch  = :
 	submodule-move  = :
 	submodule-remove = :
 	submodule-remove  = :
