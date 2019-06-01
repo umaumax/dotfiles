@@ -32,7 +32,7 @@ abbrev-alias -g rmd='README.md'
 
 abbrev-alias -g g='git '
 abbrev-alias -g apt='sudo apt-get '
-abbrev-alias -g b='brew '
+# abbrev-alias -g b='brew '
 abbrev-alias -g v='vim '
 abbrev-alias -g tst='tig stash'
 abbrev-alias -g gcm='git commit '
