@@ -749,3 +749,45 @@ function gerrit-push-review-peco-to-master() {
   gerrit-push-review $commit master
 }
 
+function git-stash-as-patch() {
+  is_git_repo_with_message || return
+  [[ $# -lt 1 ]] && echo "$(basename "$0") patch_name" && return 1
+  local patch_name=$1
+  # NOTE: for non-blocking colot output
+  git diff HEAD --color | grep --color=never . || return 1
+
+  echo "[LOG] create $1"
+  git diff HEAD >$1
+  echo "[LOG] git stash save $1"
+  git stash save "saved as $1"
+  git status
+}
+
+function git-stash-unstaged-as-patch() {
+  is_git_repo_with_message || return
+  [[ $# -lt 1 ]] && echo "$(basename "$0") patch_name" && return 1
+  local patch_name=$1
+  # NOTE: for non-blocking colot output
+  git diff --color | grep --color=never . || return 1
+
+  echo "[LOG] create $1"
+  git diff >$1
+  echo "[LOG] git stash save $1"
+  git stash save --keep-index "saved as $1"
+  git status
+}
+
+function git-stash-staged-as-patch() {
+  is_git_repo_with_message || return
+  [[ $# -lt 1 ]] && echo "$(basename "$0") patch_name" && return 1
+  local patch_name=$1
+  # NOTE: for non-blocking colot output
+  git diff --staged --color | grep --color=never . || return 1
+
+  echo "[LOG] create $1"
+  git diff --staged >$1
+  echo "[LOG] git stash save $1"
+  # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
+  git stash save --keep-index "tmp stash" && git stash save "saved as $1" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'
+  git status
+}
