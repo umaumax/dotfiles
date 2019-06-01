@@ -1200,3 +1200,9 @@
 # [Linux系OSにおいてディスクが読み込み専用\(readonly\)になりました。どう対処すればよいですか？ \| クラウド・エヌ・インフォメーション]( https://www.cloudn-service.com/faq/4028 )
 # [リカバリーモードでrootユーザーなのにReadOnlyだと怒られる時の対処法 \- Qiita]( https://qiita.com/ironsand/items/f40581705a7bb402c01d )
 [remount rootfs] mount -o rw,remount /
+
+# csv
+[csv2markdown] cat \%# | mdt # go get github.com/monochromegane/mdt/...
+[csv2markdown] cat \%# | tty-table # npm install -g tty-table
+[csv2markdown] csvtomd \%# # pip3 install csvtomd
+[csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
