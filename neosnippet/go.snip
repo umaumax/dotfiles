@@ -47,3 +47,10 @@ snippet readline
 		log.Printf("stdin read err:%s\n", err)
 	}
 	${0}
+
+# FYI: [go \- How to strings\.Split on newline? \- Stack Overflow]( https://stackoverflow.com/questions/25080862/how-to-strings-split-on-newline )
+snippet split_line
+	strings.Split(strings.Replace(${0}, "\r\n", "\n", -1), "\n")
+
+snippet file_ext_overwrite
+	${1:#:src}[0:len($1)-len(filepath.Ext($1))] + ".${0:#:ext}"
