@@ -6,6 +6,14 @@ snippet readline
 	${2:cat} | while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
 		${0}
 	done
+snippet readlines
+	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+	${2:cat} | while true; do
+		IFS= read -r ${1:line}_1
+		IFS= read -r $1_2
+		if [[ -z "$$1_1" ]] || [[ -z "$$1_2" ]]; then break; fi
+		${0}
+	done
 snippet read
 	IFS= read -r ${1:#:var}${0}
 
