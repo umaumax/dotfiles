@@ -2424,6 +2424,48 @@ function is_binary() {
   file --mime "$filepath" | grep -q "charset=binary"
 }
 
+function grep-diff() {
+  local cmd_name="grep-diff"
+  local i=0
+  local grep_args=()
+  for arg in "$@"; do
+    if [[ $arg == "--" ]]; then
+      local grep_args=(${@:1:$i})
+      shift $((i + 1))
+      break
+    fi
+    ((i++))
+  done
+
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF
+$cmd_name <grep options>...  -- [base file] <target files>...
+    e.g.
+      $cmd_name "search_word" -- a.log b.log c.log | colordiff
+      cat a.log | $cmd_name "search_word" -- b.log c.log | colordiff
+      $cmd_name -v "non_search_word" -- a.log b.log c.log | colordiff
+EOF
+    return 1
+  fi
+
+  if [[ -p /dev/stdin ]]; then
+    local input="/dev/stdin"
+  else
+    local input="$1"
+    shift
+  fi
+
+  # NOTE: save to var for pipe not file input
+  local input_data=$(cat "$input" | grep "${grep_args[@]}")
+
+  local targets=("$@")
+  for target in "${targets[@]}"; do
+    echo "# [GREP_DIFF LOG]: $target"
+    diff <(printf "%s" "$input_data") <(cat $target | grep "${grep_args[@]}")
+    echo "#"
+  done
+}
+
 function splitbat() {
   ! type >/dev/null 2>&1 "bat" && echo 1>&2 "install bat" && return 1
   ! type >/dev/null 2>&1 "splitcat" && echo 1>&2 "install splitcat" && return 1
