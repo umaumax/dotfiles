@@ -468,6 +468,14 @@ function git-branch-new-to-old() {
 }
 
 function gitdiffgrep() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") [grep options...]
+e.g.
+  git diff | $(basename "$0") -i func
+EOF
+    return 1
+  fi
   grep '^[+-]' | bat -l diff --color=always | grep "$@"
 }
 
