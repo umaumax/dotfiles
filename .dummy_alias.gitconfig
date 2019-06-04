@@ -26,6 +26,7 @@
 	commit-lost  = :
 	commits-peco  = :
 	commits-range-peco  = :
+	diff-peco = :
 	dir  = :
 	file-log-cat  = :
 	file-ranking  = :
@@ -86,6 +87,7 @@
 	search-open  = :
 	sed-gen-name  = :
 	sed-rename-cpp-field  = :
+	show-peco  = :
 	show-root-commit-from-master  = :
 	show-stashes  = :
 	stash-as-patch  = :
