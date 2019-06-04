@@ -862,6 +862,14 @@ function git-log-diff() {
   # git log --stat --color . | fzf --multi --ansi --reverse --preview 'filepath=$(echo {} | sed -E -e '"'"'s/^ *(.*) *\| [0-9]+ .*$/\1/g'"'"' -e '"'"'s/ *$//g'"'"'); fullpath="$(git rev-parse --show-toplevel)/$filepath"; echo "filepath:$filepath"; echo "$fullpath"; [[ -e "$fullpath" ]] && git diff --color "$filepath"' --preview-window 'right:80%' --query="$query"
 }
 
+alias git-diff-peco="git-show-peco"
+function git-show-peco() {
+  is_git_repo_with_message || return
+  local commit=$(_git-commit-peco)
+  [[ -z $commit ]] && return 1
+  git show "$commit"
+}
+
 alias color_peco_ansi='ansi_color_peco'
 alias color_peco_ansi256='ansi_color_256_peco'
 alias color_peco_hex256='hex_color_256_peco'
