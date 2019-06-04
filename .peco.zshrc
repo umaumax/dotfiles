@@ -317,7 +317,7 @@ function git-log-peco() {
 }
 function _git-commit-peco() {
   # NOTE: escape {7} -> {'7'} to avoid fzf replacing
-  git graph --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'} '"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7}' | grep -o -E '[0-9a-zA-Z]{7}'
+  git graph --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'}'"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7}' | grep -o -E '[0-9a-zA-Z]{7}'
 }
 function git-commits-peco() {
   _git-commit-peco --multi
