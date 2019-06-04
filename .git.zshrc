@@ -472,30 +472,58 @@ function gitdiffgrep() {
 }
 
 function vimgit() {
-  [[ $# -lt 1 ]] && echo "$(basename $0) [commit hash] [files...]" && return 1
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename $0) [commit hash] [files...]
+open specific commit files by vim
+  e.g.
+    # choose commit hash intractive
+    $(basename $0) README.md
+    # open specific commit hash file
+    $(basename $0) "HEAD~" README.md
+    # open specific commit hash files
+    $(basename $0) "HEAD~" README.md link.sh
+EOF
+    return 1
+  fi
+
   local commit_hash=$1
   if git rev-parse --verify $commit_hash >/dev/null 2>&1; then
+    # NOTE: use 1st arg as commit_hash
     shift
   else
-    local commit_hash=$(_git-commit-peco)
+    local commit_hash=$(_git-commit-peco "$@")
     git rev-parse --verify $commit_hash >/dev/null 2>&1 || return 1
   fi
 
   local tmpfile_list=()
-  for filepath in $@; do
+  for filepath in "$@"; do
     [[ ! -e $filepath ]] && echo "No such file $filepath" 1>&2 && continue
-    local tmpfile_list=($tmpfile_list $(git show $commit_hash:$filepath 2>/dev/null | pipe_tmpfile $filepath))
+    tmpfile_list=($tmpfile_list $(git show $commit_hash:$filepath 2>/dev/null | pipe_tmpfile $filepath))
   done
   vim -p ${tmpfile_list[@]}
 }
 
 function vimgitdiff() {
-  [[ $# -lt 1 ]] && echo "$(basename $0) [commit hash] [files]" && return 1
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename $0) [commit hash] [file]
+compare different files by vimdiff
+  e.g.
+    # choose commit hash intractive
+    $(basename $0) README.md
+    # open specific commit hash file
+    $(basename $0) "HEAD~" README.md
+    # open specific commit hash files
+EOF
+    return 1
+  fi
   local commit_hash=$1
   if git rev-parse --verify $commit_hash >/dev/null 2>&1; then
+    # NOTE: use 1st arg as commit_hash
     shift
   else
-    local commit_hash=$(_git-commit-peco)
+    local commit_hash=$(_git-commit-peco "$@")
     git rev-parse --verify $commit_hash >/dev/null 2>&1 || return 1
   fi
 
