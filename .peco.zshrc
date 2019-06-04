@@ -313,14 +313,15 @@ function git-checkout-tag-peco() {
 }
 
 function git-log-peco() {
-  _git-commit-peco --multi
+  GIT_COMMIT_PECO_OPT="--multi" _git-commit-peco
 }
+# NOTE: args: files for filtering log
 function _git-commit-peco() {
   # NOTE: escape {7} -> {'7'} to avoid fzf replacing
-  git graph --color | fzf "$@" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'}'"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7}' | grep -o -E '[0-9a-zA-Z]{7}'
+  git graph --color "$@" | fzf "$GIT_COMMIT_PECO_OPT" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'}'"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7}' | grep -o -E '[0-9a-zA-Z]{7}'
 }
 function git-commits-peco() {
-  _git-commit-peco --multi
+  GIT_COMMIT_PECO_OPT="--multi" _git-commit-peco
 }
 function git-rebase-peco() {
   local commit=$(_git-commit-peco)
