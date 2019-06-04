@@ -854,7 +854,7 @@ function git-log-diff-current() {
 function git-log-diff() {
   local target=($1)
   # NOTE: 選択しているcommit_hashがinitial commit hashの場合の例外処理がない
-  git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} {printf "%s\n", str;}' |
+  git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' |
     fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query"
   # git log --stat --color . | fzf --multi --ansi --reverse --preview 'filepath=$(echo {} | sed -E -e '"'"'s/^ *(.*) *\| [0-9]+ .*$/\1/g'"'"' -e '"'"'s/ *$//g'"'"'); fullpath="$(git rev-parse --show-toplevel)/$filepath"; echo "filepath:$filepath"; echo "$fullpath"; [[ -e "$fullpath" ]] && git diff --color "$filepath"' --preview-window 'right:80%' --query="$query"
 }
