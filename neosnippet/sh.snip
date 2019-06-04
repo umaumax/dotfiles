@@ -163,10 +163,18 @@ snippet for_i
 
 snippet arg_check_exit
 alias argcheck_exit
-	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" && exit 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" 1>&2 && exit 1
 snippet arg_check_return
 alias argcheck_return
-	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" && return 1
+	[[ $# -lt ${1:#:1,2,3... # of args} ]] && echo "\$(basename "\$0") ${0:#: description}" 1>&2 && return 1
+snippet arg_check_return_detail
+alias argcheck_return
+	if [[ $# -lt ${1:#:1,2,3... # of args} ]]; then
+		command cat <<EOF 1>&2
+	\$(basename "\$0") ${0:#: description}
+	EOF
+		return 1
+	fi
 
 snippet cmdcheck
 	function cmdcheck() { type >/dev/null 2>&1 "$@"; }${0}
