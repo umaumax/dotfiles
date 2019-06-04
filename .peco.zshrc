@@ -850,9 +850,11 @@ function git-file-ranking-peco() {
 }
 
 function git-log-diff-current() {
+  is_git_repo_with_message || return
   git-log-diff .
 }
 function git-log-diff() {
+  is_git_repo_with_message || return
   local target=($1)
   # NOTE: 選択しているcommit_hashがinitial commit hashの場合の例外処理がない
   git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' |
