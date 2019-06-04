@@ -616,6 +616,9 @@
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
 [yaml to json one liner] python3 -c "import sys; import yaml; import json; print(json.dumps(yaml.load(sys.stdin.read()), indent=2))"
 [yaml to inline yaml] json2yaml -d 1 <(yaml2json \%#.yaml) # npm install yamljs
+# FYI: [unix \- How can I pretty\-print JSON in a shell script? \- Stack Overflow]( https://stackoverflow.com/questions/352098/how-can-i-pretty-print-json-in-a-shell-script )
+[json format] cat \%# | jq .
+[json format] cat \%# | python -m json.tool
 
 # ansible
 [ansible man] ansible-doc
