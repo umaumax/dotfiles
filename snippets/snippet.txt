@@ -728,6 +728,7 @@
 [roslog file] $HOME/.ros/log/
 [rosclean] rosclean check
 [rosclean] rosclean purge
+# FYI: [ROS 複数台での通信時の問題点：clientからmasterへと情報送信できない \- Qiita]( https://qiita.com/ossyaritoori/items/b2336451583ce40d1b9a )
 [ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
 # NOTE: default ROS_MASTER_URI is localhost (which has IP restriction)
 [ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
