@@ -438,7 +438,18 @@ function umountpeco() {
   done
 }
 
-# NOTE: peco google
+#######################################
+# Name: pecoole
+# Description: fuzzy finder of urls in dotfiles difinition file
+# Globals:
+#   - None
+# Output:
+#   - None
+# Arguments:
+#   - None
+# Returns:
+#   - None
+#######################################
 function pecoole() {
   local ret=$(
     {
@@ -511,6 +522,16 @@ cmdcheck wmctrl && cmdcheck wintoggle && function wintogglepeco() {
 }
 
 if cmdcheck fzf; then
+  #######################################
+  # Name: manpeco
+  # Description: man(1) commandual fuzzy finder
+  # Globals:
+  #   - None
+  # Arguments:
+  #   - None
+  # Returns:
+  #   - None
+  #######################################
   function manpeco() {
     local args=($(man -k . | fzf --query="'"${1} | cut -d' ' -f1 | sed -E -e 's/(.*)\(([0-9a-zA-Z]+)\)/\2 \1/g' -e 's/,//g'))
     [[ ${#args[@]} == 2 ]] && man "${args[@]}"
