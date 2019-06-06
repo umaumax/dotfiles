@@ -246,8 +246,15 @@ Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
 if Doctor('npm', 'maksimr/vim-jsbeautify')
-	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
+	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','css','html','vue','vue.html.javascript.css']}
 endif
+
+" NOTE: for json format
+Plug 'umaumax/vim-format'
+" NOTE: for json but below plugin has no error...
+" Plug 'Chiel92/vim-autoformat'
+" NOTE: I don't like default jsbeautify_json format
+" let g:formatters_json = ['fixjson', 'prettier']
 
 " for Vue.js
 " [Neovim/Vim8で快適Vue\.js開発\(Vue Language Server\)]( https://muunyblue.github.io/520bae6649b42ff5a3c8c58b7fcfc5a9.html )

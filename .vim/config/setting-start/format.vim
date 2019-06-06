@@ -129,8 +129,11 @@ if Doctor('npm', 'js,html,css format')
   augroup END
   augroup json_group
     autocmd!
-    autocmd FileType json autocmd BufWinEnter *.json command! -bar Format call JsonBeautify()
-    autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | call JsonBeautify() | endif
+    " autocmd FileType json autocmd BufWinEnter *.json command! -bar Format call JsonBeautify()
+    " autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | call JsonBeautify() | endif
+    " autocmd FileType json autocmd! json_group FileType
+    autocmd FileType json autocmd BufWinEnter *.json command! -bar Format :JsonFormat
+    autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | :JsonFormat | endif
     autocmd FileType json autocmd! json_group FileType
   augroup END
   " 		augroup jsx_group
