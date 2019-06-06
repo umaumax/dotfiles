@@ -1211,3 +1211,7 @@
 [csv2markdown] cat \%# | tty-table # npm install -g tty-table
 [csv2markdown] csvtomd \%# # pip3 install csvtomd
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
+
+# yum
+[yum whatprovides (search so dependency)] yum whatprovides \%#
+[apt-get whatprovides (search so dependency)] dpkg -S $FILEPATH
