@@ -4,62 +4,61 @@ set -ex
 
 # brew
 brew_install_formula_list=(
-	aha
-	ansible
-	autossh
-	bash
-	bat
-	boost
-	ccat
-	clang-format
-	cliclick
-	cmake
-	coreutils
-	datamash
-	direnv
 	# NOTE: enhance ls
-	exa
-	ext4fuse
-	ffmpeg
-	figlet
-	freetype
-	gcc
-	gdrive
-	git
-	gnu-sed
-	go
-	grep
-	htop
-	icdiff
-	imagemagick
-	jid
-	jq
-	libpng
-	micro
-	ninja
-	node
-	pstree
-	pyenv
-	python3
-	qt
-	rlwrap
-	screen
-	shellcheck
-	terminal-notifier
-	tig
-	tmux
-	translate-shell
-	unrar
-	vim
-	watch
-	zsh
-	zsh-autosuggestions
-	zsh-completions
-	zsh-git-prompt
-	zsh-history-substring-search
+  aha
+  ansible
+  autossh
+  bash
+  bat
+  boost
+  ccat
+  clang-format
+  cliclick
+  cmake
+  coreutils
+  datamash
+  direnv
+  ext4fuse
+  ffmpeg
+  figlet
+  freetype
+  gcc
+  gdrive
+  git
+  gnu-sed
+  go
+  grep
+  htop
+  icdiff
+  imagemagick
+  jid
+  jq
+  libpng
+  micro
+  ninja
+  node
+  pstree
+  pyenv
+  python3
+  qt
+  rlwrap
+  screen
+  shellcheck
+  terminal-notifier
+  tig
+  tmux
+  translate-shell
+  unrar
+  vim
+  watch
+  zsh
+  zsh-autosuggestions
+  zsh-completions
+  zsh-git-prompt
+  zsh-history-substring-search
 )
 for formula in "${brew_install_formula_list[@]}"; do
-	brew install "$formula"
+  brew install "$formula"
 done
 
 brew install rpl
