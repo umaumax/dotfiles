@@ -1215,3 +1215,6 @@
 # yum
 [yum whatprovides (search so dependency)] yum whatprovides \%#
 [apt-get whatprovides (search so dependency)] dpkg -S $FILEPATH
+
+# pkg-config
+[pkg-config confirm opencv version] pkg-config --modversion opencv
