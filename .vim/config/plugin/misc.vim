@@ -249,8 +249,7 @@ if Doctor('npm', 'maksimr/vim-jsbeautify')
 	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','css','html','vue','vue.html.javascript.css']}
 endif
 
-" NOTE: for json format
-Plug 'umaumax/vim-format'
+" NOTE: use 'umaumax/vim-format'
 " NOTE: for json but below plugin has no error...
 " Plug 'Chiel92/vim-autoformat'
 " NOTE: I don't like default jsbeautify_json format
@@ -560,13 +559,6 @@ LazyPlug 'qpkorr/vim-renamer'
 let g:RenamerWildIgnoreSetting=''
 
 Plug 'umaumax/bats.vim', {'for':'bats'}
-
-" NOTE: コメントが消える不具合がある
-" Plug 'tarekbecker/vim-yaml-formatter', {'for':'yaml'}
-" let g:yaml_formatter_indent_collection=1
-
-" NOTE: indentの整形がない
-Plug 'umaumax/vim-yaml-format', {'for':'yaml'}
 
 Plug 'cespare/vim-toml', {'for':'toml'}
 

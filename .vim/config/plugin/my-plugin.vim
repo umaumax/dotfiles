@@ -4,13 +4,28 @@ Plug 'umaumax/comment-vim'
 " :BenchVimrc
 Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
 " fork元の'z0mbix/vim-shfmt'ではエラー時に保存できず，メッセージもなし
-if Doctor('shfmt', 'umaumax/vim-shfmt')
-	Plug 'umaumax/vim-shfmt',{'for': ['sh', 'zsh']}
-endif
-if Doctor('cmake-format', 'umaumax/vim-cmake-format')
-	Plug 'umaumax/vim-cmake-format', {'for': 'cmake'}
-endif
+" if Doctor('shfmt', 'umaumax/vim-shfmt')
+" Plug 'umaumax/vim-shfmt',{'for': ['sh', 'zsh']}
+" endif
 " let g:shfmt_fmt_on_save = 1
+
+" NOTE: コメントが消える不具合がある
+" Plug 'tarekbecker/vim-yaml-formatter', {'for':'yaml'}
+" let g:yaml_formatter_indent_collection=1
+
+" NOTE: indentの整形がない
+" Plug 'umaumax/vim-yaml-format', {'for':'yaml'}
+"
+if Doctor('cmake-format', 'umaumax/vim-format')
+endif
+if Doctor('jq', 'umaumax/vim-format')
+endif
+if Doctor('shfmt', 'umaumax/vim-format')
+endif
+if Doctor('cmake-format', 'umaumax/vim-format')
+endif
+" NOTE: for format
+Plug 'umaumax/vim-format', {'for': ['cmake','json','sh','zsh','yaml']}
 
 " input helper
 " Plug 'kana/vim-smartinput'
