@@ -4,7 +4,6 @@ set -ex
 
 # brew
 brew_install_formula_list=(
-	# NOTE: enhance ls
   aha
   ansible
   autossh
@@ -18,6 +17,7 @@ brew_install_formula_list=(
   coreutils
   datamash
   direnv
+  exa # A modern version of ‘ls’.
   ext4fuse
   ffmpeg
   figlet
@@ -34,6 +34,7 @@ brew_install_formula_list=(
   jid
   jq
   libpng
+  lsd # The next gen ls command
   micro
   ninja
   node
