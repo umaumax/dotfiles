@@ -548,6 +548,9 @@ function pipe_tmpfile() {
   local filepath=$1
   # NOTE: 過去にも未来にも他のファイルにも重複しない名称
   local filepath_hash=$(echo "$filepath:$(date +%s%3N)" | md5sum | cut -d' ' -f1)
+
+  # NOTE: at Ubuntu: mktemp: too few X's in template
+  # requirements: XXX or more X (X{3,})
   local tmpfile=$(mktemp "/tmp/XXX.$filepath_hash.$(basename $filepath)")
   cat >$tmpfile
   echo "$tmpfile"
