@@ -5,6 +5,7 @@
 	add-peco  = :
 	alias-list = :
 	apply-stashes  = :
+	at  = :
 	backup  = :
 	branch-current  = :
 	branch-new-to-old  = :
@@ -49,6 +50,8 @@
 	grep-time-reverse  = :
 	grep-time-reverse-color-pecovim  = :
 	grep-time-reverse-pecovim  = :
+	history  = :
+	history-filter  = :
 	hub-browse  = :
 	hub-shorten-url  = :
 	icdiff = :
@@ -101,6 +104,7 @@
 	stash-recover  = :
 	stash-staged-as-patch  = :
 	stash-unstaged-as-patch  = :
+	status-check  = :
 	submodule-move  = :
 	submodule-remove = :
 	submodule-remove  = :
