@@ -3,11 +3,11 @@
 set -ex
 
 [[ $1 == '--sudo' ]] && function pip() {
-	sudo -E pip "$@"
+  sudo -E pip "$@"
 } && function pip2() {
-	sudo -E pip2 "$@"
+  sudo -E pip2 "$@"
 } && function pip3() {
-	sudo -E pip3 "$@"
+  sudo -E pip3 "$@"
 }
 
 # --------------------------------
@@ -59,6 +59,7 @@ pip3 install yamllint
 
 # for git
 pip2 install git-tree
+pip3 install webdiff
 
 # NOTE: --user is used to avoid below message
 # Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'
