@@ -35,7 +35,10 @@ color cursor white 104 bold
 # bind
 ########################
 bind generic <Ctrl-f> scroll-page-down
+# WARN: tmux key map butting
 bind generic <Ctrl-b> scroll-page-up
+bind generic <Right> scroll-page-down
+bind generic <Left> scroll-page-up
 
 # line
 # NOTE: 期待する行が得られない
