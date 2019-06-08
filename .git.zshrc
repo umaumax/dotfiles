@@ -296,6 +296,16 @@ EOF
   local dot_git_dir="$(realpath $repo_dir/.git)"
   git --git-dir "$dot_git_dir" -C "$git_repo_dir" "$@"
 }
+
+# NOTE: ignore untracked-files
+function git-status-check() {
+  local repo_dir=$1
+  git-at "$repo_dir" status -sb | grep -E -e '##.*\[ahead [0-9]+]' -e '^ ' >/dev/null 2>&1
+  if [[ $? == 0 ]]; then
+    return 1
+  else
+    return 0
+  fi
 }
 alias git-find-repo='find-git-repo'
 function find-git-repo() {
