@@ -307,6 +307,23 @@ function git-status-check() {
     return 0
   fi
 }
+function git-history-filter() {
+  grep -v -e '/\.' -e 'go/3rd' -e '/dep/'
+}
+function git-history() {
+  # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+  cdinfo | sort | git-history-filter | while IFS= read -r line || [[ -n "$line" ]]; do
+    local git_repo_dir="$line"
+    local dot_git_dir="$line/.git"
+    if [[ -d "$dot_git_dir" ]]; then
+      echo "${GREEN}[GIT_HISTORY][FOUND]: $git_repo_dir${DEFAULT}"
+      if ! $(git-status-check "$git_repo_dir"); then
+        git-at "$git_repo_dir" status
+      fi
+    fi
+  done
+}
+
 alias git-find-repo='find-git-repo'
 function find-git-repo() {
   local args=(${@})
