@@ -269,6 +269,34 @@ if cmdcheck tig; then
   }
 fi
 
+#######################################
+# Name: git-at
+# Description: run git command without changing working directory
+# Globals:
+#   - None
+# Output:
+#   - git command result
+# Arguments:
+#   - <repo_dirpath> [commands]...
+# Returns:
+#   - git command exit code
+#######################################
+function git-at() {
+  is_git_repo_with_message || return
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") <repo_dirpath> [commands]...
+EOF
+    return 1
+  fi
+
+  local repo_dir=$1
+  shift
+  local git_repo_dir="$(realpath $repo_dir)"
+  local dot_git_dir="$(realpath $repo_dir/.git)"
+  git --git-dir "$dot_git_dir" -C "$git_repo_dir" "$@"
+}
+}
 alias git-find-repo='find-git-repo'
 function find-git-repo() {
   local args=(${@})
