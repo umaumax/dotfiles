@@ -1222,3 +1222,6 @@
 
 # pkg-config
 [pkg-config confirm opencv version] pkg-config --modversion opencv
+
+# dot graphviz
+[dot graphviz gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg "{}" "-o{}.svg"
