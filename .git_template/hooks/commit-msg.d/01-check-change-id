@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+## pre-commit script to check change-id line position from being committed.
+
+RED=$'\e[31m'
+YELLOW=$'\e[33m'
+DEFAULT=$'\e[0m'
+
+# NOTE: example of commit message
+#
+#     xxx
+#
+#     Change-Id: xxx
+
+target="Change-Id:"
+commit_message_filepath="$1"
+cat "$commit_message_filepath" | grep -v "^#" | grep -A 9999 "$target" | grep -v "$target" | grep . >/dev/null 2>&1
+if [[ $? == 0 ]]; then
+  cat "$commit_message_filepath" | grep --color=always -e "$target" -e '$'
+  echo "${RED}WARNING: You must set '$target' at end of commit message. Fix them before committing.${DEFAULT}"
+  echo "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
+  echo "${YELLOW}git commit --no-verify${DEFAULT}"
+  echo "${YELLOW}!! --no-verify${DEFAULT}"
+  exit 1
+fi
