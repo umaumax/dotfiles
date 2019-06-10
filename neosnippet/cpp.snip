@@ -1086,7 +1086,7 @@ alias cp_gcd
 	    return a;
 	  }
 	  return GCD(b, a % b);
-	}
+	}${0}
 
 snippet filesize
 	#include <fstream>
@@ -1101,4 +1101,11 @@ snippet filesize
 	  // NOTE: ate: at-end
 	  std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
 	  return in.tellg();
-	}
+	}${0}
+
+snippet nullpo
+abbr undefined behavior(but maybe SIGSEGV)
+	*(volatile int *)(nullptr);${0}
+
+snippet trap
+	__builtin_trap();${0}
