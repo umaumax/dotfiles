@@ -1225,3 +1225,8 @@
 
 # dot graphviz
 [dot graphviz gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg "{}" "-o{}.svg"
+
+# bash
+[shell expand number] {0..9} # 0 1 ... 9
+[shell expand number] {00..10} # 00 01 ... 09 10
+[bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
