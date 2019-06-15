@@ -1653,7 +1653,7 @@ cmdcheck gsed && function zploadadd() {
   done
 }
 
-function lambda() {
+function ifconfig() {
   local COLOR_RED="\e[91m"
   local COLOR_GREEN="\e[92m"
   local COLOR_YELLOW="\e[93m"
@@ -1661,15 +1661,13 @@ function lambda() {
   local COLOR_END="\e[m"
   # `inet `: mac
   # `inet addr:`: ubuntu
-  alias ifconfig_color_filter="
-	perl -pe 's/^(\w)+/${COLOR_BLUE}"'$&'"${COLOR_END}/g' | \
-	perl -pe 's/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}"'$&'"${COLOR_END}/g' | \
-	perl -pe 's/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}"'$&'"${COLOR_END}/g' | \
-	perl -pe 's/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}"'$&'"${COLOR_END}/g' | \
-	perl -pe 's/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}"'$&'"${COLOR_END}/g'"
-  alias ifconfig='ifconfig | ifconfig_color_filter'
-  cmdcheck ifconfig && alias ifc='ifconfig'
-} && lambda
+  command ifconfig |
+    perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" |
+    perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" |
+    perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" |
+    perl -pe "s/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}$&${COLOR_END}/g" |
+    perl -pe "s/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}$&${COLOR_END}/g"
+}
 
 function off() { printf "\e[0;m$*\e[m"; }
 function bold() { printf "\e[1;m$*\e[m"; }
