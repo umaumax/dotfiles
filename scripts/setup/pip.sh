@@ -67,14 +67,18 @@ pip3 install pyyaml
 pip3 install yamllint
 
 # for git
-pip2 install git-tree
+pip install git-tree
 pip3 install webdiff
 
 # NOTE: --user is used to avoid below message
 # Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'
 # Consider using the `--user` option or check the permissions.
 # NOTE: for bookmark searcher
-pip3 install --user buku
+if [[ "$(uname -a)" =~ Ubuntu ]]; then
+  pip3 install --user buku
+else
+  pip3 install buku
+fi
 
 # --------------------------------
 # NOTE: as library
