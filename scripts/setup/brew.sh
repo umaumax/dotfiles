@@ -91,6 +91,7 @@ brew install parallel
 # WIP
 
 # brew cask
+## WARN: don't install by your self (by GUI)
 brew cask install iterm2
 brew cask install alacritty
 brew cask install cheatsheet
@@ -111,7 +112,7 @@ brew cask install qlmarkdown
 brew cask install qlstephen
 brew cask install quicklook-json
 brew cask install quicklook-csv
-brew cask install betterzipql
+brew cask install betterzip
 brew cask install qlcolorcode
 brew cask install qlimagesize
 brew cask install texpad
