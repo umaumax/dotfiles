@@ -65,6 +65,8 @@ fi
 ln -fs ~/dotfiles/.vim/config ~/.vim/
 
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
+[[ ! -d "$HOME/$XDG_CONFIG_HOME" ]] && mkdir -p "$HOME/$XDG_CONFIG_HOME"
+
 ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 
 # NOTE: auto create .config dir
