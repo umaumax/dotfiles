@@ -9,6 +9,13 @@ set -ex
 } && function pip3() {
   sudo -E pip3 "$@"
 }
+! type >/dev/null 2>&1 pip && type >/dev/null 2>&1 pip3 && function pip() {
+  if [[ $1 == '--sudo' ]]; then
+    sudo -E pip3 "$@"
+  else
+    pip3 "$@"
+  fi
+}
 
 # --------------------------------
 # NOTE: as tools
