@@ -21,6 +21,7 @@ brew_install_formula_list=(
   ffmpeg
   figlet
   freetype
+  fzf
   gcc
   gdrive
   git
@@ -37,6 +38,7 @@ brew_install_formula_list=(
   micro
   ninja
   node
+  peco
   pstree
   pyenv
   python3
@@ -47,6 +49,7 @@ brew_install_formula_list=(
   terminal-notifier
   tig
   tmux
+  tree
   translate-shell
   unrar
   vim
