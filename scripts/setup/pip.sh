@@ -55,7 +55,9 @@ pip3 install https://github.com/umaumax/gtrans/archive/master.tar.gz
 
 # for keybind
 # NOTE: xkeysnail is used as root
-sudo -E pip3 install xkeysnail
+if [[ "$(uname -a)" =~ Ubuntu ]]; then
+  sudo -E pip3 install xkeysnail
+fi
 
 # for perf command visualization
 pip3 install gprof2dot
