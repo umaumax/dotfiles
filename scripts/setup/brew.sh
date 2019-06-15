@@ -18,7 +18,6 @@ brew_install_formula_list=(
   datamash
   direnv
   exa # A modern version of ‘ls’.
-  ext4fuse
   ffmpeg
   figlet
   freetype
@@ -85,7 +84,8 @@ brew install lolcat
 brew install parallel
 
 # for dump struct
-brew install kaitai-struct-compiler
+# NOTE: this requires brew cask install adoptopenjdk
+# brew install kaitai-struct-compiler
 
 # brew tap
 # WIP
@@ -116,6 +116,8 @@ brew cask install qlcolorcode
 brew cask install qlimagesize
 brew cask install texpad
 brew cask install osxfuse
+# NOTE: after osxfuse beacuse of dependency
+brew install ext4fuse
 brew cask install flash-player
 
 # NOTE: if you need
