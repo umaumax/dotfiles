@@ -574,7 +574,7 @@ function pipe-EOF-do() {
   # NOTE: たまに，suspended (tty output)と表示され，バックグランド実行となる(at mac)
   IFS= read -r LINE
   {
-    printf '%s\n' "$LINE"
+    [[ -n $LINE ]] && printf '%s\n' "$LINE"
     command cat
   } | $@
 }

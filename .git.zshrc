@@ -224,12 +224,10 @@ alias ggpv='ggpv_root'
 alias ggpvr='ggpv_root'
 alias ggpvc='ggpv_current'
 function ggpv_root() {
-  local ret=$(git_grep_root --color=always "$@")
-  [[ -n "$ret" ]] && local _=$(echo "$ret" | pecovim)
+  git_grep_root --color=always "$@" | pecovim
 }
 function ggpv_current() {
-  local ret=$(git_grep_current --color=always "$@")
-  [[ -n "$ret" ]] && echo $(echo "$ret" | pecovim)
+  git_grep_current --color=always "$@" | pecovim
 }
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
