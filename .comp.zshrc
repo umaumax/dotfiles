@@ -14,13 +14,13 @@ cmdcheck autooresshpass && compdef autooresshpass=ssh
 cmdcheck sshpass && compdef sshpass=ssh
 
 function zsh_comp_file_list() {
-	# NOTE: e.g. /usr/local/share/zsh/functions
-	echo $fpath | tr ' ' '\n' | xargs -L 1 -I{} find {} -maxdepth 1 -name '_*'
+  # NOTE: e.g. /usr/local/share/zsh/functions
+  echo $fpath | tr ' ' '\n' | xargs -L 1 -I{} find {} -maxdepth 1 -name '_*'
 }
 
 function _color() {
-	compadd $(
-		cat <<EOF
+  compadd $(
+    cat <<EOF
 BLACK
 RED
 GREEN
@@ -32,11 +32,11 @@ WHITE
 GRAY
 DEFAULT
 EOF
-	)
+  )
 }
 function color() {
-	[[ $# -lt 1 ]] && echo "$0 [COLOR]" && exit 1
-	eval echo -en \$$1
+  [[ $# -lt 1 ]] && echo "$0 [COLOR]" && exit 1
+  eval echo -en \$$1
 }
 compdef _color color
 
@@ -49,7 +49,7 @@ function cpwd() {
 }
 compdef cpwd=ls
 function cbasedirname() {
-	basedirname | tee $(tty) | c
+  basedirname | tee $(tty) | c
 }
 compdef cbasedirname=ls
 function chost() {
