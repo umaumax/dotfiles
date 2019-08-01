@@ -41,11 +41,11 @@ function color() {
 compdef _color color
 
 function cls() {
-	echo ${1:-.} | tee $(tty) | c
+  echo -n ${1:-.} | tee $(tty) | c
 }
 compdef cls=ls
 function cpwd() {
-	echo $(pwd)/$1 | tee $(tty) | c
+  echo -n $(pwd)/$1 | tee $(tty) | c
 }
 compdef cpwd=ls
 function cbasedirname() {
@@ -53,6 +53,12 @@ function cbasedirname() {
 }
 compdef cbasedirname=ls
 function chost() {
-	echo $1 | tee $(tty) | c
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") <press tab key to comp host by sshconfig>
+EOF
+    return 1
+  fi
+  echo -n $1 | tee $(tty) | c
 }
 compdef chost=ssh
