@@ -1231,3 +1231,6 @@
 [shell expand number] {0..9} # 0 1 ... 9
 [shell expand number] {00..10} # 00 01 ... 09 10
 [bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
+
+# rust
+[cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
