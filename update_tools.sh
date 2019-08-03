@@ -38,6 +38,9 @@ git wget https://github.com/nornagon/git-rebase-all/blob/master/git-rebase-all
 # wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 git wget https://github.com/so-fancy/diff-so-fancy/blob/master/third_party/build_fatpack/diff-so-fancy
 
+git wget https://github.com/jantman/misc-scripts/blob/master/dot_find_cycles.py
+ln -sf dot_find_cycles.py dot_find_cycles
+
 # only for ubuntu
 if [[ "$(uname -a)" =~ Ubuntu ]]; then
   git wget https://github.com/umaumax/window-toggle/blob/master/window-toggle
