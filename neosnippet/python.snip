@@ -133,6 +133,9 @@ snippet printf_with_end
 snippet print_with_end
 	print("${1:#:message}", end="${0}")
 
+snippet printf_to_stderr
+	print("${1:#:message}".format(${0}), file=sys.stderr)
+
 snippet argv
 	sys.argv${0}
 
