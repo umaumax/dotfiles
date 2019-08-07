@@ -39,7 +39,12 @@ git wget https://github.com/nornagon/git-rebase-all/blob/master/git-rebase-all
 git wget https://github.com/so-fancy/diff-so-fancy/blob/master/third_party/build_fatpack/diff-so-fancy
 
 git wget https://github.com/jantman/misc-scripts/blob/master/dot_find_cycles.py
-ln -sf dot_find_cycles.py dot_find_cycles
+# NOTE: for wrap script by python3
+cat >dot_find_cycles <<'EOF'
+#!/usr/bin/env bash
+python3 "$(dirname $0)/dot_find_cycles.py" $@
+EOF
+chmod u+x dot_find_cycles
 
 # only for ubuntu
 if [[ "$(uname -a)" =~ Ubuntu ]]; then
