@@ -68,6 +68,7 @@ bin/
 
 # for python
 __pycache__
+htmlcov
 
 # ====
 # ====
