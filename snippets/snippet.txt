@@ -422,8 +422,11 @@
 [python venv] python -m venv $PROJECT_PATH\%#
 [pip(2) recover] sudo python -m pip uninstall pip && sudo apt install python-pip --reinstall
 [pip3 recover] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-[python3 run test] python -m unittest discover tests # last arg is dirname
-[python3 run coverage] coverage run --source='.' --omit='*/tests/*' -m unittest discover tests # last arg is dirname
+[python3 test run test] python -m unittest discover tests # last arg is dirname
+[python3 test run coverage] coverage run --source='.' --omit='*/tests/*' -m unittest discover tests # last arg is dirname
+[python3 test report coverage] coverage report
+[python3 test gen html report] coverage html
+[python3 test color output] green # pip install green
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
