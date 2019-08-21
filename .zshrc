@@ -1669,21 +1669,21 @@ function ifconfig() {
     perl -pe "s/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}$&${COLOR_END}/g"
 }
 
-function off() { printf "\e[0;m$*\e[m"; }
-function bold() { printf "\e[1;m$*\e[m"; }
-function under() { printf "\e[4;m$*\e[m"; }
-function blink() { printf "\e[5;m$*\e[m"; }
-function reverse() { printf "\e[7;m$*\e[m"; }
-function back() { printf "\e[7;m$*\e[m"; }
-function concealed() { printf "\e[8;m$*\e[m"; }
-function black() { printf "\e[30m$*\e[m"; }
-function red() { printf "\e[31m$*\e[m"; }
-function green() { printf "\e[32m$*\e[m"; }
-function yellow() { printf "\e[33m$*\e[m"; }
-function blue() { printf "\e[34m$*\e[m"; }
-function magenta() { printf "\e[35m$*\e[m"; }
-function cyan() { printf "\e[36m$*\e[m"; }
-function white() { printf "\e[37m$*\e[m"; }
+# function off() { printf "\e[0;m$*\e[m"; }
+# function bold() { printf "\e[1;m$*\e[m"; }
+# function under() { printf "\e[4;m$*\e[m"; }
+# function blink() { printf "\e[5;m$*\e[m"; }
+# function reverse() { printf "\e[7;m$*\e[m"; }
+# function back() { printf "\e[7;m$*\e[m"; }
+# function concealed() { printf "\e[8;m$*\e[m"; }
+# function black() { printf "\e[30m$*\e[m"; }
+# function red() { printf "\e[31m$*\e[m"; }
+# function green() { printf "\e[32m$*\e[m"; }
+# function yellow() { printf "\e[33m$*\e[m"; }
+# function blue() { printf "\e[34m$*\e[m"; }
+# function magenta() { printf "\e[35m$*\e[m"; }
+# function cyan() { printf "\e[36m$*\e[m"; }
+# function white() { printf "\e[37m$*\e[m"; }
 
 # FYI: [正規表現でスネークケース↔キャメルケース/パスカルケースの変換 - Qiita]( http://qiita.com/ryo0301/items/7c7b3571d71b934af3f8 )
 alias lower="tr '[:upper:]' '[:lower:]'"
