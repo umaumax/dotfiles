@@ -60,6 +60,13 @@ augroup textobj
 	autocmd VimEnter * call s:init_textobj()
 augroup END
 
+" Requires: 'machakann/vim-swap'
+" NOTE: press 'v' -> 'i,'
+omap i, <Plug>(swap-textobject-i)
+xmap i, <Plug>(swap-textobject-i)
+omap a, <Plug>(swap-textobject-a)
+xmap a, <Plug>(swap-textobject-a)
+
 " [Vimメモ : vim\-expand\-regionでビジュアルモードの選択領域を拡大／縮小 \- もた日記]( https://wonderwall.hatenablog.com/entry/2016/03/31/231621 )
 " il: 'kana/vim-textobj-line'
 " ie: 'kana/vim-textobj-entire'
@@ -94,6 +101,11 @@ let g:expand_region_text_objects = {
 			\ 'ip'  :0,
 			\ 'ie'  :0,
 			\ }
+
+" NOTE:
+" 下記を追加すると，判定に時間がかかるらしく，待機時間がつらいので，導入しない
+" \ 'i,'  :0,
+" \ 'a,'  :0,
 
 " NOTE: oによるカーソル位置によってはexapnd or shrink
 " expand range one char both side

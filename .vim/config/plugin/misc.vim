@@ -572,3 +572,5 @@ Plug 'Shougo/vimfiler.vim', {'on': ['VimFiler']}
 LazyPlug 'blueyed/vim-diminactive'
 
 Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
+
+Plug 'machakann/vim-swap'
