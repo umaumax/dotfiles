@@ -773,6 +773,8 @@
 [add group to user usermod] sudo usermod -aG $GROUP\%# $USER
 [add group to user gpasswd] sudo gpasswd -a $USER $GROUP\%#
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP\%#
+[create new group (ubuntu)] sudo addgroup $GROUP\%#
+[group list] cat /etc/group
 
 [list users with ldap user] getent passwd
 
