@@ -44,7 +44,8 @@
 [ubuntu gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
 [ubuntu mdfind] locate # updatedb
 # FYI: [https://www\.kernel\.org/doc/Documentation/sysctl/vm\.txt]( https://www.kernel.org/doc/Documentation/sysctl/vm.txt ) see at drop_caches
-[ubuntu drop cache] sync; echo \%# > /proc/sys/vm/drop_caches # 1:pagecache, 2:reclaimable slab objects (includes dentries and inodes), 3:slab objects and pagecache
+[ubuntu drop file page cache size confirm] free -m
+[ubuntu drop file page cache] sync; sudo sh -c "echo \%# > /proc/sys/vm/drop_caches" # 1:pagecache, 2:reclaimable slab objects (includes dentries and inodes), 3:slab objects and pagecache
 [ubuntu screen recoder(movie capture)] kazam # sudo apt-get install kazam
 
 [lsusb tree] lsusb -t
