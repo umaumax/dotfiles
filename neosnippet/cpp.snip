@@ -1109,3 +1109,6 @@ abbr undefined behavior(but maybe SIGSEGV)
 
 snippet trap
 	__builtin_trap();${0}
+
+snippet var_debug_definition
+	#define VAR_DEBUG(x) std::cout << "[VAR_DEBUG]:" #x << "=" << x << std::endl;${0}
