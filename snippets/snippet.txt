@@ -1231,6 +1231,7 @@
 
 # pkg-config
 [pkg-config confirm opencv version] pkg-config --modversion opencv
+[confirm opencv version] opencv_version
 
 # dot graphviz
 [dot graphviz gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg "{}" "-o{}.svg"
@@ -1242,3 +1243,5 @@
 
 # rust
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
+
+[shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
