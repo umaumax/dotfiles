@@ -140,6 +140,7 @@
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset # to move commit to stash or easy to amend...
 [git commit without pre-hook] git commit --no-verify \%#
+[git commit reset] git reset --soft "HEAD^"
 [git amend reset] git reset --soft "HEAD@{1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
 [git merge all conflict(adopt upper one)] git checkout --ours .
