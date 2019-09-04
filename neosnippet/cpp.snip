@@ -1112,3 +1112,7 @@ snippet trap
 
 snippet var_debug_definition
 	#define VAR_DEBUG(x) std::cout << "[VAR_DEBUG]:" #x << "=" << x << std::endl;${0}
+
+snippet devnull_out
+alias dummy_out
+	std::ofstream("/dev/null") << ${0};
