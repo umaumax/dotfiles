@@ -429,6 +429,8 @@
 [python3 test report coverage] coverage report
 [python3 test gen html report] coverage html
 [python3 test color output] green # pip install green
+[pip install with some version] pip install "$PACKAGE\%#==$VERSION"
+[pip reinstall another version] pip uninstall "$PACKAGE\%#" && pip install "$PACKAGE==$VERSION"
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
