@@ -1493,6 +1493,9 @@ fi
 
 alias jagrep="grep -P '\p{Hiragana}'"
 
+alias grep-camelcase="grep -E '([a-z]{1,}[A-Z][a-z]{0,}){1,}'"
+alias grep-camelcase-filter="grep -E '([a-z]{1,}[A-Z][a-z]{0,}){1,}' -o"
+
 # 確認くん
 #global_ip() { curl http://www.ugtop.com/spill.shtml 2>&1 | nkf -w | grep -A 2 "IP" |grep font | grep "size=+" | sed -e 's/^\(.\+\)>\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)<\(.\+\)/\2/g'; }# [Linux コマンドでグローバルIPを調べる方法 - weblog of key_amb]( http://keyamb.hatenablog.com/entry/2014/01/17/195038 )
 alias global_ip='curl ifconfig.moe || curl ifconfig.io'
