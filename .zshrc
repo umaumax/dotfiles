@@ -1728,6 +1728,14 @@ function git-sed-gen-name() {
 :  "space"; git sed 's/$old_space/$new_space/g'
 EOF
 }
+# NOTE: e.g.
+# mainの中のcamel caseをすべてsnake caseに変換する
+# cat main.cpp | git-sed-gen-name-from-camelcase-pipe | grep camel | bash
+function git-sed-gen-name-from-camelcase-pipe() {
+  grep-camelcase-filter | while IFS= read -r line || [[ -n "$line" ]]; do
+    git-sed-gen-name "$line" "$(printf '%s' "$line" | camel2snake)"
+  done
+}
 
 alias jobs='jobs -l'
 # [裏と表のジョブを使い分ける \- ザリガニが見ていた\.\.\.。]( http://d.hatena.ne.jp/zariganitosh/20141212/fore_back_ground_job )
