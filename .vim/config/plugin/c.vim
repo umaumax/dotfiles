@@ -5,6 +5,20 @@ let g:cpp_concepts_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_no_function_highlight = 1
 
+if Doctor('clang-rename', 'uplus/vim-clang-rename')
+	" WARN: 実際に使用する場合には，対象ファイルをopenしてから編集してはならない
+	" WARN: errorが発生してもlogにはでてこない
+	"
+	" NOTE: you can use below commands
+	" :ClangRename
+	" :ClangRenameCurrent, :ClangRenameQualifiedName
+	Plug 'uplus/vim-clang-rename', {'for':['c','cpp']}
+	augroup clang_rename_group
+		autocmd!
+		autocmd FileType c,cpp nmap <buffer><silent>,lr <Plug>(clang_rename-current)
+	augroup END
+endif
+
 if Doctor('clang-format', 'rhysd/vim-clang-format')
 	" NOTE: search .clang-format or _clang-format option ON
 	let g:clang_format#detect_style_file=1
