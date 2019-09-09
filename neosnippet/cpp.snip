@@ -1116,3 +1116,19 @@ snippet var_debug_definition
 snippet devnull_out
 alias dummy_out
 	std::ofstream("/dev/null") << ${0};
+
+snippet comment_header
+alias comment_mark
+	// ---- ---- ---- ----
+	// ---- ---- ---- ----
+	// ${0}
+	// ---- ---- ---- ----
+	// ---- ---- ---- ----
+
+snippet size_file
+alias get_size_file
+abbr ifstream
+	${1}.seekg(0, $1.end);
+	size_t size${0} = $1.tellg();
+	$1.clear();
+	$1.seekg(0, std::ios::beg);
