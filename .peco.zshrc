@@ -1007,3 +1007,17 @@ function peco_arm_neon() {
     cat $arm_neon_header | grep -A 3 "__extension__" | grep -v '\--' | sed -e 's/__extension__ extern __inline //g' | sed 's/__attribute__ ((__always_inline__, __gnu_inline__, __artificial__))//g' | awk -v n=4 -v delim=" " 'NR%n!=1{printf "%s", delim;} {printf "%s", $0;} NR%n==0{printf "\n";}' | sed -E -e 's/__extension__ extern __inline //' -e 's/__attribute__ //' -e 's/\(\(__always_inline__, __gnu_inline__, __artificial__\)\) //' -e 's/[ \t]+/ /g' -e 's/ *\{$//g' | grep -v '^[ \t{]' | grep -v 'funcsuffix'
   } | fzf
 }
+
+# NOTE: before using below function, run 'gtags -v'
+# shellの補完として利用する方法もある
+# global calc[TAB]
+function global_func_prefix() {
+  local function_prefix="$1"
+  if [[ -z "$function_prefix" ]]; then
+    function_prefix="$(global -c | fzf --query "'")"
+    if [[ -z "$function_prefix" ]]; then
+      return 1
+    fi
+  fi
+  global -x "^$function_prefix" | awk '{printf "%s:%d\n", $3, $2}' | pecovim
+}
