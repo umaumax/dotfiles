@@ -391,11 +391,15 @@ function! FZF_cpp_include_header()
 	call feedkeys("i\<Plug>(fzf#cpp_include_header)", '')
 	return ''
 endfunction
+
+" NOTE:
+" vimのfzfのpluginとしては，completeとpreview_windowの両立はできなさそうなため，
+" 無理やり，--preview optionを追加して利用
 function! fzf#cpp_include_header()
 	return fzf#vim#complete({
 				\ 'source':  'cat ~/dotfiles/dict/cpp/headers/c++11-headers.txt',
 				\ 'reducer': function('FZF_include_header_reducer'),
-				\ 'options': '--multi --reverse '."--query=\"'\"",
+				\ 'options': '--multi --reverse '."--query=\"'\""." --preview 'echo {}' --preview-window 'right:20%'",
 				\ 'up':    '50%'})
 endfunction
 
