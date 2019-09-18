@@ -95,13 +95,6 @@ alias clog
 snippet cout_all
 	std::copy(std::begin(${1}), std::end($1), std::ostream_iterator<const decltype($1)::value_type&>(std::cout, ${2:" "}));${0}
 
-snippet precision
-abbr e.g. std::cout << HERE #include <iomanip>
-	std::fixed << std::setprecision(${1}) << ${0}
-
-snippet setfill
-	std::setw(${1:#:n}) << std::setfill(${2:'0'}) << ${0}
-
 snippet fstream
 	std::${1:fstream} ${2:fs}(${3:#:filename}${4:, std::ios::binary});
 	if (!$2.is_open()) {
@@ -1132,3 +1125,20 @@ abbr ifstream
 	size_t size${0} = $1.tellg();
 	$1.clear();
 	$1.seekg(0, std::ios::beg);
+
+snippet iomanip_right
+alias printf_right
+	std::setw(${1}) << std::right${0}
+
+snippet iomanip_left
+alias printf_left
+	std::setw(${1}) << std::left${0}
+
+snippet iomanip_fill
+alias printf_fill
+	std::setfill('${1:0}')${0}
+
+snippet iomanip_precision
+alias printf_precision
+abbr e.g. std::cout << HERE #include <iomanip>
+	std::fixed << std::setprecision(${1}) << ${0}
