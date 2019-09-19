@@ -1142,3 +1142,14 @@ snippet iomanip_precision
 alias printf_precision
 abbr e.g. std::cout << HERE #include <iomanip>
 	std::fixed << std::setprecision(${1}) << ${0}
+
+snippet namespace_internal
+	namespace internal {
+	  ${0}
+	}
+
+snippet namespace_detail
+abbr boost style
+	namespace detail {
+	  ${0}
+	}
