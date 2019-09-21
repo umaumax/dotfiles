@@ -280,7 +280,7 @@ fi
 #   - git command exit code
 #######################################
 function git-at() {
-  is_git_repo_with_message || return
+  # is_git_repo_with_message || return
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
   $(basename "$0") <repo_dirpath> [commands]...
@@ -324,18 +324,44 @@ function git-history() {
 
 alias git-find-repo='find-git-repo'
 function find-git-repo() {
+  local cmd=$0
+  find-git-repo-help() {
+    echo "$cmd "'[-maxdepth n] [base dir path]...' 1>&2
+  }
+  [[ $1 =~ ^(-h|-{1,2}help)$ ]] && find-git-repo-help && return 1
+  local maxdepth=999
+  if [[ $1 == '-maxdepth' ]]; then
+    [[ $# == 1 ]] && find-git-repo-help && return 1
+    maxdepth=$2
+    shift 2
+  fi
   local args=(${@})
   [[ $# -le 0 ]] && args=(".")
+  local dirpath
   for dirpath in "${args[@]}"; do
-    local dirpath=$(printf '%s' "$dirpath" | sed "s:^~:$HOME:g")
+    dirpath=$(printf '%s' "$dirpath" | sed "s:^~:$HOME:g")
     [[ ! -d $dirpath ]] && continue
     # NOTE: -follow: traverse symbolic link
-    find "$dirpath" -follow -type d -name '.git' | sed 's:/\.git$::'
+    find "$dirpath" -maxdepth "$maxdepth" -follow -type d -name '.git' | sed 's:/\.git$::'
   done
 }
 alias git-find-repo-and-show-head-commit-hash-id='find-git-repo-and-show-head-commit-hash-id'
 function find-git-repo-and-show-head-commit-hash-id() {
   find-git-repo | xargs -L 1 -IXXX bash -c "cd XXX && echo XXX && git rev-parse HEAD"
+}
+
+function git-repo-exec() {
+  local base_dir=''
+  while IFS= read -r git_repo || [[ -n "$git_repo" ]]; do
+    echo "# $git_repo"
+    git-at "$git_repo" "$@"
+  done
+}
+
+# NOTE:
+# find-git-repo -maxdepth 2 | git-repo-pipe-grep 'pch'
+function git-repo-pipe-grep() {
+  git-repo-exec --no-pager grep "$@"
 }
 
 function git-check-up-to-date() {
