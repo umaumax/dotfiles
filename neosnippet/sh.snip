@@ -602,7 +602,7 @@ alias wait_sample
 
 snippet help_oneline
 alias easy_help
-	{ [[ \$1 == '-h' ]] || [[ \$1 == '-help' ]] || [[ \$1 == '--help' ]]; } && echo "\$0 "'${0}' && exit 1
+	[[ \$1 =~ ^(-h|-{1,2}help)$ ]] && echo "\$0 "'${0}' && exit 1
 
 # FYI: [シグナルと trap コマンド \| UNIX & Linux コマンド・シェルスクリプト リファレンス]( https://shellscript.sunone.me/signal_and_trap.html )
 # FYI: [Gitブランチ名を、エディタで簡単に編集できるコマンド \- Qiita]( https://qiita.com/tonluqclml/items/13d597c68b5d35f3ce7d )
