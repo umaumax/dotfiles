@@ -374,3 +374,13 @@ alias dict_with_default_value
 alias dict_force_default_value
 abbr None and so on -> defualt value
 	${1:#:dict}.get(${2:#:key}) or ${3:#:default value}${0}
+
+alias sleep
+abbr import time
+	time.sleep(${1:#:sec})${0}
+
+alias thread
+abbr import threading
+	th = threading.Thread(target=${1:#:func}, args=(${2:#:arg1},))
+	th.start()
+	th.join()
