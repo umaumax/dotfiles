@@ -1152,6 +1152,11 @@
 [image convert raw to png] find . -name "*\%#.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
 [image convert png to raw] convert white.png -depth 8 -size 1000x1000 gray:white.raw
 [image gen gif] convert -fuzz 10% -delay 1x8 *.png animation.gif
+[image convert gif to png] convert -verbose -coalesce $IN.gif\%# $OUT.png
+[image convert concat vertical] convert *.png\%# -append $OUT.png
+[image convert concat horizontal] convert *.png\%# +append $OUT.png
+
+
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
 
