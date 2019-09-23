@@ -905,7 +905,10 @@
 
 [confirm zsh cached comand type] builtin which \%#
 
-[confirm fonts list at ubuntu] fc-list
+# font
+[confirm fonts list at ubuntu(mac)] fc-list
+[pygame font] python3 -c 'import pygame; print(pygame.font.get_fonts())'
+
 
 [how to know image size] file
 [how to know image size] identify
