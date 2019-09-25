@@ -1143,6 +1143,11 @@ alias printf_precision
 abbr e.g. std::cout << HERE #include <iomanip>
 	std::fixed << std::setprecision(${1}) << ${0}
 
+snippet iomanip_max_precision
+alias printf_max_precision
+abbr e.g. std::cout << HERE #include <iomanip>, <limits>
+	std::fixed << std::setprecision(std::numeric_limits<${1:float}>::max_digits10 + 1) << ${0}
+
 snippet namespace_internal
 	namespace internal {
 	  ${0}
