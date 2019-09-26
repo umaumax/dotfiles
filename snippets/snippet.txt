@@ -264,6 +264,10 @@
 [git empty tree SHA] 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 [git empty tree SHA] git hash-object -t tree /dev/null
 
+[git format-patch for am] git format-patch -o $DIR\%# $SHA_START..${SHA_END:HEAD}
+[git am for format-patch] git am *.patch
+[git tmp copy repo step] echo 'SRC:git format-patch -> git diff, DST:git am, git apply'
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
@@ -321,6 +325,9 @@
 [ol abspath] python3 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print(x)' \%#
 # FYI: [zsh \- Portable way to get script's absolute path? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/76505/portable-way-to-get-scripts-absolute-path )
 [ol abspath] perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } else { warn "abs_path: $_: $!\n"; $ret = 1;}} exit $ret' \%#
+[ol shuffle lines] perl -MList::Util=shuffle -e 'print shuffle(<>)'
+[ol median perl] perl -e'@lines = sort {$a <=> $b} <>; print $lines[int($#lines/2)]'
+[ol median awk] sort | awk '{v[i++]=$1;}END {x=int((i+1)/2); if(x<(i+1)/2) print (v[x-1]+v[x])/2; else print v[x-1];}'
 
 [shuffle line] shuf
 
