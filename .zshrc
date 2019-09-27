@@ -2433,29 +2433,46 @@ function is_binary() {
   file --mime "$filepath" | grep -q "charset=binary"
 }
 
+alias diff-grep='grep-diff'
 function grep-diff() {
-  local cmd_name="grep-diff"
-  local i=0
-  local grep_args=()
-  for arg in "$@"; do
-    if [[ $arg == "--" ]]; then
-      local grep_args=(${@:1:$i})
-      shift $((i + 1))
-      break
-    fi
-    ((i++))
-  done
-
-  if [[ $# -lt 1 ]]; then
+  function _help() {
     command cat <<EOF
-$cmd_name <grep options>...  -- [base file] <target files>...
+[ | (pipe input) ] $cmd_name     <grep options>...  -- [base file] <target files>...
+[ | (pipe input) ] $cmd_name -c <bash commands>...  -- [base file] <target files>...
     e.g.
       $cmd_name "search_word" -- a.log b.log c.log | colordiff
       cat a.log | $cmd_name "search_word" -- b.log c.log | colordiff
       $cmd_name -v "non_search_word" -- a.log b.log c.log | colordiff
+      $cmd_name -c "grep -v sample | grep -e hello" -- a.log b.log c.log | colordiff
 EOF
+  }
+  local cmd_name="grep-diff"
+  local grep_args=()
+  local filter_option=''
+  local start_offset=1
+  local end_offset=0
+
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    _help
     return 1
   fi
+
+  for arg in "$@"; do
+    if [[ $arg == "-c" ]]; then
+      filter_option='bash'
+      ((start_offset++))
+    fi
+    if [[ $arg == "--" ]]; then
+      local grep_args=(${@:$start_offset:$end_offset})
+      ((end_offset++))
+      if [[ -z $filter_option ]] && [[ $start_offset -ne $end_offset ]]; then
+        filter_option='grep'
+      fi
+      shift $end_offset
+      break
+    fi
+    ((end_offset++))
+  done
 
   if [[ -p /dev/stdin ]]; then
     local input="/dev/stdin"
@@ -2464,14 +2481,28 @@ EOF
     shift
   fi
 
+  if [[ $filter_option == 'bash' ]]; then
+    function _filter() {
+      bash -c "${grep_args[@]}"
+    }
+  elif [[ $filter_option == 'grep' ]]; then
+    function _filter() {
+      grep "${grep_args[@]}"
+    }
+  else
+    function _filter() {
+      command cat
+    }
+  fi
+
   # NOTE: save to var for pipe not file input
-  local input_data=$(cat "$input" | grep "${grep_args[@]}")
+  local input_data=$(cat "$input" | _filter)
 
   local targets=("$@")
   for target in "${targets[@]}"; do
-    echo "# [GREP_DIFF LOG]: $target"
-    diff <(printf "%s" "$input_data") <(cat $target | grep "${grep_args[@]}")
-    echo "#"
+    echo "# [GREP_DIFF LOG]: diff $input $target"
+    diff <(printf "%s" "$input_data") <(cat $target | _filter)
+    printf '%*s\n' "$(tput cols)" '' | tr ' ' "#"
   done
 }
 
