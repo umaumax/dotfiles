@@ -122,6 +122,7 @@
 # 強制的に色がつく(パイプしても色付き)
 [ctest] GTEST_COLOR=yes ctest --output-on-failure
 [ctest verbose] ctest -V # -VV, --debug
+[ctest filter] ctest -V -R $REGEX
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
