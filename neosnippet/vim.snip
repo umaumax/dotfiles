@@ -153,7 +153,7 @@ snippet redirect_command
 	redir END
 
 snippet has_key_list
-	len(filter(${1:#:list}, { index, val -> ${2:#:condition} }) >= 1
+	len(filter(${1:#:list}, { index, val -> ${2:#:condition} }) >= 1${0}
 
 snippet last_searched_pattern
 	@/${0}

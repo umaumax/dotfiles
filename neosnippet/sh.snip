@@ -365,9 +365,9 @@ snippet second_to_humanreadable_time
 snippet substr_function
 	function substr(){ echo -n \${1:\$2:\${3:-${#1}}}; } #substr( str, pos[, len] )${0}
 
-snippet hr
-alias line_char
-	function hr() { printf '%*s\n' "${2:-$(tput cols)}" '' | tr ' ' "${1:--}"; }
+snippet line_char
+alias hr
+	function hr() { printf '%*s\n' "${2:$(tput cols)}" '' | tr ' ' "${1:-}"; }${0}
 
 snippet snake
 	function snake(){ sed -r 's/([A-Z])/_\L\1\E/g'; }${0}
