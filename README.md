@@ -18,6 +18,11 @@ colorbash update_tools.sh
 git-update-dummy-alias
 ```
 
+## how to test
+```
+./neosnippet/neosnippet_lint.sh
+```
+
 ## debug
 ```
 GIT_WGET_DEBUG=1 colorbash update_tools.sh
