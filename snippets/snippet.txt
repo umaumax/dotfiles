@@ -418,6 +418,8 @@
 [rsync dry-run] rsync -auvzhn $SRC_DIR/ \%# # set dst with dirname
 # [rsync: how can I configure it to create target directory on server? \- Stack Overflow]( https://stackoverflow.com/questions/1636889/rsync-how-can-i-configure-it-to-create-target-directory-on-server )
 [rsync same dir] [[ -z $TARGET_HOST ]] && selhost; \%#rsync -auvzh --rsync-path="mkdir -p $(pwd) && rsync" . $TARGET_HOST:$(pwd)
+[rsync cp only dir with    src dir] rsync -avz --include "*/" --exclude "*" $SRC  $DST
+[rsync cp only dir without src dir] rsync -avz --include "*/" --exclude "*" $SRC/ $DST
 
 # one liners
 [args checker] python -c "import sys; print(sys.argv)" \%#
