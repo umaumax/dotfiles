@@ -39,5 +39,7 @@ if [[ $stop_flag != 0 ]]; then
   echo "${RED}If you want to skip pre-commit hook, use below command.${DEFAULT}"
   echo "${YELLOW}git commit --no-verify${DEFAULT}"
   echo "${YELLOW}!! --no-verify${DEFAULT}"
+  echo "${YELLOW}If you run 'revert' or 'merge' or 'cherry-pick' with --continue, 'git commit --no-verify' first!${DEFAULT}"
+  echo "${YELLOW}see [githooks - Skip Git commit hooks - Stack Overflow]( https://stackoverflow.com/questions/7230820/skip-git-commit-hooks )${DEFAULT}"
   exit 1
 fi
