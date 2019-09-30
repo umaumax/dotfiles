@@ -49,4 +49,16 @@ if [[ $OS == Windows_NT ]]; then
   alias win-home='cd $WIN_HOME'
   alias winhome='cd $WIN_HOME'
   alias wcd='cd $WIN_HOME'
+
+  # NOTE: windows mount dir open
+  function wmopen() {
+    # NOTE: default filepath is clipboard
+    local filepath=${1:-$(p)}
+    local default_drive=${DEFAULT_WMOPEN_DRIVE:-e}
+    local drive=${2:-$(printf '%s' "$filepath" | sed -E 's/^(([a-zA-Z]):)?.*$/\2/g')}
+    [[ -z $drive ]] && drive="$default_drive"
+    filepath=$(printf '%s' "$filepath" | sed -E -e 's/[a-zA-Z]://g' -e 's:/home/[^/]+|~:.:g')
+    start "/$drive/$filepath"
+  }
+  wmopen "$@"
 fi
