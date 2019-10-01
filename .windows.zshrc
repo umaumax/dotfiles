@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 # windows setting
 if [[ $OS == Windows_NT ]]; then
+  # NOTE: to avoid below errors
+  # prompt_sorin_async_tasks:10: command not found: async_flush_jobs
+  # prompt_sorin_async_tasks:13: command not found: async_job
+  prompt kylewest
   # tmuxを起動するとx86_64のみになる
   # if [[ $MSYSTEM_CHOST == x86_64-pc-msys ]]; then
   if [[ -n $BASH ]]; then
@@ -60,5 +64,4 @@ if [[ $OS == Windows_NT ]]; then
     filepath=$(printf '%s' "$filepath" | sed -E -e 's/[a-zA-Z]://g' -e 's:/home/[^/]+|~:.:g')
     start "/$drive/$filepath"
   }
-  wmopen "$@"
 fi
