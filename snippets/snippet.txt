@@ -84,6 +84,7 @@
 [docker volume list] docker volume ls
 [docker each container disk usage] docker system df -v
 [docker cleaning] docker system prune
+[docker container name xargs exec] docker ps --format "{{.Names}}" | xargs -L 1 -I{} bash -c "echo {}\%#"
 
 
 # cmake
@@ -281,6 +282,9 @@
 [git gerrit review push  master branch] git push origin HEAD:refs/for/master
 [git gerrit review push  master branch (drafts)] git push origin HEAD:refs/drafts/master
 [git gerrit base64 patch] cat \%# | base64 -d | (pushd $(git rev-parse --show-toplevel) >/dev/null 2>&1; patch -p1; popd >/dev/null 2>&1) # if mac use base64 -D
+
+# github
+[github user public key] curl -L https://github.com/$USER_NAME\%#.keys
 
 # tree
 # [tree by ls and sed] ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
