@@ -511,6 +511,7 @@
 [ubuntu screenshot (area)] gnome-screenshot --area # Shift + PrintScreen
 [ubuntu screenshot (window)] gnome-screenshot --window # Alt + PrintScreen
 [ubuntu screenshot {delay} ] gnome-screenshot --delay=5
+[ubuntu screenshot (area with delay)] sleep 3\%# && gnome-screenshot --area # both --area and --delay flag is forbidden
 
 # screen
 [screen list  ] screen -ls
