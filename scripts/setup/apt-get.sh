@@ -91,6 +91,7 @@ dpkg_url 'http://launchpadlibrarian.net/301614632/global_6.5.6-2_amd64.deb'
 sudo apt-get install -y ruby-ronn
 
 if [[ ! -f /.dockerenv ]]; then
+  # NOTE: install docker
   # [Get Docker CE for Debian \| Docker Documentation]( https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository )
   sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -100,7 +101,13 @@ if [[ ! -f /.dockerenv ]]; then
    stable"
   sudo apt-get update
   sudo apt-get install -y docker-ce
+  # for using docker command without sudo
   sudo gpasswd -a $USER docker
+
+  # NOTE: install docker-compose
+  # [Install Docker Compose \| Docker Documentation]( https://docs.docker.com/compose/install/ )
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
 
   # for gui
   sudo apt-get install -y compizconfig-settings-manager unity-tweak-tool
