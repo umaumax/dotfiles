@@ -548,11 +548,11 @@ if cmdcheck fzf; then
   }
   alias icalc='calc'
   function calc() {
-    : | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
+    echo ' ' | fzf --ansi --multi --preview 'echo {q}"="; echo {q} | bc -l' --preview-window 'up:2' --height '1%' --print-query | bc -l
   }
   alias ipgrep='ppgrep'
   function ppgrep() {
-    : | fzf --ansi --multi --preview '[[ -n {q} ]] && { pgrep -l {q}; echo "----"; pgrep -alf {q}; }' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
+    echo ' ' | fzf --ansi --multi --preview '[[ -n {q} ]] && { pgrep -l {q}; echo "----"; pgrep -alf {q}; }' --preview-window 'down:70%' --height '80%' --print-query | xargs pgrep -l
   }
   # interactive tree
   alias pecotree='itree'
@@ -573,7 +573,7 @@ if cmdcheck fzf; then
   }
   # e.g. printf-check float 1234.5678
   function printf-check() {
-    : | fzf --ansi --multi --preview 'echo printf "{q}" '"$*"'; printf "{q}" '"$*" --preview-window 'down:70%' --height '80%' --print-query
+    echo ' ' | fzf --ansi --multi --preview 'echo printf "{q}" '"$*"'; printf "{q}" '"$*" --preview-window 'down:70%' --height '80%' --print-query
   }
   function git-log-file-find-peco() {
     local cmd='git log --color --follow --stat -- {q}'
@@ -610,7 +610,7 @@ if cmdcheck fzf; then
     local port="12800"
     ! cmdcheck gtrans && echo "REQUIRED: gtrans" && echo "pip install https://github.com/umaumax/gtrans/archive/master.tar.gz" && return 1
     pgrep -lf "gtrans -p" >/dev/null 2>&1 || nohup gtrans -p $port &
-    : | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | sed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
+    echo ' ' | fzf --ansi --multi --preview "echo {q}; curl -s 'localhost:$port/?text='\$(echo {q} | nkf -WwMQ | sed 's/=\$//g' | tr = % | tr -d '\n')" --preview-window 'up:2' --height '1%'
   }
   function test_bash_regexp() {
     [[ $# -le 0 ]] && echo "$0 [filepath]" && return 1
