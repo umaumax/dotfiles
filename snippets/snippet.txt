@@ -136,7 +136,8 @@
 [git push dry-run] git push -n \%#
 [git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD)
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
-[git staged file diff] git diff --cached # <file> # addしたファイルの差分表示
+[git staged file diff] git diff --cached # <file>
+[git unstaged file diff] git diff
 [git unstage file] git reset $FILE
 [git unstage all] git reset
 [git rename branch] git branch -m \%#
