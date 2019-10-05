@@ -161,11 +161,11 @@ function sudoenable() {
 
 alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "^_" | sed "s/() {//g"'
 
-[[ -e ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
+[[ -f ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
 
 # ----
 # NOTE: source bellow file to unalias git commands
-[[ -e ~/.zsh/.prezto.git.init.zshrc ]] && source ~/.zsh/.prezto.git.init.zshrc
+[[ -f ~/.zsh/.prezto.git.init.zshrc ]] && source ~/.zsh/.prezto.git.init.zshrc
 # ----
 
 cmdcheck tac || alias tac='tail -r'
@@ -250,7 +250,7 @@ alias absls='lsabs'
 
 # NOTE: windowsの処理が重いので，処理を省略
 if [[ $OS == Windows_NT ]]; then
-  [[ -e ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
+  [[ -f ~/.zsh/.windows.zshrc ]] && source ~/.zsh/.windows.zshrc
   return
 fi
 
@@ -354,17 +354,17 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 
-[[ -e ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
-[[ -e ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
+[[ -f ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
+[[ -f ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
 
-[[ -e ~/dotfiles/.git.zshrc ]] && alias vigitrc='vim ~/dotfiles/.git.zshrc' && alias vimgitrc='vigitrc'
-[[ -e ~/dotfiles/.zplug.zshrc ]] && alias vizplugrc='vim ~/dotfiles/.zplug.zshrc' && alias vimzplugrc='vizplugrc'
-[[ -e ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkeyrc='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkeyrc='vizbindkeyrc'
+[[ -f ~/dotfiles/.git.zshrc ]] && alias vigitrc='vim ~/dotfiles/.git.zshrc' && alias vimgitrc='vigitrc'
+[[ -f ~/dotfiles/.zplug.zshrc ]] && alias vizplugrc='vim ~/dotfiles/.zplug.zshrc' && alias vimzplugrc='vizplugrc'
+[[ -f ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkeyrc='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkeyrc='vizbindkeyrc'
 
-[[ -e ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
-[[ -e ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
+[[ -f ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
+[[ -f ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 
-[[ -e ~/.vim/plugged ]] && alias vim3rdplug='cd ~/.vim/plugged' && alias 3rdvim='vim3rdplug'
+[[ -d ~/.vim/plugged ]] && alias vim3rdplug='cd ~/.vim/plugged' && alias 3rdvim='vim3rdplug'
 
 [[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* [n]vim"'
 [[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
@@ -1074,7 +1074,7 @@ alias \#=':'
 # brew install source-highlight
 cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
 # ubuntu
-[[ -e "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
+[[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
 # for colordiff
 if cmdcheck icdiff; then
@@ -1226,7 +1226,7 @@ alias "p" >/dev/null 2>&1 && unalias "p"
 function remove_clipboard_format() {
   local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
   p >"$tmpfile" && command cat "$tmpfile" | c
-  [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+  [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
 }
 
 function remove_terminal_extra_string_from_clipboard() {
@@ -1254,7 +1254,7 @@ function chpwd() {
   function lambda() {
     local python_venv_activator='bin/activate'
     local dirpath=$PWD && while true; do
-      if [[ -e "$dirpath/$python_venv_activator" ]]; then
+      if [[ -f "$dirpath/$python_venv_activator" ]]; then
         [[ -z "$VIRTUAL_ENV" ]] && source "$dirpath/$python_venv_activator"
         return
       fi
@@ -2014,7 +2014,7 @@ function cedit() {
   local tmpfile=$(mktemp '/tmp/cedit.tmp.orderfile.XXXXX')
   p >"$tmpfile"
   VIM_FAST_MODE='on' vim "$tmpfile" && cat "$tmpfile" | c
-  [[ -e $tmpfile ]] && rm -f $tmpfile
+  [[ -f $tmpfile ]] && rm -f $tmpfile
 }
 
 function c() {
@@ -2327,7 +2327,7 @@ function cmd_fuzzy_error_check() {
     } 1>&2
     return $exit_code
   else
-    [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
+    [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
   fi
 }
 
@@ -2554,7 +2554,7 @@ function stat_file_size() {
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
-[[ -e ~/.rbenv/versions/2.3.7/bin/ruby ]] && alias ruby="~/.rbenv/versions/2.3.7/bin/ruby"
+[[ -f ~/.rbenv/versions/2.3.7/bin/ruby ]] && alias ruby="~/.rbenv/versions/2.3.7/bin/ruby"
 
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
@@ -2566,19 +2566,19 @@ bindkey -v
 # NOTE: below line is added by fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
-[[ -e ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+[[ -f ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
 # NOTE: run after compinit
-[[ -e ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
+[[ -f ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
 
 # NOTE: run after zplug to avoid overwrite keybind
-[[ -e ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
+[[ -f ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
 # NOTE: run after zsh-abbrev-alias plugin and bindkey
-[[ -e ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
+[[ -f ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
 
-[[ -e ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
-[[ -e ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
-[[ -e ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
-[[ -e ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
+[[ -f ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
+[[ -f ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
+[[ -f ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
+[[ -f ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
 
 # ---------------------
 
