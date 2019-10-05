@@ -17,7 +17,7 @@ function cmdcheck() {
   return $code
 }
 
-# NOTE: 現在のwindowsのmy settingではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
+# NOTE: 現在のwindowsのmy setting(MSYS2)ではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
 if [[ $OS == Windows_NT ]]; then
   test -r ~/.zprofile && source ~/.zprofile
 fi
