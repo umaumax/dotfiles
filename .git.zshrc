@@ -396,7 +396,10 @@ function cdgit() {
 function find-my-git-non-up-to-date-repo() {
   {
     echo '~/dotfiles'
-    ls ~/github.com
+    find ~/github.com -type d -maxdepth 1
+    find ~/github.com/chrome-extension -type d -maxdepth 1
+    find -L ~/github.com/go -type d -maxdepth 1
+    find ~/github.com/vim -type d -maxdepth 1
     # echo '~/local_git'
   } | find-git-non-up-to-date-repo-pipe
 }
