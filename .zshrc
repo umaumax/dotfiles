@@ -2551,6 +2551,14 @@ function stat_file_size() {
   fi
 }
 
+# NOTE: how to use: cat /bin/echo | pipe_exec "$@"
+function pipe_exec() {
+  local tmpfile=$(mktemp)
+  cat >$tmpfile
+  chmod u+x $tmpfile
+  $tmpfile "$@"
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
