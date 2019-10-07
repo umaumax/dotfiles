@@ -88,185 +88,185 @@ function nugget() {
 # ################################
 # nvim for linux
 function nugget_ubuntu_nvim() {
-	cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	# nightly build
-	wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-	# stable build
-	# wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim.appimage
+  pushd "$tmpdir"
+  # nightly build
+  wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+  # stable build
+  # wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim.appimage
 
-	# TODO: how to detect FUSE or not?
+  # TODO: how to detect FUSE or not?
 
-	# [Release NVIM 0\.3\.1 · neovim/neovim]( https://github.com/neovim/neovim/releases/tag/v0.3.1 )
-	if [[ -f /.dockerenv ]]; then
-		# NOTE: no fuse pattern
-		chmod u+x nvim.appimage
-		./nvim.appimage --appimage-extract
-		cp -r squashfs-root/usr/* ~/local
-	else
-		# FYI: [FUSE · AppImage/AppImageKit Wiki]( https://github.com/AppImage/AppImageKit/wiki/FUSE#type-2-appimage )
-		# NOTE: AppImages require FUSE to run.
-		# NOTE: fuse pattern
-		sudo apt-get install -y fuse
-		chmod u+x nvim.appimage
-		command mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
-	fi
+  # [Release NVIM 0\.3\.1 · neovim/neovim]( https://github.com/neovim/neovim/releases/tag/v0.3.1 )
+  if [[ -f /.dockerenv ]]; then
+    # NOTE: no fuse pattern
+    chmod u+x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    cp -r squashfs-root/usr/* ~/local
+  else
+    # FYI: [FUSE · AppImage/AppImageKit Wiki]( https://github.com/AppImage/AppImageKit/wiki/FUSE#type-2-appimage )
+    # NOTE: AppImages require FUSE to run.
+    # NOTE: fuse pattern
+    sudo apt-get install -y fuse
+    chmod u+x nvim.appimage
+    command mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
+  fi
 
-	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
-	popd
+  echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
+  popd
 }
 # ################################
 
 # ################################
 # tig for linux
 function nugget_ubuntu_tig() {
-	cmdcheck tig && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck tig && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	# for fatal error: curses.h: No such file or directory
-	sudo apt-get install -y libncurses5-dev
-	# for Japanese language
-	sudo apt-get install -y libncursesw5-dev
-	git clone git://github.com/jonas/tig.git
-	pushd "$tmpdir/tig"
-	./autogen.sh
-	# for Japanese language
-	./configure --without-ncurses
-	make -j$(nproc --all)
-	make install prefix=$HOME/local
-	popd
-	popd
-	rm -rf "$tmpdir/tig"
+  pushd "$tmpdir"
+  # for fatal error: curses.h: No such file or directory
+  sudo apt-get install -y libncurses5-dev
+  # for Japanese language
+  sudo apt-get install -y libncursesw5-dev
+  git clone git://github.com/jonas/tig.git
+  pushd "$tmpdir/tig"
+  ./autogen.sh
+  # for Japanese language
+  ./configure --without-ncurses
+  make -j$(nproc --all)
+  make install prefix=$HOME/local
+  popd
+  popd
+  rm -rf "$tmpdir/tig"
 }
 # ################################
 
 # ################################
 # tmux for linux
 function nugget_ubuntu_tmux() {
-	# NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
-	cmdcheck tmux && [[ $(command which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  # NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
+  cmdcheck tmux && [[ $(command which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	sudo apt install -y build-essential automake libevent-dev ncurses-dev
-	pushd "$tmpdir"
-	git clone https://github.com/tmux/tmux.git
-	pushd "$tmpdir/tmux"
-	sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
-	popd
-	popd
-	rm -rf "$tmpdir/tmux"
+  sudo apt install -y build-essential automake libevent-dev ncurses-dev
+  pushd "$tmpdir"
+  git clone https://github.com/tmux/tmux.git
+  pushd "$tmpdir/tmux"
+  sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+  popd
+  popd
+  rm -rf "$tmpdir/tmux"
 }
 # ################################
 
 # ################################
 # rtags for linux
 function nugget_ubuntu_rtags() {
-	cmdcheck rdm && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck rdm && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	# for <clang-c/Index.h>
-	sudo apt-get install -y libclang-3.8-dev
-	# for Could NOT find CPPUNIT (missing: CPPUNIT_LIBRARY CPPUNIT_INCLUDE_DIR)
-	sudo apt-get install -y libcppunit-dev
-	pushd "$tmpdir"
-	git clone --recursive https://github.com/Andersbakken/rtags.git
-	pushd "$tmpdir/rtags"
-	cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
-	popd
-	popd
-	rm -rf "$tmpdir/rtags"
+  # for <clang-c/Index.h>
+  sudo apt-get install -y libclang-3.8-dev
+  # for Could NOT find CPPUNIT (missing: CPPUNIT_LIBRARY CPPUNIT_INCLUDE_DIR)
+  sudo apt-get install -y libcppunit-dev
+  pushd "$tmpdir"
+  git clone --recursive https://github.com/Andersbakken/rtags.git
+  pushd "$tmpdir/rtags"
+  cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
+  popd
+  popd
+  rm -rf "$tmpdir/rtags"
 }
 # ################################
 
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzy() {
-	cmdcheck fzy && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck fzy && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
-	sudo dpkg -i fzy_0.9-1_amd64.deb
-	rm -f fzy_0.9-1_amd64.deb
-	popd
+  pushd "$tmpdir"
+  wget https://github.com/jhawthorn/fzy/releases/download/0.9/fzy_0.9-1_amd64.deb
+  sudo dpkg -i fzy_0.9-1_amd64.deb
+  rm -f fzy_0.9-1_amd64.deb
+  popd
 }
 # ################################
 
 # ################################
 # fzy for ubuntu
 function nugget_ubuntu_fzf() {
-	cmdcheck fzf && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck fzf && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install --no-key-bindings --completion --no-update-rc
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --no-key-bindings --completion --no-update-rc
 }
 # ################################
 
 # ################################
 # deoplete
 function nugget_ubuntu_vim_deoplete() {
-	sudo apt-get install -y python-pip
-	sudo apt-get install -y python3-pip
-	pip2 install neovim
-	pip3 install neovim
+  sudo apt-get install -y python-pip
+  sudo apt-get install -y python3-pip
+  pip2 install neovim
+  pip3 install neovim
 
-	echo "[NOTE] set python setting to e.g. ~/.local.vimrc"
-	echo "[NOTE] run below comamnds at nvim"
-	echo ":PlugUpdate"
-	echo ":UpdateRemotePlugins"
+  echo "[NOTE] set python setting to e.g. ~/.local.vimrc"
+  echo "[NOTE] run below comamnds at nvim"
+  echo ":PlugUpdate"
+  echo ":UpdateRemotePlugins"
 }
 # ################################
 
 # ################################
 # for peco
 function nugget_ubuntu_peco() {
-	cmdcheck peco && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck peco && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
-	tar zxvf peco_linux_amd64.tar.gz
-	cp peco_linux_amd64/peco "$NUGGET_INSTALL_BIN_PREIFX"
-	rm -rf peco_linux_amd64.tar.gz
-	rm -rf peco_linux_amd64
-	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
-	popd
+  pushd "$tmpdir"
+  wget https://github.com/peco/peco/releases/download/v0.4.6/peco_linux_amd64.tar.gz
+  tar zxvf peco_linux_amd64.tar.gz
+  cp peco_linux_amd64/peco "$NUGGET_INSTALL_BIN_PREIFX"
+  rm -rf peco_linux_amd64.tar.gz
+  rm -rf peco_linux_amd64
+  echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
+  popd
 }
 # ################################
 
 # ################################
 function nugget_ubuntu_bat() {
-	cmdcheck bat && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck bat && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	wget https://github.com/sharkdp/bat/releases/download/v0.9.0/bat_0.9.0_amd64.deb
-	sudo dpkg -i bat_*_amd64.deb
-	rm -rf bat_*_amd64.deb
-	popd
+  pushd "$tmpdir"
+  wget https://github.com/sharkdp/bat/releases/download/v0.9.0/bat_0.9.0_amd64.deb
+  sudo dpkg -i bat_*_amd64.deb
+  rm -rf bat_*_amd64.deb
+  popd
 }
 # ################################
 
 # ################################
 function nugget_ubuntu_bats() {
-	cmdcheck bats && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck bats && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	wget https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1.1_all.deb
-	sudo gdebi bats_0.4.0-1.1_all.deb
-	rm -rf bats_0.4.0-1.1_all.deb
-	popd
+  pushd "$tmpdir"
+  wget https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1.1_all.deb
+  sudo gdebi bats_0.4.0-1.1_all.deb
+  rm -rf bats_0.4.0-1.1_all.deb
+  popd
 }
 # ################################
 
 # ################################
 function nugget_ubuntu_exa() {
-	cmdcheck exa && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck exa && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-	pushd "$tmpdir"
-	wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
-	unzip exa-linux-x86_64-*.zip
-	cp exa-linux-x86_64 "$NUGGET_INSTALL_BIN_PREIFX/exa"
-	rm -rf exa-linux-x86_64-*.zip
-	rm -rf exa-linux-x86_64
-	echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
-	popd
+  pushd "$tmpdir"
+  wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+  unzip exa-linux-x86_64-*.zip
+  cp exa-linux-x86_64 "$NUGGET_INSTALL_BIN_PREIFX/exa"
+  rm -rf exa-linux-x86_64-*.zip
+  rm -rf exa-linux-x86_64
+  echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
+  popd
 }
 # ################################
 
