@@ -15,6 +15,8 @@ let g:switch_custom_definitions =
 			\   ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 			\   ['width', 'height'],
 			\   ['Width', 'Height'],
+			\   ['start', 'end'],
+			\   ['Start', 'End'],
 			\   ['top', 'bottom'],
 			\   ['Top', 'Bottom'],
 			\   ['hoge', 'piyo'],
