@@ -407,6 +407,8 @@
 
 # wc
 [count japanese chars] wc -m
+[count line] wc -l | awk '{print $1}'
+[count line] grep -c '^'
 
 # ssh key
 [ssh id_rsa] ssh-keygen -t rsa -f \%#_id_rsa
