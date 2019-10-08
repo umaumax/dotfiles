@@ -1,3 +1,50 @@
+function! s:fzf_vim_commands_snippet() range
+  let list = []
+
+  let l:snippet_filepath=expand('~/dotfiles/snippets/vim_cmd_snippet.txt')
+  if filereadable(l:snippet_filepath)
+    let list = readfile(l:snippet_filepath)
+  else
+    echoerr 'not found '.l:snippet_filepath
+  endif
+
+  let l:header='vim commands snippet'
+  return fzf#run({
+        \ 'source': [l:header]+ list,
+        \ 'sink*':   s:function('s:command_snippet_sink'),
+        \ 'options': '--ansi --expect '.get(g:, 'fzf_commands_expect', 'ctrl-x').
+        \            ' --tiebreak=index --header-lines 1 -x --prompt "Snippets> " -d:'})
+endfunction
+
+command! -range FZFCommandsSnippet :<line1>,<line2> call s:fzf_vim_commands_snippet()
+command! -range CommandsSnippet :<line1>,<line2> call s:fzf_vim_commands_snippet()
+
+function! s:command_snippet_sink(lines)
+  if len(a:lines) < 2
+    return
+  endif
+  let cmd = join(split(a:lines[1], ':')[1:], ':')
+  " NOTE: trim head spaces
+  let cmd = substitute(cmd, '^ \+', '', '')
+  let pos = stridx(cmd, '\%#')
+  let cmd = substitute(cmd, '\\%#', '', '')
+  let move_cmd_feedkey=''
+  if pos != -1
+    let move_cmd_feedkey=repeat("\<Left>", len(cmd)-pos)
+  endif
+  if empty(a:lines[0])
+    call feedkeys(':'.cmd.(cmd[0] == '!' ? '' : '').move_cmd_feedkey, 'n')
+    " if pos != -1
+    " NOTE: only for <C-\>e mode
+    " call setcmdpos(len(':')+pos)
+    " endif
+  else
+    execute cmd
+  endif
+endfunction
+
+" ----
+
 " NOTE: to overwrite default Commands command of fzf.vim
 " because default Commands has no '--nth' option
 " beauces default Commands ignore exopts of 'options' key see souce code of `s:fzf()`
