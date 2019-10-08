@@ -475,4 +475,4 @@ command FZFAnsiColorHeader :call FZF_ansi_color()
 
 " NOTE: for :FZFxxx
 " NOTE: type ff and xxx and tab
-cnoremap ff fzf
+" cnoremap ff fzf
