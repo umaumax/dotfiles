@@ -1,1 +1,44 @@
-[cpp][struct/class var dump]: '<,'>s/\(int\|float\|double\|bool\|\(std::\)\?string\) *\(.*\);/VAR_DEBUG\%#(\3)/g
+# vim: set filetype=log :
+#
+# format example
+# [one line description]: command
+# multi lines description
+# multi lines description
+# multi lines description
+################
+name: [cpp][struct/class var dump]
+command: '<,'>s/\(int\|float\|double\|bool\|\(std::\)\?string\) *\(.*\);/VAR_DEBUG\%#(\3);/g
+description:
+struct Character {
+  std::string name;
+  int hp, mp;
+};
+
+↓↓↓↓
+
+struct Character {
+  VAR_DEBUG(name);
+  VAR_DEBUG(int hp, mp);
+};
+################
+name: [cpp]
+command: CppSwapVarEqual
+description:
+a.xxx = a.yyy;
+
+↓↓↓↓
+
+a.yyy = a.xxx;
+################
+################
+################
+################
+################
+################
+################
+################
+################
+################
+################
+################
+################

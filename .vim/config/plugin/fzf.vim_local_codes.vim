@@ -1,29 +1,56 @@
 function! s:fzf_vim_commands_snippet() range
-  let list = []
+  let lines = []
 
   let l:snippet_filepath=expand('~/dotfiles/snippets/vim_cmd_snippet.txt')
   if filereadable(l:snippet_filepath)
-    let list = readfile(l:snippet_filepath)
+    let lines = readfile(l:snippet_filepath)
   else
     echoerr 'not found '.l:snippet_filepath
   endif
 
+  let objects=[]
+  let index=-1
+  for line in filter(lines, {i,x-> stridx(x, '#')!=0})
+    let key=''
+    let value=''
+    if stridx(line, 'name:')==0
+      let key='name'
+      let value=strpart(line, len(key.':'))
+      let index+=1
+      let objects += [{'name':'','command':'','description':''}]
+    elseif stridx(line, 'command:')==0
+      let key='command'
+      let value=strpart(line, len(key.':'))
+    else
+      let key='description'
+      let value=line
+      if stridx(line, 'description:')==0
+        let value=strpart(line, len(key.':'))
+      endif
+      let value .= '\n'
+    endif
+    if index>=0
+      let objects[index][key] .= value
+    endif
+  endfor
+  let list = map(objects, {i,x->x['name'].s:nbs.x['command'].s:nbs.x['description']})
   let l:header='vim commands snippet'
   return fzf#run({
-        \ 'source': [l:header]+ list,
+        \ 'source': [l:header] + list,
         \ 'sink*':   s:function('s:command_snippet_sink'),
         \ 'options': '--ansi --expect '.get(g:, 'fzf_commands_expect', 'ctrl-x').
-        \            ' --tiebreak=index --header-lines 1 -x --prompt "Snippets> " -d:'})
+        \            ' --tiebreak=index --header-lines 1 -x --prompt "Snippets> " -d "'.s:nbs.'" -n 1,2 --with-nth 1,2 --preview '."'echo {3}'"})
 endfunction
 
 command! -range FZFCommandsSnippet :<line1>,<line2> call s:fzf_vim_commands_snippet()
 command! -range CommandsSnippet :<line1>,<line2> call s:fzf_vim_commands_snippet()
+command! -range CS :<line1>,<line2> call s:fzf_vim_commands_snippet()
 
 function! s:command_snippet_sink(lines)
   if len(a:lines) < 2
     return
   endif
-  let cmd = join(split(a:lines[1], ':')[1:], ':')
+  let cmd = split(a:lines[1], s:nbs)[1]
   " NOTE: trim head spaces
   let cmd = substitute(cmd, '^ \+', '', '')
   let pos = stridx(cmd, '\%#')
