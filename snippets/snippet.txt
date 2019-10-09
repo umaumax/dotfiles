@@ -1,3 +1,5 @@
+# vim: set filetype=log :
+#
 # [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
 # find
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +

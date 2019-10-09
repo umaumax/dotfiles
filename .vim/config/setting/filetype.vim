@@ -15,8 +15,6 @@ augroup set_filetype
 	autocmd BufRead,BufNewFile *.csv setlocal ft=csv
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
-	" NOTE: for ~/dotfiles/snippets/snippet.txt
-	autocmd BufRead,BufNewFile snippet.txt setlocal ft=log
 	autocmd BufRead,BufNewFile README setlocal ft=markdown
 
 	" NOTE: for cpp library header files
