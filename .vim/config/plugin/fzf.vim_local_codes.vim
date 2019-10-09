@@ -1,7 +1,8 @@
 function! s:fzf_vim_commands_snippet() range
   let lines = []
 
-  let l:snippet_filepath=expand('~/dotfiles/snippets/vim_cmd_snippet.txt')
+  let g:vim_cmd_snippet_filepath='~/dotfiles/snippets/vim_cmd_snippet.txt'
+  let l:snippet_filepath=expand(g:vim_cmd_snippet_filepath)
   if filereadable(l:snippet_filepath)
     let lines = readfile(l:snippet_filepath)
   else
@@ -33,6 +34,7 @@ function! s:fzf_vim_commands_snippet() range
       let objects[index][key] .= value
     endif
   endfor
+  " NOTE: s.nbs is delim
   let list = map(objects, {i,x->x['name'].s:nbs.x['command'].s:nbs.x['description']})
   let l:header='vim commands snippet'
   return fzf#run({
@@ -50,6 +52,8 @@ function! s:command_snippet_sink(lines)
   if len(a:lines) < 2
     return
   endif
+  " NOTE: s.nbs is delim
+  " name:command:description
   let cmd = split(a:lines[1], s:nbs)[1]
   " NOTE: trim head spaces
   let cmd = substitute(cmd, '^ \+', '', '')
