@@ -3,7 +3,8 @@
 
 if Doctor('tig', 'Text-mode interface for git')
   if has('nvim')
-    command! -nargs=0 Gblame execute ":Tig blame +".line('.')." ".expand('%:p:S')
+    " NOTE: don't use full path, use relative path
+    command! -nargs=0 Gblame execute ":Tig blame +".line('.')." ".expand('%:S')
   endif
 
   " FYI: [codeindulgence/vim\-tig: Do a tig in your vim]( https://github.com/codeindulgence/vim-tig )
@@ -30,6 +31,7 @@ if Doctor('tig', 'Text-mode interface for git')
 
       function! s:callback.on_exit(id, status, event)
         exec g:tig_on_exit
+        echom '[Failed][tig] id:'.a:id.', exit_code:'.a:status.' event:'.a:event
       endfunction
 
       function! s:tigopen(arg)
@@ -37,13 +39,7 @@ if Doctor('tig', 'Text-mode interface for git')
         redraw!
       endfunction
 
-      " TODO: 要検証
-      let start=strftime('%s')
       exec g:tig_open_command
-      let end=strftime('%s')
-      if end - start <= 1
-        echom 'Maybe you need more screen space to use tig!'
-      endif
 
       if a:bang > 0
         call s:tigopen(current)
