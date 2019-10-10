@@ -50,3 +50,8 @@ if &rtp =~ 'rainbow'
 		" 	autocmd BufLeave * call <SID>rainbow_group_func('leave')
 	augroup END
 endif
+
+function! s:ansi_color_set()
+	highlight Red cterm=reverse ctermfg=Red gui=reverse guifg=Red
+	highlight Blue cterm=reverse ctermfg=Blue gui=reverse guifg=Blue
+endfunction
