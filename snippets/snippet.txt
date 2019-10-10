@@ -1141,8 +1141,9 @@
 [tput color list] echo "tput setaf <val>"; for ((i = 0; i <= 255; i++)); do printf "%s%03d " $(tput setaf $i) $i; done # echo $(tput setaf 1) RED $(tput sgr0) DEFAULT
 
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
-[pstree ubuntu] ps -e f ww
+[pstree on ubuntu] ps -e f ww
 [pstree with args ubuntu] ps -e f
+[pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
 [list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
@@ -1282,3 +1283,6 @@
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
+
+# fzf
+[fzf without some word] echo '!some_word (e.g. !utest)'
