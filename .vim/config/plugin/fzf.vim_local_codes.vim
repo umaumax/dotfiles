@@ -41,7 +41,7 @@ function! s:fzf_vim_commands_snippet() range
         \ 'source': [l:header] + list,
         \ 'sink*':   s:function('s:command_snippet_sink'),
         \ 'options': '--ansi --expect '.get(g:, 'fzf_commands_expect', 'ctrl-x').
-        \            ' --tiebreak=index --header-lines 1 -x --prompt "Snippets> " -d "'.s:nbs.'" -n 1,2 --with-nth 1,2 --preview '."'echo {3}'"})
+        \            ' --tiebreak=index --header-lines 1 -x --prompt "Snippets> " -d "'.s:nbs.'" -n 1,2 --with-nth 1,2 --preview '."'echo {3} | { type >/dev/null 2>&1 bat && bat -l md --color always --style=plain --pager=never || cat; }'"})
 endfunction
 
 command! -range FZFCommandsSnippet :<line1>,<line2> call s:fzf_vim_commands_snippet()

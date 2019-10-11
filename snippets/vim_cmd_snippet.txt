@@ -1,4 +1,4 @@
-# vim: set filetype=log :
+# vim: set filetype=cpp :
 #
 # format example
 # [one line description]: command
@@ -9,42 +9,53 @@
 name: [cpp][struct/class var dump]
 command: '<,'>s/\(int\|float\|double\|bool\|\(std::\)\?string\) *\(.*\);/VAR_DEBUG\%#(\3);/g
 description:
+```cpp
 struct Character {
   std::string name;
   int hp, mp;
 };
+```
 
 ↓↓↓↓
 
+```cpp
 struct Character {
   VAR_DEBUG(name);
   VAR_DEBUG(int hp, mp);
 };
+```
 ################
 name: [cpp][swap assign expression]
 command: '<,'>CppSwapVarEqual
 description:
+```cpp
 a.xxx = b.xxx;
 a.yyy = b.yyy;
 a.xxa = b.xxb;
+```
 
 ↓↓↓↓
 
+```cpp
  b.xxx=a.xxx ;
  b.yyy=a.yyy ;
  b.xxb=a.xxa ;
+```
 ################
 name: [cpp][class constructor member/field init gen]
 command: '<,'>CppConstructorInitialization
 description:
+```cpp
 class Character {
   int hp_;
   int mp_;
   std::string name_;
 };
+```
 
 ↓↓↓↓
 
+```cpp
 class Character {
 (int hp, int mp, std::string name)
 : hp_(hp), mp_(mp), name_(name)
@@ -52,6 +63,7 @@ class Character {
   int mp_;
   std::string name_;
 };
+```
 ################
 ################
 ################
