@@ -802,8 +802,7 @@ if [[ -f /.dockerenv ]]; then
 fi
 
 if cmdcheck tmux; then
-  alias reload-tmux-config='tmux source ~/.tmux.conf'
-  alias rctmux='reload-tmux-config'
+  alias tmux-reload-config='tmux source ~/.tmux.conf'
   function is_in_tmux_with_message() {
     if [[ -n "$TMUX" ]]; then
       echo "${RED}Do not use this command in a tmux session.${DEFAULT}" 1>&2
