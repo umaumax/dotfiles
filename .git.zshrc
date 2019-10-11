@@ -137,17 +137,15 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 function git_diff() {
   is_git_repo_with_message || return
 
-  local diff_cmd='cdiff'
-  # 	[[ $# -ge 1 ]] && local diff_cmd="$1"
+  local diff_cmd=${GIT_DIFF_CMD:-cdiff}
   # FYI: [\[git\]git diff \-\-stat でパスを省略しない方法 \- dackdive's blog]( https://dackdive.hateblo.jp/entry/2014/05/13/112549 )
   local files=($(git diff --stat --stat-width=9999 "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
   local tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')
   for file in "${files[@]}"; do
-    [[ -e "$file" ]] && echo $file >>$tmpfile
+    [[ -f "$file" ]] && printf '%s\n' "$file" >>$tmpfile
   done
-  local files=($(cat $tmpfile))
-  bash -c "cd $(git rev-parse --show-toplevel) && git '$diff_cmd' -O'$tmpfile' "'"$@"' '$0-dummy' "$@" "${files[@]}"
-  [[ -e $tmpfile ]] && rm -f $tmpfile
+  git-at "$(git rev-parse --show-toplevel)" "$diff_cmd" -O${tmpfile} "$@" "${files[@]}"
+  [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
 }
 alias gd='git_diff'
 alias gdh='      gd HEAD'
