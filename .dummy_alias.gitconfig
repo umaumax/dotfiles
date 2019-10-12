@@ -28,6 +28,7 @@
 	commits-peco  = :
 	commits-range-peco  = :
 	diff-peco = :
+	diff-peco-range  = :
 	dir  = :
 	file-log-cat  = :
 	file-ranking  = :
@@ -81,7 +82,9 @@
 	remove-submodule  = :
 	rename-to-backup-branch-peco  = :
 	repo = :
+	repo-exec  = :
 	repo-peco = :
+	repo-pipe-grep  = :
 	reset-hard-peco  = :
 	reset-soft-peco  = :
 	restore-stash  = :
@@ -89,6 +92,7 @@
 	root  = :
 	search-open  = :
 	sed-gen-name  = :
+	sed-gen-name-from-camelcase-pipe  = :
 	sed-rename-cpp-field  = :
 	show-peco  = :
 	show-root-commit-from-master  = :
