@@ -458,6 +458,8 @@
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
+[g++ include header dir list] g++ -E -v - </dev/null
+[g++ include header fullpath list] g++ -std=c++11 -H $CPP_FILEPATH
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
