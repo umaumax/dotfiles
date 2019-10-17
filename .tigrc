@@ -52,11 +52,15 @@ bind generic T !>git notes edit %(commit)
 # NOTE: ["Press Enter to continue" after a commit message · Issue \#463 · jonas/tig]( https://github.com/jonas/tig/issues/463 )
 # NOTE: >: prevent 'Press Enter to continue' for interactive command
 bind generic A ?>git commit --amend --allow-empty
+# NOTE: Force git amend
+bind generic Z ?>git commit --amend --allow-empty --no-verify
 # remove file for untracked file
 # NOTE: @: prevent message 'Press Enter to continue'
 bind status D ?@rm -f %(file)
 # NOTE: default is !git commit
 bind status C !>git commit
+# NOTE: 'F'orce commit
+bind status F !>git commit --no-verify
 bind status i Enter
 
 # stash
