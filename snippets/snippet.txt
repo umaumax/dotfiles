@@ -145,7 +145,6 @@
 [git rename branch] git branch -m \%#
 # [git 上のいろんなことをなかったことにする \- Qiita]( https://qiita.com/mdstoy/items/6de0aaa06dcd0cc46102 )
 [git uncommit reset（編集内容はそのまま）] git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset # to move commit to stash or easy to amend...
-[git commit without pre-hook] git commit --no-verify \%#
 [git commit reset] git reset --soft "HEAD^"
 [git amend reset] git reset --soft "HEAD@{1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
@@ -163,7 +162,7 @@
 [git stash interactive] git stash push --patch
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
-[git commit without hook] git commit --no-verify
+[git commit without hook (force commit)] git commit --no-verify
 [git reload git hooks]  (cd $(git rev-parse --show-toplevel) >/dev/null 2>&1 && rm -rf ".git/hooks" && git init) # WARN: It's possible to delete local git hooks
 [git first empty commit] git commit --allow-empty -m "first commit"
 [git submodule init and update] git submodule update --init --recursive
