@@ -380,6 +380,7 @@
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
 [patch] p\%# | patch -p1'
+[revert patch] cat \%# | patch -R
 
 # http server
 [python2 http server] python -m SimpleHTTPServer
@@ -455,11 +456,15 @@
 [python3 test color output] green # pip install green
 [pip install with some version] pip install "$PACKAGE\%#==$VERSION"
 [pip reinstall another version] pip uninstall "$PACKAGE\%#" && pip install "$PACKAGE==$VERSION"
+[pip search cui (fullmatch)] pip search
+[pip search gui] open "https://pypi.org/search/?q=\%#"
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
 [g++ include header dir list] g++ -E -v - </dev/null
 [g++ include header fullpath list] g++ -std=c++11 -H $CPP_FILEPATH
+[clang dump] clang-check $SRC\%# -ast-dump -ast-dump-filter=main --
+
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
