@@ -152,3 +152,9 @@ node_modules/
 package-lock.json
 ## for electron-builder
 dist/
+
+# for coverage
+*.gcda
+*.gcno
+*.info
+lcov_html
