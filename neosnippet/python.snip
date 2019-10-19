@@ -385,3 +385,6 @@ abbr import threading
 	th = threading.Thread(target=${1:#:func}, args=(${2:#:arg1},))
 	th.start()
 	th.join()
+
+alias map_list
+	${1:#:list} = list(map(lambda e: ${0}, $1))
