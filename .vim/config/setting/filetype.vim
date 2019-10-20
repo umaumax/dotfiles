@@ -16,6 +16,8 @@ augroup set_filetype
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 	autocmd BufRead,BufNewFile README setlocal ft=markdown
+	" NOTE: for nex [blynn/nex: Lexer for Go]( https://github.com/blynn/nex )
+	autocmd BufRead,BufNewFile *.nex setlocal ft=log
 	" NOTE: for goyacc
 	autocmd BufRead,BufNewFile *.y setlocal ft=goyacc
 
