@@ -161,3 +161,9 @@ snippet last_searched_pattern_push_pop
 	let l:last_searched_pattern=@/
 	${0}
 	let @/=l:last_searched_pattern
+
+snippet default_dict_variable_megrge
+	let s:default_$1 = {
+	  \ ${0}
+		\ }
+	let g:${1:#:dict_var_name}=extend(copy(s:default_$1), get(g:, "$1", {}))

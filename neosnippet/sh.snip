@@ -180,6 +180,11 @@ snippet cmdcheck
 	function cmdcheck() { type >/dev/null 2>&1 "$@"; }${0}
 snippet typecmd
 	type >/dev/null 2>&1 ${0}
+snippet command_not_found_if
+alias no_cmd_if
+	if ! type >/dev/null 2>&1 ${1:#:cmd}; then
+	  ${0}
+	fi
 snippet find_next_path_cmd
 	local now_cmd=${0}
 	local next_cmd=$(which -a $(basename $now_cmd) | tr ':' '\n' | grep -F $(dirname $now_cmd) -A2 | sed -n 2,2p)
@@ -725,3 +730,8 @@ alias remove_function
 
 snippet var_dump
 	echo "${1:var_name}:$$1"$0
+
+snippet define_diff_as_icdiff
+	type >/dev/null 2>&1 icdiff && diff() {
+	  icdiff -U 1 --line-numbers "$@"
+	}${0}
