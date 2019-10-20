@@ -562,6 +562,9 @@ Plug 'umaumax/bats.vim', {'for':'bats'}
 
 Plug 'cespare/vim-toml', {'for':'toml'}
 
+" NOTE: for goyacc
+Plug 'rhysd/vim-goyacc', {'for':'goyacc'}
+
 " NOTE: for remote file editing
 " e.g. :VimFiler ssh://localhost/$HOME/tmp/README.md
 " To open absolute path, you must use "ssh://HOSTNAME//" instead of "ssh://HOSTNAME/".

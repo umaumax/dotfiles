@@ -16,6 +16,8 @@ augroup set_filetype
 	" NOTE: for ros
 	autocmd BufRead,BufNewFile *.{launch} setlocal ft=xml
 	autocmd BufRead,BufNewFile README setlocal ft=markdown
+	" NOTE: for goyacc
+	autocmd BufRead,BufNewFile *.y setlocal ft=goyacc
 
 	" NOTE: for cpp library header files
 	autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
