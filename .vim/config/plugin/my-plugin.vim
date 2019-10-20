@@ -25,7 +25,7 @@ endif
 if Doctor('cmake-format', 'umaumax/vim-format')
 endif
 " NOTE: for format
-Plug 'umaumax/vim-format', {'for': ['cmake','json','sh','zsh','yaml']}
+Plug 'umaumax/vim-format' ", {'for': ['cmake','json','sh','zsh','yaml']}
 
 " input helper
 " Plug 'kana/vim-smartinput'

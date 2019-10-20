@@ -240,6 +240,18 @@ if Doctor('align', 'yaml format')
   " command! -bar YAMLFormatWrapper :YAMLFormat
 endif
 
+if Doctor('goenkins-format', 'jenkins pipeline format')
+  let g:vim_format_list={
+        \ 'jenkins':{'autocmd':['*.groovy'],'cmds':[{'requirements':['goenkins-format'], 'shell':'cat {input_file} | goenkins-format'}]},
+        \ }
+  augroup jenkins_pipeline_format_group
+    autocmd!
+    autocmd FileType groovy autocmd BufWinEnter *.{groovy} command! -bar Format JenkinsFormat
+    autocmd FileType groovy autocmd BufWritePre *.{groovy} if IsAutoFormat() | :JenkinsFormat | endif
+    autocmd FileType groovy autocmd! jenkins_pipeline_format_group FileType
+  augroup END
+endif
+
 " error表示のwindowの制御方法が不明
 " Plug 'tell-k/vim-autopep8'
 function! Preserve(command)
