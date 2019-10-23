@@ -132,6 +132,7 @@
 
 # git
 [git init, add files, and commit] git init && git add -A -f . && git commit --no-verify
+[git undo init commit] git update-ref -d HEAD
 [git commit] git commit -m '\%#'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
@@ -155,6 +156,7 @@
 [git stash list] git stash list
 [git stash list src] git stash show "stash@{0}" -p
 [git stash with name] git stash save "\%#"
+[git stash with untracked-files] git stash save --include-untracked "\%#"
 [git stash] git stash pop "stash@{\%#}"
 [git stash not staged] git stash --keep-index
 # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
