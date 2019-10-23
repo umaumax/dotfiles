@@ -177,6 +177,11 @@ fi
 # eval "$(rbenv init -)"
 # fi
 
+# NOTE: [GitHub \- nvbn/thefuck: Magnificent app which corrects your previous console command\.]( https://github.com/nvbn/thefuck )
+if cmdcheck thefuck; then
+  eval $(thefuck --alias fuck)
+fi
+
 # rust
 append_path "$HOME/.cargo/bin"
 

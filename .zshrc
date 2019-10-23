@@ -168,6 +168,14 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 [[ -f ~/.zsh/.prezto.git.init.zshrc ]] && source ~/.zsh/.prezto.git.init.zshrc
 # ----
 
+function command_not_found_handler() {
+  echo -n "${YELLOW}ヽ(*゜д゜)ノ$DEFAULT"
+  echo "not found ${RED}'$0'${DEFAULT}"
+  if cmdcheck thefuck; then
+    echo "Maybe you can find true command by typing ${PURPLE}fuck${DEFAULT}!"
+  fi
+}
+
 cmdcheck tac || alias tac='tail -r'
 
 # ls

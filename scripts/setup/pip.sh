@@ -34,6 +34,8 @@ pip install vim-vint
 pip install Pygments
 pip install icdiff
 
+pip3 install thefuck
+
 pip install neovim
 pip3 install neovim
 pip install pynvim
