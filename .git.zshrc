@@ -516,7 +516,7 @@ function git-comments() {
   # NOTE: man 7 gitglossary
   # 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
   # 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
-  git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' ':*.c' ':*.h' ':*.go'
+  git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' '*.cc' ':*.c' ':*.h' ':*.go'
   git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':*.python' ':*.sh' ':*rc' ':*.zsh' ':*.ninja'
   #  	git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':CMakeLists.txt'
 }
@@ -701,7 +701,7 @@ function go-get-fork() {
 
 function git-find-rename() {
   is_git_repo_with_message || return
-  [[ $# == 0 ]] && echo "$0 <pattern> [PATH [PATH[...]]]" >&2 && return 1
+  { [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; } && echo "$0 <pattern> [PATH [PATH[...]]]" >&2 && return 1
   local rename_pattern="$1"
   shift
   {
