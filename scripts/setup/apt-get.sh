@@ -210,6 +210,8 @@ sudo apt-get install -y librsvg2-bin
 
 sudo apt-get install -y plantuml
 
+sudo apt-get install -y lcov
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------

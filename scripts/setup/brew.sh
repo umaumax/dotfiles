@@ -34,6 +34,7 @@ brew_install_formula_list=(
   jid
   jq
   libpng
+  lcov
   lsd # The next gen ls command
   micro
   ninja
