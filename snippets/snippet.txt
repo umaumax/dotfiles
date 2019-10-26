@@ -1021,7 +1021,10 @@
 [c++ split hpp to cpp: lzz .hpp to .lzz] FILENAME=\%# && cat $FILENAME | sed -e '/^#include/i '""'#hdr' | sed -e '/^#include/a '""'#end' | tee ${FILENAME%.*}.lzz # do lzz <lzz filepath> -> xxx.cpp xxx.h
 [lzz] lzz $LZZFILE\%# # gen xxx.cpp xxx.h NOTE: overwrite
 
+# clang-format
 [clang-format replace file] clang-format -i $FILEPATH
+[clang-format all (find)] find . \( -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.cxx" -o -name "*.h" -o -name "*.hpp" \) -print0 | xargs -0 -L 1 -I{} bash -cx "clang-format -i '{}'"
+[clang-format all (git)] git ls-files -z -- ':*.cpp' ':*.hpp' ':*.cxx' ':*.cc' ':*.c' ':*.h' | xargs -0 -L 1 -I{} bash -cx "clang-format -i '{}'"
 
 # bash
 [shell var regexp] ${FILEPATH\%#%./} # dirname(dirpath)
