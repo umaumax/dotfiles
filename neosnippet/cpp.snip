@@ -1159,3 +1159,7 @@ abbr boost style
 	namespace detail {
 	  ${0}
 	}
+
+snippet gmock_ElementsAre
+abbr actual, matcher
+  EXPECT_THAT(${0}, testing::ElementsAre(${1:#:0,1,2,3}));
