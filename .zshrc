@@ -2523,6 +2523,44 @@ function splitbat() {
   splitcat <(bat "$filepath_1" -p --color=always) <(bat "$filepath_2" -p --color=always)
 }
 
+# FMI: [dateコマンドの使い方: UNIX/Linuxの部屋]( http://x68000.q-e-d.net/~68user/unix/pickup?date )
+# [shell \- Unix: sleep until the specified time \- Super User]( https://superuser.com/questions/222301/unix-sleep-until-the-specified-time )
+# [Bash: Sleep until a specific time/date \- Stack Overflow]( https://stackoverflow.com/questions/645992/bash-sleep-until-a-specific-time-date )
+function bomb() {
+  if [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    echo "$0 "'<sleep time>'
+    echo "sleep time: e.g. 12:34, 01/23 12:34, 1 min, 1 day"
+    echo "cmd: e.g. bomb 10 min && git push"
+    return 1
+  fi
+  local date_cmd='date'
+  if [[ $(uname) == "Darwin" ]]; then
+    ! type >/dev/null 2>&1 gdate && echo 'install gdate' && return 1
+    date_cmd='gdate'
+  fi
+  local str="$*"
+  local unix_time
+  unix_time=$($date_cmd -d "$str" "+%s") || return 1
+  remain_time=$(($($date_cmd -d "$str" "+%s") - $($date_cmd "+%s")))
+  echo '[LOG] bomb is set at'"$YELLOW" $($date_cmd -d "$str") "$DEFAULT"'until' "$PURPLE"$(displaytime $remain_time)"$DEFAULT"
+  sleep $remain_time
+  echo "${RED}"'BOMB!!'"${DEFAULT}"
+}
+
+# FYI: [bash \- Displaying seconds as days/hours/mins/seconds? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/27013/displaying-seconds-as-days-hours-mins-seconds )
+function displaytime() {
+  local T=$1
+  local D=$((T / 60 / 60 / 24))
+  local H=$((T / 60 / 60 % 24))
+  local M=$((T / 60 % 60))
+  local S=$((T % 60))
+  (($D > 0)) && printf '%d days ' $D
+  (($H > 0)) && printf '%d hours ' $H
+  (($M > 0)) && printf '%d minutes ' $M
+  (($D > 0 || $H > 0 || $M > 0)) && printf 'and '
+  printf '%d seconds\n' $S
+}
+
 # NOTE: 高速化とするために，xargsで複数の値を一括で処理する設計とした
 # 1. check size
 # 2. check md5sum
