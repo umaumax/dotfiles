@@ -866,6 +866,7 @@
 [crontab confirm] crontab -l
 [crontab edit] crontab -e
 [crontab update file] crontab $FILEPATH
+[crontab visualization] crontab -l | cronv -w 200 -d 24h # go get -u github.com/takumakanari/cronv/...
 
 # direnv
 [direnv allow] direnv allow
