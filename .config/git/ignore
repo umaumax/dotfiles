@@ -156,5 +156,6 @@ dist/
 # for coverage
 *.gcda
 *.gcno
+*.gcov
 *.info
 lcov_html
