@@ -74,6 +74,7 @@
 [file size] du -sh * # for zsh (setopt GLOB_DOTS)
 [file size for bash] du -sh .[^.]* *
 [disk size] df -h
+[disk size] pydf -h # pip install pydf
 [disk size (only local mounted file)] df -hl
 
 # docker
@@ -797,6 +798,7 @@
 
 [show char code] hexdump -C \%#
 [hexdump -C] od -t x1z -A x
+[hexdump -C] hexly
 [od next line] od -t x1c -A x
 [file to c++ array] od -A n -v -t x1 \%# | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
 [binary diff] cmp -l $FILE1\%# $FILE2 | gawk '{printf "%08X %02X %02X\n", $1, strtonum(0$2), strtonum(0$3)}'
