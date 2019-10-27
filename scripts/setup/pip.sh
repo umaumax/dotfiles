@@ -35,6 +35,8 @@ pip install Pygments
 pip install icdiff
 
 pip3 install thefuck
+# NOTE: for df
+pip3 install pydf
 
 pip install neovim
 pip3 install neovim
