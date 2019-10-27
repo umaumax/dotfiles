@@ -1158,7 +1158,8 @@ function htmlencode() {
 # alias htmlencode="perl -MHTML::Entities -pe 'encode_entities($_);'"
 
 # 改行削除
-alias one="tr -d '\r' | tr -d '\n'"
+# alias one="tr -d '\r' | tr -d '\n'"
+alias one="awk '{if (NR>1){printf \" \"; }; printf \"%s\", \$0}'"
 # クリップボードの改行削除
 alias poc="p | one | p2c"
 
