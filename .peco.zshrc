@@ -545,8 +545,12 @@ if cmdcheck fzf; then
   # Returns:
   #   - None
   #######################################
+  # Darwin output: man -k
+  # zshoptions(1)            - zsh options
+  # Ubuntu output: man -k
+  # zshoptions (1)       - zsh options
   function manpeco() {
-    local args=($(man -k . | fzf --query="'"${1} | cut -d' ' -f1 | sed -E -e 's/(.*)\(([0-9a-zA-Z]+)\)/\2 \1/g' -e 's/,//g'))
+    local args=($(man -k . | fzf --query="'"${1} | perl -ne '@col=split(/ - /); print("$col[0]\n");' | sed -E -e 's/(.*)\(([0-9]+)\)/\2 \1/g' -e 's/,//g'))
     [[ ${#args[@]} == 2 ]] && man "${args[@]}"
   }
   alias icalc='calc'
