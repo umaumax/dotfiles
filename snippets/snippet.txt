@@ -142,6 +142,7 @@
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
 [git staged file diff] git diff --cached # <file>
 [git unstaged file diff] git diff
+[git both staged and unstaged file diff] git diff HEAD
 [git unstage file] git reset $FILE
 [git unstage all] git reset
 [git rename branch] git branch -m \%#
@@ -273,10 +274,13 @@
 
 [git format-patch for am] git format-patch -o $DIR\%# $SHA_START..${SHA_END:HEAD}
 [git am for format-patch] git am *.patch
+[git am for format-patch (same sha)] git am --committer-date-is-author-date *.patch
 [git tmp copy repo step] echo 'SRC:git format-patch -> git diff, DST:git am, git apply'
 
 [git get relative fullpath] git rev-parse --show-prefix \%# | tr -d '\n'
 [git get relative rev fullpath] git rev-parse --show-cdup
+
+[git copy local repo to local] git clone --local $SRC $DST
 
 # tig
 [tig file history] tig $FILE
