@@ -949,6 +949,8 @@ alias vimpi="vim -c ':PlugInstall' ''"
 alias vimpud="vim -c ':PlugUpdate' ''"
 alias vimpug="vim -c ':PlugUpgrade' ''"
 
+alias vimrenamer="vim -c ':Renamer' ''"
+
 alias vimr='vim README.md'
 alias vimre='vim README.md'
 alias vimR='vim README.md'
