@@ -354,10 +354,10 @@ function git-commits-range-peco() {
 function git-diff-peco-range() {
   local commits_range=$(git-commits-range-peco '^..')
   [[ -z $commits_range ]] && return 1
+  git diff "$commits_range"
   echo 1>&2 "# ---- command ----"
   echo 1>&2 "git diff '$commits_range'"
   echo 1>&2 "# ---- command ----"
-  git diff "$commits_range"
 }
 function git-cherry-pick-peco-range() {
   local commits_range=$(git-commits-range-peco '^..')
