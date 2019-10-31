@@ -324,6 +324,8 @@
 [ol awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [ol awk uniq without sort] awk '!a[$0]++'
+[ol perl uniq without sort] perl -ne 'print unless $count{$_}++'
+[ol perl uniq -u without sort] perl -ne '$count{$_}++; $line_no{$_}=$.; END{foreach(sort{$line_no{$a}<=>${line_no{$b}}} keys %line_no){if ($count{$_}==1){print "$_";}}}'
 [ol awk drop blank line] awk 'NF'
 [ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
 [ol cut] cut -d' ' -f \%#
