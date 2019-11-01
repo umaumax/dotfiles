@@ -975,7 +975,7 @@ function cmakedirs() {
       [[ -d "$build_dir/$rel_pwd" ]] && [[ "$build_dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${build_dir}/${GREEN}${rel_pwd}${DEFAULT}"
     done
     # NOTE: for color
-  done | grep --color=always -e '^' -e 'build'
+  done | awk '!a[$0]++' | grep --color=always -e '^' -e 'build'
 }
 function cdcmake() {
   local ret=$(cmakedirs)
