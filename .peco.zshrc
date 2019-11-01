@@ -969,6 +969,8 @@ function cmakedirs() {
     for build_dir in $(find "$dir" -maxdepth 1 -name '*build*'); do
       local common_filepath_prefix=$(get_common_filepath_prefix "$build_dir/" "$PWD/")
       local rel_pwd="${PWD:${#common_filepath_prefix}}"
+      # NOTE: for another build dir (e.g. build and build-arm)
+      rel_pwd=${rel_pwd#*build*/}
       [[ -d "$dir/$rel_pwd" ]] && [[ "$dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${dir}/${GREEN}${rel_pwd}${DEFAULT}"
       [[ -d "$build_dir/$rel_pwd" ]] && [[ "$build_dir/$rel_pwd" != "$PWD" ]] && echo "${GRAY}${build_dir}/${GREEN}${rel_pwd}${DEFAULT}"
     done
