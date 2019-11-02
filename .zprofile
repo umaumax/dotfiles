@@ -38,6 +38,12 @@ path=(
   $path
 )
 
+fpath=(
+  ~/local/share/zsh/site-functions
+  $fpath
+)
+mkdir -p ~/local/share/zsh/site-functions
+
 #
 # Less
 #

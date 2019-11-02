@@ -7,12 +7,17 @@ cd ~/local/bin
 
 set -ex
 export GIT_WGET_TMP_DIR=~/.config/git-wget/
+
+zsh_completion_dirpath="$HOME/local/share/zsh/site-functions/"
+mkdir -p "$zsh_completion_dirpath"
+
 git wget https://github.com/umaumax/wgit/blob/master/wgit
 git wget https://github.com/umaumax/oressh/blob/master/oressh
 git wget https://github.com/umaumax/diff-filter/blob/master/diff-filter
 git wget https://github.com/umaumax/git-sed/blob/master/git-sed
 git wget https://github.com/umaumax/git-sed/blob/master/git-fixedsed
 git wget https://github.com/umaumax/git-shadow/blob/master/git-shadow
+git wget https://github.com/umaumax/git-shadow/blob/master/_git_shadow -O "$zsh_completion_dirpath/"
 git wget https://github.com/umaumax/git-url/blob/master/git-url
 git wget https://github.com/umaumax/imv/blob/master/imv
 git wget https://github.com/umaumax/clip-share/blob/master/clip-share
