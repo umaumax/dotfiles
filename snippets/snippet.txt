@@ -460,7 +460,7 @@
 [pip list] pip freeze
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-[pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
+[pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME\%#/archive/master.tar.gz
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 [pip show] pip show \%# # e.g. Location
 [pip show with files] pip show -f \%#
@@ -1320,3 +1320,5 @@
 
 # fzf
 [fzf without some word] echo '!some_word (e.g. !utest)'
+
+[vim golang completion fix] go get -u github.com/nsf/gocode; go get -u golang.org/x/tools/cmd/gopls; go get -u github.com/sourcegraph/go-langserver; echo 'vim -c ":GoInstallBinaries"; vim -c ":UpdateRemotePlugins"'
