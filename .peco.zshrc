@@ -789,6 +789,20 @@ alias gsttabvim='vim -p `gstvim`'
 alias gsttabvimm='vim -p `gsttabvimm`'
 alias gsttabvima='vim -p `gsttabvima`'
 
+alias gedit='gstlogvims'
+function gstlogvims() {
+  is_git_repo_with_message || return
+  local num=${1:-5}
+  {
+    git status -s | grep -e "^ M" -e "^A" | cut -c4-
+    for ((i = 0; i < $num; i++)); do
+      printf ': '
+      git log -n 1 --oneline --color=always "HEAD~$i"
+      gstlogfiles "$i"
+    done
+  } | git_add_root_rel_pwd_rev_prefix | pecovim
+}
+
 function gstlogvim() {
   is_git_repo_with_message || return
   gstlogfiles "$@" | git_add_root_rel_pwd_rev_prefix | pecovim
