@@ -1,0 +1,42 @@
+#compdef git-rename-branches
+
+BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'
+
+# FYI: [git\-extras/git\-extras\-completion\.zsh at master · tj/git\-extras]( https://github.com/tj/git-extras/blob/master/etc/git-extras-completion.zsh )
+__gitex_branch_names() {
+  local expl
+  declare -a branch_names
+  # NOTE: this eval prevent shfmt parse error
+  eval 'branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"'"'"%(refname)"'"'"' refs/heads 2>/dev/null)"}#refs/heads/})'
+  __git_command_successful || return
+  _wanted branch-names expl branch-name compadd $* - $branch_names
+}
+
+__git_command_successful() {
+  if ((${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]} > 0)); then
+    _message "$RED"'not a git repository'"$DEFAULT"
+    return 1
+  fi
+  return 0
+}
+
+_git_rename_branches() {
+  emulate -L zsh
+  _message -r 'git-rename-branches [options] BRANCH_PREFIX  NEW_PREFIX'
+
+  _values \
+    'options' \
+    {-h,--help}"[show this page.]" \
+    {-v,--verbose}"[print more details about what is being done.]" \
+    {-n,--dry-run}"[do not actually renames the branches.]"
+
+  _arguments \
+    ':BRANCH_PREFIX:__gitex_branch_names' \
+    ':NEW_PREFIX:__gitex_branch_names'
+
+  # NOTE: at _git_xxx _files are added automatically
+  # _files
+}
+
+# NOTE: you must call completion function when function definition is not only one
+_git_rename_branches
