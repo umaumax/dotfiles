@@ -134,8 +134,6 @@
   remote-add-origin = !git remote add origin git@github.com:$(git config user.name)/$(basename $PWD).git
   remote-remove-origin = remote remove origin
 
-  rename-branch = branch -m
-
   root = rev-parse --show-toplevel
 
   s = status
