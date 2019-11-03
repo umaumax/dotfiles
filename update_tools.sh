@@ -33,6 +33,8 @@ git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autoscppass
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autorsyncpass
 ln -sf autosshpass autooresshpass
 
+git wget https://github.com/umaumax/yaml-sort/blob/master/_yaml-sort -O "$zsh_completion_dirpath/"
+
 git wget https://github.com/paulirish/git-recent/blob/master/git-recent
 git wget https://github.com/stedolan/git-ls/blob/master/git-ls
 git wget https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame
@@ -58,5 +60,6 @@ if [[ "$(uname -a)" =~ Ubuntu ]]; then
   git wget https://github.com/umaumax/window-toggle/blob/master/wintoggle
 fi
 
+git wget https://github.com/umaumax/git-wget/blob/master/_git_wget -O "$zsh_completion_dirpath/"
 # NOTE: update itself (run at the end)
 git wget https://github.com/umaumax/git-wget/blob/master/git-wget
