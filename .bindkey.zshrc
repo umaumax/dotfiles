@@ -259,8 +259,13 @@ function _vicmd_insert_strs() {
   _insert_strs "$@"
 }
 function _insert_strs() {
+  local str=$1
   local n=${2:-$#1}
-  local BUFFER_="${LBUFFER}$1${RBUFFER}"
+  # NOTE: echo " -> echo ""
+  if [[ "${LBUFFER[-1]}" == "${str[-1]}" ]]; then
+    str=${str[-1]}
+  fi
+  local BUFFER_="${LBUFFER}${str}${RBUFFER}"
   local CURSOR_=$CURSOR
   # NOTE: to avoid show unnecessary completion
   zle kill-buffer
