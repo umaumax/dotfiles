@@ -41,6 +41,7 @@ git wget https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame
 git wget https://github.com/nornagon/git-rebase-all/blob/master/git-rebase-all
 git wget https://github.com/unixorn/git-extra-commands/blob/master/bin/git-pylint
 git wget https://github.com/unixorn/git-extra-commands/blob/master/bin/git-rename-branches
+git wget https://github.com/tj/git-extras/blob/master/bin/git-touch
 # NOTE: Can't locate DiffHighlight.pm in @INC (you may need to install the DiffHighlight module)
 # git wget https://github.com/so-fancy/diff-so-fancy/blob/master/diff-so-fancy
 # USE: brew install diff-so-fancy or use the fatpack version
