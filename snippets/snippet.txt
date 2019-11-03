@@ -860,6 +860,7 @@
 [zsh key bind list] bindkey \%#
 [zsh completion bug fix] rm -rf ~/.zcompdump ~/.zcompcache # HINT: command not found
 [zsh completion fielpath search] echo $fpath | tr " " "\n" | xargs -L 1 -I{} find {} -name '\%#'
+[zsh completion function reload] cmd_name=\%#; unfunction "_${cmd_name}" && autoload -U "_${cmd_name}"
 
 # sudo
 [enter root as user env] sudo su
