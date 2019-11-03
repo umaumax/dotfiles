@@ -181,7 +181,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     [[ $n -le 0 ]] && return 1
     [[ $n -gt ${#ORIG_CMD_STACK} ]] && return 1
     # FYI: [shell \- Remove entry from array \- Stack Overflow]( https://stackoverflow.com/questions/3435355/remove-entry-from-array )
-    # NOTE: this eval precent shfmt parse error
+    # NOTE: this eval prevent shfmt parse error
     eval 'ORIG_CMD_STACK=("${(@)ORIG_CMD_STACK[1,$n-1]}" "${(@)ORIG_CMD_STACK[$n+1,$#ORIG_CMD_STACK]}")'
   }
   function cmdstack_shift() {
