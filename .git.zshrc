@@ -910,3 +910,9 @@ function git-stash-staged-as-patch() {
   git stash save --keep-index "tmp stash" && git stash save "saved as $1" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'
   git status
 }
+
+if cmdcheck grip; then
+  function git-preview() {
+    grip "$@"
+  }
+fi

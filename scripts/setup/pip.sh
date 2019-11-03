@@ -74,6 +74,7 @@ pip3 install yamllint
 pip install git-tree
 pip3 install webdiff
 pip3 install git-playback
+pip3 install grip
 
 # NOTE: --user is used to avoid below message
 # Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'

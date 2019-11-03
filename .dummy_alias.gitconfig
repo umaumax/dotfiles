@@ -71,6 +71,7 @@
 	logs-HEAD  = :
 	ls-time  = :
 	open  = :
+	preview  = :
 	pull-all  = :
 	ranking  = :
 	rebase-peco  = :
