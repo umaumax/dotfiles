@@ -294,6 +294,16 @@ bindkey "^K" up-line-or-history
 bindkey "^J" down-line-or-history
 bindkey "^L" forward-char
 
+# NOTE: below option enables to move multi-line even if end-of-buffer
+# up and down
+bindkey "^[OA" up-line-or-history
+bindkey "^[OB" down-line-or-history
+
+# NOTE: sfhit + up
+bindkey '^[[1;2A' beginning-of-buffer-or-history
+# NOTE: sfhit + down
+bindkey '^[[1;2B' end-of-buffer-or-history
+
 # NOTE: shift + left
 bindkey '^[[1;2D' emacs-backward-word
 # NOTE: shift + right
