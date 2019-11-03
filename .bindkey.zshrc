@@ -289,8 +289,9 @@ bindkey "^K" up-line-or-history
 bindkey "^J" down-line-or-history
 bindkey "^L" forward-char
 
-# NOTE: Shift + arrow
+# NOTE: shift + left
 bindkey '^[[1;2D' emacs-backward-word
+# NOTE: shift + right
 bindkey '^[[1;2C' emacs-forward-word
 bindkey -M vicmd '^[[1;2D' emacs-backward-word
 bindkey -M vicmd '^[[1;2C' emacs-forward-word
@@ -467,14 +468,27 @@ zle -N _modify-previous-word-paren
 bindkey '^X(' _modify-previous-word-paren
 bindkey '^X)' _modify-previous-word-paren
 
+# FYI: [keyboard shortcuts \- How to configure Ctrl\+w as delete word in zsh \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/250690/how-to-configure-ctrlw-as-delete-word-in-zsh )
 function my-backward-delete-word() {
-  local WORDCHARS=${WORDCHARS/\//}
-  zle backward-delete-word
+  # NOTE: default WORDCHARS=*?_-.[]~&;!#$%^(){}<>
+  WORDCHARS='-' zle backward-delete-word
 }
 zle -N my-backward-delete-word
 # shift+tab
 bindkey '^[[Z' my-backward-delete-word
 bindkey -M vicmd '^[[Z' my-backward-delete-word
+
+function my-backward-delete-word-extend() {
+  # NOTE: delete full filepath
+  WORDCHARS="${WORDCHARS}/" zle backward-delete-word
+}
+zle -N my-backward-delete-word-extend
+# ctrl+x + delete
+bindkey '^X^?' my-backward-delete-word-extend
+bindkey -M vicmd '^X^?' my-backward-delete-word-extend
+
+# NOTE: delete and shift delete
+# bindkey "^?" backward-delete-char
 
 # function _peco-select-history() {
 # BUFFER="$(builtin history -nr 1 | command peco | tr -d '\n')"
