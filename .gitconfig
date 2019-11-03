@@ -151,6 +151,7 @@
   tag-sort = for-each-ref --sort='-*committerdate' --format='%(refname:short)' refs/heads/
 
   tree = ls-tree -dr --name-only --full-name --full-tree HEAD
+  summary-tree = log --all --graph --decorate --oneline --simplify-by-decoration
 
   unlock = ! rm -rf $(git rev-parse --show-toplevel)/.git/index.lock
 
