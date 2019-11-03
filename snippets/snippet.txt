@@ -355,6 +355,7 @@
 [ol dump binary hex] python3 -c 'import sys; [print(bytes(v, encoding="utf-8")) for v in list(sys.argv)[1:]]' \%# # xargs bash -c 'echo -e $0'
 [ol split by string(cut)] perl -ne '@col=split(/\%#/); print(join(",", @col[0,1,2..$#col]));'
 [ol show one line as lines] sed -e 's/\s\+/ /g' | tr ' ' '\n'
+[ol realpath] python3 -c 'import sys,os.path; [print(os.path.realpath(v)) for v in list(sys.argv)[1:]]'
 
 [time bomb at mac] sleep $(( $(gdate -d "\%#" "+%s") - $(gdate "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
 [time bomb at ubuntu] sleep $(( $(date -d "\%#" "+%s") - $(date "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
