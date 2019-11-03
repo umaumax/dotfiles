@@ -202,6 +202,7 @@
 
 [git rebase interactive] git rebase -i HEAD~$NUM\%#
 [git rebase continue] git rebase --continue
+[git rebase change editor] export GIT_SEQUENCE_EDITOR=interactive-rebase-tool
 
 [git overwrite another commit file] git checkout $COMMIT_HASH $REL_FILE_PATH
 [git overwrite another branch file] git checkout $BRANCH_NAME $FILE_PATH_FROM_GIT_ROOT
