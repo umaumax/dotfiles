@@ -476,7 +476,7 @@ bindkey '^X)' _modify-previous-word-paren
 # FYI: [keyboard shortcuts \- How to configure Ctrl\+w as delete word in zsh \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/250690/how-to-configure-ctrlw-as-delete-word-in-zsh )
 function my-backward-delete-word() {
   # NOTE: default WORDCHARS=*?_-.[]~&;!#$%^(){}<>
-  WORDCHARS='-' zle backward-delete-word
+  WORDCHARS='-_' zle backward-delete-word
 }
 zle -N my-backward-delete-word
 # shift+tab
