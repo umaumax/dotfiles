@@ -1107,6 +1107,7 @@
 
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
+[pseudo watch command] while true\%$do sleep 1\%$clear\%$\%#\%$done
 
 [stopwatch] time cat # stop:c-c
 
