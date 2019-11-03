@@ -458,6 +458,8 @@
 [args checker] python -c "import sys; print(sys.argv)" \%#
 
 # python
+[pip by python] python -m pip
+[pip by python3] python3 -m pip
 [pip upgrade] pip install --upgrade \%#
 [pip list] pip freeze
 [pip updatable package list] pip list -o
