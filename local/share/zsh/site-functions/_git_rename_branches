@@ -22,7 +22,7 @@ __git_command_successful() {
 
 _git_rename_branches() {
   emulate -L zsh
-  _message -r 'git-rename-branches [options] BRANCH_PREFIX  NEW_PREFIX'
+  _message -r 'git-rename-branches [options] BRANCH_PREFIX NEW_PREFIX'
 
   _values \
     'options' \
