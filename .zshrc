@@ -1948,6 +1948,14 @@ if [[ $ZSH_NAME == zsh ]]; then
   # NOTE: enable color file completion
   # NOTE: this eval is used to avoid shfmt error
   eval 'zstyle ":completion:*" list-colors "${(@s.:.)LS_COLORS}"'
+
+  # enable tab completion even empty line
+  zstyle ':completion:*' insert-tab false
+
+  # force remove duplicate path
+  typeset -U path cdpath fpath manpath
+
+  setopt NO_BEEP
 fi
 
 # 実行したプロセスの消費時間がn秒以上かかったら
