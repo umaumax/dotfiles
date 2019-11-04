@@ -596,4 +596,16 @@ if has('nvim-0.3.8')
 	let g:float_preview#docked = 1
 	let g:float_preview#auto_close = 0
 	" NOTE: call float_preview#close() to close preview
+
+	Plug 'Shougo/deol.nvim'
+	"
+	function! DeolTerminal()
+		" 横幅が大きい分にはエラーにはならず，resize後の挙動も想定通りになる
+		:Deol -split=floating -winheight=25 -winwidth=256
+		" openときのwindow sizeに依存
+		" execute(':Deol -split=floating -winheight=25 -winwidth='.&columns)
+	endfunction
+	command! FloatingTerm :call DeolTerminal()
+	nnoremap <silent><C-x>t :call DeolTerminal()<CR>
 endif
+
