@@ -10,6 +10,7 @@ NUGGET_ALREADY_INSTALLED=2
 function nugget-h() {
   echo "nugget [-h] [-l] <package>"
   echo '  -h: help'
+  echo '  -u,--upgrade: upgrade package'
   echo '  -l: list installable packages'
 }
 function _os() {
@@ -94,7 +95,7 @@ function nugget_ubuntu_nvim() {
   # nightly build
   wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
   # stable build
-  # wget https://github.com/neovim/neovim/releases/download/v0.3.4/nvim.appimage
+  # wget https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
 
   # TODO: how to detect FUSE or not?
 
