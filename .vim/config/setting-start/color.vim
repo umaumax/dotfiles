@@ -6,9 +6,10 @@ function! s:init_color()
 		highlight cReservedIdentifiers ctermfg=white ctermbg=red guifg=#ffffff guibg=#ff0000
 	endif
 
+	" NOTE: below color effect floating windows
 	" completion menu color setting
-	highlight Pmenu    ctermfg=white ctermbg=26  guifg=#ffffff guibg=#4169E1
-	highlight PmenuSel cterm=bold    ctermfg=32 ctermbg=black gui=bold guifg=#4682B4 guibg=#000000
+	" highlight Pmenu    ctermfg=white ctermbg=26  guifg=#ffffff guibg=#4169E1
+	" highlight PmenuSel cterm=bold    ctermfg=32 ctermbg=black gui=bold guifg=#4682B4 guibg=#000000
 
 	" vim cursor color setting
 	" NOTE: too noisy gui=underline

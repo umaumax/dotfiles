@@ -590,4 +590,10 @@ Plug 'machakann/vim-swap'
 
 if has('nvim-0.3.8')
 	LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
+
+	" FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
+	Plug 'ncm2/float-preview.nvim'
+	let g:float_preview#docked = 1
+	let g:float_preview#auto_close = 0
+	" NOTE: call float_preview#close() to close preview
 endif

@@ -529,6 +529,13 @@ vnoremap $ $<Left>
 function! s:close(force)
 	let l:flag=''
 	let l:w=''
+	if exists("*float_preview#close")
+		if g:float_preview#win != 0
+			" NOTE: opening
+			call float_preview#close()
+			return
+		endif
+	endif
 	if !(&bt == 'quickfix' || &bt == 'nofile')
 		let save_winnr = winnr()
 		windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile') | let l:flag=&bt | let l:w=winnr() | endif
