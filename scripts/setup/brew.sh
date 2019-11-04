@@ -92,7 +92,8 @@ brew install parallel
 # brew install kaitai-struct-compiler
 
 # brew tap
-# WIP
+brew tap aki017/sixel
+brew install libsixel
 
 # brew cask
 ## WARN: don't install by your self (by GUI)
