@@ -169,6 +169,17 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # ----
 
 function command_not_found_handler() {
+  if cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
+    mkdir -p ~/.cache/zsh/
+    local cache_not_found_img_filepath="$HOME/.cache/zsh/not_found_img.img"
+    if [[ ! -f "$cache_not_found_img_filepath" ]]; then
+      wget 'https://stickershop.line-scdn.net/stickershop/v1/sticker/13903692/android/sticker.png;compress=true' -O "$cache_not_found_img_filepath"
+    fi
+    if [[ -f "$cache_not_found_img_filepath" ]]; then
+      img2sixel -I "$cache_not_found_img_filepath"
+      echo ''
+    fi
+  fi
   echo -n "${YELLOW}ヽ(*゜д゜)ノ$DEFAULT"
   echo "not found ${RED}'$0'${DEFAULT}"
   if cmdcheck thefuck; then
