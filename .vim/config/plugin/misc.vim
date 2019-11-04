@@ -420,6 +420,16 @@ if Doctor('git', 'airblade/vim-gitgutter')
 
 	" NOTE: for .gitignore color highlighting
 	Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
+
+	Plug 'rhysd/git-messenger.vim'
+	let g:git_messenger_include_diff='current'
+	augroup git_messenger_vim_color_group
+		autocmd!
+		autocmd ColorScheme,BufWinEnter * highlight gitmessengerHash term=None guifg=#f0eaaa ctermfg=229 |
+					\ highlight gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#666666 ctermfg=255 ctermbg=234 |
+					\ highlight link diffRemoved   Identifier |
+					\ highlight link diffAdded     Type
+	augroup END
 endif
 
 LazyPlug 'vim-airline/vim-airline'
