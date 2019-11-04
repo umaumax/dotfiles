@@ -577,3 +577,7 @@ LazyPlug 'blueyed/vim-diminactive'
 Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
 
 Plug 'machakann/vim-swap'
+
+if has('nvim-0.3.8')
+	LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
+endif
