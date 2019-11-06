@@ -71,7 +71,8 @@ function fccat() {
 # README.md:10: int add(int a, int b); : filename:line_no:line_content
 function pecocat() {
   local query=$(printf '%s' "${1:-}" | clear_path)
-  {
+  # NOTE: extract ~ to $HOME
+  expand_home | {
     if cmdcheck fzf; then
       local ls_force_color='ls --color=always -alh'
       [[ $(uname) == "Darwin" ]] && local ls_force_color='CLICOLOR_FORCE=1 ls -G -alh'
@@ -80,18 +81,17 @@ function pecocat() {
       if cmdcheck wcat; then
         local CAT='wcat'
         local range=$(echo "$(tput lines) * 6 / 10 / 2 - 1" | bc)
-        # DONT USE `` in fzf --preview, becase parse will be fault when using ``. So, use $()
+        # NOTE: Don't use `` in fzf --preview, becase parse will be fault when using ``. So, use $()
         # NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
         # NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
-        # NOTE: eval echo $filepath: extract ~ to $HOME
-        fzf --multi --ansi --reverse --preview 'F="$(eval echo $(echo {} | cut -d":" -f1))"; FL="$(eval echo $(echo {}: | cut -d":" -f1,2))"; [[ -d "$F" ]] && '"$ls_force_color"' "$F"; [[ -f "$F" ]] && echo "$FL":'"$range"' && '"$CAT"' "$FL":'"$range"';' --preview-window 'down:60%' --query=$query
+        fzf --multi --ansi --reverse --preview 'F="$(printf '"'"'%s'"'"' {} | cut -d":" -f1)"; FL="$(printf '"'"'%s'"'"' {} | cut -d":" -f1,2)"; [[ -d "$F" ]] && '"$ls_force_color"' "$F"; [[ -f "$F" ]] && echo "$FL":'"$range"' && '"$CAT"' "$FL":'"$range"';' --preview-window 'down:60%' --query=$query
         return
       elif cmdcheck bat; then
         local CAT='bat --color=always'
       elif cmdcheck ccat; then
         local CAT='ccat -C=always'
       fi
-      fzf --multi --ansi --reverse --preview 'F=$(eval echo $(echo {} | cut -d":" -f1)); [[ -d $F ]] && '"$ls_force_color"' $F; [[ -f $F ]] && '"$CAT"' $F' --preview-window 'down:60%' --query=$query
+      fzf --multi --ansi --reverse --preview 'F="$(printf '"'"'%s'"'"' {} | cut -d":" -f1)"; [[ -d "$F" ]] && '"$ls_force_color"' "$F"; [[ -f "$F" ]] && '"$CAT"' "$F"' --preview-window 'down:60%' --query=$query
     else
       peco
     fi
