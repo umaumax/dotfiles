@@ -275,7 +275,7 @@ fi
 
 function expand_home() {
   if [[ $# == 0 ]]; then
-    sed -E 's:(^~/+)|(^~$):'"$HOME"'/:g'
+    perl -0pe 's/(^~\/+)|(^~$)/$ENV{HOME}/'
   else
     for arg in "$@"; do
       printf '%s\n' "$arg" | expand_home
