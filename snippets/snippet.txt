@@ -1341,3 +1341,5 @@
 
 # xargs
 [xargs per one] xargs -L 1 -I{} \%#
+
+[readline] | while IFS= read -r line || [[ -n "$line" ]]; do\%$  \%#  \%$  \%$\%$done
