@@ -187,6 +187,7 @@ function command_not_found_handler() {
   fi
 }
 
+# NOTE: or use: perl -e 'print reverse<>'
 cmdcheck tac || alias tac='tail -r'
 
 # ls

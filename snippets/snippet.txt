@@ -307,6 +307,7 @@
 [tree depth] tree -L $DEPTH
 
 # shell one liner
+[ol tac] perl -e 'print reverse<>'
 [ol ls -a without . and ..] ls -A
 [ol ls -a without . and ..] ls -a | tail -n +3
 [ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
