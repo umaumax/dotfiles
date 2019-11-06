@@ -1338,3 +1338,6 @@
 # terminal
 [terminal image: img2sixel] img2sixel --width '256px'
 [terminal image: hello gopher] curl 'https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F665%2Fe44c3fbc-af63-c555-1941-e39040bb385d.png?ixlib=rb-1.2.2&auto=compress%2Cformat&gif-q=60&s=fbe7017dcf4a56a8b391cf91f76b77b5' | img2sixel
+
+# xargs
+[xargs per one] xargs -L 1 -I{} \%#
