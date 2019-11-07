@@ -36,6 +36,7 @@ git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autorsyncpass
 ln -sf autosshpass autooresshpass
 
 git wget https://github.com/umaumax/yaml-sort/blob/master/_yaml-sort -O "$zsh_completion_dirpath/"
+git wget https://github.com/umaumax/dotorphan/blob/master/_dotorphan -O "$zsh_completion_dirpath/"
 
 git wget https://github.com/paulirish/git-recent/blob/master/git-recent
 git wget https://github.com/stedolan/git-ls/blob/master/git-ls

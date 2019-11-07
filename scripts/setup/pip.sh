@@ -57,6 +57,7 @@ pip install cmakelint
 # for translate
 pip3 install https://github.com/umaumax/gtrans/archive/master.tar.gz
 
+pip3 install https://github.com/umaumax/dotorphan/archive/master.tar.gz
 # for keybind
 # NOTE: xkeysnail is used as root
 if [[ "$(uname -a)" =~ Ubuntu ]]; then
