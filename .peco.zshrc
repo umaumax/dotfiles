@@ -112,15 +112,15 @@ cmdcheck lolcat && alias ranking_color_cat='lolcat -F 0.005 -d 8 -f -S 1'
 
 if cmdcheck cgrep; then
   function shell_color_filter() {
-    cgrep '(\$)(\().*(\))' 28,28,28 |
-      cgrep '(\$[a-zA-Z_0-9]*)' |
-      cgrep '(\|)' 201 |
-      cgrep '(\||)|(&&)' 90,198 |
-      cgrep '(;)' 211,88,88 |
-      cgrep '(^\[[^\]]*\])' 38 |
-      cgrep '(\$\(|^\t*|\| *|; *|\|\| *|&& *)([a-zA-Z_][a-zA-Z_0-9.\-]*)' ,10 |
-      cgrep '('"'"'[^'"'"']+'"'"')' 226 |
-      cgrep '(#.*$)' 239
+    cgrep '(\$)(\().*(\))' 28,28,28 \
+      | cgrep '(\$[a-zA-Z_0-9]*)' \
+      | cgrep '(\|)' 201 \
+      | cgrep '(\||)|(&&)' 90,198 \
+      | cgrep '(;)' 211,88,88 \
+      | cgrep '(^\[[^\]]*\])' 38 \
+      | cgrep '(\$\(|^\t*|\| *|; *|\|\| *|&& *)([a-zA-Z_][a-zA-Z_0-9.\-]*)' ,10 \
+      | cgrep '('"'"'[^'"'"']+'"'"')' 226 \
+      | cgrep '(#.*$)' 239
   }
 else
   function shell_color_filter() {
@@ -302,9 +302,9 @@ alias sd='peco-cd'
 function git-branch-peco() {
   local options=(refs/heads/ refs/remotes/ refs/tags/)
   [[ $# -gt 0 ]] && options=("$@")
-  local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative)%(taggerdate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' |
-    fzf --reverse --ansi --multi --preview 'git graph --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' |
-    awk '{print $1}')
+  local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative)%(taggerdate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' \
+    | fzf --reverse --ansi --multi --preview 'git graph --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' \
+    | awk '{print $1}')
   printf '%s' "$branch"
 }
 function git-checkout-branch-peco() {
@@ -821,8 +821,8 @@ function git-ls-time() {
   local target=${1:-.}
   # git log --name-only --pretty=':%ai' "$target" | sed -E 's/ \+[0-9]+//' | git_remove_root_rel_pwd_prefix | awk '/^:/{date=$0;} ! /^:/{ a[$0]++; if($0!=""&&a[$0]==1) printf "%-48s %s\n", $0, date}'
   # FYI: [git log \- how to git log with date\-time and file names in one line \- Stack Overflow]( https://stackoverflow.com/questions/32893773/how-to-git-log-with-date-time-and-file-names-in-one-line )
-  git log --pretty=%x0a%ci --name-only "$target" |
-    awk '
+  git log --pretty=%x0a%ci --name-only "$target" \
+    | awk '
      /^$/        { dateline=!dateline; next }
      dateline    { date=$0; next }
      !seen[$0]++ { printf "%-48s :%s\n", $0,date }
@@ -911,8 +911,8 @@ function git-log-diff() {
   is_git_repo_with_message || return
   local target=($1)
   # NOTE: 選択しているcommit_hashがinitial commit hashの場合の例外処理がない
-  git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' |
-    fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query"
+  git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' \
+    | fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query"
   # git log --stat --color . | fzf --multi --ansi --reverse --preview 'filepath=$(echo {} | sed -E -e '"'"'s/^ *(.*) *\| [0-9]+ .*$/\1/g'"'"' -e '"'"'s/ *$//g'"'"'); fullpath="$(git rev-parse --show-toplevel)/$filepath"; echo "filepath:$filepath"; echo "$fullpath"; [[ -e "$fullpath" ]] && git diff --color "$filepath"' --preview-window 'right:80%' --query="$query"
 }
 
