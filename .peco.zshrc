@@ -129,35 +129,30 @@ else
 fi
 
 [[ "$(uname -a)" =~ Ubuntu ]] && alias mdfind='locate'
-function mdfindpeco() {
-  mdfind | fzf
-}
 
-alias pc='peco | c'
 alias pecopy='peco | c'
-alias cmdpeco='{ alias; functions-list; } | peco'
-alias pe='peco'
+alias cmdpeco='{ alias; functions-list; } | peco | to_prompt'
+alias prompt-pipe='to_prompt'
+function to_prompt() {
+  if [[ ! -o zle ]]; then
+    command cat
+  else
+    print -z "$(command cat)"
+  fi
+}
 function hpeco() {
   local HPECO_NUM=${HPECO_NUM:-1}
-  local ret=$(builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1)
-  if [[ ! -o zle ]]; then
-    printf '%s' "$ret"
-  else
-    print -z "$ret"
-  fi
+  builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1 | to_prompt
 }
 function hpecopy() {
   hpeco | tr -d '\n' | c
 }
-alias apeco='alias | peco'
-alias envpeco='env | peco'
 alias fpeco='find . -type f | peco'
 alias fpecovim='find . -type f | pecovim'
 alias fvim='find . -type f | pecovim'
 # m: modified
 alias gmvim='git status -s | cut -c4- | pecovim'
 alias ftvim='pvft'
-alias epeco='env | peco'
 alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
 alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
