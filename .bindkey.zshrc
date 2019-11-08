@@ -273,7 +273,7 @@ function _insert_strs() {
   zle kill-buffer
   BUFFER="$BUFFER_"
   # NOTE: don't use below command because this cause mono color
-  # 	CURSOR=$((CURSOR_ + 1))
+  # CURSOR=$((CURSOR_ + 1))
   CURSOR=$((CURSOR_))
   for i in $(seq $n); do
     zle forward-char
