@@ -261,9 +261,11 @@ function _vicmd_insert_strs() {
 function _insert_strs() {
   local str=$1
   local n=${2:-$#1}
-  # NOTE: echo " -> echo ""
-  if [[ "${LBUFFER[-1]}" == "${str[-1]}" ]]; then
-    str=${str[-1]}
+  # NOTE: echo "(press ") -> echo ""
+  # NOTE: echo '(press ') -> echo ''
+  # NOTE: echo `(press `) -> echo ``
+  if [[ "${LBUFFER[-1]}" == "${str[@]:0:((0 + 1))}" && "${str[@]:0:((0 + 1))}" == "${str[@]:1:((1 + 1))}" ]]; then
+    str="${str[@]:0:((0 + 1))}"
   fi
   local BUFFER_="${LBUFFER}${str}${RBUFFER}"
   local CURSOR_=$CURSOR
