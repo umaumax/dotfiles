@@ -144,6 +144,13 @@ alias ls_for
 		${0}
 	done
 
+snippet for_ls_to_ary
+abbr bash ok
+	($(for ${2:#: element name} in \`ls ${1:#: ls target}\`; do
+		echo $$2
+		${0}
+	done))
+
 snippet for_args
 	for arg in "$@"; do
 		${0}
@@ -241,7 +248,7 @@ alias array_search_not_found
 
 snippet array_index_common
 abbr 0~
-	${${0:#:var}[@]:${1:1}:(($1+1))}
+	${${0:#:var}[@]:${1:#:index 0~}:(($1+1))}
 snippet array_index_zsh
 abbr 1~
 	${${0:#:var}[${1:1}]}
