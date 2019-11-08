@@ -316,11 +316,6 @@ bindkey -M vicmd '^[[1;2C' emacs-forward-word
 bindkey '^X^A' backward-kill-line
 bindkey '^X^E' kill-line
 
-# F:fix
-bindkey '^X^F' edit-command-line
-# L:line
-bindkey '^X^L' edit-command-line
-
 function _zle_refresh_cmd_color() {
   zle backward-char
   zle forward-char
@@ -359,10 +354,19 @@ function _pecoole() { pecoole; }
 zle -N _pecoole
 bindkey "^X^G" _pecoole
 
-function _cedit() { cedit; }
-zle -N _cedit
-bindkey "^X^V" _cedit
-bindkey "^X^O" _cedit
+# F:fix
+bindkey '^X^F' edit-command-line
+# L:line
+bindkey '^X^L' edit-command-line
+# NOTE: edit clipboard
+# function _cedit() { cedit; }
+# zle -N _cedit
+# bindkey "^X^V" _cedit
+# bindkey "^X^O" _cedit
+
+# NOTE: copy and paste
+# e.g. mv xxx [press here!]
+bindkey "^X^V" copy-prev-shell-word
 
 # function _insert_cd_home() { _set_only_LBUFFER 'cd ~/'; }
 # zle -N _insert_cd_home
