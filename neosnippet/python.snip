@@ -49,7 +49,7 @@ snippet argparse_example
 alias cmdparse_example
 	import argparse
 
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('-o', '--output-filepath', default='')
 	parser.add_argument('-v', '--verbose', action='store_true')
 	parser.add_argument('required-arg')
