@@ -1489,6 +1489,13 @@ alias readme.pv='fg.readme.pv'
 function cmake() {
   command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
 }
+function make() {
+  if type >/dev/null 2>&1 colormake; then
+    colormake "$@"
+    return
+  fi
+  command make "$@"
+}
 
 alias rvgrep="rgrep"
 function rgrep() {
