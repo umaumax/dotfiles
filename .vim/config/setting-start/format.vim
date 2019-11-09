@@ -113,8 +113,10 @@ endif
 if Doctor('autopep8', 'python format')
   augroup python_group
     autocmd!
-    autocmd FileType python autocmd BufWinEnter *.py command! -bar Format call Autopep8()
-    autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() | call Autopep8() | endif
+    " NOTE: if you want to ignore text length per line
+    " :PythonFormat --ignore=E501
+    autocmd FileType python autocmd BufWinEnter *.py command! -bar Format :PythonFormat
+    autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() | :PythonFormat | endif
     autocmd FileType python autocmd! python_group FileType
   augroup END
 endif
@@ -253,32 +255,32 @@ if Doctor('goenkins-format', 'jenkins pipeline format')
   augroup END
 endif
 
-" error表示のwindowの制御方法が不明
-" Plug 'tell-k/vim-autopep8'
-function! Preserve(command)
-  " Save the last search.
-  let search = @/
-  " Save the current cursor position.
-  let cursor_position = getpos('.')
-  " Save the current window position.
-  normal! H
-  let window_position = getpos('.')
-  call setpos('.', cursor_position)
-  " Execute the command.
-  execute a:command
-  " Restore the last search.
-  let @/ = search
-  " Restore the previous window position.
-  call setpos('.', window_position)
-  normal! zt
-  " Restore the previous cursor position.
-  call setpos('.', cursor_position)
-endfunction
+" " error表示のwindowの制御方法が不明
+" " Plug 'tell-k/vim-autopep8'
+" function! Preserve(command)
+" " Save the last search.
+" let search = @/
+" " Save the current cursor position.
+" let cursor_position = getpos('.')
+" " Save the current window position.
+" normal! H
+" let window_position = getpos('.')
+" call setpos('.', cursor_position)
+" " Execute the command.
+" execute a:command
+" " Restore the last search.
+" let @/ = search
+" " Restore the previous window position.
+" call setpos('.', window_position)
+" normal! zt
+" " Restore the previous cursor position.
+" call setpos('.', cursor_position)
+" endfunction
 
-function! Autopep8()
-  " [vimでpythonのコーディングスタイルを自動でチェック&自動修正する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/26/vim-python-style-check-and-fix/ )
-  call Preserve(':silent %!autopep8 --ignore=E501 -')
-endfunction
+" function! Autopep8()
+" [vimでpythonのコーディングスタイルを自動でチェック&自動修正する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/26/vim-python-style-check-and-fix/ )
+" call Preserve(':silent %!autopep8 --ignore=E501 -')
+" endfunction
 
 let g:highlight_backup_dict = {}
 function! s:highlight_backup(name)
