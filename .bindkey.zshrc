@@ -292,14 +292,20 @@ bindkey "^F" backward-delete-char
 bindkey "^D" delete-char
 
 bindkey "^H" backward-char
-bindkey "^K" up-line-or-history
-bindkey "^J" down-line-or-history
+# bindkey "^K" up-line-or-history
+# bindkey "^J" down-line-or-history
+bindkey "^K" history-substring-search-up
+bindkey "^J" history-substring-search-down
 bindkey "^L" forward-char
 
 # NOTE: below option enables to move multi-line even if end-of-buffer
+# WARN: zsh-history-substring-search command are disabled
 # up and down
-bindkey "^[OA" up-line-or-history
-bindkey "^[OB" down-line-or-history
+# bindkey "^[OA" up-line-or-history
+# bindkey "^[OB" down-line-or-history
+# zsh-history-substring-search command
+# bindkey "^[OA" history-substring-search-up
+# bindkey "^[OB" history-substring-search-down
 
 # NOTE: sfhit + up
 bindkey '^[[1;2A' beginning-of-buffer-or-history
