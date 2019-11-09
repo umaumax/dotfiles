@@ -159,3 +159,10 @@ dist/
 *.gcov
 *.info
 lcov_html
+
+# for llvm
+*.ll
+*.bc
+
+# for dot
+*.dot
