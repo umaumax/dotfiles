@@ -302,6 +302,7 @@ function git-branch-peco() {
     | awk '{print $1}')
   printf '%s' "$branch"
 }
+alias branch_checkout='git-checkout-branch-peco'
 function git-checkout-branch-peco() {
   local branch=$(git-branch-peco)
   [[ -n $branch ]] && git checkout $branch
@@ -322,6 +323,8 @@ function _git-commit-peco() {
   # NOTE: escape {7} -> {'7'} to avoid fzf replacing
   git graph --color "$@" | fzf "$GIT_COMMIT_PECO_OPT" --preview 'git show --stat -p --color $(echo {} | grep -o -E '"'"'^[ *|\\/_]+[0-9a-zA-Z]{'"'"'7'"'"'}'"'"' | grep -o -E '"'"'[0-9a-zA-Z]{'"'"'7'"'"'}'"'"')' | grep -o -E '^[ *|\\/_]+[0-9a-zA-Z]{7}' | grep -o -E '[0-9a-zA-Z]{7}'
 }
+alias commit='git-commits-peco'
+alias commits='git-commits-peco'
 function git-commits-peco() {
   GIT_COMMIT_PECO_OPT="--multi" _git-commit-peco
 }
@@ -369,6 +372,7 @@ function git-cherry-pick-peco-range() {
 
   git cherry-pick $commits_range
 }
+alias commit_checkout='git-checkout-commit-peco'
 function git-checkout-commit-peco() {
   local commit=$(_git-commit-peco)
   [[ -z $commit ]] && return 1
