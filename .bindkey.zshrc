@@ -288,6 +288,31 @@ bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; 
 bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
 bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
 
+# NOTE: git show $| git-commits-peco [enter]
+# NOTE: cat $| ls -a | grep zsh [enter]
+bindkey '^M' _accept_line && zle -N _accept_line && function _accept_line() {
+  local BUFFER_="$BUFFER"
+  local REPL_CMD="${BUFFER##*$|}"
+  if [[ "$REPL_CMD" == "$BUFFER" ]]; then
+    zle accept-line
+    return
+  fi
+  local ret
+  ret="$(eval "$REPL_CMD")"
+  # NOTE: my not found handler return code
+  if [[ $? == $((404 - 256)) ]]; then
+    :
+  else
+    LBUFFER_="${BUFFER%$|*}"
+    BUFFER_="${LBUFFER_}""$(printf '%s' "$ret" | tr '\n' ' ')"
+  fi
+  zle kill-buffer
+  zle kill-whole-line
+  zle accept-line
+  print -z "$BUFFER_"
+  zle end-of-buffer-or-history
+}
+
 bindkey "^F" backward-delete-char
 bindkey "^D" delete-char
 
