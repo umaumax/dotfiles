@@ -115,6 +115,8 @@ if Doctor('autopep8', 'python format')
     autocmd!
     " NOTE: if you want to ignore text length per line
     " :PythonFormat --ignore=E501
+    " NOTE: for force format
+    " :PythonFormat --aggressive --aggressive
     autocmd FileType python autocmd BufWinEnter *.py command! -bar Format :PythonFormat
     autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() | :PythonFormat | endif
     autocmd FileType python autocmd! python_group FileType
