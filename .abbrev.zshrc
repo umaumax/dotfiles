@@ -16,7 +16,6 @@
 # abbrev-alias -g ex="./"
 # abbrev-alias -g exd="./."
 # abbrev-alias -g GC=" git checkout ."
-abbrev-alias -g gco=" git checkout ."
 # abbrev-alias -g D='.'
 # abbrev-alias -g HAT="'HEAD^' "
 abbrev-alias -g STASH="'stash@{\%#}'"
@@ -28,13 +27,19 @@ abbrev-alias -g N='>/dev/null '
 # abbrev-alias -g STD='>/dev/null 2>&1 '
 # abbrev-alias -g gpp='g++ '
 # abbrev-alias -g c11='-std=c++11 '
-abbrev-alias -g std='-std=c++11 '
+# abbrev-alias -g std='-std=c++11 '
 # abbrev-alias -g aout='./a.out '
 # abbrev-alias -g rmd='README.md'
 
-abbrev-alias -g g='git '
-# abbrev-alias -g b='brew '
-abbrev-alias -g v='vim '
+# NOTE: expand only head of prompt (no head of after pipe or start with space)
+# abbrev-alias -c v='vim '
+# abbrev-alias -c s='sudo '
+# abbrev-alias -c a='sudo apt-get '
+# abbrev-alias -c g='git '
+abbrev-alias -c gp='git push '
+abbrev-alias -c gco=" git checkout ."
+
+# abbrev-alias -c b='brew '
 # abbrev-alias -g tst='tig stash'
 # abbrev-alias -g gcm='git commit '
 # abbrev-alias -g grb='git rebase '
@@ -46,9 +51,12 @@ abbrev-alias -g cherry='cherry-pick '
 abbrev-alias -g gti='git '
 abbrev-alias -g tgi='tig '
 abbrev-alias -g ehco='echo '
+abbrev-alias -g gpp='g++ '
+abbrev-alias -g sduo='sudo '
 abbrev-alias -g sl='ls '
 abbrev-alias -g chekcout='checkout '
 abbrev-alias -g staus='status '
 
-# abbrev-alias -f B="git symbolic-ref --short HEAD"
-# abbrev-alias -f WD='basename $PWD'
+abbrev-alias -f BRANCH="git symbolic-ref --short HEAD"
+abbrev-alias -f BASEDIR='basename $PWD'
+abbrev-alias -f LSPECO='ls | fzf'
