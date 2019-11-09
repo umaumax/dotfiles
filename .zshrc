@@ -252,12 +252,12 @@ function lsabs() {
   local file_type=""
   for OPT in "$@"; do
     case $OPT in
-    '-d' | '-f')
-      local file_type=$OPT
-      ;;
-    *)
-      local args=("${args[@]}" $1)
-      ;;
+      '-d' | '-f')
+        local file_type=$OPT
+        ;;
+      *)
+        local args=("${args[@]}" $1)
+        ;;
     esac
     shift
   done
@@ -670,8 +670,8 @@ alias pipevim='vim -'
 alias xargs-vim='_xargs-vim -'
 # NOTE: VIMINFO_LS_N: number of max hit
 function viminfo-ls() {
-  command cat ~/.vim_edit_log | grep -v '^$' | awk '!a[$0]++' |
-    {
+  command cat ~/.vim_edit_log | grep -v '^$' | awk '!a[$0]++' \
+    | {
       if [[ -z $VIMINFO_LS_N ]]; then
         cat
       else
@@ -1315,14 +1315,14 @@ function ls_abbrev() {
   local -a opt_ls
   opt_ls=('-aCF' '--color=always')
   case "${OSTYPE}" in
-  freebsd* | darwin*)
-    if type gls >/dev/null 2>&1; then
-      cmd_ls='gls'
-    else
-      # -G : Enable colorized output.
-      opt_ls=('-aCFG')
-    fi
-    ;;
+    freebsd* | darwin*)
+      if type gls >/dev/null 2>&1; then
+        cmd_ls='gls'
+      else
+        # -G : Enable colorized output.
+        opt_ls=('-aCFG')
+      fi
+      ;;
   esac
 
   local ls_result
@@ -1341,8 +1341,8 @@ function ls_abbrev() {
 }
 
 function cdinfo() {
-  tac ~/.cdinfo | awk '!a[$0]++' |
-    {
+  tac ~/.cdinfo | awk '!a[$0]++' \
+    | {
       if [[ -z $CDINFO_N ]]; then
         cat
       else
@@ -1695,12 +1695,12 @@ function ifconfig() {
   local COLOR_END="\e[m"
   # `inet `: mac
   # `inet addr:`: ubuntu
-  command ifconfig |
-    perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" |
-    perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" |
-    perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" |
-    perl -pe "s/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}$&${COLOR_END}/g" |
-    perl -pe "s/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}$&${COLOR_END}/g"
+  command ifconfig \
+    | perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" \
+    | perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
+    | perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
+    | perl -pe "s/(?![0f:]{17})([\da-f]{2}:){5}[\da-f]+/${COLOR_GREEN}$&${COLOR_END}/g" \
+    | perl -pe "s/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}$&${COLOR_END}/g"
 }
 
 # function off() { printf "\e[0;m$*\e[m"; }
@@ -2040,12 +2040,12 @@ function wd_history() {
 
 # FYI: [あるファイルを削除するだけでディスク使用率が100％になる理由 \- Qiita]( https://qiita.com/nacika_ins/items/d614b933034137ed42f6 )
 function show-all-files-which-processes-grab() {
-  lsof |
-    grep REG |
-    grep -v "stat: No such file or directory" |
-    grep -v DEL |
-    awk '{if ($NF=="(deleted)") {x=3;y=1} else {x=2;y=0}; {print $(NF-x) "  " $(NF-y) } }' |
-    sort -n -u
+  lsof \
+    | grep REG \
+    | grep -v "stat: No such file or directory" \
+    | grep -v DEL \
+    | awk '{if ($NF=="(deleted)") {x=3;y=1} else {x=2;y=0}; {print $(NF-x) "  " $(NF-y) } }' \
+    | sort -n -u
 }
 
 # edit clipboard on vim
@@ -2217,20 +2217,20 @@ function pomodoro() {
       echo -n "Pomodoro[P],Short break[S], Long break[L]?> "
       read WAIT
       case "${WAIT:0:1}" in
-      'P' | 'p')
-        i=$((25 * 60))
-        ;;
-      'S' | 's')
-        i=$((5 * 60))
-        ;;
-      'L' | 'l')
-        i=$((15 * 60))
-        ;;
-      *)
-        echo "Didn't match anything"
-        echo "Pomodoro Start!"
-        i=$((25 * 60))
-        ;;
+        'P' | 'p')
+          i=$((25 * 60))
+          ;;
+        'S' | 's')
+          i=$((5 * 60))
+          ;;
+        'L' | 'l')
+          i=$((15 * 60))
+          ;;
+        *)
+          echo "Didn't match anything"
+          echo "Pomodoro Start!"
+          i=$((25 * 60))
+          ;;
       esac
       clear
       figlet $(printf "%02d : %02d" $((i / 60)) $((i % 60)))
