@@ -213,6 +213,9 @@ if cmdcheck exa; then
       command ls "$@"
     fi
   }
+  function treelist() {
+    find . -type d | xargs exa --color=always | awk '/.*:/{printf "\n\033[38;2;87;199;255m%s ",$0} !/.*:/ && !/.\[38;2;87;199;255m.*/{printf "%s ",$0}'
+  }
 fi
 
 alias ll='la'
