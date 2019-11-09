@@ -169,7 +169,8 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # ----
 
 function command_not_found_handler() {
-  if cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
+  # NOTE: non zle mode
+  if [[ -o zle ]] && cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
     mkdir -p ~/.cache/zsh/
     local cache_not_found_img_filepath="$HOME/.cache/zsh/not_found_img.img"
     if [[ ! -f "$cache_not_found_img_filepath" ]]; then
@@ -180,11 +181,12 @@ function command_not_found_handler() {
       echo ''
     fi
   fi
-  echo -n "${YELLOW}ヽ(*゜д゜)ノ$DEFAULT"
-  echo "not found ${RED}'$0'${DEFAULT}"
+  echo 1>&2 -n "${YELLOW}ヽ(*゜д゜)ノ$DEFAULT"
+  echo 1>&2 "not found ${RED}'$0'${DEFAULT}"
   if cmdcheck thefuck; then
-    echo "Maybe you can find true command by typing ${PURPLE}fuck${DEFAULT}!"
+    echo 1>&2 "Maybe you can find true command by typing ${PURPLE}fuck${DEFAULT}!"
   fi
+  return 404
 }
 
 # NOTE: or use: perl -e 'print reverse<>'
