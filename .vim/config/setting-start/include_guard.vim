@@ -11,9 +11,14 @@ function! IncludeGuardC()
 	let name = fnamemodify(expand('%'),':t')
 	let name = toupper(name)
 	let included = substitute(name,'\.\|-','_','g').'_INCLUDED__'
-	let res_head = '#ifndef '.included."\n#define ".included."\n\n"
-	let res_foot = "\n".'#endif // '.included."\n"
-	call IncludeGuard(res_head, res_foot)
+	let s:head = [
+				\ '#ifndef '.included,
+				\ "#define ".included,
+				\ ]
+	let s:foot = [
+				\ '#endif // '.included,
+				\ ]
+	call IncludeGuard(join(s:head+["",""],"\n"), join(["",""]+s:foot,"\n"))
 endfunction
 function! IncludeGuardVim()
 	let s:name = expand('%:r')
@@ -27,20 +32,22 @@ function! IncludeGuardVim()
 	endif
 	let s:var_name = substitute(s:name,'\.\|-','_','g')
 	let exists_prefix = "!\0"[plugin_flag || ctrlp_flag]
-	let s:head = "if ".exists_prefix."exists('g:loaded_".s:var_name."')\n"
-				\."\tfinish\n"
-				\."endif\n"
-				\."let g:loaded_".s:var_name." = 1\n"
-				\.""
-				\."let s:save_cpo = &cpo"
-				\."set cpo&vim"
-				\.""
-	let s:foot="\n"."let &cpo = s:save_cpo\n"
-				\."unlet s:save_cpo"
-	if ctrlp_flag
-		let s:foot=''
+	let s:head = ["if ".exists_prefix."exists('g:loaded_".s:var_name."')",
+				\ "  finish",
+				\ "endif",
+				\ "let g:loaded_".s:var_name." = 1",
+				\ "",
+				\ "let s:save_cpo = &cpo",
+				\ "set cpo&vim",
+				\ ]
+	let s:foot=[]
+	if !ctrlp_flag
+		let s:foot=[
+					\ "let &cpo = s:save_cpo",
+					\ "unlet s:save_cpo",
+					\ ]
 	endif
-	call IncludeGuard(s:head, s:foot)
+	call IncludeGuard(join(s:head+["",""],"\n"), join(["",""]+s:foot,"\n"))
 endfunction
 augroup include_guard
 	autocmd!
