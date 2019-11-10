@@ -30,7 +30,8 @@ function! IncludeGuardVim()
 	if !(plugin_flag || autoload_flag || ctrlp_flag)
 		return
 	endif
-	let s:var_name = substitute(s:name,'\.\|-','_','g')
+	" NOTE: \{-}: min match
+	let s:var_name = substitute(substitute(s:name,'\.\|-','_','g'),'.\{-}autoload/\|.\{-}plugin/','','')
 	let exists_prefix = "!\0"[plugin_flag || ctrlp_flag]
 	let s:head = ["if ".exists_prefix."exists('g:loaded_".s:var_name."')",
 				\ "  finish",
