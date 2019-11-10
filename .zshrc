@@ -169,8 +169,8 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 # ----
 
 function command_not_found_handler() {
-  # NOTE: non zle mode
-  if [[ -o zle ]] && cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
+  # NOTE: this handler called in zle mode
+  if cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
     mkdir -p ~/.cache/zsh/
     local cache_not_found_img_filepath="$HOME/.cache/zsh/not_found_img.img"
     if [[ ! -f "$cache_not_found_img_filepath" ]]; then
