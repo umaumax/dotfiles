@@ -388,3 +388,10 @@ abbr import threading
 
 alias map_list
 	${1:#:list} = list(map(lambda e: ${0}, $1))
+
+alias insert_key_before_filepath
+	def insert_key_before_filepath(filepath, key):
+	    return "{0}_${0}{2}{1}".format(*os.path.splitext(filepath) + (key,))
+
+alias local
+	nonlocal ${0}
