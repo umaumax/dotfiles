@@ -1319,7 +1319,8 @@
 [confirm opencv version] opencv_version
 
 # dot graphviz
-[dot graphviz gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg "{}" "-o{}.svg"
+[dot graphviz find gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg "{}" "-o{}.svg"
+[dot graphviz pipe] | xargs -I{} -L 1 dot -T svg {}.svg -o {}
 
 # bash
 [shell expand number] {0..9} # 0 1 ... 9
