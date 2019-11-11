@@ -93,8 +93,8 @@ augroup END
 " jenkins script formatter
 " jenkinsfile indent require groovy format
 Plug 'martinda/Jenkinsfile-vim-syntax', {'for':'Jenkinsfile'}
-" Plug 'modille/groovy.vim'
 Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
+" Plug 'modille/groovy.vim'
 
 " 検索ワード入力中に、タブで入力ワード補完
 " nmap / が上書きされる

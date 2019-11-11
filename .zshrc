@@ -1,4 +1,4 @@
-# HINT: if you want to calclate login time uncomment next line
+# HINT: if you want to record login time uncomment next line
 # DEBUG_MODE='ON'
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
@@ -2671,13 +2671,16 @@ bindkey -v
 # ---------------------
 
 # FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
-if [[ $ZSH_NAME == zsh ]]; then
+function login_init() {
   cd .
   if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
     local tmux_ls
     tmux_ls=$(tmux ls 2>/dev/null)
     [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
   fi
+}
+if [[ $ZSH_NAME == zsh ]]; then
+  login_init
 fi
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
 # ---- don't add code here by your hand
