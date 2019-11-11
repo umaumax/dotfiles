@@ -1059,6 +1059,9 @@
 [shell var regexp] ${FILEPATH\%###*/} # basename
 [shell var regexp] ${FILEPATH\%###*.} # ext
 
+# [How to run a program in a clean environment in bash? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/48994/how-to-run-a-program-in-a-clean-environment-in-bash )
+[maybe clean relogin] env -i bash -l
+[maybe too clean relogin] env -i bash --noprofile --norc # without $PATH
 [complete relogin] su -l $(whoami)
 [complete relogin  zsh(linux)] su $(whoami) -s $(which zsh)
 [complete relogin bash(linux)] su $(whoami) -s $(which bash)
