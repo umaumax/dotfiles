@@ -17,8 +17,7 @@ if v:version >= 800 && has('python3')
 				\ 'python': ['pyls'],
 				\ }
 	" to choose deoplete <C-x>,<C-v>
-	" NOTE: for avoid fb5a1f0 Python 3.6.1+ is required commit
-	let deoplete_opt={ 'commit': '7853113', 'do': ':UpdateRemotePlugins'}
+	let deoplete_opt={'do': ':UpdateRemotePlugins'}
 	if has('nvim')
 		" if error occurs, do :UpdateRemotePlugins
 		LazyPlug 'Shougo/deoplete.nvim', deoplete_opt
