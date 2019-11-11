@@ -631,3 +631,5 @@ if has('nvim-0.3.8')
   nnoremap <silent><C-x>t :call DeolTerminal()<CR>
 endif
 
+" NOTE: filetype support for LLVM IR
+Plug 'rhysd/vim-llvm'", {'for':'llvm'}
