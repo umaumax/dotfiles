@@ -4,13 +4,13 @@ let g:vimconsole#height = 8
 let g:vimconsole#auto_redraw=1
 " NOTE: 出力を逆順に表示
 function! s:tac(context)
-	let firstline=1
-	let lastline=line('$')-1 " NOTE: last line is let s:PROMPT_STRING = 'VimConsole>'
-	let source=getline(firstline, lastline)
-	let rev_source=reverse(source)
-	normal! ggVG"_x
-	call setline(1, rev_source[0])
-	call append(1, rev_source[1:])
+  let firstline=1
+  let lastline=line('$')-1 " NOTE: last line is let s:PROMPT_STRING = 'VimConsole>'
+  let source=getline(firstline, lastline)
+  let rev_source=reverse(source)
+  normal! ggVG"_x
+  call setline(1, rev_source[0])
+  call append(1, rev_source[1:])
 endfunction
 let g:vimconsole#hooks = {'on_post_redraw' : function('s:tac')}
 Plug 'thinca/vim-prettyprint', {'on':'PP'}
@@ -24,12 +24,12 @@ Plug 'sbdchd/vim-shebang', {'on':['ShebangInsert']}
 " #!/bin/bash
 " by using env, you can use new version of command
 let g:shebang#shebangs = {
-			\ 'awk': '#!/usr/bin/awk -f',
-			\ 'sh':  '#!/usr/bin/env bash',
-			\ 'python':  '#!/usr/bin/env python3',
-			\ 'bats':  '#!/usr/bin/env bats',
-			\ 'javascript': '#!/usr/bin/env node'
-			\ }
+      \ 'awk': '#!/usr/bin/awk -f',
+      \ 'sh':  '#!/usr/bin/env bash',
+      \ 'python':  '#!/usr/bin/env python3',
+      \ 'bats':  '#!/usr/bin/env bats',
+      \ 'javascript': '#!/usr/bin/env node'
+      \ }
 
 " NOTE: cpp is not supported
 " NOTE: get function name
@@ -81,10 +81,10 @@ let g:autobackup_backup_limit = 256
 LazyPlug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = -1
 augroup vim_highlightedyank_color_group
-	autocmd!
-	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
-	" 	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
-	" 	autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
+  autocmd!
+  autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
+  " 	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
+  " 	autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
 " NOTE: this plugin remap (),[],{}
@@ -109,19 +109,19 @@ LazyPlug 'LeafCage/cheapcmd.vim'
 cmap <Tab> <Plug>(cheapcmd-expand)
 
 function! s:backword_delete_word()
-	let cmd = getcmdline()
-	return substitute(cmd, '.[^ (),.:"'."'".']*$', '', '')
+  let cmd = getcmdline()
+  return substitute(cmd, '.[^ (),.:"'."'".']*$', '', '')
 endfunction
 cnoremap <S-Tab> <C-\>e<SID>backword_delete_word()<CR>
 
 "for cmdwin
 aug cheapcmd-cmdwin
-	autocmd!
-	autocmd CmdwinEnter * call s:define_cmdwin_mappings()
+  autocmd!
+  autocmd CmdwinEnter * call s:define_cmdwin_mappings()
 aug END
 function! s:define_cmdwin_mappings()
-	nmap <buffer><Tab> <Plug>(cheapcmd-expand)
-	imap <buffer><Tab> <Plug>(cheapcmd-expand)
+  nmap <buffer><Tab> <Plug>(cheapcmd-expand)
+  imap <buffer><Tab> <Plug>(cheapcmd-expand)
 endfunction
 
 " " start screen
@@ -175,8 +175,8 @@ endfunction
 Plug 'ekalinin/Dockerfile.vim', {'for':'dockerfile'}
 " overwrite ft 'Dockerfile' -> 'dockerfile'
 augroup dockerfiletype_group
-	autocmd!
-	autocmd FileType Dockerfile setlocal ft=dockerfile
+  autocmd!
+  autocmd FileType Dockerfile setlocal ft=dockerfile
 augroup END
 
 " ---- tags ----
@@ -246,7 +246,7 @@ Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
 if Doctor('npm', 'maksimr/vim-jsbeautify')
-	Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','css','html','vue','vue.html.javascript.css']}
+  Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','css','html','vue','vue.html.javascript.css']}
 endif
 
 " NOTE: use 'umaumax/vim-format'
@@ -266,17 +266,17 @@ Plug 'Shougo/context_filetype.vim', {'for': ['vue', 'vue.html.javascript.css']}
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
 if g:colorscheme == 'molokai'
-	LazyPlug 'tomasr/molokai'
-	if !isdirectory(expand('~/.vim/colors'))
-		call mkdir(expand('~/.vim/colors'), "p")
-	endif
-	if !filereadable(expand('~/.vim/colors/molokai.vim'))
-		call system('ln -s ~/.vim/plugged/molokai/colors/molokai.vim ~/.vim/colors/molokai.vim')
-	endif
+  LazyPlug 'tomasr/molokai'
+  if !isdirectory(expand('~/.vim/colors'))
+    call mkdir(expand('~/.vim/colors'), "p")
+  endif
+  if !filereadable(expand('~/.vim/colors/molokai.vim'))
+    call system('ln -s ~/.vim/plugged/molokai/colors/molokai.vim ~/.vim/colors/molokai.vim')
+  endif
 elseif g:colorscheme == 'moonfly'
-	LazyPlug 'bluz71/vim-moonfly-colors'
+  LazyPlug 'bluz71/vim-moonfly-colors'
 elseif g:colorscheme == 'tender'
-	LazyPlug 'jacoborus/tender.vim'
+  LazyPlug 'jacoborus/tender.vim'
 endif
 
 " auto chmod +x
@@ -404,63 +404,63 @@ Plug '5t111111/neat-json.vim', {'for': 'json'}
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
 if Doctor('git', 'airblade/vim-gitgutter')
-	Plug 'airblade/vim-gitgutter', {'on':['GitGutterToggle']}
-	let g:gitgutter_highlight_lines = 1
-	let g:gitgutter_enabled=0
-	command -narg=0 G :GitGutterToggle
-	" hunk
-	nmap ]h <Plug>GitGutterNextHunk
-	nmap [h <Plug>GitGutterPrevHunk
-	" stage, unstage, preview
-	" NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
-	nmap <Leader>sh <Plug>GitGutterStageHunk
-	" NOTE: how to use undo hunk?
-	nmap <Leader>uh <Plug>GitGutterUndoHunk
-	nmap <Leader>ph <Plug>GitGutterPreviewHunk
+  Plug 'airblade/vim-gitgutter', {'on':['GitGutterToggle']}
+  let g:gitgutter_highlight_lines = 1
+  let g:gitgutter_enabled=0
+  command -narg=0 G :GitGutterToggle
+  " hunk
+  nmap ]h <Plug>GitGutterNextHunk
+  nmap [h <Plug>GitGutterPrevHunk
+  " stage, unstage, preview
+  " NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
+  nmap <Leader>sh <Plug>GitGutterStageHunk
+  " NOTE: how to use undo hunk?
+  nmap <Leader>uh <Plug>GitGutterUndoHunk
+  nmap <Leader>ph <Plug>GitGutterPreviewHunk
 
-	" NOTE: for .gitignore color highlighting
-	Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
+  " NOTE: for .gitignore color highlighting
+  Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
 
-	Plug 'rhysd/git-messenger.vim'
-	let g:git_messenger_include_diff='current'
-	augroup git_messenger_vim_color_group
-		autocmd!
-		autocmd ColorScheme,BufWinEnter * highlight gitmessengerHash term=None guifg=#f0eaaa ctermfg=229 |
-					\ highlight gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#666666 ctermfg=255 ctermbg=234 |
-					\ highlight link diffRemoved   Identifier |
-					\ highlight link diffAdded     Type
-	augroup END
+  Plug 'rhysd/git-messenger.vim'
+  let g:git_messenger_include_diff='current'
+  augroup git_messenger_vim_color_group
+    autocmd!
+    autocmd ColorScheme,BufWinEnter * highlight gitmessengerHash term=None guifg=#f0eaaa ctermfg=229 |
+          \ highlight gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#666666 ctermfg=255 ctermbg=234 |
+          \ highlight link diffRemoved   Identifier |
+          \ highlight link diffAdded     Type
+  augroup END
 endif
 
 LazyPlug 'vim-airline/vim-airline'
 " NOTE: default settings
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
 function! AirlineInit()
-	let spc = g:airline_symbols.space
-	let emoji_flag=0
-	let emoji = ' '
-	if has('mac')
-		" NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
-		" NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
-		let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
-		let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
-		let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis))
-		let emoji = split(emojis, '\zs')[rand]
-	endif
-	if emoji_flag==0
-		let emoji = ' '
-	endif
-	" NOTE: condition: $HOME doesn't include regex
-	let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", emoji, 'file', spc, 'readonly'])
-	let g:airline_section_y = ''
-	let g:airline_symbols.linenr=':'
-	let g:airline_section_z = airline#section#create(['%2p%%', 'linenr', '/%L', ':%3v'])
-	let g:airline_section_warning=''
-	let g:airline_skip_empty_sections = 1
+  let spc = g:airline_symbols.space
+  let emoji_flag=0
+  let emoji = ' '
+  if has('mac')
+    " NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
+    " NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
+    let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
+    let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
+    let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis))
+    let emoji = split(emojis, '\zs')[rand]
+  endif
+  if emoji_flag==0
+    let emoji = ' '
+  endif
+  " NOTE: condition: $HOME doesn't include regex
+  let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", emoji, 'file', spc, 'readonly'])
+  let g:airline_section_y = ''
+  let g:airline_symbols.linenr=':'
+  let g:airline_section_z = airline#section#create(['%2p%%', 'linenr', '/%L', ':%3v'])
+  let g:airline_section_warning=''
+  let g:airline_skip_empty_sections = 1
 endfunction
 augroup vim-airline_group
-	autocmd!
-	autocmd User AirlineAfterInit call AirlineInit()
+  autocmd!
+  autocmd User AirlineAfterInit call AirlineInit()
 augroup END
 
 " NOTE: cmake v.s. rainbow
@@ -476,9 +476,9 @@ Plug 'luochen1990/rainbow', {'do': 'git remote add pull-request-KushNee https://
 let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
 " [Emacs のカッコの色を抵抗のカラーコードにしてみる \- Qiita]( https://qiita.com/gnrr/items/8f9efd5ced058e576f5e )
 let g:rainbow_conf = {
-			\	'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
-			\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
-			\}
+      \	'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
+      \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
+      \}
 
 " NOTE: 対応する()をhighlight
 " disable default matchparen plugin
@@ -511,30 +511,30 @@ xmap e:       <Plug>(EasyAlign)*:
 xmap e\|      <Plug>(EasyAlign)*<Bar>
 
 let g:easy_align_delimiters = {
-			\ '>': { 'pattern': '>>\|=>\|>' },
-			\ '\': { 'pattern': '\\' },
-			\ '/': {
-			\     'pattern':         '//\+\|/\*\|\*/',
-			\     'delimiter_align': 'l',
-			\     'ignore_groups':   ['!Comment'] },
-			\ ']': {
-			\     'pattern':       '[[\]]',
-			\     'left_margin':   0,
-			\     'right_margin':  0,
-			\     'stick_to_left': 0
-			\   },
-			\ ')': {
-			\     'pattern':       '[()]',
-			\     'left_margin':   0,
-			\     'right_margin':  0,
-			\     'stick_to_left': 0
-			\   },
-			\ 'd': {
-			\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-			\     'left_margin':  0,
-			\     'right_margin': 0
-			\   }
-			\ }
+      \ '>': { 'pattern': '>>\|=>\|>' },
+      \ '\': { 'pattern': '\\' },
+      \ '/': {
+      \     'pattern':         '//\+\|/\*\|\*/',
+      \     'delimiter_align': 'l',
+      \     'ignore_groups':   ['!Comment'] },
+      \ ']': {
+      \     'pattern':       '[[\]]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ ')': {
+      \     'pattern':       '[()]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ 'd': {
+      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+      \     'left_margin':  0,
+      \     'right_margin': 0
+      \   }
+      \ }
 
 " NOTE: スムーズに画面をスクロール可能
 " NOTE: don't use load lazy
@@ -589,23 +589,23 @@ Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
 Plug 'machakann/vim-swap'
 
 if has('nvim-0.3.8')
-	LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
+  LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
 
-	" FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
-	Plug 'ncm2/float-preview.nvim'
-	let g:float_preview#docked = 1
-	let g:float_preview#auto_close = 0
-	" NOTE: call float_preview#close() to close preview
+  " FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
+  Plug 'ncm2/float-preview.nvim'
+  let g:float_preview#docked = 1
+  let g:float_preview#auto_close = 0
+  " NOTE: call float_preview#close() to close preview
 
-	Plug 'Shougo/deol.nvim'
-	"
-	function! DeolTerminal()
-		" 横幅が大きい分にはエラーにはならず，resize後の挙動も想定通りになる
-		:Deol -split=floating -winheight=25 -winwidth=256
-		" openときのwindow sizeに依存
-		" execute(':Deol -split=floating -winheight=25 -winwidth='.&columns)
-	endfunction
-	command! FloatingTerm :call DeolTerminal()
-	nnoremap <silent><C-x>t :call DeolTerminal()<CR>
+  Plug 'Shougo/deol.nvim'
+  "
+  function! DeolTerminal()
+    " 横幅が大きい分にはエラーにはならず，resize後の挙動も想定通りになる
+    :Deol -split=floating -winheight=25 -winwidth=256
+    " openときのwindow sizeに依存
+    " execute(':Deol -split=floating -winheight=25 -winwidth='.&columns)
+  endfunction
+  command! FloatingTerm :call DeolTerminal()
+  nnoremap <silent><C-x>t :call DeolTerminal()<CR>
 endif
 
