@@ -2639,6 +2639,21 @@ function pipe_exec() {
   $tmpfile "$@"
 }
 
+function tmpguidiropen() {
+  local tmpdir=$(mktemp -d "/tmp/$(basename $0).$$.tmp.XXXXXX")
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") [files or dirs]
+EOF
+    return 1
+  fi
+  for arg in "$@"; do
+    echo "generating $arg link"
+    ln -s "$PWD/$arg" "$tmpdir"
+  done
+  open "$tmpdir"
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
