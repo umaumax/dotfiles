@@ -1,9 +1,14 @@
+let g:multi_cursor_plugin='terryma/vim-multiple-cursors'
+" let g:multi_cursor_plugin='mg979/vim-visual-multi'
+
+LazyPlug g:multi_cursor_plugin
+
+" NOTE: 'terryma/vim-multiple-cursors'
 " <C-N> on word
 " repeat <C-N> or <C-X>:skip, <C-p>:prev
 " c,s: change text
 " I: insert at start of range
 " A: insert at end of range
-LazyPlug 'terryma/vim-multiple-cursors'
 function! Multiple_cursors_before()
   let g:multi_cursor_inputing=1
   " NOTE: vim-smartinput plugin mapping
@@ -13,7 +18,20 @@ function! Multiple_cursors_before()
   let b:i_triggers_mappings = s:Store_mappings(key_mapping_list, 'i', 1)
 
   " NOTE: to prevent strange word '<Plug>_-1'
-  call deoplete#disable()
+  if deoplete#is_enabled()
+    call deoplete#disable()
+    let g:deoplete_is_enable_before_multi_cursors = 1
+  else
+    let g:deoplete_is_enable_before_multi_cursors = 0
+  endif
+
+  if g:ale_enabled
+    :ALEDisable
+    let g:ale_is_enable_before_multi_cursors = 1
+  else
+    let g:ale_is_enable_before_multi_cursors = 0
+  endif
+
   if exists(':NeoCompleteLock')==2
     exe 'NeoCompleteLock'
   endif
@@ -23,10 +41,30 @@ function! Multiple_cursors_after()
   let g:multi_cursor_inputing=0
   call s:Restore_mappings(b:i_triggers_mappings)
 
-  call deoplete#enable()
+  if g:deoplete_is_enable_before_multi_cursors
+    call deoplete#enable()
+  endif
+  if g:ale_is_enable_before_multi_cursors
+    :ALEEnable
+  endif
   if exists(':NeoCompleteUnlock')==2
     exe 'NeoCompleteUnlock'
   endif
+endfunction
+
+" NOTE: 'mg979/vim-visual-multi'
+" maybe faster than upper plugin
+" <C-n> -> n:next / N:pre / q:skip
+" press: i, a
+" WARN: orig keybindのpが意図した動作でない
+" WARN: xでカーソル下:の1文字しか消えない(visualでselectした範囲が消えてほしい)
+" x,s,cの動作がdefault?
+" 行の終わりなどの空間にカーソルが移動した際にはspaceが発生する
+function! VM_Start()
+  call Multiple_cursors_before()
+endfunction
+function! VM_Exit()
+  call Multiple_cursors_after()
 endfunction
 
 " --------------------------------
