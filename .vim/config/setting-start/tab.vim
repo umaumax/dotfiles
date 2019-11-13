@@ -79,7 +79,7 @@ inoremap <silent> <Tab> <C-r>=<SID>Tab()<CR>
 inoremap <silent> <S-Tab> <C-r>=<SID>UnTab()<CR>
 
 " for neosnippet [SELECT] mode
-smap <buffer> <expr><TAB> &rtp =~ 'neosnippet' && neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "sample\<TAB>"
+smap <buffer> <expr><TAB> &rtp =~ 'neosnippet' && neosnippet#jumpable() ? "\<Plug>(neosnippet_jump)" : "\<TAB>"
 " なぜかvisualmodeに入るとインデントが可能
 " 	nmap <buffer> <expr><TAB> neosnippet#jumpable() ? "i\<Plug>(neosnippet_jump)" : "v>>"
 " nmap <buffer> <expr><TAB> "v>>"
