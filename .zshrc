@@ -281,7 +281,7 @@ fi
 
 function expand_home() {
   if [[ $# == 0 ]]; then
-    perl -0pe 's/(^~\/+)|(^~$)/$ENV{HOME}/'
+    perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}/'
   else
     for arg in "$@"; do
       printf '%s\n' "$arg" | expand_home
