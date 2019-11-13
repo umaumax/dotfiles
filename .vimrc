@@ -256,4 +256,7 @@ endif
 " let g:ale_cpp_gcc_options = "-std=c++11 -Wall  -I/usr/local/Cellar/llvm/6.0.0/include"
 
 " ################ playground ######################
+" call plug#begin(g:plug_home)
+" Plug 'xxx/yyy'
+" call plug#end()
 " ################ playground ######################
