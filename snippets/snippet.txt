@@ -1353,3 +1353,9 @@
 # ansi color
 [ansi color awk print] awk '{ printf "\\033[38;2;87;199;255m%s\n",$0; }'
 [ansi color awk match] awk '/.\[38;2;87;199;255m.*/ { printf "%s\n",$0; }'
+
+# pawk
+[pawk install] pip3 install pawk
+[pawk /etc/hosts to json] cat /etc/hosts | pawk -B 'd={}' -E 'json.dumps(d)' '!/^#/ d[f[1]] = f[0]'
+[pawk md to html] cat \%# | pawk -E 'markdown.markdown(t)'
+
