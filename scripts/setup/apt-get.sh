@@ -16,16 +16,16 @@ function dpkg_url() {
   [[ $# -le 0 ]] && echo "$0 <url>" && return 1
   local url="$1"
   local TEMP_DEB="$(mktemp)"
-  wget -O "$TEMP_DEB" "$url" &&
-    sudo dpkg -i "$TEMP_DEB"
+  wget -O "$TEMP_DEB" "$url" \
+    && sudo dpkg -i "$TEMP_DEB"
   rm -f "$TEMP_DEB"
 }
 function gdebi_url() {
   [[ $# -le 0 ]] && echo "$0 <url>" && return 1
   local url="$1"
   local TEMP_DEB="$(mktemp)"
-  wget -O "$TEMP_DEB" "$url" &&
-    sudo gdebi --non-interactive "$TEMP_DEB"
+  wget -O "$TEMP_DEB" "$url" \
+    && sudo gdebi --non-interactive "$TEMP_DEB"
   rm -f "$TEMP_DEB"
 }
 
