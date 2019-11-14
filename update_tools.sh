@@ -72,6 +72,11 @@ if [[ "$(uname -a)" =~ Ubuntu ]]; then
   git wget https://github.com/umaumax/window-toggle/blob/master/wintoggle
 fi
 
+# only for Mac OS X
+if [[ $(uname) == "Darwin" ]]; then
+  git wget https://github.com/Rasukarusan/fzf-chrome-active-tab/blob/master/chrome-tab-activate
+fi
+
 git wget https://github.com/umaumax/git-wget/blob/master/_git_wget -O "$zsh_completion_dirpath/"
 
 # ----
