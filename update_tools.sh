@@ -75,6 +75,7 @@ fi
 # only for Mac OS X
 if [[ $(uname) == "Darwin" ]]; then
   git wget https://github.com/Rasukarusan/fzf-chrome-active-tab/blob/master/chrome-tab-activate
+  git wget https://github.com/umaumax/fzf-chrome-history/blob/master/chromeHistory.sh
 fi
 
 git wget https://github.com/umaumax/git-wget/blob/master/_git_wget -O "$zsh_completion_dirpath/"
