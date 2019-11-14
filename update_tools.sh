@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 ! type git-wget >/dev/null 2>&1 && echo "Please install 'https://github.com/umaumax/git-wget'" && exit 1
 
-# init setup
-mkdir -p ~/local/bin
-cd ~/local/bin
+echo "[LOG] init setup"
+
+LOCAL_BIN_PATH="${LOCAL_BIN_PATH:-$HOME/local/bin}"
+mkdir -p "$LOCAL_BIN_PATH"
+cd "$LOCAL_BIN_PATH"
 
 set -ex
 export GIT_WGET_TMP_DIR=~/.config/git-wget/
 
 zsh_completion_dirpath="$HOME/local/share/zsh/site-functions/"
 mkdir -p "$zsh_completion_dirpath"
+
+# ====
+
+echo "[LOG] start download"
 
 git wget https://github.com/umaumax/wgit/blob/master/wgit
 git wget https://github.com/umaumax/oressh/blob/master/oressh
@@ -67,5 +73,8 @@ if [[ "$(uname -a)" =~ Ubuntu ]]; then
 fi
 
 git wget https://github.com/umaumax/git-wget/blob/master/_git_wget -O "$zsh_completion_dirpath/"
-# NOTE: update itself (run at the end)
+
+# ----
+
+echo "[LOG] update git wget command ifself"
 git wget https://github.com/umaumax/git-wget/blob/master/git-wget
