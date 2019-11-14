@@ -87,6 +87,9 @@ brew install lolcat
 
 brew install parallel
 
+# for perl
+brew install cpanminus
+
 # for dump struct
 # NOTE: this requires brew cask install adoptopenjdk
 # brew install kaitai-struct-compiler

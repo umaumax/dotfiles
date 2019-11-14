@@ -1,0 +1,29 @@
+; comment out: because use `$var` not `my $var`
+; script_line1 = use strict
+; script_line2 = use warnings
+
+[Colors]
+[DataDumper]
+[FancyPrompt]
+[Hints]
+[Interrupt]
+[LexicalPersistence]
+[LoadClass]
+[Packages]
+[ResultCache]
+
+; how to install: cpanm install Term::ReadLine::Gnu
+[ReadLine]
+history_file = '.reply_history'
+history_length = 100000
+
+[Autocomplete::Commands]
+[Autocomplete::Functions]
+[Autocomplete::Globals]
+[Autocomplete::Lexicals]
+[Autocomplete::Methods]
+[Autocomplete::Packages]
+; how to install: cpanm install B::Keywords
+; how to install: cpanm install Reply::Plugin::Autocomplete::Keywords
+; how to use: type tab after `prin`
+[Autocomplete::Keywords]

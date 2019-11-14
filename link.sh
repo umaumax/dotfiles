@@ -23,6 +23,7 @@ dotfiles=(
   .gdbinit
   .gdb-dashboard
   .wgit
+  .replyrc
 )
 for filepath in "${dotfiles[@]}"; do
   ln -sf ~/dotfiles/"$filepath" ~/

@@ -215,6 +215,9 @@ sudo apt-get install -y valgrind
 
 sudo apt-get install -y libsixel-bin
 
+# for perl
+sudo apt-get install -y cpanminus
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------

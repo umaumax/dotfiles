@@ -173,6 +173,21 @@ if cmdcheck pyenv; then
   # 	eval "$(pyenv virtualenv-init -)"
 fi
 
+# perl
+if cmdcheck cpanm; then
+  # NOTE: setting
+  # cpanm install Reply
+  # NOTE: perl repl
+  # reply
+  if [[ $(uname) == "Darwin" ]]; then
+    append_path /usr/local/Cellar/perl/5.30.0/bin
+  else
+    export PERL_CPANM_OPT="--local-lib=$HOME/.cpanm"
+    export PATH="$HOME/.cpanm/bin:$PATH"
+    export PERL5LIB="$HOME/.cpanm/lib/perl5:$PERL5LIB"
+  fi
+fi
+
 # NOTE: slow
 # cmdcheck python3 && python3 -m site &>/dev/null && PATH="$PATH:$(python3 -m site --user-base)/bin"
 # cmdcheck python2 && python2 -m site &>/dev/null && PATH="$PATH:$(python2 -m site --user-base)/bin"
