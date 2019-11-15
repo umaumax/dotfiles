@@ -12,6 +12,7 @@
 [Packages]
 [ResultCache]
 
+; for darwin (ubuntu is no problem without install below package)
 ; how to install: cpanm install Term::ReadLine::Gnu
 [ReadLine]
 history_file = '.reply_history'
