@@ -35,6 +35,11 @@ source ~/.zshrc
 ~/dotfiles/scripts/setup/npm.sh
 ~/dotfiles/scripts/setup/go.sh
 
+# ~/dotfiles/scripts/setup/cpanm.sh
+# ~/dotfiles/scripts/setup/cargo.sh
+# ~/dotfiles/scripts/setup/gem.sh
+# ~/dotfiles/scripts/setup/linuxbrew.sh
+
 # ~/dotfiles/scripts/setup/ros.sh
 # ~/dotfiles/scripts/setup/apt-get-virtualbox.sh
 
