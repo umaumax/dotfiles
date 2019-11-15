@@ -248,6 +248,7 @@
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
 [git current branch name] git rev-parse --abbrev-ref HEAD
+[git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
 
 [git find file] git ls-files "*\%#"
@@ -1027,6 +1028,8 @@
 
 [shutdown] sudo shutdown -h now
 
+# ninja
+[ninja parallel build] ninija -j\%#
 [ninja build] ninja
 [ninja clean] ninja -t clean
 [ninja build.ninja file] touch build.ninja
@@ -1359,3 +1362,5 @@
 [pawk /etc/hosts to json] cat /etc/hosts | pawk -B 'd={}' -E 'json.dumps(d)' '!/^#/ d[f[1]] = f[0]'
 [pawk md to html] cat \%# | pawk -E 'markdown.markdown(t)'
 
+# bc
+[bc flaot calc] echo "scale=6; \%#" | bc | sed -e 's/^./0./' -e 's/^-./-0./'
