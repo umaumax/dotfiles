@@ -1076,33 +1076,35 @@ alias pwd='pwd | homedir_normalization'
 
 # [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath_raw() {
-  local target=${1:-.}
-  if [[ $(uname) == "Darwin" ]]; then
-    # local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
-    # local ret=$(echo ${abspathdir%/}/$(basename $target))
-    # [[ -f $ret || -d $ret ]] && echo $ret
-    if [[ $target =~ ^/.* ]]; then
-      printf '%s' "$target"
-    else
-      printf '%s' "$PWD/${target#./}"
-    fi
-  else
-    readlink -f $target
-  fi
+  perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } }' "$@"
 }
+# function abspath_raw() {
+# local target=${1:-.}
+# if [[ $(uname) == "Darwin" ]]; then
+# # local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
+# # local ret=$(echo ${abspathdir%/}/$(basename $target))
+# # [[ -f $ret || -d $ret ]] && echo $ret
+# if [[ $target =~ ^/.* ]]; then
+# printf '%s' "$target"
+# else
+# printf '%s' "$PWD/${target#./}"
+# fi
+# else
+# readlink -f $target
+# fi
+# }
 function abspath() {
   abspath_raw $(printf '%s' "$1" | expand_home) | homedir_normalization
 }
 
-# `$`付きコマンドでも実行可能に(bashではinvalid)
+# accept command starts with `$` (but `$` is invalid alias name at bash)
 [[ $ZSH_NAME == zsh ]] && alias \$=''
 # ignore command which starts with `#`
-# alias \#='echo "skip comment: "'
 alias \#=':'
 
 # brew install source-highlight
 cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
-# ubuntu
+# at ubuntu
 [[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
 # for colordiff
