@@ -252,7 +252,7 @@ fi
 # NOTE: for test only
 function _bindkey_test() {
 }
-bindkey '^O' _bindkey_test && zle -N _bindkey_test
+# bindkey '' _bindkey_test && zle -N _bindkey_test
 
 function _vicmd_insert_strs() {
   CURSOR=$((CURSOR + 1))
@@ -306,10 +306,15 @@ bindkey '^M' _accept_line && zle -N _accept_line && function _accept_line() {
     LBUFFER_="${BUFFER%$|*}"
     BUFFER_="${LBUFFER_}""$(printf '%s' "$ret" | tr '\n' ' ')"
   fi
+  refresh "$BUFFER_"
+}
+
+function refresh() {
+  local new_buffer="${1:-$BUFFER}"
   zle kill-buffer
   zle kill-whole-line
   zle accept-line
-  print -z "$BUFFER_"
+  print -z "$new_buffer"
   zle end-of-buffer-or-history
 }
 
@@ -366,7 +371,7 @@ bindkey "^X^ " _change_no_history_log
 
 function _insert_sudo() { _add_prefix_to_line 'sudo '; }
 zle -N _insert_sudo
-bindkey "^S" _insert_sudo
+# bindkey "^S" _insert_sudo
 
 # function _insert_git() { _add_prefix_to_line 'git '; }
 # zle -N _insert_git
@@ -384,11 +389,14 @@ bindkey "^X^R" fzf-history-widget
 function _pecoole() { pecoole; }
 zle -N _pecoole
 bindkey "^X^G" _pecoole
+bindkey "^XG" _pecoole
 
 # F:fix
 bindkey '^X^F' edit-command-line
+bindkey '^XF' edit-command-line
 # L:line
 bindkey '^X^L' edit-command-line
+bindkey '^XL' edit-command-line
 # NOTE: edit clipboard
 # function _cedit() { cedit; }
 # zle -N _cedit
