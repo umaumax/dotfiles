@@ -56,6 +56,7 @@ abbrev-alias -g sduo='sudo '
 abbrev-alias -g sl='ls '
 abbrev-alias -g chekcout='checkout '
 abbrev-alias -g staus='status '
+abbrev-alias -g @wd='pwd'
 
 abbrev-alias -f BRANCH="git symbolic-ref --short HEAD"
 abbrev-alias -f BASEDIR='basename $PWD'
