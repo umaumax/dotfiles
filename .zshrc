@@ -1170,7 +1170,9 @@ alias urldecode='nkf -w --url-input'
 # [シェルスクリプトでシンプルにurlエンコードする話 \- Qiita]( https://qiita.com/ik-fib/items/cc983ca34600c2d633d5 )
 # alias urlencode="nkf -WwMQ | tr '=' '%'"
 function urlencode() {
-  echo "$1" | nkf -WwMQ | sed 's/=$//g' | tr = % | tr -d '\n'
+  for arg in "$@"; do
+    printf '%s\n' "$arg" | nkf -WwMQ | sed 's/=$//g' | tr '=' '%'
+  done
 }
 function htmldecode() {
   php -r 'while(($line=fgets(STDIN)) !== FALSE) echo html_entity_decode($line, ENT_QUOTES|ENT_HTML401);'
