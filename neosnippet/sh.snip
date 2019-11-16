@@ -3,17 +3,17 @@ snippet funcname
 
 snippet readline
 	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-	${2:cat} | while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
+	 while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
 		${0}
-	done
+	done < <(${2:cat})
 snippet readlines
 	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-	${2:cat} | while true; do
+	while true; do
 		IFS= read -r ${1:line}_1
 		IFS= read -r $1_2
 		if [[ -z "$$1_1" ]] || [[ -z "$$1_2" ]]; then break; fi
 		${0}
-	done
+	done < <(${2:cat})
 snippet read
 	IFS= read -r ${1:#:var}${0}
 
@@ -157,7 +157,7 @@ snippet for_args
 	done
 
 snippet for_pwd
-	dirpath=$PWD && while :; do
+	dirpath=$PWD; while :; do
 		echo $dirpath
 		[[ "$dirpath" == "/" ]] && break || dirpath="$(dirname $dirpath)"
 	done
