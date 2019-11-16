@@ -351,7 +351,8 @@
 [ol abspath] python2 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print x' \%#
 [ol abspath] python3 -c 'import os; import sys; x=os.path.abspath(sys.argv[1]); print(x)' \%#
 # FYI: [zsh \- Portable way to get script's absolute path? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/76505/portable-way-to-get-scripts-absolute-path )
-[ol abspath] perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } else { warn "abs_path: $_: $!\n"; $ret = 1;}} exit $ret' \%#
+[ol abspath] perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } }' \%#
+[ol abspath(pipe)] perl -MCwd -ne 'if ($p = Cwd::abs_path $_) { print $p; }'
 [ol shuffle lines] perl -MList::Util=shuffle -e 'print shuffle(<>)'
 [ol median perl] perl -e'@lines = sort {$a <=> $b} <>; print $lines[int($#lines/2)]'
 [ol median awk] sort | awk '{v[i++]=$1;}END {x=int((i+1)/2); if(x<(i+1)/2) print (v[x-1]+v[x])/2; else print v[x-1];}'
@@ -1269,6 +1270,7 @@
 # FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
 [ar archive archives(libtool)] libtool -static -o $NEW.a\%# # archives... WARN: order of .o load order is important
 [ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a\%# *.o # non-safe use tmp dir WARN: order of .o load order is important
+[ar extract] ar x \%#
 
 # FYI: [macOS Mojave の WiFi をコマンドからオン・オフする \- Qiita]( https://qiita.com/KEINOS/items/21c9ca07664a641620eb )
 [wi-fi mac on] networksetup -setairportpower en0 on
@@ -1317,6 +1319,7 @@
 [csv2markdown] cat \%# | tty-table # npm install -g tty-table
 [csv2markdown] csvtomd \%# # pip3 install csvtomd
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
+[csvq sql num sort] NUM=\%# ; CLASS= ; csvq "select $CLASS, COUNT(*) AS $NUM GROUP BY $CLASS HAVING COUNT(*) > 1 ORDER BY $NUM DESC"
 
 # yum
 [yum whatprovides (search so dependency)] yum whatprovides \%#
