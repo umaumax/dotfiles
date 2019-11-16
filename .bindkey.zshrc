@@ -373,6 +373,76 @@ function _insert_sudo() { _add_prefix_to_line 'sudo '; }
 zle -N _insert_sudo
 # bindkey "^S" _insert_sudo
 
+# benefix command by context
+function _context_based_util() {
+  function _help() {
+    command cat <<EOF
+
+---- context base util key bind help ----
+    e.g.
+      press <C-s> after below cursor
+      a|A : fzf file/directory search
+      b|B : choose branch
+      c|C : choose commit
+      f|F : fzf file search
+      d|D : fzf directory search
+      h|H : help
+EOF
+  }
+  local output
+  case "${LBUFFER[-1]}" in
+    [aA])
+      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        output=$({
+          git ls-files $(git rev-parse --show-toplevel)
+          git ls-files $(git rev-parse --show-toplevel) | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | awk '!a[$0]++'
+        } | sort | fzf --multi | tr '\n' ' ')
+      else
+        output=$(find . | fzf --multi | tr '\n' ' ')
+      fi
+      ;;
+    [bB])
+      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        output=$(git-branch-peco)
+      else
+        :
+      fi
+      ;;
+    [cC])
+      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        output=$(commits)
+      else
+        :
+      fi
+      ;;
+    [fF])
+      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        output=$(git ls-files $(git rev-parse --show-toplevel) | fzf --multi | tr '\n' ' ')
+      else
+        output=$(find . -type f | fzf --multi | tr '\n' ' ')
+      fi
+      ;;
+    [dD])
+      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        output=$(git ls-files $(git rev-parse --show-toplevel) | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | awk '!a[$0]++' | fzf --multi | tr '\n' ' ')
+      else
+        output=$(find . -type d | fzf --multi | tr '\n' ' ')
+      fi
+      ;;
+    *) _help ;;
+  esac
+  if [[ -n "$output" ]]; then
+    zle backward-delete-char
+    _insert_strs "$output"
+  else
+    refresh
+  fi
+}
+zle -N _context_based_util
+bindkey "^S" _context_based_util
+bindkey "^U" _context_based_util
+bindkey "^O" _context_based_util
+
 # function _insert_git() { _add_prefix_to_line 'git '; }
 # zle -N _insert_git
 # bindkey "^G" _insert_git
