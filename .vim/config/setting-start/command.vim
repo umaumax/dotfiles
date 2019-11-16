@@ -349,3 +349,6 @@ if Doctor('code', 'vscode')
 	command! VSCodeOpen call s:vscode_open([expand('%')])
 	command! VSCodeOpenAll call  s:vscode_open(s:get_active_buffers())
 endif
+
+" NOTE: echo value to new tab
+command! -nargs=+ -bar -complete=expression Echo :execute "normal! \<ESC>" | redir @z | silent! echo <args> | redir END | tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=log
