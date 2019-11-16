@@ -155,9 +155,12 @@ alias fvim='find . -type f | pecovim'
 alias gmvim='git status -s | cut -c4- | pecovim'
 alias ftvim='pvft'
 alias peco-functions='local zzz(){ local f=`command cat`; functions $f } && print -l ${(ok)functions} | peco | zzz'
-alias peco-dirs='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
-alias dirspeco='cd `dirs -lv | peco | sed -r "s/[0-9]+\s*//g"`/.'
 alias peco-kill='local xxx(){ pgrep -lf $1 | peco | cut -d" " -f1 | xargs kill -KILL } && xxx'
+function dirspeco() {
+  local output
+  output=$(dirs -lv | peco | sed -r "s/[0-9]+\s*//g")
+  [[ -n $output ]] && cd "$output"
+}
 # FYI: [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 function rvim() {
   local n=${1:-}
