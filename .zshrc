@@ -474,6 +474,9 @@ function crontab() {
   command crontab "$@"
 }
 
+# NOTE: for disable copyright output
+cmdcheck gdb && alias gdb='gdb -q'
+
 ################
 ####  Mac   ####
 ################

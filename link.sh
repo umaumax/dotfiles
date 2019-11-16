@@ -21,7 +21,6 @@ dotfiles=(
   .textlintrc
   .inputrc
   .gdbinit
-  .gdb-dashboard
   .wgit
   .replyrc
 )
