@@ -1,3 +1,12 @@
+#### overwrite default settings ###
+
+snippet if
+	if [[ ${1:#:condition} ]]; then
+		${0:TARGET}
+	fi
+
+#### oreore settings ####
+
 snippet funcname
 	`cfi#get_func_name()`${0}
 
