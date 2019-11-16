@@ -476,3 +476,15 @@ command FZFAnsiColorHeader :call FZF_ansi_color()
 " NOTE: for :FZFxxx
 " NOTE: type ff and xxx and tab
 " cnoremap ff fzf
+
+if Doctor('wcat', 'enhanced Lines of fzf#vim#lines')
+	" NOTE: enhanced Lines of fzf#vim#lines
+	command! -bang -nargs=* Lines
+				\ call fzf#vim#lines(
+				\   <q-args>,
+				\   {
+				\     'options': '--multi --reverse '."--query=\"'\""." --preview \"WCAT_RANGE_TERMINAL_RATIO=50 wcat \\$(echo {} | awk -F'\t' '{ print \\$2\\\":\\\"int(\\$3)\\\":13\\\" }')\" --preview-window 'down:50%'",
+				\     'down': '100%'
+				\   },
+				\   <bang>0)
+endif
