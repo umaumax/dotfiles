@@ -147,6 +147,7 @@ function hpeco() {
 function hpecopy() {
   hpeco | tr -d '\n' | c
 }
+alias dpeco='find . -type d | peco'
 alias fpeco='find . -type f | peco'
 alias fpecovim='find . -type f | pecovim'
 alias fvim='find . -type f | pecovim'
