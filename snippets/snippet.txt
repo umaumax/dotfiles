@@ -253,6 +253,8 @@
 
 [git find file] git ls-files "*\%#"
 
+[git ls dirs] git ls-files | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | awk '!a[$0]++'
+
 [git clone only HEAD] git clone --depth 1 $URL
 
 [git abspath to git relative path] git ls-files --full-name \%#
