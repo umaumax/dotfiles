@@ -79,6 +79,9 @@ pip3 install webdiff
 pip3 install git-playback
 pip3 install grip
 
+# for python like awk
+pip3 install pawk
+
 # NOTE: --user is used to avoid below message
 # Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: 'etree.py'
 # Consider using the `--user` option or check the permissions.
