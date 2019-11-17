@@ -116,10 +116,10 @@ LazyPlug 'LeafCage/cheapcmd.vim'
 " cmap <S-Tab> <Plug>CmdlineCompleteBackward
 " cmap <Tab> <Plug>CmdlineCompleteForward
 
-Plug 'vim-scripts/SearchComplete'
+" Plug 'vim-scripts/SearchComplete'
 " cnoremap <Tab> <C-C>:call SearchComplete()<CR>/<C-R>s
 
-Plug 'vim-scripts/sherlock.vim'
+LazyPlug 'vim-scripts/sherlock.vim'
 " NOTE:
 " 補完のpopupが出現するのではなく，入力場所にそのまま出現する
 " /\Vの後には対応していない
