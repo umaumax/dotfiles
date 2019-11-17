@@ -380,7 +380,7 @@ function _context_based_util() {
 
 ---- context base util key bind help ----
     e.g.
-      press <C-s> after below cursor
+      press <C-o> after below cursor
       a|A : fzf file/directory search
       b|B : choose branch
       c|C : choose commit
@@ -439,9 +439,10 @@ EOF
   fi
 }
 zle -N _context_based_util
-bindkey "^S" _context_based_util
-bindkey "^U" _context_based_util
 bindkey "^O" _context_based_util
+
+# NOTE: delete RBUFFER
+bindkey "^S" kill-line
 
 # function _insert_git() { _add_prefix_to_line 'git '; }
 # zle -N _insert_git
