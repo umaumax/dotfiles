@@ -86,6 +86,7 @@ brew install progress
 brew install lolcat
 
 brew install parallel
+brew install socat
 
 # for perl
 brew install cpanminus
