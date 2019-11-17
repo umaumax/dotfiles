@@ -479,11 +479,17 @@ command FZFAnsiColorHeader :call FZF_ansi_color()
 
 if Doctor('wcat', 'enhanced Lines of fzf#vim#lines')
 	" NOTE: enhanced Lines of fzf#vim#lines
+	let this_filepath=shellescape(expand('%'))
+	" NOTE: remove \\$2 because fzf#vim#lines doesn't print full filename
+	" at narrow vim window
+	" e.g. 1. no filepath, 2. omitted filepath
+	" -> use buffer num at \\$1
+	let preview_cmd="TARGET=".this_filepath." && WCAT_RANGE_TERMINAL_RATIO=50 [ -f \\\"\\$TARGET\\\" ] && wcat \\\"\\$TARGET\\\"\\$(echo {} | awk -F'\t' '{ print \\\":\\\"int(\\$3)\\\":13\\\" }')"
 	command! -bang -nargs=* Lines
 				\ call fzf#vim#lines(
 				\   <q-args>,
 				\   {
-				\     'options': '--multi --reverse '."--query=\"'\""." --preview \"WCAT_RANGE_TERMINAL_RATIO=50 wcat \\$(echo {} | awk -F'\t' '{ print \\$2\\\":\\\"int(\\$3)\\\":13\\\" }')\" --preview-window 'down:50%'",
+				\     'options': '--multi --reverse '."--query=\"'\""." --preview \"".preview_cmd."\" --preview-window 'down:50%'",
 				\     'down': '100%'
 				\   },
 				\   <bang>0)
