@@ -105,14 +105,41 @@ Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
 " コマンドライン補完を拡張し、ユーザ定義コマンドの短縮名を展開
 " 置換中はエラーとなり，あくまでコマンド名の入力中のみ
 LazyPlug 'LeafCage/cheapcmd.vim'
-"for cmdline
-cmap <Tab> <Plug>(cheapcmd-expand)
 
-function! s:backword_delete_word()
+" FYI: [autocompletion in command line/search \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/11974/autocompletion-in-command-line-search )
+" [Autocomplete search word in vim \- Stack Overflow]( https://stackoverflow.com/questions/32068958/autocomplete-search-word-in-vim )
+" Plug 'ervandew/supertab'
+" let g:SuperTabContextDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" Plug 'vim-scripts/CmdlineComplete'
+" cmap <S-Tab> <Plug>CmdlineCompleteBackward
+" cmap <Tab> <Plug>CmdlineCompleteForward
+
+Plug 'vim-scripts/SearchComplete'
+" cnoremap <Tab> <C-C>:call SearchComplete()<CR>/<C-R>s
+
+Plug 'vim-scripts/sherlock.vim'
+" NOTE:
+" 補完のpopupが出現するのではなく，入力場所にそのまま出現する
+" /\Vの後には対応していない
+" <C-\>esherlock#completeBackward()<CR>
+cmap <expr> <Tab> getcmdtype() != ':' ? "\<C-\>esherlock#completeForward()\<CR>" : "<Plug>(cheapcmd-expand)"
+
+" cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+" cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+
+function! Backword_delete_word()
   let cmd = getcmdline()
-  return substitute(cmd, '.[^ (),.:"'."'".']*$', '', '')
+  return substitute(cmd, '\([^#\-+ (),.:"'."'".']*\( \)*\|.\)$', '', '')
 endfunction
-cnoremap <S-Tab> <C-\>e<SID>backword_delete_word()<CR>
+function! s:un_tab()
+  if pumvisible()
+    return "\<C-p>"
+  endif
+  return "\<C-\>eBackword_delete_word()\<CR>"
+endfunction
+cnoremap <expr> <S-Tab> <SID>un_tab()
 
 "for cmdwin
 aug cheapcmd-cmdwin
