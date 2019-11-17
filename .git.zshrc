@@ -911,6 +911,47 @@ function git-stash-staged-as-patch() {
   git status
 }
 
+if cmdcheck jq; then
+  function git-get-all-page() {
+    if [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+  $(basename "$0") base_query [start_page] [n]
+    e.g. "https://api.github.com/users/\$git_user/repos"
+EOF
+      return 1
+    fi
+    local base_query=${1}
+    local start_page=${2:-1}
+    local n=${3:-9999}
+    if printf '%s' "$query" | grep -q '?'; then
+      base_query="${base_query}&per_page=100"
+    else
+      base_query="${base_query}?per_page=100"
+    fi
+    for ((i = 0; i < n; i++)); do
+      local page=$((start_page + i))
+      local query="${base_query}&page=$page"
+      local output
+      echo 1>&2 "[log] curl $query"
+      output=$(curl "$query")
+      if [[ $? != 0 ]] || [[ -z $output ]] || [[ $(printf '%s\n' "$output" | jq length) == 0 ]]; then
+        break
+      fi
+      printf '%s\n' "$output"
+    done
+  }
+
+  function git-get-repo-names() {
+    if [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+  $(basename "$0") user
+EOF
+    fi
+    local git_user=$1
+    git-get-all-page "https://api.github.com/users/$git_user/repos" | jq -r '.[].name'
+  }
+fi
+
 if cmdcheck grip; then
   function git-preview() {
     grip "$@"
