@@ -1370,3 +1370,6 @@
 
 # bc
 [bc flaot calc] echo "scale=6; \%#" | bc | sed -e 's/^./0./' -e 's/^-./-0./'
+
+# process substitution
+[tee output process substitution] tee >(\%#)
