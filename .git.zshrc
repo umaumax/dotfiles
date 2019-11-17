@@ -306,6 +306,7 @@ function git-status-check() {
 function git-history-filter() {
   grep -v -e '/\.' -e 'go/3rd' -e '/dep/'
 }
+# NOTE: 過去にcdしたdirectoryをsortした後に順番にアクセスし，git statusを行う
 function git-history() {
   # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
   cdinfo | sort | git-history-filter | while IFS= read -r line || [[ -n "$line" ]]; do
@@ -705,7 +706,9 @@ function git-find-rename() {
   local rename_pattern="$1"
   shift
   {
+    # NOTE: only file
     git ls-files "$@"
+    # NOTE: only dir
     git ls-files "$@" | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq
   } | FIND_RENAME_GIT_MV_CMD=1 find-rename-pipe "$rename_pattern"
 }
