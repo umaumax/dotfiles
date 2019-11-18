@@ -62,13 +62,9 @@ def run(options, input):
         line = l.strip()
         f = re.split(options.delim, line)
         nf = len(f)
-
-        #### line block ####
-        if filter(r'^#(?P<comment>.*)'):
-            pass
-        if not filter(r'^#'):
-            pass
-        #### line block ####
+        # WARN: tricy way to allow to access index out of range
+        f_max = 99
+        f += [""] * (f_max - len(f) if len(f) < f_max else 0)
 
         if options.verbose:
             print("line:", line, file=sys.stderr)
@@ -78,6 +74,13 @@ def run(options, input):
             print("nf:", nf, file=sys.stderr)
             print("m:", m, file=sys.stderr)
             print("d:", d, file=sys.stderr)
+
+        #### line block ####
+        if filter(r'^#(?P<comment>.*)'):
+            pass
+        if not filter(r'^#'):
+            pass
+        #### line block ####
 
     #### end block ####
 
