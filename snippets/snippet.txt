@@ -811,7 +811,7 @@
 [rosclean] rosclean check
 [rosclean] rosclean purge
 # FYI: [ROS 複数台での通信時の問題点：clientからmasterへと情報送信できない \- Qiita]( https://qiita.com/ossyaritoori/items/b2336451583ce40d1b9a )
-[ros set rosmaster on slave] pkill rosmaster; pkill roscore; export ROS_HOSTNAME=$SLAVE_IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
+[ros set rosmaster on slave] pkill rosmaster; pkill roscore; export export ROS_IP=$SLAVE_IP_ADDRESS\%# && export ROS_HOSTNAME=$ROS_IP && && export ROS_MASTER_URI=http://$ROS_MASTER_HOSTNAME:11311/ # ROS_HOSTNAME is high priority over ROS_IP
 # NOTE: default ROS_MASTER_URI is localhost (which has IP restriction)
 [ros publish rosmaster on master] pkill rosmaster; export ROS_HOSTNAME=$IP_ADDRESS\%# && export ROS_MASTER_URI=http://$ROS_HOSTNAME:11311/; roscore # ROS_HOSTNAME is high priority over ROS_IP
 
@@ -1008,6 +1008,7 @@
 [mac base64 decode] base64 -D \%#
 [ubuntu base64 encode] base64 -w 0 \%#
 [ubuntu base64 decode] base64 -d \%#
+[common base64 decode] { [[ $(uname) == "Darwin" ]] && base64 || base64 -w; } \%#
 [python base64 encode] python -c "import base64; import sys; x = base64.b64encode(sys.stdin.read() if sys.version_info[0] < 3 else sys.stdin.buffer.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 [python base64 decode] python -c "import base64; import sys; x = base64.b64decode(sys.stdin.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 
@@ -1373,3 +1374,6 @@
 
 # process substitution
 [tee output process substitution] tee >(\%#)
+
+# ntp
+[ubuntu set time force (tmp ntp)] sudo date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
