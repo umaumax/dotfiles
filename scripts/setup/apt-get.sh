@@ -212,6 +212,7 @@ sudo apt-get install -y plantuml
 
 sudo apt-get install -y lcov
 sudo apt-get install -y valgrind
+sudo apt-get install -y socat
 
 sudo apt-get install -y libsixel-bin
 
