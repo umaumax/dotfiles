@@ -1008,7 +1008,8 @@
 [mac base64 decode] base64 -D \%#
 [ubuntu base64 encode] base64 -w 0 \%#
 [ubuntu base64 decode] base64 -d \%#
-[common base64 decode] { [[ $(uname) == "Darwin" ]] && base64 || base64 -w; } \%#
+[common base64 encode] { [[ $(uname) == "Darwin" ]] && base64 || base64 -w; } \%#
+[common base64 decode] { [[ $(uname) == "Darwin" ]] && base64 -D || base64 -d; } \%#
 [python base64 encode] python -c "import base64; import sys; x = base64.b64encode(sys.stdin.read() if sys.version_info[0] < 3 else sys.stdin.buffer.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 [python base64 decode] python -c "import base64; import sys; x = base64.b64decode(sys.stdin.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 
@@ -1377,3 +1378,6 @@
 
 # ntp
 [ubuntu set time force (tmp ntp)] sudo date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
+
+[print0] tr '\n' '\0'
+[print0] perl -pl0e1

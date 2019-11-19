@@ -26,6 +26,13 @@ snippet echo_var
 alias info_var
 	$(info [DEBUG] $$${1:#:var} is [${$1}])${0}
 
+snippet echo_warning
+alias warn, debug
+	$(warn ${0})
+snippet echo_var_warning
+alias warn_var, debug_var
+	$(warn [DEBUG] $$${1:#:var} is [${$1}])${0}
+
 # FYI: [GNU make での条件コンパイル \- IKB: 雑記帖]( http://d.hatena.ne.jp/i_k_b/20120302/1330704183 )
 snippet if_grep
 	ifneq ($(filter ${1:#:keyword}, $(${2:#:var})),)

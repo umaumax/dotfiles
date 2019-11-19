@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import os
 import re
 import sys
 
@@ -59,7 +60,7 @@ def run(options, input):
             break
         t += l
         n += 1
-        line = l.strip()
+        line = l.rstrip(os.linesep)
         f = re.split(options.delim, line)
         nf = len(f)
         # WARN: tricy way to allow to access index out of range
