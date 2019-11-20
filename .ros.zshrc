@@ -1,7 +1,72 @@
 #!/usr/bin/env zsh
-# ros
+
+if ! [[ -f /opt/ros/kinetic/setup.zsh ]]; then
+  return
+fi
+
 # auto source
-[[ -f /opt/ros/kinetic/setup.zsh ]] && source /opt/ros/kinetic/setup.zsh
+source /opt/ros/kinetic/setup.zsh
+
+function tmp_force_pyenv_system_shell_start() {
+  if type >/dev/null 2>&1 pyenv; then
+    # NOTE: ubuntu16.04 default python version is 2.7.12
+    TMP_PYENV_SHELL=${TMP_PYENV_SHELL:-system}
+    pyenv shell $TMP_PYENV_SHELL
+  fi
+}
+
+function tmp_force_pyenv_system_shell_end() {
+  if type >/dev/null 2>&1 pyenv; then
+    pyenv shell --unset
+  fi
+}
+
+ros_cmds=(
+  rosbag
+  roscd
+  rosclean
+  roscore
+  rosdep
+  rosed
+  roscreate-pkg
+  roscreate-stack
+  rosrun
+  roslaunch
+  roslocate
+  rosmake
+  rosmsg
+  rosnode
+  rospack
+  rosparam
+  rossrv
+  rosservice
+  rosstack
+  rostopic
+  rosversion
+  rxbag
+  rxdeps
+  rxgraph
+  rxplot
+  gendeps
+  rqt
+  rqt_bag
+  rviz
+  catkin_make
+  catkin_create_pkg
+
+)
+
+for ros_cmd in "${ros_cmds[@]}"; do
+  type >/dev/null 2>&1 $ros_cmd && alias $ros_cmd="$(
+    cat <<EOF | tr '\n' ' '
+  () {
+    tmp_force_pyenv_system_shell_start;
+    command $ros_cmd "\$@";
+    tmp_force_pyenv_system_shell_end;
+  }
+EOF
+  )"
+done
 
 # for catkin_make shortcut (auto catkin work dir detection)
 alias ctm='catkin_make'
@@ -122,8 +187,8 @@ if cmdcheck peco; then
       (
         echo "workspace_root $ros_ws_root"
         rospack list
-      ) |
-        grep $ros_ws_root | awk '{printf "%-40s:%s\n", $1, $2}' | peco | awk '{print $1}'
+      ) \
+        | grep $ros_ws_root | awk '{printf "%-40s:%s\n", $1, $2}' | peco | awk '{print $1}'
     )
     [[ -n $ret ]] && roscd $ret
   }
