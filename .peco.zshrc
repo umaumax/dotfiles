@@ -72,7 +72,8 @@ function fccat() {
 function pecocat() {
   local query=$(printf '%s' "${1:-}" | clear_path)
   # NOTE: extract ~ to $HOME
-  expand_home | {
+  # NOTE: for grep -A or -B, -C options -line number-
+  expand_home | sed -E -e 's/-((\x1b\[[0-9;]*[mK])+[0-9]+(\x1b\[[0-9;]*[mK])+)-/:\1:/' -e 's/(^[^:]+)-([0-9]+)-/\1:\2:/' | {
     if cmdcheck fzf; then
       local ls_force_color='ls --color=always -alh'
       [[ $(uname) == "Darwin" ]] && local ls_force_color='CLICOLOR_FORCE=1 ls -G -alh'
@@ -96,6 +97,12 @@ function pecocat() {
       peco
     fi
   } | sed -E -e 's/:([0-9]+):.*$/:\1/g' -e 's/ +:.*$//g'
+}
+function pecogrep() {
+  local GREP_CMD='grep'
+  cmdcheck ggrep && GREP_CMD='ggrep'
+  # NOTE: empty '' is for all match when run without args
+  xargs "$GREP_CMD" -s -n --color=always "$@" '' | pecocat
 }
 
 alias pv='pecovim'

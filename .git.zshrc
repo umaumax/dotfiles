@@ -220,6 +220,7 @@ alias ggr='git_grep_root'
 alias ggc='git_grep_current'
 alias ggpv='ggpv_root'
 alias ggpvr='ggpv_root'
+# NOTE: you can use with -C option
 alias ggpvc='ggpv_current'
 function ggpv_root() {
   git_grep_root --color=always "$@" | pecovim
