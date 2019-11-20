@@ -47,13 +47,19 @@ ros_cmds=(
   rxdeps
   rxgraph
   rxplot
+  #
   gendeps
+  #
   rqt
   rqt_bag
+  rqt_deps
+  rqt_graph
+  rqt_plot
+  #
   rviz
+  #
   catkin_make
   catkin_create_pkg
-
 )
 
 for ros_cmd in "${ros_cmds[@]}"; do
