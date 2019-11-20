@@ -672,7 +672,7 @@ function cutbuffer() {
   # NOTE: original widget call?
   zle .$WIDGET
   echo $CUTBUFFER | c
-  # NOTE: refresh visual mode highlihgt
+  # NOTE: refresh visual mode highlight
   _zle_refresh_cmd_color
 }
 
