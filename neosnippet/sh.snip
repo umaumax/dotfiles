@@ -539,7 +539,10 @@ snippet path_operation
 	${0}
 
 snippet normalize_path
-alias clean path
+alias clean_path
+	ruby -e 'require "pathname"; puts Pathname.new(ARGV[0]).cleanpath.to_s' ${0:#:path}
+
+snippet absolute_path
 	perl -MCwd -e 'print Cwd::abs_path shift' ${0:#:path}
 
 snippet normalize_path_linux_only_readlink
