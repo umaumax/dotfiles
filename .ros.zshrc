@@ -67,8 +67,10 @@ for ros_cmd in "${ros_cmds[@]}"; do
     cat <<EOF | tr '\n' ' '
   () {
     tmp_force_pyenv_system_shell_start;
-    command $ros_cmd "\$@";
+    $ros_cmd "\$@";
+    local exit_code=\$?;
     tmp_force_pyenv_system_shell_end;
+    return \$exit_code;
   }
 EOF
   )"
