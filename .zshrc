@@ -1100,6 +1100,7 @@ function abspath() {
 # accept command starts with `$` (but `$` is invalid alias name at bash)
 [[ $ZSH_NAME == zsh ]] && alias \$=''
 # ignore command which starts with `#`
+# but bellow alias disable comment at interactive shell
 alias \#=':'
 
 # brew install source-highlight
