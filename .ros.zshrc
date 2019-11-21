@@ -4,7 +4,7 @@ if ! [[ -f /opt/ros/kinetic/setup.zsh ]]; then
   return
 fi
 
-# auto source
+# source setup file automatically
 source /opt/ros/kinetic/setup.zsh
 
 function tmp_force_pyenv_system_shell_start() {
@@ -87,8 +87,9 @@ function catkin_make() {
   local ros_ws_root=$(rosroot)
   [[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}, but if this is first catkin_make to init, please run 'command catkin_make'" && return 1
 
-  # NOTE: なぜが，pushd, popdがうまくいかない(ros sourceの関係上?)
-  # 	pushd $ros_ws_root >/dev/null 2>&1
+  # NOTE: なぜが，pushd, popdがうまくいかない
+  # (rosのdevel setup script sourceの内部でcdを行っているのでは?)
+  # pushd $ros_ws_root >/dev/null 2>&1
   local _PWD="$PWD"
   cd $ros_ws_root >/dev/null 2>&1
   # NOTE: force append compile_commands.json option
@@ -100,7 +101,7 @@ function catkin_make() {
     # NOTE: disable for cpu usage
     # pgrep rdm >/dev/null 2>&1 && rc -J build
   fi
-  # 	popd >/dev/null 2>&1
+  # popd >/dev/null 2>&1
   cd "$_PWD" >/dev/null 2>&1
   # NOTE: pop CPATH
   export CPATH="$_CPATH"
