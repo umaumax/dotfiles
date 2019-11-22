@@ -63,17 +63,21 @@ ros_cmds=(
 )
 
 for ros_cmd in "${ros_cmds[@]}"; do
-  type >/dev/null 2>&1 $ros_cmd && alias $ros_cmd="$(
-    cat <<EOF | tr '\n' ' '
-  () {
-    tmp_force_pyenv_system_shell_start;
-    $ros_cmd "\$@";
-    local exit_code=\$?;
-    tmp_force_pyenv_system_shell_end;
-    return \$exit_code;
-  }
-EOF
-  )"
+  if type >/dev/null 2>&1 $ros_cmd; then
+    # alias $ros_cmd="$(
+    # cat <<EOF | tr '\n' ' '
+    # () {
+    # tmp_force_pyenv_system_shell_start;
+    # $ros_cmd "\$@";
+    # local exit_code=\$?;
+    # tmp_force_pyenv_system_shell_end;
+    # return \$exit_code;
+    # }
+    # EOF
+    # )"
+    # NOTE: simple command version
+    alias $ros_cmd="PYENV_VERSION=\${PYENV_VERSION:-system} $ros_cmd"
+  fi
 done
 
 # for catkin_make shortcut (auto catkin work dir detection)
