@@ -41,6 +41,9 @@ go get -u github.com/mithrandie/csvq
 # NOTE: for cron visualization
 go get -u github.com/takumakanari/cronv/...
 
+# NOTE: for markdown preview
+go get -u github.com/romanyx/mdopen
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms
