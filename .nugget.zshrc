@@ -37,16 +37,16 @@ function nugget() {
   [[ $# == 0 ]] && nugget-h && return 1
   local opt="$1"
   case $opt in
-  -l | -h)
-    # NOTE: call function
-    "nugget$opt"
-    return
-    ;;
-  -u | --upgrade)
-    NUGGET_UPGRADE_FLAG=1
-    shift
-    ;;
-  *) ;;
+    -l | -h)
+      # NOTE: call function
+      "nugget$opt"
+      return
+      ;;
+    -u | --upgrade)
+      NUGGET_UPGRADE_FLAG=1
+      shift
+      ;;
+    *) ;;
   esac
   local package="$1"
 
