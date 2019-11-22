@@ -196,7 +196,13 @@ function nugget_ubuntu_fzy() {
 function nugget_ubuntu_fzf() {
   cmdcheck fzf && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  if [[ ! -d ~/.fzf ]]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  else
+    pushd ~/.fzf
+    git pull
+    popd
+  fi
   ~/.fzf/install --no-key-bindings --completion --no-update-rc
 }
 # ################################
