@@ -120,6 +120,11 @@ LazyPlug 'LeafCage/cheapcmd.vim'
 " cnoremap <Tab> <C-C>:call SearchComplete()<CR>/<C-R>s
 
 LazyPlug 'vim-scripts/sherlock.vim'
+" NOTE: for avoid She[tab] to show menu for my ShebangInsert
+augroup sherlock_group
+  autocmd!
+  autocmd User VimEnterDrawPost delcommand SherlockVimball
+augroup END
 " NOTE:
 " 補完のpopupが出現するのではなく，入力場所にそのまま出現する
 " /\Vの後には対応していない
