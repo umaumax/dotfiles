@@ -1,4 +1,4 @@
-" [file\-line/file\_line\.vim at master · bogado/file\-line · GitHub]( https://github.com/bogado/file-line/blob/master/plugin/file_line.vim )
+" FYI: [file\-line/file\_line\.vim at master · bogado/file\-line · GitHub]( https://github.com/bogado/file-line/blob/master/plugin/file_line.vim )
 " e.g.
 " vim ~/.vimrc:10
 " :e ~/.vimrc:10
@@ -20,6 +20,7 @@ let g:loaded_file_line = 1
 " * code.cc(10
 " * code.cc:10:
 let s:regexpressions = [ '\(.\{-1,}\)[(:]\(\d\+\)\%(:\(\d\+\):\?\)\?' ]
+let s:git_regexpressions = [ '\(.\{-1,}\):\(.\+\)$' ]
 
 function! s:reopenAndGotoLine(file_name, line_num, col_num)
   if !filereadable(a:file_name)
@@ -38,6 +39,17 @@ function! s:reopenAndGotoLine(file_name, line_num, col_num)
 
   exec "bwipeout " l:bufn
   exec "filetype detect"
+endfunction
+
+function! s:create_tmp_git_show_file(sha,filename)
+  let tmpfilepath=tempname()."_".fnameescape(a:sha)."_".fnameescape(fnamemodify(a:filename,':t'))
+  let cmd=join(["git","show",shellescape(a:sha).":".shellescape(a:filename)],' ')
+  let output = system(cmd)
+  if v:shell_error != 0
+    let output=cmd."\n".output
+  endif
+  call writefile(split(output,"\n"),fnameescape(tmpfilepath))
+  return tmpfilepath
 endfunction
 
 function! s:gotoline()
@@ -61,6 +73,19 @@ function! s:gotoline()
       let  col_num  = l:names[3] == ''? '0' : l:names[3]
       call s:reopenAndGotoLine(file_name, line_num, col_num)
       return file_name
+    endif
+  endfor
+  for regexp in s:git_regexpressions
+    let l:names = matchlist(file, regexp)
+
+    if ! empty(l:names)
+      let sha = l:names[1]
+      let file_name = l:names[2]
+      let line_num='0'
+      let col_num='0'
+      let tmpfilepath=s:create_tmp_git_show_file(sha,file_name)
+      call s:reopenAndGotoLine(tmpfilepath, line_num, col_num)
+      return tmpfilepath
     endif
   endfor
   return file
