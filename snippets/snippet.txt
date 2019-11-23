@@ -1391,3 +1391,9 @@
 [add path env at the beginning] export PATH="\%#:$PATH"
 [add path env at the end] export PATH="$PATH:\%#"
 [filter path env] export PATH_BK="$PATH"; export PATH=$(t1=$(mktemp); t2=$(mktemp); echo -n $PATH | tr ':' '\n' | tee $t1 | { { grep -v \%# } || { echo -n "$PATH" | tr ':' '\n' } } | tee $t2 | tr '\n' ':' | sed 's/:*$//'; diff -U 999 $t1 $t2 1>&2)
+
+# filename
+[generate continuous filename] ruby -e '(0..9\%#).each{|i|printf"%04d_right.png\n",i}'
+
+# perl
+[ol perl source code comfirm] perl -MO=Deparse # -le 'print "Hello, World!"'
