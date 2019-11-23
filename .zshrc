@@ -1726,6 +1726,42 @@ function ifconfig() {
     | perl -pe "s/(([\da-f]{4})?:){2,7}[\da-f]+(\/\d+)?/${COLOR_RED}$&${COLOR_END}/g"
 }
 
+function du() {
+  if [[ -p /dev/stdout ]]; then
+    command du -kh "$@"
+  else
+    command du -kh "$@" \
+      | perl -pe "s/^([ 0-9.]+[BK])/${GREEN}$&${DEFAULT}/; s/^([ 0-9.]+[M])/${YELLOW}$&${DEFAULT}/; s/^([ 0-9.]+[G])/${RED}$&${DEFAULT}/"
+  fi
+}
+
+function id() {
+  if [[ -p /dev/stdout ]]; then
+    command id "$@"
+  else
+    command id "$@" \
+      | perl -pe "s/(\([^()]*\))/${LIGHT_BLUE}$&${DEFAULT}/g"
+  fi
+}
+
+function pstree() {
+  if [[ -p /dev/stdout ]]; then
+    command pstree "$@"
+  else
+    command pstree "$@" \
+      | bat -l zsh --color always --plain | perl -pe "s/root/${RED}$&${DEFAULT}/; s/$USER/${GREEN}$&${DEFAULT}/"
+  fi
+}
+
+function env() {
+  if [[ -p /dev/stdout ]] || [[ $# -gt 0 ]]; then
+    command env "$@"
+  else
+    command env "$@" \
+      | perl -pe "s/^([^=]+)/${GREEN}$&${DEFAULT}/g"
+  fi
+}
+
 # function off() { printf "\e[0;m$*\e[m"; }
 # function bold() { printf "\e[1;m$*\e[m"; }
 # function under() { printf "\e[4;m$*\e[m"; }
