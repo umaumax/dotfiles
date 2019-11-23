@@ -9,3 +9,6 @@ bash google coding style guide
 
 bash best practices
 [polohb/bash\-best\-practices: Just simple methods to keep the code clean]( https://github.com/polohb/bash-best-practices )
+
+bash command option explanation
+[explainshell\.com \- match command\-line arguments to their help text]( https://explainshell.com/ )
