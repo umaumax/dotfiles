@@ -413,16 +413,16 @@ snippet heredoc_cat_no_expand_var
 	EOF
 
 snippet heredoc_var
-	${1:#:var name}=\`cat << EOF
+	${1:#:var name}=$(cat << EOF
 	${0}
 	EOF
-	\`
+	)
 
 snippet heredoc_var_no_expand_var
-	${1:#:var name}=\`cat << 'EOF'
+	${1:#:var name}=$(cat << 'EOF'
 	${0}
 	EOF
-	\`
+	)
 
 snippet heredoc_pipe
 	cat << EOF | cat
