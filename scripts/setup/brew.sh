@@ -126,6 +126,7 @@ brew cask install qlcolorcode
 brew cask install qlimagesize
 brew cask install texpad
 brew cask install osxfuse
+brew cask install copyq
 # NOTE: after osxfuse beacuse of dependency
 brew install ext4fuse
 brew cask install flash-player

@@ -1405,3 +1405,9 @@
 # overwrite
 [overwrite file command wrapper] FILE=\%#; TMP_FILE="$(mktemp)"; cat "$FILE" | cat > "$TMP_FILE" && mv "$TMP_FILE" "$FILE"
 [git xargs overwrite file command example] git ls-files -z -- '*.vim' | xargs -0 -I{} echo {} | overwrite expand -t 2
+
+# copyq
+[copyq process existing check] pgrep -l CopyQ
+[clipboard manager popup] copyq menu # on darwin transparent menu is shown bug?
+[clipboard manager paste] copyq tab '&clipboard' read $NUM
+[clibboard manager print all tab content] copyq eval -- "tab('&clipboard'); for(i=1; i<=size(); i++) print('['+ str(i) +'] '+ str(read(i-1)) + '\n');" # i=0 lower is newer

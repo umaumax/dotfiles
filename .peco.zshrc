@@ -1061,3 +1061,21 @@ function global_func_prefix() {
   fi
   global -x "^$function_prefix" | awk '{printf "%s:%d\n", $3, $2}' | pecovim
 }
+
+if cmdcheck copyq; then
+  # FYI: [hluk/CopyQ: Clipboard manager with advanced features]( https://github.com/hluk/CopyQ )
+  # FYI: [Command Line — CopyQ documentation]( https://copyq.readthedocs.io/en/latest/command-line.html )
+  alias clipeco='clippeco'
+  function clippeco() {
+    local n
+    local tab=${COPYQ_TAB:-'&clipboard'}
+    n=$(copyq eval -- "tab('$tab'); for(i=1; i<=size(); i++) print(str(read(i-1)) + '\0');" | perl -0ne 'BEGIN{$count=0} $_ =~ s/\n/\\n/g; printf("[%3d]:%s", $count,$_); $count++' | tr '\0' '\n' | bat -l js --plain --color always --theme "zenburn" | fzf --query="'" | sed -E 's/^\[[ ]*([0-9]+)\]:.*$/\1/g')
+    echo 1>&2 "${YELLOW}[log] copy copyq['$n']${DEFAULT}"
+    [[ -z $n ]] && return
+    copyq tab "$tab" read "$n" | tee >(bat -l js --plain --color always --theme "zenburn" >/dev/stderr) | c
+  }
+  function copyq_init() {
+    copyq config command_history_size 100000 # defualt: 100
+    copyq config maxitems 100000             # defualt: 200
+  }
+fi
