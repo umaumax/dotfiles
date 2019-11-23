@@ -113,7 +113,7 @@ brew cask install sublime-text
 brew cask install shiftit
 brew cask install xquartz
 brew cask install ip-in-menu-bar
-# NOTE: not brew install docker
+# WARN: do not brew install docker
 brew cask install docker
 brew cask install adobe-acrobat-reader
 brew cask install totalspaces
