@@ -910,7 +910,7 @@ function vim() {
   local vim_cmd='command vim'
   cmdcheck nvim && vim_cmd='nvim'
   local args=("$@")
-  if [[ $# -ge 1 ]] && [[ $1 =~ : ]]; then
+  if [[ $# -ge 1 ]] && [[ $1 =~ :[0-9]+ ]]; then
     local file_path="${1%%:*}"
     local line_no=$(printf '%s' "$1" | cut -d":" -f2)
     # "" => 0
