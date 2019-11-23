@@ -26,6 +26,7 @@ function overwrite() {
     ls filepath... | $(basename "$0") [filter args]
 
     ls filepath... | $(basename "$0") expand -t 2 # tab to 2 spaces
+    git ls-files -- '*.vim' | overwrite expand -t 2
 EOF
     return 1
   fi
