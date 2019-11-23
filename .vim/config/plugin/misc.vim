@@ -660,3 +660,5 @@ endif
 
 " NOTE: filetype support for LLVM IR
 Plug 'rhysd/vim-llvm'", {'for':'llvm'}
+
+Plug 'paretje/nvim-man'
