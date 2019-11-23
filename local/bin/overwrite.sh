@@ -5,13 +5,14 @@ function overwrite_pipe() {
   while IFS= read -r file || [[ -n "$file" ]]; do
     if [[ ! -f "$file" ]]; then
       echo 1>&2 "[overwrite][error] not found file($file)"
-      continue
+      return 1
     fi
     local tmp_file="$(mktemp)"
     if cat "$file" | "$@" >"$tmp_file"; then
       command mv "$tmp_file" "$file"
     else
-      echo 1>&2 "[overwrite][error] failed with exit code($?)"
+      echo 1>&2 "[overwrite][error] failed at file($file) with exit code($?)"
+      return 1
     fi
   done < <(cat)
 }
