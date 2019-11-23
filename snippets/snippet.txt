@@ -75,8 +75,10 @@
 
 # size
 ## h: human readable
-[file size] du -sh * # for zsh (setopt GLOB_DOTS)
-[file size for bash] du -sh .[^.]* *
+[file size] du -sh $(find . -maxdepth 1)
+# [file size] du -sh * # for zsh (setopt GLOB_DOTS)
+# [file size for bash] du -sh *
+# [file size for bash] du -sh .[^.]* * # both
 [disk size] df -h
 [disk size] pydf -h # pip install pydf
 [disk size (only local mounted file)] df -hl
@@ -409,6 +411,7 @@
 [sed (after)  >= some line] sed -n '/\%#/,$p'
 [sed remove BOM UTF-8] sed "s|\xef\xbb\xbf||g"
 [sed convert CR] tr '\n' $(echo -e "\x1E") | sed 's/'$(echo -e "\x1E")'/\\n/g'
+[sed increment number example] seq 1 10\%# | sed -E 's/([0-9]*)/echo $((\1 + 1))/e' # you can exec shell command by e flag
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
