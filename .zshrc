@@ -1718,7 +1718,7 @@ function ifconfig() {
   local COLOR_END="\e[m"
   # `inet `: mac
   # `inet addr:`: ubuntu
-  command ifconfig \
+  command ifconfig "$@" \
     | perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
