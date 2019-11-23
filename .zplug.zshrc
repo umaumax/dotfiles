@@ -115,7 +115,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
     # NOTE: enbale zsh completion
     # [zshの起動が遅いのでなんとかしたい 2 \- Qiita]( https://qiita.com/vintersnow/items/c29086790222608b28cf )
     # NOTE: slow with security check
-    # 		autoload -Uz compinit && compinit -i
+    #     autoload -Uz compinit && compinit -i
     # NOTE: fast(0.0x sec) without security check
     autoload -Uz compinit && compinit -C
   } && lambda
@@ -129,12 +129,12 @@ bindkey $EASY_ONE_KEYBIND easy-oneliner
 if [[ -e ~/.zplug ]]; then
   source ~/.zplug/init.zsh
 
-  # 	zplug "zplug/zplug", hook-build:'zplug --self-manage'
+  #   zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
   # [b4b4r07/zsh\-history\-ltsv: Command history tool available on Zsh enhanced drastically]( https://github.com/b4b4r07/zsh-history-ltsv )
   zplug "b4b4r07/zsh-history-enhanced"
   if zplug check "b4b4r07/zsh-history-enhanced"; then
-    # 		ZSH_HISTORY_FILE="$HISTFILE"
+    #     ZSH_HISTORY_FILE="$HISTFILE"
     ZSH_HISTORY_FILTER="fzy:fzf:peco:percol"
     ZSH_HISTORY_KEYBIND_GET_BY_DIR="^r"
     ZSH_HISTORY_KEYBIND_GET_ALL="^r^a"
@@ -171,7 +171,7 @@ if [[ -e ~/.zplug ]]; then
   fi
 
   # コマンドをリンクして、PATH に追加し、プラグインは読み込む
-  # 	zplug load --verbose
+  #   zplug load --verbose
   zplug load
 
   autoload -Uz compinit && compinit -i

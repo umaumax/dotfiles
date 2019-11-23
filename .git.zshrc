@@ -82,12 +82,12 @@ function git-find-conflict() {
 
   # abs path
   local _home=$(echo $HOME | sed "s/\//\\\\\//g")
-  # 	local ret=$(echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$git_root_path/XXX" | sed "s/$_home/~/")
+  #   local ret=$(echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always "$git_root_path/XXX" | sed "s/$_home/~/")
   local ret=$(echo $changed | _grep_if_file_exist | sed "s/$_home/~/")
   # rel path
-  # 	pushd $git_root_path >/dev/null 2>&1
-  # 	echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always XXX
-  # 	popd >/dev/null 2>&1
+  #   pushd $git_root_path >/dev/null 2>&1
+  #   echo $changed | xargs -L 1 -IXXX $grep -E '^[><=]{7}' -C 1 -H -n --color=always XXX
+  #   popd >/dev/null 2>&1
 
   ## If the egrep command has any hits - echo a warning and exit with non-zero status.
   if [[ -n $ret ]]; then
@@ -516,11 +516,11 @@ function git-search-open() {
 function git-comments() {
   # NOTE: see GITGLOSSARY(7) <pathspec>
   # NOTE: man 7 gitglossary
-  # 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
-  # 	git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
+  #   git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
+  #   git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
   git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' '*.cc' ':*.c' ':*.h' ':*.go'
   git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':*.python' ':*.sh' ':*rc' ':*.zsh' ':*.ninja'
-  #  	git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':CMakeLists.txt'
+  #   git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':CMakeLists.txt'
 }
 function git-comments-todo() {
   git grep -E -e '(^|\s+)//' --and -e 'TODO' -e '(^|\s+)#' --and -e 'TODO' -- . ':!*.md'

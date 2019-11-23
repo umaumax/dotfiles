@@ -196,12 +196,12 @@ function rcd() {
 alias lcdpeco='ls | cdpeco'
 function cdpeco() {
   # NOTE: mac ok
-  # 	if [[ -p /dev/stdin ]]; then
-  # 		cd $(cat /dev/stdin | peco | sed 's:$:/:g')./
-  # 	else
-  # 		cd $(find . -type d | peco | sed 's:$:/:g')./
-  # 	fi
-  # 	return
+  #   if [[ -p /dev/stdin ]]; then
+  #     cd $(cat /dev/stdin | peco | sed 's:$:/:g')./
+  #   else
+  #     cd $(find . -type d | peco | sed 's:$:/:g')./
+  #   fi
+  #   return
 
   local basedir=${1:-.}
 

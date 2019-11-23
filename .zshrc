@@ -27,7 +27,7 @@ fi
 # -nt: file1 is newer than file2? (used modified time)
 # zsh_compile_files=(~/.zshrc ~/.zprofile ~/.zlogin ~/.zlogout $(ls ~/.zsh/.*.zshrc) $(ls ~/.zsh/*/*.zsh))
 # for src in "${zsh_compile_files[@]}"; do
-# 	[[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
+#   [[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
 # done
 
 # Source Prezto.
@@ -137,17 +137,17 @@ if [[ $ZSH_NAME == zsh ]]; then
 
   # history
   setopt hist_ignore_dups
-  # 	unset share_history
+  #   unset share_history
   # シェルのプロセスごとに履歴を共有
   setopt share_history
 
   # NOTE: these options are enabled
   ## 補完候補を一覧表示
-  # 	setopt auto_list
+  #   setopt auto_list
   ## =command を command のパス名に展開する
-  # 	setopt equals
+  #   setopt equals
   ## --prefix=/usr などの = 以降も補完
-  # 	setopt magic_equal_subst
+  #   setopt magic_equal_subst
 
   # FYI: [zshでオプション一覧の出力を分かりやすくする \- Qiita]( https://qiita.com/mollifier/items/26c67347734f9fcda274 )
   function showoptions() {
@@ -496,7 +496,7 @@ if [[ $(uname) == "Darwin" ]]; then
   alias chrome='open -a /Applications/Google\ Chrome.app'
 
   # image
-  # 	alias imgshow='qlmanage -p "$@" >& /dev/null'
+  #   alias imgshow='qlmanage -p "$@" >& /dev/null'
   alias imgsize="mdls -name kMDItemPixelWidth -name kMDItemPixelHeight"
 
   # [osx - Concisely starting Mac OS apps from the command line - Ask Different](http://apple.stackexchange.com/questions/4240/concisely-starting-mac-os-apps-from-the-command-line)
@@ -544,7 +544,7 @@ if [[ $(uname) == "Linux" ]]; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
   fi
-  # 	alias gsed='sed'
+  #   alias gsed='sed'
   function open() {
     for arg in "$@"; do
       xdg-open &>/dev/null "$arg"
@@ -932,7 +932,7 @@ function vim() {
   # ```
   # wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ~/local/bin/nvim && chmod u+x ~/local/bin/nvim
   # ```
-  # 	[[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
+  #   [[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
   # set-dirname-title
   return $exit_code
 }
@@ -1596,7 +1596,7 @@ function webcatd() {
 function mdlink() {
   [[ $# == 0 ]] && echo "$0 <target> [<link name>]" && return 1
   local file_path="$1"
-  # 	local abspathdir=$(cd $(dirname $file_path) && pwd)
+  #   local abspathdir=$(cd $(dirname $file_path) && pwd)
   local abspathfile="${PWD%/}/$file_path"
   local link_name=$2
   [[ -z $link_name ]] && local link_name=$abspathfile
@@ -1818,17 +1818,17 @@ function _color-test-256-tput() {
 function color-test-full() {
   # [True Colour \(16 million colours\) support in various terminal applications and terminals]( https://gist.github.com/XVilka/8346728 )
   awk 'BEGIN{
-	s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
-	for (colnum = 0; colnum<77; colnum++) {
-		r = 255-(colnum*255/76);
-		g = (colnum*510/76);
-		b = (colnum*255/76);
-		if (g>255) g = 510-g;
-		printf "\033[48;2;%d;%d;%dm", r,g,b;
-		printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
-		printf "%s\033[0m", substr(s,colnum+1,1);
-	}
-	printf "\n";
+  s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+  for (colnum = 0; colnum<77; colnum++) {
+    r = 255-(colnum*255/76);
+    g = (colnum*510/76);
+    b = (colnum*255/76);
+    if (g>255) g = 510-g;
+    printf "\033[48;2;%d;%d;%dm", r,g,b;
+    printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+    printf "%s\033[0m", substr(s,colnum+1,1);
+  }
+  printf "\n";
 }'
 }
 function color-tmux() {
@@ -2125,7 +2125,7 @@ function solve_caesar_cipher() {
         word=$(echo $word | sed -E 's/\.|,//g')
         look $word >/dev/null
         # or
-        # 				cat $dict_path | grep "^${word}$" >/dev/null
+        #         cat $dict_path | grep "^${word}$" >/dev/null
         local n_no_hit=$((n_no_hit + $?))
       fi
     done
@@ -2218,8 +2218,8 @@ function display_center() {
 function pomodoro() {
   clear
   local i=${1:-$((25 * 60))}
-  # 	figlet "ready?" | sand "$GREEN" | text_center
-  # 	read Wait
+  #   figlet "ready?" | sand "$GREEN" | text_center
+  #   read Wait
 
   while :; do
     clear
@@ -2329,29 +2329,29 @@ function sshdelkey() {
 # [regex \- Parsing \.ssh/config for proxy information \- Stack Overflow]( https://stackoverflow.com/questions/12779134/parsing-ssh-config-for-proxy-information )
 function sshconfig_host_hostname() {
   awk -v "target=$1" '
-		BEGIN {
-			if (target == "") printf "%32s %32s\n", "Host", "HostName"
-			exit_code=1
-		}
-		$1 == "Host" {
-			host = $2;
-			next;
-		}
-		$1 == "HostName" {
-			$1 = "";
-			sub( /^ */, "" , $0);
-			if (target == "") {
-				printf "%32s %32s\n", host, $0;
-				exit_code=0
-			}
-			if (target == host) {
-				printf "%s", $0;
-				exit 0
-			}
-		}
-		END {
-			exit exit_code
-		}
+    BEGIN {
+      if (target == "") printf "%32s %32s\n", "Host", "HostName"
+      exit_code=1
+    }
+    $1 == "Host" {
+      host = $2;
+      next;
+    }
+    $1 == "HostName" {
+      $1 = "";
+      sub( /^ */, "" , $0);
+      if (target == "") {
+        printf "%32s %32s\n", host, $0;
+        exit_code=0
+      }
+      if (target == host) {
+        printf "%s", $0;
+        exit 0
+      }
+    }
+    END {
+      exit exit_code
+    }
 ' ~/.ssh/config
 }
 
