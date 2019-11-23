@@ -249,10 +249,55 @@ fi
 # ----
 # ----
 
-# NOTE: for test only
-function _bindkey_test() {
+function _edit_splitted_command_line() {
+  eval 'words=("${(z)BUFFER}")'
+  BUFFER=$(
+    for word in "${words[@]}"; do
+      printf '%s\n' "$word"
+    done | perl -pe "chomp if eof"
+  )
+
+  # FYI: [zsh/edit\-command\-line at master · zsh\-users/zsh]( https://github.com/zsh-users/zsh/blob/master/Functions/Zle/edit-command-line )
+  # edit-command-line
+  eval "$(
+    cat <<'EOF'
+() {
+  exec </dev/tty
+
+  # Compute the cursor's position in bytes, not characters.
+  setopt localoptions nomultibyte noksharrays
+
+  (( $+zle_bracketed_paste )) && print -r -n - $zle_bracketed_paste[2]
+
+  # Open the editor, placing the cursor at the right place if we know how.
+  local editor=( "${(@Q)${(z)${VISUAL:-${EDITOR:-vi}}}}" )
+  case $editor in 
+    (*vim*)
+      integer byteoffset=$(( $#PREBUFFER + $#LBUFFER + 1 ))
+      "${(@)editor}" -c "normal! ${byteoffset}go" -- $1;;
+    (*emacs*)
+      local lines=( "${(@f):-"$PREBUFFER$LBUFFER"}" )
+      "${(@)editor}" +${#lines}:$((${#lines[-1]} + 1)) $1;;
+    (*) "${(@)editor}" $1;;
+  esac
+
+  (( $+zle_bracketed_paste )) && print -r -n - $zle_bracketed_paste[1]
+
+  # Replace the buffer with the editor output.
+  # print -Rz - "$(<$1)" 
+  OUTPUT="$(<$1)"
+} =(<<<"$PREBUFFER$BUFFER")
+
+# zle send-break		# Force reload from the buffer stack
+EOF
+  )"
+  BUFFER=""
+  print -Rz - "$(printf '%s' "$OUTPUT" | tr '\n' ' ')"
+  zle send-break
 }
-# bindkey '' _bindkey_test && zle -N _bindkey_test
+# NOTE: S: means 'S'plitted
+bindkey '^XS' _edit_splitted_command_line && zle -N _edit_splitted_command_line
+bindkey '^X^S' _edit_splitted_command_line && zle -N _edit_splitted_command_line
 
 function _vicmd_insert_strs() {
   CURSOR=$((CURSOR + 1))
@@ -743,3 +788,8 @@ function check_buffer_stack() {
 # bindkey "^O" get-line
 
 # RPROMPT='${p_buffer_stack}'
+
+# NOTE: for test only
+function _bindkey_test() {
+}
+bindkey '' _bindkey_test && zle -N _bindkey_test
