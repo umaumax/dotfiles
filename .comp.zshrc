@@ -35,8 +35,8 @@ EOF
   )
 }
 function color() {
-  [[ $# -lt 1 ]] && echo "$0 [COLOR]" && exit 1
-  eval echo -en \$$1
+  [[ $# -lt 1 ]] && echo "$0 [COLOR]" && return 1
+  eval echo -en "\${${1}}${1}"
 }
 compdef _color color
 
