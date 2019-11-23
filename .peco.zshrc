@@ -170,7 +170,7 @@ function pecokill() {
 # FYI: [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
 function rvim() {
   local n=${1:-}
-  VIMINFO_LS_N="$n" viminfo-ls | ranking_color_cat | pecovim
+  VIMINFO_LS_N="$n" viminfo-ls | expand_home | ranking_color_cat | pecovim
 }
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
