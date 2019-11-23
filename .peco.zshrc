@@ -1075,7 +1075,7 @@ if cmdcheck copyq; then
     copyq tab "$tab" read "$n" | tee >(bat -l js --plain --color always --theme "zenburn" >/dev/stderr) | c
   }
   function copyq_init() {
-    copyq config command_history_size 100000 # defualt: 100
-    copyq config maxitems 100000             # defualt: 200
+    copyq config command_history_size 10000 # defualt: 100, max: 10000
+    copyq config maxitems 10000             # defualt: 200, max: 10000
   }
 fi
