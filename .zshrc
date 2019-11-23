@@ -281,7 +281,7 @@ fi
 
 function expand_home() {
   if [[ $# == 0 ]]; then
-    perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}/'
+    perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}\//'
     # NOTE: for ansi color code (e.g. lolcat color output is inserted at between each chars)
     # perl -pe 's/(^(\e\[(\d+;)*\d+m)*~((\e\[(\d+;)*\d+m)*\/)+)|(^~$)/\2$ENV{HOME}\//'
   else
