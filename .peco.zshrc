@@ -207,13 +207,13 @@ function cdpeco() {
 
   # NOTE: pipeの内容をそのまま受け取るには()or{}で囲む必要がある
   if [[ $(uname) == "Darwin" ]]; then
-    { cd "$({ [[ -p /dev/stdin ]] && cat || find "$basedir" -type d; } | peco | sed 's:$:/:g')./"; }
+    { cd "$({ [[ -p /dev/stdin ]] && cat || find "$basedir" -type d; } | pecocat | sed 's:$:/:g')./"; }
   else
     {
       cd "$({
         [[ -p /dev/stdin ]] && local RET=$(cat) || local RET=$(find "$basedir" -type d)
         echo $RET
-      } | peco | sed 's:$:/:g')./"
+      } | pecocat | sed 's:$:/:g')./"
     }
   fi
 }
