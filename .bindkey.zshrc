@@ -792,4 +792,4 @@ function check_buffer_stack() {
 # NOTE: for test only
 function _bindkey_test() {
 }
-bindkey '' _bindkey_test && zle -N _bindkey_test
+# bindkey '' _bindkey_test && zle -N _bindkey_test
