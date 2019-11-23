@@ -20,6 +20,11 @@ let g:loaded_file_line = 1
 " * code.cc(10
 " * code.cc:10:
 let s:regexpressions = [ '\(.\{-1,}\)[(:]\(\d\+\)\%(:\(\d\+\):\?\)\?' ]
+
+" e HEAD:README.md
+" e HEAD:%
+" for my cmd
+" DiffSplit HEAD:%
 let s:git_regexpressions = [ '\(.\{-1,}\):\(.\+\)$' ]
 
 function! s:reopenAndGotoLine(file_name, line_num, col_num)
