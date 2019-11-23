@@ -1384,8 +1384,10 @@
 # ntp
 [ubuntu set time force (tmp ntp)] sudo date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
 
+# print0
 [print0] tr '\n' '\0'
 [print0] perl -pl0e1
+[print0 sed and count] perl -0ne 'BEGIN{$count=0} $_ =~ s/\n\%#/\\n/g; printf("[%3d]:%s",$count,$_); $count++' | tr '\0' '\n'
 
 # env
 [add path env at the beginning] export PATH="\%#:$PATH"
