@@ -296,7 +296,11 @@ endfunction
 
 " NOTE: 書き込み処理を行っているとvimのpluginの挙動がおかしくなるので，
 " view onlyがおすすめ
-command! -nargs=1 -complete=file DiffSplit execute "vertical rightbelow diffsplit ".<q-args>
+function! s:diff_split(...)
+	let filename = get(a:, 1, 'HEAD:%')
+	execute "vertical rightbelow diffsplit ".filename
+endfunction
+command! -complete=file DiffSplit call s:diff_split(<f-args>)
 command! DisableDeoplete :call deoplete#disable()
 command! EnableDeoplete :call deoplete#enable()
 

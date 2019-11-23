@@ -135,6 +135,7 @@ fi
 [[ "$(uname -a)" =~ Ubuntu ]] && alias mdfind='locate'
 
 alias pecopy='peco | c'
+alias allcmdspeco='allcmds | fzf | to_prompt'
 alias cmdpeco='{ alias; functions-list; } | peco | to_prompt'
 alias prompt-pipe='to_prompt'
 function to_prompt() {
