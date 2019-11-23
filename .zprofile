@@ -282,7 +282,7 @@ mkdir -p ~/local/bin
 prepend_path ~/local/bin
 cmdcheck nvim && [[ ! -f ~/local/bin/vim ]] && ln -s $(which nvim) ~/local/bin/vim
 
-append_path ~/dotfiles/cmd
+append_path ~/dotfiles/local/bin
 
 # ----
 
