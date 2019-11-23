@@ -138,7 +138,7 @@
 # git
 [git init, add files, and commit] git init && git add -A -f . && git commit --no-verify
 [git undo init commit] git update-ref -d HEAD
-[git commit] git commit -m '\%#'
+# [git commit] git commit -m '\%#'
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
 [git push dry-run] git push -n \%#
@@ -372,8 +372,9 @@
 [time bomb at ubuntu] sleep $(( $(date -d "\%#" "+%s") - $(date "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
 
 [shuffle line] shuf
+[shuffle args] ruby -e 'puts ARGV.shuffle.join(" ")'
 
-[ls sort version(number)] ls -v
+# [ls sort version(number)] ls -v
 
 [number of CPU] nproc --all # linux only
 
