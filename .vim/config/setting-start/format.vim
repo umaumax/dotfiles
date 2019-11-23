@@ -34,11 +34,11 @@ function! IsPrivateWork(...)
     return 0
   endif
 
-  " 	let l:author = system("git config user.name")
+  "   let l:author = system("git config user.name")
   " TODO: create function
   " cache data
   let l:tempfilename = 'git.config.user.name'
-  " 	let l:tempfilepath = fnamemodify(tempname(), ":p") . l:tempfilename
+  "   let l:tempfilepath = fnamemodify(tempname(), ":p") . l:tempfilename
   let l:tempfiledir = expand('~/.vim/cache')
   if !isdirectory(l:tempfiledir)
     call mkdir(l:tempfiledir, "p")
@@ -140,12 +140,12 @@ if Doctor('npm', 'js,html,css format')
     autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | :JsonFormat | endif
     autocmd FileType json autocmd! json_group FileType
   augroup END
-  " 		augroup jsx_group
-  " 			autocmd!
-  " 		autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! -bar Format JsxBeautify()
-  " 		autocmd FileType jsx      autocmd BufWritePre *.jsx        if IsAutoFormat() | :call JsxBeautify()  | endif
-  " 		autocmd FileType jsx autocmd! jsx_group FileType
-  " 		augroup END
+  "     augroup jsx_group
+  "       autocmd!
+  "     autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! -bar Format JsxBeautify()
+  "     autocmd FileType jsx      autocmd BufWritePre *.jsx        if IsAutoFormat() | :call JsxBeautify()  | endif
+  "     autocmd FileType jsx autocmd! jsx_group FileType
+  "     augroup END
   augroup html_vue_group
     autocmd!
     autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! -bar Format call HtmlBeautify()
@@ -321,7 +321,7 @@ function! s:work_setting()
           \      '\c.*\.pl$',
           \      '\c.*\.rb$',
           \      '\c.*\.py$',
-          \	]
+          \ ]
     highlight Normal ctermbg=0 guibg=#320000
     highlight LineNr ctermbg=167 guibg=#650000
   endif

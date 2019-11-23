@@ -38,7 +38,7 @@ LazyPlug 'umaumax/sonictemplate-vim'
 let g:sonictemplate_commandname='T'
 let g:sonictemplate_postfix_key='<C-x><C-p>'
 let g:sonictemplate_vim_template_dir = [
-			\ '~/dotfiles/template'
-			\]
+      \ '~/dotfiles/template'
+      \]
 " if you want to add element, do like below
 " let g:sonictemplate_vim_template_dir = g:sonictemplate_vim_template_dir + ['~/template']

@@ -1,5 +1,5 @@
 if !has('nvim')
-	finish
+  finish
 endif
 
 " from nvim 0.2.1

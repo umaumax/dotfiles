@@ -16,48 +16,48 @@ LazyPlug 'pocke/vim-textobj-markdown'
 " ic, ac
 
 function! s:init_textobj()
-	call textobj#user#plugin('php', {
-				\   'code': {
-				\     'pattern': ['<?php\>', '?>'],
-				\     'select-a': 'aP',
-				\     'select-i': 'iP',
-				\   },
-				\ })
+  call textobj#user#plugin('php', {
+        \   'code': {
+        \     'pattern': ['<?php\>', '?>'],
+        \     'select-a': 'aP',
+        \     'select-i': 'iP',
+        \   },
+        \ })
 endfunction
 
 LazyPlug 'osyo-manga/vim-textobj-from_regexp'
 augroup textobj
-	autocmd!
-	" number
-	autocmd VimEnter * omap <expr> in textobj#from_regexp#mapexpr('\d\+')
-	autocmd VimEnter * xmap <expr> in textobj#from_regexp#mapexpr('\d\+')
-	" hyphen
-	autocmd VimEnter * omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
-	autocmd VimEnter * xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
-	" dot
-	autocmd VimEnter * omap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
-	autocmd VimEnter * xmap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
-	" comma
-	" autocmd VimEnter * omap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
-	" autocmd VimEnter * xmap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
-	" file path
-	autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
-	autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
-	" url (not complete regexp for comfortableness)
-	autocmd VimEnter * omap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
-	autocmd VimEnter * xmap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
-	" regexp
-	autocmd VimEnter * omap <expr> ir textobj#from_regexp#mapexpr('/.*/')
-	autocmd VimEnter * xmap <expr> ir textobj#from_regexp#mapexpr('/.*/')
-	" message
-	" ()内の`|`は\\が必要みたい
-	" つまり，`|`を使いたいときには`'\(xxx\\|yyy\)'`
-	autocmd VimEnter * omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
-	autocmd VimEnter * xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
-	" space
-	autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
-	autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
-	autocmd VimEnter * call s:init_textobj()
+  autocmd!
+  " number
+  autocmd VimEnter * omap <expr> in textobj#from_regexp#mapexpr('\d\+')
+  autocmd VimEnter * xmap <expr> in textobj#from_regexp#mapexpr('\d\+')
+  " hyphen
+  autocmd VimEnter * omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
+  autocmd VimEnter * xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
+  " dot
+  autocmd VimEnter * omap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
+  autocmd VimEnter * xmap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
+  " comma
+  " autocmd VimEnter * omap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+  " autocmd VimEnter * xmap <expr> ic textobj#from_regexp#mapexpr('[A-Za-z0-9,]\+')
+  " file path
+  autocmd VimEnter * omap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
+  autocmd VimEnter * xmap <expr> if textobj#from_regexp#mapexpr('[A-Za-z0-9-./~$_+]\+')
+  " url (not complete regexp for comfortableness)
+  autocmd VimEnter * omap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
+  autocmd VimEnter * xmap <expr> iu textobj#from_regexp#mapexpr('[A-Za-z0-9\-./~$_:?=%!*()<>#:@&]\+')
+  " regexp
+  autocmd VimEnter * omap <expr> ir textobj#from_regexp#mapexpr('/.*/')
+  autocmd VimEnter * xmap <expr> ir textobj#from_regexp#mapexpr('/.*/')
+  " message
+  " ()内の`|`は\\が必要みたい
+  " つまり，`|`を使いたいときには`'\(xxx\\|yyy\)'`
+  autocmd VimEnter * omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+  autocmd VimEnter * xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+  " space
+  autocmd VimEnter * omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
+  autocmd VimEnter * xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
+  autocmd VimEnter * call s:init_textobj()
 augroup END
 
 " Requires: 'machakann/vim-swap'
@@ -77,30 +77,30 @@ LazyPlug 'terryma/vim-expand-region'
 vmap j <Plug>(expand_region_expand)
 vmap k <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {
-			\ 'iw'  :0,
-			\ 'iW'  :0,
-			\ 'ih'  :0,
-			\ 'id'  :0,
-			\ 'i<'  :0,
-			\ 'a<'  :0,
-			\ 'i"'  :0,
-			\ 'a"'  :0,
-			\ 'i''' :0,
-			\ 'a''' :0,
-			\ 'i`'  :0,
-			\ 'a`'  :0,
-			\ 'ic'  :0,
-			\ 'ac'  :0,
-			\ 'i]'  :1,
-			\ 'a]'  :1,
-			\ 'ib'  :1,
-			\ 'ab'  :1,
-			\ 'iB'  :1,
-			\ 'aB'  :1,
-			\ 'il'  :0,
-			\ 'ip'  :0,
-			\ 'ie'  :0,
-			\ }
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'ih'  :0,
+      \ 'id'  :0,
+      \ 'i<'  :0,
+      \ 'a<'  :0,
+      \ 'i"'  :0,
+      \ 'a"'  :0,
+      \ 'i''' :0,
+      \ 'a''' :0,
+      \ 'i`'  :0,
+      \ 'a`'  :0,
+      \ 'ic'  :0,
+      \ 'ac'  :0,
+      \ 'i]'  :1,
+      \ 'a]'  :1,
+      \ 'ib'  :1,
+      \ 'ab'  :1,
+      \ 'iB'  :1,
+      \ 'aB'  :1,
+      \ 'il'  :0,
+      \ 'ip'  :0,
+      \ 'ie'  :0,
+      \ }
 
 " NOTE:
 " 下記を追加すると，判定に時間がかかるらしく，待機時間がつらいので，導入しない
@@ -110,22 +110,22 @@ let g:expand_region_text_objects = {
 " NOTE: oによるカーソル位置によってはexapnd or shrink
 " expand range one char both side
 function! s:expand_visual_range(n)
-	" NOTE: up and down move
-	if visualmode() ==# 'V'
-		if a:n > 0
-			execute "normal! gv\<Down>"
-		elseif a:n < 0
-			execute "normal! gv\<Up>"
-		endif
-		return
-	endif
+  " NOTE: up and down move
+  if visualmode() ==# 'V'
+    if a:n > 0
+      execute "normal! gv\<Down>"
+    elseif a:n < 0
+      execute "normal! gv\<Up>"
+    endif
+    return
+  endif
 
-	let pos=getpos('.')
-	if a:n > 0
-		execute "normal! gv\<Right>o\<Left>o"
-	elseif a:n < 0
-		execute "normal! gv\<Left>o\<Right>o"
-	endif
+  let pos=getpos('.')
+  if a:n > 0
+    execute "normal! gv\<Right>o\<Left>o"
+  elseif a:n < 0
+    execute "normal! gv\<Left>o\<Right>o"
+  endif
 endfunction
 vnoremap <silent> J :<C-u>call <SID>expand_visual_range(1)<CR>
 vnoremap <silent> K :<C-u>call <SID>expand_visual_range(-1)<CR>

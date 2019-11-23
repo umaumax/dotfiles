@@ -1,5 +1,5 @@
 " syntax check
-" 	Plug 'neomake/neomake'
+"   Plug 'neomake/neomake'
 LazyPlug 'w0rp/ale'
 
 " [NeovimでモダンなPython環境を構築する]( https://qiita.com/lighttiger2505/items/e0ada17634516c081ee7 )
@@ -31,29 +31,29 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
 let g:ale_linters = {
-			\   'awk': ['gawk'],
-			\   'python': ['pylint', 'autopep8', 'flake8'],
-			\   'json': ['jsonlint'],
-			\   'cmakelint': ['cmakelint'],
-			\   'sh': ['shellcheck'],
-			\   'vim': ['vint'],
-			\   'cpp': ['cpplint','clang'],
-			\   'markdown': ['alex','vale'],
-			\   'txt': ['textlint'],
-			\   'make': ['checkmake'],
-			\   'yaml': [''],
-			\}
+      \   'awk': ['gawk'],
+      \   'python': ['pylint', 'autopep8', 'flake8'],
+      \   'json': ['jsonlint'],
+      \   'cmakelint': ['cmakelint'],
+      \   'sh': ['shellcheck'],
+      \   'vim': ['vint'],
+      \   'cpp': ['cpplint','clang'],
+      \   'markdown': ['alex','vale'],
+      \   'txt': ['textlint'],
+      \   'make': ['checkmake'],
+      \   'yaml': [''],
+      \}
 " NOTE: doesn't fit for me
 " 'yaml': ['yamllint'],
 " NOTE: maybe cause little spped down
 " 'cpp': ['clangcheck', 'clangtidy'],
 " NOTE: check linter commands existence
 for [key, linters] in items(g:ale_linters)
-	for linter in linters
-		if !Doctor(linter, 'for '.key.' linter')
-			call remove(g:ale_linters[key], linter)
-		endif
-	endfor
+  for linter in linters
+    if !Doctor(linter, 'for '.key.' linter')
+      call remove(g:ale_linters[key], linter)
+    endif
+  endfor
 endfor
 let g:ale_cpp_cpplint_options = '--linelength=160 --filter=-readability/todo,-legal/copyright,-whitespace/line_length,-build/header_guard'
 let g:ale_cmake_cmakelint_options = '--filter=-linelength'

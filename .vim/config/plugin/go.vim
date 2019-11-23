@@ -1,5 +1,5 @@
 if !Doctor('go','fatih/vim-go')
-	finish
+  finish
 endif
 " NOTE:
 " vim-goとdeopleteが混ざっているが，...
@@ -33,15 +33,15 @@ let g:molokai_original = 1
 let g:rehash256 = 1
 
 augroup go_setting
-	autocmd!
-	" require 'tomasr/molokai'
-	" NOTE:
-	" colorschemeの設定タイミングによって't9md/vim-quickhl'が正常に反映されない
-	" 	au BufRead,BufNewFile *.go colorscheme molokai
+  autocmd!
+  " require 'tomasr/molokai'
+  " NOTE:
+  " colorschemeの設定タイミングによって't9md/vim-quickhl'が正常に反映されない
+  "   au BufRead,BufNewFile *.go colorscheme molokai
 
-	" [Highlight go extra vars]( http://esola.co/posts/2016/highlight-go-extra-vars )
-	autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136
-	autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
+  " [Highlight go extra vars]( http://esola.co/posts/2016/highlight-go-extra-vars )
+  autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136
+  autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
 augroup END
 
 Plug 'zchee/vim-goiferr', {'for': 'go'}
@@ -52,6 +52,6 @@ Plug 'zchee/vim-goiferr', {'for': 'go'}
 " "Plug 'vim-scripts/asm8051.vim'
 " Plug 'Shirk/vim-gas'
 " augroup filetypedetect
-" 	au BufNewFile,BufRead *.s,*.inc,*.asm,*.S,*.ASM,*.INC,*.plan9,*.as,*.AS set ft=gas
+"   au BufNewFile,BufRead *.s,*.inc,*.asm,*.S,*.ASM,*.INC,*.plan9,*.as,*.AS set ft=gas
 " augroup END
 

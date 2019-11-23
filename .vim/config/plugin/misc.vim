@@ -44,8 +44,8 @@ Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 " NOTE: tab visualization
 " Plug 'nathanaelkane/vim-indent-guides', {'on':'IndentGuidesEnable'}
 " augroup vim-indent-guides
-" 	autocmd!
-" 	autocmd User VimEnterDrawPost IndentGuidesEnable
+"   autocmd!
+"   autocmd User VimEnterDrawPost IndentGuidesEnable
 " augroup END
 " let g:indent_guides_enable_on_vim_startup = 1
 " let g:indent_guides_start_level = 2
@@ -83,8 +83,8 @@ let g:highlightedyank_highlight_duration = -1
 augroup vim_highlightedyank_color_group
   autocmd!
   autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
-  " 	autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
-  " 	autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
+  "   autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
+  "   autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
 " NOTE: this plugin remap (),[],{}
@@ -163,12 +163,12 @@ endfunction
 " " set file key short cut (i:insert, e:empty, q:quit)
 " let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
 " if v:version >= 800
-" 	let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
+"   let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
 " endif
 " " bookmark example
 " let g:startify_bookmarks = [
-" 			\ '~/.vimrc',
-" 			\ ]
+"       \ '~/.vimrc',
+"       \ ]
 
 " high light word when replacing
 " command line window modeでの動作しない?
@@ -177,9 +177,9 @@ endfunction
 " NOTE: 特に必要ではなさそうなので，temporarily disabled
 " color picker
 " :VCoolor
-" :VCoolIns r		" For rgb color insertion
-" :VCoolIns h		" For hsl color insertion
-" :VCoolIns ra	" For rgba color insertion
+" :VCoolIns r   " For rgb color insertion
+" :VCoolIns h   " For hsl color insertion
+" :VCoolIns ra  " For rgba color insertion
 " Plug 'KabbAmine/vCoolor.vim', {'on':['VCoolor','VCoolIns']}
 
 " IMEがOFFにならない...
@@ -344,10 +344,10 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 
 " NOTE: vim-abolish
 " :S/{pattern}/{string}/[flags]
-" crs	"SnakeCase" -> "snake_case"
-" crm	"mixed_case" -> "MixedCase"
-" crc	"camel_case" -> "camelCase"
-" cru	"upper_case" -> "UPPER_CASE"
+" crs "SnakeCase" -> "snake_case"
+" crm "mixed_case" -> "MixedCase"
+" crc "camel_case" -> "camelCase"
+" cru "upper_case" -> "UPPER_CASE"
 " call extend(Abolish.Coercions, {
 "       \ 'c': Abolish.camelcase,
 "       \ 'm': Abolish.mixedcase,
@@ -428,8 +428,8 @@ let g:table_mode_corner="|"
 " Plug 'othree/vim-autocomplpop'
 
 Plug 'elzr/vim-json', {'for': 'json'}
-" :NeatJson			Format
-" :NeatRawJson		EncodedFormat
+" :NeatJson     Format
+" :NeatRawJson    EncodedFormat
 Plug '5t111111/neat-json.vim', {'for': 'json'}
 
 " to use this lib, you have to set filetype=gnuplot by autocmd
@@ -530,8 +530,8 @@ Plug 'luochen1990/rainbow', {'do': 'git remote add pull-request-KushNee https://
 let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
 " [Emacs のカッコの色を抵抗のカラーコードにしてみる \- Qiita]( https://qiita.com/gnrr/items/8f9efd5ced058e576f5e )
 let g:rainbow_conf = {
-      \	'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
-      \	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
+      \ 'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
+      \ 'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
       \}
 
 " NOTE: 対応する()をhighlight

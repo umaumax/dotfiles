@@ -30,7 +30,7 @@ set wildmenu
 set wildmode=longest:full,full
 " FYI: [Neovimさんのツイート: "Popup 'wildmenu' just landed in \#neovim HEAD 0\.4\.x\. :set wildoptions=pum It supports 'pumblend', don't worry\. :set pumblend=20… https://t\.co/sFy2dljE4i"]( https://twitter.com/Neovim/status/1107014096908664832 )
 if has('nvim-0.4.0')
-	set wildoptions+=pum
+  set wildoptions+=pum
 endif
 set laststatus=2 "常に編集中ファイル名表示
 
@@ -51,9 +51,9 @@ set backupskip=/tmp/*,/private/tmp/*
 " FYI: [vim\-abolish/abolish\.txt at master - tpope/vim\-abolish]( https://github.com/tpope/vim-abolish/blob/master/doc/abolish.txt#L167 )
 setlocal iskeyword+=-
 augroup iskeyword_group
-	autocmd!
-	" NOTE: to avoid 'var_name-' as word at var_name->func()
-	autocmd FileType cpp setlocal iskeyword-=-
+  autocmd!
+  " NOTE: to avoid 'var_name-' as word at var_name->func()
+  autocmd FileType cpp setlocal iskeyword-=-
 augroup END
 
 " NOTE: to open file with line no
@@ -84,22 +84,22 @@ setlocal cursorline | setlocal cursorcolumn
 let cursor_highlight_opt_flag = 0
 lockvar cursor_highlight_opt_flag
 if cursor_highlight_opt_flag != 0
-	" NOTE: basically, highlight cursor while searching
-	function! s:auto_highlight()
-		if v:hlsearch == 0
-			setlocal nocursorline | setlocal nocursorcolumn
-		else
-			setlocal cursorline | setlocal cursorcolumn
-		endif
-	endfunction
-	augroup vimrc-auto-cursorline
-		autocmd!
-		" FYI: [Vimの検索ハイライト,hlsearch,:nohlsearch,v:hlsearchがややこしい \- haya14busa]( http://haya14busa.com/vim_highlight_search/ )
-		" :set hlsearch
-		autocmd OptionSet hlsearch call s:auto_highlight()
-		" NOTE: :nohでは上記は呼ばれない
-		autocmd CursorHold,CursorHoldI * call s:auto_highlight()
-	augroup END
+  " NOTE: basically, highlight cursor while searching
+  function! s:auto_highlight()
+    if v:hlsearch == 0
+      setlocal nocursorline | setlocal nocursorcolumn
+    else
+      setlocal cursorline | setlocal cursorcolumn
+    endif
+  endfunction
+  augroup vimrc-auto-cursorline
+    autocmd!
+    " FYI: [Vimの検索ハイライト,hlsearch,:nohlsearch,v:hlsearchがややこしい \- haya14busa]( http://haya14busa.com/vim_highlight_search/ )
+    " :set hlsearch
+    autocmd OptionSet hlsearch call s:auto_highlight()
+    " NOTE: :nohでは上記は呼ばれない
+    autocmd CursorHold,CursorHoldI * call s:auto_highlight()
+  augroup END
 endif
 
 " NOTE: these value are maybe ignored by 'tpope/vim-sleuth' without using augroup
@@ -108,40 +108,40 @@ set smartindent
 command! -nargs=1 SetTab call s:set_tab(<f-args>)
 " NOTE: force set tab function
 function! s:set_global_tab(n)
-	setlocal expandtab
-	execute "set tabstop="    .a:n
-	execute "set shiftwidth=" .a:n
-	execute "set softtabstop=".a:n
+  setlocal expandtab
+  execute "set tabstop="    .a:n
+  execute "set shiftwidth=" .a:n
+  execute "set softtabstop=".a:n
 endfunction
 function! s:set_tab(n)
-	setlocal expandtab
-	execute "setlocal tabstop="    .a:n
-	execute "setlocal shiftwidth=" .a:n
-	execute "setlocal softtabstop=".a:n
+  setlocal expandtab
+  execute "setlocal tabstop="    .a:n
+  execute "setlocal shiftwidth=" .a:n
+  execute "setlocal softtabstop=".a:n
 endfunction
 function! s:Sleuth_wrapper(n)
-	call s:set_tab(2)
-	if &rtp =~ 'vim-sleuth'
-		Sleuth
-	endif
-	" NOTE: 無理やりtabの修正
-	if &expandtab==0 && &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
-		setlocal tabstop=2
-		setlocal shiftwidth=2
-		setlocal softtabstop=2
-	endif
+  call s:set_tab(2)
+  if &rtp =~ 'vim-sleuth'
+    Sleuth
+  endif
+  " NOTE: 無理やりtabの修正
+  if &expandtab==0 && &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
+    setlocal tabstop=2
+    setlocal shiftwidth=2
+    setlocal softtabstop=2
+  endif
 endfunction
 " default tab setting
 call s:set_global_tab(2)
 " FYI: [autocmd FileType \*]( https://github.com/tpope/vim-sleuth/blob/master/plugin/sleuth.vim#L196 )
 augroup tab_setting
-	autocmd!
-	autocmd FileType * call s:Sleuth_wrapper(2)
-	autocmd FileType python call s:set_tab(4)
-	" NOTE: Makefile requires hard tab
-	autocmd FileType make setlocal noexpandtab
-	" NOTE: shell file requires soft tab (by google coding rule)
-	autocmd FileType sh setlocal expandtab
+  autocmd!
+  autocmd FileType * call s:Sleuth_wrapper(2)
+  autocmd FileType python call s:set_tab(4)
+  " NOTE: Makefile requires hard tab
+  autocmd FileType make setlocal noexpandtab
+  " NOTE: shell file requires soft tab (by google coding rule)
+  autocmd FileType sh setlocal expandtab
 augroup END
 
 " NOTE: to disable `E828: Cannot open undo file for writing:`
@@ -151,16 +151,16 @@ set undofile
 " WARN: if undofile has 40MB, e.g. this takes 0.8sec to open...
 execute 'set undodir='.g:tempfiledir
 augroup noundofile_group
-	autocmd!
-	autocmd BufWritePre,FileWritePre,FileAppendPre * if len(expand('%:p')) >= 255 | setlocal noundofile | endif
+  autocmd!
+  autocmd BufWritePre,FileWritePre,FileAppendPre * if len(expand('%:p')) >= 255 | setlocal noundofile | endif
 augroup END
 
 " NOTE: 以下のような複数行のコマンドをコピーして，コマンドラインに貼り付けるときに，強制的にset pasteとなる
 " :echo 1
 " :echo 2
 augroup no_paste_group
-	autocmd!
-	autocmd CmdlineLeave * set nopaste
+  autocmd!
+  autocmd CmdlineLeave * set nopaste
 augroup END
 " NOTE:???
 " [configuration \- Turning off auto indent when pasting text into vim \- Stack Overflow]( https://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim )
@@ -198,21 +198,21 @@ set whichwrap=b,s,[,],<,>
 
 " #### file setting ####
 " ['viminfo' \- VimWiki]( http://vimwiki.net/?%27viminfo%27 )
-" '	マークが復元されるファイル履歴の最大値。オプション 'viminfo'が空でないときは、常にこれを設定しなければならない。また、このオプションを設定するとジャンプリスト |jumplist| もviminfo ファイルに蓄えられることになる。
-" /	保存される検索パターンの履歴の最大値。非0 の値を指定すると、前回の検索パターンと置換パターンも保存される。これが含まれないときは、'history' の値が使われる。
-" %	これが含まれると、バッファリストを保存・復元する。Vimの起動時にファイル名が引数に含まれていると、バッファリストは復元されない。 Vimの起動時にファイル名が引数に含まれていないと、バッファリストが viminfo ファイルから復元される。ファイル名のないバッファとヘルプ用バッファは、viminfo ファイルには書き込まれない。
+" ' マークが復元されるファイル履歴の最大値。オプション 'viminfo'が空でないときは、常にこれを設定しなければならない。また、このオプションを設定するとジャンプリスト |jumplist| もviminfo ファイルに蓄えられることになる。
+" / 保存される検索パターンの履歴の最大値。非0 の値を指定すると、前回の検索パターンと置換パターンも保存される。これが含まれないときは、'history' の値が使われる。
+" % これが含まれると、バッファリストを保存・復元する。Vimの起動時にファイル名が引数に含まれていると、バッファリストは復元されない。 Vimの起動時にファイル名が引数に含まれていないと、バッファリストが viminfo ファイルから復元される。ファイル名のないバッファとヘルプ用バッファは、viminfo ファイルには書き込まれない。
 " \" old one of <
-" <	Maximum number of lines saved for each register.  If zero then registers are not saved.  When not included, all lines are saved.  '"' is the old name for this item.
-" f	Whether file marks need to be stored.  If zero, file marks ('0 to '9, 'A to 'Z) are not stored.  When not present or when non-zero, they are all stored.  '0 is used for the current cursor position (when exiting or when doing ":wviminfo").
-" s	Maximum size of an item in Kbyte.  If zero then registers are not saved.  Currently only applies to registers.  The default "s10" will exclude registers with more than 10 Kbyte of text.  Also see the '<' item above: line count limit.
-" :	保存されるコマンドライン履歴の最大値。これが含まれないときは、'history' の値が使われる。
-" c	When included, convert the text in the viminfo file from the 'encoding' used when writing the file to the current 'encoding'.  See |viminfo-encoding|.
-" h	Disable the effect of 'hlsearch' when loading the viminfo file.  When not included, it depends on whether ":nohlsearch"
-" !	When included, save and restore global variables that start with an uppercase letter, and don't contain a lowercase letter.  Thus "KEEPTHIS and "K_L_M" are stored, but "KeepThis" and "_K_L_M" are not.  Only String and Number types are stored.
+" < Maximum number of lines saved for each register.  If zero then registers are not saved.  When not included, all lines are saved.  '"' is the old name for this item.
+" f Whether file marks need to be stored.  If zero, file marks ('0 to '9, 'A to 'Z) are not stored.  When not present or when non-zero, they are all stored.  '0 is used for the current cursor position (when exiting or when doing ":wviminfo").
+" s Maximum size of an item in Kbyte.  If zero then registers are not saved.  Currently only applies to registers.  The default "s10" will exclude registers with more than 10 Kbyte of text.  Also see the '<' item above: line count limit.
+" : 保存されるコマンドライン履歴の最大値。これが含まれないときは、'history' の値が使われる。
+" c When included, convert the text in the viminfo file from the 'encoding' used when writing the file to the current 'encoding'.  See |viminfo-encoding|.
+" h Disable the effect of 'hlsearch' when loading the viminfo file.  When not included, it depends on whether ":nohlsearch"
+" ! When included, save and restore global variables that start with an uppercase letter, and don't contain a lowercase letter.  Thus "KEEPTHIS and "K_L_M" are stored, but "KeepThis" and "_K_L_M" are not.  Only String and Number types are stored.
 set viminfo='1000,/5000,%,<1000,f1,s100,:10000,c,h,!
 " NOTE: move cursor to last position
 augroup reopen_cursor_position
-	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 " NOTE: use .viminfo
@@ -249,29 +249,29 @@ syntax on "コードの色分け
 " set shell=bash\ -i
 " [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
 if filereadable(glob('~/.bashenv'))
-	let $BASH_ENV=expand('~/.bashenv')
+  let $BASH_ENV=expand('~/.bashenv')
 endif
 " [dotfiles/dot\.zshenv at master · poppen/dotfiles]( https://github.com/poppen/dotfiles/blob/master/dot.zshenv )
 " [How to run zsh aliased command from vim command mode? \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/16186/how-to-run-zsh-aliased-command-from-vim-command-mode )
 " One possible workaround is to move these things out of .zshrc. .zshrc is only sourced for interactive terminals, but .zshenv is sourced for any invocation of zsh (except with -f). Creating aliases in .zshenv will allow them to work when zsh is called by vim.
 if filereadable(glob('~/.zshenv'))
-	let $ZSH_ENV=expand('~/.zshenv')
+  let $ZSH_ENV=expand('~/.zshenv')
 endif
 
 " colorscheme
 if g:colorscheme == 'molokai'
-	colorscheme molokai
-	" for terminal transparent background color
-	" 	highlight Normal ctermbg=none
-	" 	highlight Normal ctermbg=235
-	augroup visualmode_color
-		autocmd!
-		autocmd ColorScheme,BufWinEnter * highlight Visual ctermbg=55 guibg=#800080
-	augroup END
+  colorscheme molokai
+  " for terminal transparent background color
+  "   highlight Normal ctermbg=none
+  "   highlight Normal ctermbg=235
+  augroup visualmode_color
+    autocmd!
+    autocmd ColorScheme,BufWinEnter * highlight Visual ctermbg=55 guibg=#800080
+  augroup END
 elseif g:colorscheme == 'moonfly'
-	colorscheme moonfly
+  colorscheme moonfly
 elseif g:colorscheme == 'tender'
-	colorscheme tender
-	" set airline theme
-	let g:airline_theme = 'tender'
+  colorscheme tender
+  " set airline theme
+  let g:airline_theme = 'tender'
 endif

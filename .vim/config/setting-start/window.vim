@@ -19,29 +19,29 @@ nnoremap sT :<C-u>Unite tab<CR>
 " NOTE: 巡回する円環tab機構
 " NOTE: +1, -1
 function! TorusTabMove(...)
-	let str=get(a:, 1, '+1')
-	if str=='1'
-		let str='+1'
-	endif
-	if str!='+1' && str!='-1'
-		echom ':TorusTabMove +1 or -1'
-		return
-	endif
-	let prev_flag=str=='-1'
-	let next_flag=str=='+1'
+  let str=get(a:, 1, '+1')
+  if str=='1'
+    let str='+1'
+  endif
+  if str!='+1' && str!='-1'
+    echom ':TorusTabMove +1 or -1'
+    return
+  endif
+  let prev_flag=str=='-1'
+  let next_flag=str=='+1'
 
-	" NOTE: 1~
-	let current_tab_no=tabpagenr()
-	let max_tab_no = tabpagenr('$')
-	if current_tab_no==1 && prev_flag
-		:tabmove
-		return
-	endif
-	if current_tab_no==max_tab_no && next_flag
-		:tabmove 0
-		return
-	endif
-	execute ':tabmove '.str
+  " NOTE: 1~
+  let current_tab_no=tabpagenr()
+  let max_tab_no = tabpagenr('$')
+  if current_tab_no==1 && prev_flag
+    :tabmove
+    return
+  endif
+  if current_tab_no==max_tab_no && next_flag
+    :tabmove 0
+    return
+  endif
+  execute ':tabmove '.str
 endfunction
 
 " split window of new buffer
@@ -70,23 +70,23 @@ nnoremap sL <C-w>L
 nnoremap sH <C-w>H
 
 if &rtp =~ 'vim-submode'
-	function! s:easy_submode_set(submode, modes, options, lhs, cmd)
-		call submode#enter_with(a:submode, a:modes, a:options, a:lhs, a:cmd)
-		call submode#map(a:submode, a:modes, a:options, a:lhs, a:cmd)
-		call submode#map(a:submode, a:modes, a:options, a:lhs[1:], a:cmd)
-	endfunction
-	call s:easy_submode_set('bufmove', 'n', '', 's>', '<C-w>>')
-	call s:easy_submode_set('bufmove', 'n', '', 's<', '<C-w><')
-	call s:easy_submode_set('bufmove', 'n', '', 's+', '<C-w>+')
-	call s:easy_submode_set('bufmove', 'n', '', 's-', '<C-w>-')
-	call s:easy_submode_set('bufmove', 'n', '', 'sn', 'gt')
-	call s:easy_submode_set('bufmove', 'n', '', 'sp', 'gT')
-	call s:easy_submode_set('bufmove', 'n', '', 'sN', ':<C-u>call TorusTabMove(1)<CR>')
-	call s:easy_submode_set('bufmove', 'n', '', 'sP', ':<C-u>call TorusTabMove(-1)<CR>')
-	call s:easy_submode_set('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
+  function! s:easy_submode_set(submode, modes, options, lhs, cmd)
+    call submode#enter_with(a:submode, a:modes, a:options, a:lhs, a:cmd)
+    call submode#map(a:submode, a:modes, a:options, a:lhs, a:cmd)
+    call submode#map(a:submode, a:modes, a:options, a:lhs[1:], a:cmd)
+  endfunction
+  call s:easy_submode_set('bufmove', 'n', '', 's>', '<C-w>>')
+  call s:easy_submode_set('bufmove', 'n', '', 's<', '<C-w><')
+  call s:easy_submode_set('bufmove', 'n', '', 's+', '<C-w>+')
+  call s:easy_submode_set('bufmove', 'n', '', 's-', '<C-w>-')
+  call s:easy_submode_set('bufmove', 'n', '', 'sn', 'gt')
+  call s:easy_submode_set('bufmove', 'n', '', 'sp', 'gT')
+  call s:easy_submode_set('bufmove', 'n', '', 'sN', ':<C-u>call TorusTabMove(1)<CR>')
+  call s:easy_submode_set('bufmove', 'n', '', 'sP', ':<C-u>call TorusTabMove(-1)<CR>')
+  call s:easy_submode_set('bufmove', 'n', '', 'st', ':<C-u>tabnew<CR>')
 
-	" NOTE: skip submode delay
-	call submode#map('bufmove', 'n', '', ':', ':call feedkeys("::", "n")<CR>')
-	call submode#map('bufmove', 'n', '', 'i', ':call feedkeys(":i", "n")<CR>')
-	call submode#map('bufmove', 'n', '', 'a', ':call feedkeys(":a", "n")<CR>')
+  " NOTE: skip submode delay
+  call submode#map('bufmove', 'n', '', ':', ':call feedkeys("::", "n")<CR>')
+  call submode#map('bufmove', 'n', '', 'i', ':call feedkeys(":i", "n")<CR>')
+  call submode#map('bufmove', 'n', '', 'a', ':call feedkeys(":a", "n")<CR>')
 endif

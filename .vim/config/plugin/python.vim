@@ -1,9 +1,9 @@
 " NOTE: python syntax highlight
 if has('nvim')
-	Plug 'numirias/semshi', {'for':['python'], 'do': ':UpdateRemotePlugins'}
+  Plug 'numirias/semshi', {'for':['python'], 'do': ':UpdateRemotePlugins'}
 else
-	Plug 'hdima/python-syntax', {'for':['python']}
-	let g:python_highlight_all = 1
+  Plug 'hdima/python-syntax', {'for':['python']}
+  let g:python_highlight_all = 1
 endif
 
 " NOTE: below plugins are only for python package import command

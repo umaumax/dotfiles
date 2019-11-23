@@ -1,22 +1,22 @@
 " [vim \- How to yank lines into the same register then paste into a new buffer? \- Super User]( https://superuser.com/questions/1107864/how-to-yank-lines-into-the-same-register-then-paste-into-a-new-buffer )
 function! PipeCommandResultToNewTab(cmd)
-	" NOTE: this ESC is to acoid 'Press ENTER or type command to continue'
-	execute "normal! \<ESC>"
-	redir @z
-	execute 'silent '.a:cmd
-	redir END
-	tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=vim
+  " NOTE: this ESC is to acoid 'Press ENTER or type command to continue'
+  execute "normal! \<ESC>"
+  redir @z
+  execute 'silent '.a:cmd
+  redir END
+  tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=vim
 endfunction
 
 function! OrigBind()
-	echo ' crs,cr_ " SnakeCase" -> "snake_case"'
-	echo ' crm     "mixed_case" -> " MixedCase"'
-	echo ' crc     "camel_case" -> " camelCase"'
-	echo ' cru,crU "upper_case" -> "UPPER_CASE"'
-	echo ' crk,cr- " dash_case" -> " dash-case"'
-	echo ' cr.     "  dot_case" -> "  dot.case"'
-	echo ' cr" "   "space_case" -> "space case"'
-	echo ' crt     "title_case" -> "Title Case"'
+  echo ' crs,cr_ " SnakeCase" -> "snake_case"'
+  echo ' crm     "mixed_case" -> " MixedCase"'
+  echo ' crc     "camel_case" -> " camelCase"'
+  echo ' cru,crU "upper_case" -> "UPPER_CASE"'
+  echo ' crk,cr- " dash_case" -> " dash-case"'
+  echo ' cr.     "  dot_case" -> "  dot.case"'
+  echo ' cr" "   "space_case" -> "space case"'
+  echo ' crt     "title_case" -> "Title Case"'
 endfunction
 
 command! Map         call PipeCommandResultToNewTab("map")

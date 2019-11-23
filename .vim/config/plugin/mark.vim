@@ -9,20 +9,20 @@
 " mark auto registration
 " http://saihoooooooo.hatenablog.com/entry/2013/04/30/001908
 if !exists('g:markrement_char')
-	" ignore 'm', 's', 't' becase these are used other settings
-	let g:markrement_char = [
-				\     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-				\     'n', 'o', 'p', 'q', 'r', 'u', 'v', 'w', 'x', 'y', 'z'
-				\ ]
+  " ignore 'm', 's', 't' becase these are used other settings
+  let g:markrement_char = [
+        \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+        \     'n', 'o', 'p', 'q', 'r', 'u', 'v', 'w', 'x', 'y', 'z'
+        \ ]
 endif
 nnoremap <silent>mm :<C-u>call <SID>AutoMarkrement()<CR>
 nnoremap <silent><Space>m :MarkologyToggle<CR>
 function! s:AutoMarkrement()
-	if !exists('b:markrement_pos')
-		let b:markrement_pos = 0
-	else
-		let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
-	endif
-	execute 'mark' g:markrement_char[b:markrement_pos]
-	echo 'marked' g:markrement_char[b:markrement_pos]
+  if !exists('b:markrement_pos')
+    let b:markrement_pos = 0
+  else
+    let b:markrement_pos = (b:markrement_pos + 1) % len(g:markrement_char)
+  endif
+  execute 'mark' g:markrement_char[b:markrement_pos]
+  echo 'marked' g:markrement_char[b:markrement_pos]
 endfunction

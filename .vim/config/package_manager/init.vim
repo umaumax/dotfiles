@@ -1,14 +1,14 @@
 " NOTE: auto download vim-plug
 let b:plug_install_flag=0
 if has('vim_starting')
-  " 	if !isdirectory(expand('~/.vim/plugged/vim-plug'))
-  " 		echo 'install vim-plug...'
-  " 		call system('mkdir -p ~/.vim/plugged/vim-plug')
-  " 		call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
-  " 	end
-  " 	if isdirectory(expand('~/.vim/plugged/vim-plug'))
-  " 		set rtp+=~/.vim/plugged/vim-plug
-  " 	endif
+  "   if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+  "     echo 'install vim-plug...'
+  "     call system('mkdir -p ~/.vim/plugged/vim-plug')
+  "     call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  "   end
+  "   if isdirectory(expand('~/.vim/plugged/vim-plug'))
+  "     set rtp+=~/.vim/plugged/vim-plug
+  "   endif
   if !filereadable(expand('~/.vim/autoload/plug.vim'))
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/autoload')
@@ -108,8 +108,8 @@ augroup END
 " NOTE: 適切にinstallされない?
 " command! -nargs=0 PlugCheckInstall call <SID>plug_check_installation()
 " augroup check-plug
-" 	autocmd!
-" 	autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
+"   autocmd!
+"   autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
 " augroup END
 
 call plug#begin(g:plug_home)

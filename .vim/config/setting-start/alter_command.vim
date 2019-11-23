@@ -1,13 +1,13 @@
 if &rtp !~ 'vim-altercmd'
-	finish
+  finish
 endif
 
 call altercmd#load()
 " NOTE: cmap <CR>にマッピングがないことが前提
 " vim-smartinputとの共存に注意
 augroup cunmap_cr
-	autocmd!
-	autocmd VimEnter * silent! cunmap <CR>
+  autocmd!
+  autocmd VimEnter * silent! cunmap <CR>
 augroup END
 
 AlterCommand m Message
