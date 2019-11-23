@@ -12,7 +12,7 @@ snippet funcname
 
 snippet readline
 	# -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-	 while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
+	while IFS= read -r ${1:line} || [[ -n "$$1" ]]; do
 		${0}
 	done < <(${2:cat})
 snippet readlines
