@@ -1398,6 +1398,10 @@
 # perl
 [ol perl source code comfirm] perl -MO=Deparse # -le 'print "Hello, World!"'
 
+# expand
+[tab to space] expand -t 2 # pipe or filename
+[space to tab] unexpand -t 2 # pipe or filename
+
 # overwrite
 [overwrite file command wrapper] FILE=\%#; TMP_FILE="$(mktemp)"; cat "$FILE" | cat > "$TMP_FILE" && mv "$TMP_FILE" "$FILE"
 [git xargs overwrite file command example] git ls-files -z -- '*.vim' | xargs -0 -I{} echo {} | overwrite expand -t 2
