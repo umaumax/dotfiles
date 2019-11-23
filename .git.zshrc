@@ -226,6 +226,19 @@ function ggpv_root() {
   git_grep_root --color=always "$@" | pecovim
 }
 function ggpv_current() {
+  if [[ $# == 0 ]]; then
+    # NOTE: required 0.19.0~
+    # [fzf/CHANGELOG\.md at master · junegunn/fzf]( https://github.com/junegunn/fzf/blob/master/CHANGELOG.md#0190 )
+    local git_grep_cmd='git grep -n --color=always '
+    # NOTE: eval is for joining query command not as a quoted word
+    local ret
+    ret=$(eval "$git_grep_cmd ''" | fzf --bind "change:reload: eval '$git_grep_cmd '{q} || true" --phony --print-query)
+    [[ -z $ret ]] && return
+    local query
+    query=$(printf '%s' "$ret" | head -n 1)
+    ggpv_current "$query"
+    return
+  fi
   git_grep_current --color=always "$@" | pecovim
 }
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
