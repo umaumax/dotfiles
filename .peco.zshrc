@@ -21,18 +21,15 @@ if [[ $(uname) == "Darwin" ]]; then
   }
 fi
 
-# [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
-# -> USE: pipe-EOF-do
-# brew install fzf
-# git clone https://github.com/junegunn/fzf.git
-# git clone --depth 1 https://github.com/junegunn/fzf.git
-# cd fzf
-# ./install
-# cp bin/fzf ~/local/bin/fzf
 cmdcheck fzf && alias peco='fzf' && function fzf() {
-  # NOTE
-  # --no-hscroll: Disable horizontal scroll
-  pipe-EOF-do command fzf -0 --multi --no-mouse --ansi --reverse --no-hscroll --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' $@
+  if [[ -p /dev/stdin ]]; then
+    # [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
+    # -> USE: pipe-EOF-do
+    # NOTE: --no-hscroll: Disable horizontal scroll
+    pipe-EOF-do command fzf -0 --multi --no-mouse --ansi --reverse --no-hscroll --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' "$@"
+  else
+    command fzf $@
+  fi
 }
 cmdcheck fzy && alias fzy='fzy -l $(($(tput lines)/2))'
 

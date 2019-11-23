@@ -600,20 +600,24 @@ function pipe-EOF-do() {
   # NOTE: mac ok
   # NOTE: ubuntu cannot deal with sudo before pipe
   # NOTE: たまに，suspended (tty output)と表示され，バックグランド実行となる(at mac)
-  IFS= read -r LINE
-  {
-    [[ -n $LINE ]] && printf '%s\n' "$LINE"
-    command cat
-  } | $@
+  if [[ -p /dev/stdin ]]; then
+    IFS= read -r LINE
+    {
+      [[ -n $LINE ]] && printf '%s\n' "$LINE"
+      command cat
+    } | $@
+  else
+    $@
+  fi
 }
 
+# NOTE: use this command to wait sudo password input
 function sudowait() {
   if sudoenable; then
-    command cat
-    return 0
+    command cat | ${@}
+  else
+    # failed to run sudo
   fi
-  local v=$(cat)
-  printf "%s" $v | ${@}
 }
 
 alias kaiba='echo "ヽ(*ﾟдﾟ)ノ"'
