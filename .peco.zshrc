@@ -476,22 +476,20 @@ function umountpeco() {
 #   - None
 #######################################
 function pecoole() {
-  local ret=$(
+  local ret
+  ret=$(
     {
-      for filepath in $(ls ~/dotfiles/urls/*.md); do
-        echo -n $(basename $filepath) " "
-      done
+      find ~/dotfiles/urls -name "*.md" | sed -E 's:(^.*/)|(\.md$)::g' | tr '\n' ' '
       echo ''
       echo '[dotfiles/urls at master · umaumax/dotfiles]( https://github.com/umaumax/dotfiles/tree/master/urls )'
       echo ''
-      for filepath in $(ls ~/dotfiles/urls/*.md); do
-        cat $filepath
-        echo ""
-      done
+      command cat ~/dotfiles/urls/*.md
     } | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' | bat -l markdown --color=always --plain --unbuffered | fzf --query="'"
   )
-  local url=$(echo $ret | grep -E -o "http[s]://[^ ]*")
-  [[ -n $url ]] && open "$url"
+  local url
+  url=$(printf '%s' "$ret" | grep -E -o "http[s]://[^ ]*")
+  [[ -z $url ]] && return
+  open "$url"
 }
 
 function lnpeco() {
