@@ -40,7 +40,7 @@ c++ cpp return std::unique_ptr
 c++ cpp boost official homepage
 [boostjp]( https://boostjp.github.io/ )
 
-c++ cpp boost _1
+c++ cpp boost
 [無名関数 \- boostjp]( https://boostjp.github.io/tips/lambda.html )
 
 c++ cpp smart pointer info
