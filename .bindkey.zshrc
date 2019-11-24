@@ -708,6 +708,23 @@ function fancy-ctrl-z() {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+# FYI: [fzfで捗る自作コマンド一覧\(zsh\) \- ハイパーマッスルエンジニアになりたい]( https://www.rasukarusan.com/entry/2018/08/14/083000 )
+function fgpeco() {
+  local job_n
+  job_n=$(jobs | wc -l | tr -d ' ')
+  if [[ $job_n == 0 ]]; then
+    echo 1>&2 "# of background jobs is 0"
+    return
+  fi
+  local job
+  job=$(jobs | awk -F "suspended" "{print $1 $2}" | sed -e "s/\-//g" -e "s/\+//g" -e "s/\[//g" -e "s/\]//g" | grep -v pwd | fzf | awk "{print $1}")
+  if [[ -z "$(echo $job | grep -v grep | grep -e 'suspended' -e 'interrupt' -e 'running')" ]]; then
+    echo 1>&2 "# of background suspended/interrupt/running jobs is 0"
+    return 1
+  fi
+  fg "%${job}"
+}
+
 ####
 # FYI: [Plugins: vi\-mode: extra vi\-like bindings, vi\-like commands clipboard by alx741 · Pull Request \#3616 · robbyrussell/oh\-my\-zsh]( https://github.com/robbyrussell/oh-my-zsh/pull/3616/commits/0f6e49b455e498bd051d1d18d62dec4e6872d3e8 )
 # Allow Copy/Paste with the system clipboard
