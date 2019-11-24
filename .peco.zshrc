@@ -1082,8 +1082,23 @@ if cmdcheck copyq; then
     echo 1>&2 "${YELLOW}[log] copy copyq['$n']${DEFAULT}"
     copyq tab "$tab" read "$n" | tee >(bat -l js --plain --color always --theme "zenburn" >/dev/stderr) | c
   }
+  function copyq_remove() {
+    local n
+    local tab=${COPYQ_TAB:-'&clipboard'}
+    items=($(copyq eval -- "tab('$tab'); for(i=1; i<=size(); i++) print(str(read(i-1)) + '\0');" | perl -0ne 'BEGIN{$count=0} $_ =~ s/\n/\\n/g; printf("[%3d]:%s", $count,$_); $count++' | tr '\0' '\n' | bat -l js --plain --color always --theme "zenburn" | fzf --query="'" --multi | sed -E 's/^\[[ ]*([0-9]+)\]:.*$/\1/g' | tac))
+    [[ -z $items ]] && return
+    for n in "${items[@]}"; do
+      echo -n "${YELLOW}[log] remove copyq['$n']${DEFAULT}: " 1>&2
+      copyq tab "$tab" read "$n" 1>&2
+      echo 1>&2 ''
+      copyq tab "$tab" remove "$n" 1>&2
+    done
+  }
   function copyq_init() {
     copyq config command_history_size 10000 # defualt: 100, max: 10000
     copyq config maxitems 10000             # defualt: 200, max: 10000
+  }
+  function copyq_clean() {
+    copyq removetab "&clipboard"
   }
 fi
