@@ -918,10 +918,20 @@ function git-log-diff-current() {
 function git-log-diff() {
   is_git_repo_with_message || return
   local target=($1)
+  git log --name-only "${target[@]}" | git-log-diff-peco
+}
+function git-log-diff-peco() {
+  local query=""
   # NOTE: 選択しているcommit_hashがinitial commit hashの場合の例外処理がない
-  git log --name-only "${target[@]}" | awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' \
-    | fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query" | awk -F':' '{printf "%s:%s\n",$2,$1}'
-  # git log --stat --color . | fzf --multi --ansi --reverse --preview 'filepath=$(echo {} | sed -E -e '"'"'s/^ *(.*) *\| [0-9]+ .*$/\1/g'"'"' -e '"'"'s/ *$//g'"'"'); fullpath="$(git rev-parse --show-toplevel)/$filepath"; echo "filepath:$filepath"; echo "$fullpath"; [[ -e "$fullpath" ]] && git diff --color "$filepath"' --preview-window 'right:80%' --query="$query"
+
+  # fot fzf ~0.18.0
+  # awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' \
+  # | fzf --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath"' --preview-window 'right:70%' --query="$query" | awk -F':' '{printf "%s:%s\n",$2,$1}'
+
+  # fot fzf 0.19.0~
+  # NOTE: $(printf "%s" {q}) means split query
+  awk '{str=$0;} /^commit/{commit_hash=substr($2, 0, 7); str="\033[33m"$0"\033[0m"} /^ +/{str="\033[35m"$0"\033[0m"}!/^commit/ && !/^Author:/ && !/^Date:/ && !/^ +/ && NF {str=sprintf("%-40s\033[90m:%s\033[0m", $0, commit_hash);} NF>0 {printf "%s\n", str;}' \
+    | fzf --phony --multi --ansi --reverse --preview 'cd "$(git rev-parse --show-toplevel)"; commit_hash=$(echo {} | cut -d":" -f2); filepath=$(echo {} | cut -d":" -f1 | sed -E "s/ +$//"); fullpath="$filepath"; [[ -n "$commit_hash" ]] && [[ -e "$fullpath" ]] && git diff --color "${commit_hash}~" "${commit_hash}" "$filepath" | { q={q}; [[ -n $q ]] && grep -C 3 --color=always $(printf "%s" {q} | tr " " "\n" | awk "{printf \"-e %s \", \$1}") || cat }' --preview-window 'right:70%' --query="$query" | awk -F':' '{printf "%s:%s\n",$2,$1}'
 }
 
 alias git-diff-peco="git-show-peco"
