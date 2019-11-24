@@ -252,6 +252,25 @@ function git_log_pecovim() {
   popd >/dev/null 2>&1
 }
 
+function git-log-grep() {
+  if [[ $# == 0 ]]; then
+    # NOTE: required 0.19.0~
+    # [fzf/CHANGELOG\.md at master · junegunn/fzf]( https://github.com/junegunn/fzf/blob/master/CHANGELOG.md#0190 )
+    local git_log_grep_cmd='git log --color=always --stat -S '
+    # NOTE: eval is for joining query command not as a quoted word
+    local ret
+    ret=$(eval "$git_log_grep_cmd '.'" | fzf --bind "change:reload: eval '$git_log_grep_cmd '{q} || true" --phony --print-query)
+    # ls | fzf --bind "change:reload: eval 'git log --color=always --stat -S '{q} || true" --phony --print-query --ansi
+    [[ -z $ret ]] && return
+    local query
+    query=$(printf '%s' "$ret" | head -n 1)
+    git-log-grep "$query"
+    return
+  fi
+  # git log --color=always -p --stat -S "$@" | fzf
+  git log --name-only -S "$@" | git-log-diff-peco
+}
+
 # FYI: [unicode \- grep: Find all lines that contain Japanese kanjis \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65715/grep-find-all-lines-that-contain-japanese-kanjis )
 alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
