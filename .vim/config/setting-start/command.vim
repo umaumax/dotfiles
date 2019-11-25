@@ -300,7 +300,7 @@ function! s:diff_split(...)
   let filename = get(a:, 1, 'HEAD:%')
   execute "vertical rightbelow diffsplit ".filename
 endfunction
-command! -complete=file DiffSplit call s:diff_split(<f-args>)
+command! -nargs=* -complete=file DiffSplit call s:diff_split(<f-args>)
 command! DisableDeoplete :call deoplete#disable()
 command! EnableDeoplete :call deoplete#enable()
 
