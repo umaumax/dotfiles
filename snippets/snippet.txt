@@ -260,6 +260,9 @@
 [git clone only HEAD] git clone --depth 1 $URL
 
 [git abspath to git relative path] git ls-files --full-name \%#
+[git absfilepath to git repopath] git -C $(dirname $absfilepath\%#) rev-parse --show-toplevel
+[git absfilepath to git relativepath] ABS_FILEPATH=\%# ;git -C $(dirname $ABS_FILEPATH) ls-files --full-name $ABS_FILEPATH
+[git absfilepath show] ABS_FILEPATH=\%# ;git -C $(dirname $ABS_FILEPATH) show HEAD:$(basename $ABS_FILEPATH)
 
 [git check remote branch exist] git show-ref --quiet --verify -- "refs/remotes/origin/\%#"
 
@@ -1417,3 +1420,6 @@
 [clipboard manager popup] copyq menu # on darwin transparent menu is shown bug?
 [clipboard manager paste] copyq tab '&clipboard' read $NUM
 [clibboard manager print all tab content] copyq eval -- "tab('&clipboard'); for(i=1; i<=size(); i++) print('['+ str(i) +'] '+ str(read(i-1)) + '\n');" # i=0 lower is newer
+
+# download
+[install editor tmp] mkdir -p ~/.local/bin; pushd ~/.local/bin; [[ ! -e ./micro ]] && curl https://getmic.ro | bash; export PATH="$PWD:$PATH"; popd
