@@ -298,7 +298,9 @@ endfunction
 " view onlyがおすすめ
 function! s:diff_split(...)
   let filename = get(a:, 1, 'HEAD:%')
+  let l:currentWindow=winnr()
   execute "vertical rightbelow diffsplit ".filename
+  execut l:currentWindow . "wincmd w"
 endfunction
 command! -nargs=* -complete=file DiffSplit call s:diff_split(<f-args>)
 command! DisableDeoplete :call deoplete#disable()
