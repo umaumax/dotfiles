@@ -47,8 +47,11 @@ function! s:reopenAndGotoLine(file_name, line_num, col_num)
 endfunction
 
 function! s:create_tmp_git_show_file(sha,filename)
-  let tmpfilepath=tempname()."_".fnameescape(a:sha)."_".fnameescape(fnamemodify(a:filename,':t'))
-  let cmd=join(["git","show",shellescape(a:sha).":".shellescape(a:filename)],' ')
+  let basename=fnameescape(fnamemodify(a:filename,':t'))
+  let absdirpath=fnameescape(fnamemodify(a:filename,':p:h'))
+  let tmpfilepath=tempname()."_".fnameescape(a:sha)."_".basename
+  let cmd=join(["git", "-C", shellescape(absdirpath), "show", shellescape(a:sha).":./".shellescape(basename)], ' ')
+
   let output = system(cmd)
   if v:shell_error != 0
     let output=cmd."\n".output
