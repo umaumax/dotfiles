@@ -203,7 +203,7 @@ function nugget_ubuntu_fzf() {
     git pull
     popd
   fi
-  ~/.fzf/install --no-key-bindings --completion --no-update-rc
+  ~/.fzf/install --key-bindings --completion --no-update-rc
 }
 # ################################
 
