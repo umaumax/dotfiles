@@ -325,6 +325,70 @@ command! -nargs=* -complete=file FZFf  call FZF_find(g:prev_filedirpath, s:clean
 command! -nargs=* -complete=file FZFfc call FZF_find(getcwd(),           s:clean_filepath(s:argsWithDefaultArg(1, '', <f-args>)))
 command! -nargs=* -complete=file FZFfg call FZF_find(Find_git_root(),    s:clean_filepath(s:argsWithDefaultArg(1, '', <f-args>)))
 
+function! s:get_git_relative_filepath(absfilepath)
+  let absdirname=fnameescape(fnamemodify(a:absfilepath,':h'))
+  let cmd=join(["git", "-C", shellescape(absdirname), "ls-files", "--full-name",shellescape(fnameescape(a:absfilepath))], ' ')
+  let output = system(cmd)
+  if v:shell_error != 0
+    echom cmd."\n".output
+    return ""
+  endif
+  return trim(output)
+endfunction
+
+" " FYI: [Easily switch between source and header file \| Vim Tips Wiki \| FANDOM powered by Wikia]( https://vim.fandom.com/wiki/Easily_switch_between_source_and_header_file )
+" Plug 'mopp/next-alter.vim'
+" " not found: create new
+" " how to search: . ../ ./include ../include
+"
+" Plug 'vim-scripts/a.vim'
+" " not found: create new
+" " how to search: ?
+"
+" Plug 'ericcurtin/CurtineIncSw.vim'
+" " not found: do nothing
+" " how to search: find from cwd
+function! s:open_pair(...)
+  let filename = get(a:, 1, expand('%'))
+
+  let pair_regex_dict = {
+        \ '\.c$': '.h',
+        \ '\.h$': '.c',
+        \ '\.\(cc\|cpp\|cxx\)$': '.hpp',
+        \ '\.hpp$': '.cpp',
+        \
+        \ 'autoload/\(.*\)\.vim$': 'plugin/\1.vim',
+        \ 'plugin/\(.*\)\.vim$': 'autoload/\1.vim',
+        \ }
+
+  let basename=fnamemodify(filename, ':t')
+  let absfilepath=fnameescape(fnamemodify(filename, ':p'))
+  let git_relative_filepath=s:get_git_relative_filepath(absfilepath)
+
+  let query=''
+  let candidate_list=[basename]
+  if !empty(git_relative_filepath)
+    let candidate_list+=[git_relative_filepath]
+  endif
+  for candidate_filepath in candidate_list
+    if !empty(query)
+      break
+    endif
+    for from_regex in keys(pair_regex_dict)
+      let to_regex=pair_regex_dict[from_regex]
+      if !empty(matchstr(candidate_filepath, from_regex))
+        let query=substitute(candidate_filepath,from_regex,to_regex,'')
+        break
+      end
+    endfor
+  endfor
+  if empty(query)
+    let query=basename
+  endif
+  call FZF_find(Find_git_root(), s:clean_filepath(s:argsWithDefaultArg(1, '', query)))
+endfunction
+command! -nargs=* -complete=file OpenPair call s:open_pair(<f-args>)
+
 " NOTE: :cnext <leader>g
 " NOTE: :cprev <leader>G
 inoremap <c-x><c-g> <ESC>:FZFg
