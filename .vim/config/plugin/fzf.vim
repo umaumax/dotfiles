@@ -287,7 +287,7 @@ augroup END
 " nnoremap <silent> <C-p><C-u> :call FZF_find(getcwd())<CR>
 
 function! Find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  return trim(system('git -C $(dirname '.shellescape(fnameescape(expand('%:p'))).') rev-parse --show-toplevel 2> /dev/null'))
 endfunction
 
 " pick up arg
