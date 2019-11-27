@@ -385,7 +385,7 @@ function! s:open_pair(...)
   if empty(query)
     let query=basename
   endif
-  call FZF_find(Find_git_root(), s:clean_filepath(s:argsWithDefaultArg(1, '', query)))
+  call FZF_find(Find_git_root(), s:clean_filepath(s:argsWithDefaultArg(1, '', "'".query)))
 endfunction
 command! -nargs=* -complete=file OpenPair call s:open_pair(<f-args>)
 
