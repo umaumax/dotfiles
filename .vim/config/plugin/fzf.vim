@@ -50,7 +50,7 @@ augroup END
 "     return 1
 "   endif
 " endfunction
-" " NOTE: for 'sink*' [key, line] not for 'sink' [line]
+" " NOTE: for 'sink*' lines = [key, line] not for 'sink' line
 " function! s:fzf_nvim_wrapper_create(f, ...)
 "   let fzf_terminal_window_cmd=get(a:, 1, ':tabnew')
 "   if has('nvim')
@@ -122,8 +122,8 @@ function! s:FZFTabOpenFunc()
     endfor
     return s:textList
   endfunction
-  function! s:TabListSink(line)
-    let parts = split(a:line[1], '\s')
+  function! s:TabListSink(lines)
+    let parts = split(a:lines[1], '\s')
     execute 'normal! ' . parts[0] . 'gt'
   endfunction
   " NOTE:
@@ -530,7 +530,29 @@ function! fzf#hex_color()
         \ 'up':    '50%'})
 endfunction
 
+function! Neosnippets()
+  " NOTE: force load neosnippet
+  :NeoSnippetMakeCache
+  let snippets=neosnippet#variables#snippets()
+  let lines=[]
+  for [file_type, file_snippet] in items(snippets)
+    for [key, val] in items(file_snippet)
+      " let word=val['word']
+      let snip=val['snip']
+      let oneline_snip=substitute(snip, "\n", "XXX\\\\nYYY", 'g')
+      let lines += ["[".file_type."] key:".key.", snip:".oneline_snip]
+    endfor
+  endfor
+  function! s:sink(line)
+    echo a:line
+  endfunction
+  silent! call fzf#run({
+        \ 'source': lines,
+        \ 'sink': function('s:sink'),
+        \ 'options': '-x +s --multi',
+        \ 'down': '100%'})
 endfunction
+command Neosnippets :call Neosnippets()
 
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#ansi_color) fzf#ansi_color()
