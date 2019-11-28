@@ -1154,10 +1154,10 @@
 
 # static lib
 [nm: with object filename] nm -A \%#
-[nm: dynamic symbol] nm -D \%# # e.g. calloc, free
-[nm: demangle] nm --demabgle \%# # FYI: c++filt
-[nm: find all    -D] find . -name "\%#" -exec nm -AD {} \; 2>/dev/null #     include dynamic symbol table
-[nm: find all no -D] find . -name "\%#" -exec nm -A  {} \; 2>/dev/null # not include dynamic symbol table
+[nm: dynamic symbol] nm -AD \%# # e.g. calloc, free
+[nm: demangle] nm --demabgle \%# # or nm -C FYI: c++filt
+[nm: find all    -D] find . -name "*.so\%#" -exec nm -AD {} \; 2>/dev/null #     include dynamic symbol table
+[nm: find all no -D] find . -name "*.a\%#" -exec nm -A  {} \; 2>/dev/null # not include dynamic symbol table
 
 [elf: elf header] readelf -h \%#
 [elf: program header] readelf -l \%#
