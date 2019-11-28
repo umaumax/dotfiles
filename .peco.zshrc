@@ -483,13 +483,15 @@ function pecoole() {
       echo ''
       echo '[dotfiles/urls at master · umaumax/dotfiles]( https://github.com/umaumax/dotfiles/tree/master/urls )'
       echo ''
-      command cat ~/dotfiles/urls/*.md
-    } | awk '!/^$/{if (head!="") printf "%s : %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' | bat -l markdown --color=always --plain --unbuffered | fzf --query="'"
+      # NOTE: cat files with new blank line separator
+      awk 'FNR==1 && NR!=1 {print ""}{print}' ~/dotfiles/urls/*.md
+    } | awk '!/^$/{if (head!="") printf "%-40s: %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' | bat -l markdown --color=always --plain --unbuffered | fzf --query="'"
   )
   local url
-  url=$(printf '%s' "$ret" | grep -E -o "http[s]://[^ ]*")
+  url=$(printf '%s' "$ret" | grep -E -o "http[s]?://[^ ]*")
   [[ -z $url ]] && return
   open "$url"
+  printf '%s\n' "$url"
 }
 
 function lnpeco() {
