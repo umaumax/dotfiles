@@ -2399,6 +2399,7 @@ function sshconfig_host_hostname() {
 ' ~/.ssh/config
 }
 
+# NOTE: for wrap commands to catch errors
 function tar() { cmd_fuzzy_error_check tar $@; }
 function rsync() { cmd_fuzzy_error_check rsync $@; }
 function scp() { cmd_fuzzy_error_check scp $@; }
@@ -2413,7 +2414,10 @@ function cmd_fuzzy_error_check() {
   setopt nomultios
   command $cmd $@ 3>&1 1>&2 2>&3 3>&- | tee "$tmpfile" 1>&2
   local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
-  cat "$tmpfile" | grep ': ' -q
+  # NOTE: ignore warning
+  # @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+  # Warning: Permanently added 'x.x.x.x' (ECDSA) to the list of known hosts.
+  command cat "$tmpfile" | grep -v -i 'warning:' | grep ': ' -q
   local grep_exit_code=$?
   if [[ $exit_code != 0 || $grep_exit_code == 0 ]]; then
     {
@@ -2422,7 +2426,7 @@ function cmd_fuzzy_error_check() {
       echo -ne "${DEFAULT}"
       echo "[log]: $tmpfile"
       hr '#'
-      cat "$tmpfile" | grep ': '
+      command cat "$tmpfile" | grep -C 1 ': '
       hr '#'
     } 1>&2
     return $exit_code
