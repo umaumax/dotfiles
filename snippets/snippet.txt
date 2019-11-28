@@ -1346,7 +1346,7 @@
 
 # dot graphviz
 [dot graphviz find gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg -o "{}.svg" "{}"
-[dot graphviz pipe] | xargs -L1 -I{} dot -T svg -o "{}".svg "{}"
+[dot graphviz pipe] \%# | xargs -L1 -I{} dot -T svg -o "{}".svg "{}"
 
 # bash
 [shell expand number] {0..9} # 0 1 ... 9
