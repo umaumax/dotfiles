@@ -667,3 +667,5 @@ endif
 Plug 'rhysd/vim-llvm'", {'for':'llvm'}
 
 Plug 'paretje/nvim-man'
+
+Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
