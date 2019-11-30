@@ -554,6 +554,79 @@ function! Neosnippets()
 endfunction
 command Neosnippets :call Neosnippets()
 
+" mainly for command line mode completion window
+function! FilterText(callback, lines, query)
+  let Sink={ line -> a:callback(line) }
+  " let query_prefix="\"'\""
+  let query_prefix=''
+  silent! call fzf#run({
+        \ 'source': a:lines,
+        \ 'sink*': Sink,
+        \ 'options': '-x +s --expect=ctrl-c --layout=default --query='.query_prefix.shellescape(a:query),
+        \ 'down': '30%'})
+endfunction
+
+function! Command_line_completion()
+  let min_len=3
+  let words=uniq(sort(filter(split(substitute(join(getline(1,'$'), "\n"),'[^0-9a-zA-Z_]',' ','g')), { -> len(v:val) >= min_len })))
+  let cmd=getcmdline()
+  let cmdline=b:command_line_completion_data['cmdline']
+  let cmdpos=b:command_line_completion_data['cmdpos']
+  let rbuffer=cmdline[cmdpos-1:]
+  let query=split(substitute(cmdline[:cmdpos-1-1].' ','[^0-9a-zA-Z_]',' ','g'),' ')[-1]
+  " if empty(query)
+  " call SetCmdLine(b:command_line_completion_data['cmdtype'], cmdline, cmdpos)
+  " return
+  " endif
+  let lbuffer=cmdline[:cmdpos-1-1][:-len(query)-1]
+  let b:command_line_completion_data['query']=query
+  let b:command_line_completion_data['lbuffer']=lbuffer
+  let b:command_line_completion_data['rbuffer']=rbuffer
+  function! s:callback(outputs)
+    let line=''
+    let key=a:outputs[0]
+    if len(a:outputs)>1
+      let line=a:outputs[1]
+    endif
+    let cmdline=b:command_line_completion_data['cmdline']
+    let cmdpos=b:command_line_completion_data['cmdpos']
+    if key != 'ctrl-c'
+      let rbuffer=b:command_line_completion_data['rbuffer']
+      let lbuffer=b:command_line_completion_data['lbuffer']
+      let cmdline=lbuffer.line.rbuffer
+      let cmdpos=strlen(lbuffer.line)+1
+    endif
+    call SetCmdLine(b:command_line_completion_data['cmdtype'], cmdline, cmdpos)
+  endfunction
+  call FilterText(function('s:callback'), words, query)
+endfunction
+
+function! Launch_command_line_completion()
+  let cmdline=getcmdline()
+  if len(cmdline)==''
+    return ''
+  endif
+  let b:command_line_completion_data={
+        \ 'cmdline': getcmdline(),
+        \ 'cmdtype': getcmdtype(),
+        \ 'cmdpos': getcmdpos(),
+        \ }
+  return "\<C-c>:call Command_line_completion()\<CR>"
+endfunction
+cnoremap <expr> <C-s> Launch_command_line_completion()
+
+function! SetCmdLineCallback()
+  call setcmdpos(b:cmdline_pos)
+  return b:cmdline_buffer
+endfunction
+
+" e.g. cmdtype: [:,/,?]
+function! SetCmdLine(cmdtype, cmd, cmdpos)
+  let b:cmdline_buffer=a:cmd
+  let b:cmdline_pos=a:cmdpos
+  call feedkeys(a:cmdtype."\<C-\>eSetCmdLineCallback()\<CR>","n")
+endfunction
+
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#ansi_color) fzf#ansi_color()
 inoremap <silent><expr> <Plug>(fzf#ansi_color_256) fzf#ansi_color_256()

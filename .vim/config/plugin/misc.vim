@@ -104,7 +104,7 @@ Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
 
 " コマンドライン補完を拡張し、ユーザ定義コマンドの短縮名を展開
 " 置換中はエラーとなり，あくまでコマンド名の入力中のみ
-LazyPlug 'LeafCage/cheapcmd.vim'
+" LazyPlug 'LeafCage/cheapcmd.vim'
 
 " FYI: [autocompletion in command line/search \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/11974/autocompletion-in-command-line-search )
 " [Autocomplete search word in vim \- Stack Overflow]( https://stackoverflow.com/questions/32068958/autocomplete-search-word-in-vim )
@@ -129,7 +129,32 @@ augroup END
 " 補完のpopupが出現するのではなく，入力場所にそのまま出現する
 " /\Vの後には対応していない
 " <C-\>esherlock#completeBackward()<CR>
-cmap <expr> <Tab> getcmdtype() != ':' ? "\<C-\>esherlock#completeForward()\<CR>" : "<Plug>(cheapcmd-expand)"
+
+" FYI: [cheapcmd\.vim/cheapcmd\.vim at master · LeafCage/cheapcmd\.vim]( https://github.com/LeafCage/cheapcmd.vim/blob/master/autoload/cheapcmd.vim#L22 )
+function! s:default_expand()
+  cnoremap <Plug>(cheapcmd:tab)  <Tab>
+  cnoremap <expr><Plug>(cheapcmd:rest-wcm) <SID>default_expand_rest_wcm()
+  let s:save_wcm = &wcm
+  set wcm=<Tab>
+  call feedkeys("\<Plug>(cheapcmd:tab)\<Plug>(cheapcmd:rest-wcm)", 'm')
+  return ''
+endfunction
+function! s:default_expand_rest_wcm()
+  cunmap <Plug>(cheapcmd:tab)
+  cunmap <Plug>(cheapcmd:rest-wcm)
+  let &wcm = s:save_wcm
+  unlet s:save_wcm
+
+  " NOTE: no expand by defualt tab key
+  if getcmdline()[-1:] == "\t"
+    cnoremap <expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
+    call feedkeys("\<BS>\<Plug>(launch_command_line_completion:tab)", 'm')
+  endif
+  return ''
+endfunction
+cmap <expr> <Tab> <SID>default_expand()
+
+" cmap <expr> <Tab> getcmdtype() != ':' ? "\<C-\>esherlock#completeForward()\<CR>" : "<Plug>(cheapcmd-expand)"
 
 " cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 " cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
