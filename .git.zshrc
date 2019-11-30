@@ -993,3 +993,27 @@ if cmdcheck grip; then
     grip "$@"
   }
 fi
+
+# FYI: [Git diff with line numbers \(Git log with line numbers\) \- Stack Overflow]( https://stackoverflow.com/questions/24455377/git-diff-with-line-numbers-git-log-with-line-numbers )
+# git diff | ./git-lines.sh
+function git-diff-lines() {
+  gawk '
+    match($0,"^diff --git a/(.*) b/.*$",a)                   {filepath=a[1];}
+    match($0,"^@@ -([0-9]+),[0-9]+ [+]([0-9]+),[0-9]+ @@",a) {left=a[1];right=a[2];next};
+    /^(---|\+\+\+|[^-+ ])/ {print;next};
+                           {line=substr($0,2)};
+    /^-/                   {print filepath ":" "-" left++ ":" line;next};
+    /^[+]/                 {print filepath ":" "+" right++ ":" line;next};
+                           {print filepath ":" "(" left++ "," right++ "):"line}
+'
+}
+
+function git-coverage-review-result() {
+  local KEYWORD=${1:-PASS_COV}
+  local COMMENT_STR='//'
+  git diff | git-diff-lines | grep ':+' | sed -E "s|${COMMENT_STR}[ ]*${KEYWORD}[^ ]*[ ]*||"
+}
+
+function git-coverage-review-result-csv() {
+  git-coverage-review-result | awk -F':' '{printf "%s,%d,%d\n", $1,int($2),int($2)}'
+}
