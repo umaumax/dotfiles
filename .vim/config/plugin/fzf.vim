@@ -573,7 +573,8 @@ function! Command_line_completion()
   let cmdline=b:command_line_completion_data['cmdline']
   let cmdpos=b:command_line_completion_data['cmdpos']
   let rbuffer=cmdline[cmdpos-1:]
-  let query=split(substitute(cmdline[:cmdpos-1-1].' ','[^0-9a-zA-Z_]',' ','g'),' ')[-1]
+  " NOTE: \\.\ is for drop \V \v
+  let query=split(substitute(cmdline[:cmdpos-1-1].' ','\\.\|[^0-9a-zA-Z_]',' ','g'),' ')[-1]
   " if empty(query)
   " call SetCmdLine(b:command_line_completion_data['cmdtype'], cmdline, cmdpos)
   " return
