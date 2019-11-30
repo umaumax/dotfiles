@@ -57,6 +57,7 @@
 [ubuntu screen recoder(movie capture)] kazam # sudo apt-get install kazam
 
 [lsusb tree] lsusb -t
+[lsusb /dev/ttyUSB check] ls /dev/ttyUSB* | xargs -L 1 -I{} udevadm info --name={} | grep -e "DEVPATH.*" -e "ID_MODEL_FROM_DATABASE" -e "ID_MODEL_ID"  -e "ID_VENDOR_FROM_DATABASE" -e "ID_VENDOR_ID"; lsusb
 
 # tar
 # [tar 解凍(extract)  .tar.gz] tar zxvf \%# -C .
@@ -502,6 +503,7 @@
 [pip reinstall another version] pip uninstall "$PACKAGE\%#" && pip install "$PACKAGE==$VERSION"
 [pip search cui (fullmatch)] pip search
 [pip search gui] open "https://pypi.org/search/?q=\%#"
+[python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
 
 # g++
 [g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
@@ -1183,10 +1185,15 @@
 [LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
 
 [ldd tree] lddtree -a \%# # sudo apt-get install pax-utils
-[ldd] readelf -d \%#
+[ldd: elf info] readelf -d \%#
 [lddtree shell script url] https://raw.githubusercontent.com/ncopa/lddtree/master/lddtree.sh
 
 [malloc free check] MALLOC_CHECK_=1\%# # 1:print stderr and continue, 2:abort
+
+[patchelf remove unused rpath] patchelf --shrink-rpath $TARGET # remove only unused rpath
+[patchelf overwrite rpath] patchelf --set-rpath $SO_PATH1:$SO_PATH2 $TARGET
+[patchelf add so] patchelf --add-needed $SO_PATH $TARGET # any filepath ok but recommend relative filepath not absolute filepath
+[patchelf add so] patchelf --remove-needed $SO_PATH $TARGET
 
 # root
 [fakeroot] fakeroot
@@ -1432,3 +1439,6 @@
 [cat with separators among files] tail -n +1 $FILES
 [cat with separators among files] awk 'FNR==1 && NR!=1 {print "########"}{print}' $FILES
 [cat head and tail] (head; echo "\n----------------\n"; tail) < \%#
+
+# nvim
+[nvim deoplete plugin fix?] pip3 --user --no-cache-dir install -I pynvim; pip3 --user --no-cache-dir install -I neovim; echo 'open vim and run ":UpdateRemotePlugins"'
