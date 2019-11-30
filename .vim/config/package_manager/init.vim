@@ -113,8 +113,10 @@ augroup END
 " augroup END
 
 call plug#begin(g:plug_home)
-" for consecutive shortcut input
-Plug 'kana/vim-submode'
+if has('nvim')
+  " for consecutive shortcut input
+  Plug 'kana/vim-submode'
+endif
 runtime! config/plugin/*.vim
 call plug#end()
 if b:plug_install_flag == 1
