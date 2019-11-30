@@ -30,6 +30,7 @@ Plug 'umaumax/vim-format' ", {'for': ['cmake','json','sh','zsh','yaml']}
 " input helper
 " Plug 'kana/vim-smartinput'
 " NOTE: don't use LazyPlug
+" let g:smartinput_no_default_key_mappings=1
 Plug 'umaumax/vim-smartinput'
 
 " Plug 'mattn/sonictemplate-vim'
@@ -37,8 +38,6 @@ LazyPlug 'umaumax/sonictemplate-vim'
 " NOTE: :Template -> :T
 let g:sonictemplate_commandname='T'
 let g:sonictemplate_postfix_key='<C-x><C-p>'
-let g:sonictemplate_vim_template_dir = [
-      \ '~/dotfiles/template'
-      \]
+let g:sonictemplate_vim_template_dir = [ '~/dotfiles/template']
 " if you want to add element, do like below
 " let g:sonictemplate_vim_template_dir = g:sonictemplate_vim_template_dir + ['~/template']

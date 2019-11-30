@@ -119,6 +119,8 @@ function! GetFunc(fname, funcname, ...)
   return F
 endfunction
 
+" FYI: [neocomplcache\#smart\_close\_popup\(\)とsmartinputの機能を両立させる \- Qiita]( https://qiita.com/todashuta/items/958ef3b4c32b4f992e0e )
+" you can get smartinput sid by smartinput#sid()
 let s:vim_smartinput__trigger_or_fallback={x,y -> "\<C-G>u\<CR>" }
 augroup get_function_group
   autocmd!
