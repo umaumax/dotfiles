@@ -660,6 +660,12 @@ endfunction
 " [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-\_e )
 cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
 
+function! s:yank_cmdline()
+  let @+ = getcmdline()
+  return "\<C-c>"
+endfunction
+cnoremap <expr> <C-y> <SID>yank_cmdline()
+
 " function! s:has_prefix(str, prefix)
 "   return a:str[:strlen(a:prefix)-1] == a:prefix
 " endfunction
