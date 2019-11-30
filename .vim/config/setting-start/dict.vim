@@ -6,8 +6,8 @@ function! s:dict_replacer()
   let item = v:completed_item
   let menu = item['menu']
   let abbr = item['abbr']
-  let ns_flag = menu =~ '^\[ns\] '
-  if ns_flag
+  let neosnippet_flag = menu =~ '^\[ns\] '
+  if neosnippet_flag
     return
   endif
 
@@ -33,10 +33,10 @@ function! s:vimconsole_logger()
   let item = v:completed_item
   let menu = item['menu']
   let abbr = item['abbr']
-  let ns_flag = menu =~ '^\[ns\] '
+  let neosnippet_flag = menu =~ '^\[ns\] '
   " NOTE: deoplete環境ではsnippet機能は通常の補完機能となってしまい，一工夫必要
   " [deoplete環境でneosnippetを使えるようにする \- グレインの備忘録]( http://grainrigi.hatenablog.com/entry/2017/08/28/230029 )
-  if ns_flag
+  if neosnippet_flag
     " NOTE: snippet自動展開
     " executeを利用すると，一旦normalモードに移行し，その後insertモードに戻るため，行末にカーソルがある場合に位置がずれる
     "     execute "normal a\<Plug>(neosnippet_expand)"
@@ -49,48 +49,50 @@ function! s:vimconsole_logger()
     call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
     return
   endif
-  let vim_flag = menu == '[vim] '
-  let clang_flag = menu == '[clang] ' || menu == '[PCH] '
+  let vim_flag    = menu == '[vim] '
+  let clang_flag  = menu == '[clang] ' || menu == '[PCH] '
   let python_flag = menu == '[jedi] '
-  let lsp_flag = menu =~ '\[LC\] '
-  let go_flag = menu == '[go] '
-  let flag = vim_flag || clang_flag || python_flag || lsp_flag || go_flag
-  if flag
-    let func_flag = abbr =~ '.*(.*)'
-    let no_arg_func_flag = abbr =~ '.*()'
-    let template_flag = abbr =~ '^[^()<>]*<.*>'
-    let log_flag = func_flag || template_flag
-    " NOTE: is function?
-    if func_flag && template_flag
-      if clang_flag
-        execute "normal! i<>()\<ESC>\<Left>\<Left>"
-      endif
-    elseif func_flag
-      if vim_flag && !no_arg_func_flag
-        execute "normal! i)"
-      endif
-      if clang_flag || python_flag || lsp_flag || go_flag
-        execute "normal! i()"
-        if no_arg_func_flag
-          call feedkeys("\<Right>", 'n')
-        endif
-      endif
-    elseif template_flag
-      if clang_flag
-        execute "normal! i<>"
+  let lsp_flag    = menu =~ '\[LC\] '
+  let go_flag     = menu == '[go] '
+  if !(vim_flag || clang_flag || python_flag || lsp_flag || go_flag)
+    return
+  endif
+  let func_flag = abbr =~ '.*(.*)'
+  let no_arg_func_flag = abbr =~ '.*()'
+  let template_flag = abbr =~ '^[^()<>]*<.*>'
+  let log_flag = func_flag || template_flag
+  " NOTE: is function?
+  if func_flag && template_flag
+    if clang_flag
+      execute "normal! i<>()\<ESC>\<Left>\<Left>"
+    endif
+  elseif func_flag
+    if vim_flag && !no_arg_func_flag
+      execute "normal! i)"
+    endif
+    if clang_flag || python_flag || lsp_flag || go_flag
+      execute "normal! i()"
+      if no_arg_func_flag
+        call feedkeys("\<Right>", 'n')
       endif
     endif
-    if log_flag
-      call vimconsole#log('%s:%s', menu, abbr)
-      if vimconsole#is_open()
-        " NOTE: this is not needed because of let g:vimconsole#auto_redraw=1
-        " call vimconsole#redraw()
-      else
-        call vimconsole#winopen()
-      endif
+  elseif template_flag
+    if clang_flag
+      execute "normal! i<>"
+    endif
+  endif
+
+  if log_flag
+    call vimconsole#log('%s:%s', menu, abbr)
+    if vimconsole#is_open()
+      " NOTE: this is not needed because of let g:vimconsole#auto_redraw=1
+      " call vimconsole#redraw()
+    else
+      call vimconsole#winopen()
     endif
   endif
 endfunction
+
 function! s:CompleteDone()
   if v:completed_item == {}
     " NOTE: no completion
@@ -99,6 +101,7 @@ function! s:CompleteDone()
   call s:dict_replacer()
   call s:vimconsole_logger()
 endfunction
+
 function! s:SetDictionary(filetype)
   let filetype=a:filetype
   " NOTE: use common dict
@@ -112,10 +115,12 @@ function! s:SetDictionary(filetype)
     execute 'setlocal dictionary+='.dict_file_path
   endif
 endfunction
+
 function! s:AutocmdSetDictionary()
   call s:SetDictionary(&ft)
   call s:SetDictionary('common')
 endfunction
+
 augroup dict_comp
   autocmd!
   autocmd FileType * call s:AutocmdSetDictionary()
@@ -128,10 +133,12 @@ function! s:DictJoin() range
   execute 'normal! '.(a:lastline-a:firstline+1).'"_dd'
   call append(a:firstline-1, lines)
 endfunction
+
 function! s:DictSplit()
   let lines=split(getline('.'), s:dict_delim)
   call append(line('.'), lines)
   normal! "_dd
 endfunction
+
 command! -nargs=0 -range DictJoin  <line1>,<line2>call s:DictJoin()
 command! -nargs=0        DictSplit                call s:DictSplit()
