@@ -3,11 +3,14 @@ if &rtp !~ 'vim-altercmd'
 endif
 
 call altercmd#load()
-" NOTE: cmap <CR>にマッピングがないことが前提
-" vim-smartinputとの共存に注意
-augroup cunmap_cr
+
+" NOTE: vim-altercmdはcmap <CR>にマッピングがないことが前提
+" vim-smartinputではdefualtで設定されてしまうので注意
+" NOTE: cnoremapとするとvim-altercmdで設定したcnoreabbrevが機能しない
+augroup ovrewrite_cmap_cr
   autocmd!
-  autocmd VimEnter * silent! cunmap <CR>
+  " [autocomplete \- Command line completion to enter into a folder in Vim \- Stack Overflow]( https://stackoverflow.com/questions/11991665/command-line-completion-to-enter-into-a-folder-in-vim )
+  autocmd VimEnter * cmap <silent> <expr> <CR> pumvisible() ? "\<Space>\<BS>" : "\<CR>"
 augroup END
 
 AlterCommand m Message
