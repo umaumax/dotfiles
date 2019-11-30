@@ -732,7 +732,7 @@ cnoremap <C-E> <End>
 
 " [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L947 )
 " / で検索するときに単語境界をトグルする
-cnoremap <C-f> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
+cnoremap <C-p> <C-\>eToggleWordBounds(getcmdtype(), getcmdline())<CR>
 function! ToggleWordBounds(type, line)
   if a:type == '/' || a:type == '?'
     if a:line =~# '^\\<.*\\>$'
@@ -745,7 +745,7 @@ function! ToggleWordBounds(type, line)
   endif
 endfunction
 " / と :s///g をトグルする
-cnoremap <expr> <C-e> ToggleSubstituteSearch(getcmdtype(), getcmdline())
+cnoremap <expr> <C-u> ToggleSubstituteSearch(getcmdtype(), getcmdline())
 function! ToggleSubstituteSearch(type, line)
   if a:type == '/' || a:type == '?'
     let range = GetOnetime('s:range', '%')
