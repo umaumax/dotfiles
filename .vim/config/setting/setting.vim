@@ -6,7 +6,12 @@ set fileformats=unix,dos,mac
 set t_Co=256
 " If you have vim >=8.0 or Neovim >= 0.1.5
 " vimが対応していても，terminalの方が非対応である可能性がある
-if ($TERM_PROGRAM=="iTerm.app" && has("termguicolors")) | set termguicolors | endif
+" only for $TERM_PROGRAM=="iTerm.app" ?
+if has("termguicolors")
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 set background=dark
 set list  " 不可視文字を表示
 set ruler " 右下に表示される行・列の番号を表示する
