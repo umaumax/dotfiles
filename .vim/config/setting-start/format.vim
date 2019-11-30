@@ -322,8 +322,8 @@ function! s:work_setting()
           \      '\c.*\.rb$',
           \      '\c.*\.py$',
           \ ]
-    highlight Normal ctermbg=0 guibg=#320000
-    highlight LineNr ctermbg=167 guibg=#650000
+    " highlight Normal ctermbg=0 guibg=#320000
+    " highlight LineNr ctermbg=167 guibg=#650000
   endif
 endfunction
 
