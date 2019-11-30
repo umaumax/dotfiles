@@ -1011,7 +1011,7 @@ function git-diff-lines() {
 function git-coverage-review-result() {
   local KEYWORD=${1:-PASS_COV}
   local COMMENT_STR='//'
-  git diff | git-diff-lines | grep ':+' | sed -E "s|${COMMENT_STR}[ ]*${KEYWORD}[^ ]*[ ]*||"
+  git diff | git-diff-lines | grep ':+' | grep "${KEYWORD}" | sed -E "s|${COMMENT_STR}[ ]*${KEYWORD}[^ ]*[ ]*||"
 }
 
 function git-coverage-review-result-csv() {
