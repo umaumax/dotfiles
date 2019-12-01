@@ -808,16 +808,18 @@ cnoremap <C-n> <Down>
 " cnoremap <C-p> <S-Tab>
 " cnoremap <C-n> <Tab>
 
-" :Src
-" :Src .
-function! s:source(...)
-  let l:file = get(a:, 1, expand('~/.vimrc'))
-  echo 'source ' . l:file
-  call system('source ' . l:file)
-endfunction
-command! -nargs=? Src    call s:source(<f-args>)
-command! -nargs=? Load   call s:source(<f-args>)
-command! -nargs=? Reload call s:source(<f-args>)
+" NOTE: for avoid below error
+" E127: Cannot redefine function Source: It is in use
+if !exists("*Source")
+  function! Source(...)
+    let file = get(a:, 1, expand('~/.vimrc'))
+    echo 'source ' . file
+    execute 'source '.fnameescape(l:file)
+  endfunction
+  command! -nargs=? Src    call Source(<f-args>)
+  command! -nargs=? Load   call Source(<f-args>)
+  command! -nargs=? Reload call Source(<f-args>)
+endif
 
 command! FileName     :let @+ = expand('%:t')               | echo '[COPY!]: ' . @+
 command! FilePath     :let @+ = expand('%:p')               | echo '[COPY!]: ' . @+
