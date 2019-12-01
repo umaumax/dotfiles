@@ -789,7 +789,8 @@
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
-[rostest run results] catkin_test_results
+[rostest check results] catkin_test_results
+[rostest check results verbose] catkin_test_results --verbose
 
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
@@ -842,6 +843,8 @@
 [show char code] hexdump -C \%#
 [hexdump -C] od -t x1z -A x
 [hexdump -C] hexly
+[hexdump range] hexdump -C -s "$(printf %d 0x\%# )" -n "$(printf %d 0x100 )" # -s:start, -n:length
+[od range] od -tx1c -Ax --skip-bytes='0x\%#' --read-bytes='0x100'
 [od next line] od -t x1c -A x
 [file to c++ array] od -A n -v -t x1 \%# | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
 [binary diff] cmp -l $FILE1\%# $FILE2 | gawk '{printf "%08X %02X %02X\n", $1, strtonum(0$2), strtonum(0$3)}'
@@ -1446,3 +1449,6 @@
 
 # nvim
 [nvim deoplete plugin fix?] pip3 --user --no-cache-dir install -I pynvim; pip3 --user --no-cache-dir install -I neovim; echo 'open vim and run ":UpdateRemotePlugins"'
+
+# lcov
+[lcov info list]lcov --list \%#
