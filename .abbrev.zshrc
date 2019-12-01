@@ -39,6 +39,12 @@ abbrev-alias -g N='>/dev/null '
 abbrev-alias -c gp='git push '
 abbrev-alias -c gco=" git checkout ."
 
+abbrev-alias -c ctk='catkin_'
+abbrev-alias -c ctkm='catkin_make '
+abbrev-alias -c ctmk='catkin_make '
+abbrev-alias -c ctt='catkin_test_results '
+abbrev-alias -c ctkt='catkin_test_results '
+
 # abbrev-alias -c b='brew '
 # abbrev-alias -g tst='tig stash'
 # abbrev-alias -g gcm='git commit '
