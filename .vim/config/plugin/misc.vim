@@ -161,7 +161,14 @@ cmap <expr> <Tab> <SID>default_expand()
 
 function! Backword_delete_word()
   let cmd = getcmdline()
-  return substitute(cmd, '\([^#\-+ (),.:"'."'".']*\( \)*\|.\)$', '', '')
+  let cmdpos = getcmdpos()
+  let lbuffer=cmd[:cmdpos-1-1]
+  let rbuffer=cmd[cmdpos-1:]
+  let lbuffer=substitute(lbuffer, '\([^/#\-+ (),.:"'."'".']*\( \)*\|.\)$', '', '')
+  " NOTE: The first position is 1.
+  call setcmdpos(1+len(lbuffer))
+  let buffer=lbuffer.rbuffer
+  return buffer
 endfunction
 function! s:un_tab()
   if pumvisible()
