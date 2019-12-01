@@ -178,16 +178,6 @@ function! s:un_tab()
 endfunction
 cnoremap <expr> <S-Tab> <SID>un_tab()
 
-"for cmdwin
-aug cheapcmd-cmdwin
-  autocmd!
-  autocmd CmdwinEnter * call s:define_cmdwin_mappings()
-aug END
-function! s:define_cmdwin_mappings()
-  nmap <buffer><Tab> <Plug>(cheapcmd-expand)
-  imap <buffer><Tab> <Plug>(cheapcmd-expand)
-endfunction
-
 " " start screen
 " Plug 'mhinz/vim-startify'
 " " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
