@@ -58,6 +58,7 @@ command! HelpGit     call PipeCommandResultToNewTab("filter /diffget/ nmap")
 command! HelpOrigBind call PipeCommandResultToNewTab("call OrigBind()")
 
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
+" WARN: take a lot of time
 command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
 
 " user defined command
