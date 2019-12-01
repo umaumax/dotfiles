@@ -463,7 +463,7 @@ if Doctor('git', 'airblade/vim-gitgutter')
   " With Neovim 0.3.2 or higher
   let g:gitgutter_highlight_linenrs=1
   let g:gitgutter_enabled=1
-  command -narg=0 G :GitGutterToggle
+  command! -narg=0 G :GitGutterToggle
   " hunk
   nmap ]h <Plug>(GitGutterNextHunk)
   nmap [h <Plug>(GitGutterPrevHunk)

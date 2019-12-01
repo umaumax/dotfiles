@@ -488,7 +488,7 @@ endfunction
 
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
-command FZFCppIncludeHeader :call FZF_cpp_include_header()
+command! FZFCppIncludeHeader :call FZF_cpp_include_header()
 
 function! FZF_ansi_color_reducer(lines)
   let ret=[]
@@ -571,7 +571,7 @@ function! Neosnippets()
         \ 'options': '-x +s --multi',
         \ 'down': '100%'})
 endfunction
-command Neosnippets :call Neosnippets()
+command! Neosnippets :call Neosnippets()
 
 " mainly for command line mode completion window
 function! FilterText(callback, lines, query)
@@ -652,7 +652,7 @@ inoremap <silent><expr> <Plug>(fzf#ansi_color) fzf#ansi_color()
 inoremap <silent><expr> <Plug>(fzf#ansi_color_256) fzf#ansi_color_256()
 inoremap <silent><expr> <Plug>(fzf#hex_color_256) fzf#hex_color_256()
 inoremap <silent><expr> <Plug>(fzf#hex_color) fzf#hex_color()
-command FZFAnsiColorHeader :call FZF_ansi_color()
+command! FZFAnsiColorHeader :call FZF_ansi_color()
 
 " NOTE: for :FZFxxx
 " NOTE: type ff and xxx and tab

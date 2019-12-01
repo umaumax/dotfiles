@@ -20,4 +20,4 @@ function! s:init_clipboard()
 endfunction
 
 call s:init_clipboard()
-command InitClipBoard :call s:init_clipboard()
+command! InitClipBoard :call s:init_clipboard()

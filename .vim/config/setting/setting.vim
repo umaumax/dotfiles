@@ -87,7 +87,6 @@ set colorcolumn=80
 setlocal cursorline | setlocal cursorcolumn
 
 let cursor_highlight_opt_flag = 0
-lockvar cursor_highlight_opt_flag
 if cursor_highlight_opt_flag != 0
   " NOTE: basically, highlight cursor while searching
   function! s:auto_highlight()

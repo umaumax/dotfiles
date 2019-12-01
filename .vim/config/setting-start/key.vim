@@ -808,7 +808,6 @@ cnoremap <C-n> <Down>
 " cnoremap <C-p> <S-Tab>
 " cnoremap <C-n> <Tab>
 
-" nnoremap src :source ~/.vimrc<CR>
 " :Src
 " :Src .
 function! s:source(...)
@@ -816,7 +815,9 @@ function! s:source(...)
   echo 'source ' . l:file
   call system('source ' . l:file)
 endfunction
-command! -nargs=? Src call s:source(<f-args>)
+command! -nargs=? Src    call s:source(<f-args>)
+command! -nargs=? Load   call s:source(<f-args>)
+command! -nargs=? Reload call s:source(<f-args>)
 
 command! FileName     :let @+ = expand('%:t')               | echo '[COPY!]: ' . @+
 command! FilePath     :let @+ = expand('%:p')               | echo '[COPY!]: ' . @+
