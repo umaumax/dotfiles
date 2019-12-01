@@ -299,6 +299,8 @@
 
 [git copy local repo to local] git clone --local $SRC $DST
 
+[git fetch grafted repo] git fetch --unshallow
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
