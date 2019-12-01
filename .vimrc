@@ -130,6 +130,7 @@ let s:doctor_map={
       \'go':           'brew install go || sudo apt-get install go',
       \'gofmt':        'brew install go || sudo apt-get install go',
       \'golfix':       'go get -u github.com/umaumax/golfix',
+      \'gopls':        'go get -u golang.org/x/tools/cmd/gopls',
       \'googler':      'brew install googler || sudo apt-get install googler',
       \'jsonlint':     'npm install -g jsonlint',
       \'look':         'maybe default command',

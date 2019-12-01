@@ -20,6 +20,9 @@ if v:version >= 800 && has('python3')
         \ 'cpp': ['clangd'],
         \ }
 
+  if Doctor('gopls', 'go langage server')
+    let g:LanguageClient_serverCommands['go']=['gopls']
+  endif
   augroup LSP_cursor_hover_group
     autocmd!
     autocmd CursorHold * call LanguageClient_textDocument_hover()
