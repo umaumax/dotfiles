@@ -118,6 +118,7 @@ let s:doctor_map={
       \'algin':        'npm install -g align-yaml',
       \'autopep8':     'pip install autopep8',
       \'clang':        'sudo apt-get install clang',
+      \'clangd':       'brew install llvm || sudo apt-get install clang-tools',
       \'code':         'brew cask install visual-studio-code || [Running Visual Studio Code on Linux]( https://code.visualstudio.com/docs/setup/linux )',
       \'cmake-format': 'pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz (pip install cmake_format)',
       \'cmakelint':    'pip install cmakelint',

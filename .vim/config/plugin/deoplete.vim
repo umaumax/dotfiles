@@ -12,10 +12,21 @@ if v:version >= 800 && has('python3')
         \ }
   " Required: 'autozimu/LanguageClient-neovim'
   " python: auopep8 linter -> ale
+  call Doctor('clangd',"for c,cpp lsp")
   let g:LanguageClient_serverCommands = {
         \ 'vue': ['vls'],
         \ 'python': ['pyls'],
+        \ 'c': ['clangd'],
+        \ 'cpp': ['clangd'],
         \ }
+
+  " NOTE: for 'autozimu/LanguageClient-neovim' and 'clangd' snippet
+  let g:UltiSnipsExpandTrigger="<NUL>"
+  let g:UltiSnipsListSnippets="<NUL>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+  Plug 'SirVer/ultisnips'
+
   " to choose deoplete <C-x>,<C-v>
   let deoplete_opt={'do': ':UpdateRemotePlugins'}
   if has('nvim')

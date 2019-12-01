@@ -54,6 +54,10 @@ function! s:vimconsole_logger()
   let python_flag = menu == '[jedi] '
   let lsp_flag    = menu =~ '\[LC\] '
   let go_flag     = menu == '[go] '
+  if lsp_flag
+    call LCCompleteSnippet()
+    return
+  endif
   if !(vim_flag || clang_flag || python_flag || lsp_flag || go_flag)
     return
   endif
@@ -119,6 +123,34 @@ endfunction
 function! s:AutocmdSetDictionary()
   call s:SetDictionary(&ft)
   call s:SetDictionary('common')
+endfunction
+
+" FYI: main info [Snippets should be passed to snippet managers instead of completion plugins · Issue \#379 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/379 )
+" FYI: sub info [thomasfaingnaert/vim\-lsp\-ultisnips: Language Server Protocol snippets in vim using vim\-lsp and UltiSnips]( https://github.com/thomasfaingnaert/vim-lsp-ultisnips )
+let g:ulti_expand_res = 0 "default value, just set once
+function! LCCompleteSnippet()
+  if empty(v:completed_item)
+    return
+  endif
+
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res > 0
+    return
+  endif
+
+  let l:complete = type(v:completed_item) == v:t_dict ? v:completed_item.word : v:completed_item
+  let l:comp_len = len(l:complete)
+
+  let l:cur_col = mode() == 'i' ? col('.') - 2 : col('.') - 1
+  let l:cur_line = getline('.')
+
+  let l:start = l:comp_len <= l:cur_col ? l:cur_line[:l:cur_col - l:comp_len] : ''
+  let l:end = l:cur_col < len(l:cur_line) ? l:cur_line[l:cur_col + 1 :] : ''
+
+  call setline('.', l:start . l:end)
+  call cursor('.', l:cur_col - l:comp_len + 2)
+
+  call UltiSnips#Anon(l:complete)
 endfunction
 
 augroup dict_comp

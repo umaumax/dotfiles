@@ -25,6 +25,14 @@ function! s:Tab()
       "     return "\<Plug>(neosnippet_jump)"
     endif
   endif
+  if &rtp =~ 'ultisnips'
+    call UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res>0
+      return
+    endif
+  endif
+
+  " NOTE: default behavior
 
   let line = getline('.')
   " NOTE: for markdown
@@ -124,9 +132,15 @@ endfunction
 function! s:tab_wrapper() range
   if &rtp =~ 'neosnippet' && neosnippet#jumpable()
     call feedkeys("i\<Plug>(neosnippet_jump)", '')
-  else
-    call s:count_tab()
+    return
   endif
+  if &rtp =~ 'ultisnips'
+    call UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res>0
+      return
+    endif
+  endif
+  call s:count_tab()
 endfunction
 function! s:untab()
   let line=getline('.')
