@@ -66,12 +66,18 @@ snippet split_multi_bytes
 	split(${0}, '\zs')
 
 snippet get_arg
+alias default_func_arg
 	get(a:, ${1:#: 1,2,3,...}, ${0:#:default value})
 
+snippet arg_length
+	a:0${0}
+
 snippet get_def_g
+alias default_g
 	let g:${1:#: var name} = get(g:, '$1', ${0:#:default value})
 
 snippet get_def_b
+alias default_b
 	let b:${1:#: var name} = get(b:, '$1', ${0:#:default value})
 
 snippet f-args
