@@ -57,7 +57,7 @@ nnoremap <C-Down> G
 command! NoFoldenable set nofoldenable
 command! UnFoldenable set nofoldenable
 command! FoldenableNo set nofoldenable
-command! Foldenable set foldenable
+command! Foldenable   set foldenable
 
 " pumvisible(): completion list?
 function! s:Up()
@@ -151,7 +151,7 @@ cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
 
-" NOTE: dangerous exit commands
+" NOTE: disable dangerous exit commands
 nnoremap ZZ <nop>
 nnoremap ZQ <nop>
 
@@ -179,10 +179,10 @@ nnoremap ( f(
 nnoremap ) F)
 
 " for search
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
 " visual mode中のnは検索ワードを選択する
 function! s:select_search(key)
   if v:hlsearch == 0
@@ -209,16 +209,16 @@ function! s:select_search(key)
     call search(@/, 'e')
   endif
 endfunction
-vnoremap n :call <sid>select_search('n')<CR>
-vnoremap N :call <sid>select_search('N')<CR>
+vnoremap <silent> n :call <sid>select_search('n')<CR>
+vnoremap <silent> N :call <sid>select_search('N')<CR>
 " vnoremap * *zz
 " vnoremap # #zz
-vnoremap * "zy:let @/ = @z<CR>n
-vnoremap # "zy:let @/ = @z<CR>N
+vnoremap <silent> * "zy:let @/ = @z<CR>n
+vnoremap <silent> # "zy:let @/ = @z<CR>N
 
 " 貼り付けたテキストを選択する
 " gv: select pre visual selected range
-noremap gV `[v`]
+noremap <silent> gV `[v`]
 command! -nargs=0 LastPaste normal! `[v`]
 " move to last edited
 " nnoremap gb `.zz
@@ -237,8 +237,8 @@ function! s:scroll_to_center(center)
   endif
   call cursor('.', a:center)
 endfunction
-nnoremap zm :call <SID>scroll_to_center(strlen(getline("."))/2)<CR>
-nnoremap zM :call <SID>scroll_to_center(col('.'))<CR>
+nnoremap <silent> zm :call <SID>scroll_to_center(strlen(getline("."))/2)<CR>
+nnoremap <silent> zM :call <SID>scroll_to_center(col('.'))<CR>
 function! s:get_window_width()
   let tmp=&virtualedit
   set virtualedit=all
@@ -264,15 +264,15 @@ function! s:zL()
   call s:zl(half_window_width)
 endfunction
 " zH, zLでは中心に移動できない
-nnoremap zh :call <SID>zH()<CR>
-nnoremap zl :call <SID>zL()<CR>
-nnoremap zH :call <SID>zh(1)<CR>
-nnoremap zL :call <SID>zl(1)<CR>
+nnoremap <silent> zh :call <SID>zH()<CR>
+nnoremap <silent> zl :call <SID>zL()<CR>
+nnoremap <silent> zH :call <SID>zh(1)<CR>
+nnoremap <silent> zL :call <SID>zl(1)<CR>
 
 " visual mode
 if &rtp !~ 'vim-textobj-user'
-  vnoremap j iw
-  vnoremap k ge
+  vnoremap <silent> j iw
+  vnoremap <silent> k ge
 endif
 
 vnoremap <C-h> <Left>
@@ -294,8 +294,8 @@ function! s:U()
     silent call winrestview(view)
   endif
 endfunction
-nnoremap u :call <SID>U()<CR>
-inoremap <C-u> <C-o>:call <SID>U()<CR>
+nnoremap <silent> u :call <SID>U()<CR>
+inoremap <silent> <C-u> <C-o>:call <SID>U()<CR>
 " redo: カーソル位置調整
 function! s:C_R()
   let view = winsaveview()
@@ -305,8 +305,8 @@ function! s:C_R()
     silent call winrestview(view)
   endif
 endfunction
-nnoremap <C-r> :call <SID>C_R()<CR>
-inoremap <C-r> <C-o>:call <SID>C_R()<CR>
+nnoremap <silent> <C-r> :call <SID>C_R()<CR>
+inoremap <silent> <C-r> <C-o>:call <SID>C_R()<CR>
 
 inoremap <C-x>e <ESC>
 inoremap <C-x><C-e> <ESC>
@@ -315,7 +315,7 @@ inoremap <C-x><C-e> <ESC>
 inoremap <C-z> <ESC><C-z>
 
 " toggle relativenumber
-nnoremap <Space>l :<C-u>setlocal relativenumber!<CR>
+nnoremap <silent> <Space>l :<C-u>setlocal relativenumber!<CR>
 " toggle AnsiView
 " nnoremap <Space>a :AnsiEsc<CR>
 
@@ -382,7 +382,7 @@ endfunction
 " NOTE: paste yanked string vertically
 " NOTE: visual block かつ registerがone lineならば下記の単純なmappingでOK
 " vnoremap <C-p> I<C-r>"<ESC><ESC>
-vnoremap <C-p> <Esc>:call <SID>vertical_paste()<CR>
+vnoremap <silent> <C-p> <Esc>:call <SID>vertical_paste()<CR>
 
 function! s:visual_mode_paste(...)
   let content = get(a:, 1, @+)
@@ -401,7 +401,7 @@ function! s:visual_mode_paste(...)
   let is_line_end = getpos("'<")[2]==col('$')
   call <SID>paste_at_cursor(!is_line_end, content)
 endfunction
-vnoremap p "_x:call <SID>visual_mode_paste()<CR>
+vnoremap <silent> p "_x:call <SID>visual_mode_paste()<CR>
 
 " visual modeで囲んだ箇所全体を対象として，'AndrewRadev/switch.vim'のswitchと同様な処理を行う
 function! s:switch()
@@ -458,7 +458,7 @@ function! s:switch()
   " select yanked range
   normal! `[v`]
 endfunction
-vnoremap <C-x> "zd:call <SID>switch()<CR>
+vnoremap <silent> <C-x> "zd:call <SID>switch()<CR>
 
 function! s:V()
   let m=visualmode()
@@ -469,7 +469,7 @@ function! s:V()
   endif
 endfunction
 vnoremap v y
-vnoremap V :<C-u>call <SID>V()<CR>
+vnoremap <silent> V :<C-u>call <SID>V()<CR>
 
 " delete all lines at buffer without copy
 " don't add <silent>
@@ -494,7 +494,7 @@ endfunction
 " autocmd User VimEnterDrawPost nnoremap <buffer> gx :call OpenURL()<CR>
 " autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
 " augroup END
-nnoremap gx :call OpenURL()<CR>
+nnoremap <silent> gx :call OpenURL()<CR>
 
 function! s:yank_pwd()
   let @+ = '.' " default value
