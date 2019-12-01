@@ -12,14 +12,17 @@ if v:version >= 800 && has('python3')
         \ }
   " Required: 'autozimu/LanguageClient-neovim'
   " python: auopep8 linter -> ale
-  call Doctor('clangd',"for c,cpp lsp")
-  let g:LanguageClient_serverCommands = {
-        \ 'vue': ['vls'],
-        \ 'python': ['pyls'],
-        \ 'c': ['clangd'],
-        \ 'cpp': ['clangd'],
-        \ }
-
+  let g:LanguageClient_serverCommands = {}
+  if Doctor('vls', 'vue lsp')
+    let g:LanguageClient_serverCommands['vue']=['vls']
+  endif
+  if Doctor('pyls', 'python lsp')
+    let g:LanguageClient_serverCommands['python']=['pyls']
+  endif
+  if Doctor('clangd', 'for c,cpp lsp')
+    let g:LanguageClient_serverCommands['c']=['clangd']
+    let g:LanguageClient_serverCommands['cpp']=['clangd']
+  endif
   if Doctor('gopls', 'go langage server')
     let g:LanguageClient_serverCommands['go']=['gopls']
   endif
