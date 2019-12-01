@@ -209,12 +209,13 @@ endif
 nnoremap gf :FZFOpenFile<CR>
 command! FZFOpenFile call FZFOpenFileFunc()
 
+" TODO: カーソル化にはない場合にはその行でそれっぽいものを見つけるようなscriptとすること!!!!!!
 " NOTE: ファイルが一意に決定する場合には開き，そうでない場合には絞り込む
-function! FZFOpenFileFunc()
-  " カーソル下のファイルパスを取得
+function! FZFOpenFileFunc(...)
   " NOTE: outer exapnd extract ~ to $HOME
-  let s:file_path = expand(expand("<cfile>"))
-  " 空行などで実行されたりした場合の考慮
+  " default value is under cursor filepath
+  let s:file_path = get(a:, 1, expand(expand("<cfile>")))
+  " NOTE: for empty line
   if s:file_path == ''
     echo '[Error] <cfile> return empty string.'
     return 0
@@ -227,9 +228,27 @@ function! FZFOpenFileFunc()
     execute ':tabedit '.s:file_path_with_line
     return
   endif
+  " NOTE: try current line
+  if a:0 == 0
+    let line=getline('.')
+    let maybe_filepath=matchstr(line,'[^ ]\+\.[^ ]\+','','')
+    let nextline=getline(line('.')+1)
+    " NOTE: for below log
+    " Error detected while processing /xxx/yyy/zzz.vim
+    " line  123:
+    let maybe_line_group=matchlist(nextline,'line[^0-9]\+\([0-9]\+\)')
+    " NOTE: drop ':'
+    let maybe_filepath=trim(maybe_filepath, ':')
+    if maybe_filepath !~ ':' && !empty(maybe_line_group)
+      let line=maybe_line_group[1]
+      let maybe_filepath.=':'.line
+    endif
+    call FZFOpenFileFunc(maybe_filepath)
+    return
+  endif
   let s:file_path=s:file_path_without_line
 
-  " .DS_Store はmacの不要なファイル
+  " NOTE: no hit -> no error, no popup, no run sink
   silent! call fzf#run({
         \ 'source': 'if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then git ls-files; else find . -type d -name .git -prune -o ! -name .DS_Store; fi',
         \ 'sink': 'tabedit',
