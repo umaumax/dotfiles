@@ -1,6 +1,6 @@
 function! s:init_color()
-  highlight Search    ctermbg=15 guibg=#EEEEEE
-  highlight IncSearch ctermbg=15 guibg=#EEEEEE
+  highlight Search    term=reverse ctermfg=0 ctermbg=222 guifg=#000000 guibg=#FFE792
+  highlight IncSearch term=reverse ctermfg=0 ctermbg=222 guifg=#000000 guibg=#FFE792
 
   if &rtp =~ 'vim-cpp-syntax-reserved_identifiers'
     highlight cReservedIdentifiers ctermfg=white ctermbg=red guifg=#ffffff guibg=#ff0000
