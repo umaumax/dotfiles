@@ -541,9 +541,17 @@ function! s:close(force)
     endif
   endif
   if !(&bt == 'quickfix' || &bt == 'nofile')
+    " NOTE: auto close LC popup window
     let save_winnr = winnr()
-    windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile') | let l:flag=&bt | let l:w=winnr() | endif
+    windo if l:flag=='' && (@% == '__LanguageClient__') | let l:flag=&bt | let l:w=winnr() | endif
   exe save_winnr. 'wincmd w'
+  if l:flag!=''
+    exe l:w.'wincmd c'
+  endif
+  let l:flag=''
+  let save_winnr = winnr()
+  windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile') | let l:flag=&bt | let l:w=winnr() | endif
+exe save_winnr. 'wincmd w'
 endif
 if l:flag!=''
   if l:flag=='quickfix'
