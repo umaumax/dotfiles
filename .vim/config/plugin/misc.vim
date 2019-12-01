@@ -247,7 +247,7 @@ Plug 'lighttiger2505/gtags.vim', {'for':['c','cpp']}
 let g:Gtags_Auto_Map = 0
 let g:Gtags_OpenQuickfixWindow = 1
 
-# FYI: [Feature request: When jumping to a definition, increment the tag stack · Issue \#517 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/517 )
+" FYI: [Feature request: When jumping to a definition, increment the tag stack · Issue \#517 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/517 )
 function! DefinitionFunc()
   if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_definition', {'handle': v:true}))
     return
