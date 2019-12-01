@@ -1512,6 +1512,12 @@ alias readme.pv='fg.readme.pv'
 
 function cmake() {
   command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+  local exit_code=$?
+  # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
+  if cmdcheck compdb && [[ -f compile_commands.json ]]; then
+    compdb list >../compile_commands.json
+  fi
+  return $?
 }
 function make() {
   if type >/dev/null 2>&1 colormake; then

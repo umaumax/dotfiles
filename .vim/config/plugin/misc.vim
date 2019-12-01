@@ -246,11 +246,26 @@ Plug 'lighttiger2505/gtags.vim', {'for':['c','cpp']}
 " Options
 let g:Gtags_Auto_Map = 0
 let g:Gtags_OpenQuickfixWindow = 1
-" Keymap
-" Show definetion of function cousor word on quickfix
-nmap <silent> K :<C-u>exe("Gtags ".expand('<cword>'))<CR>
-" Show reference of cousor word on quickfix
-nmap <silent> R :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+
+# FYI: [Feature request: When jumping to a definition, increment the tag stack · Issue \#517 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/517 )
+function! DefinitionFunc()
+  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_definition', {'handle': v:true}))
+    return
+  endif
+  " Show definetion of function cousor word on quickfix
+  exe("Gtags ".expand('<cword>'))
+endfunction
+function! ReferencesFunc()
+  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_references', {'handle': v:true}))
+    return
+  endif
+  " Show reference of cousor word on quickfix
+  exe("Gtags -r ".expand('<cword>'))
+endfunction
+
+noremap <silent> K :call DefinitionFunc()<CR>
+noremap <silent> R :call ReferencesFunc()<CR>
+
 " ctags not found
 " gen_tags.vim need ctags to generate tags
 Plug 'jsfaint/gen_tags.vim', {'for':['c','cpp']}

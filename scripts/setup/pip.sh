@@ -38,6 +38,8 @@ pip3 install thefuck
 # NOTE: for df
 pip3 install pydf
 
+pip3 install compdb
+
 pip install neovim
 pip3 install neovim
 pip install pynvim
