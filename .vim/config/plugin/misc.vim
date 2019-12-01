@@ -265,6 +265,8 @@ endfunction
 
 noremap <silent> K :call DefinitionFunc()<CR>
 noremap <silent> R :call ReferencesFunc()<CR>
+" NORT: goto current file symbols
+noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<CR>
 
 " ctags not found
 " gen_tags.vim need ctags to generate tags
