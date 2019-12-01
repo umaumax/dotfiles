@@ -16,6 +16,9 @@ if v:version >= 800 && has('python3')
   if Doctor('vls', 'vue lsp')
     let g:LanguageClient_serverCommands['vue']=['vls']
   endif
+  if Doctor('docker-langserver', 'Dockerfile lsp')
+    let g:LanguageClient_serverCommands['dockerfile']=['docker-langserver','--stdio']
+  endif
   if Doctor('pyls', 'python lsp')
     let g:LanguageClient_serverCommands['python']=['pyls']
   endif
