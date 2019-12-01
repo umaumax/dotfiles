@@ -20,6 +20,11 @@ if v:version >= 800 && has('python3')
         \ 'cpp': ['clangd'],
         \ }
 
+  augroup LSP_cursor_hover_group
+    autocmd!
+    autocmd CursorHold * call LanguageClient_textDocument_hover()
+  augroup END
+
   " NOTE: for 'autozimu/LanguageClient-neovim' and 'clangd' snippet
   let g:UltiSnipsExpandTrigger="<NUL>"
   let g:UltiSnipsListSnippets="<NUL>"
