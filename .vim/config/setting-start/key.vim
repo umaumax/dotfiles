@@ -270,8 +270,10 @@ nnoremap zH :call <SID>zh(1)<CR>
 nnoremap zL :call <SID>zl(1)<CR>
 
 " visual mode
-" vnoremap j <Down>
-" vnoremap k <Up>
+if &rtp !~ 'vim-textobj-user'
+  vnoremap j iw
+  vnoremap k ge
+endif
 
 vnoremap <C-h> <Left>
 vnoremap <C-j> <Down>
