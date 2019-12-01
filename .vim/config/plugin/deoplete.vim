@@ -29,9 +29,38 @@ if v:version >= 800 && has('python3')
   if Doctor('gopls', 'go langage server')
     let g:LanguageClient_serverCommands['go']=['gopls']
   endif
+
+  " FYI: [automatic calls to textDocument\_documentHighlight based on cursor position · Issue \#618 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/618 )
+  " Automatic Hover
+  function! DoNothingHandler(output)
+  endfunction
+
+  function! IsDifferentHoverLineFromLast()
+    if !exists('b:last_hover_line')
+      return 1
+    endif
+
+    return b:last_hover_line !=# line('.') || b:last_hover_col !=# col('.')
+  endfunction
+
+  function! GetHoverInfo()
+    " Only call hover if the cursor position changed.
+    "
+    " This is needed to prevent infinite loops, because hover info is displayed
+    " in a popup window via nvim_buf_set_lines() which puts the cursor into the
+    " popup window and back, which in turn calls CursorMoved again.
+    if mode() == 'n' && IsDifferentHoverLineFromLast()
+      let b:last_hover_line = line('.')
+      let b:last_hover_col = col('.')
+
+      call LanguageClient_textDocument_hover({'handle': v:true}, 'DoNothingHandler')
+      " call LanguageClient_clearDocumentHighlight()
+      " call LanguageClient_textDocument_documentHighlight({'handle': v:true}, 'DoNothingHandler')
+    endif
+  endfunction
   augroup LSP_cursor_hover_group
     autocmd!
-    autocmd CursorHold * call LanguageClient_textDocument_hover()
+    autocmd CursorHold * call GetHoverInfo()
   augroup END
 
   " NOTE: for 'autozimu/LanguageClient-neovim' and 'clangd' snippet
