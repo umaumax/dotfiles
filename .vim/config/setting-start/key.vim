@@ -745,7 +745,7 @@ function! ToggleWordBounds(type, line)
   endif
 endfunction
 " / と :s///g をトグルする
-cnoremap <expr> <C-u> ToggleSubstituteSearch(getcmdtype(), getcmdline())
+cnoremap <expr> <C-o> ToggleSubstituteSearch(getcmdtype(), getcmdline())
 function! ToggleSubstituteSearch(type, line)
   if a:type == '/' || a:type == '?'
     let range = GetOnetime('s:range', '%')
