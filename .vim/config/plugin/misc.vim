@@ -717,3 +717,10 @@ Plug 'rhysd/vim-llvm'", {'for':'llvm'}
 Plug 'paretje/nvim-man'
 
 Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
+
+" :SaveSession
+" :LoadSession
+" :DeleteSession
+Plug 'umaumax/vsession', {'on':['SaveSession','LoadSession','DeleteSession']}
+let g:vsession_use_fzf = 1
+
