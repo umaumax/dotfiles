@@ -528,6 +528,13 @@ vnoremap <C-a> ^
 vnoremap <C-e> $<Left>
 vnoremap $ $<Left>
 
+
+" NOTE: prevent forcus lsp popup
+augroup bufenter_group
+  autocmd!
+  autocmd WinEnter * if @% == '__LanguageClient__' | exe winnr().'wincmd c' | endif
+augroup END
+
 " FYI: [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L254 )
 " quickfix -> main windowの順に閉じる
 function! s:close(force)
