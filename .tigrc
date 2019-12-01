@@ -132,3 +132,9 @@ bind generic * search
 bind generic n find-next
 
 bind generic P parent
+
+# NOTE: same keymapping to J,K
+bind status <Ctrl-j> next
+bind status <Ctrl-k> previous
+bind stage  <Ctrl-j> next
+bind stage  <Ctrl-k> previous
