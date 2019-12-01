@@ -60,9 +60,11 @@ endif
 
 " NOTE: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
 command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
+
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 runtime! config/setting-end/*.vim
+
 " load cwd
 if isdirectory(s:cwd)
   execute("lcd " . s:cwd)
