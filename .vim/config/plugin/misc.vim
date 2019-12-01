@@ -477,6 +477,13 @@ if Doctor('git', 'airblade/vim-gitgutter')
   " nmap <Leader>uh <Plug>(GitGutterUndoHunk)
   " NOTE: diffの削除された行の表示が可能
   nmap <Leader>gp <Plug>(GitGutterPreviewHunk)
+  " NOTE: for avoid same maping for 'pocke/vim-textobj-markdown' or 'christoomey/vim-textobj-codeblock'
+  " ic,ac for markdown code block
+
+  omap ih <Plug>(GitGutterTextObjectInnerPending)
+  omap ah <Plug>(GitGutterTextObjectOuterPending)
+  xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+  xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
   function! s:vim_gitgutter_group()
     if &rtp =~ 'vim-submode'

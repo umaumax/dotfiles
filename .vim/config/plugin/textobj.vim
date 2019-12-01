@@ -12,8 +12,14 @@ LazyPlug 'sgur/vim-textobj-parameter'
 " i2,
 " let g:vim_textobj_parameter_mapping = ','
 
+" NOTE: ic, ac for markdown codeblock
 LazyPlug 'pocke/vim-textobj-markdown'
-" ic, ac
+
+" WARN: you must add code block type for detection (e.g. ```sh ~ ```)
+" Plug 'christoomey/vim-textobj-codeblock'
+" NOTE: ['^```\s\?\w\+$\n', '^```$'],
+" NOTE: you can't use next pattern ['^```\(\s\?\w\+\)\?$\n', '^```$'],
+" because? start end end pattern maybe same one
 
 function! s:init_textobj()
   call textobj#user#plugin('php', {
