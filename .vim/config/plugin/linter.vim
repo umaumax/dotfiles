@@ -41,7 +41,7 @@ let g:ale_linters = {
       \   'markdown': ['alex','vale'],
       \   'txt': ['textlint'],
       \   'make': ['checkmake'],
-      \   'yaml': [''],
+      \   'yaml': [],
       \}
 " NOTE: doesn't fit for me
 " 'yaml': ['yamllint'],
