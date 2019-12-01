@@ -14,6 +14,8 @@ let s:doctor_map={
       \'cmakelint':    'pip install cmakelint',
       \'cmigemo':      'brew install cmigemo || sudo apt-get install cmigemo',
       \'clang-format': 'brew install clang-format || sudo apt0get install clang-format',
+      \'cpplint':      'pip install cpplint',
+      \'docker-langserver' : 'npm install -g dockerfile-language-server-nodejs',
       \'files':        'go get -u github.com/mattn/files',
       \'flake8':       'pip install flake8',
       \'git':          'brew install git || sudo apt-get install git',
@@ -23,6 +25,7 @@ let s:doctor_map={
       \'gopls':        'go get -u golang.org/x/tools/cmd/gopls',
       \'googler':      'brew install googler || sudo apt-get install googler',
       \'jsonlint':     'npm install -g jsonlint',
+      \'jq':           'brew install jq || sudo apt -y install jq',
       \'look':         'maybe default command',
       \'npm':          'install node',
       \'pylint':       'pip install pylint',
@@ -35,8 +38,12 @@ let s:doctor_map={
       \'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
       \'vint':         'pip install vim-vint',
       \}
+let s:doctor_logs=[]
 let s:no_cmd_map={}
 function! Doctor(cmd, description)
+  if !has_key(s:doctor_map, a:cmd)
+    let s:doctor_logs+=['Add ['.a:cmd.'] description for install']
+  endif
   if executable(a:cmd)
     return 1
   endif
@@ -51,25 +58,24 @@ function! Doctor(cmd, description)
   else
     let s:no_cmd_map[a:cmd].=', '.a:description
   endif
-  if !has_key(s:doctor_map, a:cmd)
-    echohl ErrorMsg
-    echomsg 'Add ['.a:cmd.'] description for install'
-    echohl None
-  endif
   return 0
 endfunction
 function! s:print_doctor_result()
-  if len(s:no_cmd_map)==0
+  if len(s:no_cmd_map)==0&&len(s:doctor_logs)==0
     echo '🍺You are healthy!'
     return
   endif
   for s:key in keys(s:no_cmd_map)
     let s:val = s:no_cmd_map[s:key]
     echohl ErrorMsg
-    echomsg 'Add ['.a:cmd.'] description for install'
     echomsg 'Require:[' . s:key . '] for [' . s:val . ']'
-    echomsg '    ' . get(s:doctor_map, s:key, '[no description]')
+    echomsg '  [Install] '.get(s:doctor_map, s:key, '[no description]')
     echohl None
   endfor
+  echohl ErrorMsg
+  for log in s:doctor_logs
+    echomsg log
+  endfor
+  echohl None
 endfunction
 command! Doctor call s:print_doctor_result()
