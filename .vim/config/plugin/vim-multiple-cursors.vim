@@ -25,6 +25,11 @@ function! Multiple_cursors_before()
     let g:deoplete_is_enable_before_multi_cursors = 0
   endif
 
+  " WARN: I don't know how to detect running now or not
+  if &rtp =~ 'LanguageClient-neovim'
+    :LanguageClientStop
+  endif
+
   if g:ale_enabled
     :ALEDisable
     let g:ale_is_enable_before_multi_cursors = 1
@@ -43,6 +48,9 @@ function! Multiple_cursors_after()
 
   if g:deoplete_is_enable_before_multi_cursors
     call deoplete#enable()
+  endif
+  if &rtp =~ 'LanguageClient-neovim'
+    :LanguageClientStart
   endif
   if g:ale_is_enable_before_multi_cursors
     :ALEEnable
