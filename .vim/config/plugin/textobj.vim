@@ -62,8 +62,14 @@ endfunction
 
 augroup textobj_init_mapping_augroup
   autocmd!
-  autocmd VimEnter * call s:init_textobj() \
-  autocmd! textobj_init_mapping_augroup
+  autocmd VimEnter * call s:init_textobj()
+  " variable
+  autocmd FileType * omap <expr> iv iw
+  autocmd FileType * xmap <expr> iv iw
+  autocmd FileType vim omap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
+  autocmd FileType vim xmap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
+  autocmd FileType sh,zsh,bash omap <expr> iv textobj#from_regexp#mapexpr('\${\?[$A-Za-z0-9_@#\[\]]\+}\?')
+  autocmd FileType sh,zsh,bash xmap <expr> iv textobj#from_regexp#mapexpr('\${\?[$A-Za-z0-9_@#\[\]]\+}\?')
 augroup END
 
 " Requires: 'machakann/vim-swap'
@@ -76,6 +82,7 @@ xmap a, <Plug>(swap-textobject-a)
 " [Vimメモ : vim\-expand\-regionでビジュアルモードの選択領域を拡大／縮小 \- もた日記]( https://wonderwall.hatenablog.com/entry/2016/03/31/231621 )
 " il: 'kana/vim-textobj-line'
 " ie: 'kana/vim-textobj-entire'
+" 'iv' my command
 " 'ih' my command
 " 'id' my command
 " ic, ac: 'pocke/vim-textobj-markdown' for codeblock
@@ -85,6 +92,7 @@ vmap k <Plug>(expand_region_shrink)
 let g:expand_region_text_objects = {
       \ 'iw'  :0,
       \ 'iW'  :0,
+      \ 'iv'  :0,
       \ 'ih'  :0,
       \ 'id'  :0,
       \ 'i<'  :0,
