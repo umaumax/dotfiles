@@ -8,7 +8,9 @@
   # hooksPath = ~/.config/git/hooks
   ignorecase = false
   # FYI: [so\-fancy/diff\-so\-fancy: Good\-lookin' diffs\. Actually… nah… The best\-lookin' diffs\.]( https://github.com/so-fancy/diff-so-fancy )
-  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || cat; } | less --tabs=4 -RFX"
+  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [[ -n $GIT_DIFF_HIGHLIGHT ]] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
+[diff-so-fancy]
+  markEmptyLines = false
 [init]
   templatedir = ~/.git_template
 [help]
@@ -58,8 +60,8 @@
   # [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
   # for mac
   # [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
-  d     = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
-  cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less' diff
+  d     = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less --tabs=2 -RFX' diff
+  cdiff = -c pager.diff='perl $GIT_DIFF_HIGHLIGHT | less --tabs=2 -RFX' diff
   wdiff = diff --word-diff-regex='\\w+'
   diff-head = diff HEAD
   diff-head1 = diff HEAD~

@@ -137,7 +137,7 @@ cmdcheck 'git-ls' && alias gls='git-ls'
 function git_diff() {
   is_git_repo_with_message || return
 
-  local diff_cmd=${GIT_DIFF_CMD:-cdiff}
+  local diff_cmd=${GIT_DIFF_CMD:-diff}
   # FYI: [\[git\]git diff \-\-stat でパスを省略しない方法 \- dackdive's blog]( https://dackdive.hateblo.jp/entry/2014/05/13/112549 )
   local files=($(git diff --stat --stat-width=9999 "$@" | awk '{ print $3 " "$4 " " $1}' | sort -n | grep -v '^changed' | cut -f3 -d' '))
   local tmpfile=$(mktemp '/tmp/git.tmp.orderfile.XXXXX')

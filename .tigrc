@@ -20,6 +20,7 @@ set split-view-width = 90%
 
 # [tigでmerge diffを表示する \- Qiita]( https://qiita.com/YasuOza/items/7be136f03867d20b8332 )
 set diff-options = -m --first-parent
+set diff-highlight = true
 
 # NOTE: 以下を有効にすると`u`でstage-updateするときにviewが閉じてしまう可能性があるので，注意
 # set refresh-mode = auto
