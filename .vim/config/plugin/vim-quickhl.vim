@@ -11,19 +11,21 @@ let g:quickhl_manual_enable_at_startup = 1
 " \>: 単語終わり
 " NOTE: ubuntuではDELETEの色が黒になってしまっていたので，DUMMYを設けた
 let g:quickhl_manual_keywords = [
-                  \ {"pattern": '\<NOTE\>\c', "regexp": 1 },
-                  \ {"pattern": '\<TODO\>\c', "regexp": 1 },
-                  \ {"pattern": '\<MEMO\>\c', "regexp": 1 },
-                  \ {"pattern": '\<FIX\>\c',  "regexp": 1 },
-                  \ {"pattern": '\<FYI\>\c',  "regexp": 1 },
-                  \ {"pattern": '\<WARN\>\c', "regexp": 1 },
-                  \ {"pattern": '\<INFO\>\c', "regexp": 1 },
-                  \ {"pattern": '\<WIP\>\c',  "regexp": 1 },
-                  \ {"pattern": '\<HINT\>\c', "regexp": 1 },
-                  \ {"pattern": '\<QUESTION\>\c', "regexp": 1 },
-                  \ {"pattern": '\<DUMMY\>\c', "regexp": 1 },
-                  \ {"pattern": '\<DELETE\>\c', "regexp": 1 },
-                  \ ]
+      \ {"pattern": '\<NOTE\>\c',     "regexp": 1 },
+      \ {"pattern": '\<TODO\>\c',     "regexp": 1 },
+      \ {"pattern": '\<MEMO\>\c',     "regexp": 1 },
+      \ {"pattern": '\<FIX\>\c',      "regexp": 1 },
+      \ {"pattern": '\<FYI\>\c',      "regexp": 1 },
+      \ {"pattern": '\<WARN\>\c',     "regexp": 1 },
+      \ {"pattern": '\<INFO\>\c',     "regexp": 1 },
+      \ {"pattern": '\<WIP\>\c',      "regexp": 1 },
+      \ {"pattern": '\<HINT\>\c',     "regexp": 1 },
+      \ {"pattern": '\<QUESTION\>\c', "regexp": 1 },
+      \ {"pattern": '\<DUMMY\>\c',    "regexp": 1 },
+      \ {"pattern": '\<DELETE\>\c',   "regexp": 1 },
+      \ {"pattern": '\<ERROR\>\c',    "regexp": 1 },
+      \ {"pattern": '\<FAILED\>\c',   "regexp": 1 },
+      \ ]
 
 " NOTE: same kind of plugin
 " Plug 'lfv89/vim-interestingwords'
