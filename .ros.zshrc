@@ -105,6 +105,9 @@ function catkin_make() {
     # NOTE: disable for cpu usage
     # pgrep rdm >/dev/null 2>&1 && rc -J build
   fi
+  if cmdcheck compdb && [[ -f ./build/compile_commands.json ]]; then
+    compdb -p ./build list >./compile_commands.json
+  fi
   # popd >/dev/null 2>&1
   cd "$_PWD" >/dev/null 2>&1
   # NOTE: pop CPATH
@@ -137,6 +140,9 @@ function cdrosroot() {
 }
 function rosroot() {
   local dirpath=$PWD
+  if [[ $(dirname $dirpath) == "ros" ]]; then
+    return 0
+  fi
   while :; do
     local target_filepath="$dirpath/src/CMakeLists.txt"
     if [[ -L "$target_filepath" ]] && [[ $(basename $(readlink $target_filepath)) == 'toplevel.cmake' ]]; then
