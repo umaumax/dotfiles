@@ -1101,7 +1101,7 @@ nnoremap <silent> t<Up> :call IndentSensitivePrev()<CR>
 nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
 
 " FYI: [\(12\) thincaさんはTwitterを使っています: 「Vim で貼り付けは p ですが、\]p を使うと、貼り付ける内容のインデントを貼り付け先のインデントに合わせて調整した上で貼り付けてくれます。貼り付けた後にインデントの再調整をしなくて済むので便利です。 \#vimtips\_ac」 / Twitter]( https://twitter.com/thinca/status/1200791599510245376 )
-nnoremap p ]p
-nnoremap P ]P
-nnoremap ]p p
-nnoremap ]P P
+" nnoremap p ]p
+" nnoremap P ]P
+" nnoremap ]p p
+" nnoremap ]P P
