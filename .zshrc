@@ -1517,7 +1517,7 @@ function cmake() {
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
     compdb list >../compile_commands.json
   fi
-  return $?
+  return $exit_code
 }
 function make() {
   if type >/dev/null 2>&1 colormake; then
