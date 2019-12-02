@@ -329,6 +329,18 @@ function! s:smartinput_define()
         \ , 'input' : '::'
         \ , 'filetype' : ['cpp']
         \ })
+  call s:smartinput_define_rule(
+        \ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\|ros\|Eigen\|cv\|bridge\)\%#'
+        \ , 'char'  : ';'
+        \ , 'input' : '::'
+        \ , 'filetype' : ['cpp']
+        \ })
+  call s:smartinput_define_rule(
+        \ { 'at'    : ';\%#'
+        \ , 'char'  : ';'
+        \ , 'input' : '<BS>::'
+        \ , 'filetype' : ['cpp']
+        \ })
   " NOTE: 文字列内である可能性では排除
   " call s:smartinput_define_rule(
   "       \ { 'at'    : '^[^"]*\w\%#'
@@ -378,20 +390,40 @@ function! s:smartinput_define()
         \ })
 
   let cpp_shortcut_map={
-        \ 'std':['cout','clog', 'cerr','cin','endl','shared_ptr','unique_ptr'],
+        \ 'auto std prefix completion':{
+        \   'prefix': 'std::',
+        \   'suffix': '',
+        \   'prefix_pattern': '\%(\(std::\)\|\([a-zA-Z0-9]\)\)\@<!',
+        \   'completions': [['cout',' << '],['clog',' << '], ['cerr',' << '],['cin',' >> '],['endl',';'],['shared_ptr','<\%#>'],['unique_ptr','<\%#>'],['vector','<\%#>']],
+        \ },
+        \ 'auto # prefix completion':{
+        \   'prefix': '#',
+        \   'suffix': '',
+        \   'prefix_pattern': '^',
+        \   'completions': [['include'],['ifdef',' '], ['endif'],['elif',' '],['pragma',' '],['undef']],
+        \ },
         \ }
   for [key, val] in items(cpp_shortcut_map)
-    let namespace=key
-    let keywords=val
-    for keyword in keywords
+    let prefix=val['prefix']
+    let prefix_pattern=val['prefix_pattern']
+    let completions=val['completions']
+    for obj in completions
+      let keyword=obj[0]
+      let suffix=get(obj, 1, val['suffix'])
+      let left_n=0
+      let cursor_idx=stridx(suffix,'\%#')
+      if cursor_idx != -1
+        " NOTE: drop cursor str
+        let suffix=suffix[:cursor_idx-1].suffix[cursor_idx+len('\%#'):]
+        let left_n=len(suffix)-cursor_idx
+      endif
       let n=len(keyword)
       let keyword_without_last_char=keyword[:n-2]
       let last_char=keyword[n-1]
-      " NOTE: 単語の途中や，すでにnamespaceが付加されていない場合
       call s:smartinput_define_rule(
-            \ { 'at'    : '\%(\('.namespace.'::\)\|\([a-zA-Z0-9]\)\)\@<!'.keyword_without_last_char.'\%#'
+            \ { 'at'    : prefix_pattern.keyword_without_last_char.'\%#'
             \ , 'char'  : last_char
-            \ , 'input' : repeat('<BS>',n-1).namespace.'::'.keyword
+            \ , 'input' : repeat('<BS>',n-1).prefix.keyword.suffix.repeat('<Left>',left_n)
             \ , 'filetype' : ['cpp']
             \ })
     endfor
