@@ -408,6 +408,7 @@
 [alias 32bit arm-linux-gnueabihf-g++] alias g++=arm-linux-gnueabihf-g++ !
 [64bit arm-linux-gnueabihf-g++] aarch64-linux-gnu-g++ \%#
 [alias 64bit arm-linux-gnueabihf-g++] alias g++=aarch64-linux-gnu-g++ !
+[g++ wrap start and end] -Wl,--start-group \%# -Wl,--end-group
 
 # rename
 [find and rename] find . -name "\%#" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
@@ -944,6 +945,7 @@
 # compile_commands.json
 [list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'
 [add -I dirs list to CPATH] export CPATH="$(cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'):$CPATH"
+[add header infomation to compile_commands.json] compdb list > ../compile_commands.json
 
 # dev usb
 [dev usb0] /dev/ttyUSB0
