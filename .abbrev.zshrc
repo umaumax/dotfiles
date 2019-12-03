@@ -1,3 +1,5 @@
+ZSH_ABBREV_ALIAS_NO_LAST_SPACE=1
+
 # abbrev-alias -g A="| awk '{\%#}'"
 # abbrev-alias -g S="| sed -E 's/\%#//g'"
 # abbrev-alias -g G="| grep -E "
