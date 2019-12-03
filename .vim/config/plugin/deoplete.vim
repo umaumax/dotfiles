@@ -60,8 +60,10 @@ if v:version >= 800 && has('python3')
   endfunction
   augroup LSP_cursor_hover_group
     autocmd!
-    autocmd CursorHold * call GetHoverInfo()
+    " autocmd CursorHold * call GetHoverInfo()
   augroup END
+  " NOTE: H:help
+  nnoremap H :call GetHoverInfo()<CR>
 
   " NOTE: for 'autozimu/LanguageClient-neovim' and 'clangd' snippet
   let g:UltiSnipsExpandTrigger="<NUL>"
