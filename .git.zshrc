@@ -144,7 +144,7 @@ function git_diff() {
   for file in "${files[@]}"; do
     [[ -f "$file" ]] && printf '%s\n' "$file" >>$tmpfile
   done
-  git-at "$(git rev-parse --show-toplevel)" "$diff_cmd" -O${tmpfile} "$@" "${files[@]}"
+  git-at "$(git rev-parse --show-toplevel)" "$diff_cmd" -O${tmpfile} "$@"
   [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
 }
 alias gd='git_diff'
