@@ -8,7 +8,7 @@
   # hooksPath = ~/.config/git/hooks
   ignorecase = false
   # FYI: [so\-fancy/diff\-so\-fancy: Good\-lookin' diffs\. Actually… nah… The best\-lookin' diffs\.]( https://github.com/so-fancy/diff-so-fancy )
-  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [[ -n $GIT_DIFF_HIGHLIGHT ]] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
+  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [ -n $GIT_DIFF_HIGHLIGHT ] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
 [diff-so-fancy]
   markEmptyLines = false
 [init]
