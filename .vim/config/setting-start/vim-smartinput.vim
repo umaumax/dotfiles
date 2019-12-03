@@ -38,20 +38,15 @@ function! s:smartinput_define_rule_of_word(src,dst,...) " filetype
   call s:smartinput_define_rule(rule)
 endfunction
 
-" <Nul> = <C-Space>
-" let s:gtrigger = '<Nul>'
-" let s:gtrigger = '<S-Down>'
-let s:gtrigger = '<C-x><C-x>'
-
-function! RegisterSmartinputRules(replace_map)
+function! RegisterSmartinputRules(replace_map, cursor_prefix_char, trigger)
   for key in keys(a:replace_map)
     let srcs=a:replace_map[key]
     let dst=key
     for src in srcs
-      let n = len(substitute(src,'^\\<', '', ''))
+      let n = len(substitute(src.a:cursor_prefix_char,'^\\<', '', ''))
       let at = src
-      let trigger = s:gtrigger
-      call s:smartinput_define_rule({'at': at.'\%#', 'char': trigger, 'input': repeat('<BS>', n).dst})
+      let trigger = a:trigger
+      call s:smartinput_define_rule({'at': at.a:cursor_prefix_char.'\%#', 'char': trigger, 'input': repeat('<BS>', n).dst})
     endfor
   endfor
 endfunction
@@ -223,10 +218,16 @@ function! s:smartinput_define()
         \ '\n': ['lf'],
         \ }
 
-  call RegisterSmartinputRules(s:replace_map)
+  let cursor_prefix_char=' '
+  " <Nul> = <C-Space>
+  " let s:trigger = '<Nul>'
+  " let s:trigger = '<S-Down>'
+  " let s:trigger = '<C-x><C-x>'
+  let s:trigger = ' '
+  call RegisterSmartinputRules(s:replace_map, cursor_prefix_char, s:trigger)
 
   " NOTE:登録済のトリガを大量に登録すると反応しないので注意
-  call s:map_to_trigger('i', s:gtrigger)
+  call s:map_to_trigger('i', s:trigger)
 
   " クラス定義やenum定義の場合は末尾に;を付け忘れないように
   " class Nanoha _curosr_
