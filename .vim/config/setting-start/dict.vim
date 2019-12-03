@@ -46,7 +46,14 @@ function! s:vimconsole_logger()
     " call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
     " NOTE:
     " 下記のコマンドは補完を確定する際に改行をしないことが前提(現在は<CR>で選択する際に，余計な改行を除去している)
-    call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'n') | endif\<CR>", '')
+    " cnoremap <expr><Plug>(cheapcmd:rest-wcm) <SID>default_expand_rest_wcm()
+    " call feedkeys("\<Plug>(neosnippet_expand)\<C-o>:\<C-u>if getpos(\"'<\")==getpos('.') | call feedkeys(\"gv\\<C-g>\", 'in') | endif\<CR>", 'm')
+    " NOTE: 上記のコマンドを利用していた理由は?
+
+    " WARN:
+    " neosnippetは$,|,(などの文字のあとにsnippet展開ができない(zshファイルを編集中に発覚) -> その後normalモードになる模様, 通常はinsert mode
+    " neosnippet#expandable()では判定できない
+    call feedkeys("\<Plug>(neosnippet_expand)", 'm')
     return
   endif
   let vim_flag    = menu == '[vim] '
