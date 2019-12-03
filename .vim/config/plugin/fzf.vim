@@ -676,4 +676,5 @@ if Doctor('wcat', 'enhanced Lines of fzf#vim#lines')
         \     'down': '100%'
         \   },
         \   <bang>0)
+  nnoremap L :Lines<CR>
 endif
