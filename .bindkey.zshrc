@@ -727,7 +727,7 @@ function fgpeco() {
   fi
   local job
   job=$(jobs | awk -F "suspended" "{print $1 $2}" | sed -e "s/\-//g" -e "s/\+//g" -e "s/\[//g" -e "s/\]//g" | grep -v pwd | fzf | awk "{print $1}")
-  if [[ -z "$(echo $job | grep -v grep | grep -e 'suspended' -e 'interrupt' -e 'running')" ]]; then
+  if [[ -z "$(printf '%s' "$job" | grep -v grep | grep -e 'suspended' -e 'interrupt' -e 'running')" ]]; then
     echo 1>&2 "# of background suspended/interrupt/running jobs is 0"
     return 1
   fi
