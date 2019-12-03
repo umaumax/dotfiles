@@ -107,6 +107,7 @@ function catkin_make() {
   fi
   if cmdcheck compdb && [[ -f ./build/compile_commands.json ]]; then
     compdb -p ./build list >./compile_commands.json
+    [[ -f ~/compile_flags.txt ]] && command cp -f ~/compile_flags.txt .
   fi
   # popd >/dev/null 2>&1
   cd "$_PWD" >/dev/null 2>&1

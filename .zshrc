@@ -1516,6 +1516,7 @@ function cmake() {
   # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
     compdb list >../compile_commands.json
+    [[ -f ~/compile_flags.txt ]] && command cp -f ~/compile_flags.txt ../
   fi
   return $exit_code
 }

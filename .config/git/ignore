@@ -140,6 +140,7 @@ ros/install/
 # for cmake
 CMakeFiles/
 compile_commands.json
+compile_flags.txt
 
 # for make
 !Makefile
