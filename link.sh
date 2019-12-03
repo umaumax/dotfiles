@@ -92,6 +92,11 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf ~/dotfiles/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
 fi
 
+eval "cat <<EOF
+$(<~/dotfiles/compile_flags.txt.bash.tmpl)
+EOF
+" >~/compile_flags.txt
+
 # NOTE: backup original setting file if exists
 function safe_ln() {
   [[ $# -lt 2 ]] && echo "$(basename "$0") source_file target_file" && return 1

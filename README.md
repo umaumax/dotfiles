@@ -40,3 +40,8 @@ git-update-dummy-alias
 * `./.gitignore`: This `.gitignore` file is for this repo not for a host machine setting.
 * `./.config/git/ignore`: this will be link to `~/.gitignore`
 * `./.local.git_template`: is template for `./.git_template` (基本的には，`~/dotfiles/.git_template/`を利用するので不要)
+
+### local seting files
+* `~/.local.zshrc`
+* `~/.local.vimrc`
+* `~/compile_flags.local.txt`
