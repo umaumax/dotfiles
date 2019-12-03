@@ -97,7 +97,7 @@ if Doctor('clang-format', 'clang format')
   augroup cpp_group
     autocmd!
     autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% -bar Format :<line1>,<line2>ClangFormatRange
-    autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
+    autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} :call <SID>clang_format_setting() | if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
     autocmd FileType cpp autocmd! cpp_group FileType
   augroup END
   " NOTE: for partly ranged clang-format
@@ -344,5 +344,6 @@ augroup private_or_public_work
   autocmd!
   autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
   autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
-  autocmd BufWinEnter,TabEnter *.{c,cc,cxx,cpp,h,hh,hpp} :call <SID>clang_format_setting()
+  " autocmd BufWinEnter,TabEnter *.{c,cc,cxx,cpp,h,hh,hpp} :call <SID>clang_format_setting()
+  " autocmd FileType cpp :call <SID>clang_format_setting()
 augroup END
