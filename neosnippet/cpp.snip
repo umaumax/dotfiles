@@ -526,6 +526,10 @@ snippet ros_warn
 alias ros_clog, ROS_LOG
 	ROS_WARN_STREAM(${0:#: "xxx" << yyy});
 
+snippet ros_debug
+alias ROS_DEBUG
+	ROS_DEBUG_STREAM(${0:#: "xxx" << yyy});
+
 snippet assert_with_fixed_message
 	assert((${1:#:condition}) && "${0:#:message}");
 
