@@ -167,7 +167,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     local CAT='cat'
     cmdcheck bat && CAT="bat --color=always -l=bash --plain"
     {
-      echo "# [cmdstack]"
+      echo "# [cmdstack] select:'^X^P', delete last cmd:cmdstack_delete"
       local i=1
       for CMD in "${ORIG_CMD_STACK[@]}"; do
         printf '[%s]| %s\n' "$i" "$CMD"
@@ -224,6 +224,15 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     [[ -z $ret ]] && return 1
     cmdstack $ret
   }
+  function _pecocmdstack_apply() {
+    # NOTE: if you call function inner $(), [[ ! -o zle ]] works well
+    local ret="$(_pecocmdstack)"
+    if [[ -z $ret ]]; then
+      _set_buffer ""
+      return 1
+    fi
+    _set_buffer "$(cmdstack $ret)"
+  }
   function pecocmdstack_pop() {
     local ret=$(_pecocmdstack)
     [[ -z $ret ]] && return 1
@@ -240,8 +249,8 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     _set_buffer "$(cmdstack $ret)"
     cmdstack_delete $ret
   }
-  zle -N _pecocmdstack_pop
-  bindkey '^X^P' _pecocmdstack_pop
+  zle -N _pecocmdstack_apply
+  bindkey '^X^P' _pecocmdstack_apply
 fi
 
 # ----
