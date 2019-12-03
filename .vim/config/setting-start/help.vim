@@ -35,6 +35,7 @@ command! Nmapv       call PipeCommandResultToNewTab("verbose nmap")
 command! Vmapv       call PipeCommandResultToNewTab("verbose vmap")
 command! Xmapv       call PipeCommandResultToNewTab("verbose xmap")
 command! Omapv       call PipeCommandResultToNewTab("verbose omap")
+command! Defaultmap  :help index.txt<CR>
 
 command! Autocmd     call PipeCommandResultToNewTab("autocmd")
 command! Changes     call PipeCommandResultToNewTab("changes")
