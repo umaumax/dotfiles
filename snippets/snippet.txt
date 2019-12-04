@@ -1454,3 +1454,5 @@
 
 # lcov
 [lcov info list]lcov --list \%#
+
+[retry command] until \%#; do sleep 5; done
