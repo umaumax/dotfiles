@@ -4,6 +4,12 @@ endif
 
 let g:i_trigger_map={}
 let s:trigger_map={}
+" FYI: [vim\-smartinput/smartinput\.vim at master · umaumax/vim\-smartinput]( https://github.com/umaumax/vim-smartinput/blob/master/autoload/smartinput.vim#L170 )
+let s:default_triggers="[({`|".'"'."'"
+for i in range(0,strlen(s:default_triggers)-1)
+  let char=strpart(s:default_triggers,i,1)
+  let s:trigger_map[char]=1
+endfor
 
 function! s:map_to_trigger(mode, trigger)
   let trigger=a:trigger
