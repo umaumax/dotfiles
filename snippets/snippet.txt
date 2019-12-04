@@ -875,7 +875,9 @@
 [devnull stdout/stderr] >/dev/null 2>&1 \%#
 [stderr > stdout      ] 2>&1 \%#
 # [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
-[pipe only stderr] 3>&1 1>&2 2>&3 3>&- \%# # in zsh do setopt nomultios
+[pipe only stderr] 3>&1 1>&2 2>&3 3>&- | \%# # in zsh run: setopt nomultios
+# [shell \- IO Redirection \- Swapping stdout and stderr \- Stack Overflow]( https://stackoverflow.com/questions/13299317/io-redirection-swapping-stdout-and-stderr )
+[swap stdout and stderr] 3>&2 2>&1 1>&3
 
 # login shell
 # you can check login shell easily by ssh localhost
