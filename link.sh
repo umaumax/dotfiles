@@ -96,6 +96,12 @@ eval "cat <<EOF
 $(<~/dotfiles/compile_flags.txt.bash.tmpl)
 EOF
 " >~/compile_flags.txt
+if [[ -f ~/compile_flags.local.txt ]]; then
+  eval "cat <<EOF
+$(<~/compile_flags.local.txt)
+EOF
+" >>~/compile_flags.txt
+fi
 
 # NOTE: backup original setting file if exists
 function safe_ln() {
