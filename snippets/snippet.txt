@@ -902,18 +902,18 @@
 [zsh completion function reload] cmd_name=\%#; unfunction "_${cmd_name}" && autoload -U "_${cmd_name}"
 
 # sudo
-[enter root as user env] sudo su
-[enter root as root env] sudo su -
+[enter root as user env] sudo su \%#
+[enter root as root env] sudo su - \%#
 [sudoable or not] sudo -n true >/dev/null 2>&1
 
 # echo
-[echo  x char] echo -e "\\x61"
-[echo unicode] echo -e "\\U1F363"
+[echo  x char] echo -e "\\x61\%#"
+[echo unicode] echo -e "\\U1F363\%#"
 
 [unexport] unset \%# # remove export
 
 [test x window system] xset q
-[x window app install] sudo apt-get install x11-apps
+[x window app install] sudo apt-get install -y x11-apps
 
 # crontab
 [crontab confirm] crontab -l
