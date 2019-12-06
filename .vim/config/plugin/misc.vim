@@ -13,9 +13,9 @@ function! s:tac(context)
   call append(1, rev_source[1:])
 endfunction
 let g:vimconsole#hooks = {'on_post_redraw' : function('s:tac')}
+
 Plug 'thinca/vim-prettyprint', {'on':'PP'}
 
-" :ShebangInsert
 Plug 'sbdchd/vim-shebang', {'on':['ShebangInsert']}
 " override and append
 " NOTE: mac's env command can deal multiple args by env, but linux can't
@@ -40,23 +40,6 @@ Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','z
 if Doctor('vint', 'Kuniwak/vint')
 endif
 Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
-
-" NOTE: tab visualization
-" Plug 'nathanaelkane/vim-indent-guides', {'on':'IndentGuidesEnable'}
-" augroup vim-indent-guides
-"   autocmd!
-"   autocmd User VimEnterDrawPost IndentGuidesEnable
-" augroup END
-" let g:indent_guides_enable_on_vim_startup = 1
-" let g:indent_guides_start_level = 2
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
-
-" NOTE: 反映されない
-" Plug 'Yggdroot/indentLine'
-" let g:indentLine_color_term = 111
-" let g:indentLine_color_gui = '#708090'
-" let g:indentLine_char = '|' "use ¦, ┆ or │
 
 " auto tab indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
@@ -119,12 +102,13 @@ Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
 " Plug 'vim-scripts/SearchComplete'
 " cnoremap <Tab> <C-C>:call SearchComplete()<CR>/<C-R>s
 
-LazyPlug 'vim-scripts/sherlock.vim'
-" NOTE: for avoid She[tab] to show menu for my ShebangInsert
-augroup sherlock_group
-  autocmd!
-  autocmd User VimEnterDrawPost delcommand SherlockVimball
-augroup END
+" Add completion in command line for '/', '?' and ':.../'
+" LazyPlug 'vim-scripts/sherlock.vim'
+" " NOTE: for avoid She[tab] to show menu for my ShebangInsert
+" augroup sherlock_group
+" autocmd!
+" autocmd User VimEnterDrawPost delcommand SherlockVimball
+" augroup END
 " NOTE:
 " 補完のpopupが出現するのではなく，入力場所にそのまま出現する
 " /\Vの後には対応していない
@@ -454,7 +438,7 @@ LazyPlug 'Yggdroot/indentLine'
 " カーソル下のテーブルが対象
 " :Tabularize /|/r<# of space of right side>
 " :TableFormat
-Plug 'godlygeek/tabular', {'for': 'markdown'} " The tabular plugin must come before vim-markdown.
+Plug 'godlygeek/tabular', {'for': 'markdown', 'on':['TableFormat']} " The tabular plugin must come before vim-markdown.
 command! -nargs=0 TF :TableFormat
 
 " NOTE: indentがたまにおかしい
@@ -521,7 +505,7 @@ if Doctor('git', 'airblade/vim-gitgutter')
 
   augroup vim_gitgutter_group
     autocmd!
-    autocmd VimEnter * call s:vim_gitgutter_group()
+    autocmd User VimEnterDrawPost call s:vim_gitgutter_group()
   augroup END
 
   " NOTE: for .gitignore color highlighting
@@ -661,6 +645,7 @@ Plug 'rhysd/committia.vim', {'on':[]}
 Plug 'hotwatermorning/auto-git-diff', {'on':[]}
 
 " NOTE: sudo write for Neovim
+" :w suda://%
 LazyPlug 'lambdalisue/suda.vim'
 
 " NOTE: for git mergetool
@@ -704,15 +689,15 @@ Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
 LazyPlug 'machakann/vim-swap'
 
 if has('nvim-0.3.8')
-  LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
+  Plug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
 
   " FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
-  Plug 'ncm2/float-preview.nvim'
+  LazyPlug 'ncm2/float-preview.nvim'
   let g:float_preview#docked = 1
   let g:float_preview#auto_close = 0
   " NOTE: call float_preview#close() to close preview
 
-  Plug 'Shougo/deol.nvim'
+  Plug 'Shougo/deol.nvim',{'on':['Deol']}
   "
   function! DeolTerminal()
     " 横幅が大きい分にはエラーにはならず，resize後の挙動も想定通りになる
@@ -726,8 +711,6 @@ endif
 
 " NOTE: filetype support for LLVM IR
 Plug 'rhysd/vim-llvm'", {'for':'llvm'}
-
-Plug 'paretje/nvim-man'
 
 Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
 
@@ -744,8 +727,7 @@ let g:splitjoin_join_mapping = ''
 LazyPlug 'AndrewRadev/splitjoin.vim'
 
 " select line by visual mode twice by :Linediff
-" :LinediffReset
-LazyPlug 'AndrewRadev/linediff.vim'
+Plug 'AndrewRadev/linediff.vim', {'on':['Linediff','LinediffReset']}
 
 " NOTE: :Capture echo 123
 LazyPlug 'tyru/capture.vim'

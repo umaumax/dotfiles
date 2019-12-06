@@ -126,5 +126,5 @@ function! s:startup()
 endfunction
 
 if !isdirectory(expand("%:p"))
-  autocmd VimEnter * call s:startup()
+  autocmd User VimEnterDrawPost call s:startup()
 endif

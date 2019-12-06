@@ -62,7 +62,7 @@ endfunction
 
 augroup textobj_init_mapping_augroup
   autocmd!
-  autocmd VimEnter * call s:init_textobj()
+  autocmd User VimEnterDrawPost call s:init_textobj()
   " variable
   autocmd FileType * omap <expr> iv iw
   autocmd FileType * xmap <expr> iv iw

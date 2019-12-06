@@ -4,12 +4,12 @@
 " [deoplete] [vim-hug-neovim-rpc] requires `:pythonx import neovim` command to work
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
-  " NOTE: 普通のvimでも使用可能らしい
-  " NOTE: don't use LazyPlug
-  Plug 'autozimu/LanguageClient-neovim', {
+  " NOTE: this plugin has 'neovim' in name, but we can use normal vim
+  LazyPlug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
         \ }
+  " let g:LanguageClient_autoStart = 0
   " Required: 'autozimu/LanguageClient-neovim'
   " python: auopep8 linter -> ale
   let g:LanguageClient_serverCommands = {}
@@ -89,9 +89,7 @@ if v:version >= 800 && has('python3')
   "   let g:deoplete#enable_at_startup = 1
   "   let g:neosnippet#enable_completed_snippet = 1
 
-  " For input completion
-  " NOTE: if you use laxy load: neosnppet filetype is not set correctly
-  Plug 'Shougo/neosnippet'
+  LazyPlug 'Shougo/neosnippet'
   LazyPlug 'Shougo/neosnippet-snippets' " default snippets
   let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 

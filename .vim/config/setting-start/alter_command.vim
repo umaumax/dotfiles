@@ -10,7 +10,7 @@ call altercmd#load()
 augroup ovrewrite_cmap_cr
   autocmd!
   " [autocomplete \- Command line completion to enter into a folder in Vim \- Stack Overflow]( https://stackoverflow.com/questions/11991665/command-line-completion-to-enter-into-a-folder-in-vim )
-  autocmd VimEnter * cmap <silent> <expr> <CR> pumvisible() ? "\<Space>\<BS>" : "\<CR>"
+  autocmd User VimEnterDrawPost cmap <silent> <expr> <CR> pumvisible() ? "\<Space>\<BS>" : "\<CR>"
 augroup END
 
 AlterCommand m Message
