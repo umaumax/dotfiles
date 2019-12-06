@@ -120,7 +120,7 @@ endfu
 fu! s:Restore_mappings(mappings) abort
   for mapping in values(a:mappings)
     if !has_key(mapping, 'unmapped') && !empty(mapping)
-      exe     mapping.mode
+      sil! exe     mapping.mode
             \ . (mapping.noremap ? 'noremap   ' : 'map ')
             \ . (mapping.buffer  ? ' <buffer> ' : '')
             \ . (mapping.expr    ? ' <expr>   ' : '')
