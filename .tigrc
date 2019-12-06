@@ -139,3 +139,5 @@ bind status <Ctrl-j> next
 bind status <Ctrl-k> previous
 bind stage  <Ctrl-j> next
 bind stage  <Ctrl-k> previous
+
+bind generic d !>git difftool --tool=vimdiff --no-prompt --trust-exit-code %(commit) -- %(file)
