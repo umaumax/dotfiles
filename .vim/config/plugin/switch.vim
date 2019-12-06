@@ -14,6 +14,8 @@ let g:switch_custom_definitions =
       \   ['nanoha', 'fate', 'hayate'],
       \   ['foo', 'bar', 'baz'],
       \   ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+      \   ['next', 'prev'],
+      \   ['Next', 'Prev'],
       \   ['width', 'height'],
       \   ['Width', 'Height'],
       \   ['start', 'end'],
