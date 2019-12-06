@@ -922,7 +922,7 @@ for mapping in surround_key_mappings
   endfor
 endfor
 vnoremap s<Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
-vnoremap <Space>  c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
+vnoremap  <Space> c<C-o>:let @z=' '.@+.' '<CR><C-r><C-o>z<Esc>
 " NOTE: visual modeの状態がoで反転していないことを仮定
 vnoremap sx <ESC>"_xgvo<ESC>"_xgvo<Left><Left>
 
