@@ -112,6 +112,14 @@ if v:version >= 800 && has('python3')
     let g:deoplete#sources#go#gocode_binary = substitute($GOPATH, ':.*', '', '') . '/bin/gocode'
   endif
 
+  if Doctor('racer','for deoplete-rust')
+    Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+    let g:deoplete#sources#rust#racer_binary=systemlist('which racer')[0]
+    let g:deoplete#sources#rust#rust_source_path=systemlist('rustc --print sysroot')[0].'/lib/rustlib/src/rust/src'
+    let g:deoplete#sources#rust#show_duplicates=1
+    let g:deoplete#sources#rust#disable_keymap=1
+  endif
+
   " NOTE: deoplete source using `git grep`
   " NOTE: 補完候補が多くなりすぎて，微妙?
   "   LazyPlug 'rinx/deoplete-auto-programming'
