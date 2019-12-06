@@ -370,10 +370,12 @@ endfunction
 function! s:open_pair(...)
   let filename = get(a:, 1, expand('%'))
 
+  " NOTE: right pair is '.hpp', but use '.h' for convenience
+  " \ '\.\(cc\|cpp\|cxx\)$': '.hpp',
   let pair_regex_dict = {
         \ '\.c$': '.h',
         \ '\.h$': '.c',
-        \ '\.\(cc\|cpp\|cxx\)$': '.hpp',
+        \ '\.\(cc\|cpp\|cxx\)$': '.h',
         \ '\.hpp$': '.cpp',
         \
         \ 'autoload/\(.*\)\.vim$': 'plugin/\1.vim',
