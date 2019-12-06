@@ -70,7 +70,7 @@ if v:version >= 800 && has('python3')
   let g:UltiSnipsListSnippets="<NUL>"
   let g:UltiSnipsJumpForwardTrigger="<tab>"
   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-  Plug 'SirVer/ultisnips'
+  LazyPlug 'SirVer/ultisnips'
 
   " to choose deoplete <C-x>,<C-v>
   let deoplete_opt={'do': ':UpdateRemotePlugins'}

@@ -60,7 +60,7 @@ Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 
 " auto tab indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
-Plug 'tpope/vim-sleuth'
+LazyPlug 'tpope/vim-sleuth'
 let g:sleuth_neighbor_limit=0
 " NOTE: 別の箇所で明示的に呼び出し
 let g:sleuth_automatic=0
@@ -477,7 +477,7 @@ Plug '5t111111/neat-json.vim', {'for': 'json'}
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
 if Doctor('git', 'airblade/vim-gitgutter')
-  Plug 'airblade/vim-gitgutter'
+  LazyPlug 'airblade/vim-gitgutter'
   let g:gitgutter_highlight_lines=1
   " With Neovim 0.3.2 or higher
   let g:gitgutter_highlight_linenrs=1
@@ -592,6 +592,7 @@ let g:hlparen_highlight_delay = 100
 let g:hlparen_highlight_style = 'expression'
 
 " NOTE: cmdlineの決め打ちショートカット機能
+" NOTE: don't use lazy
 Plug 'tyru/vim-altercmd'
 
 " NOTE:選択範囲ごと移動
@@ -665,9 +666,10 @@ Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
 
 " NOTE: for install only (below libraries are enable other script)
 Plug 'nhooyr/neoman.vim', {'on':[]}
+Plug 'paretje/nvim-man'
 
 " NOTE: interactive renamer at directory
-Plug 'qpkorr/vim-renamer'
+Plug 'qpkorr/vim-renamer', {'on':'Renamer'}
 let g:RenamerWildIgnoreSetting=''
 
 Plug 'umaumax/bats.vim', {'for':'bats'}
@@ -688,7 +690,11 @@ LazyPlug 'blueyed/vim-diminactive'
 
 Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
 
-Plug 'machakann/vim-swap'
+" NOTE: Reorder delimited items.
+" g<
+" g>
+" gs: interactive mode
+LazyPlug 'machakann/vim-swap'
 
 if has('nvim-0.3.8')
   LazyPlug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
