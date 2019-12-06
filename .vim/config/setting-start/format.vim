@@ -245,6 +245,15 @@ if Doctor('align', 'yaml format')
   " command! -bar YAMLFormatWrapper :YAMLFormat
 endif
 
+if Doctor('rustfmt', 'rust format')
+  augroup rust_format_group
+    autocmd!
+    autocmd FileType rust autocmd BufWinEnter *.{rs} command! -bar Format RustFormat
+    autocmd FileType rust autocmd BufWritePre *.{rs} if IsAutoFormat() | :RustFormat | endif
+    autocmd FileType rust autocmd! rust_format_group FileType
+  augroup END
+endif
+
 if Doctor('goenkins-format', 'jenkins pipeline format')
   let g:vim_format_list={
         \ 'jenkins':{'autocmd':['*.groovy'],'cmds':[{'requirements':['goenkins-format'], 'shell':'cat {input_file} | goenkins-format'}]},

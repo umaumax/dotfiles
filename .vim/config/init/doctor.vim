@@ -30,6 +30,7 @@ let s:doctor_map={
       \'npm':          'install node',
       \'pylint':       'pip install pylint',
       \'pyls':         'pip install python-language-server',
+      \'rls':          'rustup component add rls rust-analysis rust-src',
       \'s':            'brew install s-search',
       \'tig':          'brew install tig || build tig your self ( https://github.com/jonas/tig/releases )',
       \'trans':        'brew install translate-shell || sudo apt-get install translate-shell',
