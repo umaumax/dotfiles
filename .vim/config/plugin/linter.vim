@@ -38,6 +38,7 @@ let g:ale_linters = {
       \   'sh': ['shellcheck'],
       \   'vim': ['vint'],
       \   'cpp': ['cpplint','clang'],
+      \   'rust': ['rls','cargo','rustc'],
       \   'markdown': ['alex','vale'],
       \   'txt': ['textlint'],
       \   'make': ['checkmake'],
@@ -60,6 +61,8 @@ let g:ale_cmake_cmakelint_options = '--filter=-linelength'
 let g:ale_python_pylint_options = '--disable=C0111,C0301' " C0111:missing-docstring C0301:max-line-length
 let g:ale_python_autopep8_options = '--ignore=E501' " E501:line too long
 let g:ale_python_flake8_options = '--ignore=E501' " E501:line too long
+
+let g:ale_rust_rls_toolchain = 'nightly'
 
 " ALE用プレフィックス
 nmap [ale] <Nop>
