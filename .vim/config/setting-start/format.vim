@@ -302,7 +302,8 @@ function! s:save_highlight_to_backup_if_not_exist(list)
 endfunction
 function! s:restore_highlight_from_backup()
   for [key, val] in items(g:highlight_backup_dict)
-    execute 'highlight '.substitute(val, 'xxx','','')
+    " WARN: maybe ignore error
+    execute 'silent! highlight '.substitute(val, 'xxx','','')
   endfor
 endfunction
 

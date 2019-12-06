@@ -1,5 +1,6 @@
 " for toggle word under cursor
 " :Switch
+let g:switch_mapping = ""
 LazyPlug 'AndrewRadev/switch.vim'
 "       \   {"\\([^']\\|^\\)'\\([^']\\|$\\)" :   '\1"\2', '\([^"]\|^\)"\([^"]\|$\)'   : "\\1'\\2"},
 " NOTE: you can't use $ as char \   ['~', "$HOME"],
