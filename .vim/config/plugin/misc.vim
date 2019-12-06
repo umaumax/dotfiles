@@ -278,6 +278,9 @@ let g:gen_tags#gtags_auto_gen = 1
 " rtags
 Plug 'lyuts/vim-rtags', {'for':['c','cpp']}
 
+" Vista!!
+LazyPlug 'liuchengxu/vista.vim'
+
 " ---- tags ----
 
 " mark viewer
@@ -439,6 +442,10 @@ Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 LazyPlug 'bronson/vim-trailing-whitespace'
+
+" NOTE: A vim plugin to display the indention levels with thin vertical lines
+let g:indentLine_char_list = ['|', '¦']
+LazyPlug 'Yggdroot/indentLine'
 
 " ```のあとで<CR>するとindentされてしまう問題がある
 " Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
@@ -729,4 +736,18 @@ Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
 " :DeleteSession
 Plug 'umaumax/vsession', {'on':['SaveSession','LoadSession','DeleteSession']}
 let g:vsession_use_fzf = 1
+
+" NOTE: A vim plugin that simplifies the transition between multiline and single-line code
+" default maaping: gS, gJ
+" let g:splitjoin_split_mapping = 'gS'
+let g:splitjoin_join_mapping = ''
+LazyPlug 'AndrewRadev/splitjoin.vim'
+
+" select line by visual mode twice by :Linediff
+" :LinediffReset
+LazyPlug 'AndrewRadev/linediff.vim'
+
+" NOTE: :Capture echo 123
+LazyPlug 'tyru/capture.vim'
+
 
