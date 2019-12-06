@@ -956,6 +956,7 @@ function _xargs-vim() {
   fi
   vim $@
 }
+cmdcheck nvim && cmdcheck vimdiff && alias vimdiff='nvim -d '
 
 alias minvi='vim -u ~/dotfiles/.minimal.vimrc'
 alias minvim='vim -u ~/dotfiles/.minimal.vimrc'
