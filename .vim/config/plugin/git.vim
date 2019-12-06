@@ -1,6 +1,32 @@
-if !Doctor('git', 'airblade/vim-gitgutter')
+if !Doctor('git', 'airblade/vim-gitgutter and so on')
   finish
 endif
+
+" FYI: [airblade/vim\-gitgutter: A Vim plugin which shows a git diff in the gutter \(sign column\) and stages/undoes hunks and partial hunks\.]( https://github.com/airblade/vim-gitgutter )
+function! GitGutterNextHunkCycle()
+  let line = line('.')
+  silent! GitGutterNextHunk
+  if line('.') == line
+    1
+    GitGutterNextHunk
+    " NOTE: this prevent to skip first line hunk
+    GitGutterPrevHunk
+  endif
+endfunction
+
+function! GitGutterPrevHunkCycle()
+  let line = line('.')
+  silent! GitGutterPrevHunk
+  if line('.') == line
+    normal! G
+    GitGutterPrevHunk
+    " NOTE: this prevent to skip last line hunk
+    GitGutterNextHunk
+  endif
+endfunction
+
+nnoremap <Plug>(vim-gitgutter:next_hunk_cycle) :call GitGutterNextHunkCycle()<CR>
+nnoremap <Plug>(vim-gitgutter:prev_hunk_cycle) :call GitGutterPrevHunkCycle()<CR>
 
 LazyPlug 'airblade/vim-gitgutter'
 let g:gitgutter_highlight_lines=1
@@ -8,9 +34,12 @@ let g:gitgutter_highlight_lines=1
 let g:gitgutter_highlight_linenrs=1
 let g:gitgutter_enabled=1
 command! -narg=0 G :GitGutterToggle
-" hunk
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
+nnoremap <silent> ]h         :call GitGutterNextHunkCycle()<CR>
+nnoremap <silent> [h         :call GitGutterPrevHunkCycle()<CR>
+nnoremap <silent> <Leader>gh :call GitGutterNextHunkCycle()<CR>
+nnoremap <silent> <Leader>gH :call GitGutterPrevHunkCycle()<CR>
+nnoremap <silent> <Leader>]  :call GitGutterNextHunkCycle()<CR>
+nnoremap <silent> <Leader>[  :call GitGutterPrevHunkCycle()<CR>
 " stage, unstage, preview
 " NOTE: stage hunkの仕様が不明瞭(一部のデータが消える)
 " nmap <Leader>sh <Plug>(GitGutterStageHunk)
@@ -28,12 +57,12 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 function! s:vim_gitgutter_group()
   if &rtp =~ 'vim-submode'
-    " NOTE: hunk間の移動を巡回させたい
-    call submode#enter_with('bufgit', 'n', 'r', '<Leader>gh', '<Plug>(GitGutterNextHunk)')
-    call submode#enter_with('bufgit', 'n', 'r', '<Leader>gH', '<Plug>(GitGutterPrevHunk)')
-    call submode#map('bufgit', 'n', 'r', 'h', '<Plug>(GitGutterNextHunk)')
-    call submode#map('bufgit', 'n', 'r', 'H', '<Plug>(GitGutterPrevHunk)')
-    highlight GitGutterChangeLine cterm=bold ctermfg=7 ctermbg=16 gui=bold guifg=#ffffff guibg=#2c4f1f
+    " NOTE: if you enter submode, you cannot see cursor
+    " call submode#enter_with('bufgit', 'n', 'r', '<Leader>gh', '<Plug>(vim-gitgutter:next_hunk_cycle)')
+    " call submode#enter_with('bufgit', 'n', 'r', '<Leader>gH', '<Plug>(vim-gitgutter:prev_hunk_cycle)')
+    " call submode#map('bufgit', 'n', 'r', 'h', '<Plug>(vim-gitgutter:next_hunk_cycle)')
+    " call submode#map('bufgit', 'n', 'r', 'H', '<Plug>(vim-gitgutter:prev_hunk_cycle)')
+    highlight GitGutterChangeLine ctermbg=53 guibg=#5f005f
   endif
 endfunction
 
