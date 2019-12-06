@@ -54,6 +54,9 @@ let g:sleuth_automatic=0
 " Plug 'itchyny/vim-autoft'
 
 Plug 'Shougo/unite.vim', {'on':['Unite']}
+" mainly for markdown
+" :Unite outline
+Plug 'Shougo/unite-outline', {'on':['Unite'], 'for': ['markdown']}
 
 " no dependency on vim swapfile option
 LazyPlug 'umaumax/autobackup.vim'
