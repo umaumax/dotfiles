@@ -22,9 +22,18 @@ let s:name_rules={
       \  'private,protectedフィールド: field_',
       \  'URL: [Google C\+\+ Style Guide]( https://google.github.io/styleguide/cppguide.html )',
       \ ],
+      \ 'rust': [
+      \  'ファイル名(module):file_name.cpp',
+      \  'Types,struct,Traitsalias,Enum variants: Types',
+      \  '関数名(メソッド名/Modules): function_name',
+      \  'static/const vars: SCREAMING_SNAKE_CASE',
+      \  'ローカル変数：local_var_name',
+      \  'URL: [Naming conventions]( https://doc.rust-lang.org/1.0.0/style/style/naming/README.html )',
+      \ ],
       \ }
 augroup naming_rule_group
   autocmd!
   autocmd FileType python command! NamingRule call PipeCommandResultToNewTab('echo "'.join(s:name_rules['python'],'\n').'"')
   autocmd FileType cpp    command! NamingRule call PipeCommandResultToNewTab('echo "'.join(s:name_rules['cpp'],'\n').'"')
+  autocmd FileType rust   command! NamingRule call PipeCommandResultToNewTab('echo "'.join(s:name_rules['rust'],'\n').'"')
 augroup END
