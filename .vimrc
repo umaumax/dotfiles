@@ -14,9 +14,6 @@ let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
-
-let g:plug_home=$HOME."/.vim/plugged"
-
 if !has('gui_running')
   let g:loaded_matchparen = 1
 endif
@@ -27,45 +24,41 @@ else
   source $VIMRUNTIME/defaults.vim
 endif
 
-" old seting?
-" filetype off | filetype plugin indent off " temporarily disable
-" set nocompatible
+set noswapfile
+set nobackup
 
-set noswapfile | set nobackup
+" NOTE: <Leader> must be set before use
+let mapleader = "\<Space>"
 
-" let g:colorscheme = 'default'
+" 'default', 'moonfly'
+" 'tender' " difficult to see visual mode
 let g:colorscheme = 'molokai'
-" let g:colorscheme = 'moonfly'
-" let g:colorscheme = 'tender' " difficult to see visual mode
 
+let g:plug_home=$HOME."/.vim/plugged"
 let s:user_local_vimrc = expand('~/.local.vimrc')
 let g:vim_edit_log_path = expand('~/.vim_edit_log')
 
 " [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let g:tempfiledir = expand('~/.vim/tmp')
-if !isdirectory(g:tempfiledir)
+if !isdirectory(g:tempfiledir) " auto mkdir
   call mkdir(g:tempfiledir, "p")
 endif
 
 runtime! config/init/*.vim
 
-" NOTE: <Leader> must be set before use
-let mapleader = "\<Space>"
-
-" save cwd
 let s:cwd = getcwd()
+
 if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off'
   runtime! config/package_manager/*.vim
 endif
 
-" NOTE: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
+" WARN: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
 command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 runtime! config/setting-end/*.vim
 
-" load cwd
 if isdirectory(s:cwd)
   execute("lcd " . s:cwd)
 endif
@@ -107,6 +100,7 @@ function! s:buffer_to_tab()
     call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
   endif
 endfunction
+
 augroup buffer_to_tab_group
   autocmd!
   autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
