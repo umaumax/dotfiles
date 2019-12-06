@@ -1,3 +1,9 @@
+#!/usr/bin/env zsh
+
+if ! type >/dev/null 2>&1 abbrev-alias; then
+  return 1
+fi
+
 ZSH_ABBREV_ALIAS_NO_LAST_SPACE=1
 
 # abbrev-alias -g A="| awk '{\%#}'"

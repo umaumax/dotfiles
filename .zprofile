@@ -167,7 +167,7 @@ if cmdcheck pyenv; then
 
   # NOTE: slow
   # NOTE: if you add --no-rehash (it will be a little faster)
-  eval "$(pyenv init -)"
+  eval "$(pyenv init - --no-rehash)"
 
   # NOTE: for virtualenv
   # 	eval "$(pyenv virtualenv-init -)"
@@ -198,11 +198,6 @@ fi
 # NOTE: below is needed?
 # eval "$(rbenv init -)"
 # fi
-
-# NOTE: [GitHub \- nvbn/thefuck: Magnificent app which corrects your previous console command\.]( https://github.com/nvbn/thefuck )
-if cmdcheck thefuck; then
-  eval $(thefuck --alias fuck)
-fi
 
 # rust
 append_path "$HOME/.cargo/bin"

@@ -11,11 +11,78 @@ function doctor() {
 function funccheck() { declare -f "$1" >/dev/null; }
 function cmdcheck() {
   [[ $# == 0 ]] && echo "$0 <cmd>" && return
-  type "$1" >/dev/null 2>&1
+  # typeset -g -A cmdcheck_cache
+  local cmd
+  cmd=$1
+  # if [[ -n "${cmdcheck_cache[(i)$cmd]}" ]]; then
+  # return ${cmdcheck_cache[$cmd]}
+  # fi
+  type "$cmd" >/dev/null 2>&1
   local code=$?
+  # cmdcheck_cache[$cmd]=$code
   [[ $code != 0 ]] && _NO_CMD="$_NO_CMD:$1"
   return $code
 }
+
+# FYI: [chpwd内のlsでファイル数が多い場合に省略表示する - Qiita]( https://qiita.com/yuyuchu3333/items/b10542db482c3ac8b059 )
+function ls_abbrev() {
+  if [[ ! -r $PWD ]]; then
+    return
+  fi
+  # -a : Do not ignore entries starting with ..
+  # -C : Force multi-column output.
+  # -F : Append indicator (one of */=>@|) to entries.
+  local cmd_ls='ls'
+  local -a opt_ls
+  opt_ls=('-aCF' '--color=always')
+  local LS_COLORS_="$LS_COLORS"
+  if type exa >/dev/null 2>&1; then
+    cmd_ls='exa'
+    opt_ls=('-a' '--color=always')
+    LS_COLORS_=""
+  else
+    case "${OSTYPE}" in
+      freebsd* | darwin*)
+        if type gls >/dev/null 2>&1; then
+          cmd_ls='gls'
+        else
+          # -G : Enable colorized output.
+          opt_ls=('-aCFG')
+        fi
+        ;;
+    esac
+  fi
+
+  local ls_result
+  ls_result=$(LS_COLORS="$LS_COLORS_" CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+
+  local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
+
+  if [[ $ls_lines -gt 10 ]]; then
+    echo "$ls_result" | head -n 5
+    echo "${YELLOW}...${DEFAULT}"
+    echo "$ls_result" | tail -n 5
+    echo "${YELLOW}$(command ls -1 -A | wc -l | tr -d ' ') files exist${DEFAULT}"
+  else
+    echo "$ls_result"
+  fi
+}
+
+# ---- WARN ---- print current status for pseudo ealry startup ----
+# FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
+function login_init() {
+  # cd .
+  ls_abbrev
+  if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
+    local tmux_ls
+    tmux_ls=$(tmux ls 2>/dev/null)
+    [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
+  fi
+}
+if [[ $ZSH_NAME == zsh ]]; then
+  login_init
+fi
+# ---- WARN ---- print current status for pseudo ealry startup ----
 
 # NOTE: 現在のwindowsのmy setting(MSYS2)ではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
 if [[ $OS == Windows_NT ]]; then
@@ -188,6 +255,17 @@ function command_not_found_handler() {
   fi
   return 404
 }
+
+# NOTE: [GitHub \- nvbn/thefuck: Magnificent app which corrects your previous console command\.]( https://github.com/nvbn/thefuck )
+if cmdcheck thefuck; then
+  # FYI: [Shell startup time · Issue \#859 · nvbn/thefuck]( https://github.com/nvbn/thefuck/issues/859 )
+  # NOTE: lazy load
+  function fuck() {
+    unfunction fuck
+    eval $(thefuck --alias fuck)
+    command fuck
+  }
+fi
 
 # NOTE: or use: perl -e 'print reverse<>'
 cmdcheck tac || alias tac='tail -r'
@@ -1319,50 +1397,6 @@ function cdninja() {
     local build_ninja_filepath="$dir/build.ninja"
     [[ -f $build_ninja_filepath ]] && cd "$dir"
   done
-}
-
-# [chpwd内のlsでファイル数が多い場合に省略表示する - Qiita]( https://qiita.com/yuyuchu3333/items/b10542db482c3ac8b059 )
-function ls_abbrev() {
-  if [[ ! -r $PWD ]]; then
-    return
-  fi
-  # -a : Do not ignore entries starting with ..
-  # -C : Force multi-column output.
-  # -F : Append indicator (one of */=>@|) to entries.
-  local cmd_ls='ls'
-  local -a opt_ls
-  opt_ls=('-aCF' '--color=always')
-  local LS_COLORS_="$LS_COLORS"
-  if type exa >/dev/null 2>&1; then
-    cmd_ls='exa'
-    opt_ls=('-a' '--color=always')
-    LS_COLORS_=""
-  else
-    case "${OSTYPE}" in
-      freebsd* | darwin*)
-        if type gls >/dev/null 2>&1; then
-          cmd_ls='gls'
-        else
-          # -G : Enable colorized output.
-          opt_ls=('-aCFG')
-        fi
-        ;;
-    esac
-  fi
-
-  local ls_result
-  ls_result=$(LS_COLORS="$LS_COLORS_" CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
-
-  local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
-
-  if [[ $ls_lines -gt 10 ]]; then
-    echo "$ls_result" | head -n 5
-    echo "${YELLOW}...${DEFAULT}"
-    echo "$ls_result" | tail -n 5
-    echo "${YELLOW}$(command ls -1 -A | wc -l | tr -d ' ') files exist${DEFAULT}"
-  else
-    echo "$ls_result"
-  fi
 }
 
 function cdinfo() {
@@ -2724,6 +2758,18 @@ EOF
   open "$tmpdir"
 }
 
+cmdcheck pyenv && function pyenv() {
+  command pyenv "$@"
+  local exit_code=$?
+  if [[ $exit_code == 0 ]] && [[ $1 == 'local' ]] && [[ $1 == 'global' ]]; then
+    echo 1>&2 "$YELLOW[LOG] start pyenv rehash"
+    pyenv rehash
+    local exit_code=$?
+    echo 1>&2 "$YELLOW[LOG] end pyenv rehash"
+  fi
+  return $exit_code
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
@@ -2754,18 +2800,5 @@ bindkey -v
 [[ -f ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
 
 # ---------------------
-
-# FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
-function login_init() {
-  cd .
-  if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
-    local tmux_ls
-    tmux_ls=$(tmux ls 2>/dev/null)
-    [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
-  fi
-}
-if [[ $ZSH_NAME == zsh ]]; then
-  login_init
-fi
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
 # ---- don't add code here by your hand

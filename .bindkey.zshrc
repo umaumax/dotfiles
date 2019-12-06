@@ -138,9 +138,11 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
       printf '%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" "$p_buffer_stack" | cat_PROMPT_2_text
     fi
 
-    # NOTE: choose one from below
-    # LBUFFER+=' '
-    zle __abbrev_alias::magic_abbrev_expand
+    if cmdcheck abbrev-alias; then
+      zle __abbrev_alias::magic_abbrev_expand
+    else
+      LBUFFER+=' '
+    fi
     _zle_refresh_cmd_color
   }
   bindkey ' ' _auto_show_prompt && zle -N _auto_show_prompt
