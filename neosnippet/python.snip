@@ -398,3 +398,8 @@ snippet local
 
 snippet drop_newline
 	${0}.rstrip(os.linesep)
+
+snippet expand_path_with_home
+alias home_expand
+abbr e.g. ~/dotfiles
+	os.path.expanduser(${0})
