@@ -20,6 +20,51 @@ function! s:committia_hooks_edit_open(info)
   map <buffer><S-Up> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
+" FYI: [チーズバーガー中毒: Vimで入力補完を常にオンにするvimrc]( http://io-fia.blogspot.com/2012/11/vimvimrc.html )
+set completeopt=menuone
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[]./-",'\zs')
+  exec "imap <expr> " . k . " '" . k . "\<C-X>\<C-O>'"
+endfor
+
+" FYI: [vim\-jp » Hack \#14: Insert mode補完　自作編]( https://vim-jp.org/vim-users-jp/2009/05/21/Hack-14.html )
+function! CommitMessageHelper(findstart, base)
+  if a:findstart
+    " Get cursor word.
+    let cur_text = strpart(getline('.'), 0, col('.') - 1)
+    return match(cur_text, '\f*$')
+  endif
+
+  let files = split(expand(a:base . '*'), '\n')
+  let files = filter(files, {-> v:val != a:base.'*'})
+  let s:TrimPrefix={ str, prefix -> execute(join(['let ret=str','let idx = stridx(str, prefix)','if idx != -1','let ret=str[idx+len(prefix):]','endif'],"\n")) ? "dummy" : ret }
+  let files = map(files, {-> s:TrimPrefix(v:val, './')})
+
+  let lines=[]
+  " NOTE: get another buffer words
+  for i in range(1, bufnr('$'))
+    let lines+=getbufline(bufnr(i), 1, '$')
+  endfor
+  let min_len=3
+  let words=filter(split(substitute(join(lines, "\n"),'[^0-9a-zA-Z_]',' ','g')), { -> len(v:val) >= min_len })
+  let words+=['Update','Add','Delete','Remove','Fix','Refs: ','[TMP]','[WIP]']
+  let words=uniq(sort(words))
+  let words=filter(words, {-> v:val =~ '^'.a:base})
+
+  let list = []
+  call add(list, { 'word' : a:base, 'abbr' : a:base, 'menu' : 'default' })
+  let cnt = 0
+  for word in words
+    call add(list, { 'word' : word, 'abbr' : printf('%3d: %s', cnt, word), 'menu' : 'word' })
+    let cnt += 1
+  endfor
+  for file in files
+    call add(list, { 'word' : file, 'abbr' : printf('%3d: %s', cnt, file), 'menu' : 'file' })
+    let cnt += 1
+  endfor
+  return list
+endfunction
+setlocal omnifunc=CommitMessageHelper
+
 " augroup committia_hooks_group
 "   autocmd!
 "   autocmd User VimEnterDrawPost if &ft == 'gitcommit' | call s:committia_hooks_edit_open({'vcs':'git'}) | endif
