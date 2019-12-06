@@ -948,8 +948,38 @@ nnoremap Q <Nop>
 nnoremap q: <Nop>
 " to avoid entering recoding mode
 " [What is vim recording and how can it be disabled? \- Stack Overflow]( https://stackoverflow.com/questions/1527784/what-is-vim-recording-and-how-can-it-be-disabled )
-nnoremap q <Nop>
+" nnoremap q <Nop>
+" NOTE: for alternate for q
 nnoremap Q q
+nnoremap qw :wq
+
+let b:macro_key=''
+function! StartMacro(char)
+  let b:macro_key=a:char
+  echom '(q'.a:char.'(start) ->) q(end) -> @'.a:char.'(do) -> @@(repeat)'
+  execute("normal! q".a:char)
+endfunction
+for char in split('abcdefghijklmnopqrstuvwxyz','\zs')
+  if char=='q' || char=='w'
+    continue
+  endif
+  execute("nnoremap <silent> q".char." :call StartMacro('".char."')\<CR>")
+endfor
+function! EndMacro()
+  if empty(b:macro_key)
+    return
+  endif
+  " NOTE: human readable macro
+  execute('let tmp=@'.b:macro_key)
+  let key_set={ "BS":"<BS>","ESC":"<ESC>","Left":"⏪","Up":"⏫","Right":"⏩","Down":"⏬","CR":"<CR>","Space":" "}
+  for special_key in keys(key_set)
+    let visual_key=key_set[special_key]
+    execute('let tmp = substitute(tmp,"\<'.special_key.'>", "'.visual_key.'","g")')
+  endfor
+  execute('echom "@'.b:macro_key.' is [".tmp."]"')
+  let b:macro_key=''
+endfunction
+nnoremap q q:call EndMacro()<CR>
 
 command! Wcmd                call feedkeys("q:", "n")
 command! CmdlineWindow       call feedkeys("q:", "n")
