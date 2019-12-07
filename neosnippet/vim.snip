@@ -152,6 +152,10 @@ snippet lambda_curry
 snippet call_lambda
 	call call (${1:#:{x -> execute("echo x", "")}, [${2:#:10}])${0}
 
+snippet trim_prefix
+alias lambda_trim_prefix
+	let s:TrimPrefix=${0}{ str, prefix -> execute(join(['let ret=str','let idx = stridx(str, prefix)','if idx != -1','let ret=str[idx+len(prefix):]','endif'],"\n")) ? "dummy" : ret }
+
 snippet redirect_command
 	let ${1:#var} = ""
 	silent! redir => $1
