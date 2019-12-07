@@ -76,6 +76,7 @@ ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
 ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
+ln -sf ~/dotfiles/.config/auto_fix/* ~/.config/auto_fix/
 ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 
 if [[ $(uname) == "Linux" ]]; then
