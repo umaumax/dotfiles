@@ -6,3 +6,6 @@ vim regexp qiita page
 
 vim tags plugin my setting
 [umaumax/vim\-cpp\-project\-sample]( https://github.com/umaumax/vim-cpp-project-sample )
+
+vim plugin python
+[if\_pyth \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/if_pyth.html#python3 )
