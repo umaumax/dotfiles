@@ -993,7 +993,7 @@ function! EndMacro()
   execute('echom "@'.b:macro_key.' is [".tmp."]"')
   let b:macro_key=''
 endfunction
-nnoremap q q:call EndMacro()<CR>
+nnoremap <silent> q q<Esc>:call EndMacro()<CR>
 
 command! Wcmd                call feedkeys("q:", "n")
 command! CmdlineWindow       call feedkeys("q:", "n")
