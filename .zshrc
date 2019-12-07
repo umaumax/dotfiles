@@ -474,7 +474,42 @@ alias desktop='cd ~/Desktop/'
 [[ -f ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -f ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 
-[[ -d ~/.vim/plugged ]] && alias vim3rdplug='cd ~/.vim/plugged' && alias 3rdvim='vim3rdplug'
+if [[ -d ~/.vim/plugged ]]; then
+  alias vim3rdplug='cd ~/.vim/plugged'
+  alias 3rdvim='vim3rdplug'
+  function vimpluglink() {
+    local opt='-s'
+    if [[ $1 == '-f' ]] || [[ $1 == '--force' ]]; then
+      opt='-sf'
+      shift 1
+    fi
+    if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+    $(basename "$0") [-f(--force)] <dirpath>...
+EOF
+      return 1
+    fi
+
+    for dirpath in "$@"; do
+      local abspathdir=$(abspath_raw "$dirpath")
+      local src_link_dirpath="$HOME/.vim/plugged/"
+      local dst_link_dirpath="$abspathdir/$dir"
+      echo "[log]" ln "$opt" "$dst_link_dirpath" "$src_link_dirpath"
+      ln "$opt" "$dst_link_dirpath" "$src_link_dirpath"
+    done
+  }
+  function vimplugunlink() {
+    if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+    $(basename "$0") <dirpath>...
+EOF
+      return 1
+    fi
+    for dirpath in "$@"; do
+      unlink "$dirpath"
+    done
+  }
+fi
 
 [[ $(uname) == "Darwin" ]] && alias vim-files='pgrep -alf vim | grep "^[0-9]* [n]vim"'
 [[ $(uname) == "Linux" ]] && alias vim-files='pgrep -al vim'
