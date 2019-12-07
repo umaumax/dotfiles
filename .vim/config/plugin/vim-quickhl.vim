@@ -47,6 +47,7 @@ let g:quickhl_manual_keywords = [
       \ {"pattern": '\<HINT\>\c',     "regexp": 1 },
       \ {"pattern": '\<QUESTION\>\c', "regexp": 1 },
       \ {"pattern": '\<REQUIRED\>\c', "regexp": 1 },
+      \ {"pattern": '\<.*MAGIC_KEYWORD\>\c', "regexp": 1 },
       \ ]
 
 " NOTE: same kind of plugin
