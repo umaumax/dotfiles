@@ -735,7 +735,11 @@ function go-get-fork() {
 
 function git-find-rename() {
   is_git_repo_with_message || return
-  { [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; } && echo "$0 <pattern> [PATH [PATH[...]]]" >&2 && return 1
+  if [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    echo "$0 <pattern> [PATH [PATH[...]]]" >&2
+    echo 1>&2 " e.g. $0 's/src/dst/g'"
+    return 1
+  fi
   local rename_pattern="$1"
   shift
   {
