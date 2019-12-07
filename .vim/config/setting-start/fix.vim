@@ -29,20 +29,21 @@ if Doctor('golfix', 'wrong word fixer')
     let line=getline('.')
     let ret = system('golfix -filetype='.&filetype, line)
     if s:success()
-      call setline('.', split(ret,"\n"))
-      return ret
+      let newline = trim(ret,"\n")
+      if line != newline
+        call setline('.', split(ret,"\n"))
+      endif
+      return newline
     else
       call s:error_message(ret)
     endif
+    return ""
   endfunction
-  "   nnoremap <expr> <C-x>f FixLine()
-  "   inoremap <expr> <C-x>f FixLine()
-  "   nnoremap <C-x>f :call FixLine()<CR>
   command! FixLine :call FixLine()
   command! Fix :call FixLine()
   command! FF :call FixLine()
-  " refactroing?
-  nnoremap gr :call FixLine()<CR>
-  nnoremap <Space>f :call FixLine()<CR>
-  inoremap <C-x>f <C-o>:call FixLine()<CR>
+
+  nnoremap <silent> gr :call FixLine()<CR>
+  nnoremap <silent> <Space>f :call FixLine()<CR>
+  inoremap <silent> <C-x>f <C-o>:call FixLine()<CR>
 endif

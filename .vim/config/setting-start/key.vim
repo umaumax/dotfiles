@@ -138,12 +138,19 @@ function! s:CR()
   " NOTE: <C-g>uは undo を分割する
   return "\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
 endfunction
+function! s:Space()
+  " NOTE: i  <Space>     & <SNR>129__trigger_or_fallback("\<Space>", "\<Space>")
+  return "\<C-g>u\<C-\>\<C-o>:let _ = vim_auto_fix#auto_fix() && vim_blink#blink('[^ ]* *\\%#')\<CR>\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<Space>","\<Space>")
+endfunction
 " NOTE:
 " bufferを付加すると優先度が高くなるため，以降にpluginで設定されてもそれは無効化されるが，最初に開いたbufferでしか有効にならないので注意
 " そのため，augroupを利用
 augroup insert_cr_mapping
   autocmd!
-  autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <buffer> <script> <expr> <CR> <SID>CR()
+  autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <CR> <SID>CR()
+  if &rtp =~ 'vim-smartinput' && &rtp =~ 'vim-auto-fix' && &rtp =~ 'vim-blink'
+    autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <Space> <SID>Space()
+  endif
 augroup END
 
 cnoremap <C-h> <Left>

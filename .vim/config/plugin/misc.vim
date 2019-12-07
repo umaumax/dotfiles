@@ -166,6 +166,9 @@ endfunction
 cnoremap <expr> <S-Tab> <SID>un_tab()
 
 " " start screen
+Plug 'umaumax/vim-auto-fix'
+imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
+nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 " Plug 'mhinz/vim-startify'
 " " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
 " let g:startify_custom_header =''
