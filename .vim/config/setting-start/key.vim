@@ -186,10 +186,17 @@ nnoremap ( f(
 nnoremap ) F)
 
 " for search
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
+if &rtp =~ 'vim-blink'
+  nnoremap <silent> n nzz:call vim_blink#blink('\c\%#'.@/,'VimBlinkSearch')<CR>
+  nnoremap <silent> N Nzz:call vim_blink#blink('\c\%#'.@/,'VimBlinkSearch')<CR>
+  nnoremap <silent> * *zz:call vim_blink#blink('\c\%#'.@/,'VimBlinkSearch')<CR>
+  nnoremap <silent> # #zz:call vim_blink#blink('\c\%#'.@/,'VimBlinkSearch')<CR>
+else
+  nnoremap <silent> n nzz2
+  nnoremap <silent> N Nzz2
+  nnoremap <silent> * *zz2
+  nnoremap <silent> # #zz2
+endif
 " visual mode中のnは検索ワードを選択する
 function! s:select_search(key)
   if v:hlsearch == 0

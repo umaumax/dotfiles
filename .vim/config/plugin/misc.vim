@@ -682,4 +682,6 @@ Plug 'AndrewRadev/linediff.vim', {'on':['Linediff','LinediffReset']}
 " NOTE: :Capture echo 123
 LazyPlug 'tyru/capture.vim'
 
+" WARN: lazy load cause no &rtp
+Plug 'umaumax/vim-blink'
 
