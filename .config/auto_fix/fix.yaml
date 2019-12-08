@@ -32,6 +32,8 @@ _:
 - - failure
 - - maintenance
 - - tutorials
+- - install
+- - temporary
 cpp:
 - - 'std::'
   - std;;
@@ -99,13 +101,19 @@ go:
 neosnippet:
 - - snippet
 - - abbr
+python:
+-  - import
 vim:
 - - augroup
+- - autocmd
 - - endfunction
 - - function
-- - Plug PLug
-- - elseif elif
+- - Plug
+  - PLug
+- - elseif
+  - elif
 - - substitute
 - - endfor
 - - range
 - - pumvisible
+- - empty
