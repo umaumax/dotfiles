@@ -1,81 +1,3 @@
----
-go:
-- - byte
-- - case
-- - chan
-- - continue
-- - fallthrough
-- - 'false'
-- - flag
-- - float32
-- - float64
-- - for
-- - func
-- - image
-- - import
-- - index
-- - len
-- - length
-- - make
-- - package
-- - range
-- - regexp
-- - return
-- - rune
-- - string
-- - struct
-- - switch
-- - 'true'
-- - type
-- - var
-cpp:
-- - 'std::'
-  - std;;
-- - "::"
-  - ";;"
-- - argc
-- - argv
-- - array
-- - char
-- - class
-- - cstdio
-- - cstdlib
-- - define
-- - enum
-- - include
-- - iostream
-- - namespace
-- - return
-- - shared_ptr
-- - std::cerr
-  - std::err
-  - serr
-- - std::clog
-  - std::log
-  - slog
-- - std::cout
-  - std::out
-  - sout
-- - string
-- - stringstream
-- - struct
-- - template
-- - uintptr_t
-- - unique_ptr
-- - vector
-neosnippet:
-- - snippet
-- - abbr
-vim:
-- - augroup
-- - endfunction
-- - function
-- - Plug PLug
-- - elseif elif
-- - substitute
-- - endfor
-- - range
-- - pumvisible
 _:
 - - checkout
 - - command
@@ -110,3 +32,80 @@ _:
 - - failure
 - - maintenance
 - - tutorials
+cpp:
+- - 'std::'
+  - std;;
+- - '::'
+  - ;;
+- - argc
+- - argv
+- - array
+- - char
+- - class
+- - cstdio
+- - cstdlib
+- - define
+- - enum
+- - include
+- - iostream
+- - namespace
+- - return
+- - shared_ptr
+- - std::cerr
+  - std::err
+  - serr
+- - std::clog
+  - std::log
+  - slog
+- - std::cout
+  - std::out
+  - sout
+- - string
+- - stringstream
+- - struct
+- - template
+- - uintptr_t
+- - unique_ptr
+- - vector
+go:
+- - byte
+- - case
+- - chan
+- - continue
+- - fallthrough
+- - 'false'
+- - flag
+- - float32
+- - float64
+- - for
+- - func
+- - image
+- - import
+- - index
+- - len
+- - length
+- - make
+- - package
+- - range
+- - regexp
+- - return
+- - rune
+- - string
+- - struct
+- - switch
+- - 'true'
+- - type
+- - var
+neosnippet:
+- - snippet
+- - abbr
+vim:
+- - augroup
+- - endfunction
+- - function
+- - Plug PLug
+- - elseif elif
+- - substitute
+- - endfor
+- - range
+- - pumvisible
