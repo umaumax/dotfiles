@@ -733,6 +733,12 @@ function go-get-fork() {
   git clone "$git_url" "${GOPATH#*:}/src/github.com/$fork_user_repo"
 }
 
+function git-rename() {
+  git-find-rename "$@"
+}
+function git-rename-files() {
+  git-find-rename "$@"
+}
 function git-find-rename() {
   is_git_repo_with_message || return
   if [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
