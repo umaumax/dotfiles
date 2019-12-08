@@ -46,11 +46,16 @@ cpp:
 - - iostream
 - - namespace
 - - return
-- - return;
 - - shared_ptr
-- - std::cerr std::err serr
-- - std::clog std::log slog
-- - std::cout std::out sout
+- - std::cerr
+  - std::err
+  - serr
+- - std::clog
+  - std::log
+  - slog
+- - std::cout
+  - std::out
+  - sout
 - - string
 - - stringstream
 - - struct
@@ -82,13 +87,15 @@ _:
 - - example
 - - filepath
 - - filetype
-- - flag falg
+- - flag
+  - falg
 - - focus
 - - line
 - - python
 - - sample
 - - search
-- - type tpe
+- - type
+  - tpe
 - - which
 - - lambda
 - - pseudo
