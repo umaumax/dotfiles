@@ -546,6 +546,13 @@ function! s:smartinput_define()
         \   'filetype': ['vim'],
         \   })
 
+  " NOTE: for dummy rule
+  call s:smartinput_define_rule({
+        \   'at': '$\%#^',
+        \   'char': '<Space>',
+        \   'input': "<Space>",
+        \   })
+
   call s:smartinput_define_rule_of_word('dont',"don't")
   call s:smartinput_define_rule_of_word('cant',"can't")
   call s:smartinput_define_rule_of_word('doesnt',"doesn't")

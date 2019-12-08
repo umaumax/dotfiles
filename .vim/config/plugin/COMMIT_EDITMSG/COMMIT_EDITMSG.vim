@@ -6,19 +6,31 @@ let g:committia_hooks = {}
 function! g:committia_hooks.edit_open(info)
   call s:committia_hooks_edit_open(a:info)
 endfunction
+let b:startinsert_flag=v:false
 function! s:committia_hooks_edit_open(info)
   " Additional settings
   setlocal spell
 
   " If no commit message, start with insert mode
   if a:info.vcs ==# 'git' && getline(1) ==# ''
-    startinsert
+    let b:startinsert_flag=v:true
   endif
 
   " Scroll the diff window from insert mode
   map <buffer><S-Down> <Plug>(committia-scroll-diff-down-half)
   map <buffer><S-Up> <Plug>(committia-scroll-diff-up-half)
 endfunction
+
+function! s:git_commit_startup()
+  if b:startinsert_flag==v:true
+    startinsert
+  endif
+endfunction
+
+augroup git_commit_startup_group
+  autocmd!
+  autocmd User VimEnterDrawPost call s:git_commit_startup()
+augroup END
 
 " FYI: [チーズバーガー中毒: Vimで入力補完を常にオンにするvimrc]( http://io-fia.blogspot.com/2012/11/vimvimrc.html )
 set completeopt=menuone

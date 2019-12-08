@@ -10,6 +10,18 @@ if has('vim_starting')
   end
 endif
 
+function! s:vim_enter_draw_post()
+  let vim_enter_draw_post_view = winsaveview()
+  doautocmd <nomodeline> User VimEnterDrawPost
+  silent call winrestview(vim_enter_draw_post_view)
+endfunction
+nnoremap <silent> <Plug>(vim_enter_draw_post) :call <SID>vim_enter_draw_post()<CR>
+
+augroup vim-enter-draw-post
+  autocmd!
+  autocmd VimEnter * call feedkeys("\<Plug>(vim_enter_draw_post)")
+augroup END
+
 let specialized_plugin_file_names=['git-rebase-todo', 'COMMIT_EDITMSG']
 for name in specialized_plugin_file_names
   if expand('%:t') ==# name
@@ -88,18 +100,6 @@ augroup lazy_load_after_vim_enter
   autocmd!
   autocmd User VimEnterDrawPost call <SID>lazy_plug_load()
         \| autocmd! lazy_load_after_vim_enter
-augroup END
-
-function! s:vim_enter_draw_post()
-  let vim_enter_draw_post_view = winsaveview()
-  doautocmd <nomodeline> User VimEnterDrawPost
-  silent call winrestview(vim_enter_draw_post_view)
-endfunction
-nnoremap <silent> <Plug>(vim_enter_draw_post) :call <SID>vim_enter_draw_post()<CR>
-
-augroup vim-enter-draw-post
-  autocmd!
-  autocmd VimEnter * call feedkeys("\<Plug>(vim_enter_draw_post)")
 augroup END
 
 " NOTE: 適切にinstallされない?
