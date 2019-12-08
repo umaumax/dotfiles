@@ -532,10 +532,11 @@ function! s:smartinput_define()
   call s:smartinput_define_rule_of_word('endif','fi' ,['sh','zsh'])
   call s:smartinput_define_rule_of_word('elseif','elif' ,['sh','zsh'])
 
+  " call s:smartinput_define_rule_of_word('fi','endif' ,['vim'])
   call s:smartinput_define_rule(
-        \ { 'at'    : '^\s*fi\%#'
-        \ , 'char'  : '<CR>'
-        \ , 'input': "<BS><BS>endif<CR>"
+        \ { 'at'    : '^\s*f\%#'
+        \ , 'char'  : 'i'
+        \ , 'input': "<BS>endif"
         \ , 'filetype' : ['vim']
         \ })
   call s:smartinput_define_rule({
