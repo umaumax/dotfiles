@@ -150,11 +150,25 @@ function! s:substitute(pat, sub, flags) range
 endfunction
 command! -nargs=* -range TableConv <line1>,<line2>call s:substitute('^\|'.s:argsWithDefaultArg(1, ' ',<q-args>).'\|$', '|', 'g')
 
+function! s:replace(...) range
+  let @/=get(a:,  1, @+)
+  if empty(@/)
+    let @/=@+
+  endif
+  let visual_select_key='gv:'
+  if a:firstline==a:lastline
+    let visual_select_key=':.'
+  endif
+  " NOTE: for src pattern visibility
+  let @z='\V'.escape(@/, '\/')
+  call feedkeys(visual_select_key."s/\<C-r>z//g |:noh".repeat("\<Left>",8)."\<Space>\<BS>", 'n')
+endfunction
+
 " [Perform a non\-regex search/replace in vim \- Stack Overflow]( https://stackoverflow.com/questions/6254820/perform-a-non-regex-search-replace-in-vim )
 command! -nargs=*        S      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
-command! -nargs=* -range R      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g |:noh".repeat("<Left>",8), 'n')
 command! -nargs=*        Search let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
-command! -nargs=* -range Rep    let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys(':'.<line1>.','.<line2>."s/\<C-r>///g |:noh".repeat("<Left>",8), 'n')
+command! -nargs=* -range R      <line1>,<line2>call s:replace(<q-args>)
+command! -nargs=* -range Rep    <line1>,<line2>call s:replace(<q-args>)
 
 command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG') | silent call winrestview(view)
 command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('^\( *\)\?\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
