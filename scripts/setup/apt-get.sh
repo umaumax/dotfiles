@@ -219,6 +219,11 @@ sudo apt-get install -y libsixel-bin
 # for perl
 sudo apt-get install -y cpanminus
 
+# for sql
+sudo apt-get install -y sqlite3 libsqlite3-dev
+# NOTE: for gui
+sudo apt-get install -y sqlitebrowser
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
