@@ -617,8 +617,9 @@ augroup END
 nnoremap wa :wa<CR>
 nnoremap wq :wq<CR>
 nnoremap ww :w<CR>
-nnoremap <silent> qq :call <SID>close(0)<CR>
-nnoremap <silent> q! :call <SID>close(1)<CR>
+" NOTE: for prevent 'Press ENTER or type command to continue'
+nnoremap <silent> qq :call <SID>close(0)<CR><Esc>
+nnoremap <silent> q! :call <SID>close(1)<CR><Esc>
 " sudo save
 " NOTE: below command is only for 'vim' not 'nvim'
 if !has('nvim')
