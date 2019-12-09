@@ -467,7 +467,7 @@ function! FZF_include_header_reducer(lines)
     let header = substitute(header, ' *#.*$', '', '')
     let ret+=['#include <'.header.'>']
   endfor
-  if len(ret)>0
+  if len(ret)>1
     let ret+=['']
   endif
   return join(ret, "\n")
