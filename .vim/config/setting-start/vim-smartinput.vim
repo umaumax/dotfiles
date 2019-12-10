@@ -343,9 +343,16 @@ function! s:smartinput_define()
         \ , 'filetype' : ['cpp']
         \ })
   call s:smartinput_define_rule(
-        \ { 'at'    : ';\%#'
+        \ { 'at'    : '\%(\(endl\)\)\@<!;\%#'
         \ , 'char'  : ';'
         \ , 'input' : '<BS>::'
+        \ , 'filetype' : ['cpp']
+        \ })
+  " NOTE: 誤入力防止
+  call s:smartinput_define_rule(
+        \ { 'at'    : ';\%#'
+        \ , 'char'  : ';'
+        \ , 'input' : ''
         \ , 'filetype' : ['cpp']
         \ })
   " NOTE: 文字列内である可能性では排除
@@ -365,7 +372,7 @@ function! s:smartinput_define()
 
   " NOTE: 誤入力防止
   call s:smartinput_define_rule(
-        \ { 'at'    : '::\%#'
+        \ { 'at'    : '\(::\|;\)\%#'
         \ , 'char'  : ':'
         \ , 'input' : ''
         \ , 'filetype' : ['cpp']
