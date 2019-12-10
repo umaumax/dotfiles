@@ -56,3 +56,6 @@ AlterCommand tac Tac
 AlterCommand dup  Duplicate
 AlterCommand dups Duplicates
 AlterCommand dupv Duplicatev
+
+" NOTE: for misstype
+AlterCommand qw wq
