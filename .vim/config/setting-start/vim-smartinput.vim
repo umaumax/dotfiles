@@ -400,7 +400,7 @@ function! s:smartinput_define()
         \ 'auto std prefix completion':{
         \   'prefix': 'std::',
         \   'suffix': '',
-        \   'prefix_pattern': '\%(\(std::\)\|\([a-zA-Z0-9]\)\)\@<!',
+        \   'prefix_pattern': '\%(\(std::\)\|\([a-zA-Z0-9"<]\)\)\@<!',
         \   'completions': [['cout',' << '],['clog',' << '], ['cerr',' << '],['cin',' >> '],['endl',';'],['shared_ptr','<\%#>'],['unique_ptr','<\%#>'],['vector','<\%#>']],
         \ },
         \ 'auto # prefix completion':{
