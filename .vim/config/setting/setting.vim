@@ -41,7 +41,12 @@ set laststatus=2 "常に編集中ファイル名表示
 
 " FYI: [vimdiffでより賢いアルゴリズム \(patience, histogram\) を使う \- Qiita]( https://qiita.com/takaakikasai/items/3d4f8a4867364a46dfa3#_reference-cfedfafefcc91395c637 )
 let g:DiffExpr = 0
-set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+
+" FYI: [vim\-jp » 新しい diffopt オプションの動作とその注意点について]( https://vim-jp.org/blog/2018/12/12/new-diffopts-value.html )
+" FYI: [patch 8\.1\.0363: internal diff isn't used by default as advertised · vim/vim@c93262b]( https://github.com/vim/vim/commit/c93262b2e3fb043c685bd4014a35a29111dea484 )
+if has('nvim') || (!has('vim') && v:version > 812)
+  set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+endif
 
 " NOTE: disable vimgrep, findfile(), finddir(), and so on
 " set wildignore+=,xxx,yyy
