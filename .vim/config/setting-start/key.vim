@@ -18,9 +18,6 @@ inoremap <C-@> <C-[>
 nnoremap <leader>r :redraw!<CR>
 command! -nargs=0 Redraw :redraw!
 
-nnoremap <Leader>o :CtrlP<CR>
-nnoremap <Leader>w :w<CR>
-
 " undo情報を保つ
 inoremap <Left> <C-g>U<Left>
 
@@ -614,9 +611,11 @@ augroup auto_window_quit
 augroup END
 " save and quit
 " write all
-nnoremap wa :wa<CR>
-nnoremap wq :wq<CR>
-nnoremap ww :w<CR>
+" nnoremap wa :wa<CR>
+" nnoremap wq :wq<CR>
+" nnoremap ww :w<CR>
+nnoremap qw :wq<CR>
+nnoremap <Leader>w :w<CR>
 " NOTE: for prevent 'Press ENTER or type command to continue'
 nnoremap <silent> qq :call <SID>close(0)<CR><Esc>
 nnoremap <silent> q! :call <SID>close(1)<CR><Esc>
@@ -966,7 +965,6 @@ nnoremap q: <Nop>
 " nnoremap q <Nop>
 " NOTE: for alternate for q
 nnoremap Q q
-nnoremap qw :wq
 
 let b:macro_key=''
 function! StartMacro(char)
