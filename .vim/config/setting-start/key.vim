@@ -622,15 +622,22 @@ nnoremap <silent> q! :call <SID>close(1)<CR><Esc>
 " sudo save
 " NOTE: below command is only for 'vim' not 'nvim'
 if !has('nvim')
-  nnoremap w! :w !sudo tee > /dev/null %<CR> :e!<CR>
-  cnoremap w!  w !sudo tee > /dev/null %<CR> :e!<CR>
+  function! s:vim_force_save()
+    :w !sudo tee > /dev/null %
+    :e!
+  endfunction
+  command! ForceSave :call s:vim_force_save()
+  nnoremap <Leader>! :w !sudo tee > /dev/null %<CR> :e!<CR>
+  " cnoremap <Leader>!  w !sudo tee > /dev/null %<CR> :e!<CR>
 else
   if &rtp !~ 'suda.vim'
-    nnoremap w! :w suda://%<CR>
-    cnoremap w!  w suda://%<CR>
+    command! ForceSave :w suda://%
+    nnoremap <Leader>! :w suda://%<CR>
+    " cnoremap <Leader>!  w suda://%<CR>
   else
-    nnoremap w! :echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
-    cnoremap w!  echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
+    command! ForceSave :echom 'You need "lambdalisue/suda.vim" to save this file!'
+    nnoremap <Leader>! :echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
+    " cnoremap <Leader>!  echom 'You need "lambdalisue/suda.vim" to save this file!'<CR>
   endif
 endif
 
