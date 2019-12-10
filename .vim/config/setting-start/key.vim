@@ -1156,3 +1156,6 @@ nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
 " nnoremap P ]P
 " nnoremap ]p p
 " nnoremap ]P P
+
+" move to last of pasted text
+nnoremap <silent> p p`]
