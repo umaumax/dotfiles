@@ -791,8 +791,8 @@
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
-[rostest check results] catkin_test_results
-[rostest check results verbose] catkin_test_results --verbose
+[rostest check results] catkin_test_results # WARN: run at rosroot
+[rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
 
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
