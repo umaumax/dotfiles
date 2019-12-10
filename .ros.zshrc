@@ -60,6 +60,7 @@ ros_cmds=(
   #
   catkin_make
   catkin_create_pkg
+  catkin_test_results
 )
 
 for ros_cmd in "${ros_cmds[@]}"; do
