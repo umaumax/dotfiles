@@ -981,6 +981,7 @@ for char in split('abcdefghijklmnopqrstuvwxyz','\zs')
   execute("nnoremap <silent> q".char." :call StartMacro('".char."')\<CR>")
 endfor
 function! EndMacro()
+  let b:macro_key = get(b:, 'macro_key', '')
   if empty(b:macro_key)
     return
   endif
