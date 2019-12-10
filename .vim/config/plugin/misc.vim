@@ -429,6 +429,10 @@ Plug 'vim-scripts/awk.vim', {'for': 'awk'}
 " for ascii color code
 Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 
+" NOTE: vim match-up: even better %
+let g:matchup_matchparen_enabled = 1
+LazyPlug 'andymass/vim-matchup'
+
 " 行末の半角スペース/tabを可視化
 " :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
 LazyPlug 'bronson/vim-trailing-whitespace'
