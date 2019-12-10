@@ -26,6 +26,7 @@ _:
 - - which
 - - lambda
 - - pseudo
+- - sudo
 - - return
 - - raspberry
 - - widget
@@ -41,6 +42,7 @@ _:
 - - tutorials
 - - install
 - - temporary
+- - property
 cpp:
 - - 'std::'
   - std;;
@@ -48,6 +50,7 @@ cpp:
   - ;;
 - - argc
 - - argv
+- - args
 - - array
 - - char
 - - class
