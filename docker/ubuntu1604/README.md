@@ -14,7 +14,7 @@
 sudo apt-get install -y git wget curl zsh sudo
 git clone https://github.com/umaumax/dotfiles.git
 cd ~/dotfiles
-./link.sh
+./deploy.sh
 # relogin
 command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 # set zsh as login shell

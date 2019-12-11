@@ -604,7 +604,7 @@ open specific commit files by vim
     # open specific commit hash file
     $(basename $0) "HEAD~" README.md
     # open specific commit hash files
-    $(basename $0) "HEAD~" README.md link.sh
+    $(basename $0) "HEAD~" README.md deploy.sh
 EOF
     return 1
   fi

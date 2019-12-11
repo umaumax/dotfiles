@@ -12,10 +12,10 @@ git clone --recursive https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 git submodule update -i
 
 # first time
-./link.sh
+./deploy.sh
 
 # after setting end
-colorbash ./link.sh
+colorbash ./deploy.sh
 colorbash ./update_tools.sh
 # for debug
 # GIT_WGET_DEBUG=1 colorbash ./update_tools.sh
