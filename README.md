@@ -45,3 +45,8 @@ git-update-dummy-alias
 * `~/.local.zshrc`
 * `~/.local.vimrc`
 * `~/compile_flags.local.txt`
+
+## TODO
+* [ ] use `DOTPATH` not use `~/dotfiles/`
+* [ ] use `init.sh` which runs only once for setup
+* [ ] use `update.sh`
