@@ -910,7 +910,6 @@ vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o
 " 右回り
 vnoremap <silent> <C-r> <Left>"zd<Right>"zPgv<Right>
 
-" 現在のカーソル位置から行末までをコピー
 nnoremap Y y$
 
 " s means surround

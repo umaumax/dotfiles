@@ -4,7 +4,7 @@ nnoremap s <Nop>
 nnoremap s= <C-w>=
 nnoremap so <C-w>_<C-w>|
 nnoremap sO <C-w>=
-" tab
+
 " next tab
 nnoremap sn gt
 " prev tab
@@ -14,7 +14,19 @@ nnoremap sp gT
 nnoremap sN :<C-u>call TorusTabMove(1)<CR>
 nnoremap sP :<C-u>call TorusTabMove(-1)<CR>
 nnoremap st :<C-u>tabnew<CR>
-nnoremap sT :<C-u>Unite tab<CR>
+nnoremap sT :-tabnew<CR>
+
+" NOTE: move numbered tab
+nnoremap s0 1gt
+nnoremap s1 1gt
+nnoremap s2 2gt
+nnoremap s3 3gt
+nnoremap s4 4gt
+nnoremap s5 5gt
+nnoremap s6 6gt
+nnoremap s7 7gt
+nnoremap s8 8gt
+nnoremap s9 9gt
 
 " NOTE: 巡回する円環tab機構
 " NOTE: +1, -1

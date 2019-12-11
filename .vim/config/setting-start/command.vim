@@ -347,7 +347,7 @@ function! s:paste_clipboard_to_active_buffers()
   let active_buffer_filepath_list=s:get_active_buffers()
   if len(active_buffer_filepath_list) > 0
     let @+ = join(active_buffer_filepath_list, "\n")
-    echo '[COPY!]'
+    echo '[COPY!]:'.@+
   else
     echo '[NO COPY!]'
   endif
@@ -355,8 +355,8 @@ endfunction
 command! Tabs2Clipboard :call s:paste_clipboard_to_active_buffers()
 
 command! Duplicate  execute("vnew ".expand('%'))
-command! Duplicates execute("new ".expand('%'))
 command! Duplicatev execute("vnew ".expand('%'))
+command! Duplicates execute("new  ".expand('%'))
 
 command! -range DeleateBlankLine :<line1>,<line2>g/^$/d
 
