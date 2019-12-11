@@ -106,34 +106,29 @@ nnoremap <leader>tab :FZFTabOpen<CR>
 command! FZFTabOpen call s:FZFTabOpenFunc()
 
 function! s:FZFTabOpenFunc()
-  function! s:GetTabList()
-    let s:tabList = execute('tabs')
-    let s:textList = []
-    for tabText  in split(s:tabList, '\n')
-      let s:tabPageText = matchstr(tabText, '^Tab page')
-      if !empty(s:tabPageText)
-        let s:pageNum = matchstr(tabText, '[0-9]*$')
+  function! s:get_tab_list()
+    let s:tab_list = execute('tabs')
+    let s:text_list = []
+    for tab_text  in split(s:tab_list, '\n')
+      let s:tab_page_text = matchstr(tab_text, '^Tab page')
+      if !empty(s:tab_page_text)
+        let s:page_num = matchstr(tab_text, '[0-9]*$')
       else
-        let s:textList = add(s:textList, printf('%d %s',
-              \ s:pageNum,
-              \ tabText,
-              \   ))
+        let s:text_list = add(s:text_list, printf('%d %s', s:page_num, tab_text))
       endif
     endfor
-    return s:textList
+    return s:text_list
   endfunction
-  function! s:TabListSink(lines)
+  function! s:tab_list_sink(lines)
     let parts = split(a:lines[1], '\s')
     execute 'normal! ' . parts[0] . 'gt'
   endfunction
-  " NOTE:
-  " fzf_nvim_wrapper_createで移動候補のtabが新規に作成されるためここで取得
-  let tab_list=s:GetTabList()
+  let tab_list=s:get_tab_list()
   silent! call fzf#run({
-        \ 'sink*': function('s:TabListSink'),
-        \ 'source': l:tab_list,
-        \ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind,
-        \ 'down':    '20%'
+        \ 'sink*': function('s:tab_list_sink'),
+        \ 'source': tab_list,
+        \ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind." --preview 'F=$(echo {} | cut -c7-); [[ -f $F ]] && bat --color=always $F' --preview-window 'up:80%'",
+        \ 'down':    '60%'
         \ })
 endfunction
 
