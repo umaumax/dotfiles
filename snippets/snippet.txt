@@ -1198,6 +1198,8 @@
 [ldd: elf info] readelf -d \%#
 [lddtree shell script url] https://raw.githubusercontent.com/ncopa/lddtree/master/lddtree.sh
 
+[execute without x flag] /lib64/ld-linux-x86-64.so.2 \%# # for lookup ld path: $ strings /bin/ls | head -n 1
+
 [malloc free check] MALLOC_CHECK_=1\%# # 1:print stderr and continue, 2:abort
 
 [patchelf remove unused rpath] patchelf --shrink-rpath $TARGET # remove only unused rpath
