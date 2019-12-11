@@ -74,6 +74,7 @@ function pecocat() {
     if cmdcheck fzf; then
       local ls_force_color='ls --color=always -alh'
       [[ $(uname) == "Darwin" ]] && local ls_force_color='CLICOLOR_FORCE=1 ls -G -alh'
+      cmdcheck exa && ls_force_color='LS_COLORS= exa -h --git -al --color=always'
 
       local CAT='cat'
       if cmdcheck wcat; then
@@ -242,6 +243,12 @@ function gfcd() {
   cd "$(dirname "$target")"
 }
 
+function fcd() {
+  local target=$(find . -type d | pecocat $*)
+  [[ -z $target ]] && return
+  cd "$(dirname "$target")"
+}
+
 function _up() {
   local dir="$PWD"
   while [[ $dir != "/" ]]; do
@@ -271,39 +278,6 @@ alias pft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}"'
 alias pftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}"'
 alias pvft='find-time-sortr | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
 alias pvftr='find-time-sort | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
-
-# [pecoでcdを快適にした｜bashでもpeco \- マクロ生物学徒の備忘録]( http://bio-eco-evo.hatenablog.com/entry/2017/04/30/044703 )
-function peco-cd() {
-  local sw="1"
-  while [ "$sw" != "0" ]; do
-    if [ "$sw" = "1" ]; then
-      local list=$(echo -e "---$PWD\n../\n$(ls -F | grep /)\n---Show hidden directory\n---Show files, $(echo $(ls -F | grep -v /))\n---HOME DIRECTORY")
-    elif [ "$sw" = "2" ]; then
-      local list=$(echo -e "---$PWD\n$(ls -a -F | grep / | sed 1d)\n---Hide hidden directory\n---Show files, $(echo $(ls -F | grep -v /))\n---HOME DIRECTORY")
-    else
-      local list=$(echo -e "---BACK\n$(ls -F | grep -v /)")
-    fi
-    local slct=$(echo -e "$list" | peco)
-    if [ "$slct" = "---$PWD" ]; then
-      local sw="0"
-    elif [ "$slct" = "---Hide hidden directory" ]; then
-      local sw="1"
-    elif [ "$slct" = "---Show hidden directory" ]; then
-      local sw="2"
-    elif [ "$slct" = "---Show files, $(echo $(ls -F | grep -v /))" ]; then
-      local sw=$(($sw + 2))
-    elif [ "$slct" = "---HOME DIRECTORY" ]; then
-      cd "$HOME"
-    elif [[ "$slct" =~ / ]]; then
-      cd "$slct"
-    elif [ "$slct" = "" ]; then
-      :
-    else
-      local sw=$(($sw - 2))
-    fi
-  done
-}
-alias sd='peco-cd'
 
 function git-branch-peco() {
   local options=(refs/heads/ refs/remotes/ refs/tags/)
