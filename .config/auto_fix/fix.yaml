@@ -43,6 +43,9 @@ _:
 - - install
 - - temporary
 - - property
+- - without
+  - wihtout
+- - with
 cpp:
 - - 'std::'
   - std;;
