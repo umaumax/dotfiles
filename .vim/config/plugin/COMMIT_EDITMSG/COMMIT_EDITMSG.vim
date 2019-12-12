@@ -62,6 +62,7 @@ function! CommitMessageHelper(findstart, base)
   let words+=['Update','Add','Delete','Remove','Fix','Refs: ','[TMP]','[WIP]']
   let words=uniq(sort(words))
   let words=filter(words, {-> v:val =~ '^'.a:base})
+  let words=filter(words, {-> v:val !~ '^[0-9]'})
 
   let list = []
   call add(list, { 'word' : a:base, 'abbr' : a:base, 'menu' : 'default' })
