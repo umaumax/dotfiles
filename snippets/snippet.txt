@@ -1468,3 +1468,7 @@
 
 # sqlite3
 [sqlite3 gui] sqlitebrowser \%# # sudo apt-get install -y sqlite3 libsqlite3-dev sqlitebrowser
+[sqlite3 rich cli] litecli \%# # pip3 install litecli
+
+# go
+[go test with color] gotest -v # go get -u github.com/rakyll/gotest
