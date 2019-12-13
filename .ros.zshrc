@@ -201,6 +201,17 @@ EOF
   roslaunch $tmpfile
 }
 
+function catkin_test_results() {
+  local ros_ws_root=$(rosroot)
+  [[ ! -d $ros_ws_root ]] && echo "${RED}Not a ros repository${DEFAULT}, but if this is first catkin_make to init, please run 'command catkin_make'" && return 1
+
+  pushd $ros_ws_root >/dev/null 2>&1
+  command catkin_test_results "$@"
+  local exit_code=$?
+  popd
+  return $exit_code
+}
+
 if cmdcheck peco; then
   alias roscdpeco='roscdpeco_local'
   function roscdpeco_global() {
