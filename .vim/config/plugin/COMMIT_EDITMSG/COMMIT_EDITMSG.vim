@@ -39,6 +39,7 @@ for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[]./-",'\zs
   exec "imap <buffer> <expr> " . k . " '" . k . "\<C-X>\<C-O>'"
 endfor
 
+let g:is_executable_look=executable('look')
 " FYI: [vim\-jp » Hack \#14: Insert mode補完 自作編]( https://vim-jp.org/vim-users-jp/2009/05/21/Hack-14.html )
 function! CommitMessageHelper(findstart, base)
   if a:findstart
@@ -63,6 +64,11 @@ function! CommitMessageHelper(findstart, base)
   let words=uniq(sort(words))
   let words=filter(words, {-> v:val =~ '^'.a:base})
   let words=filter(words, {-> v:val !~ '^[0-9]'})
+
+  let word=substitute(a:base,'[^a-zA-Z]','','g')
+  if g:is_executable_look && len(word) >= 4
+    let words+=split(system('look '.word,"\n"))
+  endif
 
   let list = []
   call add(list, { 'word' : a:base, 'abbr' : a:base, 'menu' : 'default' })
