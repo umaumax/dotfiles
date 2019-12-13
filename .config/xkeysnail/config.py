@@ -102,6 +102,23 @@ define_keymap(None, {
 }, "Anywhere")
 
 define_keymap(re.compile("Firefox|Google-chrome"), {
+    K("C-h"): K("Left"),
+    K("C-j"): K("Down"),
+    K("C-k"): K("Up"),
+    K("C-l"): K("Right"),
+
+    K("Win-h"): K("C-h"),
+    K("Win-j"): K("C-j"),
+    K("Win-k"): K("C-k"),
+    K("Win-l"): K("C-l"),
+
+    # NOTE: jump to search window
+    K("esc"): [K("esc"), K("esc"), K("C-l")],
+    # NOTE: double esc is used for disable IME (google japanese-input)
+    K("C-semicolon"): [K("esc"), K("esc"), K("MUHENKAN"), set_mark(False), K("C-l")],
+    # NOTE: double esc is used for disable IME (google japanese-input)
+    K("C-APOSTROPHE"): [K("esc"), K("esc"), K("MUHENKAN"), set_mark(False), K("C-l")],
+
     # Ctrl+Alt+j/k to switch next/previous tab
     K("C-M-l"): K("C-TAB"),
     K("C-M-h"): K("C-Shift-TAB"),
