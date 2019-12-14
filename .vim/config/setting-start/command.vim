@@ -358,7 +358,7 @@ command! Duplicate  execute("vnew ".expand('%'))
 command! Duplicatev execute("vnew ".expand('%'))
 command! Duplicates execute("new  ".expand('%'))
 
-command! -range DeleateBlankLine :<line1>,<line2>g/^$/d
+command! -range DeleteBlankLine :<line1>,<line2>g/^$/d
 
 if Doctor('code', 'vscode')
   function! s:vscode_open(files)
