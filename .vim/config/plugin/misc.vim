@@ -611,8 +611,7 @@ let g:DiffColors = 100 " all colors defined in highlight option in dynamic rando
 Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
 
 " NOTE: for install only (below libraries are enable other script)
-Plug 'nhooyr/neoman.vim', {'on':[]}
-Plug 'paretje/nvim-man'
+Plug 'umaumax/neoman.vim', {'on':[]}
 
 " NOTE: interactive renamer at directory
 Plug 'qpkorr/vim-renamer', {'on':'Renamer'}

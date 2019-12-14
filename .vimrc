@@ -116,21 +116,20 @@ if $VIM_MAN_FLAG==1
   " NOTE: to adopt e.g. vimdiff(1)
   call plug#begin(g:plug_home)
   " NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
-  Plug 'nhooyr/neoman.vim'
+  Plug 'umaumax/neoman.vim'
   call plug#end()
+endif
+function! s:man_map_setting()
   nnoremap <silent> K  :execute  ":Nman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
   nnoremap <silent> ss :execute ":Snman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
   nnoremap <silent> sv :execute ":Vnman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
   nnoremap <silent> st :execute ":Tnman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
-
-  " ~/.vim/plugged/nvim-man/ にlocal diffあり terminalを使いたくない...
-  " Plug 'paretje/nvim-man'
-  " nnoremap <silent> K  :execute ":Man  ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
-  " nnoremap <silent> ss :execute ":Sman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
-  " nnoremap <silent> sv :execute ":Vman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
-  " nnoremap <silent> st :execute ":Tman ".substitute(substitute(expand('<cword>'),'\(.\+\)', '\L\1',''),'^.\{-,}\([a-zA-Z0-9_-]\+\(([0-9]*)\)\?\).\{-,}$', '\1','')<CR>
   set iskeyword+=(,)
-endif
+endfunction
+augroup man_map_setting_group
+  autocmd!
+  autocmd VimEnter * call <SID>man_map_setting()
+augroup END
 
 
 " e.g. .local.vimrc
