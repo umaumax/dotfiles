@@ -105,6 +105,8 @@ bind diff    <Esc>n :/^diff --(git|cc)
 bind diff    <Esc>p :?^diff --(git|cc)
 bind stage   n      :/^@@
 bind stage   p      :?^@@
+bind stage   N      :?^@@
+bind stage   P      :/^@@
 bind stage   <Esc>n :/^diff --(git|cc)
 bind stage   <Esc>p :?^diff --(git|cc)
 # NOTE: easy for switching status view
@@ -116,6 +118,23 @@ bind pager   <Esc>n :/^diff --(git|cc)
 bind pager   <Esc>p :?^diff --(git|cc)
 bind log     n      :/^commit
 bind log     p      :?^commit
+bind status  n      next
+bind status  p      previous
+bind status  N      previous
+bind status  P      next
+
+# NOTE: goto unstaged file
+bind status  c      :5
+bind status  s      :5
+
+
+bind status  0 :2
+bind status  1 :5
+bind status  <Ctrl-a> :2
+bind status  <Ctrl-e> move-last-line
+
+# FYI: [Support "less" pager keyboard shortcuts · Issue \#138 · jonas/tig]( https://github.com/jonas/tig/issues/138 )
+# bind generic <Shift-Space> move-up
 
 # 元の n / p を別に割り当て
 bind generic V        view-pager
