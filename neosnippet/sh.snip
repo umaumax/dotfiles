@@ -113,6 +113,13 @@ snippet isfzfpreview_if
 snippet isfzfpreview
 	[[ -n $FZF_PREVIEW_HEIGHT ]] && ${0}
 
+snippet is_root_if
+	if [[ "$(id -u)" == "0" ]]; then
+		${0}
+	fi
+snippet is_root
+	[[ "$(id -u)" == "0" ]] && ${0}
+
 snippet trimspace
 	sed "s/^[ \t]*//" ${0}
 
