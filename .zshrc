@@ -239,9 +239,23 @@ function command_not_found_handler() {
   # NOTE: this handler called in zle mode
   if cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
     mkdir -p ~/.cache/zsh/
-    local cache_not_found_img_filepath="$HOME/.cache/zsh/not_found_img.img"
+    local cache_not_found_img_dirpath="$HOME/.cache/zsh/not_found_img"
+    mkdir -p "$cache_not_found_img_dirpath"
+
+    local urls=(
+      'https://stickershop.line-scdn.net/stickershop/v1/sticker/13903692/android/sticker.png;compress=true' # gopher
+      'https://s3.amazonaws.com/gt7sp-prod/decal/60/71/57/6269111907238577160_1.png' # kaiba
+    )
+    local index=$((${#0} % ${#urls} + 1)) # 1~ for zsh
+    local cache_not_found_img_filepath="$cache_not_found_img_dirpath/$index.img"
     if [[ ! -f "$cache_not_found_img_filepath" ]]; then
-      wget 'https://stickershop.line-scdn.net/stickershop/v1/sticker/13903692/android/sticker.png;compress=true' -O "$cache_not_found_img_filepath"
+      if [[ $index == 1 ]]; then
+        wget "${urls[$index]}" -O "$cache_not_found_img_filepath"
+      else
+        wget "${urls[$index]}" -O download.img
+        convert download.img -fuzz 20% -alpha on -fill 'rgba(255, 0, 0, 0.5)' -opaque '#000' tmp.img
+        magick tmp.img -background none -gravity center -extent '%[fx:w*1.1]x0' "$cache_not_found_img_filepath"
+      fi
     fi
     if [[ -f "$cache_not_found_img_filepath" ]]; then
       img2sixel -I "$cache_not_found_img_filepath"
