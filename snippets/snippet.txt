@@ -1366,6 +1366,7 @@
 [csv2markdown] csvtomd \%# # pip3 install csvtomd
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
 [csvq sql num sort] NUM=\%# ; CLASS= ; csvq "select $CLASS, COUNT(*) AS $NUM GROUP BY $CLASS HAVING COUNT(*) > 1 ORDER BY $NUM DESC"
+[csv colorful output] cat \$# | ccsv /dev/stdin # go get -u github.com/nak1114/ccsv
 
 # yum
 [yum whatprovides (search so dependency)] yum whatprovides \%#
@@ -1480,3 +1481,7 @@
 
 # go
 [go test with color] gotest -v # go get -u github.com/rakyll/gotest
+
+# example data sites
+[example data csv] https://raw.githubusercontent.com/goodby/csv/master/example/user.csv
+[example data json] https://gist.githubusercontent.com/gcollazo/884a489a50aec7b53765405f40c6fbd1/raw/49d1568c34090587ac82e80612a9c350108b62c5/sample.json
