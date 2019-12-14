@@ -981,6 +981,7 @@ if cmdcheck tmux; then
       return 1
     fi
   }
+  alias tmuxa='tmux-attach'
   function tmux-attach() {
     is_in_tmux_with_message || return
     local output=$(tmux ls)
@@ -989,6 +990,7 @@ if cmdcheck tmux; then
     [[ -n $tag_id ]] && tmux a -t $tag_id
   }
   # FYI: [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
+  alias tmuxrename='tmux-rename-session'
   function tmux-rename-session() {
     is_not_in_tmux_with_message || return
     local name=${1:-}
@@ -1002,6 +1004,7 @@ if cmdcheck tmux; then
     tmux rename-session "${name//./_}"
   }
   # FYI: [tmux のアウトプットを適当なエディタで開く \- Qiita]( https://qiita.com/acro5piano/items/0563ab6ce432dbd76e50 )
+  alias tmuxe='tmux-edit-pane'
   function tmux-edit-pane() {
     local tmpfile="$(mktemp "$(basename $0).$$.tmp.XXXXXX").log"
     tmux capture-pane -pS -32768 >$tmpfile
