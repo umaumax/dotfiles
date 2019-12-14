@@ -1279,7 +1279,13 @@
 [image convert gif to png] convert -verbose -coalesce $IN.gif\%# $OUT.png
 [image convert concat vertical] convert *.png\%# -append $OUT.png
 [image convert concat horizontal] convert *.png\%# +append $OUT.png
-
+[image convert fill non-transparent area] convert before.png -fuzz 20% -alpha on -fill 'rgba(255, 0, 0, 0.5)' -opaque '#000' after.png
+[image convert add extra transparent space] magick before.png -background none -gravity center  -extent '%[fx:w*1.1]x0' after.png # "convert" is a legacy program. Try it with "magick".
+# FYI: [ワンライナーで色相を変えた画像をたくさん作る \- Qiita]( https://qiita.com/ir-yk/items/18395cc44f0d1123965d )
+[image convert modulate(色相)] mkdir -p results; seq 100 300 | xargs -n1 -I{} convert \%# -modulate 100,100,{} results/modulate_{}.png
+# FYI: [コマンド一発で画像を角丸にする \- Qiita]( https://qiita.com/s_of_p/items/8aefeeadb3ae3029b4b2 )
+[image convert 角丸] convert -size 512x512 xc:none -draw "roundrectangle 0,0 512,512 32,32" src.png\%# -resize 512x512 -compose src-in -composite -unsharp 0x1 dst.png
+[image convert transparent] convert src.png\%# -fuzz 10% -transparent white transparent.png
 
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
