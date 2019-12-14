@@ -2827,6 +2827,36 @@ cmdcheck pyenv && function pyenv() {
   return $exit_code
 }
 
+if cmdcheck ranger; then
+  # FYI: [ranger\-cdをzshで使えるようにした \- 生涯未熟]( https://syossan.hateblo.jp/entry/2017/02/04/192111 )
+  function ranger() {
+    if [[ $# == 0 ]]; then
+      ranger-cd "$@"
+    else
+      # NOTE: avoid recursive open ranger
+      if [ -z "$RANGER_LEVEL" ]; then
+        command ranger "$@"
+      else
+        exit
+      fi
+    fi
+  }
+  alias r='ranger-cd'
+  function ranger-cd() {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    ranger --choosedir="$tempfile" "${@:-$PWD}"
+    local exit_code=$?
+    if [[ -f "$tempfile" ]]; then
+      local new_wd=$(cat -- "$tempfile")
+      if [ "$new_wd" != "$PWD" ]; then
+        cd -- "$new_wd"
+      fi
+      rm -f -- "$tempfile"
+    fi
+    return $exit_code
+  }
+fi
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置

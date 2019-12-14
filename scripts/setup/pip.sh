@@ -94,6 +94,8 @@ else
   pip3 install buku
 fi
 
+pip3 install ranger-fm
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------
