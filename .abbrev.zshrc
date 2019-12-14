@@ -43,6 +43,8 @@ abbrev-alias -g N='>/dev/null '
 abbrev-alias -c v='vim '
 abbrev-alias -c s='sudo '
 # abbrev-alias -c a='sudo apt-get '
+abbrev-alias -c sshdel='ssh-keygen-R-peco'
+
 abbrev-alias -c g='git '
 abbrev-alias -c gp='git push '
 abbrev-alias -c gco=" git checkout ."
