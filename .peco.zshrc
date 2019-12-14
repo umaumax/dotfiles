@@ -1046,6 +1046,21 @@ function global_func_prefix() {
   global -x "^$function_prefix" | awk '{printf "%s:%d\n", $3, $2}' | pecovim
 }
 
+# FYI: [Examples · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/examples#processes )
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+function fkill() {
+  local pid
+  if [ "$UID" != "0" ]; then
+    pid=$(ps -f -u $UID | sed 1d | fzf -m -q "'" | awk '{print $2}')
+  else
+    pid=$(ps -ef | sed 1d | fzf -m -q "'" | awk '{print $2}')
+  fi
+
+  if [ "x$pid" != "x" ]; then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
 if cmdcheck copyq; then
   # FYI: [hluk/CopyQ: Clipboard manager with advanced features]( https://github.com/hluk/CopyQ )
   # FYI: [Command Line — CopyQ documentation]( https://copyq.readthedocs.io/en/latest/command-line.html )
