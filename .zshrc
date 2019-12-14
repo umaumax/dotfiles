@@ -987,6 +987,12 @@ if cmdcheck tmux; then
     fi
     tmux rename-session "${name//./_}"
   }
+  # FYI: [tmux のアウトプットを適当なエディタで開く \- Qiita]( https://qiita.com/acro5piano/items/0563ab6ce432dbd76e50 )
+  function tmux-edit-pane() {
+    local tmpfile="$(mktemp "$(basename $0).$$.tmp.XXXXXX").log"
+    tmux capture-pane -pS -32768 >$tmpfile
+    tmux new-window -n:mywindow "vim $tmpfile"
+  }
 fi
 
 # NOTE: to avoid xargs no args error on ubuntu
