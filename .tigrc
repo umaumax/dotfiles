@@ -6,7 +6,9 @@ set main-view = line-number:true date:local=yes author:display=abbreviated id:ye
 set blame-view = date:local=yes author:display=abbreviated id:yes,color line-number:yes,interval=1 text
 
 set line-graphics = utf-8
-set mouse = true
+set mouse = false
+
+# set wrap-lines = yes
 
 # NOTE: default
 # set vertical-split = auto
@@ -40,6 +42,9 @@ bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 bind generic <Right> scroll-page-down
 bind generic <Left> scroll-page-up
+
+bind stage <Right> scroll-right
+bind stage <Left>  scroll-left
 
 # line
 # NOTE: 期待する行が得られない
