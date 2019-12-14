@@ -302,6 +302,8 @@
 
 [git fetch grafted repo] git fetch --unshallow
 
+[git public on web temporary] git instaweb -p 12345
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
@@ -788,13 +790,6 @@
 [ros depends1] rospack depends1 \%# # only nest 1
 [ros publish] rostopic pub -1 /\%# $TYPE -- '{$KEY: $VAL}' # '{header: {seq: 0, stamp: now, frame_id:sample_id}, data: [], position: {x: 0.0, y: 0.0, z: 0.0}}'
 [ros echo publish (pipe)] rostopic echo /\%# | rostopic pub /\%# $TYPE
-
-[ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
-[rostest run tests] catkin_make run_tests # for 1st?
-[rostest run tests] catkin_make tests # for 2nd or later?
-[rostest check results] catkin_test_results # WARN: run at rosroot
-[rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
-
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
 [roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
 
@@ -809,13 +804,18 @@
 [rosbag timeout] timeout -sINT rosbag record -O \%# # xxx.bag /xxx/yyy
 # [rosbag file cannot be made // \.bag\.active \- ROS Answers: Open Source Q&A Forum]( https://answers.ros.org/question/40116/rosbag-file-cannot-be-made-bagactive/ )
 [rosbag fix] rosbag reindex *.bag.active && rosbag fix *.bag.active repaired.bag
-
 [roslaunch output screen] roslaunch --screen \%#
 
+
+[ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
+[rostest run tests] catkin_make run_tests # for 1st?
+[rostest run tests] catkin_make tests # for 2nd or later?
+[rostest check results] catkin_test_results # WARN: run at rosroot
+[rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
-
+[catkin_make ignore building some package] catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar\%#"
 [catkin build all clean] [[ -d src ]] && rm -rf build devel install || echo "\\033[0;31m"'here is not catkin workspace'"\\033[0m"
 
 [ros info reload] rospack profile
