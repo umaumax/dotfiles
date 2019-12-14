@@ -16,8 +16,8 @@
 [find remove orig] find . -name "*.orig" -type f -ls -delete
 [find remove .DS_Store] find . -name ".DS_Store" -type f -ls -delete
 
-[find executable mac] find \%# -type f -perm +ugo+x -print
-[find executable linux] find \%# -executable -type f
+[find executable (mac)] find \%# -type f -perm +ugo+x -print
+[find executable (linux)] find \%# -executable -type f
 
 [find file object fils and archives] find . -name "*.a" -o -name "*.o" -exec file {} \;
 [find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
@@ -60,8 +60,8 @@
 [lsusb /dev/ttyUSB check] ls /dev/ttyUSB* | xargs -L 1 -I{} udevadm info --name={} | grep -e "DEVPATH.*" -e "ID_MODEL_FROM_DATABASE" -e "ID_MODEL_ID"  -e "ID_VENDOR_FROM_DATABASE" -e "ID_VENDOR_ID"; lsusb
 
 # tar
-# [tar 解凍(extract)  .tar.gz] tar zxvf \%# -C .
-[tar 解凍(extract)  .tar.?   ] tar  xvf \%# -C .
+# [untar 解凍(extract)  .tar.gz] tar zxvf \%# -C .
+[untar 解凍(extract)  .tar.? ] tar  xvf \%# -C .
 [tar 圧縮(compress) .tar.gz] tar zcvf \%# # [tar.gz] [dir]
 [tar 圧縮(compress) .tar.  ] tar  cvf \%# # [.tar] [dir]
 [tar 圧縮(compress) .tar.gz] DIRECTORY=\%# && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
