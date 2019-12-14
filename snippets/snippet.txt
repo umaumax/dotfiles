@@ -472,6 +472,7 @@
 [sshfs mount read only] sshfs -o ro \%# # $REMOTE_HOST_AND_DIR $LOCAL_DIR
 [sshuttle vpn] sshuttle -r \%# # 192.168.0.1/24
 [ssh key finger print] ssh-keygen -E md5 -l -f \%#
+[ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [rsync        ] rsync -auvzh $SRC_DIR/ \%# # set dst with dirname
