@@ -50,6 +50,12 @@ go get -u github.com/tomnomnom/gron
 # NOTE: for test
 go get -u github.com/rakyll/gotest
 
+# NOTE: for screensaver
+go get -u github.com/ansoni/goquarium
+
+# NOTE: for colorful csv output
+go get -u github.com/nak1114/ccsv
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms
