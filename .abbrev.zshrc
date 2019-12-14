@@ -40,12 +40,41 @@ abbrev-alias -g N='>/dev/null '
 # abbrev-alias -g rmd='README.md'
 
 # NOTE: expand only head of prompt (no head of after pipe or start with space)
-# abbrev-alias -c v='vim '
-# abbrev-alias -c s='sudo '
+abbrev-alias -c v='vim '
+abbrev-alias -c s='sudo '
 # abbrev-alias -c a='sudo apt-get '
-# abbrev-alias -c g='git '
+abbrev-alias -c g='git '
 abbrev-alias -c gp='git push '
 abbrev-alias -c gco=" git checkout ."
+abbrev-alias -c gcoc='git-checkout-commit-peco'
+abbrev-alias -c gcob='git-checkout-branch-peco'
+abbrev-alias -c gr='git-rebase-peco'
+abbrev-alias -c gld='git-log-diff'
+abbrev-alias -c gs='git stash'
+abbrev-alias -c gsp='git stash pop'
+
+# WARN: you must expand below commands with cursor
+abbrev-alias -c gg="ggpvc '\%#'"
+abbrev-alias -c ggr="ggpv '\%#'"
+
+abbrev-alias -c ggv="ggpvc '\%#' -- '*.vim'"
+abbrev-alias -c ggvim="ggpvc '\%#' -- '*.vim'"
+
+abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zshrc'"
+
+abbrev-alias -c ggmd="ggpvc '\%#' -- '*.md'"
+
+abbrev-alias -c ggc="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"
+abbrev-alias -c ggcpp="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"
+
+abbrev-alias -c ggmake="ggpvc '\%#' -- '*[M|m]akefile'"
+abbrev-alias -c ggcmake="ggpvc '\%#' -- '*/CMakeLists.txt' '*.cmake'"
+
+abbrev-alias -c ggconfig="ggpvc '\%#' -- '*/.*' '*.config' '*.config' '*/config/*'"
+
+abbrev-alias -c ggtest="ggpvc '\%#' -- '*test*'"
+
+abbrev-alias -c gglaunch="ggpvc '\%#' -- '*.launch'"
 
 abbrev-alias -c ctk='catkin_'
 abbrev-alias -c ctkm='catkin_make '
