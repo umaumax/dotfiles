@@ -79,5 +79,5 @@ nnoremap <C-a> :call <SID>toggle(1)<CR>
 vnoremap <C-s> :call <SID>toggle(1)<CR>
 " nnoremap <C-x> :call <SID>toggle(-1)<CR>
 
-nnoremap + :call <SID>toggle(1)<CR>
-nnoremap - :call <SID>toggle(-1)<CR>
+" nnoremap + :call <SID>toggle(1)<CR>
+" nnoremap - :call <SID>toggle(-1)<CR>
