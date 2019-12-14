@@ -291,7 +291,8 @@ if cmdcheck tig; then
   alias ts='tig status'
   function tig() {
     if [[ $# == 0 ]]; then
-      command tig status
+      # NOTE: +5 means 'move to Changes not staged for commit line when no staged file'
+      command tig status '+5'
       return
     fi
     command tig "$@"
