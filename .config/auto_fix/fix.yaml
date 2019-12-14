@@ -1,6 +1,9 @@
 _:
 - - behavior
 - - security
+- - complex
+- - pattern
+- - multi
 - - check
 - - checkout
 - - command
@@ -19,8 +22,6 @@ _:
 - - focus
 - - line
 - - python
-- - python2
-- - python3
 - - sample
 - - search
 - - type
@@ -35,6 +36,7 @@ _:
 - - architecture
 - - unique
 - - constructor
+- - destructor
 - - directive
 - - challenge
 - - failure
