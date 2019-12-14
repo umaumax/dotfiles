@@ -54,6 +54,7 @@ function! s:vimconsole_logger()
     " neosnippetは$,|,(などの文字のあとにsnippet展開ができない(zshファイルを編集中に発覚) -> その後normalモードになる模様, 通常はinsert mode
     " neosnippet#expandable()では判定できない
     call feedkeys("\<Plug>(neosnippet_expand)", 'm')
+    " FMI: maybe you can use let g:neosnippet#enable_complete_done=1
     return
   endif
   let vim_flag    = menu == '[vim] '
