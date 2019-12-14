@@ -1159,6 +1159,8 @@ alias lzp='[[ -f ~/.local.zprofile ]] && vim ~/.local.zprofile'
 alias lzrc='[[ -f ~/.local.zshrc ]] && vim ~/.local.zshrc'
 alias lvrc='[[ -f .local.vimrc ]] && vim .local.vimrc || [[ -f ~/.local.vimrc ]] && vim ~/.local.vimrc'
 
+alias autofixvim='vim ~/.config/auto_fix/fix.yaml'
+
 alias vimemo='vim README.md'
 alias vmemo='vim README.md'
 alias vm='vim README.md'
