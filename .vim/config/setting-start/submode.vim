@@ -77,4 +77,15 @@ if &rtp =~ 'vim-submode'
     nnoremap <silent> g<Down> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
     nnoremap <silent> g<Up> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
   endif
+
+  call s:easy_submode_set('word_move', 'n', '', 'ge', 'ge')
+  call s:easy_submode_set('word_move', 'n', '', 'gE', 'gE')
+  call submode#map('word_move', 'n', '', 'e', 'ge')
+  call submode#map('word_move', 'n', '', 'E', 'gE')
+  call submode#map('word_move', 'n', '', 'ge', 'ge')
+  call submode#map('word_move', 'n', '', 'gE', 'gE')
+  call submode#map('word_move', 'n', '', 'w', 'w')
+  call submode#map('word_move', 'n', '', 'b', 'b')
+  call submode#map('word_move', 'n', '', 'W', 'W')
+  call submode#map('word_move', 'n', '', 'B', 'B')
 endif
