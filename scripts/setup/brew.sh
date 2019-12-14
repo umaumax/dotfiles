@@ -70,7 +70,9 @@ brew install rust
 brew install colormake
 brew install sshfs
 brew install ghq
-brew install bats
+# WARN: original repo
+# brew install bats
+brew install bats-core
 brew install colordiff
 brew install neovim
 # for c++ lib

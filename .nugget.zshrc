@@ -254,6 +254,7 @@ function nugget_ubuntu_bat() {
 function nugget_ubuntu_bats() {
   cmdcheck bats && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
+  # WARN: bats is not maintenanced use bats-core
   pushd "$tmpdir"
   wget https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1.1_all.deb
   sudo gdebi bats_0.4.0-1.1_all.deb
