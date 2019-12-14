@@ -1108,7 +1108,8 @@
 [diff multifiles] \\diff --from-file=$SRC\%# $CMP1 $CMP2 # ... # for diff or colordiff
 ## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
 [git style diff at out of repo] git diff --no-index -- \%#
-[gron json diff] diff <(gron \%#) <(gron )
+[gron json diff] diff <(gron \%#) <(gron ) # go get -u github.com/tomnomnom/gron
+[jsondiffpatch json diff] jsondiffpatch \%# # npm install -g jsondiffpatch
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
