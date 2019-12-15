@@ -31,6 +31,8 @@ augroup git_commit_startup_group
   autocmd!
   autocmd User VimEnterDrawPost call s:git_commit_startup()
   autocmd FileType gitcommit setlocal spell
+  " NOTE: automatically remove trailing whitespace at commit message
+  autocmd BufWritePre COMMIT_EDITMSG :%s/\s\+$//e
 augroup END
 
 " FYI: [チーズバーガー中毒: Vimで入力補完を常にオンにするvimrc]( http://io-fia.blogspot.com/2012/11/vimvimrc.html )
