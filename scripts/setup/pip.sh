@@ -96,6 +96,8 @@ fi
 
 pip3 install ranger-fm
 
+pip3 install mycli
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------

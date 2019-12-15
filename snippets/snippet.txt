@@ -1479,6 +1479,9 @@
 [sqlite3 gui] sqlitebrowser \%# # sudo apt-get install -y sqlite3 libsqlite3-dev sqlitebrowser
 [sqlite3 rich cli] litecli \%# # pip3 install litecli
 
+# mysql
+[mysql rich cli] mycli \%# # mycli -uroot -p -h127.0.0.1 -P 3306
+
 # go
 [go test with color] gotest -v # go get -u github.com/rakyll/gotest
 
