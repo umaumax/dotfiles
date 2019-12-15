@@ -168,3 +168,6 @@ lcov_html
 
 # for dot
 *.dot
+
+# for rust
+**/target/debug/*
