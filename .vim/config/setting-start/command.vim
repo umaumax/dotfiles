@@ -337,6 +337,7 @@ function! s:get_active_buffers()
     let m=matchlist(line, '\m[0-9][0-9]* .a.. "\(.*\)"')
     if len(m) >= 2
       let filepath=m[1]
+      " NOTE: [No Name] is used by 'mkitt/tabline.vim'
       if filepath == '[No Name]' | continue | endif
       let active_buffer_filepath_list +=[filepath]
     endif
