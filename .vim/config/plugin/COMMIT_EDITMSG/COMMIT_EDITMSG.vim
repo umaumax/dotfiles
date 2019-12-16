@@ -63,7 +63,7 @@ function! CommitMessageHelper(findstart, base)
   endfor
   let min_len=3
   let words=filter(split(substitute(join(lines, "\n"),'[^0-9a-zA-Z_]',' ','g')), { -> len(v:val) >= min_len })
-  let words+=['Update','Add','Delete','Remove','Fix','Refs: ','[TMP]','[WIP]']
+  let words+=['Update','Add','Delete','Remove','Fix','Refs: ','[TMP]','[WIP]', 'Refactor']
   let words=uniq(sort(words))
   let words=filter(words, {-> v:val =~ '^'.a:base})
   let words=filter(words, {-> v:val !~ '^[0-9]'})
