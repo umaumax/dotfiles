@@ -1028,3 +1028,15 @@ function git-coverage-review-result() {
 function git-coverage-review-result-csv() {
   git-coverage-review-result | awk -F':' '{printf "%s,%d,%d\n", $1,int($2),int($2)}'
 }
+
+function git-checkout-local() {
+  local branch_name
+  branch_name=$(git name-rev --name-only HEAD)
+  if [[ ! $branch_name =~ ^remotes/origin/ ]]; then
+    echo "${RED}current branch '$branch_name' is not remote branch${DEFAULT}"
+    return 1
+  fi
+  local local_branch_name
+  local_branch_name=${branch_name#remotes/origin/}
+  git checkout -b "$local_branch_name"
+}
