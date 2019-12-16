@@ -44,15 +44,20 @@ function! s:smartinput_define_rule_of_word(src,dst,...) " filetype
   call s:smartinput_define_rule(rule)
 endfunction
 
-function! RegisterSmartinputRules(replace_map, cursor_prefix_char, trigger)
+function! RegisterSmartinputRules(replace_map, src_prefix_char, cursor_prefix_char, trigger)
   for key in keys(a:replace_map)
     let srcs=a:replace_map[key]
     let dst=key
     for src in srcs
       let n = len(substitute(src.a:cursor_prefix_char,'^\\<', '', ''))
+      let suffix_char=a:cursor_prefix_char
+      " NOTE: disable insert deleted word before cursor
+      if stridx(dst,'<Left>')>=0
+        let suffix_char=''
+      endif
       let at = src
       let trigger = a:trigger
-      call s:smartinput_define_rule({'at': at.a:cursor_prefix_char.'\%#', 'char': trigger, 'input': repeat('<BS>', n).dst})
+      call s:smartinput_define_rule({'at': a:src_prefix_char.at.a:cursor_prefix_char.'\%#', 'char': trigger, 'input': repeat('<BS>', n).dst.suffix_char})
     endfor
   endfor
 endfunction
@@ -143,16 +148,12 @@ function! s:smartinput_define()
 
   " NOTE: 置き換え時に特殊キーに注意
   " '\<': 単語境界でなければならない
+  " NOTE: 置き換え後のspaceの有無の指定方法?
   let s:replace_map = {
-        \ '||': ['or', 'dp', 'dpp'],
+        \ '||': ['or'],
         \ '&&': ['and'],
-        \ '~/': ['hd'],
-        \ '~/.': ['hdd'],
-        \ 'boost::': ['b::','b;;'],
-        \ 'std::': ['s::','s;;', 'std'],
         \ '=~': ['req','regeq'],
         \ "{'':''}<Left><Left><Left><Left><Left>": ['dict'],
-        \ ''':': ['key'],
         \ ', ': ['arg'],
         \ 'ヽ(*゜д゜)ノ': ['kaiba'],
         \
@@ -224,16 +225,13 @@ function! s:smartinput_define()
         \ '\n': ['lf'],
         \ }
 
-  let cursor_prefix_char=' '
-  " <Nul> = <C-Space>
-  " let s:trigger = '<Nul>'
-  " let s:trigger = '<S-Down>'
-  " let s:trigger = '<C-x><C-x>'
-  let s:trigger = ' '
-  call RegisterSmartinputRules(s:replace_map, cursor_prefix_char, s:trigger)
+  " NOTE: '\<': word border
+  call RegisterSmartinputRules(s:replace_map, '\<', ' ', ' ')
+  call RegisterSmartinputRules(s:replace_map, '', '', '<C-x><C-x>')
 
   " NOTE:登録済のトリガを大量に登録すると反応しないので注意
-  call s:map_to_trigger('i', s:trigger)
+  call s:map_to_trigger('i', ' ')
+  call s:map_to_trigger('i', '<C-x><C-x>')
 
   " クラス定義やenum定義の場合は末尾に;を付け忘れないように
   " class Nanoha _curosr_

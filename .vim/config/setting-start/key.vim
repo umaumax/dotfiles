@@ -128,25 +128,31 @@ augroup END
 " i  <CR>        & <SNR>71__trigger_or_fallback("\<CR>", "\<CR>")
 " inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 " [vim\-smartinput/smartinput\.vim at master · kana/vim\-smartinput]( https://github.com/kana/vim-smartinput/blob/master/autoload/smartinput.vim#L318 )
-function! s:CR()
+function! s:cr()
   if pumvisible()
     return "\<C-Y>"
   endif
   " NOTE: <C-g>uは undo を分割する
   return "\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<CR>","\<CR>")
 endfunction
-function! s:Space()
+function! s:space()
   " NOTE: i  <Space>     & <SNR>129__trigger_or_fallback("\<Space>", "\<Space>")
   return "\<C-g>u\<C-\>\<C-o>:let _ = vim_auto_fix#auto_fix() && vim_blink#blink('[^ ]* *\\%#')\<CR>\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<Space>","\<Space>")
+endfunction
+function! s:c_x()
+  " NOTE: i  <Space>     & <SNR>129__trigger_or_fallback("\<Space>", "\<Space>")
+  return "\<C-g>u\<C-\>\<C-o>:let _ = vim_auto_fix#auto_fix() && vim_blink#blink('[^ ]* *\\%#')\<CR>\<C-g>u".s:vim_smartinput__trigger_or_fallback("\<C-x>\<C-x>","\<C-x>\<C-x>")
 endfunction
 " NOTE:
 " bufferを付加すると優先度が高くなるため，以降にpluginで設定されてもそれは無効化されるが，最初に開いたbufferでしか有効にならないので注意
 " そのため，augroupを利用
 augroup insert_cr_mapping
   autocmd!
-  autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <CR> <SID>CR()
+  autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <CR> <SID>cr()
   if &rtp =~ 'vim-smartinput' && &rtp =~ 'vim-auto-fix' && &rtp =~ 'vim-blink'
-    autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <Space> <SID>Space()
+    autocmd BufNewFile,BufNew,BufRead,WinNew,TabNew,WinEnter,TabEnter * inoremap <silent> <buffer> <script> <expr> <Space> <SID>space()
+    inoremap <silent> <buffer> <script> <expr> <C-s> <SID>c_x()
+    inoremap <silent> <buffer> <script> <expr> <C-x><C-x> <SID>c_x()
   endif
 augroup END
 
