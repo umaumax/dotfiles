@@ -35,30 +35,33 @@ function! s:diffget()
       endif
     endfor
   endif
-  if border_index==-1
+  if border_index == -1
     echom 'Here is not conflict block!'
-    return
+    return v:false
   endif
-  if cursor_index==border_index
+  if cursor_index == border_index
     echom 'Cursor is on border line! Move ours or theirs block!'
-    return
+    return v:false
   endif
   let new_lines=[]
-  if cursor_index<border_index
+  if cursor_index < border_index
     let new_lines=lines[ours_index+1:border_index-1]
     echom 'Accept ours'
   else
     let new_lines=lines[border_index+1:theirs_index-1]
     echom 'Accept theirs'
   endif
+  " NOTE: delet line
   silent! execute ":".(ours_index+1).','.(theirs_index+1).'!:'
   call append(ours_index, new_lines)
+  return v:true
 endfunction
+
 " NOTE: a: accept, adopt
-nnoremap <leader>a :call <SID>diffget()<CR>
+nnoremap <silent> <Leader>ga :call <SID>diffget()<CR>
 " NOTE: p: pickup
-" nnoremap <leader>p :call <SID>diffget()<CR>
+" nnoremap <silent> <Leader>gp :call <SID>diffget()<CR>
 
 " NOTE: move to next conflict codes
-nnoremap <leader>n :call search('=======')<CR>
-nnoremap <leader>N :call search('=======','b')<CR>
+nnoremap <silent> <Leader>gn :call search('=======')<CR>
+nnoremap <silent> <Leader>gN :call search('=======','b')<CR>
