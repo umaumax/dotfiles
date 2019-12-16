@@ -23,6 +23,7 @@ dotfiles=(
   .gdbinit
   .wgit
   .replyrc
+  .myclirc
 )
 for filepath in "${dotfiles[@]}"; do
   ln -sf ~/dotfiles/"$filepath" ~/
