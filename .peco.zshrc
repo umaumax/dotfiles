@@ -1093,3 +1093,20 @@ if cmdcheck copyq; then
     copyq removetab "&clipboard"
   }
 fi
+
+if cmdcheck tmux; then
+  if cmdcheck ccze; then
+    alias tmuxh='tmux-history'
+    function tmux-history() {
+      tmux capture-pane -pS -32768 \
+        | perl -ne 'BEGIN{$count=0} if ($_ =~ /^.* ❯❯❯/){ if($count>0) {printf("\n\0")} printf("[%03d]:%s",$count,$_); $count++} else { if($count>0){printf("%s",$_)}}' \
+        | perl -0pe "s/^(\[[0-9]+]:)(.*) (❯)(❯)(❯) ([^ ]*)/${GRAY}\$1${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
+        | perl -0e 'print reverse <>' \
+        | command fzf --multi --no-mouse --ansi --no-hscroll --read0 --preview-window 'down:70%' --query="'" \
+          --preview 'echo {} | ccze -A -o nolookups' \
+          --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' \
+        | perl -0pne 's/^\[[0-9]+]://g' \
+        | remove_terminal_extra_string
+    }
+  fi
+fi
