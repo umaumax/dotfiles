@@ -1414,8 +1414,11 @@ function remove_clipboard_format() {
   [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
 }
 
+function remove_terminal_extra_string() {
+  sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g'
+}
 function remove_terminal_extra_string_from_clipboard() {
-  p | sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g' | p2c
+  p | remove_terminal_extra_string | p2c
 }
 
 function set-dirname-title() {
