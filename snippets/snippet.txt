@@ -253,7 +253,9 @@
 [git patch apply] git apply $PATCH_FILEPATH # <(p)
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
-[git current branch name] git rev-parse --abbrev-ref HEAD
+# WARN: return 'HEAD' on remote branch
+# [git current branch name] git rev-parse --abbrev-ref HEAD
+[git current branch name] git name-rev --name-only HEAD
 [git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
 
