@@ -617,6 +617,7 @@ augroup END
 nnoremap qw :<C-u>wq<CR>
 " FYI: [vim\-jp » Hack \#35: ex コマンドを実行するキーマッピングを定義する]( https://vim-jp.org/vim-users-jp/2009/07/02/Hack-35.html )
 nnoremap <Leader>w :<C-u>w<CR>
+nnoremap <Leader>q :<C-u>q<CR>
 " NOTE: for prevent 'Press ENTER or type command to continue'
 nnoremap <silent> qq :call <SID>close(0)<CR><Esc>
 nnoremap <silent> q! :call <SID>close(1)<CR><Esc>
