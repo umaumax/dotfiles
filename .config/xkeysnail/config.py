@@ -122,6 +122,10 @@ define_keymap(re.compile("Firefox|Google-chrome"), {
     # Ctrl+Alt+j/k to switch next/previous tab
     K("C-M-l"): K("C-TAB"),
     K("C-M-h"): K("C-Shift-TAB"),
+
+    # next/prev tab
+    K("Ctrl-Alt-Left"): K("Ctrl-Shift-Tab"),
+    K("Ctrl-Alt-Right"): K("Ctrl-Tab"),
 }, "Firefox and Chrome")
 
 define_keymap(re.compile("Atom"), {
