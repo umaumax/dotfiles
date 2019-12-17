@@ -1,6 +1,8 @@
 source ~/dotfiles/.config/gdb/.gdb-dashboard
 source ~/dotfiles/.config/gdb/stack-inspector.py
-# stack-inspector
+# for stack-inspector command
+
+source ~/dotfiles/.config/gdb/pipe.py
 
 alias -a exit = quit
 

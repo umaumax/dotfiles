@@ -33,3 +33,19 @@ $if Bash
   set mark-symlinked-directories on
   set menu-complete-display-prefix on
 $endif
+
+$if Gdb
+  "\C-p": history-search-backward
+  "\C-n": history-search-forward
+  # up
+  "\e[A": history-search-backward
+  # down
+  "\e[B": history-search-forward
+  # shift left
+  "\e[1;2D": backward-word
+  # shift right
+  "\e[1;2C": forward-word
+
+  # shift + tab
+  "\e[Z": backward-kill-word
+$endif
