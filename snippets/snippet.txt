@@ -1161,6 +1161,7 @@
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
 [pseudo watch command] while true\%$do sleep 1\%$clear\%$\%#\%$done
+[ntimes for command] for ((i=1; i <=\%# ; i++)); do\%$sleep 1\%$echo "$i"\%$echo 'error' |& grep -v 'error'\%$if [[ $? != 0 ]]; then\%$break\%$fi\%$done
 
 [stopwatch] time cat # stop:c-c
 
