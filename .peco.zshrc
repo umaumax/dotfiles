@@ -1108,5 +1108,14 @@ if cmdcheck tmux; then
         | perl -0pne 's/^\[[0-9]+]://g' \
         | remove_terminal_extra_string
     }
+    alias tmuxhvim='tmux-history-vim'
+    function tmux-history-vim() {
+      local ret
+      ret=$(tmux-history)
+      if [[ -z $ret ]]; then
+        return
+      fi
+      printf '%s' "$ret" | vim -
+    }
   fi
 fi
