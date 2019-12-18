@@ -61,7 +61,7 @@ class Pipe(gdb.Command):
                 fp.writelines(output)
             return
 
-        with tempfile.NamedTemporaryFile(mode='w+t', encoding='utf-8') as fp:
+        with tempfile.NamedTemporaryFile(mode='w+t') as fp:
             fp.writelines(output)
             fp.flush()
             if self.verbose:
