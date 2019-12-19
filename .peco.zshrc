@@ -1077,7 +1077,7 @@ EOF
     tee "$input_tmpfilepath" | ruby -r json -0ne 'BEGIN{d=[]}; d.push($_[0...-1]); END{puts JSON.pretty_generate(d)}' >"$json_tmpfilepath"
     local ret
     ret=$(cat "$input_tmpfilepath" | perl -0ne 'BEGIN{$i=0} printf "%s[%3d]%s:%s",$ENV{GRAY}, $i,$ENV{DEFAULT}, $_; $i++' \
-      | command fzf --ansi --read0 --preview "$(
+      | command fzf --ansi --read0 --print0 --preview "$(
         cat <<EOF
     id=\$(echo {} | head -n 1 | sed -E 's/^\[ *([\s0-9]+)].*$/\1/')
     cat "$json_tmpfilepath" | jq -r ".[\$id]"
@@ -1085,8 +1085,10 @@ EOF
       )" "$@")
     [[ -z $ret ]] && return
 
-    local id=$(printf '%s' "$ret" | head -n 1 | sed -E 's/^\[ *([\s0-9]+)].*$/\1/')
-    cat "$json_tmpfilepath" | jq -r ".[$id]"
+    local ids=($(printf '%s' "$ret" | perl -0ne 'if($_ =~ /^.*?\[ *([0-9]+)\]:/){ printf "%s\n", $1;}'))
+    for id in "${ids[@]}"; do
+      cat "$json_tmpfilepath" | jq -r ".[$id]"
+    done
   }
 fi
 
@@ -1134,8 +1136,29 @@ if cmdcheck tmux; then
       # | perl -0pe "s/^()(.*)(❯)(❯)(❯) ([^ ]*)/${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
       # NOTE: -e: with ansi color
       tmux capture-pane -epS -32768 \
-        | perl -ne 'BEGIN{$count=0} if ($_ =~ /^.*❯.*❯.*❯/){ if($count>0) {printf("\n\0")} printf("%s",$_); $count++} else { if($count>0){printf("%s",$_)}}' \
-        | perl -0e 'print reverse <>' \
+        | perl -ne "$(
+          cat <<'EOF'
+BEGIN {
+  $flag=0;
+  $line="";
+  @lines=();
+}
+if ($_ =~ /^.*❯.*❯.*❯/) {
+  if ($flag ne 0) {
+    push(@lines, $line);
+  }
+  $line = $_;
+  $flag = 1;
+} elsif ($flag eq 1) {
+  $line .= $_;
+}
+END {
+  foreach $val (reverse(@lines)) {
+    printf "%s\0", $val;
+  }
+}
+EOF
+        )" \
         | wrap_fzf_preview --multi --no-mouse --no-hscroll --preview-window 'down:70%' --query="'" \
           --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' \
         | remove-ansi | remove_terminal_extra_string
