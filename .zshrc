@@ -1415,6 +1415,7 @@ function remove_clipboard_format() {
 }
 
 function remove_terminal_extra_string() {
+  # NOTE: required input is without ansi color
   sed 's/^.* ❯❯❯/$/g' | sed -E 's/ {16}.*(✱|◼|⬆|⬇|✭|✚ )+$//g'
 }
 function remove_terminal_extra_string_from_clipboard() {

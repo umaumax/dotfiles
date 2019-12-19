@@ -1061,6 +1061,35 @@ function fkill() {
   fi
 }
 
+if cmdcheck jq; then
+  # NOTE: this wrapper is used for avoiding 'Argument list too long' error
+  # NOTE: output keep include ansi color codes
+  function wrap_fzf_preview() {
+    if [[ ! -p /dev/stdin ]]; then
+      command cat <<'EOF'
+wrap_fzf_preview [fzf options]...
+  e.g. echo -e "abc\ndef\00xyz" | wrap_fzf_preview
+EOF
+      return 1
+    fi
+    local json_tmpfilepath=$(mktemp).json
+    local input_tmpfilepath=$(mktemp).log
+    tee "$input_tmpfilepath" | ruby -r json -0ne 'BEGIN{d=[]}; d.push($_[0...-1]); END{puts JSON.pretty_generate(d)}' >"$json_tmpfilepath"
+    local ret
+    ret=$(cat "$input_tmpfilepath" | perl -0ne 'BEGIN{$i=0} printf "%s[%3d]%s:%s",$ENV{GRAY}, $i,$ENV{DEFAULT}, $_; $i++' \
+      | command fzf --ansi --read0 --preview "$(
+        cat <<EOF
+    id=\$(echo {} | head -n 1 | sed -E 's/^\[ *([\s0-9]+)].*$/\1/')
+    cat "$json_tmpfilepath" | jq -r ".[\$id]"
+EOF
+      )" "$@")
+    [[ -z $ret ]] && return
+
+    local id=$(printf '%s' "$ret" | head -n 1 | sed -E 's/^\[ *([\s0-9]+)].*$/\1/')
+    cat "$json_tmpfilepath" | jq -r ".[$id]"
+  }
+fi
+
 if cmdcheck copyq; then
   # FYI: [hluk/CopyQ: Clipboard manager with advanced features]( https://github.com/hluk/CopyQ )
   # FYI: [Command Line — CopyQ documentation]( https://copyq.readthedocs.io/en/latest/command-line.html )
@@ -1098,15 +1127,18 @@ if cmdcheck tmux; then
   if cmdcheck ccze; then
     alias tmuxh='tmux-history'
     function tmux-history() {
-      tmux capture-pane -pS -32768 \
-        | perl -ne 'BEGIN{$count=0} if ($_ =~ /^.* ❯❯❯/){ if($count>0) {printf("\n\0")} printf("[%03d]:%s",$count,$_); $count++} else { if($count>0){printf("%s",$_)}}' \
-        | perl -0pe "s/^(\[[0-9]+]:)(.*) (❯)(❯)(❯) ([^ ]*)/${GRAY}\$1${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
+      if [[ ! -n "$TMUX" ]]; then
+        echo 1>&2 'not in tmux'
+        return 1
+      fi
+      # | perl -0pe "s/^()(.*)(❯)(❯)(❯) ([^ ]*)/${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
+      # NOTE: -e: with ansi color
+      tmux capture-pane -epS -32768 \
+        | perl -ne 'BEGIN{$count=0} if ($_ =~ /^.*❯.*❯.*❯/){ if($count>0) {printf("\n\0")} printf("%s",$_); $count++} else { if($count>0){printf("%s",$_)}}' \
         | perl -0e 'print reverse <>' \
-        | command fzf --multi --no-mouse --ansi --no-hscroll --read0 --preview-window 'down:70%' --query="'" \
-          --preview 'echo {} | ccze -A -o nolookups' \
+        | wrap_fzf_preview --multi --no-mouse --no-hscroll --preview-window 'down:70%' --query="'" \
           --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' \
-        | perl -0pne 's/^\[[0-9]+]://g' \
-        | remove_terminal_extra_string
+        | remove-ansi | remove_terminal_extra_string
     }
     alias tmuxhvim='tmux-history-vim'
     function tmux-history-vim() {
