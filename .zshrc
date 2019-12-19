@@ -731,6 +731,13 @@ alias vs='code'
 # NOTE: 従来は入力全般を停止させていたが，readで1行でも読み込めた場合にコマンドを実行する仕様に変更
 # macのみsudo対応
 function pipe-EOF-do() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") 'any commands'
+  e.g. $(basename "$0") vim -
+EOF
+    return 1
+  fi
   # NOTE: mac ok
   # NOTE: ubuntu cannot deal with sudo before pipe
   # NOTE: たまに，suspended (tty output)と表示され，バックグランド実行となる(at mac)
