@@ -109,6 +109,7 @@ go:
 - - make
 - - package
 - - range
+  - ragne
 - - regexp
 - - return
 - - rune
