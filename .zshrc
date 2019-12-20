@@ -1655,8 +1655,8 @@ EOF
 
   tee "$ansi_tmpfile" | tee >(remove-ansi >"$raw_tmpfile")
 
-  echo 1>&2 "${YELLOW}[LOG] make ansi log is saved at \$${name}_ANSI_LOGPATH='$ansi_tmpfile'${DEFAULT}" 2>$(tty)
-  echo 1>&2 "${YELLOW}[LOG] make  raw log is saved at  \$${name}_RAW_LOGPATH='$raw_tmpfile'${DEFAULT}" 2>$(tty)
+  echo 1>&2 "${YELLOW}[LOG] make ansi log is saved at \$${name}_ANSI_LOGPATH='$ansi_tmpfile'${DEFAULT}"
+  echo 1>&2 "${YELLOW}[LOG] make  raw log is saved at  \$${name}_RAW_LOGPATH='$raw_tmpfile'${DEFAULT}"
 }
 
 function make() {
