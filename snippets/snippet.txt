@@ -683,7 +683,7 @@
 [dns NTT America Technical Operations] 129.250.35.251
 
 [dns] dig
-[dns] nslookup $TARGET $DNS_SERVER
+[dns(ip to hostname)] nslookup $TARGET $DNS_SERVER_OR_PROXY
 [netstat] netstat antu
 
 [ping NIC ] ping -I $NIC \%#
@@ -1493,3 +1493,7 @@
 # example data sites
 [example data csv] https://raw.githubusercontent.com/goodby/csv/master/example/user.csv
 [example data json] https://gist.githubusercontent.com/gcollazo/884a489a50aec7b53765405f40c6fbd1/raw/49d1568c34090587ac82e80612a9c350108b62c5/sample.json
+
+# proxy
+[free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | xargs -L1 -I{} bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo " ${GREEN}OK${DEFAULT}" || echo " ${RED}NG${DEFAULT}"'
+[free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | parallel -j32 --no-notice -L1 -I{} "bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo \" ${GREEN}OK${DEFAULT}\" || echo \" ${RED}NG${DEFAULT}\"'"
