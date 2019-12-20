@@ -99,6 +99,15 @@ snippet ispipe_in_if
 
 	fi
 
+snippet isterminal_out
+	[[ -t 1 ]] && [[ -t 2 ]] && ${0}
+snippet isterminal_out_if
+	if [[ -t 1 ]] && [[ -t 2 ]]; then
+		${0}
+	else
+
+	fi
+
 snippet isfunction_bash
 	[[ $(type -t ${1}) == "function" ]] && ${0}
 snippet isfunction_bash_if
