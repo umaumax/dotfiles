@@ -1170,7 +1170,7 @@ EOF
       if [[ -z $ret ]]; then
         return
       fi
-      printf '%s' "$ret" | vim -
+      printf '%s' "$ret" | pipevim $(mktemp).log
     }
   fi
 fi
