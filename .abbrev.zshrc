@@ -63,7 +63,7 @@ abbrev-alias -c ggr="ggpv '\%#'"
 abbrev-alias -c ggv="ggpvc '\%#' -- '*.vim'"
 abbrev-alias -c ggvim="ggpvc '\%#' -- '*.vim'"
 
-abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zshrc'"
+abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zshrc' '*.zsh' '*.zshprofile' '*.zpreztorc'"
 
 abbrev-alias -c ggmd="ggpvc '\%#' -- '*.md'"
 
