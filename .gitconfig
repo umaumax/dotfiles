@@ -13,6 +13,8 @@
   markEmptyLines = false
 [init]
   templatedir = ~/.git_template
+[commit]
+  template = ~/dotfiles/.git_commit_template
 [help]
   autocorrect = -1
 [alias]
