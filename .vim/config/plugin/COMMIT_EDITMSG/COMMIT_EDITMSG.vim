@@ -37,7 +37,7 @@ augroup END
 
 " FYI: [チーズバーガー中毒: Vimで入力補完を常にオンにするvimrc]( http://io-fia.blogspot.com/2012/11/vimvimrc.html )
 set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_[]./-",'\zs')
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_./-",'\zs')
   " NOTE: <buffer> is used for overwrite mapping for callback
   exec "imap <buffer> <expr> " . k . " '" . k . "\<C-X>\<C-O>'"
 endfor
