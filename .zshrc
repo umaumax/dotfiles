@@ -1617,8 +1617,17 @@ alias cmake.pv='fg.cmake.pv'
 alias readme.pv='fg.readme.pv'
 
 function cmake() {
-  command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
-  local exit_code=$?
+  local exit_code
+  if [[ ! -t 1 ]] || [[ ! -t 2 ]]; then
+    command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+    exit_code=$?
+  else
+    {
+      # NOTE: maybe ccze wait output for parse
+      command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@" |& ccze -A -o nolookups
+      exit_code=$?
+    } |& auto_save_log cmake
+  fi
   # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
     compdb list >../compile_commands.json
@@ -1626,12 +1635,53 @@ function cmake() {
   fi
   return $exit_code
 }
+
+function auto_save_log() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") <name>
+EOF
+    return 1
+  fi
+  local name
+  name="$1"
+
+  local ansi_tmpfile
+  local raw_tmpfile
+  ansi_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').$(pwd | sed 's:/:_:g').ansi.XXXXX.log")"
+  raw_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').$(pwd | sed 's:/:_:g').raw.XXXXX.log")"
+  eval "export ${name}_ANSI_LOGPATH="$ansi_tmpfile""
+  eval "export ${name}_RAW_LOGPATH="$raw_tmpfile""
+
+  tee "$ansi_tmpfile" | tee >(remove-ansi >"$raw_tmpfile")
+
+  echo 1>&2 "${YELLOW}[LOG] make ansi log is saved at \$${name}_ANSI_LOGPATH='$ansi_tmpfile'${DEFAULT}" 2>$(tty)
+  echo 1>&2 "${YELLOW}[LOG] make  raw log is saved at  \$${name}_RAW_LOGPATH='$raw_tmpfile'${DEFAULT}" 2>$(tty)
+}
+
 function make() {
-  if type >/dev/null 2>&1 colormake; then
-    colormake "$@"
+  if [[ ! -t 1 ]] || [[ ! -t 2 ]]; then
+    command make "$@"
     return
   fi
-  command make "$@"
+
+  local exit_code
+  {
+    if cmdcheck colormake; then
+      colormake "$@"
+      exit_code="$?"
+    else
+      command make "$@"
+      exit_code="$?"
+    fi
+  } |& {
+    if cmdcheck ccze; then
+      ccze -A
+    else
+      command cat
+    fi
+  } |& auto_save_log make
+  return "$exit_code"
 }
 
 alias rvgrep="rgrep"
