@@ -650,16 +650,30 @@ if has('nvim-0.3.8')
   let g:float_preview#auto_close = 0
   " NOTE: call float_preview#close() to close preview
 
+  " FYI: [deol\.nvim で簡単にターミナルを使う \- KUTSUZAWA Ryo \- Medium]( https://medium.com/@bookun/vim-advent-calendar-2019-12-20-63a12396211f )
   Plug 'Shougo/deol.nvim',{'on':['Deol']}
-  "
-  function! DeolTerminal()
-    " 横幅が大きい分にはエラーにはならず，resize後の挙動も想定通りになる
-    :Deol -split=floating -winheight=25 -winwidth=256
-    " openときのwindow sizeに依存
-    " execute(':Deol -split=floating -winheight=25 -winwidth='.&columns)
+
+  function! DeolTerminal(w,h)
+    " NOTE: 横幅を大きく指定する分にはエラーにはならず，resize後の挙動も想定通りになる
+    execute printf(':Deol -split=floating -winwidth=%s -winheight=%s',a:w,a:h)
   endfunction
   command! FloatingTerm :call DeolTerminal()
-  nnoremap <silent><C-x>t :call DeolTerminal()<CR>
+  function! Nnoremap_deol_terminal(w,h)
+    if &ft!='deol'
+      call DeolTerminal(a:w,a:h)
+    else
+      :q
+    endif
+  endfunction
+  inoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
+  cnoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
+  nnoremap <silent><C-x>t :call Nnoremap_deol_terminal(256,25)<CR>
+  tnoremap <silent><C-x>t <C-\><C-n>:q<CR>
+
+  nnoremap <silent>dt :call Nnoremap_deol_terminal(256,25)<CR>
+  nnoremap <silent>df :call Nnoremap_deol_terminal(256,40)<CR>
+  nnoremap <silent>dv :Deol -split=vertical<CR>
+  nnoremap <silent>ds :Deol -split=horizontal<CR>
 endif
 
 " NOTE: filetype support for LLVM IR
