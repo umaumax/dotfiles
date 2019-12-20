@@ -816,7 +816,21 @@ fi
 # fzy:  OK   Input OK(not char unit), Output NG
 
 alias view='vim -R'
-alias pipevim='vim -'
+function pipevim() {
+  if [[ $# == 0 ]]; then
+    vim -
+    return
+  elif [[ $# == 1 ]]; then
+    local filepath=$1
+    command cat >"$filepath"
+    vim "$filepath"
+    return
+  else
+    cat
+    echo 1>&2 "${RED}pipevim [filename]${DEFAULT}"
+    return 1
+  fi
+}
 # alias g='googler -n 5'
 alias xargs-vim='_xargs-vim -'
 # NOTE: VIMINFO_LS_N: number of max hit
