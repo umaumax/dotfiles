@@ -98,8 +98,16 @@ function catkin_make() {
   local _PWD="$PWD"
   cd $ros_ws_root >/dev/null 2>&1
   # NOTE: force append compile_commands.json option
-  command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
-  local exit_code=$?
+  local exit_code
+  if [[ ! -t 1 ]] || [[ ! -t 2 ]]; then
+    command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+    exit_code=$?
+  else
+    {
+      command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+      exit_code=$?
+    } |& auto_save_log catkin_make
+  fi
   if [[ $exit_code == 0 ]]; then
     local setup_zsh_filepath="./devel/setup.zsh"
     [[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
