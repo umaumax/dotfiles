@@ -3,13 +3,13 @@
 set -ex
 
 if [[ $1 == '--sudo-env' ]]; then
-	function npm() {
-		sudo -E npm "$@"
-	}
+  function npm() {
+    sudo -E npm "$@"
+  }
 else
-	function npm() {
-		sudo npm "$@"
-	}
+  function npm() {
+    sudo npm "$@"
+  }
 fi
 
 # REQUIRED: sudo apt-get install -y nodejs npm
@@ -33,3 +33,5 @@ npm install -g alex
 npm install -g phantomjs-prebuilt --unsafe-perm
 # for yaml format
 npm install -g align-yaml
+
+npm install -g yarn

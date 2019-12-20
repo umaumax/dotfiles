@@ -33,6 +33,8 @@ source ~/.zshrc
 ~/dotfiles/scripts/setup/apt-get-ppa.sh
 ~/dotfiles/scripts/setup/pip.sh
 ~/dotfiles/scripts/setup/npm.sh
+# NOTE: run after npm.sh
+~/dotfiles/scripts/setup/yarn.sh
 ~/dotfiles/scripts/setup/go.sh
 
 # ~/dotfiles/scripts/setup/cpanm.sh
