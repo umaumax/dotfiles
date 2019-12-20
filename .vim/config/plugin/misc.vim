@@ -165,11 +165,23 @@ function! s:un_tab()
 endfunction
 cnoremap <expr> <S-Tab> <SID>un_tab()
 
-" " start screen
 Plug 'umaumax/vim-auto-fix'
 imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
 nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
+" start screen
 " Plug 'mhinz/vim-startify'
+" " FYI: [vim\-startifyでvimのロゴを起動画面に設定する \- Devlion Memo]( http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify )
+" function! s:filter_header(lines) abort
+" let longest_line   = max(map(copy(a:lines), 'len(v:val)'))
+" let centered_lines = map(copy(a:lines),
+" \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+" return centered_lines
+" endfunction
+"
+" let g:startify_custom_header=s:filter_header([
+" \'ヽ(*゜д゜)ノ (」・ω・)」 (/・ω・)/',
+" \])
+
 " " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
 " let g:startify_custom_header =''
 " " set file key short cut (i:insert, e:empty, q:quit)
