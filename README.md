@@ -50,3 +50,5 @@ git-update-dummy-alias
 * [ ] use `DOTPATH` not use `~/dotfiles/`
 * [ ] use `init.sh` which runs only once for setup
 * [ ] use `update.sh`
+* [ ] test docker ubuntu16.04
+* [ ] test docker ubuntu18.04 and gui
