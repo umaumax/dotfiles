@@ -1090,13 +1090,16 @@ command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
 command! LCDGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
 
 " auto comment off
-augroup auto_comment_off
-  autocmd!
-  " <CR>
-  "   autocmd BufEnter * setlocal formatoptions-=r
-  " o, O
-  autocmd BufEnter * setlocal formatoptions-=o
-augroup END
+" augroup auto_comment_off
+" autocmd!
+" <CR>
+"   autocmd BufEnter * setlocal formatoptions-=r
+" o, O
+" autocmd BufEnter * setlocal formatoptions-=o
+" augroup END
+" NOTE: M: join multi-byte words without space
+" NOTE: 2: ???
+set formatoptions+=M2
 
 " for external command
 " NOTE: execute is used to avoid last space of a line
