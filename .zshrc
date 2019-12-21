@@ -2043,6 +2043,10 @@ cmdcheck stop || alias stop='kill -TSTP'
 
 # [command line \- Print a 256\-color test pattern in the terminal \- Ask Ubuntu]( https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal )
 function color-test-256() {
+  if [[ -f ~/dotfiles/local/bin/colortest.py ]]; then
+    ~/dotfiles/local/bin/colortest.py
+    return
+  fi
   for i in {0..255}; do
     # NOTE: bg
     # printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
