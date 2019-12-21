@@ -725,6 +725,41 @@ if [[ $(uname) == "Linux" ]]; then
     }
   fi
   alias vscode='code'
+
+  function chrome-exec-set() {
+    local chrome_arg
+
+    chrome_arg="$*"
+
+    if [[ ! -f /usr/share/applications/google-chrome.desktop.bk ]]; then
+      sudo cp /usr/share/applications/google-chrome.desktop /usr/share/applications/google-chrome.desktop.bk
+    fi
+
+    # NOTE: use environmen variable to avoid 'Unrecognized switch: --proxy-server=xxx  (-h will show valid options).'
+    cat /usr/share/applications/google-chrome.desktop.bk | CHROME_ARG="$chrome_arg" perl -ne "$(
+      cat <<'EOF'
+BEGIN {
+  $Exec_arg=$ENV{CHROME_ARG};
+  $Exec_U='^Exec=/usr/bin/google-chrome-stable.*%U$';
+  $Exec_incognito='^Exec=/usr/bin/google-chrome-stable.*--incognito$';
+  $Exec='^Exec=/usr/bin/google-chrome-stable.*$';
+}
+
+if ($_ =~ /${Exec_U}/) {
+  printf "%s %s %s\n",'Exec=/usr/bin/google-chrome-stable',$Exec_arg,'%U';
+} elsif ($_ =~ /${Exec_incognito}/) {
+  printf "%s %s %s\n",'Exec=/usr/bin/google-chrome-stable',$Exec_arg,'--incognito';
+} elsif ($_ =~ /${Exec}/) {
+  printf "%s %s %s\n",'Exec=/usr/bin/google-chrome-stable',$Exec_arg,'';
+} else{
+  printf "%s",$_;
+}
+EOF
+    )" | sudo tee /usr/share/applications/google-chrome.desktop
+
+    diff /usr/share/applications/google-chrome.desktop.bk /usr/share/applications/google-chrome.desktop
+  }
+
 fi
 alias vs='code'
 
