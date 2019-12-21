@@ -47,3 +47,6 @@ clang++ -fsyntax-only -Xclang -code-completion-at=struct.cpp:35:5 -std=c++11 cpp
 ```
 
 * `public`と`private`のmember区別がつかない
+
+## colortest.py
+* [Testing 256 color shells using background colors and automatic shell width detection]( https://gist.github.com/WoLpH/8b6f697ecc06318004728b8c0127d9b3 )
