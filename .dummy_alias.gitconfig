@@ -14,6 +14,7 @@
 	check-up-to-date  = :
 	checkout-branch-peco  = :
 	checkout-commit-peco  = :
+	checkout-local  = :
 	checkout-root  = :
 	checkout-stash = :
 	checkout-tag-peco  = :
@@ -27,6 +28,9 @@
 	commit-lost  = :
 	commits-peco  = :
 	commits-range-peco  = :
+	coverage-review-result  = :
+	coverage-review-result-csv  = :
+	diff-lines  = :
 	diff-peco = :
 	diff-peco-range  = :
 	dir  = :
@@ -42,6 +46,8 @@
 	find-repo = :
 	find-repo-and-show-head-commit-hash-id = :
 	force-stash-apply = :
+	get-all-page  = :
+	get-repo-names  = :
 	grep-japanese  = :
 	grep-japanese-current  = :
 	grep-japanese-root  = :
@@ -62,10 +68,12 @@
 	local-checkout  = :
 	log-diff  = :
 	log-diff-current  = :
+	log-diff-peco  = :
 	log-example-add-repo  = :
 	log-example-init  = :
 	log-example-peco  = :
 	log-file-find-peco  = :
+	log-grep  = :
 	log-peco  = :
 	log-src-grep-peco  = :
 	logs-HEAD  = :
@@ -74,6 +82,7 @@
 	preview  = :
 	pull-all  = :
 	ranking  = :
+	rblame  = :
 	rebase-peco  = :
 	rebase-root-commit-from-master  = :
 	reflog-commit-id  = :
@@ -81,6 +90,8 @@
 	reload-local-hooks  = :
 	remote-add-upstream  = :
 	remove-submodule  = :
+	rename  = :
+	rename-files  = :
 	rename-to-backup-branch-peco  = :
 	repo = :
 	repo-exec  = :
