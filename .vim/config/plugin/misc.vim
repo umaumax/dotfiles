@@ -168,6 +168,9 @@ cnoremap <expr> <S-Tab> <SID>un_tab()
 Plug 'umaumax/vim-auto-fix'
 imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
 nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
+
+" Plug 'rust-lang/rust.vim', {'for':'rust'}
+
 " start screen
 " Plug 'mhinz/vim-startify'
 " " FYI: [vim\-startifyでvimのロゴを起動画面に設定する \- Devlion Memo]( http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify )
@@ -264,6 +267,9 @@ function! ReferencesFunc()
   " Show reference of cousor word on quickfix
   exe("Gtags -r ".expand('<cword>'))
 endfunction
+
+" nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
+" nmap <buffer> K  <plug>DeopleteRustShowDocumentation
 
 noremap <silent> K :call DefinitionFunc()<CR>
 noremap <silent> R :call ReferencesFunc()<CR>
@@ -553,7 +559,7 @@ Plug 'tyru/vim-altercmd'
 " NOTE:選択範囲ごと移動
 LazyPlug 't9md/vim-textmanip'
 
-" NOTE: for tab no. for tabline
+" NOTE: for tab number and [+] if the current buffer has been modified for tabline
 LazyPlug 'mkitt/tabline.vim'
 
 LazyPlug 'junegunn/vim-easy-align'
@@ -611,6 +617,8 @@ Plug 'hotwatermorning/auto-git-diff', {'on':[]}
 " NOTE: sudo write for Neovim
 " :w suda://%
 LazyPlug 'lambdalisue/suda.vim'
+
+" Plug 'tpope/vim-repeat'
 
 " NOTE: for git mergetool
 LazyPlug 'rickhowe/diffchar.vim'
@@ -693,6 +701,10 @@ Plug 'rhysd/vim-llvm'", {'for':'llvm'}
 
 Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
 
+" if has('nvim')
+" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" endif
+
 " :SaveSession
 " :LoadSession
 " :DeleteSession
@@ -714,3 +726,4 @@ LazyPlug 'tyru/capture.vim'
 " WARN: lazy load cause no &rtp
 Plug 'umaumax/vim-blink'
 
+Plug 'mbbill/undotree', {'on':['UndotreeToggle']}
