@@ -172,6 +172,7 @@ sudo update-locale LANG=ja_JP.UTF-8
 sudo apt-get install -y ldap-utils
 
 sudo apt-get install -y ntp
+sudo apt-get install -y bashdb
 
 # for nfs mount
 sudo apt-get install -y nfs-common

@@ -80,6 +80,7 @@ brew install google-benchmark
 # for git instaweb
 brew install lighttpd
 
+brew install bashdb
 # for confirm cp command progress
 # [Xfennec/progress: Linux tool to show progress for cp, mv, dd, \.\.\. \(formerly known as cv\)]( https://github.com/Xfennec/progress )
 brew install progress
