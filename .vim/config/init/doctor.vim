@@ -16,6 +16,7 @@ let s:doctor_map={
       \'cmigemo':      'brew install cmigemo || sudo apt-get install cmigemo',
       \'clang-format': 'brew install clang-format || sudo apt0get install clang-format',
       \'cpplint':      'pip install cpplint',
+      \'css-languageserver': 'npm install -g vscode-css-languageserver-bin',
       \'docker-langserver' : 'npm install -g dockerfile-language-server-nodejs',
       \'files':        'go get -u github.com/mattn/files',
       \'flake8':       'pip install flake8',
