@@ -585,6 +585,8 @@ endfunction
 function! Command_line_completion()
   let min_len=3
   let words=uniq(sort(filter(split(substitute(join(getline(1,'$'), "\n"),'[^0-9a-zA-Z_]',' ','g')), { -> len(v:val) >= min_len })))
+  " WIP: drop only number
+  let words=filter(words, { -> v:val !~ '^[0-9]\+$' })
   let cmd=getcmdline()
   let cmdline=b:command_line_completion_data['cmdline']
   let cmdpos=b:command_line_completion_data['cmdpos']
