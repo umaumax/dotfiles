@@ -625,7 +625,7 @@ function! Launch_command_line_completion()
         \ }
   return "\<C-c>:call Command_line_completion()\<CR>"
 endfunction
-cnoremap <expr> <C-s> Launch_command_line_completion()
+cnoremap <silent><expr> <C-s> Launch_command_line_completion()
 
 function! SetCmdLineCallback()
   call setcmdpos(b:cmdline_pos)

@@ -134,12 +134,12 @@ function! s:default_expand_rest_wcm()
 
   " NOTE: no expand by defualt tab key
   if getcmdline()[-1:] == "\t"
-    cnoremap <expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
+    cnoremap <silent><expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
     call feedkeys("\<BS>\<Plug>(launch_command_line_completion:tab)", 'm')
   endif
   return ''
 endfunction
-cmap <expr> <Tab> <SID>default_expand()
+cmap <silent><expr> <Tab> <SID>default_expand()
 
 " cmap <expr> <Tab> getcmdtype() != ':' ? "\<C-\>esherlock#completeForward()\<CR>" : "<Plug>(cheapcmd-expand)"
 
