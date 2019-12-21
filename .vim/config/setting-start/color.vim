@@ -21,6 +21,8 @@ function! s:init_color()
   match TrailingSpaces /　/
 
   highlight FilePath term=underline guifg=#5faf87 ctermfg=72
+  highlight SnippetDecl term=underline guifg=#D75FD7 ctermfg=170
+  highlight SnippetCommand term=underline guifg=#87FF87 ctermfg=120
 endfunction
 
 augroup init_color_group
@@ -30,6 +32,8 @@ augroup init_color_group
   autocmd FileType * syntax sync minlines=50 maxlines=500
   autocmd FileType log,text syntax sync minlines=10 maxlines=100
   autocmd FileType log,text call matchadd('FilePath','\(^\|[^/0-9a-zA-Z_.~-]\)\zs[/0-9a-zA-Z_.~-]*\.[0-9a-zA-Z_~-]\+\(:[0-9]\+\)\?\ze\([^/0-9a-zA-Z_.~-]\|$\)')
+  autocmd BufEnter snippet.txt call matchadd('SnippetDecl','^\[[^]]*\]')
+  autocmd BufEnter snippet.txt call matchadd('SnippetCommand','^\[[^]]*\]\zs *[^ ]\+')
 augroup END
 
 if &rtp =~ 'rainbow'
