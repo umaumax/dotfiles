@@ -1,4 +1,6 @@
 _:
+- - deprecate
+- - deprecated
 - - behavior
 - - security
 - - complex
