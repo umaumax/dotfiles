@@ -1308,7 +1308,8 @@ function abspath() {
 [[ $ZSH_NAME == zsh ]] && alias \$=''
 # ignore command which starts with `#`
 # but bellow alias disable comment at interactive shell
-alias \#=':'
+# alias \#=':'
+setopt interactivecomments
 
 # brew install source-highlight
 cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
