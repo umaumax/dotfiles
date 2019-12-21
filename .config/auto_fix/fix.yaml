@@ -1,5 +1,7 @@
 _:
 - - completion
+- - environment
+- - variable
 - - deprecate
 - - deprecated
 - - behavior
