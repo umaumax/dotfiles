@@ -42,12 +42,14 @@ reset = esc + '0m'
 normal = esc + '38;5;{i}m'
 # Bold color
 bold = esc + '1;' + normal
+# Foreground color
+foreground = esc + '38;5;{i}m'
 # Background color
 background = esc + '48;5;{i}m'
 
 pattern = (
-    '{normal}{background}{padding:^{width}}{i:^3d} '  # pad the background
-    '{r:02X}/{g:02X}/{b:02X}'  # show the hex rgb code
+    '{normal}{foreground}{padding:^{width}}{i:^3d} '  # pad the background
+    '#{r:02X}{g:02X}{b:02X}'  # show the hex rgb code
     '{padding:^{width}}'  # pad the background on the other side
     '{reset}'  # reset again
 )
@@ -57,6 +59,7 @@ base_context = dict(reset=reset, padding='', width=get_width())
 for i, (r, g, b) in enumerate(colored_palette + grayscale_palette, 16):
     context = dict(i=i, r=r, g=g, b=b, color=r + g + b, **base_context)
     context.update(bold=bold.format(**context))
+    context.update(foreground=foreground.format(**context))
     context.update(background=background.format(**context))
 
     # Change text color from black to white when it might become unreadable
