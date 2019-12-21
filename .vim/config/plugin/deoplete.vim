@@ -32,6 +32,9 @@ if v:version >= 800 && has('python3')
   if Doctor('rls', 'rust lsp')
     let g:LanguageClient_serverCommands['rust']=['rls']
   endif
+  if Doctor('vim-language-server', 'Vim script lsp')
+    let g:LanguageClient_serverCommands['vim']=['vim-language-server','--stdio']
+  endif
   if Doctor('bash-language-server', 'bash lsp')
     let g:LanguageClient_serverCommands['sh']=['bash-language-server', 'start']
   endif

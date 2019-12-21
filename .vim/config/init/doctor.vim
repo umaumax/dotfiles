@@ -39,6 +39,7 @@ let s:doctor_map={
       \'textlint':     'npm install -g textlint',
       \'shellcheck':   'sudo apt-get install shellcheck || brew install shellcheck',
       \'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
+      \'vim-language-server': 'npm install -g yarn && yarn global add vim-language-server',
       \'vint':         'pip install vim-vint',
       \'html-languageserver': 'npm install --global vscode-html-languageserver-bin',
       \}
