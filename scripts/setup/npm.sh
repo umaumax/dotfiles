@@ -26,6 +26,7 @@ npm install -g neovim
 npm install -g jsonlint
 npm install -g vue-language-server
 npm install -g bash-language-server
+npm install -g vscode-html-languageserver-bin
 npm install -g node-notifier-cli
 # for markdown linting
 npm install -g alex

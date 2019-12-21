@@ -40,6 +40,7 @@ let s:doctor_map={
       \'shellcheck':   'sudo apt-get install shellcheck || brew install shellcheck',
       \'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
       \'vint':         'pip install vim-vint',
+      \'html-languageserver': 'npm install --global vscode-html-languageserver-bin',
       \}
 let s:doctor_logs=[]
 let s:no_cmd_map={}
