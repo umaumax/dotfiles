@@ -1015,6 +1015,8 @@ command! Wcmd                call feedkeys("q:", "n")
 command! CmdlineWindow       call feedkeys("q:", "n")
 command! Wsearch             call feedkeys("q/", "n")
 command! SearchCmdlineWindow call feedkeys("q/", "n")
+" FYI: open cmdline window
+cnoremap <silent> <C-g> <C-f>
 
 " [\.vim/\.vimrc at master · cohama/\.vim]( https://github.com/cohama/.vim/blob/master/.vimrc#L1362 )
 " 矩形選択でなくても複数行入力をしたい
