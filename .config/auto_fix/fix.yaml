@@ -2,6 +2,9 @@ _:
 - - completion
 - - confirmation
 - - environment
+- - definition
+- - declaration
+- - parallel
 - - variable
 - - deprecate
 - - deprecated
@@ -59,6 +62,7 @@ _:
 - - without
   - wihtout
 - - with
+- - width
 cpp:
 - - 'std::'
   - std;;
