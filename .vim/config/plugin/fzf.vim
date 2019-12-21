@@ -618,9 +618,6 @@ endfunction
 
 function! Launch_command_line_completion()
   let cmdline=getcmdline()
-  if len(cmdline)==''
-    return ''
-  endif
   let b:command_line_completion_data={
         \ 'cmdline': getcmdline(),
         \ 'cmdtype': getcmdtype(),
