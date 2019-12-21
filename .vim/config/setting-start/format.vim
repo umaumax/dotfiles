@@ -56,7 +56,9 @@ function! IsPrivateWork(...)
     endif
   endif
 
-  " NOTE: 高速化のため，use only 10 latest commits
+  " NOTE: use only 10 oldeset commits for lookup speed
+  " TODO: oldestからn件を効率よくlookupする方法は?
+  " --revsere -n 10とすると直近10件をrevsereしてしまう
   let l:authors = system("cd " . shellescape(l:dir_path) . " && git rev-parse --is-inside-work-tree > /dev/null 2>&1 && (git log --format='%an' -10 > /dev/null 2>&1 | sort | uniq | tr -d '\n')")
   let l:is_private = l:authors == "" || l:authors == l:author || l:authors == 'umaumax'
   let g:is_private_work_cache[l:dir_path] = l:is_private

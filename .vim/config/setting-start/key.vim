@@ -550,6 +550,9 @@ vnoremap $ $<Left>
 augroup bufenter_group
   autocmd!
   autocmd WinEnter,TabEnter * if @% == '__LanguageClient__' | exe winnr().'wincmd c' | endif
+  " NOTE: move previous focus
+  " autocmd WinEnter,TabEnter * if @% == '__LanguageClient__' | :bN | endif
+  " 上記を適用してもまだ，popup windowに入り込むケースがある模様 why?
 augroup END
 
 " FYI: [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L254 )
