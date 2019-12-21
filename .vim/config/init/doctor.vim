@@ -25,6 +25,7 @@ let s:doctor_map={
       \'golfix':       'go get -u github.com/umaumax/golfix',
       \'gopls':        'go get -u golang.org/x/tools/cmd/gopls',
       \'googler':      'brew install googler || sudo apt-get install googler',
+      \'html-languageserver': 'npm install -g vscode-html-languageserver-bin',
       \'jsonlint':     'npm install -g jsonlint',
       \'jq':           'brew install jq || sudo apt -y install jq',
       \'look':         'maybe default command',
@@ -41,7 +42,6 @@ let s:doctor_map={
       \'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
       \'vim-language-server': 'npm install -g yarn && yarn global add vim-language-server',
       \'vint':         'pip install vim-vint',
-      \'html-languageserver': 'npm install --global vscode-html-languageserver-bin',
       \}
 let s:doctor_logs=[]
 let s:no_cmd_map={}
