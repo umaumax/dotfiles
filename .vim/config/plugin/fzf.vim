@@ -590,11 +590,9 @@ function! Command_line_completion()
   let cmdpos=b:command_line_completion_data['cmdpos']
   let rbuffer=cmdline[cmdpos-1:]
   " NOTE: \\.\ is for drop \V \v
-  let query=split(substitute(cmdline[:cmdpos-1-1].' ','\\.\|[^0-9a-zA-Z_]',' ','g'),' ')[-1]
-  " if empty(query)
-  " call SetCmdLine(b:command_line_completion_data['cmdtype'], cmdline, cmdpos)
-  " return
-  " endif
+  let query_tmp_list=split(substitute(cmdline[:cmdpos-1-1].' ','\\.\|[^0-9a-zA-Z_]',' ','g'),' ')
+  let query=len(query_tmp_list) > 0 ? query_tmp_list[-1] : ''
+
   let lbuffer=cmdline[:cmdpos-1-1][:-len(query)-1]
   let b:command_line_completion_data['query']=query
   let b:command_line_completion_data['lbuffer']=lbuffer
