@@ -1428,6 +1428,8 @@ function paste_to_file() {
 function shell_string_escape() {
   printf %q "$(cat)"
 }
+# NOTE: drop clipboard rich text info
+alias cliplain='p | p2c'
 
 if [[ -z $DISPLAY ]]; then
   function c() {
