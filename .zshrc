@@ -2940,6 +2940,20 @@ cmdcheck pyenv && function pyenv() {
   return $exit_code
 }
 
+function unlink() {
+  local fail_flag=0
+  for arg in "$@"; do
+    if [[ -e "$arg" ]] && [[ ! -L "$arg" ]]; then
+      fail_flag=1
+      echo 1>&2 "${RED}[WARN]ヽ(*゜д゜)ノ: '$arg' is not symbolic link${DEFAULT}"
+    fi
+  done
+  if [[ $fail_flag != 0 ]]; then
+    return 1
+  fi
+  command unlink "$@"
+}
+
 if cmdcheck ranger; then
   # FYI: [ranger\-cdをzshで使えるようにした \- 生涯未熟]( https://syossan.hateblo.jp/entry/2017/02/04/192111 )
   function ranger() {
