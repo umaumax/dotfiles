@@ -205,6 +205,8 @@ command! -range=% -nargs=0 RemoveWinCR :<line1>,<line2>/\r//g
 function! NeoSnippetWrapLine(name, prefix, suffix)
   let cursor_mark='@'
   let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
+  " TODO: imapで<Plug>として実行したほうが自由度が高く色々と可能なはず
+  " TODO: 複数行のsnippetにも対応したい
   call feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len(a:name))."x\<C-o>".stridx(line, cursor_mark)."\<Right>", 'n')
   let line=substitute(line, cursor_mark, '', '')
   return line

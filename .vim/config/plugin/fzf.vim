@@ -560,6 +560,7 @@ function! Neosnippets()
     endfor
   endfor
   function! s:sink(line)
+    " TODO: 現在はechoのみだが，echo neosnippet#expand("xxx")?でその場に展開してexapndしたい
     echo a:line
   endfunction
   silent! call fzf#run({
