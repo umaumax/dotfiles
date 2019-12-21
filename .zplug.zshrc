@@ -74,7 +74,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
     # EASY_ONE_FILTER_OPTS="-l $(($(tput lines) / 2))"
     # NOTE: for fzf
     EASY_ONE_FILTER_COMMAND="fzf"
-    EASY_ONE_FILTER_OPTS="--no-mouse --ansi --reverse --height 50% --query='"
+    EASY_ONE_FILTER_OPTS=(--no-mouse --ansi --reverse --height 50% --query="'")
     enable_zsh_plugin "https://github.com/umaumax/easy-oneliner" "easy-oneliner.zsh"
 
     # [よく使うディレクトリをブックマークする zsh のプラグイン \- Qiita]( https://qiita.com/mollifier/items/46b080f9a5ca9f29674e )
