@@ -881,6 +881,7 @@ command! CopyFilePathNR :FilePathNR
 command! CopyDirPath    :DirPath
 command! CopyDirName    :DirName
 
+" NOTE: don't use s:move_block use 't9md/vim-textmanip'
 " 文字数をカウントした方がよさそう
 " visual paste関数と組み合わせる?
 function! s:move_block(direction)
@@ -912,11 +913,6 @@ endfunction
 " vnoremap <S-Left> "zd:call <SID>move_block(-1)<CR>
 " vnoremap <S-Right> "zd:call <SID>move_block(1)<CR>
 " <Left>"zPgv<Left>o<left>o
-" NOTE: 't9md/vim-textmanip'
-xmap <S-Down>  <Plug>(textmanip-move-down)
-xmap <S-Up>    <Plug>(textmanip-move-up)
-xmap <S-Left>  <Plug>(textmanip-move-left)
-xmap <S-Right> <Plug>(textmanip-move-right)
 
 " 左回り
 vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o

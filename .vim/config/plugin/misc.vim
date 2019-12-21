@@ -558,6 +558,10 @@ Plug 'tyru/vim-altercmd'
 
 " NOTE:選択範囲ごと移動
 LazyPlug 't9md/vim-textmanip'
+xmap <S-Down>  <Plug>(textmanip-move-down)
+xmap <S-Up>    <Plug>(textmanip-move-up)
+xmap <S-Left>  <Plug>(textmanip-move-left)
+xmap <S-Right> <Plug>(textmanip-move-right)
 
 " NOTE: for tab number and [+] if the current buffer has been modified for tabline
 LazyPlug 'mkitt/tabline.vim'
