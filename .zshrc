@@ -1270,7 +1270,7 @@ function allcmds() {
 # create markdown table body (not including header)
 # e.g. paste <(seq 1 10) <(seq 11 20) | mdt "\t"
 # $1: delimiter
-function mdt() {
+cmdcheck mdt || function mdt() {
   local delim=${1:-" "}
   sed 's/'"$delim"'/\|/g' | awk '{print "|"$0"|"}'
 }
