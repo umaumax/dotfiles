@@ -29,7 +29,7 @@ augroup init_color_group
   autocmd User VimEnterDrawPost     call s:init_color()
   autocmd FileType * syntax sync minlines=50 maxlines=500
   autocmd FileType log,text syntax sync minlines=10 maxlines=100
-  autocmd FileType log,text call matchadd('FilePath','[/:0-9a-zA-Z_.~-]*\.[0-9a-zA-Z_~-]\+')
+  autocmd FileType log,text call matchadd('FilePath','\(^\|[^/0-9a-zA-Z_.~-]\)\zs[/0-9a-zA-Z_.~-]*\.[0-9a-zA-Z_~-]\+\(:[0-9]\+\)\?\ze\([^/0-9a-zA-Z_.~-]\|$\)')
 augroup END
 
 if &rtp =~ 'rainbow'
