@@ -102,6 +102,12 @@ endfunction
 " Handle entry in the argument list.
 " This is called via `:argdo` when entering Vim.
 function! s:handle_arg()
+  " NOTE: for prevent 'E37: No write since last change (add ! to override)'
+  "       caused by ls | vim - a.log b.log c.log
+  if &modified
+    tabnew
+  endif
+
   let argname = expand('%')
   let fname = s:gotoline()
   if fname != argname
