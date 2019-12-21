@@ -32,6 +32,9 @@ if v:version >= 800 && has('python3')
   if Doctor('rls', 'rust lsp')
     let g:LanguageClient_serverCommands['rust']=['rls']
   endif
+  if Doctor('bash-language-server', 'bash lsp')
+    let g:LanguageClient_serverCommands['sh']=['bash-language-server', 'start']
+  endif
 
   " FYI: [automatic calls to textDocument\_documentHighlight based on cursor position · Issue \#618 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/618 )
   " Automatic Hover

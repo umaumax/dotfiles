@@ -7,6 +7,7 @@ let s:doctor_map={
       \'ag':           'brew install ag || sudo apt install silversearcher-ag',
       \'algin':        'npm install -g align-yaml',
       \'autopep8':     'pip install autopep8',
+      \'bash-language-server': 'npm i -g bash-language-server',
       \'clang':        'sudo apt-get install clang',
       \'clangd':       'brew install llvm || sudo apt-get install clang-tools',
       \'code':         'brew cask install visual-studio-code || [Running Visual Studio Code on Linux]( https://code.visualstudio.com/docs/setup/linux )',
