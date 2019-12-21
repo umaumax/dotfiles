@@ -549,6 +549,7 @@
 [nmcli wi-fi info list] sudo nmcli d w
 [nmcli remote dump] ssh \%# "nmcli device show"
 
+[global ip] curl ifconfig.moe || curl ifconfig.io
 [search ip address range] nmap -sP 192.168.0.0/24
 [search ip address range by nbstat (NetBIOS)] sudo nmap -sU --script nbstat.nse -p137 '192.168.0.*'
 [renew DHCP release] sudo dhclient -r; sudo dhclient
