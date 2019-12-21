@@ -19,6 +19,9 @@ set pagination off
 # $6 = 'a' <repeats 30 times>
 set print repeats 0
 
+set print static-members off
+# シンボリック形式のアドレス表示の際に、シンボルのソース・ファイル名と行番号を表示する
+set print symbol-filename on
 
 set charset UTF-8
 #set charset ASCII
