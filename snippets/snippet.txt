@@ -208,7 +208,8 @@
 [git commit log grep] git log --stat -S "\%#"
 [git commit log grep only deleted files] git log --diff-filter=D -S "\%#"
 [git is commit hash?] git rev-parse --verify \%# >/dev/null 2>&1
-[git repository name] basename `git rev-parse --show-toplevel`
+[git repository local name] basename $(git rev-parse --show-toplevel)
+[git repository remote name] basename $(git remote show origin -n | grep "Fetch URL:" | sed 's/.*://;s/.git$//')
 
 [git copy file/dir from another branch] git checkout \%# #$BRANCH $FILE_PATH
 
