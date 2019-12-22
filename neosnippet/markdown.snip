@@ -10,3 +10,12 @@ snippet plantuml
 	title ${0}
 	@enduml
 	`````
+
+snippet fold
+alias detail
+abbr default open: <details open>
+	<details>
+	<summary>${1:#:title}</summary>
+	<!-- you must insert blank line -->
+	${0}
+	</details>
