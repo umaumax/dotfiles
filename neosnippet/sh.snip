@@ -767,13 +767,18 @@ snippet unsetfunction
 alias remove_function
 	unset -f ${0}
 
-snippet var_dump
+snippet echo_var
 	echo "${1:var_name}:$$1"$0
 
 snippet define_diff_as_icdiff
 	type >/dev/null 2>&1 icdiff && diff() {
 	  icdiff -U 1 --line-numbers "$@"
 	}${0}
+
+snippet var_dump
+abbr variable and env (bash only)
+	( set -o posix ; set )${0}
+
 snippet step_exe
 	trap 'read -p "\$0($LINENO) $BASH_COMMAND"' DEBUG
 	${0}
