@@ -21,9 +21,8 @@ function _os() {
 }
 function nugget-l() {
   local OS=$(_os)
-  # NOTE: this eval is to avoid only zsh syntax (for shfmt)
-  local install_function_list=($(eval 'print -l ${(ok)functions}' | grep '^nugget_'"$OS"))
-  echo "${install_function_list[@]}" | tr ' ' '\n' | cut -d_ -f3- | sort
+  # NOTE: grep current file
+  cat ~/dotfiles/.nugget.zshrc | grep '^function nugget_'"mac" | perl -ne 'printf "%s\n", $& if (/_'"$OS"'_\K([^()]+)/)'
 }
 
 function nugget() {
@@ -78,7 +77,7 @@ function nugget() {
   local exit_code=$?
   [[ $exit_code == $NUGGET_SUCCESS ]] && echo "${GREEN}SUCCESS${DEFAULT}"
   [[ $exit_code == $NUGGET_FAILURE ]] && echo "${RED}FAILED${DEFAULT}"
-  [[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo "${PURPLE}already installed${DEFAULT}"
+  [[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo "${PURPLE}already installed${DEFAULT}\n${YELLOW}if you want to upgrade, add '-u' option${DEFAULT}"
   return
 }
 
