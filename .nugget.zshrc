@@ -86,6 +86,26 @@ function nugget() {
 # ################################
 
 # ################################
+# nvim for mac
+function nugget_mac_nvim() {
+  cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  # nightly build
+  wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
+  # stable build
+  # wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-macos.tar.gz
+
+  tar xzvf nvim-macos.tar.gz
+  mv nvim-osx64/ "$NUGGET_INSTALL_PREIFX/"
+  ln -sf "$NUGGET_INSTALL_PREIFX/nvim-osx64/bin/nvim" "$NUGGET_INSTALL_BIN_PREIFX/nvim"
+
+  echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
+  popd
+}
+# ################################
+
+# ################################
 # nvim for linux
 function nugget_ubuntu_nvim() {
   cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
