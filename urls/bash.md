@@ -12,3 +12,6 @@ bash best practices
 
 bash command option explanation
 [explainshell\.com \- match command\-line arguments to their help text]( https://explainshell.com/ )
+
+bash good rule
+[シェルスクリプトを高級言語のような書き味に近づける Tips 集 \| 創作メモ帳]( https://sousaku-memo.net/php-system/1817#i-17 )
