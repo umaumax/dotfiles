@@ -774,3 +774,7 @@ snippet define_diff_as_icdiff
 	type >/dev/null 2>&1 icdiff && diff() {
 	  icdiff -U 1 --line-numbers "$@"
 	}${0}
+snippet step_exe
+	trap 'read -p "\$0($LINENO) $BASH_COMMAND"' DEBUG
+	${0}
+	trap - DEBUG

@@ -1506,3 +1506,7 @@
 # proxy
 [free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | xargs -L1 -I{} bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo " ${GREEN}OK${DEFAULT}" || echo " ${RED}NG${DEFAULT}"'
 [free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | parallel -j32 --no-notice -L1 -I{} "bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo \" ${GREEN}OK${DEFAULT}\" || echo \" ${RED}NG${DEFAULT}\"'"
+
+# bash
+# below sed must be gnu sed
+[bash debug step run] bash <(cat \%# | sed '2itrap '"'"'echo -ne "\\\\033[90m[DEBUG]:\\\\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\\\\033[00m"; read -p " "'"'"' DEBUG')

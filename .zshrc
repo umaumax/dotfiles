@@ -1358,6 +1358,50 @@ fi
 # original cat
 alias ocat='command cat'
 
+function stepbash() {
+  [[ $# -le 0 ]] && echo "$0 [target bash file]" && return 1
+  local filepath
+  filepath="$1"
+  bash <(cat $filepath | sed '2itrap '"'"'echo -ne "\\033[90m[DEBUG]:\\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\\033[00m"; read -p " "'"'"' DEBUG')
+}
+# NOTE: if shebang is '#!/usr/bin/env bash', we can hook bash recursively
+function stepbash-recursive() {
+  local tmpdir
+  tmpdir=$(mktemp -d)
+  local bash_bin_path
+  bash_bin_path=$(which bash | head -n 1)
+  local SED='sed'
+  cmdcheck gsed && SED='gsed'
+  # NOTE: heuristic input filepath detection
+  cat <<EOF >"$tmpdir/bash"
+#!$bash_bin_path
+echo "[DEBUG PRE]\$@"
+for arg; do
+  shift
+  if [[ -f "\$arg" ]]; then
+    filepath="\$arg"
+    continue
+  fi
+  set -- "\$@" "\$arg"
+done
+echo "[DEBUG POST]\$@"
+
+if [[ -z \$filepath ]]; then
+  $bash_bin_path "\$@"
+else
+  $bash_bin_path <(cat "\$filepath" | gsed '2itrap '"'"'echo -ne "\\\\033[90m[DEBUG]:\\\\033[35m'"\$filepath"':\$LINENO:\$BASH_COMMAND\\\\033[00m"; read -p " "'"'"' DEBUG') "\$@"
+fi
+EOF
+  chmod u+x "$tmpdir/bash"
+  # NOTE: debug only
+  # echo "$tmpdir/bash"
+  # cat "$tmpdir/bash"
+  (
+    export PATH="$tmpdir:$PATH"
+    bash "$@"
+  )
+}
+
 # for mac
 cmdcheck gsed && alias sed='gsed'
 # -s: suppress 'Is a directory'
