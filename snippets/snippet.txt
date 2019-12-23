@@ -1301,6 +1301,7 @@
 # FYI: [コマンド一発で画像を角丸にする \- Qiita]( https://qiita.com/s_of_p/items/8aefeeadb3ae3029b4b2 )
 [image convert 角丸] convert -size 512x512 xc:none -draw "roundrectangle 0,0 512,512 32,32" src.png\%# -resize 512x512 -compose src-in -composite -unsharp 0x1 dst.png
 [image convert transparent] convert src.png\%# -fuzz 10% -transparent white transparent.png
+[image convert font] convert -list font | grep "Font:"
 
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
@@ -1512,3 +1513,5 @@
 [bash debug step run] bash <(cat \%# | sed '2itrap '"'"'echo -ne "\\\\033[90m[DEBUG]:\\\\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\\\\033[00m"; read -p " "'"'"' DEBUG')
 
 [realpath of current directory] builtin pwd -P # directory symbolic is solved
+
+[braille tenji 点字 unicode] seq 0x2800 0x28FF | ruby -ne 'print $_.to_i.chr("UTF-8")'
