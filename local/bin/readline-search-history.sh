@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# TODO: implement colorlize function
+function colorlize() {
+  cat
+}
+# TODO: implement escape function
+function escape() {
+  cat
+}
+# NOTE: default setting is for gdb
+READLINE_SEARCH_HISTORY_INPUT_FILEPATH=${READLINE_SEARCH_HISTORY_INPUT_FILEPATH:-~/.gdb_history}
+READLINE_SEARCH_HISTORY_OUTPUT_FILEPATH=${READLINE_SEARCH_HISTORY_OUTPUT_FILEPATH:-~/.config/gdb/.tmp.inputrc}
+READLINE_SEARCH_HISTORY_KEYBIND=${READLINE_SEARCH_HISTORY_KEYBIND:-'\C-x\C-z'}
+READLINE_SEARCH_HISTORY_COMMAND=${READLINE_SEARCH_HISTORY_COMMAND:-'fzf --ansi'}
+[[ ! -d $READLINE_SEARCH_HISTORY_OUTPUT_FILEPATH ]] && mkdir -p "$(dirname "$READLINE_SEARCH_HISTORY_OUTPUT_FILEPATH")"
+
+cat "$READLINE_SEARCH_HISTORY_INPUT_FILEPATH" | awk '!a[$0]++' | colorlize \
+  | eval "${READLINE_SEARCH_HISTORY_COMMAND}" \
+  | echo '"'"$READLINE_SEARCH_HISTORY_KEYBIND"'": "'"$(escape)"'"' >"$READLINE_SEARCH_HISTORY_OUTPUT_FILEPATH"

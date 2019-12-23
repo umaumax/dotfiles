@@ -37,6 +37,19 @@ $endif
 $if Gdb
   "\C-p": history-search-backward
   "\C-n": history-search-forward
+  # normal history search
+  # "\C-r": reverse-search-history
+  # # NOTE:
+  # "\C-s": forward-search-history
+
+  # fzf history search
+  "\C-r": "\C-x\C-k!f\C-m\C-x\C-r\C-x\C-z"
+  "\C-x\C-k": kill-whole-line
+  "\C-x\C-r": re-read-init-file
+  "\C-x\C-z": "hello world" # dummy text
+  # NOTE: ignored if nothing without log
+  $include ~/.config/gdb/.tmp.inputrc
+
   # up
   "\e[A": history-search-backward
   # down
