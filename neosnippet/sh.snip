@@ -34,6 +34,8 @@ snippet isubuntu
 	[[ "$(uname -a)" =~ Ubuntu ]] && ${0}
 snippet iswindows
 	[[ "$OS" =~ Windows ]] && ${0}
+snippet iswsl
+	[[ -v WSLENV ]] && ${0}
 snippet isdocker
 	[[ -f /.dockerenv ]] && ${0}
 snippet istmux
@@ -56,6 +58,11 @@ snippet iswindows_if
 	if [[ "$OS" =~ Windows ]]; then
 		${0}
 	fi
+snippet iswsl_if
+	if [[ -v WSLENV ]]; then
+		${0}
+	fi
+
 snippet isdocker_if
 	if [[ -f /.dockerenv ]]; then
 		${0}
