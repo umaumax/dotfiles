@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# TODO: implement colorlize function
 function colorlize() {
-  cat
+  perl -pe "s/^(\w)+/\x1b[38;5;38m$&\x1b[0m/g"
 }
 # TODO: implement escape function
 function escape() {
-  cat
+  local ret
+  ret="$(printf %q "$(cat)")"
+  [[ $ret == "''" ]] && return
+  printf '%s' "$ret"
 }
 # NOTE: default setting is for gdb
 READLINE_SEARCH_HISTORY_INPUT_FILEPATH=${READLINE_SEARCH_HISTORY_INPUT_FILEPATH:-~/.gdb_history}
