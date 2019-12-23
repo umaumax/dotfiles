@@ -84,3 +84,5 @@ set auto-load local-gdbinit
 echo \033[0;1;33m[plugin commands list]\n\033[0m
 echo \033[0;1;34m* stack-inspector\n\033[0m
 echo \033[0;1;34m* pipe\n\033[0m
+echo \033[0;1;34m* '\\C-x\\C-r': fzf history search\n\033[0m
+echo \033[0;1;34m* '\\C-x\\C-x': fzf snippet search\n\033[0m

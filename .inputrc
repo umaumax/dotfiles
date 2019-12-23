@@ -43,9 +43,8 @@ $if Gdb
   "\C-s": forward-search-history
 
   # fzf history search
-  "\C-x\C-x": "\C-x\C-r"
   "\C-x\C-r": "\C-b\C-k!f\C-m\C-b\C-r\C-b\C-z"
-  "\C-x\C-h": "\C-b\C-k!fs\C-m\C-b\C-r\C-b\C-z"
+  "\C-x\C-x": "\C-b\C-k!fs\C-m\C-b\C-r\C-b\C-z"
   "\C-b\C-k": kill-whole-line
   "\C-b\C-r": re-read-init-file
   "\C-b\C-z": "hello world" # dummy text
