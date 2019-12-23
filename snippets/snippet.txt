@@ -1510,3 +1510,5 @@
 # bash
 # below sed must be gnu sed
 [bash debug step run] bash <(cat \%# | sed '2itrap '"'"'echo -ne "\\\\033[90m[DEBUG]:\\\\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\\\\033[00m"; read -p " "'"'"' DEBUG')
+
+[realpath of current directory] builtin pwd -P # directory symbolic is solved
