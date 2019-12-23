@@ -800,3 +800,7 @@ abbr "$@" is filterd
 		[[ "$arg" =~ ${0} ]] && continue
 		set -- "$@" "$arg"
 	done
+
+# FYI: [Bashで文字列をエスケープをする \- Qiita]( https://qiita.com/kawaz/items/f8d68f11d31aa3ea3d1c )
+snippet escape_str
+	printf %q "${0}"
