@@ -790,3 +790,13 @@ snippet step_exe
 	trap 'read -p "\$0($LINENO) $BASH_COMMAND"' DEBUG
 	${0}
 	trap - DEBUG
+
+# FYI: [shell \- How to remove a positional parameter from $@ \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/258512/how-to-remove-a-positional-parameter-from )
+snippet filter_args
+alias drop_args
+abbr "$@" is filterd
+	for arg do
+		shift
+		[[ "$arg" =~ ${0} ]] && continue
+		set -- "$@" "$arg"
+	done
