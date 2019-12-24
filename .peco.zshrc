@@ -1134,8 +1134,10 @@ if cmdcheck tmux; then
         return 1
       fi
       # | perl -0pe "s/^()(.*)(❯)(❯)(❯) ([^ ]*)/${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
-      # NOTE: -e: with ansi color
-      tmux capture-pane -epS -32768 \
+      # NOTE: -e: with ansi color, -p: output is stdout, -NUMBER: negative line number for rollback start line
+      local history_limit=$(tmux show-options -g history-limit | cut -d' ' -f2)
+      [[ -z $history_limit ]] && history_limit='10000'
+      tmux capture-pane -epS "-${history_limit}" \
         | perl -ne "$(
           cat <<'EOF'
 BEGIN {
