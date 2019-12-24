@@ -1,3 +1,10 @@
-[] stack-inspector
-[gdb command to shell pipe] pipe 
+# gdb dashboard
 [gdb dashboard] dashboard 
+
+# stack-inspector
+[stack-inspector] stack-inspector
+
+# pipe
+[gdb command to shell pipe] pipe 
+[fzf info locals]  pipe info locals | fzf
+[fzf info threads] pipe info threads | fzf
