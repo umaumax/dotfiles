@@ -610,6 +610,7 @@ function crontab() {
 
 # NOTE: for disable copyright output
 cmdcheck gdb && alias gdb='gdb -q'
+cmdcheck gdb-multiarch && alias gdb='gdb-multiarch -q'
 
 ################
 ####  Mac   ####
