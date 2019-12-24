@@ -62,11 +62,27 @@ function! CommitMessageHelper(findstart, base)
     let lines+=getbufline(bufnr(i), 1, '$')
   endfor
   let min_len=3
-  let words=filter(split(substitute(join(lines, "\n"),'[^0-9a-zA-Z_]',' ','g')), { -> len(v:val) >= min_len })
+  let words=filter(split(substitute(join(lines, "\n"),'[^0-9a-zA-Z_-]',' ','g')), { -> len(v:val) >= min_len })
+  " FYI: [How to flatten a nested list in Vim script? \- Stack Overflow]( https://stackoverflow.com/questions/11912688/how-to-flatten-a-nested-list-in-vim-script )
+  " NOTE: split xxx-yyy and abc_def for completions of [xxx,yyy,abc,def,xxx-yyy,abc_def]
+  function! s:flatten(list)
+    let val = []
+    for elem in a:list
+      if type(elem) == type([])
+        call extend(val, s:flatten(elem))
+      else
+        call add(val, elem)
+      endif
+      unlet elem
+    endfor
+    return val
+  endfunction
+  let words+=s:flatten(map(filter(copy(words),{ -> stridx(v:val,'_')>=0 }), { -> split(v:val, '_') }))+s:flatten(map(filter(copy(words),{ -> stridx(v:val,'-')>=0 }), { -> split(v:val, '-') }))
+  call filter(words, { -> len(v:val) >= min_len })
   let words+=['Update','Add','Delete','Remove','Fix','Refs: ','[TMP]','[WIP]', 'Refactor']
-  let words=uniq(sort(words))
-  let words=filter(words, {-> v:val =~ '^'.a:base})
-  let words=filter(words, {-> v:val !~ '^[0-9]'})
+  call uniq(sort(words))
+  call filter(words, {-> v:val =~ '^'.a:base})
+  call filter(words, {-> v:val !~ '^[0-9]'})
 
   let word=substitute(a:base,'[^a-zA-Z]','','g')
   if g:is_executable_look && len(word) >= 4
