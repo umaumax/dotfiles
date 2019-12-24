@@ -60,6 +60,10 @@ if [[ $USE_ZPLUG == 0 ]]; then
     # NOTE: run below command only once
     # fast-theme q-jmnemonic
     enable_zsh_plugin "https://github.com/zdharma/fast-syntax-highlighting" "fast-syntax-highlighting.plugin.zsh"
+    if { fast-theme -s | grep -v -q q-jmnemonic; }; then
+      echo "${PURPLE}force applying style${DEFAULT}"
+      fast-theme q-jmnemonic
+    fi
 
     # NOTE: original version
     enable_zsh_plugin "https://github.com/hchbaw/zce.zsh" "zce.zsh"
