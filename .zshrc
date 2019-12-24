@@ -727,6 +727,12 @@ if [[ $(uname) == "Linux" ]]; then
   fi
   alias vscode='code'
 
+  function chrome-exec-check() {
+    if [[ ! -f /usr/share/applications/google-chrome.desktop.bk ]]; then
+      sudo cp /usr/share/applications/google-chrome.desktop /usr/share/applications/google-chrome.desktop.bk
+    fi
+    diff /usr/share/applications/google-chrome.desktop.bk /usr/share/applications/google-chrome.desktop
+  }
   function chrome-exec-set() {
     local chrome_arg
 
