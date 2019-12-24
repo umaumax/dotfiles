@@ -3,7 +3,6 @@
 function colorlize() {
   perl -pe "s/^(\w)+/\x1b[38;5;38m$&\x1b[0m/g"
 }
-# TODO: implement escape function
 function escape() {
   local ret
   ret="$(printf %q "$(cat)")"
