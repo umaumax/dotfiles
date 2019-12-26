@@ -556,6 +556,8 @@
 [search port range(tcp)] nmap -p\%# $IP_ADDRESS # -p1-1024
 [search ip address range] nmap -sP 192.168.1.0/24
 [search ip address range(arp)] nmap -sn 192.168.1.0/24
+[ip address range to hostnames] nmap -sL \%# # 10.0.0.0/24
+[ip address range ping] nmap -sn \%# # 10.0.0.0/24
 [search ip address range by nbstat (NetBIOS)] sudo nmap -sU --script nbstat.nse -p137 '192.168.0.*'
 [renew DHCP release] sudo dhclient -r; sudo dhclient
 
@@ -1471,6 +1473,8 @@
 
 # download
 [install editor tmp] mkdir -p ~/.local/bin; pushd ~/.local/bin; [[ ! -e ./micro ]] && curl https://getmic.ro | bash; export PATH="$PWD:$PATH"; popd
+[fzf arm7 binary] tar xvzf <(curl --output - -L https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz) -C .
+[fzf arm7 binary url] https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz
 
 # cat
 [cat with separators among files] tail -n +1 $FILES
