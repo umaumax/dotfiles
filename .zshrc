@@ -1324,13 +1324,29 @@ cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
 [[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
 # for colordiff
+# NOTE: prezto has default diff function
+# FYI: [prezto/diff at master · sorin\-ionescu/prezto]( https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/functions/diff )
 if cmdcheck icdiff; then
-  alias diff='icdiff -U 1 --line-numbers'
+  function diff() {
+    if [[ -t 1 ]] && [[ -t 2 ]]; then
+      icdiff -U 1 --line-numbers "$@"
+    else
+      command diff "$@"
+    fi
+  }
   alias git-icdiff='git difftool --extcmd icdiff -y | less'
 elif cmdcheck colordiff; then
-  alias diff='colordiff -u'
+  function diff() {
+    if [[ -t 1 ]] && [[ -t 2 ]]; then
+      colordiff -u "$@"
+    else
+      command diff "$@"
+    fi
+  }
 else
-  alias diff='diff -u'
+  function diff() {
+    diff -u "$@"
+  }
 fi
 
 # install command: `brew install ccat` or `go get github.com/jingweno/ccat`
