@@ -225,6 +225,11 @@ sudo apt-get install -y sqlite3 libsqlite3-dev
 # NOTE: for gui
 sudo apt-get install -y sqlitebrowser
 
+sudo apt-get install -y chromium-browser
+# for flash
+sudo apt-get install -y pepperflashplugin-nonfree
+sudo update-pepperflashplugin-nonfree --install
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------

@@ -115,6 +115,7 @@ brew cask install cheatsheet
 brew cask install firefox
 brew cask install google-chrome
 brew cask install chromedriver
+brew cask install chromium
 brew cask install google-japanese-ime
 brew cask install karabiner-elements
 brew cask install sublime-text
