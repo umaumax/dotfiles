@@ -370,4 +370,18 @@ function nugget_mac_googletest() {
 # ################################
 
 # ################################
+# pennywise for linux
+function nugget_ubuntu_pennywise() {
+  cmdcheck pennywise && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  wget https://github.com/kamranahmedse/pennywise/releases/download/v0.8.0/pennywise-0.8.0-x86_64.AppImage
+  chmod u+x ./pennywise-*-x86_64.AppImage
+  cp pennywise-*-x86_64.AppImage "${NUGGET_INSTALL_BIN_PREIFX}/pennywise"
+  popd
+  rm -rf "$tmpdir/pennywise"
+}
+# ################################
+
+# ################################
 # ################################
