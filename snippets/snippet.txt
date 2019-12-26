@@ -1507,6 +1507,8 @@
 # proxy
 [free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | xargs -L1 -I{} bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo " ${GREEN}OK${DEFAULT}" || echo " ${RED}NG${DEFAULT}"'
 [free proxy check] curl -sSf "https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt" | parallel -j32 --no-notice -L1 -I{} "bash -c 'echo -n {}; timeout 5 curl www.google.com -s -x {} >/dev/null 2>&1 && echo \" ${GREEN}OK${DEFAULT}\" || echo \" ${RED}NG${DEFAULT}\"'"
+[curl noproxy] curl --noproxy "*" \%#
+[wget noproxy] wget --no-proxy \%#
 
 # bash
 # below sed must be gnu sed
