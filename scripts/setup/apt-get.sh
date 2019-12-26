@@ -230,6 +230,8 @@ sudo apt-get install -y chromium-browser
 sudo apt-get install -y pepperflashplugin-nonfree
 sudo update-pepperflashplugin-nonfree --install
 
+sudo apt-get install -y nmap
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
