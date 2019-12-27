@@ -1007,7 +1007,7 @@ function git-clone-peco() {
   local target
   target=$(history | cut -c8- | grep '^git clone' | fzf --query="'")
   [[ -z $target ]] && return
-  echo "$target"
+  printf '%s' "$target"
   eval "$target"
 }
 
@@ -1017,7 +1017,7 @@ function get_arm_neon_header() {
   if [[ ! -e "$cache_dir/arm_neon.h" ]]; then
     wget https://raw.githubusercontent.com/gcc-mirror/gcc/master/gcc/config/aarch64/arm_neon.h -O "$cache_dir/arm_neon.h"
   fi
-  echo "$cache_dir/arm_neon.h"
+  printf '%s' "$cache_dir/arm_neon.h"
   return 0
 }
 
@@ -1050,6 +1050,8 @@ function global_func_prefix() {
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 function fkill() {
   local pid
+  local sinal_num
+  signal_num=${1:-9}
   if [ "$UID" != "0" ]; then
     pid=$(ps -f -u $UID | sed 1d | fzf -m -q "'" | awk '{print $2}')
   else
@@ -1057,7 +1059,7 @@ function fkill() {
   fi
 
   if [ "x$pid" != "x" ]; then
-    echo $pid | xargs kill -${1:-9}
+    printf '%s' "$pid" | xargs kill "-${signal_num}"
   fi
 }
 
