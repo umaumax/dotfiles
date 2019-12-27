@@ -800,3 +800,61 @@ LazyPlug 'tyru/capture.vim'
 Plug 'umaumax/vim-blink'
 
 Plug 'mbbill/undotree', {'on':['UndotreeToggle']}
+
+" if has('nvim')
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+" Plug 'Shougo/denite.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+"
+" " [【Vim】新しい Denite に爆速で対応する \- Qiita]( https://qiita.com/delphinus/items/de15250b39ac08e9c0b9 )
+" " Define mappings
+" autocmd FileType denite call s:denite_my_settings()
+" function! s:denite_my_settings() abort
+" nnoremap <silent><buffer><expr> <CR>
+" \ denite#do_map('do_action')
+" nnoremap <silent><buffer><expr> d
+" \ denite#do_map('do_action', 'delete')
+" nnoremap <silent><buffer><expr> p
+" \ denite#do_map('do_action', 'preview')
+" nnoremap <silent><buffer><expr> q
+" \ denite#do_map('quit')
+" nnoremap <silent><buffer><expr> i
+" \ denite#do_map('open_filter_buffer')
+" nnoremap <silent><buffer><expr> <Space>
+" \ denite#do_map('toggle_select').'j'
+" endfunction
+" autocmd FileType denite-filter call s:denite_filter_my_setting()
+" function! s:denite_filter_my_setting() abort
+" " " 一つ上のディレクトリを開き直す
+" " inoremap <silent><buffer><expr> <BS>    denite#do_map('move_up_path')
+" " Denite を閉じる
+" inoremap <silent><buffer><expr> <C-c>   denite#do_map('quit')
+" nnoremap <silent><buffer><expr> <C-c>   denite#do_map('quit')
+" endfunction
+"
+" let s:menus = {}
+" let s:menus.zsh = { 'description': 'zsh configuration' }
+" let s:menus.zsh.file_candidates = [
+" \ ['zshrc', '~/.zshrc'], ['zplug', '~/.init.zplug']]
+" let s:menus.my_commands = { 'description': 'my commands' }
+" let s:menus.my_commands.command_candidates = [
+" \ ['Split the window', 'vnew'], ['Open zsh menu', 'Denite menu:zsh']]
+"
+" augroup dinite_group
+" autocmd!
+" autocmd VimEnter * call s:denite_startup()
+" augroup END
+" function! s:denite_startup()
+" " WARN: TMP
+" " call deoplete#disable()
+" call denite#custom#var('menu', 'menus', s:menus)
+"
+" call denite#custom#action('menu.zsh', 'vimfiler', 'my#denite#action#vimfiler')
+" endfunction
+" function! my#denite#action#vimfiler(context)
+" echo a:context
+" execute 'VimFiler ' . a:context.targets[0].action__path
+" endfunction
