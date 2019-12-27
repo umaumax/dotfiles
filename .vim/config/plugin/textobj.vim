@@ -5,6 +5,9 @@ Plug 'kana/vim-textobj-user'
 LazyPlug 'kana/vim-textobj-line'
 " NOTE: for ie
 LazyPlug 'kana/vim-textobj-entire'
+" NOTE: for if but same as my filepath key mapping
+" LazyPlug 'kana/vim-textobj-function'
+
 
 " NOTE: for i,|a,|i2,
 " let g:vim_textobj_parameter_mapping = ','
@@ -35,6 +38,8 @@ function! s:init_textobj()
   " hyphen
   omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
   xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
+  omap <expr> i- textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
+  xmap <expr> i- textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
   " dot
   omap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
   xmap <expr> id textobj#from_regexp#mapexpr('[A-Za-z0-9.]\+')
@@ -53,8 +58,17 @@ function! s:init_textobj()
   " message
   " ()内の`|`は\\が必要みたい
   " つまり，`|`を使いたいときには`'\(xxx\\|yyy\)'`
-  omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
-  xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+  " omap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+  " xmap <expr> im textobj#from_regexp#mapexpr('\("\([^\\"]\\|\\.\)*"'.'\\|'."'.*'\\)")
+  omap im i"
+  " NOTE: 2i" = i"i" which enables select "xxx" without outer spaces
+  omap am 2i"
+  omap iq i'
+  omap aq a'
+  xmap im i"
+  xmap am 2i"
+  xmap iq i'
+  xmap aq a'
   " space
   omap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
   xmap <expr> i<Space> textobj#from_regexp#mapexpr('\S\+')
