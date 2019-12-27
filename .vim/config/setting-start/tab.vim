@@ -1,3 +1,5 @@
+" NOTE: why don't you use set shiftround
+
 function! s:nosmartindent_tab()
   " NOTE: for enable indent comment line (which stars with top of # (e.g. python file))
   if &smartindent == 1
