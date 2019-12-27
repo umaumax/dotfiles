@@ -1,9 +1,4 @@
 # vim: set filetype=log :
-#
-# [easy\-oneliner/easy\-oneliner\.txt at master · b4b4r07/easy\-oneliner]( https://github.com/b4b4r07/easy-oneliner/blob/master/easy-oneliner.txt )
-
-# \%#: cursor
-# \%$: \n
 
 # find
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
@@ -24,16 +19,6 @@
 [find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
 
 # fg
-[vim] fg.vim "\%#" | pecovim
-[vim] fg.my.vim "\%#" | pecovim
-[vim] fg.md "\%#" | pecovim
-[vim] fg.my.md "\%#" | pecovim
-[vim] fg.cpp-all "\%#" | pecovim
-[vim] fg.vim "\%#"
-[vim] fg.my.vim "\%#"
-[vim] fg.md "\%#"
-[vim] fg.my.md "\%#"
-[vim] fg.cpp-all "\%#"
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
 
 # ubuntu
@@ -43,42 +28,43 @@
 [ubuntu resolv.conf] vim /etc/resolv.conf !
 # ubuntu cd
 [ubuntu GUI app autostart] cd ~/.config/autostart !
-[ubuntu apps] cd /usr/share/applications !
+[ubuntu apps settings] cd /usr/share/applications !
 # ubuntu network
 [ubuntu network reboot] sudo service networking restart
 [ubuntu ip flush] sudo ip addr flush
 [ubuntu ip down up] NIC=\%# && sudo ifdown $NIC && sudo ifup $NIC
 # ubuntu *.deb install
-[ubuntu gdebi] sudo gdebi # sudo gdebi ./google-chrome-stable_current_amd64.deb
-[ubuntu mdfind] locate # updatedb
+[ubuntu gdebi] sudo gdebi # e.g. sudo gdebi ./google-chrome-stable_current_amd64.deb
+[ubuntu mdfind] locate # you need to run 'updatedb' command previously
 # FYI: [https://www\.kernel\.org/doc/Documentation/sysctl/vm\.txt]( https://www.kernel.org/doc/Documentation/sysctl/vm.txt ) see at drop_caches
-[ubuntu drop file page cache size confirm] free -m
+[ubuntu check drop file page cache size] free -m
 [ubuntu drop file page cache] sync; sudo sh -c "echo \%# > /proc/sys/vm/drop_caches" # 1:pagecache, 2:reclaimable slab objects (includes dentries and inodes), 3:slab objects and pagecache
-[ubuntu screen recoder(movie capture)] kazam # sudo apt-get install kazam
+[ubuntu screen recoder(movie capture)] kazam # for install: sudo apt-get install kazam
 
 [lsusb tree] lsusb -t
 [lsusb /dev/ttyUSB check] ls /dev/ttyUSB* | xargs -L 1 -I{} udevadm info --name={} | grep -e "DEVPATH.*" -e "ID_MODEL_FROM_DATABASE" -e "ID_MODEL_ID"  -e "ID_VENDOR_FROM_DATABASE" -e "ID_VENDOR_ID"; lsusb
 
 # tar
 # [untar 解凍(extract)  .tar.gz] tar zxvf \%# -C .
-[untar 解凍(extract)  .tar.? ] tar  xvf \%# -C .
+[untar 解凍(extract)  .tar.* ] tar  xvf \%# -C .
 [tar 圧縮(compress) .tar.gz] tar zcvf \%# # [tar.gz] [dir]
 [tar 圧縮(compress) .tar.  ] tar  cvf \%# # [.tar] [dir]
 [tar 圧縮(compress) .tar.gz] DIRECTORY=\%# && tar zcvf $DIRECTORY.tar.gz $DIRECTORY
 [tar 圧縮(compress) .tar   ] DIRECTORY=\%# && tar  cvf $DIRECTORY.tar    $DIRECTORY
 # [findの結果をtarでアーカイブしたい \- 浦安市在住＋デジカメ]( https://fei-yen.jp/maya/wordpress/blog/2013/01/15/find%E3%81%AE%E7%B5%90%E6%9E%9C%E3%82%92tar%E3%81%A7%E3%82%A2%E3%83%BC%E3%82%AB%E3%82%A4%E3%83%96%E3%81%97%E3%81%9F%E3%81%84/ )
-[tar find print0 pipe to file] tar -cvz -T - --null -f \%#.tar.gz
-[tar find print0 pipe to pipe] tar -cvz -T - --null | \%#
+[tar find print0 pipe to file] tar -cvz -T - --null -f \%#.tar.gz # use with find -print0 command for stdin
+[tar find print0 pipe to pipe] tar -cvz -T - --null | \%# # use with find -print0 command for stdin
 [tar find ssh] find \%# -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
 [zip compress] zip -r \%# # [.zip] [dir]
 [zip unzip broken file] zip -FF $SRC\%# --output $DST
 
-[IP address -> PID] netstat -p tcp | peco | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
+[IP address -> PID] netstat -p tcp | fzf | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
 
 # size
 ## h: human readable
-[file size] du -sh $(find . -maxdepth 1)
+[file size(GUI)] ncdu # sudo apt-get install -y ncdu
+[file size(CUI)] du -sh $(find . -maxdepth 1)
 # [file size] du -sh * # for zsh (setopt GLOB_DOTS)
 # [file size for bash] du -sh *
 # [file size for bash] du -sh .[^.]* * # both
@@ -425,6 +411,12 @@
 [alias 64bit arm-linux-gnueabihf-g++] alias g++=aarch64-linux-gnu-g++ !
 [g++ wrap start and end] -Wl,--start-group \%# -Wl,--end-group
 
+[g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
+[g++ include header dir list] g++ -E -v - </dev/null
+[g++ include header fullpath list] g++ -std=c++11 -H $CPP_FILEPATH
+[clang dump] clang-check $SRC\%# -ast-dump -ast-dump-filter=main --
+
+
 # rename
 [find and rename] find . -name "\%#" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
 
@@ -440,7 +432,7 @@
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
-[patch] p\%# | patch -p1'
+[patch] p\%# | patch -p1 # p is original clipboard paste command
 [revert patch] cat \%# | patch -R
 
 # http server
@@ -525,13 +517,6 @@
 [pip search gui] open "https://pypi.org/search/?q=\%#"
 [python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
 
-# g++
-[g++ macro defines] g++ -dM -E - < /dev/null | sort \%#
-[g++ include header dir list] g++ -E -v - </dev/null
-[g++ include header fullpath list] g++ -std=c++11 -H $CPP_FILEPATH
-[clang dump] clang-check $SRC\%# -ast-dump -ast-dump-filter=main --
-
-
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
 [nmcli connection] nmcli connection
@@ -592,6 +577,7 @@
 # serial
 [serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200\%#
 [serial communication screen] sudo screen /dev/ttyUSB0 115200\%#
+[serial baudrate example] echo '1200 2400 4800 9600 19200 38400 57600 115200' !
 
 # screenshot of ubuntu
 [ubuntu screenshot (all)] gnome-screenshot # PrintScreen
@@ -609,9 +595,6 @@
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
 [vim open tmp file from pipe input] | { local tmpfile=$(mktemp).log; cat > $tmpfile; vim $tmpfile; } \%#
-
-# one liner
-[for one liner] for i in $(seq \%#); do echo $i; done
 
 # mnt
 [mount nfs] sudo mount -t nfs "$NFS_SERVER_IP:$NFS_DIR_PATH" $LOCAL_DIR_PATH # wrong fs type? ===> sudo apt-get install nfs-common
@@ -1176,6 +1159,7 @@
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
 [pseudo watch command] while true\%$do sleep 1\%$clear\%$\%#\%$done
+[for one liner] for i in $(seq \%#); do echo $i; done
 [ntimes for command] for ((i=1; i <=\%# ; i++)); do\%$sleep 1\%$echo "$i"\%$echo 'error' |& grep -v 'error'\%$if [[ $? != 0 ]]; then\%$break\%$fi\%$done
 
 [stopwatch] time cat # stop:c-c
@@ -1414,6 +1398,7 @@
 # fzf
 [fzf without some word] echo '!some_word (e.g. !utest)'
 
+# FYI: use gopls
 [vim golang completion fix] go get -u github.com/nsf/gocode; go get -u golang.org/x/tools/cmd/gopls; go get -u github.com/sourcegraph/go-langserver; echo 'vim -c ":GoInstallBinaries"; vim -c ":UpdateRemotePlugins"'
 
 # terminal
