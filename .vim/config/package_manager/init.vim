@@ -98,8 +98,7 @@ endfunction
 
 augroup lazy_load_after_vim_enter
   autocmd!
-  autocmd User VimEnterDrawPost call <SID>lazy_plug_load()
-        \| autocmd! lazy_load_after_vim_enter
+  autocmd User VimEnterDrawPost ++once call <SID>lazy_plug_load()
 augroup END
 
 " NOTE: 適切にinstallされない?

@@ -76,6 +76,11 @@ function! s:format_file()
   silent call winrestview(l:view)
 endfunction
 command! -bar Format call <SID>format_file()
+" NOTE: register default format command
+augroup auto_format_setting_when_leaving
+  autocmd!
+  autocmd BufWinLeave * command! -bar Format call <SID>format_file()
+augroup END
 
 function! IsAutoFormat()
   return g:auto_format_flag == 1
@@ -89,19 +94,7 @@ command! AutoFormat let g:auto_format_flag=1
 " FYI
 " [vim\-codefmt/yapf\.vim at 5ede026bb3582cb3ca18fd4875bec76b98ce9a12 · google/vim\-codefmt]( https://github.com/google/vim-codefmt/blob/5ede026bb3582cb3ca18fd4875bec76b98ce9a12/autoload/codefmt/yapf.vim#L22 )
 
-" NOTE: register default format command
-augroup auto_format_setting_when_leaving
-  autocmd!
-  autocmd BufWinLeave * command! -bar Format call <SID>format_file()
-augroup END
-
 if Doctor('clang-format', 'clang format')
-  augroup cpp_group
-    autocmd!
-    autocmd FileType cpp autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% -bar Format :<line1>,<line2>ClangFormatRange
-    autocmd FileType cpp autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} :call <SID>clang_format_setting() | if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
-    autocmd FileType cpp autocmd! cpp_group FileType
-  augroup END
   " NOTE: for partly ranged clang-format
   function! s:clang_format_range() range
     if a:firstline==1 && a:lastline==line('$')
@@ -111,6 +104,11 @@ if Doctor('clang-format', 'clang format')
     endif
   endfunction
   command! -range=% -bar ClangFormatRange :<line1>,<line2>call s:clang_format_range()
+  augroup cpp_group
+    autocmd!
+    autocmd FileType cpp ++once autocmd BufWinEnter *.{c,h,cc,cxx,cpp,hpp} command! -range=% -bar Format :<line1>,<line2>ClangFormatRange
+    autocmd FileType cpp ++once autocmd BufWritePre *.{c,h,cc,cxx,cpp,hpp} :call s:clang_format_setting() | if IsAutoFormat() | call clang_format#replace(1, line('$')) | endif
+  augroup END
 endif
 if Doctor('autopep8', 'python format')
   augroup python_group
@@ -119,9 +117,8 @@ if Doctor('autopep8', 'python format')
     " :PythonFormat --ignore=E501
     " NOTE: for force format
     " :PythonFormat --aggressive --aggressive
-    autocmd FileType python autocmd BufWinEnter *.py command! -bar Format :PythonFormat --aggressive
-    autocmd FileType python autocmd BufWritePre *.py if IsAutoFormat() | :PythonFormat --aggressive | endif
-    autocmd FileType python autocmd! python_group FileType
+    autocmd FileType python ++once autocmd BufWinEnter *.py command! -bar Format :PythonFormat --aggressive
+    autocmd FileType python ++once autocmd BufWritePre *.py if IsAutoFormat() | :PythonFormat --aggressive | endif
   augroup END
 endif
 
@@ -129,77 +126,57 @@ endif
 if Doctor('npm', 'js,html,css format')
   augroup javascript_group
     autocmd!
-    autocmd FileType javascript autocmd BufWinEnter *.js command! -bar Format call JsBeautify()
-    autocmd FileType javascript autocmd BufWritePre *.js if IsAutoFormat() | call JsBeautify() | endif
-    autocmd FileType javascript autocmd! javascript_group FileType
+    autocmd FileType javascript ++once autocmd BufWinEnter *.js command! -bar Format call JsBeautify()
+    autocmd FileType javascript ++once autocmd BufWritePre *.js if IsAutoFormat() |  call JsBeautify() | endif
   augroup END
   augroup json_group
     autocmd!
-    " autocmd FileType json autocmd BufWinEnter *.json command! -bar Format call JsonBeautify()
-    " autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | call JsonBeautify() | endif
-    " autocmd FileType json autocmd! json_group FileType
-    autocmd FileType json autocmd BufWinEnter *.json command! -bar Format :JsonFormat
-    autocmd FileType json autocmd BufWritePre *.json if IsAutoFormat() | :JsonFormat | endif
-    autocmd FileType json autocmd! json_group FileType
+    autocmd FileType json ++once autocmd BufWinEnter *.json command! -bar Format :JsonFormat
+    autocmd FileType json ++once autocmd BufWritePre *.json if IsAutoFormat() |  :JsonFormat | endif
   augroup END
-  "     augroup jsx_group
-  "       autocmd!
-  "     autocmd FileType jsx      autocmd BufWinEnter *.jsx        command! -bar Format JsxBeautify()
-  "     autocmd FileType jsx      autocmd BufWritePre *.jsx        if IsAutoFormat() | :call JsxBeautify()  | endif
-  "     autocmd FileType jsx autocmd! jsx_group FileType
-  "     augroup END
   augroup html_vue_group
     autocmd!
-    autocmd FileType html,vue autocmd BufWinEnter *.{html,vue} command! -bar Format call HtmlBeautify()
-    autocmd FileType html,vue autocmd BufWritePre *.{html,vue} if IsAutoFormat() | call HtmlBeautify() | endif
-    autocmd FileType html,vue autocmd! html_vue_group FileType
+    autocmd FileType html,vue ++once autocmd BufWinEnter *.{html,vue} command! -bar Format call HtmlBeautify()
+    autocmd FileType html,vue ++once autocmd BufWritePre *.{html,vue} if IsAutoFormat() |  call HtmlBeautify() | endif
   augroup END
   augroup css_group
     autocmd!
-    autocmd FileType css autocmd  BufWinEnter *.css command! -bar Format         call CSSBeautify()
-    autocmd FileType css autocmd  BufWritePre *.css if       IsAutoFormat() | call CSSBeautify() | endif
-    autocmd FileType css autocmd! css_group   FileType
+    autocmd FileType css ++once autocmd  BufWinEnter *.css command! -bar Format      call CSSBeautify()
+    autocmd FileType css ++once autocmd  BufWritePre *.css if       IsAutoFormat() | call CSSBeautify() | endif
   augroup END
 endif
 
 augroup awk_group
   autocmd!
-  autocmd FileType awk autocmd BufWinEnter *.awk command! -bar Format call <SID>format_file()
-  autocmd FileType awk autocmd BufWritePre *.awk if IsAutoFormat() | call <SID>format_file() | endif
-  autocmd FileType awk autocmd! awk_group FileType
+  autocmd FileType awk ++once autocmd BufWinEnter *.awk command! -bar Format call <SID>format_file()
+  autocmd FileType awk ++once autocmd BufWritePre *.awk if IsAutoFormat() |  call <SID>format_file() | endif
 augroup END
 
 augroup vim_group
   autocmd!
-  autocmd FileType vim autocmd BufWritePre *.vim  if IsAutoFormat() | call <SID>format_file() | endif
-  autocmd FileType vim autocmd BufWritePre *vimrc if IsAutoFormat() | call <SID>format_file() | endif
-  autocmd FileType vim autocmd! vim_group FileType
+  autocmd FileType vim ++once autocmd BufWritePre *.vim  if IsAutoFormat() | call <SID>format_file() | endif
+  autocmd FileType vim ++once autocmd BufWritePre *vimrc if IsAutoFormat() | call <SID>format_file() | endif
 augroup END
 
 augroup tex_group
   autocmd!
-  autocmd FileType plaintex autocmd BufWritePre *.tex  if IsAutoFormat() | call <SID>format_file() | endif
-  autocmd FileType plaintex autocmd! tex_group FileType
+  autocmd FileType plaintex ++once autocmd BufWritePre *.tex  if IsAutoFormat() | call <SID>format_file() | endif
 augroup END
 
 if Doctor('shfmt', 'shell format')
   augroup shell_group
     autocmd!
     " NOTE: _* is for zsh completion file
-    autocmd FileType sh,zsh autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* command! -bar Format ShFormat
-    autocmd FileType sh,zsh autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* if IsAutoFormat() | :ShFormat | endif
-    autocmd FileType sh,zsh autocmd! shell_group FileType
+    autocmd FileType sh,zsh ++once autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* command! -bar Format ShFormat
+    autocmd FileType sh,zsh ++once autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* if IsAutoFormat() |  :ShFormat | endif
   augroup END
 endif
 
 if Doctor('cmake-format', 'cmake format')
   augroup cmake_format_group
     autocmd!
-    " autocmd FileType cmake autocmd BufWinEnter CMakeLists.txt,*.{cmake}      command! -bar Format         CmakeFormat
-    " autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :CmakeFormat | endif
-    " autocmd FileType cmake autocmd! cmake_format_group FileType
-    autocmd FileType cmake autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :Format | endif
-    autocmd FileType cmake autocmd! cmake_format_group FileType
+    autocmd FileType cmake ++once autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :Format | endif
+    autocmd FileType cmake ++once autocmd! cmake_format_group FileType
   augroup END
 endif
 
@@ -217,9 +194,8 @@ endif
 if Doctor('gofmt', 'go format')
   augroup go_format_group
     autocmd!
-    autocmd FileType go autocmd BufWinEnter *.go command! -bar Format GoFmt
-    autocmd FileType go autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
-    autocmd FileType go autocmd! go_format_group FileType
+    autocmd FileType go ++once autocmd BufWinEnter *.go command! -bar Format GoFmt
+    autocmd FileType go ++once autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
   augroup END
   " NOTE: original GoFmt has no '-bar' option
   command! -bar GoFmtWrapper :GoFmt
@@ -238,9 +214,8 @@ endif
 if Doctor('align', 'yaml format')
   augroup yaml_format_group
     autocmd!
-    autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! -bar Format YamlFormat
-    autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YamlFormat | endif
-    autocmd FileType yaml autocmd! yaml_format_group FileType
+    autocmd FileType yaml ++once autocmd BufWinEnter *.{yaml,yml} command! -bar Format YamlFormat
+    autocmd FileType yaml ++once autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YamlFormat | endif
   augroup END
   " command! YAMLFormat :
   " NOTE: original YAMLFormat has no '-bar' option
@@ -250,9 +225,8 @@ endif
 if Doctor('rustfmt', 'rust format')
   augroup rust_format_group
     autocmd!
-    autocmd FileType rust autocmd BufWinEnter *.{rs} command! -bar Format RustFormat
-    autocmd FileType rust autocmd BufWritePre *.{rs} if IsAutoFormat() | :RustFormat | endif
-    autocmd FileType rust autocmd! rust_format_group FileType
+    autocmd FileType rust ++once autocmd BufWinEnter *.{rs} command! -bar Format RustFormat
+    autocmd FileType rust ++once autocmd BufWritePre *.{rs} if IsAutoFormat() | :RustFormat | endif
   augroup END
 endif
 
@@ -262,9 +236,8 @@ if Doctor('goenkins-format', 'jenkins pipeline format')
         \ }
   augroup jenkins_pipeline_format_group
     autocmd!
-    autocmd FileType groovy autocmd BufWinEnter *.{groovy} command! -bar Format JenkinsFormat
-    autocmd FileType groovy autocmd BufWritePre *.{groovy} if IsAutoFormat() | :JenkinsFormat | endif
-    autocmd FileType groovy autocmd! jenkins_pipeline_format_group FileType
+    autocmd FileType groovy ++once autocmd BufWinEnter *.{groovy} command! -bar Format JenkinsFormat
+    autocmd FileType groovy ++once autocmd BufWritePre *.{groovy} if IsAutoFormat() | :JenkinsFormat | endif
   augroup END
 endif
 

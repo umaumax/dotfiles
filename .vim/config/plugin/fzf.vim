@@ -11,19 +11,17 @@ Plug 'junegunn/fzf.vim' ", {'on':['Pt', 'FZFTabOpen', 'FZFMru', 'FZFOpenFile']}
 " --------------------------------
 
 augroup terminal_disable_ambiwidth_group
-  autocmd! FileType fzf
   function! s:fzf_init()
     let b:ambiwidth = &ambiwidth
     let b:laststatus = &laststatus
     setlocal laststatus=0 noshowmode noruler
     " NOTE: fzfのterminalの表示はbelow settingが必要
     setlocal ambiwidth=single
-    autocmd BufLeave <buffer> call s:fzf_term()
+    autocmd BufLeave <buffer> ++once call s:fzf_term()
   endfunction
   function! s:fzf_term()
     execute 'setlocal laststatus='.b:laststatus
     execute 'setlocal ambiwidth='.b:ambiwidth
-    autocmd! BufLeave <buffer>
   endfunction
   autocmd FileType fzf call s:fzf_init()
 augroup END
