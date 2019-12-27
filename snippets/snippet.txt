@@ -312,7 +312,7 @@
 
 [git execute command on each commit when rebasing] git rebase HEAD~\%# --exec "ls"
 
-[git get the commit count across all branches] git rev-list --all --count
+[git get the number (count) of commits across all branches] git rev-list --all --count
 
 [git log even if merge commits] git log --stat -c
 
