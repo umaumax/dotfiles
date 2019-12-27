@@ -415,6 +415,7 @@
 [g++ include header dir list] g++ -E -v - </dev/null
 [g++ include header fullpath list] g++ -std=c++11 -H $CPP_FILEPATH
 [clang dump] clang-check $SRC\%# -ast-dump -ast-dump-filter=main --
+[g++ save temporary files] g++ -std=c++11 -save-temps=obj \%# # on Mac OS X: a.out,bc,ii,o,s
 
 
 # rename
