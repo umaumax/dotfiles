@@ -60,7 +60,8 @@ command! HelpOrigBind call PipeCommandResultToNewTab("call OrigBind()")
 
 command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
 " WARN: take a lot of time
-command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
+" command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
+command! ColorSyntaxName verbose highlight
 
 " user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")
