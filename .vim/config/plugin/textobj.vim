@@ -22,6 +22,9 @@ LazyPlug 'pocke/vim-textobj-markdown'
 " NOTE: you can't use next pattern ['^```\(\s\?\w\+\)\?$\n', '^```$'],
 " because? start end end pattern maybe same one
 
+" NOTE: ih: for git hunk
+LazyPlug 'gilligan/textobj-gitgutter'
+
 LazyPlug 'osyo-manga/vim-textobj-from_regexp'
 function! s:init_textobj()
   call textobj#user#plugin('php', {
@@ -36,8 +39,6 @@ function! s:init_textobj()
   omap <expr> in textobj#from_regexp#mapexpr('\d\+')
   xmap <expr> in textobj#from_regexp#mapexpr('\d\+')
   " hyphen
-  omap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
-  xmap <expr> ih textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
   omap <expr> i- textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
   xmap <expr> i- textobj#from_regexp#mapexpr('[A-Za-z0-9-]\+')
   " dot
@@ -107,7 +108,7 @@ let g:expand_region_text_objects = {
       \ 'iw'  :0,
       \ 'iW'  :0,
       \ 'iv'  :0,
-      \ 'ih'  :0,
+      \ 'i-'  :0,
       \ 'id'  :0,
       \ 'i<'  :0,
       \ 'a<'  :0,
@@ -127,6 +128,7 @@ let g:expand_region_text_objects = {
       \ 'aB'  :1,
       \ 'il'  :0,
       \ 'ip'  :0,
+      \ 'ih'  :0,
       \ 'ie'  :0,
       \ }
 
