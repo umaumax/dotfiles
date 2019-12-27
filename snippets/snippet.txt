@@ -1510,3 +1510,10 @@
 [realpath of current directory] builtin pwd -P # directory symbolic is solved
 
 [braille tenji 点字 unicode] seq 0x2800 0x28FF | ruby -ne 'print $_.to_i.chr("UTF-8")'
+
+# chmod
+[chmod sticky bit, SGID, SUID] chmod \%# # chmod 4644 1: T:Sticky Bit(o+t), 2: S:SGID(g+s), 4: S:SUID(u+s)
+[chmod sticky bit] chmod o+t \%#
+[chmod SGID] chmod g+s \%#
+[chmod SUID] chmod u+s \%#
+
