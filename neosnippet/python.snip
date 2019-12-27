@@ -403,3 +403,11 @@ snippet expand_path_with_home
 alias home_expand
 abbr e.g. ~/dotfiles
 	os.path.expanduser(${0})
+
+snippet tmpfile_generator
+alias tempfile_generator
+	def gen_tempfile_name():
+	    defult_tmp_dir = tempfile._get_default_tempdir()
+	    temp_name = next(tempfile._get_candidate_names())
+	    return os.path.join(default_tmp_dir, temp_name)
+		${0}
