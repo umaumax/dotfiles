@@ -27,6 +27,7 @@ let s:doctor_map={
       \'gopls':        'go get -u golang.org/x/tools/cmd/gopls',
       \'googler':      'brew install googler || sudo apt-get install googler',
       \'html-languageserver': 'npm install -g vscode-html-languageserver-bin',
+      \'javascript-typescript-stdio': 'javascript-typescript-langserver',
       \'jsonlint':     'npm install -g jsonlint',
       \'jq':           'brew install jq || sudo apt -y install jq',
       \'look':         'maybe default command',
