@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+
 # NOTE: for remote ssh
-if [[ -r /etc/profile ]]; then source /etc/profile; fi
+if [[ -r /etc/profile ]]; then
+  source /etc/profile
+fi
 if [[ -r ~/.bash_profile ]]; then
   source ~/.bash_profile
 elif [[ -r ~/.bash_login ]]; then
@@ -9,8 +12,11 @@ elif [[ -r ~/.profile ]]; then
   source ~/.profile
 fi
 
-# NOTE: oressh use --rcfile (not login shell)
+# NOTE: oressh use --rcfile option (which does not execute as login shell)
 ! shopt login_shell >/dev/null 2>&1 && [[ -f ~/.bashrc ]] && source ~/.bashrc
+
+shopt -s autocd
+shopt -s dotglob
 
 PS1='\[\e[1;33m\]\u@\h \w\n\[\e[1;36m\]\$\[\e[m\] '
 
@@ -22,7 +28,11 @@ export HISTCONTROL=ignoreboth
 stty stop undef
 
 function cmdcheck() { type "$1" >/dev/null 2>&1; }
-cmdcheck vim && alias vi='vim'
+if cmdcheck vim; then
+  alias vi='vim'
+else
+  alias vim='vi'
+fi
 
 ! cmdcheck tree && function tree() {
   pwd
