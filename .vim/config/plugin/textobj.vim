@@ -1,13 +1,13 @@
 " WARN: don't use LazyPlug
 " you must load vim-textobj-user before loading below plugins for dependency
 Plug 'kana/vim-textobj-user'
+
 " NOTE: for il
 LazyPlug 'kana/vim-textobj-line'
-" NOTE: for ie
+" NOTE: for ie: entire buffer
 LazyPlug 'kana/vim-textobj-entire'
 " NOTE: for if but same as my filepath key mapping
 " LazyPlug 'kana/vim-textobj-function'
-
 
 " NOTE: for i,|a,|i2,
 " let g:vim_textobj_parameter_mapping = ','
@@ -77,11 +77,11 @@ endfunction
 augroup textobj_init_mapping_augroup
   autocmd!
   autocmd User VimEnterDrawPost call s:init_textobj()
-  " variable
-  autocmd FileType * omap <expr> iv iw
-  autocmd FileType * xmap <expr> iv iw
-  autocmd FileType vim omap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
-  autocmd FileType vim xmap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
+  " NOTE: v: variable
+  autocmd FileType *           omap <expr> iv iw
+  autocmd FileType *           xmap <expr> iv iw
+  autocmd FileType vim         omap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
+  autocmd FileType vim         xmap <expr> iv textobj#from_regexp#mapexpr('[:A-Za-z0-9-_]\+')
   autocmd FileType sh,zsh,bash omap <expr> iv textobj#from_regexp#mapexpr('\${\?[$A-Za-z0-9_@#\[\]]\+}\?')
   autocmd FileType sh,zsh,bash xmap <expr> iv textobj#from_regexp#mapexpr('\${\?[$A-Za-z0-9_@#\[\]]\+}\?')
 augroup END
@@ -130,12 +130,11 @@ let g:expand_region_text_objects = {
       \ 'ie'  :0,
       \ }
 
-" NOTE:
-" 下記を追加すると，判定に時間がかかるらしく，待機時間がつらいので，導入しない
+" NOTE: below mapping takes a lot of time
 " \ 'i,'  :0,
 " \ 'a,'  :0,
 
-" NOTE: oによるカーソル位置によってはexapnd or shrink
+" WARN: oによるカーソル位置によってはexapnd or shrink
 " expand range one char both side
 function! s:expand_visual_range(n)
   " NOTE: up and down move
