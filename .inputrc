@@ -51,6 +51,12 @@ $if Gdb
   # NOTE: ignored if nothing without log
   $include ~/.config/gdb/.tmp.inputrc
 
+  # hook enter for catch new command history
+  # "\C-m": accept-line
+  # 下記のコマンドの後にコマンドを挿入するようにすればプロセス起動中のコマンド履歴を取得可能
+  # show commands ,n,+を駆使すれば無理やり可能ではあるので，gdbのpython bindを利用することになる
+  # "\C-b": "\C-a!echo \C-e>~/tmp/history.log\C-m"
+
   # up
   "\e[A": history-search-backward
   # down
