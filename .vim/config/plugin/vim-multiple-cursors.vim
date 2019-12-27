@@ -14,7 +14,7 @@ function! Multiple_cursors_before()
   " NOTE: vim-smartinput plugin mapping
   let key_mapping_list = get(g:, 'i_triggers', [])
   " NOTE: original mapping
-  let key_mapping_list += ['<Tab>','<S-Tab>']
+  let key_mapping_list += ['<Tab>', '<S-Tab>', '<Space>']
   let b:i_triggers_mappings = s:Store_mappings(key_mapping_list, 'i', 1)
 
   " NOTE: to prevent strange word '<Plug>_-1'
