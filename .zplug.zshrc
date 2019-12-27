@@ -22,6 +22,15 @@ if [[ $USE_ZPLUG == 0 ]]; then
     enable_zsh_plugin "https://github.com/zsh-users/zsh-history-substring-search" "zsh-history-substring-search.zsh"
     enable_zsh_plugin "https://github.com/umaumax/zsh-abbrev-alias" "abbrev-alias.plugin.zsh"
 
+    # NOTE: 色や挙動が安定しない(独自のbindが原因?) 1ファイルで800行ほどなので，参考に自作したほうがよいかも
+    # [auto\-fu\.zsh/auto\-fu\.zsh at master · hchbaw/auto\-fu\.zsh]( https://github.com/hchbaw/auto-fu.zsh/blob/master/auto-fu.zsh )
+    # enable_zsh_plugin "https://github.com/hchbaw/auto-fu.zsh" "auto-fu.zsh"
+    # function zle-line-init() {
+    # auto-fu-init
+    # }
+    # zle -N zle-line-init
+    # zstyle ':completion:*' completer _oldlist _complete
+
     # # NOTE: this plugin includes zsh-syntax-highlighting
     # # NOTE: below plugin maybe has bug? (manly at ubuntu?)
     # # enable_zsh_plugin "https://github.com/trapd00r/zsh-syntax-highlighting-filetypes" "zsh-syntax-highlighting-filetypes.zsh"
