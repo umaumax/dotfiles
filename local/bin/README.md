@@ -50,3 +50,6 @@ clang++ -fsyntax-only -Xclang -code-completion-at=struct.cpp:35:5 -std=c++11 cpp
 
 ## colortest.py
 * [Testing 256 color shells using background colors and automatic shell width detection]( https://gist.github.com/WoLpH/8b6f697ecc06318004728b8c0127d9b3 )
+
+## readline-search-history.sh
+* [GDB History and FZF · Issue \#1516 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1516 )
