@@ -519,6 +519,8 @@
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
+# FYI: [networking \- How to export and migrate NetworkManager settings to new system? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/351005/how-to-export-and-migrate-networkmanager-settings-to-new-system )
+[nmcli export settings] sudo cat /etc/NetworkManager/system-connections/* # there is no perfect export command
 [nmcli connection] nmcli connection
 [nmcli connection show] nmcli connection show
 [nmcli device status] nmcli device status
