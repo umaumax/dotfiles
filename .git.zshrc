@@ -202,8 +202,9 @@ alias gstcall='git status --ignored --untracked-files .'
 alias gstp='git log HEAD...HEAD~ --stat'
 
 alias glog='git log'
-alias gstlog='git log --stat'
-alias gstlogp='git log --stat -p'
+# NOTE: [git logでマージコミットの中の変更を表示する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/11/git-log-merge-diff/ )
+alias gstlog='git log --stat -c'
+alias gstlogp='git log --stat -c -p'
 alias glogst='git log --stat'
 alias glogstat='git log --stat'
 function git-add-peco() {
