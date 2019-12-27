@@ -202,14 +202,31 @@ command! -nargs=0 BoxEdit :execute "normal! \<C-v>"
 
 command! -range=% -nargs=0 RemoveWinCR :<line1>,<line2>/\r//g
 
-function! NeoSnippetWrapLine(name, prefix, suffix)
+let g:neosnippet_set_lines_args={}
+function! NeoSnippetSetLines() abort
+  let line=g:neosnippet_set_lines_args['line']
+  let cursor=g:neosnippet_set_lines_args['cursor']
+  call setline('.', line)
+  if cursor >=0
+    execute printf("normal! 0%d\<Right>", cursor-1)
+  else
+    normal! $
+  endif
+  call feedkeys("a", 'n')
+endfunction
+function! NeoSnippetWrapLine(name, prefix, suffix) abort
   let cursor_mark='@'
   let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
-  " TODO: imapで<Plug>として実行したほうが自由度が高く色々と可能なはず
-  " TODO: 複数行のsnippetにも対応したい
-  call feedkeys("\<C-o>0\<C-o>\"_".(col('.')-len(a:name))."x\<C-o>".stridx(line, cursor_mark)."\<Right>", 'n')
+  let cursor=stridx(line, cursor_mark)
   let line=substitute(line, cursor_mark, '', '')
-  return line
+  let g:neosnippet_set_lines_args={
+        \ 'line': line,
+        \ 'cursor': cursor,
+        \ }
+  nnoremap <silent> <Plug>(neo_snippet_bind:set_lines) :call NeoSnippetSetLines()<CR>
+  call feedkeys("\<Esc>\<Plug>(neo_snippet_bind:set_lines)", 'm')
+  " NOTE: return dummy value to set
+  return ''
 endfunction
 
 " NOTE: for c++ member initialization
