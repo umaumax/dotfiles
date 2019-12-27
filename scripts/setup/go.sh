@@ -43,6 +43,8 @@ go get -u github.com/takumakanari/cronv/...
 
 # NOTE: for markdown preview
 go get -u github.com/romanyx/mdopen
+# NOTE: for markdown cli output
+go get -u github.com/charmbracelet/glow
 
 # NOTE: for json
 go get -u github.com/tomnomnom/gron
