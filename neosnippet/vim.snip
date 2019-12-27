@@ -175,5 +175,11 @@ snippet last_searched_pattern_push_pop
 snippet default_dict_variable_megrge
 	let s:default_$1 = {
 	  \ ${0}
-		\ }
+	  \ }
 	let g:${1:#:dict_var_name}=extend(copy(s:default_$1), get(g:, "$1", {}))
+
+snippet append_file
+	let output_filepath='${0}'
+	execute ":redir! >> ".output_filepath
+	silent! echon '${1}'."\n"
+	redir END
