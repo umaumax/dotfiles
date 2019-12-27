@@ -6,3 +6,6 @@ go time timer
 
 go init func
 [最速でinitを呼ぶ \- Qiita]( https://qiita.com/shibukawa/items/40fc56065cff3c6ac3dd )
+
+go gopher
+[私のGopherコレクション2014 \#golang \- Qiita]( https://qiita.com/tenntenn/items/05704c8600040a4f6748 )
