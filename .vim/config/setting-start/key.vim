@@ -492,16 +492,16 @@ vnoremap <silent> V :<C-u>call <SID>V()<CR>
 " don't add <silent>
 command! -nargs=0 Delete normal! ggVG"_x
 
-" NOTE: 理由は不明だが，Ubuntuでgxが機能しないため
+" NOTE: ubuntu16.04 gx binding doesn't work well with unclear reason
 function! OpenURL(...)
   let url=get(a:, 1, matchstr(getline("."), '\(http\(s\)\?://[^ ]\+\)', 0))
-  echom 'open url:'.url
+  echom '[open url]: '.url
   if has('mac')
     call system("open '".url."'")
   elseif !has('win')
     call system("xdg-open &>/dev/null '".url."'")
   else
-    echom 'not supported at windows!'
+    echom 'not supported on windows!'
   endif
 endfunction
 " to overwrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
@@ -707,8 +707,7 @@ function! s:paste_at_cmdline()
   call setcmdpos(strlen(cmd)+1)
   return cmd
 endfunction
-" NOTE: 下記のURLはvimのgxコマンドではなく，直接URLを貼り付けて開くこと(urlencodeされてしまうため)
-" [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-\_e )
+" [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-_e )
 cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
 
 function! s:yank_cmdline()
