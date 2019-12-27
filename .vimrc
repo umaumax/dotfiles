@@ -48,7 +48,7 @@ runtime! config/init/*.vim
 
 let s:cwd = getcwd()
 
-if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off'
+if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off' || v:version < 800
   runtime! config/package_manager/*.vim
 endif
 
