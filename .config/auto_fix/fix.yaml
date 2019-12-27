@@ -38,6 +38,8 @@ _:
 - - line
 - - python
 - - sample
+- - same
+- - some
 - - search
 - - type
   - tpe
