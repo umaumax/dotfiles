@@ -1250,11 +1250,11 @@ function ssh-register_id_rsa.pub() {
   cat "$id_rsa_pub_filepath" | ssh "$ssh_host_name" 'mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys && cat >> ~/.ssh/authorized_keys'
 }
 
-# show path each line
-alias path='echo $PATH | sed "s/:/\n/g"'
-alias cpath='echo $CPATH | sed "s/:/\n/g"'
+alias path='echo -e ${PATH//:/\\n}'
+# NOTE: for cpp
+alias cpath='echo -e ${CPATH//:/\\n}'
 # NOTE: zsh var
-alias fpath='echo $fpath | tr " " "\n"'
+alias fpath='tr " " "\n" <<<$fpath'
 
 # 指定したディレクトリに存在する実行可能なファイルを列挙する
 function cmds() {
