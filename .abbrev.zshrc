@@ -60,8 +60,8 @@ abbrev-alias -c gsp='git stash pop'
 abbrev-alias -c gg="ggpvc '\%#'"
 abbrev-alias -c ggr="ggpv '\%#'"
 
-abbrev-alias -c ggv="ggpvc '\%#' -- '*.vim'"
-abbrev-alias -c ggvim="ggpvc '\%#' -- '*.vim'"
+abbrev-alias -c ggv="ggpvc '\%#' -- '*.vim' '*.vimrc'"
+abbrev-alias -c ggvim="ggpvc '\%#' -- '*.vim' '*.vimrc'"
 
 abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zshrc' '*.zsh' '*.zshprofile' '*.zpreztorc'"
 
