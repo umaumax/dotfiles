@@ -1,5 +1,14 @@
 #### overwrite default settings ###
 
+snippet wif
+	if [[ ${0}`NeoSnippetWrapLine('wif')` ]]; then
+	fi
+
+snippet wheredoc_cat
+	cat << EOF
+	`NeoSnippetWrapLine('wheredoc_cat')`${0}
+	EOF
+
 snippet if
 	if [[ ${1:#:condition} ]]; then
 		${0:TARGET}

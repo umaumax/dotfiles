@@ -1,16 +1,18 @@
 # wrap command
 snippet wcout
 options word
-	`NeoSnippetWrapLine('wcout', 'std::cout << @', ' << std::endl;')`${0}
+	std::cout << ${0}`NeoSnippetWrapLine('wcout')` << std::endl;
 snippet wcerr
 options word
-	`NeoSnippetWrapLine('wcerr', 'std::cerr << @', ' << std::endl;')`${0}
+	std::cerr << ${0}`NeoSnippetWrapLine('wcerr')` << std::endl;
 snippet wclog
 options word
-	`NeoSnippetWrapLine('wclog', 'std::clog << @', ' << std::endl;')`${0}
+	std::clog << ${0}`NeoSnippetWrapLine('wclog')` << std::endl;
 snippet wif
 options word
-	`NeoSnippetWrapLine('wif', 'if (', '@)')`${0}
+	if (`NeoSnippetWrapLine('wif')`) {
+		${0}
+	}
 
 # REQUIRED: ctags
 snippet funcname

@@ -203,30 +203,30 @@ command! -nargs=0 BoxEdit :execute "normal! \<C-v>"
 command! -range=% -nargs=0 RemoveWinCR :<line1>,<line2>/\r//g
 
 let g:neosnippet_set_lines_args={}
-function! NeoSnippetSetLines() abort
-  let line=g:neosnippet_set_lines_args['line']
-  let cursor=g:neosnippet_set_lines_args['cursor']
-  call setline('.', line)
-  if cursor >=0
-    execute printf("normal! 0%d\<Right>", cursor-1)
-  else
-    normal! $
+function! NeoSnippetRemoveOriginalLine() abort
+  let cursor_pos=getcurpos()
+  " NOTE: remove original line
+  let target_row=g:neosnippet_set_lines_args['triggered_row']
+  let target_n=g:neosnippet_set_lines_args['triggered_line_strchars_n']
+  " NOTE: if same row, move col
+  if cursor_pos[1]==target_row
+    let cursor_pos[2]-=target_n
   endif
-  call feedkeys("a", 'n')
+  execute printf('normal! %dG', target_row)
+  execute printf('normal! 0"_%dx', target_n)
+  call setpos('.', cursor_pos)
+  call feedkeys('a', 'n')
 endfunction
-function! NeoSnippetWrapLine(name, prefix, suffix) abort
-  let cursor_mark='@'
-  let line=a:prefix.substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g').a:suffix
-  let cursor=stridx(line, cursor_mark)
-  let line=substitute(line, cursor_mark, '', '')
+" NOTE: getline('.') includes snipept name e.g.: '_line_ _snippet_name_'
+function! NeoSnippetWrapLine(name) abort
+  let line=substitute(getline('.'), '^\s*\|\s*'.a:name.'$', '', 'g')
   let g:neosnippet_set_lines_args={
-        \ 'line': line,
-        \ 'cursor': cursor,
+        \ 'triggered_row': getpos('.')[1],
+        \ 'triggered_line_strchars_n': strchars(getline('.'))-strchars(a:name),
         \ }
-  nnoremap <silent> <Plug>(neo_snippet_bind:set_lines) :call NeoSnippetSetLines()<CR>
-  call feedkeys("\<Esc>\<Plug>(neo_snippet_bind:set_lines)", 'm')
-  " NOTE: return dummy value to set
-  return ''
+  nnoremap <silent> <Plug>(neo_snippet_bind:remove_original_line) :call NeoSnippetRemoveOriginalLine()<CR>
+  call feedkeys("\<Esc>\<Plug>(neo_snippet_bind:remove_original_line)", 'm')
+  return line
 endfunction
 
 " NOTE: for c++ member initialization
