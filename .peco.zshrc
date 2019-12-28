@@ -24,7 +24,7 @@ fi
 cmdcheck fzf && alias peco='fzf' && function fzf() {
   if [[ -p /dev/stdin ]]; then
     # [Couldn't get fzf to work without running sudo · Issue \#1146 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1146 )
-    # -> USE: pipe-EOF-do
+    # -> USE: pipe-EOF-do or fzf --sync
     # NOTE: --no-hscroll: Disable horizontal scroll
     pipe-EOF-do command fzf -0 --multi --no-mouse --ansi --reverse --no-hscroll --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' "$@"
   else
