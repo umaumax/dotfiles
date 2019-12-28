@@ -7,18 +7,11 @@ options head
 	Plug '${0}'
 
 snippet     augroup
-abbr        augroup with autocmds
+abbr        you can add ++once option e.g. autocmd xxx * ++once
 options     head
 	augroup ${1:#:augroup_name}_group
 		autocmd!
 		autocmd ${0}
-	augroup END
-snippet     augroup_once
-options     head
-	augroup ${1:#:augroup_name}_group
-		autocmd!
-		autocmd ${0} \
-			autocmd! $1_group
 	augroup END
 
 snippet     function
