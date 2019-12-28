@@ -223,9 +223,9 @@ set whichwrap=b,s,[,],<,>
 " h Disable the effect of 'hlsearch' when loading the viminfo file.  When not included, it depends on whether ":nohlsearch"
 " ! When included, save and restore global variables that start with an uppercase letter, and don't contain a lowercase letter.  Thus "KEEPTHIS and "K_L_M" are stored, but "KeepThis" and "_K_L_M" are not.  Only String and Number types are stored.
 set viminfo='1000,/5000,%,<1000,f1,s100,:10000,c,h,!
-" NOTE: move cursor to last position
-augroup reopen_cursor_position
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup reopen_cursor_position_group
+  " NOTE: move cursor to last position if not specified
+  autocmd BufReadPost * if getcurpos()[1] == 1 && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 " NOTE: use .viminfo
