@@ -69,7 +69,7 @@ let g:switch_custom_definitions =
       \   {
       \     "^[^']*'[^']*$" : {"'":'"'},
       \     "^[^\"]*\"[^\"]*$" : {'"':"'"},
-      \   }
+      \   },
       \ ]
 function! s:toggle(value)
   let opt= a:value >= 0 ? {} : {'reverse': a:value}
