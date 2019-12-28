@@ -1737,6 +1737,11 @@ alias cmake.pv='fg.cmake.pv'
 alias readme.pv='fg.readme.pv'
 
 function cmake() {
+  if [[ ! $(basename $(dirname $PWD/.)) =~ build ]]; then
+    echo 1>&2 "${RED}[WARN]: current directory doesn't include 'build'${DEFAULT}"
+    return 1
+  fi
+
   local exit_code
   if [[ ! -t 1 ]] || [[ ! -t 2 ]]; then
     command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
