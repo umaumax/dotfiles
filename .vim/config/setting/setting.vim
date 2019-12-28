@@ -1,36 +1,33 @@
-" #### 表示設定 ####
 set encoding=utf-8
-"set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 set t_Co=256
-" If you have vim >=8.0 or Neovim >= 0.1.5
-" vimが対応していても，terminalの方が非対応である可能性がある
-" only for $TERM_PROGRAM=="iTerm.app" ?
+" FYI: [term \- Vim日本語ドキュメント]( https://vim-jp.org/vimdoc-ja/term.html#xterm-true-color )
 if has("termguicolors")
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 set background=dark
-set list  " 不可視文字を表示
-set ruler " 右下に表示される行・列の番号を表示する
-" set wrap  " ウィンドウの幅より長い行は折り返され、次の行に続けて表示される
+" NOTE: set listchars visible
+set list
+set listchars=tab:»_,trail:-,extends:»,precedes:«,nbsp:%,eol:↲ 
+set number
+set ruler
 set nowrap
-set listchars=tab:»_,trail:-,extends:»,precedes:«,nbsp:%,eol:↲ " 不可視文字を表示
-set showcmd " コマンドを画面最下部に表示する
-set shortmess+=I " 起動時のメッセージを消す
-set number      "行番号を表示する
-" [「Vimを使ってくれてありがとう」にさようなら]( https://qiita.com/ttdoda/items/903e85f07d58018c851d )
+set showcmd
+" NOTE: suppress startup message
+set shortmess+=I
+" FYI: [「Vimを使ってくれてありがとう」にさようなら]( https://qiita.com/ttdoda/items/903e85f07d58018c851d )
 " title stack
 let &t_ti .= "\e[22;0t"
 let &t_te .= "\e[23;0t"
-set title       "編集中のファイル名を表示
-set showmatch   "括弧入力時の対応する括弧を表示
+set title
+set showmatch
 set matchtime=1 " 0.n sec 対応するカッコにカーソルが移動する
 set pumheight=20 " 補完候補の表示数
-set incsearch    "インクリメント検索(リアルタイム検索)
-" [vimのコマンドラインでの補完が使いづらい \- Qiita]( https://qiita.com/YamasakiKenta/items/b342f796de69f03cb5b3 )
+set incsearch
+" FYI: [vimのコマンドラインでの補完が使いづらい \- Qiita]( https://qiita.com/YamasakiKenta/items/b342f796de69f03cb5b3 )
 set wildmenu
 set wildmode=longest:full,full
 " FYI: [Neovimさんのツイート: "Popup 'wildmenu' just landed in \#neovim HEAD 0\.4\.x\. :set wildoptions=pum It supports 'pumblend', don't worry\. :set pumblend=20… https://t\.co/sFy2dljE4i"]( https://twitter.com/Neovim/status/1107014096908664832 )
@@ -50,11 +47,12 @@ endif
 
 " NOTE: disable vimgrep, findfile(), finddir(), and so on
 " set wildignore+=,xxx,yyy
-" 先頭の','により，すべてがignore対象?となり，期待した動作とならないので注意
-" */tmp/*を指定すると~/tmp上で`:e`のファイル名の補完もignoreされる
+" 上記のようなケースでは，先頭の','により，すべてがignore対象?となり，期待した動作とならないので注意
+" */tmp/*を指定すると~/tmp上で`:e`のファイル名の補完もignoreされるので注意
 set wildignore+=*.o,*.so,*.out,*.obj,.git,.svn,build,build*,CMakeFiles,node_modules,vender,*.rbc,*.rbo,*.swp,*.zip,*.class,*.gem,*.png,*.jpg,*.tu,*.pch
-
-set display=lastline " [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
+"
+" FYI: [個人的に便利だと思うVimの基本設定のランキングを発表します！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2014/12/25/090000 )
+set display=lastline
 set scrolloff=8 " 最低でも上下に表示する行数
 set nostartofline " いろんなコマンドの後にカーソルを先頭に移動させない
 
@@ -168,7 +166,7 @@ augroup noundofile_group
   autocmd BufWritePre,FileWritePre,FileAppendPre * if len(expand('%:p')) >= 255 | setlocal noundofile | endif
 augroup END
 
-" NOTE: 以下のような複数行のコマンドをコピーして，コマンドラインに貼り付けるときに，強制的にset pasteとなる
+" NOTE: 以下のような複数行のコマンドをコピーして，コマンドラインに貼り付けるときに，強制的にset pasteとなるのでそれを戻す設定
 " :echo 1
 " :echo 2
 augroup no_paste_group
@@ -239,21 +237,7 @@ augroup END
 " redir END
 
 "#### END ####
-" old setting?
-" filetype plugin indent on " enable
-syntax on "コードの色分け
-
-" load local setting file if exist
-" e.g,
-" " for 'zchee/deoplete-jedi'
-" " pip install neovimをしたpythonのbinへのpathを設定すること
-" let g:python_host_prog  = '/usr/local/bin/python2'
-" let g:python3_host_prog = '/usr/local/bin/python3'
-"
-" " [deoplete\-clangで快適C\+\+エディット！！！ \- Qiita]( https://qiita.com/musou1500/items/3f0b139d37d78a18786f )
-" " for 'zchee/deoplete-clang'
-" let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.dylib'
-" let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+syntax on
 
 " ################ end of setting ################
 
