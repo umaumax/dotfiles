@@ -41,6 +41,8 @@ git-update-dummy-alias
 ### local seting
 #### files
 * `~/.local.zshrc`
+* `~/.local.zprofile`
+* `~/.local.zshenv`
 * `~/.local.vimrc`
 * `~/compile_flags.local.txt`
 
