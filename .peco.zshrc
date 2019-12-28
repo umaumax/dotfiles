@@ -720,6 +720,8 @@ if cmdcheck fzf; then
         echo "open $url"
         open "$url"
       done
+      # NOTE: Auto-import bookmarks from your browser(s).
+      # buku --ai
     }
   fi
   alias sshdelpeco='ssh-keygen-R-peco'
