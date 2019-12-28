@@ -18,6 +18,8 @@
 [find extract files] $(find . -type f -mindepth 1 -maxdepth 1)
 [find extract directories] $(find . -type f -mindepth 1 -maxdepth 1)
 
+[find files that have been modified] sudo find / -mmin 60 -type f
+
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
 
@@ -381,6 +383,7 @@
 
 [time bomb at mac] sleep $(( $(gdate -d "\%#" "+%s") - $(gdate "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
 [time bomb at ubuntu] sleep $(( $(date -d "\%#" "+%s") - $(date "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
+[at job list] atq
 
 [shuffle line] shuf
 [shuffle args] ruby -e 'puts ARGV.shuffle.join(" ")'
@@ -881,6 +884,8 @@
 [devnull stdout       ] >/dev/null \%#
 [devnull stdout/stderr] >/dev/null 2>&1 \%#
 [stderr > stdout      ] 2>&1 \%#
+[other devnull way] >&-
+[other devnull way with side effect] |:
 # [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
 [pipe only stderr] 3>&1 1>&2 2>&3 3>&- | \%# # in zsh run: setopt nomultios
 # [shell \- IO Redirection \- Swapping stdout and stderr \- Stack Overflow]( https://stackoverflow.com/questions/13299317/io-redirection-swapping-stdout-and-stderr )
@@ -1322,7 +1327,8 @@
 
 # ar
 # FYI: [linux \- How to merge two "ar" static libraries into one? \- Stack Overflow]( https://stackoverflow.com/questions/3821916/how-to-merge-two-ar-static-libraries-into-one )
-[ar archive archives(libtool)] libtool -static -o $NEW.a\%# # archives... WARN: order of .o load order is important
+[ar archive archives(libtool)] libtool -static -o $NEW.a\%# # archives... WARN: order of .o load order is important # sudo apt-get install -y libtool
+
 [ar archive archives] ls *.a | xargs -L 1 ar -x ; ar -qc $NEW.a\%# *.o # non-safe use tmp dir WARN: order of .o load order is important
 [ar extract] ar x \%#
 
@@ -1520,3 +1526,14 @@
 [chmod SGID] chmod g+s \%#
 [chmod SUID] chmod u+s \%#
 [find SUID bin files] find /bin /sbin /usr/bin -perm -u+s
+
+# data
+[data to variable] read day month year <<< $(date +'%d %m %Y')
+[data to variable] eval $(date +"day=%d; month=%m; year=%Y")
+
+# threads
+[count threds per process(bash)] ( echo "pid name threads"; find /proc/[0-9]*/status | xargs grep -E '^(Name|Threads)' | perl -nle 'if (/^\/proc\/([0-9]+)\/.+:Name:\s+(.+)$/) { $p=$1; $n=$2 } elsif (/^\/proc\/([0-9]+)\/.+:Threads:\s+(.+)$/ && $1==$p) { print "$p $n $2" }' )
+[count threds per process(zsh) ] ( echo "pid name threads"; echo /proc/<0-9>*/status | xargs grep -E '^(Name|Threads)' | perl -nle 'if (/^\/proc\/([0-9]+)\/.+:Name:\s+(.+)$/) { $p=$1; $n=$2 } elsif (/^\/proc\/([0-9]+)\/.+:Threads:\s+(.+)$/ && $1==$p) { print "$p $n $2" }' )
+
+# markdown
+[markdown to confluence] md2confl \%# # go get -u github.com/kentaro-m/md2confl
