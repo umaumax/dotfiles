@@ -1537,3 +1537,6 @@
 
 # markdown
 [markdown to confluence] md2confl \%# # go get -u github.com/kentaro-m/md2confl
+
+# lolcat
+[delay(annimated) cat] lolcat -a
