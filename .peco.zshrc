@@ -459,13 +459,17 @@ function pecoole() {
       echo ''
       # NOTE: cat files with new blank line separator
       awk 'FNR==1 && NR!=1 {print ""}{print}' ~/dotfiles/urls/*.md
-    } | awk '!/^$/{if (head!="") printf "%-40s: %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' | bat -l markdown --color=always --plain --unbuffered | fzf --query="'"
+    } | awk '!/^$/{if (head!="") printf "%-40s: %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' \
+      | bat -l markdown --color=always --plain --unbuffered \
+      | fzf --multi --query="'" \
+      | grep -E -o "http[s]?://[^ ]*"
   )
-  local url
-  url=$(printf '%s' "$ret" | grep -E -o "http[s]?://[^ ]*")
-  [[ -z $url ]] && return
-  open "$url"
-  printf '%s\n' "$url"
+  [[ -z $ret ]] && return
+
+  while IFS= read -r url || [[ -n "$url" ]]; do
+    open "$url"
+    printf '%s\n' "$url"
+  done < <(printf '%s' "$ret")
 }
 
 function lnpeco() {
