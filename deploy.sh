@@ -80,6 +80,7 @@ ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
 ln -sf ~/dotfiles/.config/auto_fix/* ~/.config/auto_fix/
 ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/.config/litecli/config ~/.config/litecli/config
+ln -sf ~/dotfiles/.config/ranger/rc.conf ~/.config/ranger/rc.conf
 
 if [[ $(uname) == "Linux" ]]; then
   ln -sf ~/dotfiles/.toprc ~/
