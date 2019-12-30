@@ -23,9 +23,12 @@ let s:regexpressions = [ '\(.\{-1,}\)[(:]\(\d\+\)\%(:\(\d\+\):\?\)\?' ]
 
 " e HEAD:README.md
 " e HEAD:%
+" e %:HEAD~
 " for my cmd
 " DiffSplit HEAD:%
-let s:git_regexpressions = [ '\(.\{-1,}\):\(.\+\)$' ]
+let s:git_prefix_regexpressions = {'regexp': '^\(\([0-9a-f]\{5,40}\|@\|HEAD\)[~^]*\):\(.\+\)$',     'file': 3, 'commit': 1}
+let s:git_suffix_regexpressions = {'regexp': '^\(.\{-1,}\):\(\([0-9a-f]\{5,40}\|@\|HEAD\)[~^]*\)$', 'file': 1, 'commit': 2}
+let s:git_regexpressions = [ s:git_prefix_regexpressions, s:git_suffix_regexpressions ]
 
 function! s:reopenAndGotoLine(file_name, line_num, col_num)
   if !filereadable(a:file_name)
@@ -83,12 +86,16 @@ function! s:gotoline()
       return file_name
     endif
   endfor
-  for regexp in s:git_regexpressions
+
+  for reg_obj in s:git_regexpressions
+    let regexp=reg_obj['regexp']
+    let commit_index=reg_obj['commit']
+    let file_index=reg_obj['file']
     let l:names = matchlist(file, regexp)
 
     if ! empty(l:names)
-      let sha = l:names[1]
-      let file_name = l:names[2]
+      let sha = l:names[commit_index]
+      let file_name = l:names[file_index]
       let line_num='0'
       let col_num='0'
       let tmpfilepath=s:create_tmp_git_show_file(sha,file_name)
