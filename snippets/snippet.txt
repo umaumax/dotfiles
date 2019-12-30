@@ -1540,3 +1540,5 @@
 
 # lolcat
 [delay(annimated) cat] lolcat -a
+
+[check default port applications] cat /etc/services
