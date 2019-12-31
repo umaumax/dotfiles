@@ -1,4 +1,7 @@
 " disable plugins
+let g:no_gvimrc_example=1
+let g:no_vimrc_example=1
+
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
 let g:loaded_tarPlugin         = 1
@@ -14,6 +17,9 @@ let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
+let g:did_install_default_menus = 1
+let g:skip_loading_mswin        = 1
+let g:did_install_syntax_menu   = 1
 if !has('gui_running')
   let g:loaded_matchparen = 1
 endif
