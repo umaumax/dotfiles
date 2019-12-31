@@ -1069,18 +1069,22 @@ if cmdcheck tmux; then
     local tag_id=$(echo $output | peco | cut -d : -f 1)
     [[ -n $tag_id ]] && tmux a -t $tag_id
   }
-  # FYI: [Tmux のセッション名を楽に変えて楽に管理する \- Qiita]( https://qiita.com/s4kr4/items/b6ad512ea9160fc8e90e )
   alias tmuxrename='tmux-rename-session'
   function tmux-rename-session() {
     is_not_in_tmux_with_message || return
-    local name=${1:-}
+    local name
+    local base_dirpath
+    name=${1:-}
     if [[ -z $name ]]; then
       if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        name="$(basename $(git rev-parse --show-toplevel))"
+        base_dirpath="$(git rev-parse --show-toplevel)"
       else
-        name="$(basename $(pwd))"
+        base_dirpath="$(pwd)"
       fi
+      # NOTE: /xxx/yyy/zzz -> yyy/zzz
+      name="$(basename $(dirname $base_dirpath))/$(basename $base_dirpath)"
     fi
+    # NOTE: using '.' is forbidden at tmux session name
     tmux rename-session "${name//./_}"
   }
   # FYI: [tmux のアウトプットを適当なエディタで開く \- Qiita]( https://qiita.com/acro5piano/items/0563ab6ce432dbd76e50 )
