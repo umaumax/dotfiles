@@ -623,6 +623,23 @@ if [[ $(uname) == "Darwin" ]]; then
   alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
   alias vmrun='/Applications/VMware Fusion.app/Contents/Library/vmrun'
 
+  # FYI: [Set the Desktop Background for all of your open Spaces in Mountain Lion]( https://gist.github.com/willurd/5829224 )
+  function set-background-image() {
+    if [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+$(basename "$0") <image filepath>
+EOF
+      return 1
+    fi
+    local image_filepath
+    image_filepath="$1"
+    if [[ ! -f "$image_filepath" ]]; then
+      echo 1>&2 "not found: '$image_filepath'"
+      return 1
+    fi
+    sqlite3 "$HOME/Library/Application Support/Dock/desktoppicture.db" "update data set value = '$image_filepath'" && killall Dock
+  }
+
   # browser
   alias safari='open -a /Applications/Safari.app'
   alias firefox='open -a /Applications/Firefox.app'
