@@ -3037,6 +3037,8 @@ cmdcheck pyenv && function pyenv() {
   return $exit_code
 }
 
+# FYI: [unlinkコマンドは使い方に注意しないといけない危険なコマンド \- Qiita]( https://qiita.com/Kyou13/items/4a6742bf1cf260d96b29 )
+# safe unlink wrapper command
 function unlink() {
   local fail_flag=0
   for arg in "$@"; do
