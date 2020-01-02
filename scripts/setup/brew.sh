@@ -96,6 +96,8 @@ brew install lolcat
 brew install parallel
 brew install socat
 
+brew install plantuml
+
 # for perl
 brew install cpanminus
 
