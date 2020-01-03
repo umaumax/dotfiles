@@ -236,6 +236,14 @@ augroup END
 " silent! echon s:time_str . " " . s:full_path . "\n"
 " redir END
 
+if exists('$TMUX')
+  augroup tmux
+    autocmd!
+    autocmd BufReadPost,FileReadPost,BufNewFile,FocusGained,WinEnter,TabEnter * call system("tmux rename-window " . expand("%:t"))
+    autocmd VimLeave,FocusLost * call system("tmux set-window-option automatic-rename")
+  augroup END
+endif
+
 "#### END ####
 syntax on
 
