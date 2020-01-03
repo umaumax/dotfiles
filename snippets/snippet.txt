@@ -447,6 +447,7 @@
 [realtime log viewer] tail -f
 
 # mac
+[mac os version] sw_vers -productVersion
 [brew clean cache] brew cleanup -s
 [brew clean cache dry-run] brew cleanup -n
 [check SIP status] csrutil status
@@ -991,6 +992,7 @@
 
 [ubuntu mother board info] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
+[ubuntu memory info] sudo lshw -class memory
 [ubuntu memory info] cat /proc/meminfo
 [ubuntu cpu info] cat /proc/cpuinfo
 [ubuntu gpu info] lspci | grep VGA
