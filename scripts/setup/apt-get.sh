@@ -63,6 +63,7 @@ sudo apt-get install -y golang-1.10
 sudo apt-get install -y openssh-server
 sudo apt-get install -y sshpass
 sudo apt-get install -y sshfs
+sudo apt-get install -y sshuttle
 sudo apt-get install -y imagemagick
 sudo apt-get install -y pdftk
 sudo apt-get install -y figlet
