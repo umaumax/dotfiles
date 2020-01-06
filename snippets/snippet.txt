@@ -87,6 +87,7 @@
 [docker container name xargs exec] docker ps --format "{{.Names}}" | xargs -L 1 -I{} bash -c "echo {}\%#"
 [remote host docker exec list] docker ps; docker ps --format "{{.Names}}" | xargs -L1 -I{} echo docker exec -it {} bash
 [docker ps format] docker ps --format "{{.Names}}"
+[docker compose update(rebuild)] docker-compose build && docker-compose stop && docker-compose up # you can build at running containers
 
 
 # cmake
