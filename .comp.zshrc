@@ -62,3 +62,9 @@ EOF
   echo -n $1 | tee $(tty) | c
 }
 compdef chost=ssh
+
+function _fifocat() {
+  local tmp_dirpath="${TMPDIR}/tmp-fifo-dir"
+  _files -W "$tmp_dirpath"
+}
+compdef _fifocat fifocat
