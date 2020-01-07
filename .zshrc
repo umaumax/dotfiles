@@ -3129,12 +3129,14 @@ EOF
     command cat $fifo_filepath
   fi
 }
-alias fifocatrm='rmfifocat'
-function rmfifocat() {
-  local tmp_dirpath="${TMPDIR}/tmp-fifo-dir"
-  local ret=$(find "$tmp_dirpath" -type p | perl -pe "s:^(.*/tmp-fifo-dir/)(.*)$:${GRAY}\$1${LIGHT_BLUE}\$2${DEFAULT}:g" | peco | tr '\n' ' ')
-  [[ -n $ret ]] && print -z ' rm -rf '"$ret"
-}
+if cmdcheck peco; then
+  alias fifocatrm='rmfifocat'
+  function rmfifocat() {
+    local tmp_dirpath="${TMPDIR}/tmp-fifo-dir"
+    local ret=$(find "$tmp_dirpath" -type p | perl -pe "s:^(.*/tmp-fifo-dir/)(.*)$:${GRAY}\$1${LIGHT_BLUE}\$2${DEFAULT}:g" | peco | tr '\n' ' ')
+    [[ -n $ret ]] && print -z ' rm -f '"$ret"
+  }
+fi
 
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
