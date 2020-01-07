@@ -2,6 +2,8 @@
 "   Plug 'neomake/neomake'
 LazyPlug 'w0rp/ale'
 
+let g:ale_disable_lsp = 1
+
 " [NeovimでモダンなPython環境を構築する]( https://qiita.com/lighttiger2505/items/e0ada17634516c081ee7 )
 
 " 'vim-airline/vim-airline'では変更不可(固定format)
