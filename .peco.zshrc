@@ -641,11 +641,10 @@ if cmdcheck fzf; then
     local base_url='http://docs.w3cub.com'
     [[ -n $ret ]] && open "$base_url/$ret"
   }
-  alias pecols='lspeco'
   function lspeco() {
     local ls_force_color='ls --color=always'
     [[ $(uname) == "Darwin" ]] && ls_force_color='CLICOLOR_FORCE=1 ls -G'
-    eval $ls_force_color -A | pecocat
+    eval $ls_force_color -A ${1:-.} | pecocat
   }
   # NOTE: lsの結果から特定のファイル/ディレクトリを除外する
   alias pecolsex='lsexpeco'
@@ -653,14 +652,14 @@ if cmdcheck fzf; then
     local ls_force_color='ls --color=always'
     [[ $(uname) == "Darwin" ]] && ls_force_color='CLICOLOR_FORCE=1 ls -G'
     {
-      eval $ls_force_color -A | pecocat
-      ls -A
+      eval $ls_force_color -A ${1:-.} | pecocat
+      ls -A ${1:-.}
     } | sort | uniq -u
   }
   if cmdcheck gomi; then
     alias pecogomi='gomipeco'
     function gomipeco() {
-      for target in $(lspeco); do
+      for target in $(lspeco ${1:-.}); do
         gomi "$target"
       done
     }
@@ -678,12 +677,18 @@ if cmdcheck fzf; then
       [[ -e "$tmpfile" ]] && rm -f "$tmpfile"
     }
   fi
-  alias pecorm='rmpeco'
   function rmpeco() {
     local ret=$(
       {
+        if [[ ! -p /dev/stdin ]]; then
+          lspeco ${1:-.}
+        else
+          # WARN: input must be abspath or true relative path
+          pecocat
+        fi
+      } | {
         # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-        lspeco | while IFS= read -r LINE || [[ -n "$LINE" ]]; do
+        while IFS= read -r LINE || [[ -n "$LINE" ]]; do
           printf "'%s' " "$LINE"
         done
       }
