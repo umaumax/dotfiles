@@ -3083,6 +3083,53 @@ if cmdcheck ranger; then
   }
 fi
 
+function mktempfifo() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") <id>
+EOF
+    return 1
+  fi
+
+  # NOTE: ubuntu: /tmp/$USER, mac: /var/folders/55/wjyjz80d6dz4gtmx3dl4qtk40000gn/T/
+  if [[ -z $TMPDIR ]]; then
+    echo "${RED}Please set \$TMPDIR${DEFAULT}"
+    return 1
+  fi
+
+  local id="$1"
+
+  local tmp_dirpath="${TMPDIR}/tmp-fifo-dir"
+  mkdir -p "$tmp_dirpath"
+  local tmpfifo_filepath="$tmp_dirpath/$id"
+  if [[ ! -e "$tmpfifo_filepath" ]]; then
+    mkfifo "$tmpfifo_filepath"
+  fi
+  echo "$tmpfifo_filepath"
+}
+
+alias catfifo='fifocat'
+function fifocat() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") <id>
+e.g. git diff | fifocat git-diff-fifo
+     fifocat git-diff-fifo | git apply
+EOF
+    return 1
+  fi
+
+  local id="$1"
+
+  local fifo_filepath=$(mktempfifo "$id")
+  if [[ -p /dev/stdin ]]; then
+    command cat >$fifo_filepath
+  fi
+  if [[ ! -p /dev/stdin ]] || [[ -p /dev/stdout ]]; then
+    command cat $fifo_filepath
+  fi
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
