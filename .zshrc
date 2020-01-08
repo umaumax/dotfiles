@@ -3120,9 +3120,10 @@ EOF
   fi
 
   local id="$1"
-
   local fifo_filepath=$(mktempfifo "$id")
-  if [[ -p /dev/stdin ]]; then
+  if [[ -p /dev/stdin ]] && [[ -p /dev/stdout ]]; then
+    command cat >$fifo_filepath | command cat $fifo_filepath
+  elif [[ -p /dev/stdin ]]; then
     command cat >$fifo_filepath
   fi
   if [[ ! -p /dev/stdin ]] || [[ -p /dev/stdout ]]; then
