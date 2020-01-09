@@ -846,6 +846,7 @@ snippet log_tmp
 	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << "${0}" << std::endl;
 	}
 # FYI: [c\+\+ \- Current date and time as string \- Stack Overflow]( https://stackoverflow.com/questions/16357999/current-date-and-time-as-string )
+# NOTE: maybe ‘localtime_r’ is not a member of ‘std’ occured
 snippet log_tmp_with_time_c++11
 	#include <fstream>
 	#include <ctime>
@@ -853,7 +854,7 @@ snippet log_tmp_with_time_c++11
 	{
 	  auto t  = std::time(nullptr);
 	  struct tm timeinfo;
-	  std::localtime_r(&t, &timeinfo);
+	  localtime_r(&t, &timeinfo);
 	  std::ofstream("${1:/tmp/tmp.log}", std::ios_base::app) << std::put_time(&timeinfo, "%Y/%m/%d %H:%M:%S ") << "${0}" << std::endl;
 	}
 snippet log_tmp_with_time
