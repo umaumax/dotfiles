@@ -1108,8 +1108,8 @@
 [shell var regexp] ${FILEPATH\%###*.} # ext
 
 # [How to run a program in a clean environment in bash? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/48994/how-to-run-a-program-in-a-clean-environment-in-bash )
-[maybe clean bash login] env -i bash -l
-[maybe cleanest bash login] env -i bash --noprofile --norc # without $PATH
+[maybe clean bash login] env -i bash -l # no HOME, DISPLAY
+[maybe cleanest bash login] env -i bash --noprofile --norc # no HOME, DISPLAY
 [complete relogin] su -l $(whoami)
 [complete relogin  zsh(linux)] su $(whoami) -s $(which zsh)
 [complete relogin bash(linux)] su $(whoami) -s $(which bash)
