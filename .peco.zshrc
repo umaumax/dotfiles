@@ -340,9 +340,11 @@ function git-diff-peco-range() {
   local commits_range=$(git-commits-range-peco '^..')
   [[ -z $commits_range ]] && return 1
   git diff "$commits_range"
+  echo "$YELLOW"
   echo 1>&2 "# ---- command ----"
   echo 1>&2 "git diff '$commits_range'"
   echo 1>&2 "# ---- command ----"
+  echo "$DEFAULT"
 }
 function git-format-patch-peco-range() {
   local commits_range=$(git-commits-range-peco '^..')
