@@ -58,6 +58,9 @@ go get -u github.com/ansoni/goquarium
 # NOTE: for colorful csv output
 go get -u github.com/nak1114/ccsv
 
+# NOTE: for file rename
+go get -u github.com/itchyny/mmv/cmd/mmv
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms

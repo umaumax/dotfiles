@@ -424,6 +424,7 @@
 
 # rename
 [find and rename] find . -name "\%#" | xargs -L1 -IXXX echo "mv -i XXX XXX" | vim -
+[interactive rename tool] mmv \%# # go get github.com/itchyny/mmv/cmd/mmv
 
 # line filter
 [sed add header] sed '1i\%#'
