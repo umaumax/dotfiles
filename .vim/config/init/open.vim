@@ -59,9 +59,9 @@ if $VIM_FAST_MODE == ''
     let $VIM_FAST_MODE='on'
   endif
 
-  let full_path = expand("%:p")
+  " let full_path = expand("%:p")
   " skip tmp file
-  if s:is_tmp_filepath(full_path)
-    let $VIM_FAST_MODE='on'
-  endif
+  " if s:is_tmp_filepath(full_path)
+  " let $VIM_FAST_MODE='on'
+  " endif
 endif
