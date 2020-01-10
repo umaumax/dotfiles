@@ -8,3 +8,8 @@
 [gdb command to shell pipe] pipe 
 [fzf info locals]  pipe info locals | fzf
 [fzf info threads] pipe info threads | fzf
+
+# misc
+[print type of variable] whatis 
+## threads
+[show backtraces for all the threads] thread apply all bt
