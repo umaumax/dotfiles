@@ -43,6 +43,15 @@ if $VIM_FORCE_OPEN == ''
   augroup END
 endif
 
+function! s:is_tmp_filepath(abs_filepath)
+  for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
+    if a:abs_filepath =~ pattern
+      return v:true
+    endif
+  endfor
+  return v:false
+endfunction
+
 " no plug plugin mode
 " VIM_FAST_MODE='on' vim
 if $VIM_FAST_MODE == ''
@@ -52,10 +61,7 @@ if $VIM_FAST_MODE == ''
 
   let full_path = expand("%:p")
   " skip tmp file
-  for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
-    if full_path =~ pattern
-      let $VIM_FAST_MODE='on'
-      break
-    endif
-  endfor
+  if s:is_tmp_filepath(full_path)
+    let $VIM_FAST_MODE='on'
+  endif
 endif
