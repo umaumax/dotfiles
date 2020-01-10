@@ -98,6 +98,8 @@ brew install socat
 
 brew install plantuml
 
+brew install hadolint
+
 # for perl
 brew install cpanminus
 

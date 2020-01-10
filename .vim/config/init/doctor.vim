@@ -26,6 +26,7 @@ let s:doctor_map={
       \'golfix':       'go get -u github.com/umaumax/golfix',
       \'gopls':        'go get -u golang.org/x/tools/cmd/gopls',
       \'googler':      'brew install googler || sudo apt-get install googler',
+      \'hodolint':      'brew install hodolint',
       \'html-languageserver': 'npm install -g vscode-html-languageserver-bin',
       \'javascript-typescript-stdio': 'javascript-typescript-langserver',
       \'jsonlint':     'npm install -g jsonlint',
