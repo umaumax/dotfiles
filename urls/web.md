@@ -3,3 +3,6 @@ web chrome devtools tips
 
 github markdown css
 [Github Markdown Stylesheet]( https://gist.github.com/tuzz/3331384 )
+
+url chars
+[URLで使用可能な文字、使用できない文字]( https://www.ipentec.com/document/web-url-invalid-char )
