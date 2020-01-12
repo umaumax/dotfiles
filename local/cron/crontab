@@ -1,4 +1,4 @@
 # crontab
 # /var/log/cron.log
 */5 * * * * $HOME/github.com/umauma.github.io-md/daemon.sh
-*/5 * * * * $HOME/dotfiles/cron/gms-daemon.sh
+*/5 * * * * $HOME/dotfiles/local/cron/gms-daemon.sh

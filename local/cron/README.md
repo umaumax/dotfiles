@@ -27,5 +27,5 @@ included in this dofiles repo
 
 ### how to run
 ```
-*/5 * * * * $HOME/dotfiles/cron/gms-daemon.sh
+*/5 * * * * $HOME/dotfiles/local/cron/gms-daemon.sh
 ```
