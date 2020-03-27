@@ -1530,6 +1530,9 @@
 [chmod SGID] chmod g+s \%#
 [chmod SUID] chmod u+s \%#
 [find SUID bin files] find /bin /sbin /usr/bin -perm -u+s
+[chmod dir:775, file:664] chmod -R "=r,u+w,g+w,+X" \%#
+[chmod dir:777, file:666] chmod -R "=r,u+w,g+w,o+w,+X" \%#
+[chmod dir:755, file:644] chmod -R "=r,u+w,+X" \%#
 
 # data
 [data to variable] read day month year <<< $(date +'%d %m %Y')
