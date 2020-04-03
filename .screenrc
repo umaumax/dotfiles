@@ -2,8 +2,9 @@ defencodig utf-8
 startup_message off
 autodetach on
 log on
+# enable logfile auto start
 deflog on
-logfile "/tmp/screen-%Y%m%d-%n.log"
+logfile "/tmp/screen-%Y-%m-%d-%c:%s.%n.log"
 defscrollback 100000
 vbell off
 # mouse
