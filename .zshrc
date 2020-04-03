@@ -3139,6 +3139,37 @@ if cmdcheck peco; then
   }
 fi
 
+# FYI: [If you need to 'diff' two dmesg files, you will find that the timestamps cause diff\-noise\. Remove the timestamps so that you get to the underlying diff\. · GitHub]( https://gist.github.com/kbingham/c96812ed4e6c26f1c0264a022ab91a88 )
+function dmesg-T-diff() {
+  local file1=$1
+  local file2=$2
+  if [[ $# -lt 2 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") file1 file2
+e.g.
+DMESG_DIFF=diff $(basename "$0") file1 file2
+default
+DMESG_DIFF=icdiff $(basename "$0") file1 file2
+EOF
+    return 1
+  fi
+
+  local DMESG_DIFF=${DMESG_DIFF:-icdiff}
+
+  # for log: dmesg -T
+  local STRIP_TS='s/^\[[0-9 a-zA-Z:]*]//'
+
+  if [[ "$DMESG_DIFF" == "icdiff" ]]; then
+    icdiff -U 1 --line-numbers \
+      --label="$file1" <(sed -E "$STRIP_TS" "$file1") \
+      --label="$file2" <(sed -E "$STRIP_TS" "$file2")
+  else
+    command diff -u \
+      --label="$file1" <(sed -E "$STRIP_TS" "$file1") \
+      --label="$file2" <(sed -E "$STRIP_TS" "$file2")
+  fi
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
