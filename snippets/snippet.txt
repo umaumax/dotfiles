@@ -826,6 +826,7 @@
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
+[catkin_make without tests] catkin_make -DCATKIN_ENABLE_TESTING=0
 [catkin_make ignore building some package] catkin_make -DCATKIN_BLACKLIST_PACKAGES="foo;bar\%#"
 [catkin build all clean] [[ -d src ]] && rm -rf build devel install || echo "\\033[0;31m"'here is not catkin workspace'"\\033[0m"
 
