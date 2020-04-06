@@ -1,4 +1,6 @@
 # vim: set filetype=log :
+# \%#: cursor
+# \%$: \n
 
 # find
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
