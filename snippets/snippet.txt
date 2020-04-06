@@ -437,6 +437,7 @@
 [sed remove BOM UTF-8] sed "s|\xef\xbb\xbf||g"
 [sed convert CR] tr '\n' $(echo -e "\x1E") | sed 's/'$(echo -e "\x1E")'/\\n/g'
 [sed increment number example] seq 1 10\%# | sed -E 's/([0-9]+)/echo $((\1 + 1))/e' # you can exec shell command by e flag
+[sed insert last line] sed -e '$ a $STR\%#' $FILE
 
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
@@ -726,6 +727,8 @@
 [sed fixed string replace] rpl \%# # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
 [sed fixed string replace] perl -ne 'BEGIN { $src = quotemeta(shift), $dst = shift } s/$src/$dst/; print $_' # $SRC $DST
 [sed cut before] sed -E 's/^([^ ]+?( )+?){\%#}//'
+# [Rubyやsedで複数行の文章を任意の箇所に挿入する \- grep Tips \*]( https://www.greptips.com/posts/1170/#%E5%88%A5%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92sed%E3%81%A7%E6%8C%BF%E5%85%A5%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95 )
+[sed insert text before n lines at last] FILE=\%# ;cat << 'EOF' | sed -i $(cat $FILE | awk 'END{ n=1; printf "%d",NR-n}')'r '"/dev/stdin" $FILE\%$\%$EOF
 
 # json,yaml
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
@@ -1166,6 +1169,7 @@
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
 [perf frame graph] perf script -i \%# | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
+[perf top (see function)] perf top -t $TID
 
 # TERM
 [TERM tmux] export TERM=screen-256color
