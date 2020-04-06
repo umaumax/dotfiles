@@ -76,6 +76,9 @@
 [disk size] pydf -h # pip install pydf
 [disk size (only local mounted file)] df -hl
 
+[list blocks with filesystem] lsblk -f
+[check filesystem] dh -Th
+
 # docker
 [docker build] docker build -t $tag\%# .
 [docker run] docker run --rm -it $tag\%# /bin/bash
@@ -1556,3 +1559,6 @@
 [delay(annimated) cat] lolcat -a
 
 [check default port applications] cat /etc/services
+
+# service
+[service list] service --status-all
