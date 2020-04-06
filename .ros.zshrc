@@ -115,7 +115,12 @@ function catkin_make() {
     # pgrep rdm >/dev/null 2>&1 && rc -J build
   fi
   if cmdcheck compdb && [[ -f ./build/compile_commands.json ]]; then
-    compdb -p ./build list >./compile_commands.json
+    compdb -p ./build list 1>./compile_commands.json 2>.compdb_stderr.log
+    echo 1
+    if [[ -s ".compdb_stderr.log" ]]; then
+      echo 12
+      echo "${RED}"'[compdb log] WARNING or ERROR: see "'$PWD'/.compdb_stderr.log"'"${DEFAULT}"
+    fi
     [[ -f ~/compile_flags.txt ]] && command cp -f ~/compile_flags.txt .
   fi
   # popd >/dev/null 2>&1
