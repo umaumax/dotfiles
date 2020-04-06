@@ -733,10 +733,9 @@ if [[ $(uname) == "Linux" ]]; then
     done
   }
   if cmdcheck baobab; then
-    alias diskusage='nohup baobab &> $(echo $(mktemp) | tee $(tty)) &'
     function baobab() {
       if [[ $# == 0 ]]; then
-        diskusage
+        nohup baobab &>$(echo $(mktemp) | tee $(tty)) &
         return 1
       fi
       command baobab "$@"
