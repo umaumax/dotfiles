@@ -64,6 +64,8 @@ GPL/include/vpu/version.h
 
 # local setting
 build/
+*build/
+build*/
 bin/
 
 # for python
