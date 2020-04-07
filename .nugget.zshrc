@@ -329,6 +329,20 @@ function nugget_mac_rust() {
 # ################################
 
 # ################################
+function nugget_ubuntu_ctop() {
+  local ctop_bin_path="$NUGGET_INSTALL_BIN_PREIFX/ctop"
+  [[ -f "$ctop_bin_path" ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  local download_url="https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64"
+  wget "$download_url" -O "$ctop_bin_path"
+  chmod +x "$ctop_bin_path"
+}
+function nugget_mac_ctop() {
+  brew install ctop
+}
+# ################################
+
+# ################################
 # NOTE: for c++ library
 function nugget_ubuntu_googlebenchmark() {
   [[ -d /usr/local/include/benchmark ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED

@@ -57,6 +57,7 @@ nugget pandoc
 nugget googlebenchmark
 nugget googletest
 nugget exa
+nugget ctop
 
 # NOTE: DISPLAY env?
 # nvimの画面が起動しないときにはsshで接続し直すと解決した
