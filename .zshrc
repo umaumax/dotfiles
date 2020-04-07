@@ -991,6 +991,10 @@ if cmdcheck docker; then
     local container_id=$(docker ps | peco | awk '{print $1}')
     [[ -n $container_id ]] && docker attach $container_id
   }
+  function docker-inspect() {
+    local container_id=$(docker ps | peco | awk '{print $1}')
+    [[ -n $container_id ]] && docker inspect $container_id
+  }
   function docker-exec() {
     # NOTE: sudo su with '-' cause "Session terminated, terminating shell..." message when C-c is pressed ... why?
     # local login_shell="env zsh || env bash"
