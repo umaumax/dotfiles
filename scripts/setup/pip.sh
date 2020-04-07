@@ -33,6 +33,7 @@ pip install vim-vint
 
 pip install Pygments
 pip install icdiff
+pip3 install daff
 
 pip3 install thefuck
 # NOTE: for df
