@@ -73,6 +73,7 @@
 # [file size for bash] du -sh *
 # [file size for bash] du -sh .[^.]* * # both
 [disk size] df -h
+[confirm only root filesystem disk usage] df -h /
 [disk size] pydf -h # pip install pydf
 [disk size (only local mounted file)] df -hl
 
@@ -1396,6 +1397,7 @@
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
 [csvq sql num sort] NUM=\%# ; CLASS= ; csvq "select $CLASS, COUNT(*) AS $NUM GROUP BY $CLASS HAVING COUNT(*) > 1 ORDER BY $NUM DESC"
 [csv colorful output] cat \$# | ccsv /dev/stdin # go get -u github.com/nak1114/ccsv
+[csv diff] daff \%# # pip3 install daff
 
 # yum
 [yum whatprovides (search so dependency)] yum whatprovides \%#
@@ -1563,3 +1565,10 @@
 
 # service
 [service list] service --status-all
+
+# other
+[rot13] python -c 'print(raw_input().encode("rot13"))'
+[rot13] nkf -r
+
+# top
+[docker container top] ctop # brew install ctop (or nugget ctop or see [bcicen/ctop: Top\-like interface for container metrics]( https://github.com/bcicen/ctop ))
