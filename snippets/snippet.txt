@@ -93,7 +93,7 @@
 [remote host docker exec list] docker ps; docker ps --format "{{.Names}}" | xargs -L1 -I{} echo docker exec -it {} bash
 [docker ps format] docker ps --format "{{.Names}}"
 [docker compose update(rebuild)] docker-compose build && docker-compose stop && docker-compose up # you can build at running containers
-
+[docker info] docker inspect \%#
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -492,6 +492,7 @@
 [sshuttle vpn] sshuttle -r \%# # 192.168.0.1/24
 [ssh key finger print] ssh-keygen -E md5 -l -f \%#
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
+[ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [scp between two remote hosts] scp -3 $SRC $DST # hoge:~/src.txt fuga:~/dst.txt
