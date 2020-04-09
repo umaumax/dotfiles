@@ -386,7 +386,11 @@ let g:NERDTreeMapOpenSplit='h' " 'i'
 let g:NERDTreeMapOpenVSplit='v' " 's'
 
 " set lines of words on cursor
-LazyPlug 'itchyny/vim-cursorword'
+" NOTE: don't use lazy load to avoid below error
+" Error detected while processing function cursorword#timer_callback[1]..cursorword#matchadd:
+" line   14:
+" E28: No such highlight group name: CursorWord0
+Plug 'itchyny/vim-cursorword'
 
 " Doxygen
 " :Dox
