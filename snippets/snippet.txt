@@ -291,7 +291,7 @@
 [git empty tree SHA] 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 [git empty tree SHA] git hash-object -t tree /dev/null
 
-[git format-patch for am] git format-patch -o $DIR\%# $SHA_START..${SHA_END:HEAD}
+[git format-patch for am] git format-patch -o $DIR\%# $SHA_START..${SHA_END:-HEAD}
 [git am for format-patch] git am *.patch
 [git am for format-patch (same sha)] git am --committer-date-is-author-date *.patch
 [git tmp copy repo step] echo 'SRC:git format-patch -> git diff, DST:git am, git apply'
