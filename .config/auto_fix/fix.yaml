@@ -1,4 +1,5 @@
 _:
+- - boundary
 - - forbidden
 - - specification
 - - heuristic
@@ -48,7 +49,9 @@ _:
 - - lambda
 - - pseudo
 - - sudo
+- - source
 - - return
+  - reuturn
 - - raspberry
 - - widget
 - - architecture
@@ -86,6 +89,8 @@ cpp:
 - - cstdlib
 - - define
 - - enum
+- - float
+  - flato
 - - include
 - - iostream
 - - namespace
@@ -161,3 +166,6 @@ gitcommit:
 - - snippet
 - - setup
 - - script
+rust:
+- - String
+  - string

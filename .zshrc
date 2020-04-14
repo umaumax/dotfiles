@@ -1051,6 +1051,7 @@ if [[ -f /.dockerenv ]]; then
 fi
 
 if cmdcheck tmux; then
+  alias tmux-name="tmux display-message -p '#S'"
   alias tmux-reload-config='tmux source ~/.tmux.conf'
   function is_in_tmux_with_message() {
     if [[ -n "$TMUX" ]]; then

@@ -63,9 +63,10 @@ abbrev-alias -c ggr="ggpv '\%#'"
 abbrev-alias -c ggv="ggpvc '\%#' -- '*.vim' '*.vimrc'"
 abbrev-alias -c ggvim="ggpvc '\%#' -- '*.vim' '*.vimrc'"
 
-abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zshrc' '*.zsh' '*.zshprofile' '*.zpreztorc'"
+abbrev-alias -c ggzsh="ggpvc '\%#' -- '*.zsh' '*.zshrc' '*.zshenv' '*.zshprofile' '*.zpreztorc'"
+abbrev-alias -c ggsh="ggpvc '\%#' -- '*.sh' '*.bash_profile' '*.bashrc' '*.bashenv'"
 
-abbrev-alias -c ggmd="ggpvc '\%#' -- '*.md'"
+abbrev-alias -c ggmd="ggpvc '\%#' -- '*.md' 'README.txt' 'readme.txt'"
 
 abbrev-alias -c ggc="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"
 abbrev-alias -c ggcpp="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"

@@ -898,6 +898,7 @@
 [devnull stdout       ] >/dev/null \%#
 [devnull stdout/stderr] >/dev/null 2>&1 \%#
 [stderr > stdout      ] 2>&1 \%#
+[stdout > stderr      ] 1>&2 \%#
 [other devnull way] >&-
 [other devnull way with side effect] |:
 # [linux \- Pipe only STDERR through a filter \- Stack Overflow]( https://stackoverflow.com/questions/3618078/pipe-only-stderr-through-a-filter )
@@ -1150,6 +1151,7 @@
 [nkf auto conv] nkf -w \%#
 [nkf add UTF-8 BOM] nkf --oc=UTF-8-BOM
 [nkf drop(remove,delete) UTF-8 BOM] nkf --oc=UTF-8
+[nkf zenkaku to hankaku] nkf -Z
 
 # symbolic link
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
