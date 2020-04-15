@@ -159,7 +159,7 @@ function! s:smartinput_define()
         \
         \ '!': ['ex'],
         \ '"': ['dq'],
-        \ '""<Left>': ['ddq', 'str', 'string'],
+        \ '""<Left>': ['ddq', 'str'],
         \ '#': ['sp', 'sha', 'shar', 'sharp'],
         \ '$': ['dl', 'doll', 'doller'],
         \ '%': ['pc', 'perc', 'percent', 'rem'],
