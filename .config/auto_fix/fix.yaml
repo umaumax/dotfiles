@@ -146,7 +146,7 @@ neosnippet:
 - - snippet
 - - abbr
 python:
--  - import
+- - import
 vim:
 - - augroup
 - - autocmd
