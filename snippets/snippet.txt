@@ -22,6 +22,8 @@
 
 [find files that have been modified] sudo find / -mmin 60 -type f
 
+[find only directory symbolic link at ubuntu] find . -type l -xtype d -ls
+
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
 
@@ -1574,3 +1576,7 @@
 
 # top
 [docker container top] ctop # brew install ctop (or nugget ctop or see [bcicen/ctop: Top\-like interface for container metrics]( https://github.com/bcicen/ctop ))
+
+# systemd
+[systemd running service list] systemctl list-units --type=service
+[systemd service list all] systemctl list-unit-files --type=service
