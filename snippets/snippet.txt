@@ -668,6 +668,7 @@
 [hash sha256] shasum -a 256 \%#
 [hash sha256 mac] gsha256sum \%#
 [hash md5sum] md5sum \%#
+[hash md5sum check] echo "$MD5SUM\%# $FILEPATH" | md5sum -c
 [hash md5sum mac] gmd5sum \%#
 
 # kernel
@@ -1054,6 +1055,8 @@
 [4. mac disk eject] diskutil eject /dev/disk2
 [mac check dd progress] sudo pkill -INFO "^dd"
 [ubuntu check dd progress?] sudo pkill -USR1 "^dd"
+
+[iso usb image ubuntu] usb-creator-gtk # sudo apt-get install usb-creator-gtk
 
 [repeat command] watch -n $SEC "$CMD"
 
@@ -1580,3 +1583,4 @@
 # systemd
 [systemd running service list] systemctl list-units --type=service
 [systemd service list all] systemctl list-unit-files --type=service
+[systemd settig filepath] /usr/lib/systemd/system
