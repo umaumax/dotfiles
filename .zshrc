@@ -2313,10 +2313,6 @@ function gsync-upload() {
   gdrive sync upload . $ID
 }
 
-if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
-  source "${ZDOTDIR:-$HOME}/.local.zshrc"
-fi
-
 # ---- bash ----
 # ---- zsh ----
 
@@ -3202,6 +3198,10 @@ bindkey -v
 [[ -f ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 [[ -f ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 [[ -f ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
+
+if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
+  source "${ZDOTDIR:-$HOME}/.local.zshrc"
+fi
 
 # ---------------------
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
