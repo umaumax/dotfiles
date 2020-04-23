@@ -86,8 +86,8 @@
 [docker build] docker build -t $tag\%# .
 [docker run] docker run --rm -it $tag\%# /bin/bash
 [docker stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
-[docker cp  host -> guest] docker cp $HOST_FILEPATH\%# $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
-[docker cp guest ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH\%# # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & guest側では~が使用できない
+[docker cp  host -> docker] docker cp $HOST_FILEPATH\%# $CONTAINER_ID:$GUEST_FILEPATH # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & docker側ではユーザ指定がないので~が使用できない
+[docker cp docker ->  host] docker cp $CONTAINER_ID:$GUEST_FILEPATH $HOST_FILEPATH\%# # シンボリックリンクがそのままコピーされてしまう(use readlink or -L option) & docker側ではユーザ指定がないので~が使用できない
 [docker force rebuild flag] --no-cache
 [docker volume list] docker volume ls
 [docker each container disk usage] docker system df -v
@@ -146,7 +146,10 @@
 [git push] git push -u origin master # normal push
 [git push] git push -u --force origin master # force push
 [git push dry-run] git push -n \%#
-[git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD)
+# [git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD) # same local and remote name
+[git push current branch] git push origin $(git symbolic-ref --short HEAD) # same local and remote name
+[git push local branch to remote] git push origin $LOCAL_BRANCH:$REMOTE_BRANCH
+[git pull current local branch] git pull origin $(git symbolic-ref --short HEAD)
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
 [git staged file diff] git diff --cached # <file>
 [git unstaged file diff] git diff
@@ -233,8 +236,6 @@
 [git remove untracked files and dirs] git clean -d --dry-run
 [git remove untracked and ignored files and dirs] git clean -x -d --dry-run
 [git remove only ignored files and dirs] git clean -X -d --dry-run
-# あくまでも，指定したブランチからのpull(任意に設定可能)
-[git pull origin current branch] git pull origin $(git rev-parse --abbrev-ref HEAD)
 [git pull rebase master] git pull --rebase origin master
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
 [git log with marge commit diff] git log -p -m
@@ -256,9 +257,11 @@
 
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
-[git current branch name] git name-rev --name-only HEAD
+# [git current branch name] git name-rev --name-only HEAD
+[git current branch name] git symbolic-ref --short HEAD
 [git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
+[git checkout local(create local branch)] git checkout -b $(git name-rev --name-only HEAD | sed 's:^remotes/origin/::')
 
 [git find file] git ls-files "*\%#"
 
@@ -1190,6 +1193,7 @@
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
 [pseudo watch command] while true\%$do sleep 1\%$clear\%$\%#\%$done
+[nohup pseudo watch command] nohup bash -c 'i=0; while true; do sleep 1; bash -c "\%#"; i=$((i+1)); done' &
 [for one liner] for i in $(seq \%#); do echo $i; done
 [ntimes for command] for ((i=1; i <=\%# ; i++)); do\%$sleep 1\%$echo "$i"\%$echo 'error' |& grep -v 'error'\%$if [[ $? != 0 ]]; then\%$break\%$fi\%$done
 
@@ -1395,7 +1399,7 @@
 # FYI:
 # [Linux系OSにおいてディスクが読み込み専用\(readonly\)になりました。どう対処すればよいですか？ \| クラウド・エヌ・インフォメーション]( https://www.cloudn-service.com/faq/4028 )
 # [リカバリーモードでrootユーザーなのにReadOnlyだと怒られる時の対処法 \- Qiita]( https://qiita.com/ironsand/items/f40581705a7bb402c01d )
-[remount rootfs] mount -o rw,remount /
+[remount rootfs] sudo mount -o rw,remount /
 
 # csv
 [csv2markdown] cat \%# | mdt # go get github.com/monochromegane/mdt/...
