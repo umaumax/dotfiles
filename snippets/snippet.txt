@@ -499,6 +499,7 @@
 [ssh key finger print] ssh-keygen -E md5 -l -f \%#
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
 [ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
+[ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [scp between two remote hosts] scp -3 $SRC $DST # hoge:~/src.txt fuga:~/dst.txt
@@ -871,6 +872,7 @@
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
 [git repo local gitignore open] vim $(git rev-parse --show-toplevel)/.git/info/exclude !
 
+[hex on bash command] $((0x\%#))
 [show char code] hexdump -C \%#
 [hexdump -C] od -t x1z -A x
 [hexdump -C] hexly
