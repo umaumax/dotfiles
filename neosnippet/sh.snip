@@ -813,3 +813,7 @@ abbr "$@" is filterd
 # FYI: [Bashで文字列をエスケープをする \- Qiita]( https://qiita.com/kawaz/items/f8d68f11d31aa3ea3d1c )
 snippet escape_str
 	printf %q "${0}"
+
+snippet set_arg
+abbr set $@ variable
+	set -- ${0}
