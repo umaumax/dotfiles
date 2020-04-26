@@ -80,6 +80,19 @@ abbrev-alias -c ggtest="ggpvc '\%#' -- '*test*'"
 
 abbrev-alias -c gglaunch="ggpvc '\%#' -- '*.launch'"
 
+## find
+abbrev-alias -c fg="find . -type f -exec grep '\%#' {} +"
+abbrev-alias -c fgmd="findgrep '\%#' -- -type f \( -name '*.md' -o -name 'README.txt' -o -name 'readme.txt' \)"
+abbrev-alias -c fgvim="findgrep '\%#' -- -type f \( -name '*.vim' -o -name '*.vimrc' \)"
+abbrev-alias -c fgzsh="findgrep '\%#' -- -type f \( -name '*.zsh' -o -name '*.zshrc' -o -name '*.zshenv' -o -name '*.zshprofile' -o -name '*.zpreztorc' \)"
+abbrev-alias -c fgsh="findgrep '\%#' -- -type f \( -name '*.sh' -o -name '*.bash_profile' -o -name '*.bashrc' -o -name '*.bashenv' \)"
+abbrev-alias -c fgcpp="findgrep '\%#' -- -type f \( -name '*.cpp' -o -name '*.hpp' -o -name '*.bashrc' -o -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.cxx' \)"
+abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'Makefile' -o -name 'makefile' \)"
+abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \)"
+abbrev-alias -c fgconfig="findgrep '\%#' -- -type f \( -name '.*' -o -name '*.config' -o -path '*/config/*' \)"
+abbrev-alias -c fgtest="findgrep '\%#' -- -type f \( -name '*test*' \)"
+abbrev-alias -c fglaunch="findgrep '\%#' -- -type f \( -name '*.launch' \)"
+
 abbrev-alias -c ctk='catkin_'
 abbrev-alias -c ctkm='catkin_make '
 abbrev-alias -c ctmk='catkin_make '

@@ -1702,6 +1702,31 @@ function fgrep2() {
   fi
   find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep-0 ${keyword[@]}
 }
+function findgrep() {
+  local filter_option=''
+  local default_argn="$#"
+  local end_offset=0
+  local grep_args=()
+  for arg in "$@"; do
+    if [[ $arg == "--" ]]; then
+      grep_args=(${@:1:$end_offset})
+      shift $(($end_offset + 1))
+      break
+    fi
+    ((end_offset++))
+  done
+  if [[ "$end_offset" == "$default_argn" ]]; then
+    echo 2>&1 '<find args> -- <grep args>'
+    return 1
+  fi
+  # NOTE: "$@" is args of find command
+
+  local color_opt='--color=auto'
+  cmdcheck fzf && color_opt='--color=always'
+  cmdcheck ggrep && local grep_cmd='ggrep'
+  find . "$@" -type f -exec $grep_cmd $color_opt -H -n "${grep_args[@]}" {} +
+}
+
 alias fg.vim='fgrep "*.vim"'
 [[ $(uname) == "Darwin" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
 [[ $(uname) == "Linux" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc"              \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
