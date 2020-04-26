@@ -2876,7 +2876,7 @@ EOF
       ((start_offset++))
     fi
     if [[ $arg == "--" ]]; then
-      local grep_args=(${@:$start_offset:$end_offset})
+      grep_args=(${@:$start_offset:$end_offset})
       ((end_offset++))
       if [[ -z $filter_option ]] && [[ $start_offset -ne $end_offset ]]; then
         filter_option='grep'
