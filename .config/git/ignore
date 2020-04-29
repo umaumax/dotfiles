@@ -173,3 +173,4 @@ lcov_html
 
 # for rust
 **/target/debug/*
+**/target/*

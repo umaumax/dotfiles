@@ -624,6 +624,12 @@ function! s:smartinput_define()
 
   call s:smartinput_define_rule_of_word('WARN: ing',"warning")
 
+  call s:smartinput_define_rule_of_word('some','Some' ,['rust'])
+  call s:smartinput_define_rule_of_word('Something','something' ,['rust'])
+  call s:smartinput_define_rule_of_word('none','None' ,['rust'])
+  call s:smartinput_define_rule_of_word('option','Option' ,['rust'])
+  call s:smartinput_define_rule_of_word('iflet','if let' ,['rust'])
+
   " NOTE: if xxx { -> if (xxx) {
   call s:smartinput_define_rule({
         \   'at': 'if\s*[^() \t].\{-}[^() \t]\s*{\%#',
