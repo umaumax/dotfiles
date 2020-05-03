@@ -751,6 +751,10 @@
 [json format] cat \%# | python -m json.tool
 [gron json grep] gron --colorize \%# | fzf
 
+# jq
+[jq slice at 1st] jq '.[:\%#]'
+[jq slice at 2nd] jq '.[][:\%#]'
+
 # ansible
 [ansible man] ansible-doc
 
@@ -1144,6 +1148,7 @@
 [diff multifiles] \\diff --from-file=$SRC\%# $CMP1 $CMP2 # ... # for diff or colordiff
 ## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
 [git style diff at out of repo] git diff --no-index -- \%#
+[diff for patch file] command diff -up $SRC_FILE\%# $DST_FILE
 [gron json diff] diff <(gron \%#) <(gron ) # go get -u github.com/tomnomnom/gron
 [jsondiffpatch json diff] jsondiffpatch \%# # npm install -g jsondiffpatch
 
