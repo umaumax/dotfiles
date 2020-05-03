@@ -169,3 +169,7 @@ gitcommit:
 rust:
 - - String
   - string
+- - extern
+- - crate
+- - super
+- - trait
