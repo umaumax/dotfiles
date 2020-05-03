@@ -171,6 +171,8 @@ nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 
 " Plug 'rust-lang/rust.vim', {'for':'rust'}
 
+LazyPlug 'timonv/vim-cargo', {'for': ['cargo', 'rust']}
+
 " start screen
 " Plug 'mhinz/vim-startify'
 " " FYI: [vim\-startifyでvimのロゴを起動画面に設定する \- Devlion Memo]( http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify )
