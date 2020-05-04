@@ -485,6 +485,34 @@ endfunction
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
 command! FZFCppIncludeHeader :call FZF_cpp_include_header()
 
+function! FZF_module_header_reducer(lines)
+  let ret=[]
+  for header in a:lines
+    let header = substitute(header, ' *#.*$', '', '')
+    let ret+=['use '.header.';']
+  endfor
+  if len(ret)>1
+    let ret+=['']
+  endif
+  return join(ret, "\n")
+endfunction
+function! FZF_rust_module_header()
+  call feedkeys("i\<Plug>(fzf#rust_module_header)", '')
+  return ''
+endfunction
+
+function! fzf#rust_module_header()
+  return fzf#vim#complete({
+        \ 'source':  'cat ~/dotfiles/dict/rust/rust_modules.txt',
+        \ 'reducer': function('FZF_module_header_reducer'),
+        \ 'options': '--multi --reverse '."--query=\"'\""." --preview 'echo {}' --preview-window 'right:20%'",
+        \ 'up':    '50%'})
+endfunction
+
+" NOTE: call function of inoremap expr
+inoremap <silent><expr> <Plug>(fzf#rust_module_header) fzf#rust_module_header()
+command! FZFRustModuleHeader :call FZF_rust_module_header()
+
 function! FZF_ansi_color_reducer(lines)
   let ret=[]
   for line in a:lines

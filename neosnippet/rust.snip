@@ -11,3 +11,11 @@ abbr println!("{:?} or {:#?}")
 
 snippet cfg_test
 	#[cfg(test)]${0}
+
+snippet super
+	use super::*;${0}
+
+# NOTE: below join wrapper always return ""
+snippet module_fzf
+alias fzf_module
+	`join([], feedkeys("\<Plug>(fzf#rust_module_header)", ''))`${0}
