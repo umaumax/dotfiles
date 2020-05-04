@@ -646,6 +646,7 @@ if cmdcheck fzf; then
       'markdown'
       'python~3.6'
       'python~2.7'
+      'rust'
     )
     local ret=$(for doc_list in ""${doc_list[@]}""; do
       echo $doc_list

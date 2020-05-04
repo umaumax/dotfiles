@@ -70,6 +70,8 @@ abbrev-alias -c ggmd="ggpvc '\%#' -- '*.md' 'README.txt' 'readme.txt'"
 
 abbrev-alias -c ggc="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"
 abbrev-alias -c ggcpp="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'"
+abbrev-alias -c ggrs="ggpvc '\%#' -- '*.rs'"
+abbrev-alias -c ggrust="ggpvc '\%#' -- '*.rs'"
 
 abbrev-alias -c ggmake="ggpvc '\%#' -- '*[M|m]akefile'"
 abbrev-alias -c ggcmake="ggpvc '\%#' -- '*/CMakeLists.txt' '*.cmake'"
@@ -87,6 +89,8 @@ abbrev-alias -c fgvim="findgrep '\%#' -- -type f \( -name '*.vim' -o -name '*.vi
 abbrev-alias -c fgzsh="findgrep '\%#' -- -type f \( -name '*.zsh' -o -name '*.zshrc' -o -name '*.zshenv' -o -name '*.zshprofile' -o -name '*.zpreztorc' \)"
 abbrev-alias -c fgsh="findgrep '\%#' -- -type f \( -name '*.sh' -o -name '*.bash_profile' -o -name '*.bashrc' -o -name '*.bashenv' \)"
 abbrev-alias -c fgcpp="findgrep '\%#' -- -type f \( -name '*.cpp' -o -name '*.hpp' -o -name '*.bashrc' -o -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.cxx' \)"
+abbrev-alias -c fgrs="findgrep '\%#' -- -type f \( -name '*.rs' \)"
+abbrev-alias -c fgrust="findgrep '\%#' -- -type f \( -name '*.rs' \)"
 abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'Makefile' -o -name 'makefile' \)"
 abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \)"
 abbrev-alias -c fgconfig="findgrep '\%#' -- -type f \( -name '.*' -o -name '*.config' -o -path '*/config/*' \)"

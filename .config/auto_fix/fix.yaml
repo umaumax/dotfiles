@@ -173,3 +173,4 @@ rust:
 - - crate
 - - super
 - - trait
+- - Iterator
