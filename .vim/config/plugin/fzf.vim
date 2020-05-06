@@ -491,27 +491,45 @@ function! FZF_module_header_reducer(lines)
     let header = substitute(header, ' *#.*$', '', '')
     let ret+=['use '.header.';']
   endfor
-  if len(ret)>1
+  if len(ret)>1 || getline('.')!=''
     let ret+=['']
   endif
   return join(ret, "\n")
 endfunction
-function! FZF_rust_module_header()
+function! FZF_rust_module_header(...)
+  let b:fzf_rust_module_header_query=get(a:, 1, '')
+
+  if stridx(getline('.'), 'use') == -1
+    if b:fzf_rust_module_header_query==''
+      let b:fzf_rust_module_header_query=expand("<cword>")
+    endif
+
+    " move to top of code of use
+    let line=search('^use', 'n')-1
+    if line<=0
+      let line=1
+    endif
+    call cursor(line, '1')
+  endif
+
   call feedkeys("i\<Plug>(fzf#rust_module_header)", '')
   return ''
 endfunction
 
 function! fzf#rust_module_header()
+  let b:fzf_rust_module_header_query = get(b:, 'fzf_rust_module_header_query', '')
+  let query="'".b:fzf_rust_module_header_query
+  let b:fzf_rust_module_header_query=''
   return fzf#vim#complete({
         \ 'source':  'cat ~/dotfiles/dict/rust/rust_modules.txt',
         \ 'reducer': function('FZF_module_header_reducer'),
-        \ 'options': '--multi --reverse '."--query=\"'\""." --preview 'echo {}' --preview-window 'right:20%'",
+        \ 'options': '--multi --reverse '.printf('--query="%s"', query)." --preview 'echo {}' --preview-window 'right:20%'",
         \ 'up':    '50%'})
 endfunction
 
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#rust_module_header) fzf#rust_module_header()
-command! FZFRustModuleHeader :call FZF_rust_module_header()
+command! -narg=? RustModuleHeader :call FZF_rust_module_header(<f-args>)
 
 function! FZF_ansi_color_reducer(lines)
   let ret=[]

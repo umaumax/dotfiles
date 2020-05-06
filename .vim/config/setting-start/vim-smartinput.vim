@@ -307,6 +307,13 @@ function! s:smartinput_define()
         \ })
 
   call s:smartinput_define_rule(
+        \ { 'at'    : '\(Vec\)\%#'
+        \ , 'char'  : '<'
+        \ , 'input' : '<><Left>'
+        \ , 'filetype' : ['rust']
+        \ })
+
+  call s:smartinput_define_rule(
         \ { 'at'    : '<\%#>'
         \ , 'char'  : '<'
         \ , 'input' : ''
@@ -624,11 +631,29 @@ function! s:smartinput_define()
 
   call s:smartinput_define_rule_of_word('WARN: ing',"warning")
 
-  call s:smartinput_define_rule_of_word('some','Some' ,['rust'])
-  call s:smartinput_define_rule_of_word('Something','something' ,['rust'])
-  call s:smartinput_define_rule_of_word('none','None' ,['rust'])
-  call s:smartinput_define_rule_of_word('option','Option' ,['rust'])
-  call s:smartinput_define_rule_of_word('iflet','if let' ,['rust'])
+  " NOTE:
+  " ltn: lifetime notation
+  for wordset in [
+        \ ['vec', 'Vec'],
+        \ ['string', 'String'],
+        \ ['some', 'Some'],
+        \ ['none', 'None'],
+        \ ['option', 'Option'],
+        \ ['box', 'Box'],
+        \ ['refcell', 'RefCell'],
+        \ ['arc', 'Arc'],
+        \ ['Vec!', 'vec!'],
+        \ ['iflet', 'if let'],
+        \ ['Something', 'something'],
+        \ ['ltn', "'a"],
+        \]
+    call s:smartinput_define_rule_of_word(wordset[0], wordset[1], ['rust'])
+  endfor
+  for s:word in ['println','eprintln','panic','format','assert','assert_eq','assert_ne']
+    call s:smartinput_define_rule_of_word(s:word,s:word.'!' ,['rust'])
+  endfor
+  call s:smartinput_define_rule_of_word('assert!_eq','assert_eq!' ,['rust'])
+  call s:smartinput_define_rule_of_word('assert!_ne','assert_ne!' ,['rust'])
 
   " NOTE: if xxx { -> if (xxx) {
   call s:smartinput_define_rule({

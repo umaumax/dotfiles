@@ -167,10 +167,10 @@ gitcommit:
 - - setup
 - - script
 rust:
-- - String
-  - string
 - - extern
 - - crate
 - - super
 - - trait
 - - Iterator
+- - unsafe
+- - prelude

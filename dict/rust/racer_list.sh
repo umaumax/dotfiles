@@ -8,6 +8,8 @@ TRAVERSE_MAX_LEVEL=-1
 function get_list() {
   local code="use $1::"
   racer complete 1 $((${#code})) - <<<"$code" | grep 'MATCH' | sed -E 's/^MATCH ([^,]+),.*$/\1/' | grep -v '^std$' | grep -v '^realstd$'
+  # or simply use below command?
+  # racer complete std::io::B
 }
 
 function get_modules() {

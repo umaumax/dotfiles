@@ -1436,8 +1436,10 @@
 
 # rust
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
-[cargo create new lib project] cargo new \%# --lib
-[cargo create new bin project] cargo new \%# --bin
+[cargo create new lib crate] cargo new --lib \%#
+[cargo create new bin crate] cargo new --bin \%#
+[cargo test show output] cargo test -- --nocapture \%#
+[cargo open doc] cargo doc --open
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 

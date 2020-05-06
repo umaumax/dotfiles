@@ -271,6 +271,31 @@ endfunction
 command! -nargs=0 -range CppConstructorInitialization <line1>,<line2>call CppMemberInitialization()
 command! -nargs=0 -range CppMemberInitialization <line1>,<line2>call CppMemberInitialization()
 
+if Doctor('racer', 'rust struct field generator')
+  function! RustStructFieldsGen(...)
+    let word = get(a:, 1, expand("<cword>"))
+    let query=word.'.'
+    let query_length=strlen(query)
+    " NOTE: 下記のいずれかの条件を満たす必要がある
+    " 構造体の定義が同じworking dirに存在するか
+    " ソースファイルを直接指定するか
+    " echoする内容に構造体の定義を含めるか(e.g. racer complete 1 4 <(echo 'XXX.'; cat src/main.rs)
+    let cmd="cd ".shellescape(expand('%:p:h')).";racer complete 1 ".query_length." <<<'".query."' - | grep '^MATCH' | grep StructField | awk -F'[, ]' '{print $2;}'"
+    echom cmd
+    let struct_fields=split(system(cmd),'\n')
+    let lines=[]
+    for struct_field in struct_fields
+      let lines+=[printf('  %s: ,', struct_field)]
+    endfor
+    call append(line('.'), lines)
+  endfunction
+else
+  function! RustStructFieldsGen(...)
+    echom 'YOU NEED TO GET racer COMMAND'
+  endfunction
+endif
+command! -nargs=? RustStructFieldsGen call RustStructFieldsGen(<f-args>)
+
 if Doctor('ctags', 'for getting funcname')
   function! CppFuncName()
     let func_name=system("ctags -x --c-types=f ".expand('%:S')." | sed -E 's/ (\\W+)( *function)/\\1 \\2/' | sort -k 3 | sed -E 's/ +function +([0-9]+).*$/$\\1/' | awk -F'$' -v line=".line('.')." 'line>=int($2){func_name=$1;} END{if(func_name!=\"\") printf \"%s\", func_name;}'")
