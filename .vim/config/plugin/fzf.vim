@@ -693,9 +693,25 @@ inoremap <silent><expr> <Plug>(fzf#hex_color_256) fzf#hex_color_256()
 inoremap <silent><expr> <Plug>(fzf#hex_color) fzf#hex_color()
 command! FZFAnsiColorHeader :call FZF_ansi_color()
 
+function! s:cmdline_alias(cmdtype, input, l_pat, l_sub, flag)
+  let cmd = getcmdline()
+  let cmdpos = getcmdpos()
+  let lbuffer=cmd[:cmdpos-1-1]
+  let rbuffer=cmd[cmdpos-1:]
+  let new_lbuffer = lbuffer
+  if getcmdtype() =~ a:cmdtype
+    let new_lbuffer = substitute(lbuffer, a:l_pat, a:l_sub, a:flag)
+  endif
+  if new_lbuffer ==# lbuffer
+    let new_lbuffer= lbuffer.a:input
+  endif
+  " NOTE: The first position is 1.
+  call setcmdpos(1+len(new_lbuffer))
+  return new_lbuffer.rbuffer
+endfunction
 " NOTE: for :FZFxxx
-" NOTE: type ff and xxx and tab
-cnoremap fzf FZF
+" when cursor of head only
+cnoremap fzf <C-\>e<SID>cmdline_alias(':', 'fzf', '^$', '\1FZF', '')<CR>
 
 if Doctor('wcat', 'enhanced Lines of fzf#vim#lines')
   " NOTE: enhanced Lines of fzf#vim#lines

@@ -703,9 +703,16 @@ function! s:paste_at_cmdline()
   let clipboard=substitute(clipboard, '\n', ' ', '')
   " [gvim \- How to remove this symbol "^@" with vim? \- Super User]( https://superuser.com/questions/75130/how-to-remove-this-symbol-with-vim )
   let clipboard=substitute(clipboard, '\%x00', '', '')
-  let cmd = getcmdline() . clipboard
-  call setcmdpos(strlen(cmd)+1)
-  return cmd
+
+  let cmd = getcmdline()
+  let cmdpos = getcmdpos()
+  let lbuffer=cmd[:cmdpos-1-1].clipboard
+  let rbuffer=cmd[cmdpos-1:]
+  let buffer=lbuffer.rbuffer
+
+  " NOTE: The first position is 1.
+  call setcmdpos(1+strlen(lbuffer))
+  return buffer
 endfunction
 " [cmdline \- Vim日本語ドキュメント]( http://vim-jp.org/vimdoc-ja/cmdline.html#c_CTRL-_e )
 cnoremap <C-v> <C-\>e<SID>paste_at_cmdline()<CR>
