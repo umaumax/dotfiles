@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+trap 'exit_code=$?; echo -ne "\033[90m[ERR]:\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\033[00m"; read -p " "; exit "$exit_code"' ERR
+
 current_abs_directory_path=$(cd $(dirname $0) && pwd)
 cd ${current_abs_directory_path%/}
 
-set -ex
+set -e
 
 # git submodule
 git submodule update -i
@@ -76,6 +78,7 @@ find .config -type d -print0 | xargs -0 -L 1 -IXXX mkdir -p "$HOME/XXX"
 ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
 ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
 ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
+ln -sf ~/dotfiles/.config/git/attributes ~/.config/git/attributes
 ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
 ln -sf ~/dotfiles/.config/auto_fix/* ~/.config/auto_fix/
 ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
@@ -132,4 +135,4 @@ if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
   done
 fi
 
-echo "[OK]"
+echo $'\e[92m'"[✔] Succeed."$'\e[m'
