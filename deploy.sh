@@ -89,11 +89,14 @@ if [[ $(uname) == "Linux" ]]; then
   ln -sf ~/dotfiles/.config/autostart/*.desktop ~/.config/autostart/
   ln -sf ~/dotfiles/.config/tilda/style.css ~/.config/tilda/style.css
   ln -sf ~/dotfiles/.config/pip/pip.conf ~/.config/pip/pip.conf
+  ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
 fi
 # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
 if [[ $(uname) == "Darwin" ]]; then
   mkdir -p "$HOME/Library/Application Support/pip/"
   ln -sf ~/dotfiles/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
+  mkdir -p "$HOME/Library/Preferences/rustfmt/"
+  ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
 fi
 
 eval "cat <<EOF
