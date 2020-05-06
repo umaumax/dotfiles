@@ -40,6 +40,7 @@ git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autosshpass
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autoscppass
 git wget https://github.com/umaumax/sshpass_wrapper/blob/master/autorsyncpass
 ln -sf autosshpass autooresshpass
+git wget https://github.com/umaumax/bash_onerror/blob/master/bash_onerror
 
 git wget https://github.com/umaumax/yaml-sort/blob/master/_yaml-sort -O "$zsh_completion_dirpath/"
 git wget https://github.com/umaumax/dotorphan/blob/master/_dotorphan -O "$zsh_completion_dirpath/"
