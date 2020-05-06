@@ -1151,6 +1151,7 @@
 [diff for patch file] command diff -up $SRC_FILE\%# $DST_FILE
 [gron json diff] diff <(gron \%#) <(gron ) # go get -u github.com/tomnomnom/gron
 [jsondiffpatch json diff] jsondiffpatch \%# # npm install -g jsondiffpatch
+[diff only new line] diff -c $SRC_FILE\%# $DST_FILE | grep '^+'
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
@@ -1158,6 +1159,7 @@
 
 # heredoc
 [heredoc to filename] cat > $FILEPATH\%# << 'EOF'
+[string to pipe input] <<<"\%#"
 
 [linux: check shared lib path objdump -p] objdump -p \%# # readelf -d
 
@@ -1196,6 +1198,13 @@
 # TERM
 [TERM tmux] export TERM=screen-256color
 [TERM xterm] export TERM=xterm-256color
+[tmux get current window name] tmux display-message -p '#W'
+[tmux get current pane id] tmux display-message -p '#W.#P'
+[tmux get current pane id] tmux display-message -p '#D'
+[tmux split horizontal |] tmux split-window -h -t $(tmux display-message -p '#W')
+[tmux split vertical -] tmux split-window -v -t $(tmux display-message -p '#W')
+[tmux # check] echo {a..z} {A..Z} | tr ' ' '\n' | xargs -J 1 -I{} bash -c "printf '#{}='; tmux display-message -p '#{}'"
+[tmux send command to some pane] tmux send-keys -t $PANE_ID\%# '' C-m
 
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
@@ -1430,6 +1439,7 @@
 [dot graphviz pipe] \%# | xargs -L1 -I{} dot -T svg -o "{}".svg "{}"
 
 # bash
+[echo alphabet] echo {a..z}
 [shell expand number] {0..9} # 0 1 ... 9
 [shell expand number] {00..10} # 00 01 ... 09 10
 [bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
