@@ -6,6 +6,7 @@ _:
 - - change
 - - check
 - - checkout
+- - closure
 - - command
 - - compile
 - - completion
