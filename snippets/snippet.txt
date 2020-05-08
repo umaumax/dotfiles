@@ -63,6 +63,7 @@
 [tar find ssh] find \%# -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
 
 [zip compress] zip -r \%# # [.zip] [dir]
+[unzip at dir] unzip \%# -d $DIR
 [zip unzip broken file] zip -FF $SRC\%# --output $DST
 
 [IP address -> PID] netstat -p tcp | fzf | perl -nle '$_=~/\.([0-9]+)/;print $1;' | xargs -IXXX lsof -i:XXX
