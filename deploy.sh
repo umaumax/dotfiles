@@ -137,4 +137,6 @@ if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
   done
 fi
 
+[[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 echo $'\e[92m'"[✔] Succeeded."$'\e[m'
