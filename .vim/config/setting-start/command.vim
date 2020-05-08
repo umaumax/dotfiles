@@ -99,6 +99,10 @@ command! -nargs=+ -range Sand <line1>,<line2>call Sand(<f-args>)
 command! -nargs=1 -range AddPrefix <line1>,<line2>call Sand(<q-args>, "")
 command! -nargs=1 -range AddSuffix <line1>,<line2>call Sand("", <q-args>)
 
+" NOTE: <c-x><c-a> for original my keybind
+command! -nargs=1 -range AddNumber execute <line1>.",".<line2>."normal! ".<q-args>."\<C-a>"
+command! -nargs=1 -range SubNumber execute <line1>.",".<line2>."normal! ".<q-args>."\<C-x>"
+
 function! NoDiffStyle() range
   for n in range(a:firstline, a:lastline)
     let line = getline(n)
