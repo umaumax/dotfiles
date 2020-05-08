@@ -26,9 +26,12 @@ dotfiles=(
   .wgit
   .replyrc
   .myclirc
+  .cargo/config
 )
 for filepath in "${dotfiles[@]}"; do
-  ln -sf ~/dotfiles/"$filepath" ~/
+  target_dirpath="$HOME/$(dirname "$filepath")/"
+  mkdir -p "$target_dirpath"
+  ln -sf ~/dotfiles/"$filepath" "$target_dirpath"
 done
 
 zsh_dotfiles=(

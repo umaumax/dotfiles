@@ -1,0 +1,6 @@
+# Set default build target to armv7hf
+# [build]
+# target = "armv7-unknown-linux-gnueabihf"
+
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
