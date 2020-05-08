@@ -11,32 +11,31 @@ git submodule update -i
 
 # link
 dotfiles=(
-  .vimrc
-  .tmux.conf
-  .screenrc
-  .tigrc
+  .cargo/config
   .clang-format
-  .zshrc
+  .config/git/attributes
+  .config/git/ignore
+  .config/litecli/config
+  .config/peco/config.json
+  .config/ranger/rc.conf
+  .config/tilda/style.css
+  .config/xkeysnail/config.py
+  .gdbinit
+  .inputrc
+  .myclirc
+  .replyrc
+  .screenrc
+  .textlintrc
+  .tigrc
+  .tmux.conf
+  .toprc
+  .vimrc
+  .wgit
+  .xbindkeysrc
+  .zpreztorc
   .zprofile
   .zshenv
-  .zpreztorc
-  .textlintrc
-  .inputrc
-  .gdbinit
-  .wgit
-  .replyrc
-  .myclirc
-  .cargo/config
-  .toprc
-  .xbindkeysrc
-  .config/peco/config.json
-  .config/git/ignore
-  .config/git/attributes
-  .config/litecli/config
-  .config/ranger/rc.conf
-  .config/xkeysnail/config.py
-  .config/tilda/style.css
-
+  .zshrc
 )
 for filepath in "${dotfiles[@]}"; do
   target_dirpath="$HOME/$(dirname "$filepath")/"
