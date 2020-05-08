@@ -137,6 +137,17 @@ if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
   done
 fi
 
+# tmux
 [[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh) || {
+  echo "[Log] tmux plugin install"
+  echo "$output"
+  exit 1
+}
+output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh) || {
+  echo "[Log] tmux plugin update"
+  echo "$output"
+  exit 1
+}
 
 echo $'\e[92m'"[✔] Succeeded."$'\e[m'
