@@ -27,6 +27,16 @@ dotfiles=(
   .replyrc
   .myclirc
   .cargo/config
+  .toprc
+  .xbindkeysrc
+  .config/peco/config.json
+  .config/git/ignore
+  .config/git/attributes
+  .config/litecli/config
+  .config/ranger/rc.conf
+  .config/xkeysnail/config.py
+  .config/tilda/style.css
+
 )
 for filepath in "${dotfiles[@]}"; do
   target_dirpath="$HOME/$(dirname "$filepath")/"
@@ -78,27 +88,17 @@ ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 # NOTE: auto create .config dir
 find .config -type d -print0 | xargs -0 -L 1 -IXXX mkdir -p "$HOME/XXX"
 
-ln -sf ~/dotfiles/.config/peco/config.json ~/.config/peco/config.json
-ln -sf ~/dotfiles/.config/git/ignore ~/.gitignore
-ln -sf ~/dotfiles/.config/git/ignore ~/.config/git/ignore
-ln -sf ~/dotfiles/.config/git/attributes ~/.config/git/attributes
+ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
 ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
 ln -sf ~/dotfiles/.config/auto_fix/* ~/.config/auto_fix/
-ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
-ln -sf ~/dotfiles/.config/litecli/config ~/.config/litecli/config
-ln -sf ~/dotfiles/.config/ranger/rc.conf ~/.config/ranger/rc.conf
+ln -sf ~/dotfiles/.config/autostart/*.desktop ~/.config/autostart/
 
 if [[ $(uname) == "Linux" ]]; then
-  ln -sf ~/dotfiles/.toprc ~/
-  ln -sf ~/dotfiles/.xbindkeysrc ~/
-  ln -sf ~/dotfiles/.config/xkeysnail/config.py ~/.config/xkeysnail/config.py
-  ln -sf ~/dotfiles/.config/autostart/*.desktop ~/.config/autostart/
-  ln -sf ~/dotfiles/.config/tilda/style.css ~/.config/tilda/style.css
   ln -sf ~/dotfiles/.config/pip/pip.conf ~/.config/pip/pip.conf
   ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
 fi
-# FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
 if [[ $(uname) == "Darwin" ]]; then
+  # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
   mkdir -p "$HOME/Library/Application Support/pip/"
   ln -sf ~/dotfiles/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
   mkdir -p "$HOME/Library/Preferences/rustfmt/"
