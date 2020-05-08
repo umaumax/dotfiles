@@ -135,4 +135,4 @@ if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
   done
 fi
 
-echo $'\e[92m'"[✔] Succeed."$'\e[m'
+echo $'\e[92m'"[✔] Succeeded."$'\e[m'
