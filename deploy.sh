@@ -144,7 +144,7 @@ output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh) || {
   echo "$output"
   exit 1
 }
-output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh) || {
+output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all) || {
   echo "[Log] tmux plugin update"
   echo "$output"
   exit 1
