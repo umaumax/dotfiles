@@ -1153,6 +1153,8 @@
 [gron json diff] diff <(gron \%#) <(gron ) # go get -u github.com/tomnomnom/gron
 [jsondiffpatch json diff] jsondiffpatch \%# # npm install -g jsondiffpatch
 [diff only new line] diff -c $SRC_FILE\%# $DST_FILE | grep '^+'
+# mainly for cat /proc/interrupts files
+[diff between number] paste -d ' ' $SRC\%# $DST | awk -F' ' 'BEGIN{w=16} {for(i=1;i<=NF/2;i++){ a=$i; b=$(i+NF/2); if (a ~ /^[0-9]+$/ && b ~ /^[0-9]+$/) {printf("%"w"s", sprintf("%+d(%s)", int(b)-int(a), int(a)!=0?sprintf("%.1f%%", (int(b)-int(a))/int(a)*100.0):"-"))} else {printf("%"w"s", a)}; printf " " }; printf "\n"}' | grep '+[1-9][0-9]*'
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
@@ -1278,6 +1280,7 @@
 [grep without message] grep -sq \%#
 [grep fixed string] grep -F \%# # no regex '$' -> '\$', '\' -> '\\'
 [grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
+[binary grep] bingrep \%# # cargo install bingrep
 
 # linux
 [segmentation backtrace] catchsegv \%# # command
@@ -1616,4 +1619,6 @@
 # systemd
 [systemd running service list] systemctl list-units --type=service
 [systemd service list all] systemctl list-unit-files --type=service
+[systemd stop] systemctl stop $SERVICE_NAME
+[systemd disable] systemctl disable $SERVICE_NAME
 [systemd settig filepath] /usr/lib/systemd/system
