@@ -1451,6 +1451,13 @@
 [cargo create new bin crate] cargo new --bin \%#
 [cargo test show output] cargo test -- --nocapture \%#
 [cargo open doc] cargo doc --open
+[cargo add lib dependency] cargo add \%# # cargo install cargo-edit
+[cargo module tree list] cargo tree \%# # cargo install cargo-tree
+[cargo fix warning] cargo fix \%# # cargo install cargo-fix
+[cargo module license list] cargo-license \%# # cargo install cargo-license
+[cargo modules of toml file] cargo metadata --format-version=1 --no-deps | jq '.packages[].dependencies[].name' -r
+[cargo expand macro debug] cargo exapnd \%# # cargo install cargo-expand
+[cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 

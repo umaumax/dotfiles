@@ -1202,3 +1202,31 @@ EOF
     }
   fi
 fi
+
+function cargo-crate-local-history() {
+  ls ~/.cargo/registry/src/github.com-1ecc6299db9ec823/ | sed -E 's/-[0-9]+\.[0-9]+\.[0-9]+$//' | uniq
+}
+
+function cargo-crate-local() {
+  cargo metadata --format-version=1 --no-deps | jq '.packages[].dependencies[].name' -r
+}
+
+if cmdcheck cargo-add; then
+  function cargo-add-fzf() {
+    local ret
+    ret=$(cargo-crate-local-history | fzf)
+    if [[ -z $ret ]]; then
+      return
+    fi
+    cargo add "$(echo $ret | tr '\n' ' ')"
+  }
+
+  function cargo-rm-fzf() {
+    local ret
+    ret=$(cargo-crate-local | fzf)
+    if [[ -z $ret ]]; then
+      return
+    fi
+    cargo rm "$(echo $ret | tr '\n' ' ')"
+  }
+fi
