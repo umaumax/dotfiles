@@ -130,11 +130,16 @@ if [[ $USE_ZPLUG == 0 ]]; then
     cmdcheck pip && [[ ! -e $zsh_completion_dir/_pip ]] && pip completion --zsh >$zsh_completion_dir/_pip
     [[ -e $zsh_completion_dir/_pip ]] && source $zsh_completion_dir/_pip && compctl -K _pip_completion pip2 && compctl -K _pip_completion pip3
 
+    # rust
+    cmdcheck rustup && [[ ! -e $zsh_completion_dir/_rustup ]] && rustup completions zsh >$zsh_completion_dir/_rustup
+    cmdcheck cargo && cmdcheck rustc && fpath=($(rustc --print sysroot)/share/zsh/site-functions $fpath)
+
     # NOTE: enbale zsh completion
     # [zshの起動が遅いのでなんとかしたい 2 \- Qiita]( https://qiita.com/vintersnow/items/c29086790222608b28cf )
     # NOTE: slow with security check
     #     autoload -Uz compinit && compinit -i
     # NOTE: fast(0.0x sec) without security check
+    # if completions doesn't work well, run compinit -u once
     autoload -Uz compinit && compinit -C
   } && lambda
   return
