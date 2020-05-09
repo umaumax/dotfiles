@@ -35,7 +35,7 @@ git-update-dummy-alias
 
 ## NOTE
 * `./.gitignore`: This `.gitignore` file is for this repo not for a host machine setting.
-* `./.config/git/ignore`: This will be link to `~/.gitignore`
+* `./.config/git/ignore`: This will be link to `~/.config/git/ignore`
 * `./.local.git_template`: This template is for `./.git_template` (basically, use `~/dotfiles/.git_template/`, maybe not needed)
 
 ### local seting
