@@ -248,7 +248,6 @@ function! s:smartinput_define()
         \   'input'    : '<Right>;<Left><Left><CR><Left><CR>',
         \   'filetype' : ['cpp'],
         \   })
-  " template に続く <> を補完
   call s:smartinput_define_rule({
         \   'at'       : '\<template\>\s*\%#',
         \   'char'     : '<',
@@ -307,7 +306,7 @@ function! s:smartinput_define()
         \ })
 
   call s:smartinput_define_rule(
-        \ { 'at'    : '\(Vec\)\%#'
+        \ { 'at'    : '\('.join(['Vec','RefCell','Box','Rc','Arc','Mutex'],'\|').'\)\%#'
         \ , 'char'  : '<'
         \ , 'input' : '<><Left>'
         \ , 'filetype' : ['rust']
@@ -334,30 +333,38 @@ function! s:smartinput_define()
         \ , 'filetype' : ['cpp']
         \ })
 
-  " 確実なマッピング
-  call s:smartinput_define_rule(
-        \ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\|ros\|Eigen\|cv\|bridge\)\%#'
-        \ , 'char'  : ':'
-        \ , 'input' : '::'
-        \ , 'filetype' : ['cpp']
-        \ })
-  call s:smartinput_define_rule(
-        \ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\|ros\|Eigen\|cv\|bridge\)\%#'
-        \ , 'char'  : ';'
-        \ , 'input' : '::'
-        \ , 'filetype' : ['cpp']
-        \ })
+  for char in [':', ';']
+    call s:smartinput_define_rule(
+          \ { 'at'    : '\(std\|clang\|llvm\|internal\|detail\|boost\|ros\|Eigen\|cv\|bridge\)\%#'
+          \ , 'char'  : char
+          \ , 'input' : '::'
+          \ , 'filetype' : ['cpp']
+          \ })
+    call s:smartinput_define_rule(
+          \ { 'at'    : '\(std\|fmt\|io\|String\)\%#'
+          \ , 'char'  : char
+          \ , 'input' : '::'
+          \ , 'filetype' : ['rust']
+          \ })
+    " NOTE: 誤入力防止
+    call s:smartinput_define_rule(
+          \ { 'at'    : '::\%#'
+          \ , 'char'  : char
+          \ , 'input' : ''
+          \ , 'filetype' : ['cpp', 'rust']
+          \ })
+    call s:smartinput_define_rule(
+          \ { 'at'    : ';\%#'
+          \ , 'char'  : char
+          \ , 'input' : ''
+          \ , 'filetype' : ['cpp', 'rust']
+          \ })
+  endfor
+  " xxx; + ; => ::
   call s:smartinput_define_rule(
         \ { 'at'    : '\%(\(endl\)\)\@<!;\%#'
         \ , 'char'  : ';'
         \ , 'input' : '<BS>::'
-        \ , 'filetype' : ['cpp']
-        \ })
-  " NOTE: 誤入力防止
-  call s:smartinput_define_rule(
-        \ { 'at'    : ';\%#'
-        \ , 'char'  : ';'
-        \ , 'input' : ''
         \ , 'filetype' : ['cpp']
         \ })
   " NOTE: 文字列内である可能性では排除
@@ -571,6 +578,8 @@ function! s:smartinput_define()
         \   'input': "<Space>",
         \   })
 
+  call s:smartinput_define_rule_of_word('//',"// ")
+
   call s:smartinput_define_rule_of_word('dont',"don't")
   call s:smartinput_define_rule_of_word('cant',"can't")
   call s:smartinput_define_rule_of_word('doesnt',"doesn't")
@@ -634,6 +643,9 @@ function! s:smartinput_define()
   " NOTE:
   " ltn: lifetime notation
   for wordset in [
+        \ ['_>', '->'],
+        \ ['+>', '=>'],
+        \ ['iflet', 'if let'],
         \ ['vec', 'Vec'],
         \ ['string', 'String'],
         \ ['some', 'Some'],
@@ -649,7 +661,16 @@ function! s:smartinput_define()
         \]
     call s:smartinput_define_rule_of_word(wordset[0], wordset[1], ['rust'])
   endfor
-  for s:word in ['println','eprintln','panic','format','assert','assert_eq','assert_ne']
+
+  for s:word in [
+        \ 'println',
+        \ 'eprintln',
+        \ 'panic',
+        \ 'format',
+        \ 'assert',
+        \ 'assert_eq',
+        \ 'assert_ne'
+        \]
     call s:smartinput_define_rule_of_word(s:word,s:word.'!' ,['rust'])
   endfor
   call s:smartinput_define_rule_of_word('assert!_eq','assert_eq!' ,['rust'])
