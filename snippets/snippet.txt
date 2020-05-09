@@ -1580,9 +1580,9 @@
 [chmod dir:777, file:666] chmod -R "=r,u+w,g+w,o+w,+X" \%#
 [chmod dir:755, file:644] chmod -R "=r,u+w,+X" \%#
 
-# data
-[data to variable] read day month year <<< $(date +'%d %m %Y')
-[data to variable] eval $(date +"day=%d; month=%m; year=%Y")
+# date
+[date to variable] read day month year <<< $(date +'%d %m %Y')
+[date to variable] eval $(date +"day=%d; month=%m; year=%Y")
 
 # threads
 [count threds per process(bash)] ( echo "pid name threads"; find /proc/[0-9]*/status | xargs grep -E '^(Name|Threads)' | perl -nle 'if (/^\/proc\/([0-9]+)\/.+:Name:\s+(.+)$/) { $p=$1; $n=$2 } elsif (/^\/proc\/([0-9]+)\/.+:Threads:\s+(.+)$/ && $1==$p) { print "$p $n $2" }' )
