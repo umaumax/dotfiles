@@ -138,6 +138,13 @@ if $VIM_MAN_FLAG==1
   augroup END
 endif
 
+" python path setting
+let python2_path = substitute(system('which python2'), "\n", '', '')
+let python3_path = substitute(system('which python3'), "\n", '', '')
+
+let g:python_host_prog  = python2_path
+let g:python3_host_prog = python3_path
+let g:deoplete#sources#jedi#python_path = python3_path
 
 " e.g. .local.vimrc
 " let g:ale_cpp_clang_options = "-std=c++11 -Wall -I/usr/local/Cellar/llvm/6.0.0/include"
