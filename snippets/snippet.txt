@@ -340,6 +340,7 @@
 [tree depth] tree -L $DEPTH
 
 # shell one liner
+[tab] $'\t'
 [ol tac] perl -e 'print reverse<>'
 [ol ls -a without . and ..] ls -A
 [ol ls -a without . and ..] ls -a | tail -n +3
@@ -615,6 +616,7 @@
 [screen attach] screen -r \%#
 [screen run command] screen -dmS $tag $commands # don't surround command by ""
 [screen run clip-share] [[ -z $TARGET_HOST ]] && selhost; \%#screen -dmS clip-share-$TARGET_HOST clip-share $TARGET_HOST # use selhost to set $TARGET_HOST
+[get current screen session list] screen -ls | grep '^'$'\t' | awk '{print $1}'
 
 # vim
 [vim force save by sudo] :call feedkeys(":w !sudo tee > /dev/null %\<CR> :e!\<CR>", 'n') # use at vim cmdline
