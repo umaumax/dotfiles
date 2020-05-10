@@ -46,6 +46,7 @@
 	find-repo = :
 	find-repo-and-show-head-commit-hash-id = :
 	force-stash-apply = :
+	format-patch-peco-range  = :
 	get-all-page  = :
 	get-repo-names  = :
 	grep-japanese  = :
@@ -82,7 +83,6 @@
 	preview  = :
 	pull-all  = :
 	ranking  = :
-	rblame  = :
 	rebase-peco  = :
 	rebase-root-commit-from-master  = :
 	reflog-commit-id  = :
@@ -93,7 +93,6 @@
 	rename  = :
 	rename-files  = :
 	rename-to-backup-branch-peco  = :
-	repo = :
 	repo-exec  = :
 	repo-peco = :
 	repo-pipe-grep  = :
