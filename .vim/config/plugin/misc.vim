@@ -171,7 +171,9 @@ nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 
 " Plug 'rust-lang/rust.vim', {'for':'rust'}
 
-LazyPlug 'timonv/vim-cargo', {'for': ['cargo', 'rust']}
+" WARN: this plugin break vim window?
+" LazyPlug 'timonv/vim-cargo', {'for': ['cargo', 'rust']}
+" let g:cargo_command = "make {cmd} | copen"
 
 " start screen
 " Plug 'mhinz/vim-startify'
