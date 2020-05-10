@@ -68,3 +68,23 @@ function _fifocat() {
   _files -W "$tmp_dirpath"
 }
 compdef _fifocat fifocat
+
+function _screen() {
+  local cur prev
+  cur=${words[CURRENT]}
+  prev=${words[CURRENT - 1]}
+  if [[ "$prev" == '-r' ]] || [[ "$prev" == '-s' ]]; then
+    compadd $(
+      # get current screen session list
+      screen -ls | grep '^'$'\t' | awk '{print $1}'
+    )
+    return
+  fi
+  _arguments \
+    -r'[attach session]' \
+    -ls'[list]' \
+    -dmS'[daemon]' \
+    -s'[select session]' \
+    -X'[screen commmand]'
+}
+compdef _screen screen
