@@ -9,7 +9,16 @@
 [fzf info locals]  pipe info locals | fzf
 [fzf info threads] pipe info threads | fzf
 
+# remote
+[remote step 1. connect] target extended-remote ## x.x.x.x:10080
+[remote step 2.] attach ## $REMOTE_PID
+[remote step 2. send file] remote put ## $LOCAL_FILE $REMOTE_FILE
+[remote step 2.] set remote exec-file ## $REMOTE_EXEC_FILE_PATH
+[remote step end] monitor exit
+
 # misc
 [print type of variable] whatis 
+[set arg] set args 
+[set environment(✗remote target)] set environment ## RUST_BACKTRACE=1
 ## threads
 [show backtraces for all the threads] thread apply all bt
