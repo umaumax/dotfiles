@@ -1466,6 +1466,7 @@
 [cargo modules of toml file] cargo metadata --format-version=1 --no-deps | jq '.packages[].dependencies[].name' -r
 [cargo expand macro debug] cargo exapnd \%# # cargo install cargo-expand
 [cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
+[cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
@@ -1620,6 +1621,7 @@
 
 # top
 [docker container top] ctop # brew install ctop (or nugget ctop or see [bcicen/ctop: Top\-like interface for container metrics]( https://github.com/bcicen/ctop ))
+[top log] top -b -d 1 -n 60 # 1sec * 60
 
 # systemd
 [systemd running service list] systemctl list-units --type=service
