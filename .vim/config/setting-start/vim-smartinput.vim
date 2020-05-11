@@ -578,7 +578,7 @@ function! s:smartinput_define()
         \   'input': "<Space>",
         \   })
 
-  call s:smartinput_define_rule_of_word('//',"// ")
+  call s:smartinput_define_rule_of_word('//',"// ", ['rust', 'cpp'])
 
   call s:smartinput_define_rule_of_word('dont',"don't")
   call s:smartinput_define_rule_of_word('cant',"can't")
