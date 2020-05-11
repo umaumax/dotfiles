@@ -1195,7 +1195,7 @@
 [gdb with args] gdb --args # [exec command] [args...]
 [gdb without loading .gdbinit] gdb -n \%#
 [gdb server] gdbserver --multi localhost:10080
-[rust gdb] rust-gdb -q $(cargo metadata --format-version=1 | jq -r '(.target_directory + "/debug/" + .packages[0].name)')
+[rust gdb] rust-gdb -q $(cargo metadata --format-version=1 | jq -r '(.target_directory + "/debug/" + (.workspace_root | gsub(".*/";"")))')
 [rust remote target debug] RUST_GDB=gdb-multiarch rust-gdb -q
 
 # perf
