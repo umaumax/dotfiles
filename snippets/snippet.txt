@@ -359,6 +359,9 @@
 [ol filter before and after line like grep -C ] awk -v base=\%# -v range= -v pre_line=0 '(pre_line+base-range)<=NR && NR<=(pre_line+base+range)' # if 'bat' assign pre_line=3
 [ol awk sum] awk 's+=$0{}END{print s}' # NOTE: one line one number
 [ol awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
+[ol awk max] awk '{if(max<$0) max=$0} END{print max}'
+[ol awk min] awk 'BEGIN{min="null"}{if(min=="null" || min>$0) min=$0} END{print min}'
+[ol awk grep regex range] awk '/\%#/,//' # '/BEGIN_STRING/,/END_STRING/'
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [ol awk uniq without sort] awk '!a[$0]++'
 [ol perl uniq without sort] perl -ne 'print unless $count{$_}++'
@@ -516,6 +519,7 @@
 [args checker] python -c "import sys; print(sys.argv)" \%#
 
 # python
+[python list of python path] python -m site
 [pip by python] python -m pip
 [pip by python3] python3 -m pip
 [pip upgrade] pip install --upgrade \%#
@@ -1628,4 +1632,5 @@
 [systemd service list all] systemctl list-unit-files --type=service
 [systemd stop] systemctl stop $SERVICE_NAME
 [systemd disable] systemctl disable $SERVICE_NAME
+[systemd status(info)] systemctl status $SERVICE_NAME
 [systemd settig filepath] /usr/lib/systemd/system
