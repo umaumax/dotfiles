@@ -63,6 +63,7 @@ let g:switch_custom_definitions =
       \   ['dynamic_cast', 'static_cast', 'const_cast', 'reinterpret_cast'],
       \   ['cout', 'cerr', 'clog'],
       \   ['push_back', 'emplace_back'],
+      \   ['True', 'False'],
       \   ['TRUE', 'FALSE'],
       \   ['true', 'false'],
       \   ['NE', 'EQ'],
