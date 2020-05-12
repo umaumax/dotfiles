@@ -340,7 +340,7 @@
 [tree depth] tree -L $DEPTH
 
 # shell one liner
-[tab] $'\t'
+[tab] $'\\t'
 [ol tac] perl -e 'print reverse<>'
 [ol ls -a without . and ..] ls -A
 [ol ls -a without . and ..] ls -a | tail -n +3
