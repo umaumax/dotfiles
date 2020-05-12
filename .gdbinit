@@ -1,7 +1,9 @@
 source ~/dotfiles/.config/gdb/.gdb-dashboard
-source ~/dotfiles/.config/gdb/stack-inspector.py
 # for stack-inspector command
+source ~/dotfiles/.config/gdb/stack-inspector.py
 
+# for telling python lib path to bundled gdb python
+source ~/dotfiles/.config/gdb/init.py
 source ~/dotfiles/.config/gdb/pipe.py
 
 alias -a exit = quit

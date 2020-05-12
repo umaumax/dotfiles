@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import gdb
 import sys
 import tempfile
+import gdb
+import importlib.util
 
 
 class HelloWorld(gdb.Command):
@@ -21,6 +22,29 @@ class HelloWorld(gdb.Command):
 HelloWorld()
 
 
+if importlib.util.find_spec("pygments") is not None:
+    from pygments import highlight
+    from pygments.lexers import CLexer
+    from pygments.formatters import TerminalFormatter
+
+    class PrettyList(gdb.Command):
+        """Print source code with color."""
+
+        def __init__(self):
+            super().__init__("pl", gdb.COMMAND_USER)
+            self.lex = CLexer()
+            self.fmt = TerminalFormatter()
+
+        def invoke(self, args, tty):
+            try:
+                out = gdb.execute(f"l {args}", tty, True)
+                print(highlight(out, self.lex, self.fmt))
+            except Exception as e:
+                print(e)
+
+    PrettyList()
+
+
 class Pipe(gdb.Command):
     def __init__(self):
         super(Pipe, self).__init__("pipe", gdb.COMMAND_USER)
@@ -30,8 +54,11 @@ class Pipe(gdb.Command):
     def help(self):
         print('e.g. pipe info locals | fzf -m')
         print('e.g. pipe help > help.log')
+        print('you cannot use "|" and ">" at the same time')
+        print('if you want to use, please send me pull request!')
 
     def invoke(self, arg, from_tty):
+        # NOTE: below function delete "" or ''
         args = gdb.string_to_argv(arg)
         if self.verbose:
             print("input args:", args)
@@ -49,7 +76,9 @@ class Pipe(gdb.Command):
         else:
             index = args.index('|')
             gdb_command = ' '.join(args[:index])
-            shell_command = ' '.join(args[index + 1:])
+            shell_command = arg.partition('|')[2]
+            # NOTE: gdb.string_to_argv function delete "" or ''
+            # shell_command = ' '.join(args[index + 1:])
             filename = ''
 
         if self.verbose:
