@@ -98,10 +98,7 @@ class Pipe(gdb.Command):
             gdb_shell_command = "shell cat '" + fp.name + "' | " + shell_command
             if self.verbose:
                 print("gdb_shell_command:", '[', gdb_shell_command, ']')
-            output = gdb.execute(
-                gdb_shell_command,
-                to_string=True)
-            print(output)
+            gdb.execute(gdb_shell_command)
 
 
 Pipe()
