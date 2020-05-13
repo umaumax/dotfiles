@@ -1,5 +1,6 @@
 # gdb dashboard
 [gdb dashboard] dashboard 
+[gdb dashboard to tty] dashboard -output ## tty path
 
 # stack-inspector
 [stack-inspector] stack-inspector
@@ -8,6 +9,9 @@
 [gdb command to shell pipe] pipe 
 [fzf info locals]  pipe info locals | fzf
 [fzf info threads] pipe info threads | fzf
+
+# set-rust-substitute-path
+[rust detail debug] set-rust-substitute-path ## used target from 'info target'" or set directly
 
 # remote
 [remote step 1. connect] target extended-remote ## x.x.x.x:10080
@@ -19,7 +23,8 @@
 # misc
 [print type of variable] whatis 
 [set arg] set args 
-[set environment(✗remote target)] set environment ## RUST_BACKTRACE=1
+[set environment(✗:remote target)] set environment ## RUST_BACKTRACE=1
+[set environment(✗:remote target)] set exec-wrapper env 'LD_PRELOAD=' 'LD_LIBRARY_PATH='
 ## threads
 [show backtraces for all the threads] thread apply all bt
 ## breakpoints
@@ -27,3 +32,5 @@
 [see breakpoints file] pipe info breakpoints | fzf --preview='fl=$(echo {} | awk "{print \$NF}"); f=${fl%:*} l=${fl#*:}; cat -n $f | grep --color=always -B 5 -A 100 "^ *$l\t.*\$"'
 ## show
 [show current file location] list
+## short-cut
+[c-l] ## clear
