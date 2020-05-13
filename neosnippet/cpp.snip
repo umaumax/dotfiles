@@ -1169,4 +1169,10 @@ abbr boost style
 
 snippet gmock_ElementsAre
 abbr actual, matcher
-  EXPECT_THAT(${0}, testing::ElementsAre(${1:#:0,1,2,3}));
+	EXPECT_THAT(${0}, testing::ElementsAre(${1:#:0,1,2,3}));
+
+snippet char_to_string
+	std::string(1, ${0});
+
+snippet chars_to_string
+	std::string(${1:#:char pointer}, ${0:#:len});
