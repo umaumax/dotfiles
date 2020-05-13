@@ -50,6 +50,7 @@ _:
 - - pseudo
 - - python
 - - raspberry
+- - receive
 - - recursive
 - - recursively
 - - same
