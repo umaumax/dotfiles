@@ -607,6 +607,7 @@
 [serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200\%#
 [serial communication screen] sudo screen /dev/ttyUSB0 115200\%#
 [serial baudrate example] echo '1200 2400 4800 9600 19200 38400 57600 115200' !
+[show tty info for serial port] sudo stty -a -F /dev/ttyUSB0
 
 # screenshot of ubuntu
 [ubuntu screenshot (all)] gnome-screenshot # PrintScreen
