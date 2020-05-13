@@ -611,7 +611,25 @@ function crontab() {
 # NOTE: for disable copyright output
 cmdcheck gdb && alias gdb='gdb -q'
 cmdcheck gdb-multiarch && alias gdb='gdb-multiarch -q'
-cmdcheck rust-gdb && alias rust-gdb='rust-gdb -q'
+cmdcheck rust-gdb && function rust-gdb() {
+  # FYI: [rustのgdbでのdebugでsourceを出力したかった \- 雑なメモ書き]( https://hiroyukim.hatenablog.com/entry/2019/11/29/190235 )
+  # auto apply rust substitute-path
+  local debug_src_opt=()
+  for arg in "$@"; do
+    # search target exec filepath
+    if [[ -x "$arg" ]]; then
+      local debug_src=$(strings $arg | grep -o '^/rustc/[^/]\+/' | uniq)
+      if [[ -n "$debug_src" ]]; then
+        debug_src_opt=("${debug_src_opt[@]}" --eval-command "set substitute-path $debug_src $(rustc --print=sysroot)/lib/rustlib/src/rust/")
+        break
+      fi
+    fi
+  done
+
+  local gdb_cmd="gdb"
+  cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
+  RUST_GDB="$gdb_cmd" command rust-gdb -q "$@" "${debug_src_opt[@]}"
+}
 
 ################
 ####  Mac   ####
