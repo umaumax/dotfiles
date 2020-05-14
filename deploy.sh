@@ -139,13 +139,13 @@ fi
 
 # tmux
 [[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh) || {
-  echo "[Log] tmux plugin install"
+output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh 2>&1) || {
+  echo $'\e[91m'"[✗] tmux plugin install failed."$'\e[m'
   echo "$output"
   exit 1
 }
-output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all) || {
-  echo "[Log] tmux plugin update"
+output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
+  echo $'\e[91m'"[✗] tmux plugin update failed."$'\e[m'
   echo "$output"
   exit 1
 }
