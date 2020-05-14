@@ -4,6 +4,7 @@ source ~/dotfiles/.config/gdb/stack-inspector.py
 
 # for telling python lib path to bundled gdb python
 source ~/dotfiles/.config/gdb/init.py
+source ~/dotfiles/.config/gdb/common.py
 source ~/dotfiles/.config/gdb/rust.py
 source ~/dotfiles/.config/gdb/pipe.py
 
@@ -84,8 +85,14 @@ end
 # NOTE: load $PWD/.gdbinit
 set auto-load local-gdbinit
 
+# for Ubuntu16.04
+py import os; p=os.environ['HOME']+"/local/src/glibc-2.23"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
+# for Ubuntu18.04
+py import os; p=os.environ['HOME']+"/local/src/glibc-2.27"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
+
 echo \033[0;1;33m[plugin commands list]\n\033[0m
 echo \033[0;1;34m* stack-inspector\n\033[0m
 echo \033[0;1;34m* pipe\n\033[0m
+echo \033[0;1;34m* set-rust-substitute-path\n\033[0m
 echo \033[0;1;34m* '\\C-x\\C-r': fzf history search\n\033[0m
 echo \033[0;1;34m* '\\C-x\\C-x': fzf snippet search\n\033[0m
