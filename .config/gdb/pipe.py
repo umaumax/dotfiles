@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-
 from __future__ import print_function
+
 import sys
 import tempfile
 import gdb
@@ -23,13 +23,11 @@ HelloWorld()
 
 
 if importlib.util.find_spec("pygments") is not None:
-    from pygments import highlight
-    from pygments.lexers import CLexer
     from pygments.formatters import TerminalFormatter
+    from pygments.lexers import CLexer
+    from pygments import highlight
 
     class PrettyList(gdb.Command):
-        """Print source code with color."""
-
         def __init__(self):
             super().__init__("pl", gdb.COMMAND_USER)
             self.lex = CLexer()
@@ -37,7 +35,7 @@ if importlib.util.find_spec("pygments") is not None:
 
         def invoke(self, args, tty):
             try:
-                out = gdb.execute(f"l {args}", tty, True)
+                out = gdb.execute("l {}".format(args), tty, True)
                 print(highlight(out, self.lex, self.fmt))
             except Exception as e:
                 print(e)
