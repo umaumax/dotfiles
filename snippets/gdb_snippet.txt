@@ -32,5 +32,10 @@
 [see breakpoints file] pipe info breakpoints | fzf --preview='fl=$(echo {} | awk "{print \$NF}"); f=${fl%:*} l=${fl#*:}; cat -n $f | grep --color=always -B 5 -A 100 "^ *$l'$'\t''.*\$"'
 ## show
 [show current file location] list
+# debug
+[enable backtrace before main function] set backtrace past-main on
+[show debug info] show debug-file-directory ## maybe /usr/lib/debug # you can get files by sudo apt-get install libc6-dbg
 ## short-cut
 [c-l] ## clear
+# cheat sheet
+[cheat sheet wiki] echo \033[0;1;33mhttps://github.com/umaumax/memo/wiki/gdb\n\033[0m
