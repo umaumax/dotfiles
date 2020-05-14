@@ -50,16 +50,16 @@ class Pipe(gdb.Command):
         self.verbose = False
 
     def help(self):
-        print('e.g. pipe info locals | fzf -m')
-        print('e.g. pipe help > help.log')
-        print('you cannot use "|" and ">" at the same time')
-        print('if you want to use, please send me pull request!')
+        pycolor.log_info('e.g. pipe info locals | fzf -m')
+        pycolor.log_info('e.g. pipe help > help.log')
+        pycolor.log_info('you cannot use "|" and ">" at the same time')
+        pycolor.log_info('if you want to use, please send me pull request!')
 
     def invoke(self, arg, from_tty):
         # NOTE: below function delete "" or ''
         args = gdb.string_to_argv(arg)
         if self.verbose:
-            print("input args:", args)
+            pycolor.log_verbose("input args:", args)
         if '|' not in args:
             if '>' not in args:
                 self.help()
@@ -80,7 +80,7 @@ class Pipe(gdb.Command):
             filename = ''
 
         if self.verbose:
-            print("input gdb command:", gdb_command)
+            pycolor.log_verbose("input gdb command:", gdb_command)
         output = gdb.execute(gdb_command, to_string=True)
 
         if filename:
@@ -92,10 +92,11 @@ class Pipe(gdb.Command):
             fp.writelines(output)
             fp.flush()
             if self.verbose:
-                print("shell_command:", '[', shell_command, ']')
+                pycolor.log_verbose("shell_command:", '[', shell_command, ']')
             gdb_shell_command = "shell cat '" + fp.name + "' | " + shell_command
             if self.verbose:
-                print("gdb_shell_command:", '[', gdb_shell_command, ']')
+                pycolor.log_verbose(
+                    "gdb_shell_command:", '[', gdb_shell_command, ']')
             gdb.execute(gdb_shell_command)
 
 

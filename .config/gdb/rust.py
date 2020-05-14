@@ -20,13 +20,15 @@ class SetRustSubStitutePath(gdb.Command):
         self.verbose = False
 
     def help(self):
-        print("e.g. set-rust-substitute-path # used target from 'info target'")
-        print("e.g. set-rust-substitute-path 'target_rust_exe_file'")
+        pycolor.log_info(
+            "e.g. set-rust-substitute-path # used target from 'info target'")
+        pycolor.log_info(
+            "e.g. set-rust-substitute-path 'target_rust_exe_file'")
 
     def invoke(self, arg, from_tty):
         args = gdb.string_to_argv(arg)
         if self.verbose:
-            print("input args:", args)
+            pycolor.log_verbose("input args:", args)
 
         rustc_sysroot = subprocess.run(
             "rustc --print=sysroot",
@@ -34,8 +36,7 @@ class SetRustSubStitutePath(gdb.Command):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE).stdout.decode('utf-8').strip()
         if len(rustc_sysroot) == 0:
-            print(
-                "failed 'rustc --print=sysroot'")
+            pycolor.log_error("failed 'rustc --print=sysroot'")
             self.help()
             return
 
@@ -53,7 +54,7 @@ class SetRustSubStitutePath(gdb.Command):
                 if target is None:
                     target = m.group('local_exec_file')
             if target is None:
-                print('cannot found target file automatically')
+                pycolor.log_error('cannot found target file automatically')
                 self.help()
                 return
 
@@ -65,13 +66,13 @@ class SetRustSubStitutePath(gdb.Command):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE).stdout.decode('utf-8').strip()
         if len(debug_srcpath) == 0:
-            print(
+            pycolor.log_error(
                 "cannot extract rust substitute-path from '{}' automatically".format(target))
             self.help()
             return
         gdb_set_debug_src_command = "set substitute-path {} {}/lib/rustlib/src/rust/".format(
             debug_srcpath, rustc_sysroot)
-        print("[log] {}".format(gdb_set_debug_src_command))
+        pycolor.log_info("[log] {}".format(gdb_set_debug_src_command))
         gdb.execute(gdb_set_debug_src_command)
 
 
