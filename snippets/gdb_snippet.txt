@@ -29,7 +29,7 @@
 [show backtraces for all the threads] thread apply all bt
 ## breakpoints
 [see breakpoints] info breakpoints
-[see breakpoints file] pipe info breakpoints | fzf --preview='fl=$(echo {} | awk "{print \$NF}"); f=${fl%:*} l=${fl#*:}; cat -n $f | grep --color=always -B 5 -A 100 "^ *$l\t.*\$"'
+[see breakpoints file] pipe info breakpoints | fzf --preview='fl=$(echo {} | awk "{print \$NF}"); f=${fl%:*} l=${fl#*:}; cat -n $f | grep --color=always -B 5 -A 100 "^ *$l'$'\t''.*\$"'
 ## show
 [show current file location] list
 ## short-cut
