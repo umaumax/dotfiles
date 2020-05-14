@@ -150,4 +150,19 @@ output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
   exit 1
 }
 
+mkdir -p ~/local/src/
+if [[ $(uname) == "Linux" ]]; then
+  # only Ubuntu16.04
+  if cat /etc/os-release | grep -q '^VERSION_ID="16.04"$'; then
+    if [[ ! -d ~/local/src/glibc-2.23 ]]; then
+      wget https://ftp.gnu.org/gnu/glibc/glibc-2.23.tar.gz -O - | tar zxvf - -C ~/local/src/
+    fi
+  fi
+  if cat /etc/os-release | grep -q '^VERSION_ID="18.04"$'; then
+    if [[ ! -d ~/local/src/glibc-2.27 ]]; then
+      wget https://ftp.gnu.org/gnu/glibc/glibc-2.27.tar.gz -O - | tar zxvf - -C ~/local/src/
+    fi
+  fi
+fi
+
 echo $'\e[92m'"[✔] Succeeded."$'\e[m'
