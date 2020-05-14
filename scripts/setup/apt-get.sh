@@ -233,6 +233,9 @@ sudo update-pepperflashplugin-nonfree --install
 
 sudo apt-get install -y nmap
 
+sudo apt-get install -y libc6-dbg
+sudo apt-get install -y gdb-multiarch
+
 # --------------------------------
 # below packages are WIP
 # --------------------------------
