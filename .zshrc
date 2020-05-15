@@ -1740,6 +1740,7 @@ function findgrep() {
   fi
   # NOTE: "$@" is args of find command
 
+  local grep_cmd='grep'
   local color_opt='--color=auto'
   cmdcheck fzf && color_opt='--color=always'
   cmdcheck ggrep && local grep_cmd='ggrep'
