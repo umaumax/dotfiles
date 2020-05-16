@@ -1012,6 +1012,9 @@
 # shell
 [extract filepath ~] sed "s:^~:$HOME:g"
 [single quote] '"'"'
+[get command filepath] which -p \%#
+[get other user's home dir] ~\%# # e.g. ~root
+[get set options] $- # e.g. you can see set -x or +x and other options
 
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
@@ -1311,11 +1314,13 @@
 [pstree on ubuntu] ps -e f ww
 [pstree with args ubuntu] ps -e f
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
+[send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
 [list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
-[ubuntu process environment] strings /proc/$(pgrep \%#)/environ
-[ubuntu process environment sudo] sudo strings /proc/$(pgrep \%#)/environ
+[show  process environment] ps e -ww -p $PID
+[ubuntu show process environment(pgrep)] strings /proc/$(pgrep \%#)/environ
+[ubuntu show process environment(pid)] strings /proc/\%#/environ
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH\%# | gprof2dot | dot -Tsvg -o output.svg
@@ -1519,7 +1524,7 @@
 # env
 [add path env at the beginning] export PATH="\%#:$PATH"
 [add path env at the end] export PATH="$PATH:\%#"
-[filter path env] export PATH_BK="$PATH"; export PATH=$(t1=$(mktemp); t2=$(mktemp); echo -n $PATH | tr ':' '\n' | tee $t1 | { { grep -v \%# } || { echo -n "$PATH" | tr ':' '\n' } } | tee $t2 | tr '\n' ':' | sed 's/:*$//'; diff -U 999 $t1 $t2 1>&2)
+[filter current shell PATH env] export PATH_BK="$PATH"; export PATH=$(t1=$(mktemp); t2=$(mktemp); echo -n $PATH | tr ':' '\n' | tee $t1 | { { grep -v \%# } || { echo -n "$PATH" | tr ':' '\n' } } | tee $t2 | tr '\n' ':' | sed 's/:*$//'; diff -U 999 $t1 $t2 1>&2)
 
 # filename
 [generate continuous filename] ruby -e '(0..9\%#).each{|i|printf"%04d_right.png\n",i}'
