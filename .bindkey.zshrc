@@ -524,6 +524,9 @@ bindkey '^XF' edit-command-line
 # L:line
 bindkey '^X^L' edit-command-line
 bindkey '^XL' edit-command-line
+# E: default keymapping of bash readline
+bindkey '^X^E' edit-command-line
+bindkey '^XE' edit-command-line
 # NOTE: edit clipboard
 # function _cedit() { cedit; }
 # zle -N _cedit
