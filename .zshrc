@@ -3217,6 +3217,38 @@ EOF
   fi
 }
 
+function set_command_logger() {
+  local target_command=$1
+  local log_output_filepath=$2
+  if [[ $# -lt 2 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") target_command log_output_filepath
+e.g. for tig
+$(basename "$0") git some_tty_output
+EOF
+    return 1
+  fi
+  local target_command_fullpath
+  target_command_fullpath=$(which -p $target_command)
+  if [[ "$?" != 0 ]]; then
+    echo 1>&2 "'$target_command' not found"
+    return 1
+  fi
+  local tmpdir=$(mktemp -d "/tmp/$(basename $0).$$.tmp.XXXXXX")
+  mkdir -p "$tmpdir"
+  local dummy_command_path="$tmpdir/$target_command"
+
+  cat >"$dummy_command_path" <<EOF
+#!/usr/bin/env bash
+printf '$target_command %s\\n' "\$@" > "$log_output_filepath"
+$target_command_fullpath "\$@"
+EOF
+  chmod u+x "$dummy_command_path"
+  export PATH="$tmpdir:$PATH"
+
+  echo 1>&2 "${YELLOW}[LOG] Add '$tmpdir' to \$PATH for dummy '$target_command'"
+}
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
