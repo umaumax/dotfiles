@@ -8,7 +8,8 @@
   # hooksPath = ~/.config/git/hooks
   ignorecase = false
   # FYI: [so\-fancy/diff\-so\-fancy: Good\-lookin' diffs\. Actually… nah… The best\-lookin' diffs\.]( https://github.com/so-fancy/diff-so-fancy )
-  pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [ -n $GIT_DIFF_HIGHLIGHT ] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
+  # pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [ -n $GIT_DIFF_HIGHLIGHT ] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
+  pager = delta --plus-color="#002000" --minus-color="#400000" --plus-emph-color="#206F20" --minus-emph-color="#BF2040" --hunk-style=plain --keep-plus-minus-markers --theme='Monokai Extended'
 [diff-so-fancy]
   markEmptyLines = false
 [init]
@@ -209,6 +210,8 @@
 
 # [neovim\+diffchar\.vimでgitコンフリクト解消時に単語の差分も見れるようにする \- Qiita]( https://qiita.com/mkiken/items/ddc2ee55731b01fac187 )
 # Requires: nvim and 'rickhowe/diffchar.vim'
+[interactive]
+  diffFilter = delta --color-only
 [merge]
   tool = nvim
 [mergetool "nvim"]

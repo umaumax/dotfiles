@@ -7,6 +7,9 @@ cargo install hexyl
 # NOTE: Count your code, quickly.
 cargo install tokei
 
+# NOTE: for git diff color output
+cargo install git-delta
+
 # NOTE: rust repl
 # command: evcxr
 cargo install evcxr_repl

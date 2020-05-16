@@ -22,6 +22,12 @@ set split-view-width = 90%
 
 # [tigでmerge diffを表示する \- Qiita]( https://qiita.com/YasuOza/items/7be136f03867d20b8332 )
 set diff-options = -m --first-parent
+
+# * tigのdiffの色情報はtigの内部で付加している模様
+  # * `set diff-highlight = tmp_highlighter`として，`tmp_highlighter`ファイルを作成し，`PATH=.:$PATH tig`として，出力結果を調査した結果
+  # * 背景反転のみは有効(おそらく，`diff-highlight`をhighlighterとして想定しているため)
+    # * `$'\e[7m' hello $'\e[7m'`
+# String (or bool): Path to diff-highlight script, defaults to `diff-highlight`.
 set diff-highlight = true
 
 # NOTE: 以下を有効にすると`u`でstage-updateするときにviewが閉じてしまう可能性があるので，注意
