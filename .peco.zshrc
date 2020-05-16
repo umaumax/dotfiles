@@ -1218,7 +1218,7 @@ if cmdcheck cargo-add; then
     if [[ -z $ret ]]; then
       return
     fi
-    cargo add "$(echo $ret | tr '\n' ' ')"
+    cargo add "$(printf '%s' "$ret" | xargs)"
   }
 
   function cargo-rm-fzf() {
@@ -1227,6 +1227,6 @@ if cmdcheck cargo-add; then
     if [[ -z $ret ]]; then
       return
     fi
-    cargo rm "$(echo $ret | tr '\n' ' ')"
+    cargo rm "$(printf '%s' "$ret" | xargs)"
   }
 fi
