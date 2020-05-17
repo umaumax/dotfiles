@@ -275,21 +275,26 @@ endfunction
 command! -nargs=0 -range CppConstructorInitialization <line1>,<line2>call CppMemberInitialization()
 command! -nargs=0 -range CppMemberInitialization <line1>,<line2>call CppMemberInitialization()
 
-if Doctor('racer', 'rust struct field generator')
+if Doctor('racer', 'rust struct field generator') && Doctor('cargo', '') && Doctor('jq', '')
   function! RustStructFieldsGen(...)
     let word = get(a:, 1, expand("<cword>"))
     let query=word.'.'
     let query_length=strlen(query)
     " NOTE: 下記のいずれかの条件を満たす必要がある
     " 構造体の定義が同じworking dirに存在するか
-    " ソースファイルを直接指定するか
+    " ソースファイルを直接指定するか(その場合，Cargo.lockのファイルが存在するワーキングディレクトリでracerコマンドを実行すると，自動的にクレートの情報を読み込む)
+    "   このとき，対象ソースファイルと同一のディレクトリにある`use`の読み込みも行われる
     " echoする内容に構造体の定義を含めるか(e.g. racer complete 1 4 <(echo 'XXX.'; cat src/main.rs)
-    let cmd="cd ".shellescape(expand('%:p:h')).";racer complete 1 ".query_length." <<<'".query."' - | grep '^MATCH' | grep StructField | awk -F'[, ]' '{print $2;}'"
+    let tmp_srcfile=fnameescape(expand('%:p:h').'/.racer_completion_tmp.'.expand('%:t'))
+    let cmd="cd $(dirname $(cd ".shellescape(expand('%:p:h'))."; cargo locate-project | jq -r '.root')); racer complete 1 ".query_length." '".tmp_srcfile."' | grep '^MATCH' | grep StructField | awk -F'[, ]' '{print $2, $9;}'"
     echom cmd
+    call writefile([query], tmp_srcfile)
     let struct_fields=split(system(cmd),'\n')
+    call delete(tmp_srcfile)
     let lines=[]
-    for struct_field in struct_fields
-      let lines+=[printf('  %s: ,', struct_field)]
+    for struct_field_info in struct_fields
+      let [field,type]=split(struct_field_info,' ')
+      let lines+=[printf('  %s: %s,', field, type)]
     endfor
     call append(line('.'), lines)
   endfunction
