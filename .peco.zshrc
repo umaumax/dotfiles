@@ -439,9 +439,12 @@ function umountpeco() {
   local filepathes=($(mount | peco | sed 's/.* on//g' | awk '{print$1}'))
   for filepath in "${filepathes[@]}"; do
     if [[ $(uname) == "Darwin" ]]; then
-      # [Macのsshfsでunmountできなくなった時の対処 \- Qiita]( https://qiita.com/shouta-dev/items/af41b4744243f2384067 )
-      sudo diskutil unmount "$filepath"
-      # NOTE: if you can't umount, try umount -f
+      # NOTE: if mounted by normal user, you can unmount without sudo
+      if ! umount "$filepath"; then
+        if ! sudo diskutil unmount "$filepath"; then
+          echo 1>&2 "${RED}try\n umount -f '$filepath'${DEFAULT}"
+        fi
+      fi
     else
       sudo umount "$filepath"
     fi
