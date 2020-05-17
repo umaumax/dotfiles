@@ -1466,6 +1466,7 @@
 [bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
 
 # rust
+[rust env_logger] RUST_LOG=debug \%#
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
 [cargo create new lib crate] cargo new --lib \%#
 [cargo create new bin crate] cargo new --bin \%#
@@ -1480,6 +1481,7 @@
 [cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
 [cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf
 [cargo run example] cargo run --example \%#
+[cargo project root] dirname $(cargo locate-project | jq -r '.root')
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
