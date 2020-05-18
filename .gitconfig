@@ -9,7 +9,7 @@
   ignorecase = false
   # FYI: [so\-fancy/diff\-so\-fancy: Good\-lookin' diffs\. Actually… nah… The best\-lookin' diffs\.]( https://github.com/so-fancy/diff-so-fancy )
   # pager = "{ type diff-so-fancy >/dev/null 2>&1 && diff-so-fancy || [ -n $GIT_DIFF_HIGHLIGHT ] && perl $GIT_DIFF_HIGHLIGHT || cat; } | less --tabs=2 -RFX"
-  pager = delta --plus-color="#002000" --minus-color="#400000" --plus-emph-color="#206F20" --minus-emph-color="#BF2040" --hunk-style=plain --keep-plus-minus-markers --theme='Monokai Extended'
+  pager = delta --plus-color="17" --minus-color="#400000" --plus-emph-color="21" --minus-emph-color="#BF2040" --hunk-style=plain --keep-plus-minus-markers --theme='Monokai Extended'
 [diff-so-fancy]
   markEmptyLines = false
 [init]
