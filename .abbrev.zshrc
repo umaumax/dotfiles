@@ -83,8 +83,7 @@ abbrev-alias -c ggtest="ggpvc '\%#' -- '*test*'"
 abbrev-alias -c gglaunch="ggpvc '\%#' -- '*.launch'"
 
 ## find
-## this is booking to foregorund command
-# abbrev-alias -c fg="find . -type f -exec grep --color=always '\%#' {} +"
+abbrev-alias -c fgpeco="findgrep '\%#' -- | pecocat"
 abbrev-alias -c fgmd="findgrep '\%#' -- -type f \( -name '*.md' -o -name 'README.txt' -o -name 'readme.txt' \)"
 abbrev-alias -c fgvim="findgrep '\%#' -- -type f \( -name '*.vim' -o -name '*.vimrc' \)"
 abbrev-alias -c fgzsh="findgrep '\%#' -- -type f \( -name '*.zsh' -o -name '*.zshrc' -o -name '*.zshenv' -o -name '*.zshprofile' -o -name '*.zpreztorc' \)"
