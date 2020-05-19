@@ -1694,7 +1694,7 @@ function xargs-grep() {
   cmdcheck fzf && color_opt='--color=always'
   cmdcheck ggrep && local grep_cmd='ggrep'
   # NOTE: to prevent xargs from quitting on error
-  xargs -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -H -n \"${keyword[@]}\" {} +" '' XXX
+  xargs -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -I -H -n \"${keyword[@]}\" {} +" '' XXX
 }
 # そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
 function fgrep() {
@@ -1744,7 +1744,7 @@ function findgrep() {
   local color_opt='--color=auto'
   cmdcheck fzf && color_opt='--color=always'
   cmdcheck ggrep && local grep_cmd='ggrep'
-  find . "$@" -type f -exec $grep_cmd $color_opt -H -n "${grep_args[@]}" {} +
+  find . "$@" -type f -exec $grep_cmd $color_opt -I -H -n "${grep_args[@]}" {} +
 }
 
 alias fg.vim='fgrep "*.vim"'
