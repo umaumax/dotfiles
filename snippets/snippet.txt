@@ -6,6 +6,7 @@
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
 [find root dir] sudo find / -name "\%#" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.\%#"
+[find Don't descend directories on other filesystems. option] -xdev
 
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
 [find remove core] find . -name "core.*" -type f -ls -delete
@@ -1206,6 +1207,7 @@
 [rust gdb] rust-gdb -q $(cargo metadata --format-version=1 | jq -r '(.target_directory + "/debug/" + (.workspace_root | gsub(".*/";"")))')
 [rust remote target debug] RUST_GDB=gdb-multiarch rust-gdb -q
 [check glibc version] ldd --version
+[check glibc version] /lib/x86_64-linux-gnu/libc.so.6
 
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
@@ -1261,6 +1263,8 @@
 [static library: list objects] ar tv \%#
 
 # ldd
+[list lib dependency without ldd] /lib64/ld-linux-x86-64.so.2 --list \%#
+[list lib dependency without ldd] /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 --list \%#
 [ldd at darwin] otool -L \%#
 [LD] LD_PRELOAD=\%#
 [LD] LD_LIBRARY_PATH=\%#
@@ -1645,3 +1649,11 @@
 [systemd disable] systemctl disable $SERVICE_NAME
 [systemd status(info)] systemctl status $SERVICE_NAME
 [systemd settig filepath] /usr/lib/systemd/system
+
+# pid
+[pid files location] /var/run/
+
+# tty
+[tty] python -c 'import os; import sys; print(os.ttyname(sys.stdin.fileno()))'
+[tty] echo "/dev/$(ps -p $$ -o tty | tail -n 1)"
+[tty from pid] echo "/dev/$(ps -p $PID -o tty | tail -n 1)"
