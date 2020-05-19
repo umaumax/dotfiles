@@ -47,3 +47,7 @@ snippet if_or
 snippet var_dump
 alias dump
 	$(foreach v, $(.VARIABLES), $(info $(v) = $($(v))))${0}
+
+snippet pid
+abbr $$$$ -> $$ at Makefile shell
+	$$$$${0}

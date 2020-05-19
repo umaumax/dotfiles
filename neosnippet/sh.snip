@@ -817,3 +817,10 @@ snippet escape_str
 snippet set_arg
 abbr set $@ variable
 	set -- ${0}
+
+snippet pid
+	$$${0}
+
+snippet shell_abs_path
+abbr valid only no command exec before, try at the top of shell
+	$_${0}
