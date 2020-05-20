@@ -1657,3 +1657,7 @@
 [tty] python -c 'import os; import sys; print(os.ttyname(sys.stdin.fileno()))'
 [tty] echo "/dev/$(ps -p $$ -o tty | tail -n 1)"
 [tty from pid] echo "/dev/$(ps -p $PID -o tty | tail -n 1)"
+
+
+# expect
+[auto generate expect code] autoexpect -f script.exp \%# # command
