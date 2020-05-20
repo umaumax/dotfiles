@@ -22,3 +22,8 @@ alias fzf_module,use_fzf
 
 snippet return_type
 	 -> ${0}
+
+snippet segmentation_fault
+	unsafe {
+	  *(0 as *mut u32) = 42;
+	}${0}
