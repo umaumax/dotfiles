@@ -171,6 +171,8 @@ function nugget_ubuntu_tmux() {
   pushd "$tmpdir"
   git clone https://github.com/tmux/tmux.git
   pushd "$tmpdir/tmux"
+  # NOTE: version next3.2 has screen bug (screen buffer is broken when spllited)
+  git checkout 3.1b
   sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
   popd
   popd
