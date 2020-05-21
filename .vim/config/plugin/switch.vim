@@ -86,9 +86,9 @@ let g:switch_custom_definitions =
       \     "^[^']*'[^']*$" : {"'":'"'},
       \     "^[^\"]*\"[^\"]*$" : {'"':"'"},
       \   },
-      \   'for rust e.g. &xxx <-> xxx',
-      \   {'^&\([0-9a-zA-Z_]\+\)$' : '\1', '^\([0-9a-zA-Z_]\+\)$' : '\&\1'},
       \ ]
+" \   'for rust e.g. &xxx <-> xxx',
+" \   {'^&\([0-9a-zA-Z_]\+\)$' : '\1', '^\([0-9a-zA-Z_]\+\)$' : '\&\1'},
 
 " NOTE: drop comment
 call filter(g:switch_custom_definitions, "type(v:val) != type('comment')")
