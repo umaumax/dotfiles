@@ -14,8 +14,10 @@ _:
 - - complex
 - - config
 - - confirmation
+- - connect
 - - connection
 - - constructor
+- - context
 - - cursor
 - - declaration
 - - default
