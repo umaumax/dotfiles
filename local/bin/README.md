@@ -53,3 +53,7 @@ clang++ -fsyntax-only -Xclang -code-completion-at=struct.cpp:35:5 -std=c++11 cpp
 
 ## readline-search-history.sh
 * [GDB History and FZF · Issue \#1516 · junegunn/fzf]( https://github.com/junegunn/fzf/issues/1516 )
+
+## git_find_big.sh
+* [Maintaining a Git Repository \- Atlassian Documentation]( https://confluence.atlassian.com/bitbucket/maintaining-a-git-repository-321848291.html )
+  * [git_find_big.sh]( https://confluence.atlassian.com/bitbucket/files/321848291/321979854/2/1587501654761/git_find_big.sh )
