@@ -38,4 +38,4 @@
 ## short-cut
 [c-l] ## clear
 # cheat sheet
-[cheat sheet wiki] echo \033[0;1;33mhttps://github.com/umaumax/memo/wiki/gdb\n\033[0m
+[cheat sheet wiki] echo \033[0;1;33mhttps://gitlab.com/umaumax/memo/-/wikis/gdb\n\033[0m
