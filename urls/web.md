@@ -6,3 +6,6 @@ github markdown css
 
 url chars
 [URLで使用可能な文字、使用できない文字]( https://www.ipentec.com/document/web-url-invalid-char )
+
+slack status
+[Slack System Status]( https://status.slack.com/ )
