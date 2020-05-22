@@ -318,7 +318,11 @@
 
 [git log even if merge commits] git log --stat -c
 
+[git overwrite remote url] git remote set-url origin \%#
+
+[git simple file size search(HEAD)] git ls-tree -r -t -l --full-name HEAD | sort -n -k 4 | tail -n 10
 [git find large files] GIT_FIND_BIG_N=10\%# git_find_big # see [Maintaining a Git Repository \- Atlassian Documentation]( https://confluence.atlassian.com/bitbucket/maintaining-a-git-repository-321848291.html )
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
