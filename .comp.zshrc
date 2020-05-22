@@ -13,6 +13,8 @@ cmdcheck autorsyncpass && compdef autorsyncpass=rsync
 cmdcheck autooresshpass && compdef autooresshpass=ssh
 cmdcheck sshpass && compdef sshpass=ssh
 
+cmdcheck rust-gdb && compdef rust-gdb=gdb
+
 function zsh_comp_file_list() {
   # NOTE: e.g. /usr/local/share/zsh/functions
   echo $fpath | tr ' ' '\n' | xargs -L 1 -I{} find {} -maxdepth 1 -name '_*'
