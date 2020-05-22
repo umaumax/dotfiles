@@ -21,6 +21,10 @@
 [remote step end] monitor exit
 
 # misc
+[gdb run at main()] start
+[backtrace and local vars] bt full
+[next line] n
+[next step(into func)] s
 [print type of variable] whatis 
 [set arg] set args 
 [set environment(✗:remote target)] set environment ## RUST_BACKTRACE=1
