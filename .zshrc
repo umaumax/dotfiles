@@ -1118,6 +1118,12 @@ if cmdcheck tmux; then
     tmux capture-pane -pS -32768 >$tmpfile
     tmux new-window -n:mywindow "vim $tmpfile"
   }
+  # NOTE: return tmux pain id which has running process of given name
+  # e.g. tmux send-keys -t $(tgrep gdb) 'info' C-m
+  function tgrep() {
+    local process_name="${1:-.}"
+    tmux list-panes -a -F '#D #{pane_pid}' | xargs -L1 bash -c '{ pgrep -l -P "$2" | grep -q '"$process_name"'; } && echo "$1"' --
+  }
 fi
 
 # NOTE: to avoid xargs no args error on ubuntu
