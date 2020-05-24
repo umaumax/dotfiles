@@ -7,6 +7,7 @@ source ~/dotfiles/.config/gdb/init.py
 source ~/dotfiles/.config/gdb/common.py
 source ~/dotfiles/.config/gdb/rust.py
 source ~/dotfiles/.config/gdb/pipe.py
+source ~/dotfiles/.config/gdb/gdb-trace.py
 
 alias -a exit = quit
 
