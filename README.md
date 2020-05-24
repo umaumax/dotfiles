@@ -23,6 +23,7 @@ colorbash ./update_tools.sh
 
 # for update
 git-update-dummy-alias
+.config/gdb/update.sh
 ```
 
 ## vim setup
