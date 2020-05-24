@@ -91,6 +91,7 @@ abbrev-alias -c fgsh="findgrep '\%#' -- -type f \( -name '*.sh' -o -name '*.bash
 abbrev-alias -c fgcpp="findgrep '\%#' -- -type f \( -name '*.cpp' -o -name '*.hpp' -o -name '*.bashrc' -o -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.cxx' \)"
 abbrev-alias -c fgrs="findgrep '\%#' -- -type f \( -name '*.rs' \)"
 abbrev-alias -c fgrust="findgrep '\%#' -- -type f \( -name '*.rs' \)"
+abbrev-alias -c fggo="findgrep '\%#' -- -type f \( -name '*.go' \)"
 abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'Makefile' -o -name 'makefile' \)"
 abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \)"
 abbrev-alias -c fgconfig="findgrep '\%#' -- -type f \( -name '.*' -o -name '*.config' -o -path '*/config/*' \)"
