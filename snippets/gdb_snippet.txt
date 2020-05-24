@@ -14,7 +14,9 @@
 [rust detail debug] set-rust-substitute-path ## used target from 'info target'" or set directly
 
 # remote
+[remote step 0. start server] gdbserver --wrapper env 'RUST_BACKTRACE=1' -- --multi localhost:10080 ## run at target server
 [remote step 1. connect] target extended-remote ## x.x.x.x:10080
+[remote step 1. connect and launch] target extended-remote | ssh XXX gdbserver --multi -
 [remote step 2.] attach ## $REMOTE_PID
 [remote step 2. send file] remote put ## $LOCAL_FILE $REMOTE_FILE
 [remote step 2.] set remote exec-file ## $REMOTE_EXEC_FILE_PATH
