@@ -99,6 +99,7 @@
 [docker ps format] docker ps --format "{{.Names}}"
 [docker compose update(rebuild)] docker-compose build && docker-compose stop && docker-compose up # you can build at running containers
 [docker info] docker inspect \%#
+[docker root login option] -u root
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -298,6 +299,7 @@
 [git empty tree SHA] 4b825dc642cb6eb9a060e54bf8d69288fbee4904
 [git empty tree SHA] git hash-object -t tree /dev/null
 
+[git current HEAD format-patch] git format-patch -1
 [git format-patch for am] git format-patch -o $DIR\%# $SHA_START..${SHA_END:-HEAD}
 [git am for format-patch] git am *.patch
 [git am for format-patch (same sha)] git am --committer-date-is-author-date *.patch
@@ -322,6 +324,8 @@
 
 [git simple file size search(HEAD)] git ls-tree -r -t -l --full-name HEAD | sort -n -k 4 | tail -n 10
 [git find large files] GIT_FIND_BIG_N=10\%# git_find_big # see [Maintaining a Git Repository \- Atlassian Documentation]( https://confluence.atlassian.com/bitbucket/maintaining-a-git-repository-321848291.html )
+
+[git checkout all remote branch to local] for branch in $(git branch -r --no-merged | grep -v HEAD | sed -e "s/origin\///"); do echo ${branch}; git checkout -b ${branch} origin/${branch}; done
 
 # tig
 [tig file history] tig $FILE
@@ -512,6 +516,8 @@
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
 [ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
 [ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
+[get public key from private key] ssh-keygen -y -f $ID_RSA
+[remove key from ssh-agent] ssh-add -d <(ssh-add -L | cut -d" " -f1,2 | awk 'NR==\%#') # line:N?
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [scp between two remote hosts] scp -3 $SRC $DST # hoge:~/src.txt fuga:~/dst.txt
@@ -1667,3 +1673,11 @@
 
 # expect
 [auto generate expect code] autoexpect -f script.exp \%# # command
+
+# golang
+[golang debug build for gdb] go build -gcflags "-N -l" \%#
+[golang core dump generation enable] GOTRACEBACK=crash \%#
+
+# sudo
+[sudo with current PATH] sudo env PATH="$PATH" \$#
+[sudo su with current PATH] sudo su -p
