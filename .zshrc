@@ -610,8 +610,8 @@ function crontab() {
 }
 
 # NOTE: for disable copyright output
-cmdcheck gdb && alias gdb='gdb -q'
-cmdcheck gdb-multiarch && alias gdb='gdb-multiarch -q'
+cmdcheck gdb && alias gdb='gdb -q' && alias sudo-gdb='sudo env PATH="$PATH" gdb -q'
+cmdcheck gdb-multiarch && alias gdb='gdb-multiarch -q' && alias sudo-gdb='sudo env PATH="$PATH" gdb-multiarch -q'
 cmdcheck rust-gdb && function rust-gdb() {
   # FYI: [rustのgdbでのdebugでsourceを出力したかった \- 雑なメモ書き]( https://hiroyukim.hatenablog.com/entry/2019/11/29/190235 )
   # auto apply rust substitute-path
@@ -629,9 +629,14 @@ cmdcheck rust-gdb && function rust-gdb() {
 
   local gdb_cmd="gdb"
   cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
-  RUST_GDB="$gdb_cmd" command rust-gdb -q "$@" "${debug_src_opt[@]}"
-}
+  if [[ -z "$SUDO_GDB" ]]; then
+    RUST_GDB="$gdb_cmd" command rust-gdb -q "$@" "${debug_src_opt[@]}"
+  else
+    sudo env PATH="$PATH" RUST_GDB="$gdb_cmd" rust-gdb -q "$@" "${debug_src_opt[@]}"
+  fi
+} && alias sudo-rust-gdb='SUDO_GDB=1 rust-gdb'
 
+function go-gdb() {
 ################
 ####  Mac   ####
 ################
