@@ -637,6 +637,26 @@ cmdcheck rust-gdb && function rust-gdb() {
 } && alias sudo-rust-gdb='SUDO_GDB=1 rust-gdb'
 
 function go-gdb() {
+  local gdb_cmd="gdb"
+  cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
+
+  local GOROOT=$(go env GOROOT)
+  local GO_GDB="${GO_GDB:-$gdb_cmd}"
+
+  # NOTE: load automatically by .debug_gdb_script section
+  if [[ -z "$SUDO_GDB" ]]; then
+    ${GO_GDB} -q \
+      --directory="$GOROOT" \
+      -iex "add-auto-load-safe-path $GOROOT/src/runtime/runtime-gdb.py" \
+      "$@"
+  else
+    sudo env PATH="$PATH" ${GO_GDB} -q \
+      --directory="$GOROOT" \
+      -iex "add-auto-load-safe-path $GOROOT/src/runtime/runtime-gdb.py" \
+      "$@"
+  fi
+} && alias sudo-go-gdb='SUDO_GDB=1 go-gdb'
+
 ################
 ####  Mac   ####
 ################
