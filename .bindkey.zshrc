@@ -579,6 +579,9 @@ zle -N _paste_command
 zle -N _vicmd_paste_command
 bindkey '^V' _paste_command
 
+# ctrl + shift + v
+bindkey "$(echo -n "\xc2\x96")" _paste_command
+
 bindkey -M vicmd 'p' _vicmd_paste_command
 bindkey -M vicmd 'P' _paste_command
 
