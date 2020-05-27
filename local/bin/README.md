@@ -57,3 +57,6 @@ clang++ -fsyntax-only -Xclang -code-completion-at=struct.cpp:35:5 -std=c++11 cpp
 ## git_find_big.sh
 * [Maintaining a Git Repository \- Atlassian Documentation]( https://confluence.atlassian.com/bitbucket/maintaining-a-git-repository-321848291.html )
   * [git_find_big.sh]( https://confluence.atlassian.com/bitbucket/files/321848291/321979854/2/1587501654761/git_find_big.sh )
+
+## gdb-backtrace.sh
+* [root/gdb\-backtrace\.sh at master · root\-project/root]( https://github.com/root-project/root/blob/master/etc/gdb-backtrace.sh )
