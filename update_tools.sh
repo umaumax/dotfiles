@@ -11,7 +11,7 @@ target=${1:-''}
 
 download() {
   local url="$1"
-  if [[ $(basename $url) != "$target" ]]; then
+  if [[ -n "$target" ]] && [[ $(basename $url) != "$target" ]]; then
     echo_log "${YELLOW}[LOG] skip download $url"
     return
   fi
