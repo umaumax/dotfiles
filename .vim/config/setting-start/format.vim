@@ -168,7 +168,9 @@ if Doctor('shfmt', 'shell format')
     autocmd!
     " NOTE: _* is for zsh completion file
     autocmd FileType sh,zsh ++once autocmd BufWinEnter *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* command! -bar Format ShFormat
+    autocmd FileType sh,zsh ++once autocmd BufWinEnter * if &ft == 'sh' || &ft == 'zsh' | command! -bar Format ShFormat | endif
     autocmd FileType sh,zsh ++once autocmd BufWritePre *.{sh,bashrc,bashenv,bash_profile,zsh,zshrc,zshenv,zprofile},_* if IsAutoFormat() |  :ShFormat | endif
+    autocmd FileType sh,zsh ++once autocmd BufWritePre * if (&ft == 'sh' || &ft == 'zsh' ) && IsAutoFormat() | :ShFormat | endif
   augroup END
 endif
 
