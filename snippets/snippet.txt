@@ -1227,6 +1227,8 @@
 [check glibc version] ldd --version
 [check glibc version] /lib/x86_64-linux-gnu/libc.so.6
 
+[gdb running process backtrace (gstack)] gdb-backtrace # use this script than pstack command
+
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
 [perf frame graph] perf script -i \%# | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
@@ -1290,6 +1292,9 @@
 [LD] LD_SHOW_AUXV=1 \%#
 [LD] LD_DEBUG=help /bin/echo \%#
 [LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
+
+[show dynamic library of process] sudo lsof -p $PID
+[show dynamic library of process] sudo pldd $PID
 
 [ldd tree] lddtree -a \%# # sudo apt-get install pax-utils
 [ldd: elf info] readelf -d \%#
