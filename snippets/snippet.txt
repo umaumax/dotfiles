@@ -1157,6 +1157,12 @@
 [shell var regexp] ${FILEPATH\%#%.*} # without ext
 [shell var regexp] ${FILEPATH\%###*/} # basename
 [shell var regexp] ${FILEPATH\%###*.} # ext
+[shell max] $((\%# > 0 ?  : 0)) # e.g. $((JOBS>4 ? JOBS : 4))
+[shell min] $((\%# < 0 ?  : 0)) # e.g. $((JOBS<8 ? JOBS : 8))
+[shell max] sort -rg | head -n1
+[shell min] sort -g | head -n1
+[shell array slice] ${array[@]:\%#} # ${array[@]:1}
+[sehll reverse array print] echo "${array\%#[@]}" | rev # WARN: more than 1 length required
 
 # [How to run a program in a clean environment in bash? \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/48994/how-to-run-a-program-in-a-clean-environment-in-bash )
 [maybe clean bash login] env -i bash -l # no HOME, DISPLAY
