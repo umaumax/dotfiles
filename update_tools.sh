@@ -7,9 +7,15 @@ echo_log() {
   echo "${GREEN}$*${DEFAULT}" 1>&2
 }
 
+target=${1:-''}
+
 download() {
   local url="$1"
-  echo_log "[LOG] download $url"
+  if [[ $(basename $url) != "$target" ]]; then
+    echo_log "${YELLOW}[LOG] skip download $url"
+    return
+  fi
+  echo_log "${BLUE}[LOG] download $url"
   git wget "$@"
 }
 
