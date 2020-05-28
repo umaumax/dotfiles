@@ -1110,11 +1110,22 @@ if cmdcheck tmux; then
       return 1
     fi
   }
+  function tmux-resurrect-restore() {
+    tmux new-session -s 'tmux-resurrect' \; \
+      detach-client >/dev/null 2>&1
+    # restore is ongoing at background
+  }
   alias tmuxa='tmux-attach'
   function tmux-attach() {
     is_in_tmux_with_message || return
     local output=$(tmux ls)
-    [[ -z $output ]] && return 1
+    if [[ -z $output ]]; then
+      # auto restore
+      tmux-resurrect-restore
+      echo "${PURPLE}tmux restore is ongoing at background${DEFAULT}"
+      echo "${YELLOW}retry a little later!${DEFAULT}"
+      return 1
+    fi
     local tag_id=$(echo $output | peco | cut -d : -f 1)
     [[ -n $tag_id ]] && tmux a -t $tag_id
   }
