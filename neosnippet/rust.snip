@@ -27,3 +27,8 @@ snippet segmentation_fault
 	unsafe {
 	  *(0 as *mut u32) = 42;
 	}${0}
+
+snippet type_debug
+alias what_is_this_type
+abbr way to know type via build message
+	let _ :() = ${0};
