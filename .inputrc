@@ -61,6 +61,9 @@ $if Gdb
   # show commands ,n,+を駆使すれば無理やり可能ではあるので，gdbのpython bindを利用することになる
   # "\C-b": "\C-a!echo \C-e>~/tmp/history.log\C-m"
 
+  # copy to clipboard
+  "\C-y": "\C-a!echo '\C-e' | { xclip -sel clip || xsel --clipboard --input || pbcopy; } >/dev/null 2>&1\C-m"
+
   # up
   "\e[A": history-search-backward
   # down
