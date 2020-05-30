@@ -331,6 +331,7 @@ augroup private_or_public_work
   autocmd!
   autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
   autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
+  autocmd BufWinEnter,TabEnter *.rs :let g:auto_format_flag=1
   " autocmd BufWinEnter,TabEnter *.{c,cc,cxx,cpp,h,hh,hpp} :call <SID>clang_format_setting()
   " autocmd FileType cpp :call <SID>clang_format_setting()
 augroup END
