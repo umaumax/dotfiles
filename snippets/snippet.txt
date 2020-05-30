@@ -1509,6 +1509,7 @@
 [cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
+[rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nighlty`
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
