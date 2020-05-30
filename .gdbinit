@@ -86,10 +86,13 @@ end
 # NOTE: load $PWD/.gdbinit
 set auto-load local-gdbinit
 
+# WARN: ./stdlib is extra directory (no existance)
+# I don't know why libc6-dbg has extra `../` (e.g. ../sysdeps/posix/signal.c)
+# maybe for `apt-get source libc6`
 # for Ubuntu16.04
-py import os; p=os.environ['HOME']+"/local/src/glibc-2.23"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
+py import os; p=os.environ['HOME']+"/local/src/glibc-2.23/stdlib"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
 # for Ubuntu18.04
-py import os; p=os.environ['HOME']+"/local/src/glibc-2.27"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
+py import os; p=os.environ['HOME']+"/local/src/glibc-2.27/stdlib"; os.path.exists(p) and (gdb.execute("dir {}".format(p)), print("\033[0;1;35m[src info automatically loaded] by 'dir {}'".format(p)))
 
 echo \033[0;1;33m[plugin commands list]\n\033[0m
 echo \033[0;1;34m* stack-inspector\n\033[0m
