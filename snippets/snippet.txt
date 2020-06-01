@@ -1693,3 +1693,16 @@
 # sudo
 [sudo with current PATH] sudo env PATH="$PATH" \$#
 [sudo su with current PATH] sudo su -p
+
+[show i-node number] ls -i \#%
+[search file from i-node] find \%# -inum $I_NODE
+[check device major/minor number] ls -l /dev/\%#
+
+# binary
+[hex to binary (big endian)] echo -n 1234abcd\%# | xxd -r -p - 
+[hex to binary (little endian 32bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r 
+[hex to binary (little endian 64bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r 
+[little endian <-> big endian(32bit)] xxd -e -g4 /dev/stdin | xxd -r 
+[little endian <-> big endian(64bit)] xxd -e -g8 /dev/stdin | xxd -r 
+[write by 4B units to binary] echo -n 6ffffffb\%# | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
+[write by 8B units to binary] echo -n 000000006ffffffb\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
