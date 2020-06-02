@@ -3283,7 +3283,7 @@ EOF
 
   cat >"$dummy_command_path" <<EOF
 #!/usr/bin/env bash
-printf '$target_command %s\\n' "\$@" > "$log_output_filepath"
+printf '$target_command %s\\n' "\$*" > "$log_output_filepath"
 $target_command_fullpath "\$@"
 EOF
   chmod u+x "$dummy_command_path"
