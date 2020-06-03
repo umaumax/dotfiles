@@ -1124,6 +1124,8 @@ if cmdcheck tmux; then
       tmux-resurrect-restore
       echo "${PURPLE}tmux restore is ongoing at background${DEFAULT}"
       echo "${YELLOW}retry a little later!${DEFAULT}"
+      echo "${YELLOW}maybe window name is fixed, run below command!${DEFAULT}"
+      echo "${PURPLE}tmux set automatic-rename on${DEFAULT}"
       return 1
     fi
     local tag_id=$(echo $output | peco | cut -d : -f 1)
