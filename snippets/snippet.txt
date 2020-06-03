@@ -675,7 +675,7 @@
 [apt pkg installed file list] dpkg -L $PACKAGE
 [dpkg package name only] dpkg-query --show -f '${Package}\n'
 [dpkg package size] dpkg-query --show -f '${Installed-Size}KB (${Package})\n'
-[ubuntu filepath to apt-get package] dpkg -S $FILEPATH
+[filepath to apt-get package reverse lookup] dpkg -S $FILEPATH # /usr/bin/nproc
 # FYI: [software installation \- How can I check dependency list for a deb package \- Ask Ubuntu]( https://askubuntu.com/questions/80655/how-can-i-check-dependency-list-for-a-deb-package )
 [apt-cache search] apt-cache search \%#
 [apt-cache check dependency] apt-cache depends \%#
@@ -1512,6 +1512,7 @@
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
 [rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nighlty`
+[rust arch target list] rustup target list
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
