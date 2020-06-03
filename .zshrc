@@ -3267,9 +3267,10 @@ function set_command_logger() {
   local log_output_filepath=$2
   if [[ $# -lt 2 ]]; then
     command cat <<EOF 1>&2
-$(basename "$0") target_command log_output_filepath
+usage: $(basename "$0") <target_command> <log_output_filepath>
+
 e.g. for tig
-$(basename "$0") git some_tty_output
+$(basename "$0") git <some_tty_output or file>
 EOF
     return 1
   fi
