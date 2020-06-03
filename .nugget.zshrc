@@ -22,7 +22,7 @@ function _os() {
 function nugget-l() {
   local OS=$(_os)
   # NOTE: grep current file
-  cat ~/dotfiles/.nugget.zshrc | grep '^function nugget_'"mac" | perl -ne 'printf "%s\n", $& if (/_'"$OS"'_\K([^()]+)/)'
+  cat ~/dotfiles/.nugget.zshrc | grep '^function nugget_'"$OS" | perl -ne 'printf "%s\n", $& if (/_'"$OS"'_\K([^()]+)/)'
 }
 
 function nugget() {
