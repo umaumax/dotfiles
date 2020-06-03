@@ -400,4 +400,15 @@ function nugget_ubuntu_pennywise() {
 # ################################
 
 # ################################
+function nugget_ubuntu_radare2() {
+  cmdcheck radare2 && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  git clone https://github.com/radare/radare2.git
+  pushd radare2
+  sudo ./sys/install.sh --install
+  popd
+  popd
+  sudo rm -rf "$tmpdir/radare2"
+}
 # ################################
