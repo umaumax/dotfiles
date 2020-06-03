@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 
-load bats-assertion/bats-assertion
+load ./scripts/load-bats-assertion
+load ~/.cache/bats/bats-assertion/bats-assertion.bash
 
 @test "clear_path function" {
   # NOTE: using run version
