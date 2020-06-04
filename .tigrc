@@ -159,8 +159,8 @@ bind generic - :set vertical-split = no
 bind generic <Delete> back
 bind generic <Backspace> back
 
-bind generic * search
-bind generic n find-next
+bind generic * find-next
+bind generic <Hash> find-prev
 
 bind generic P parent
 
