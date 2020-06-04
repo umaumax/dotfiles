@@ -1937,7 +1937,7 @@ function rgrep() {
 # NG: find . -ls -not -iwholename '*/.git/*'
 function find() {
   # NOTE: target is for rust
-  command find . -not -iwholename '*/.git/*' -not -iwholename '*/target/rls/*' -not -iwholename '*/target/debug/*' -not -iwholename '*/target/arm-*/*'
+  command find "$@" -not -iwholename '*/.git/*' -not -iwholename '*/target/rls/*' -not -iwholename '*/target/debug/*' -not -iwholename '*/target/arm-*/*'
 }
 
 # NOTE: A breadth-first version of the UNIX find command
