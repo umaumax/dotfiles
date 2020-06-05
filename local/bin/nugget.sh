@@ -426,4 +426,15 @@ function nugget_ubuntu_radare2() {
 }
 # ################################
 
+# ################################
+function nugget_ubuntu_go() {
+  cmdcheck go && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
+  tar -C "$NUGGET_INSTALL_PREIFX" -xzf go1.14.4.linux-amd64.tar.gz
+  popd
+  sudo rm -rf "$tmpdir"
+}
+# ################################
 nugget "$@"
