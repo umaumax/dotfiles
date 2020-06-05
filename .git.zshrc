@@ -13,6 +13,10 @@ function git() {
   "$cmd" "$@"
 }
 
+function git-count() {
+  git rev-list --count HEAD
+}
+
 function git-update-dummy-alias() {
   local dummy_alias_filepath="$HOME/dotfiles/.dummy_alias.gitconfig"
   cat <<'EOF' >$dummy_alias_filepath
