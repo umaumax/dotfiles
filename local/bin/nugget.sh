@@ -137,7 +137,7 @@ function nugget_ubuntu_nvim() {
     # NOTE: fuse pattern
     sudo apt-get install -y fuse
     chmod u+x nvim.appimage
-    command mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
+    mv nvim.appimage "$NUGGET_INSTALL_BIN_PREIFX/nvim"
   fi
 
   echo "${GREEN}Add $NUGGET_INSTALL_BIN_PREIFX to \$PATH${DEFAULT}"
@@ -160,8 +160,8 @@ function nugget_ubuntu_tig() {
   ./autogen.sh
   # for Japanese language
   ./configure --without-ncurses
-  command make -j4
-  command make install prefix=$HOME/local
+  make -j4
+  make install prefix=$HOME/local
   popd
   popd
   rm -rf "$tmpdir/tig"
@@ -172,7 +172,7 @@ function nugget_ubuntu_tig() {
 # tmux for linux
 function nugget_ubuntu_tmux() {
   # NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
-  cmdcheck tmux && [[ $(command which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+  cmdcheck tmux && [[ $(which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   sudo apt install -y build-essential automake libevent-dev ncurses-dev pkg-config yacc bison flex
   pushd "$tmpdir"
@@ -180,7 +180,7 @@ function nugget_ubuntu_tmux() {
   pushd "$tmpdir/tmux"
   # NOTE: version next3.2 has screen bug (screen buffer is broken when spllited)
   git checkout 3.1b
-  sh autogen.sh && ./configure && command make -j4 prefix=$HOME/local && command make install prefix=$HOME/local
+  sh autogen.sh && ./configure && make -j4 prefix=$HOME/local && make install prefix=$HOME/local
   popd
   popd
   rm -rf "$tmpdir/tmux"
@@ -205,7 +205,7 @@ function nugget_ubuntu_rtags() {
   pushd "$tmpdir"
   git clone --recursive https://github.com/Andersbakken/rtags.git
   pushd "$tmpdir/rtags"
-  command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && command make -j8 && command make install
+  cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j8 && make install
   popd
   popd
   rm -rf "$tmpdir/rtags"
@@ -368,8 +368,8 @@ function nugget_ubuntu_googlebenchmark() {
   git clone https://github.com/google/googletest.git
   mkdir build
   pushd build
-  command cmake .. -DCMAKE_BUILD_TYPE=RELEASE
-  command make -j4
+  cmake .. -DCMAKE_BUILD_TYPE=RELEASE
+  make -j4
   sudo make install
   popd
   popd
@@ -385,8 +385,8 @@ function nugget_ubuntu_googletest() {
   pushd googletest
   mkdir build
   pushd build
-  command cmake ..
-  command make -j4
+  cmake ..
+  make -j4
   sudo make install
   popd
   popd
