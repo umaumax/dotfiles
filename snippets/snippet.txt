@@ -1328,7 +1328,7 @@
 
 # linux
 [segmentation backtrace] catchsegv \%# # command
-[segmentation backtrace] export LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+[segmentation backtrace] LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so \%#
 
 [ltrace in mac] sudo dtrace -l \%#
 
