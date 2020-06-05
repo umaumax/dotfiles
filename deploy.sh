@@ -138,17 +138,24 @@ if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
 fi
 
 # tmux
-[[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh 2>&1) || {
-  echo $'\e[91m'"[✗] tmux plugin install failed."$'\e[m'
-  echo "$output"
+if type >/dev/null 2>&1 tmux; then
+  # install manager
+  [[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  tmux source-file ~/.tmux.conf
+  output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh 2>&1) || {
+    echo $'\e[91m'"[✗] tmux plugin install failed."$'\e[m'
+    echo "$output"
+    exit 1
+  }
+  output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
+    echo $'\e[91m'"[✗] tmux plugin update failed."$'\e[m'
+    echo "$output"
+    exit 1
+  }
+else
+  echo $'\e[91m'"[✗] tmux command not found."$'\e[m'
   exit 1
-}
-output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
-  echo $'\e[91m'"[✗] tmux plugin update failed."$'\e[m'
-  echo "$output"
-  exit 1
-}
+fi
 
 mkdir -p ~/local/src/
 if [[ $(uname) == "Linux" ]]; then
