@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-trap 'exit_code=$?; echo -ne "\033[90m[ERR]:\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\033[00m"; read -p " "; exit "$exit_code"' ERR
+trap 'exit_code=$?; echo -e "\033[90m[ERR]:\033[35m$BASH_SOURCE:$LINENO:$BASH_COMMAND\033[00m"; exit "$exit_code"' ERR
 
 current_abs_directory_path=$(cd $(dirname $0) && pwd)
 cd ${current_abs_directory_path%/}
