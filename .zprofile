@@ -129,7 +129,10 @@ if [[ -d ~/go ]]; then
   append_path ~/go/3rd/bin
   append_path ~/go/my/bin
 fi
-# NOTE: for ubuntu
+# NOTE: for ubuntu apt-get
+if [[ -d "$HOME/local/go" ]]; then
+  append_path "$HOME/local/go/bin"
+fi
 if [[ -d "/usr/lib/go-1.10" ]]; then
   append_path /usr/lib/go-1.10/bin
 fi
