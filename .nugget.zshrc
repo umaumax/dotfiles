@@ -186,7 +186,13 @@ function nugget_ubuntu_rtags() {
   cmdcheck rdm && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   # for <clang-c/Index.h>
-  sudo apt-get install -y libclang-3.8-dev
+  # NOTE: choose your clang version
+  local clang_version=$(clang --version | grep 'clang version' | sed -E 's/^clang version ([0-9]+\.[0-9]+).*$/\1/')
+  if [[ -z "$clang_version" ]]; then
+    echo "${RED}Failed get clang version${DEFAULT}" 1>&2
+    return 1
+  fi
+  sudo apt-get install -y libclang-${clang_version}-dev
   # for Could NOT find CPPUNIT (missing: CPPUNIT_LIBRARY CPPUNIT_INCLUDE_DIR)
   sudo apt-get install -y libcppunit-dev
   pushd "$tmpdir"
