@@ -83,7 +83,7 @@ function nugget() {
   debug "nugget_${OS}_${package}" || exit_code=$?
   [[ $exit_code == $NUGGET_SUCCESS ]] && echo "${GREEN}SUCCESS${DEFAULT}"
   [[ $exit_code == $NUGGET_FAILURE ]] && echo "${RED}FAILED${DEFAULT}"
-  [[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo "${PURPLE}already installed${DEFAULT}\n${YELLOW}if you want to upgrade, add '-u' option${DEFAULT}"
+  [[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo -e "${PURPLE}already installed${DEFAULT}\n${YELLOW}if you want to upgrade, add '-u' option${DEFAULT}"
   return
 }
 
