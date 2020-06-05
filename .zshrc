@@ -3319,7 +3319,6 @@ bindkey -v
 # NOTE: run after zsh-abbrev-alias plugin and bindkey
 [[ -f ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
 
-[[ -f ~/.zsh/.nugget.zshrc ]] && source ~/.zsh/.nugget.zshrc
 [[ -f ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
 [[ -f ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
 [[ -f ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc

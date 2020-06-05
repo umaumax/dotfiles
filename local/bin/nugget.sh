@@ -1,12 +1,17 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # TODO: --dry-run
 # TODO: list or show
 # TODO: with out sudo option
+
+set -e
 
 NUGGET_SUCCESS=0
 NUGGET_FAILURE=1
 NUGGET_ALREADY_INSTALLED=2
 
+function cmdcheck() {
+  type "$1" >/dev/null 2>&1
+}
 function nugget-h() {
   echo "nugget [-h] [-l] <package>"
   echo '  -h: help'
@@ -22,7 +27,7 @@ function _os() {
 function nugget-l() {
   local OS=$(_os)
   # NOTE: grep current file
-  cat ~/dotfiles/.nugget.zshrc | grep '^function nugget_'"$OS" | perl -ne 'printf "%s\n", $& if (/_'"$OS"'_\K([^()]+)/)'
+  cat ${BASH_SOURCE} | grep '^function nugget_'"$OS" | perl -ne 'printf "%s\n", $& if (/_'"$OS"'_\K([^()]+)/)'
 }
 
 function nugget() {
@@ -60,7 +65,8 @@ function nugget() {
   fi
 
   if ! cmdcheck "nugget_${OS}_${package}"; then
-    echo "${RED}I don't know how to install it($package)\nUm, google it! ${DEFAULT}"
+    echo -e "${RED}I don't know how to install it($package)\nUm, google it! ${DEFAULT}"
+    return $NUGGET_FAILURE
   fi
 
   # init
@@ -97,6 +103,7 @@ function nugget_mac_nvim() {
   # wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-macos.tar.gz
 
   tar xzvf nvim-macos.tar.gz
+  rm -rf "$NUGGET_INSTALL_PREIFX/nvim-osx64/"
   mv nvim-osx64/ "$NUGGET_INSTALL_PREIFX/"
   ln -sf "$NUGGET_INSTALL_PREIFX/nvim-osx64/bin/nvim" "$NUGGET_INSTALL_BIN_PREIFX/nvim"
 
@@ -167,7 +174,7 @@ function nugget_ubuntu_tmux() {
   # NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
   cmdcheck tmux && [[ $(command which tmux) != '/usr/bin/tmux' ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-  sudo apt install -y build-essential automake libevent-dev ncurses-dev
+  sudo apt install -y build-essential automake libevent-dev ncurses-dev pkg-config yacc bison flex
   pushd "$tmpdir"
   git clone https://github.com/tmux/tmux.git
   pushd "$tmpdir/tmux"
@@ -236,7 +243,7 @@ function nugget_ubuntu_fzf() {
 
 # ################################
 # deoplete
-function nugget_ubuntu_vim_deoplete() {
+function nugget_ubuntu_nvim_deoplete() {
   sudo apt-get install -y python-pip
   sudo apt-get install -y python3-pip
   pip2 install neovim
@@ -418,3 +425,5 @@ function nugget_ubuntu_radare2() {
   sudo rm -rf "$tmpdir/radare2"
 }
 # ################################
+
+nugget "$@"
