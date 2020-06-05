@@ -153,8 +153,8 @@ function nugget_ubuntu_tig() {
   ./autogen.sh
   # for Japanese language
   ./configure --without-ncurses
-  make -j$(nproc --all)
-  make install prefix=$HOME/local
+  command make -j4
+  command make install prefix=$HOME/local
   popd
   popd
   rm -rf "$tmpdir/tig"
@@ -173,7 +173,7 @@ function nugget_ubuntu_tmux() {
   pushd "$tmpdir/tmux"
   # NOTE: version next3.2 has screen bug (screen buffer is broken when spllited)
   git checkout 3.1b
-  sh autogen.sh && ./configure && make -j$(nproc --all) prefix=$HOME/local && make install prefix=$HOME/local
+  sh autogen.sh && ./configure && command make -j4 prefix=$HOME/local && command make install prefix=$HOME/local
   popd
   popd
   rm -rf "$tmpdir/tmux"
@@ -192,7 +192,7 @@ function nugget_ubuntu_rtags() {
   pushd "$tmpdir"
   git clone --recursive https://github.com/Andersbakken/rtags.git
   pushd "$tmpdir/rtags"
-  cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && make -j$(nproc --all) && make install
+  command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=$HOME/local . && command make -j8 && command make install
   popd
   popd
   rm -rf "$tmpdir/rtags"
@@ -355,8 +355,8 @@ function nugget_ubuntu_googlebenchmark() {
   git clone https://github.com/google/googletest.git
   mkdir build
   pushd build
-  cmake .. -DCMAKE_BUILD_TYPE=RELEASE
-  make -j
+  command cmake .. -DCMAKE_BUILD_TYPE=RELEASE
+  command make -j4
   sudo make install
   popd
   popd
@@ -372,8 +372,8 @@ function nugget_ubuntu_googletest() {
   pushd googletest
   mkdir build
   pushd build
-  cmake ..
-  make -j
+  command cmake ..
+  command make -j4
   sudo make install
   popd
   popd
