@@ -434,7 +434,7 @@ function nugget_ubuntu_go() {
   wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
   tar -C "$NUGGET_INSTALL_PREIFX" -xzf go1.14.4.linux-amd64.tar.gz
   popd
-  sudo rm -rf "$tmpdir"
+  rm -rf "$tmpdir"
 }
 # ################################
 nugget "$@"
