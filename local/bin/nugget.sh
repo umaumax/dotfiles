@@ -79,8 +79,8 @@ function nugget() {
   [[ -z $tmpdir ]] && echo 1>&2 "Fail to mktemp -d!" && return 1
   mkdir -p "$tmpdir"
 
-  debug "nugget_${OS}_${package}"
-  local exit_code=$?
+  local exit_code=0
+  debug "nugget_${OS}_${package}" || exit_code=$?
   [[ $exit_code == $NUGGET_SUCCESS ]] && echo "${GREEN}SUCCESS${DEFAULT}"
   [[ $exit_code == $NUGGET_FAILURE ]] && echo "${RED}FAILED${DEFAULT}"
   [[ $exit_code == $NUGGET_ALREADY_INSTALLED ]] && echo "${PURPLE}already installed${DEFAULT}\n${YELLOW}if you want to upgrade, add '-u' option${DEFAULT}"
