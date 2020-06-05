@@ -33,6 +33,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # basic tools
+# net-tools: for ifconfig
 sudo apt-get install -y openssh-server git tree wget less vim zsh sudo curl man iputils-ping net-tools
 # build for yourself
 # sudo apt-get install -y tmux
