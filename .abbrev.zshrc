@@ -40,8 +40,8 @@ abbrev-alias -g N='>/dev/null '
 # abbrev-alias -g rmd='README.md'
 
 # NOTE: expand only head of prompt (no head of after pipe or start with space)
-abbrev-alias -c v='vim '
-abbrev-alias -c s='sudo '
+# abbrev-alias -c v='vim '
+# abbrev-alias -c s='sudo '
 # abbrev-alias -c a='sudo apt-get '
 abbrev-alias -c sshdel='ssh-keygen-R-peco'
 abbrev-alias -c tmuxs="tmux new -s '\%#'"
