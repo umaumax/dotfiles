@@ -810,7 +810,7 @@ Plug 'umaumax/vim-blink'
 Plug 'mbbill/undotree', {'on':['UndotreeToggle']}
 
 " for &ft='gas'
-Plug 'Shirk/vim-gas', {'for': 'gas'}
+LazyPlug 'Shirk/vim-gas', {'for': 'gas'}
 " for nasm use &ft='nasm'
 
 " if has('nvim')
