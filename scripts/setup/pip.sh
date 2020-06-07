@@ -36,8 +36,6 @@ pip install icdiff
 pip3 install daff
 
 pip3 install thefuck
-# NOTE: for df
-pip3 install pydf
 
 pip3 install compdb
 

@@ -78,7 +78,6 @@
 # [file size for bash] du -sh .[^.]* * # both
 [disk size] df -h
 [confirm only root filesystem disk usage] df -h /
-[disk size] pydf -h # pip install pydf
 [disk size (only local mounted file)] df -hl
 
 [list blocks with filesystem] lsblk -f
