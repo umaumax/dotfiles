@@ -813,6 +813,9 @@ Plug 'mbbill/undotree', {'on':['UndotreeToggle']}
 LazyPlug 'Shirk/vim-gas', {'for': 'gas'}
 " for nasm use &ft='nasm'
 
+" for nasm indent
+LazyPlug 'philj56/vim-asm-indent', {'for': 'nasm'}
+
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " else

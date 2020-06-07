@@ -191,6 +191,12 @@ if Doctor('nasmfmt', 'nasm format')
   augroup END
 endif
 
+augroup gas_format_group
+  autocmd!
+  autocmd FileType gas ++once autocmd BufWritePre * if &ft == 'gas' && IsAutoFormat() | :Format | endif
+  autocmd FileType gas ++once autocmd! gas_format_group FileType
+augroup END
+
 if Doctor('xmllint', 'xml format')
   " NOTE: tmp disable
   " augroup xml_format_group
