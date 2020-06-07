@@ -38,18 +38,17 @@ source ~/.zshrc
 ~/dotfiles/scripts/setup/go.sh
 
 # ~/dotfiles/scripts/setup/cpanm.sh
-# ~/dotfiles/scripts/setup/cargo.sh
 # ~/dotfiles/scripts/setup/gem.sh
 # ~/dotfiles/scripts/setup/linuxbrew.sh
 
 # ~/dotfiles/scripts/setup/ros.sh
 # ~/dotfiles/scripts/setup/apt-get-virtualbox.sh
 
-nugget peco
+# nugget peco
 nugget tig
 nugget tmux
 nugget rtags
-nugget fzy
+# nugget fzy
 nugget fzf
 nugget bat
 nugget bats
@@ -58,11 +57,14 @@ nugget googlebenchmark
 nugget googletest
 nugget exa
 nugget ctop
+nugget rust
+
+~/dotfiles/scripts/setup/cargo.sh
 
 # NOTE: DISPLAY env?
 # nvimの画面が起動しないときにはsshで接続し直すと解決した
 nugget nvim
-nugget vim_deoplete
+nugget nvim_deoplete
 
 source ~/.zshenv
 source ~/.zprofile
