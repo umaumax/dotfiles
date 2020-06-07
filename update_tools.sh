@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-! type git-wget >/dev/null 2>&1 && echo "Please install 'https://github.com/umaumax/git-wget'" && exit 1
+if ! type git-wget >/dev/null 2>&1; then
+  echo "Please install 'https://github.com/umaumax/git-wget'"
+  cat <<'EOF'
+install_path="$HOME/local/bin/git-wget"
+wget https://raw.githubusercontent.com/umaumax/git-wget/master/git-wget -O "$install_path"
+chmod u+x "$install_path"
+EOF
+  exit 1
+fi
 
 BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'
 
