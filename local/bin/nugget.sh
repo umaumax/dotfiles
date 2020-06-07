@@ -336,7 +336,9 @@ function nugget_ubuntu_rust() {
   # -y                  Disable confirmation prompt.
   # --no-modify-path    Don't configure the PATH environment variable
   curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  source $HOME/.cargo/env
   rustup update
+  rustup install nightly
 }
 function nugget_mac_rust() {
   nugget_ubuntu_rust "$@"
