@@ -102,6 +102,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   # NOTE: overwrite $LS_COLORS
   [[ -n $LS_COLORS ]] && export _LS_COLORS="$LS_COLORS"
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+  # overwrite prompt setting
+  if [[ -n "$SSH_TTY" ]]; then
+    PS1='%F{3}[SSH] %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+  fi
   [[ -n $_LS_COLORS ]] && export LS_COLORS="$_LS_COLORS" && unset _LS_COLORS
 else
   # NOTE: install zprezto
