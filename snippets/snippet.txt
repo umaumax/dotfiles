@@ -1328,6 +1328,7 @@
 # linux
 [segmentation backtrace] catchsegv \%# # command
 [segmentation backtrace] LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so \%#
+[stop the world lib path] $HOME/local/lib/libstop_the_world.so
 
 [ltrace in mac] sudo dtrace -l \%#
 
