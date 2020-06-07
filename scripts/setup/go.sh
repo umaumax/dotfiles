@@ -64,6 +64,9 @@ go get -u github.com/itchyny/mmv/cmd/mmv
 # NOTE: for docker but I don't like this format rule...
 # go get -u github.com/jessfraz/dockfmt
 
+# NOTE: for nasm
+go get -u github.com/yamnikov-oleg/nasmfmt
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms

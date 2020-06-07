@@ -236,3 +236,4 @@ sudo apt-get install -y nmap
 
 sudo apt-get install -y libc6-dbg
 sudo apt-get install -y gdb-multiarch
+sudo apt-get install -y nasm

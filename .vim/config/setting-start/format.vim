@@ -182,6 +182,15 @@ if Doctor('cmake-format', 'cmake format')
   augroup END
 endif
 
+if Doctor('nasmfmt', 'nasm format')
+  augroup nasm_format_group
+    autocmd!
+    autocmd FileType nasm ++once autocmd BufWinEnter * if &ft == 'nasm' | command! -bar Format NasmFormat | endif
+    autocmd FileType nasm ++once autocmd BufWritePre * if &ft == 'nasm' && IsAutoFormat() | :NasmFormat | endif
+    autocmd FileType nasm ++once autocmd! nasm_format_group FileType
+  augroup END
+endif
+
 if Doctor('xmllint', 'xml format')
   " NOTE: tmp disable
   " augroup xml_format_group
