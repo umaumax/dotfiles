@@ -8,6 +8,7 @@
 [find some ext file] find . -name "*.\%#"
 [find Don't descend directories on other filesystems. option] -xdev
 
+[find remove empty directory] find . -type d -empty -delete
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
 [find remove core] find . -name "core.*" -type f -ls -delete
 [find remove object/archives] find . \( -name "*.a" -o -name "*.so" -o -name "*.o" \) -type f -ls -delete
@@ -263,7 +264,7 @@
 [git current branch name] git symbolic-ref --short HEAD
 [git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
-[git checkout local(create local branch)] git checkout -b $(git name-rev --name-only HEAD | sed 's:^remotes/origin/::')
+[git checkout local(create local branch)] git checkout -b $(git name-rev --name-only HEAD | sed 's:^remotes/origin/::' | sed -E 's/~.*$//')
 
 [git find file] git ls-files "*\%#"
 
@@ -756,6 +757,7 @@
 [sed delete end of line] sed -i '$d' $FILEPATH # for gsed
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
+[fixed string replace (linux)] replace
 [sed fixed string replace] rpl \%# # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
 [sed fixed string replace] perl -ne 'BEGIN { $src = quotemeta(shift), $dst = shift } s/$src/$dst/; print $_' # $SRC $DST
 [sed cut before] sed -E 's/^([^ ]+?( )+?){\%#}//'
@@ -897,6 +899,7 @@
 [git repo local gitignore open] vim $(git rev-parse --show-toplevel)/.git/info/exclude !
 
 [hex on bash command] $((0x\%#))
+[10base to 16base] printf "%x" \%#
 [show char code] hexdump -C \%#
 [hexdump -C] od -t x1z -A x
 [hexdump -C] hexly
