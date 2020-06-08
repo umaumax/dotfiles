@@ -1593,6 +1593,10 @@ function shell_string_escape() {
 # NOTE: drop clipboard rich text info
 alias cliplain='p | p2c'
 
+# for mac ssh connection
+if [[ -z $DISPLAY ]] && [[ $LC_TERMINAL == "iTerm2" ]]; then
+  export DISPLAY=localhost:0.0
+fi
 if [[ -z $DISPLAY ]]; then
   function c() {
     mkdir -p ~/tmp
