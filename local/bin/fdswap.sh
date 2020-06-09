@@ -4,8 +4,9 @@ function help() {
   local pid=${1:-"<pid>"}
   command cat <<EOF 1>&2
 usage:
-  $(basename "$0") $pid [fd:filepath]...
+  $(basename "$0") $pid [-n] [fd:filepath]...
 e.g.
+  $(basename "$0") $pid 1:\$(tty) 2:\$(tty)
   $(basename "$0") $pid 1:$(tty) 2:$(tty)
   $(basename "$0") $pid 1:/tmp/stdout.log 2:$/tmp/stderr.log
   $(basename "$0") $pid 1:- 2:$(tty) # skip set stdout
