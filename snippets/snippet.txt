@@ -426,6 +426,7 @@
 # g++
 ## g++ not clang++
 [g++ dynamic library] g++ -shared -fPIC -std=c++11 \%#
+[g++ dynamic library flag] -shared -fPIC
 [cpp c++11 verbose help] g++ -v --help
 [cpp c++11 compile] g++ -std=c++11 \%#
 [cpp c++11 compile] clang++ -std=c++11 \%#
@@ -560,6 +561,7 @@
 [pip search cui (fullmatch)] pip search
 [pip search gui] open "https://pypi.org/search/?q=\%#"
 [python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
+[pip install from github subdir] pip install "git+ssh://git@github.com/$USER_NAME\$#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
