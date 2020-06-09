@@ -1162,6 +1162,7 @@ if cmdcheck tmux; then
   }
   # NOTE: return tmux pain id which has running process of given name
   # e.g. tmux send-keys -t $(tgrep gdb) 'info' C-m
+  alias tmux-grep='tgrep'
   function tgrep() {
     local process_name="${1:-.}"
     tmux list-panes -a -F '#D #{pane_pid}' | xargs -L1 bash -c '{ pgrep -l -P "$2" | grep -q '"$process_name"'; } && echo "$1"' --
