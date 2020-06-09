@@ -327,6 +327,10 @@
 
 [git checkout all remote branch to local] for branch in $(git branch -r --no-merged | grep -v HEAD | sed -e "s/origin\///"); do echo ${branch}; git checkout -b ${branch} origin/${branch}; done
 
+[git config with url attr(subsection)] git config # section.subsection.name value # see https://git-scm.com/docs/git-config#_syntax
+[git repo url] git@github.com:user/repo.git
+[git repo url] ssh://git@github.com:22/user/repo.git
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
