@@ -708,6 +708,7 @@
 [list kernel module] lsmod
 
 # losf
+[lookup pid from filepath] lsof $FILEPATH
 [lsof port to process] sudo lsof -i:\%#
 [lsof port to PID] lsof -i :8080 | awk '{l=$2} END {print l}'
 [lsof listening ports] lsof -Pan -i tcp -i udp
