@@ -1596,7 +1596,7 @@ alias cliplain='p | p2c'
 
 # for mac ssh connection
 if [[ -z $DISPLAY ]] && [[ $LC_TERMINAL == "iTerm2" ]]; then
-  export DISPLAY=localhost:0.0
+  export DISPLAY=':0'
 fi
 if [[ -z $DISPLAY ]]; then
   function c() {
