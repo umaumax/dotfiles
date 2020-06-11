@@ -66,9 +66,9 @@ function main() {
     sudo gdb -q -p "$pid" --nx -x "$tmpfile"
   else
     local script=$(cat "$tmpfile" | awk '{l=l (NR==1?"":"\\n") $0}END{print l}')
-    printf "%s\n" "echo '$script' | sudo gdb -q -p "$pid" --nx"
+    printf "%s\n" "echo -e '$script' | sudo gdb -q -p "$pid" --nx"
     # or
-    # printf "echo %q | sudo gdb -q -p "$pid" --nx\n" "$script"
+    # printf "echo -e %q | sudo gdb -q -p "$pid" --nx\n" "$script"
   fi
 }
 
