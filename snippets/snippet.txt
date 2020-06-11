@@ -332,6 +332,8 @@
 [git repo url] git@github.com:user/repo.git
 [git repo url] ssh://git@github.com:22/user/repo.git
 
+[git checkout -b at commit] git checkout -b $NEW_BRANCH\%# $COMMIT
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
@@ -1232,6 +1234,8 @@
 [gdb with args] gdb --args # [exec command] [args...]
 [gdb without loading .gdbinit] gdb -n \%#
 [gdb server] gdbserver --multi localhost:10080
+[gdb swap stdout] echo -e 'call close(1)\ncall open("'"$(tty)\#%"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
+[gdb swap stderr] echo -e 'call close(2)\ncall open("'"$(tty)\#%"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
 [rust gdb] rust-gdb -q $(cargo metadata --format-version=1 | jq -r '(.target_directory + "/debug/" + (.workspace_root | gsub(".*/";"")))')
 [rust remote target debug] RUST_GDB=gdb-multiarch rust-gdb -q
 [check glibc version] ldd --version
@@ -1258,6 +1262,7 @@
 [tmux send command to some pane] tmux send-keys -t $PANE_ID\%# '' C-m
 [tmux show current window setting] tmux show-window-options
 [tmux fix fixed window title setting] tmux set automatic-rename on # run after restore session
+[tmux get current session name] tmux display-message -p '#S'
 
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
