@@ -308,7 +308,8 @@
 [git get relative fullpath] git rev-parse --show-prefix \%# | tr -d '\n'
 [git get relative rev fullpath] git rev-parse --show-cdup
 
-[git copy local repo to local] git clone --local $SRC $DST
+[git copy local repo to local] git clone --local $SRC_DIRPATH $DST_DIRPATH
+[git clone from local] git clone $LOCAL_GIT_DIRPATH # local xxx.git is obtained by using git clone --mirror
 
 [git fetch grafted repo] git fetch --unshallow
 
