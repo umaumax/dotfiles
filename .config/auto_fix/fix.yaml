@@ -12,6 +12,7 @@ _:
 - - compile
 - - completion
 - - complex
+- - condition
 - - config
 - - confirmation
 - - connect
