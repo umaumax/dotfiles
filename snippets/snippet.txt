@@ -1351,6 +1351,8 @@
 
 [ltrace in mac] sudo dtrace -l \%#
 
+[trace network system call] strace -e trace=network 
+
 [check PIE or not in linux] hardening-check \%#
 [check PIE or not in mac] otool -hv \%#
 
