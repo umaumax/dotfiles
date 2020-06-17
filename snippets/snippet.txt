@@ -150,8 +150,8 @@
 [git push] git push -u --force origin master # force push
 [git push dry-run] git push -n \%#
 # [git push current branch] git push origin $(git rev-parse --abbrev-ref HEAD) # same local and remote name
-[git push current branch] git push origin $(git symbolic-ref --short HEAD) # same local and remote name
-[git push local branch to remote] git push origin $LOCAL_BRANCH:$REMOTE_BRANCH
+[git push any local branch to any remote] git push origin $LOCAL_BRANCH:$REMOTE_BRANCH
+[git push current local branch to remote] git push origin $(git symbolic-ref --short HEAD) # same local and remote name
 [git pull current local branch] git pull origin $(git symbolic-ref --short HEAD)
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
 [git staged file diff] git diff --cached # <file>
@@ -206,6 +206,7 @@
 [git grep cpp ext filter] git grep "\%#" -- '*.cpp' '*.hpp' '*.c' "*.h" '*.cc' '*.cxx'
 [git grep filename example] git grep -H "c++11" -- "*[Mm]akefile" # include and with hit line
 [git grep filename example] git grep -L "c++11" -- "*[Mm]akefile" # not include
+[git grep crossing over multiple repo] git xgrep \%# # my command
 [git clone rename] git clone \%# $NEW_NAME
 [git clone with submodule] git clone --recursive \%#
 [git commit log grep] git log --stat -S "\%#"
@@ -430,6 +431,7 @@
 ## g++ not clang++
 [g++ dynamic library] g++ -shared -fPIC -std=c++11 \%#
 [g++ dynamic library flag] -shared -fPIC
+[g++ dynamic malloc library flag] -shared -fPIC $SRC -ldl # for correct way to manage default --as-needed option undefined symbol: dlsym
 [cpp c++11 verbose help] g++ -v --help
 [cpp c++11 compile] g++ -std=c++11 \%#
 [cpp c++11 compile] clang++ -std=c++11 \%#
@@ -1517,6 +1519,7 @@
 
 # rust
 [rust env_logger] RUST_LOG=debug \%#
+[ltrace cargo run] CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER=ltrace cargo run
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
 [cargo create new lib crate] cargo new --lib \%#
 [cargo create new bin crate] cargo new --bin \%#
@@ -1697,6 +1700,10 @@
 [systemd disable] systemctl disable $SERVICE_NAME
 [systemd status(info)] systemctl status $SERVICE_NAME
 [systemd settig filepath] /usr/lib/systemd/system
+[service setting file cat] systemctl cat $SERVICE_NAME
+[service dump setting variable] systemctl show $SERVICE_NAME
+[service time] systemd-analyze
+[service time plot] systemd-analyze plot > plot.svg
 
 # pid
 [pid files location] /var/run/
