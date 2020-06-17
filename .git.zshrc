@@ -1045,3 +1045,33 @@ function git-checkout-local() {
   local_branch_name=${branch_name#remotes/origin/}
   git checkout -b "$local_branch_name"
 }
+
+function git-xgrep() {
+  git-cross-grep "$@"
+}
+function git-cross-grep() {
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF 1>&2
+git multi repo crossing grep
+usage:
+  $(basename "$0") <grep args>
+e.g.
+  ls | $(basename "$0") <grep args>
+  $(basename "$0") <grep args> | pecovim
+EOF
+    return 1
+  fi
+
+  {
+    if [[ -p /dev/stdin ]]; then
+      cat
+    else
+      find . -type d -depth 1
+    fi
+  } | {
+    # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
+    while IFS= read -r repo_dirpath || [[ -n "$repo_dirpath" ]]; do
+      git-at "$repo_dirpath" grep --color=always "$@" | awk -v prefix="$repo_dirpath" '{printf "%s/%s\n", prefix, $0; }'
+    done
+  }
+}
