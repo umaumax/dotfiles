@@ -41,7 +41,7 @@ git-update-dummy-alias
 * `required`
   * tmux 3.1b or later
 
-### local seting
+### local setting
 #### files
 * `~/.local.zshrc`
 * `~/.local.zprofile`
