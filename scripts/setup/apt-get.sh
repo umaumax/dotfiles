@@ -185,14 +185,15 @@ sudo apt install -y g++-arm-linux-gnueabihf
 ## 64bit(arm64)
 sudo apt install -y g++-aarch64-linux-gnu
 
-sudo apt-get install -y colorgcc
-if which colorgcc >/dev/null 2>&1; then
-  mkdir -p ~/local/bin/
-  ln -s $(which colorgcc) ~/local/bin/color-g++
-  ln -s $(which colorgcc) ~/local/bin/color-gcc
-  ln -s $(which colorgcc) ~/local/bin/color-c++
-  ln -s $(which colorgcc) ~/local/bin/color-cc
-fi
+# NOTE: ubuntu 18.04 has no pkg of colorgcc
+# sudo apt-get install -y colorgcc
+# if which colorgcc >/dev/null 2>&1; then
+# mkdir -p ~/local/bin/
+# ln -s $(which colorgcc) ~/local/bin/color-g++
+# ln -s $(which colorgcc) ~/local/bin/color-gcc
+# ln -s $(which colorgcc) ~/local/bin/color-c++
+# ln -s $(which colorgcc) ~/local/bin/color-cc
+# fi
 
 # NOTE: for git instaweb
 sudo apt-get install -y lighttpd
