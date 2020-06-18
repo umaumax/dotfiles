@@ -1207,8 +1207,8 @@ cmdcheck nvim && alias vterminal="command nvim -c terminal -c \"call feedkeys('i
 cmdcheck nvim && alias vt='vterminal'
 # NOTE: 行番号指定で開く
 function vim() {
-  local vim_cmd='command vim'
-  cmdcheck nvim && vim_cmd='nvim'
+  local vim_cmd=(command vim)
+  cmdcheck nvim && vim_cmd=(nvim)
   local args=("$@")
   if [[ $# -ge 1 ]] && [[ $1 =~ :[0-9]+ ]]; then
     local file_path="${1%%:*}"
@@ -1219,7 +1219,7 @@ function vim() {
     # -c: do command
     args=("-c" "$line_no" "$file_path" "$@")
   fi
-  $vim_cmd "${args[@]}"
+  "${vim_cmd[@]}" "${args[@]}"
   local exit_code=$?
   # NOTE: nvim crash with changing window size
   # ### window size change crash
