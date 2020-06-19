@@ -173,4 +173,9 @@ lcov_html
 
 # for rust
 **/target/debug/*
-**/target/*
+**/target/release/*
+**/target/doc/*
+**/target/rls/*
+**/target/arm-*/*
+# NOTE: don't use below
+# **/target/*
