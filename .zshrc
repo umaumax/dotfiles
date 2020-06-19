@@ -75,7 +75,8 @@ function login_init() {
   ls_abbrev
   if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
     local tmux_ls
-    tmux_ls=$(tmux ls 2>/dev/null)
+    # NOTE: this timeout is used for freezed tmux server (tmux client doesn't accept signals e.g. c-c)
+    tmux_ls=$(timeout 1 tmux ls 2>/dev/null)
     [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
   fi
 }
