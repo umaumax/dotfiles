@@ -1353,7 +1353,10 @@
 
 [ltrace in mac] sudo dtrace -l \%#
 
+[trace system call by ltrace] ltrace -S 
 [trace network system call] strace -e trace=network 
+[trace file system call] strace -e trace=file 
+[trace signal system call] strace -e trace=signal 
 
 [check PIE or not in linux] hardening-check \%#
 [check PIE or not in mac] otool -hv \%#
