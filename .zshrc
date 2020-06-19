@@ -1116,14 +1116,14 @@ if cmdcheck tmux; then
     fi
   }
   function tmux-resurrect-restore() {
-    tmux new-session -s 'tmux-resurrect' \; \
-      detach-client >/dev/null 2>&1
+    tmux new-session -s '____tmux-resurrect____' \; detach-client >/dev/null 2>&1
     # restore is ongoing at background
   }
   alias tmuxa='tmux-attach'
   function tmux-attach() {
     is_in_tmux_with_message || return
-    local output=$(tmux ls)
+    local output
+    output=$(timeout 1 tmux ls) || return
     if [[ -z $output ]]; then
       # auto restore
       tmux-resurrect-restore
