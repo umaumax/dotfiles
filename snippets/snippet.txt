@@ -1314,6 +1314,7 @@
 [LD] LD_SHOW_AUXV=1 \%#
 [LD] LD_DEBUG=help /bin/echo \%#
 [LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
+[ld show default linker script] ld --verbose
 
 [show dynamic library of process] sudo lsof -p $PID
 [show dynamic library of process] sudo pldd $PID
