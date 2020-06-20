@@ -1010,6 +1010,7 @@
 # PS1='\[\e[1;33m\]\u\%#\h \w ->\n\[\e[1;36m\]\$\[\e[m\] '
 [echo bash PS1 example] echo -n "PS1="; echo J1xbXGVbMTszM21cXVx1QFxoIFx3IC0+XG5cW1xlWzE7MzZtXF1cJFxbXGVbbVxdICc= | python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))" !
 [bash version check] echo $BASH_VERSION # or use $BASH_VERSINFO
+[bash template enigne] envsubst
 
 # cpp environment variables
 [cpp include file path] export CPATH="\%#:$CPATH"
@@ -1338,6 +1339,9 @@
 [man ascii] man ascii!
 [man seach] man -k \%#
 [man shell builtin command] man n \%#
+[man user command] man 1 
+[man systemcall] man 2 
+[man glibc func] man 3 
 
 # grep
 [grep without message] grep -sq \%#
@@ -1540,6 +1544,8 @@
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
 [rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nighlty`
 [rust arch target list] rustup target list
+[rust build unused function] RUSTFLAGS="-C link-dead-code" cargo build 
+[cargo with flags] RUSTFLAGS="\%#" cargo build 
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
