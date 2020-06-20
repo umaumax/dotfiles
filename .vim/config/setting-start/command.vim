@@ -159,13 +159,24 @@ function! s:replace(...) range
   if empty(@/)
     let @/=@+
   endif
+  " NOTE: @/ is used for src pattern visibility
+  let cmd="s/".'\V'.escape(@/, '\/').'/\%#/g |:noh'
+  execute a:firstline . ',' . a:lastline . 'call s:set_range_cmdline(cmd)'
+endfunction
+
+function! s:set_range_cmdline(cmd) range
   let visual_select_key='gv:'
   if a:firstline==a:lastline
     let visual_select_key=':.'
   endif
-  " NOTE: for src pattern visibility
-  let @z='\V'.escape(@/, '\/')
-  call feedkeys(visual_select_key."s/\<C-r>z//g |:noh".repeat("\<Left>",8)."\<Space>\<BS>", 'n')
+  let cursor_idx=stridx(a:cmd, '\%#')
+  let cursor_left_num=0
+  if cursor_idx != -1
+    let cursor_left_num=strlen(substitute(a:cmd[cursor_idx+strlen('\%#'):], ".", "x", "g"))
+  endif
+  echom cursor_left_num
+  let @z=substitute(a:cmd,'\\%#','','')
+  call feedkeys(visual_select_key."\<C-r>z".repeat("\<Left>",cursor_left_num)."\<Space>\<BS>", 'n')
 endfunction
 
 " [Perform a non\-regex search/replace in vim \- Stack Overflow]( https://stackoverflow.com/questions/6254820/perform-a-non-regex-search-replace-in-vim )
@@ -173,6 +184,9 @@ command! -nargs=*        S      let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <
 command! -nargs=*        Search let @/='\V'.escape(s:argsWithDefaultArg(1, @+, <q-args>), '\/') | call feedkeys("/\<C-r>/\<CR>", 'n')
 command! -nargs=* -range R      <line1>,<line2>call s:replace(<q-args>)
 command! -nargs=* -range Rep    <line1>,<line2>call s:replace(<q-args>)
+
+command! -nargs=* -range Renban  <line1>,<line2>call s:set_range_cmdline("s/^\\%#/\\=printf('%d.', (line('.')-line(\"'<\")+1))")
+command! -nargs=* -range ContNum <line1>,<line2>call s:set_range_cmdline("s/^\\%#/\\=printf('%d.', (line('.')-line(\"'<\")+1))")
 
 command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG') | silent call winrestview(view)
 command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('^\( *\)\?\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
