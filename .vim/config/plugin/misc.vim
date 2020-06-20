@@ -394,7 +394,8 @@ let g:NERDTreeMapOpenVSplit='v' " 's'
 " Error detected while processing function cursorword#timer_callback[1]..cursorword#matchadd:
 " line   14:
 " E28: No such highlight group name: CursorWord0
-Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-cursorword', {'do': 'git checkout . && git apply ~/.vim/patch/vim-cursorword.patch'}
+" PlugUpdate vim-cursorword
 
 " Doxygen
 " :Dox

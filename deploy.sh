@@ -78,6 +78,7 @@ if [[ $OS =~ Windows ]]; then
   [[ -e ~/.vim/config ]] && rm -rf ~/.vim/config
 fi
 ln -fs ~/dotfiles/.vim/config ~/.vim/
+ln -fs ~/dotfiles/.vim/patch ~/.vim/
 
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
 [[ ! -d "$HOME/$XDG_CONFIG_HOME" ]] && mkdir -p "$HOME/$XDG_CONFIG_HOME"
