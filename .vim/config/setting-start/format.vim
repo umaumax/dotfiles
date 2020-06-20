@@ -83,12 +83,18 @@ augroup auto_format_setting_when_leaving
 augroup END
 
 function! IsAutoFormat()
-  return g:auto_format_flag == 1
+  if exists('g:auto_format_force_flag')
+    return g:auto_format_force_flag == 1
+  endif
+  return b:auto_format_flag == 1
 endfunction
-let g:auto_format_flag=1
+let b:auto_format_flag=1
 " NOTE: if command name startswith AutoFormat, there are many similar command to complete
-command! NoAutoFormat let g:auto_format_flag=0
-command! AutoFormat let g:auto_format_flag=1
+command! NoAutoFormatForce let g:auto_format_force_flag=0
+command! AutoFormatForce let g:auto_format_force_flag=1
+command! ResetAutoFormatForce unlet g:auto_format_force_flag
+command! DisableAutoFormat let b:auto_format_flag=0
+command! AutoFormat let b:auto_format_flag=1
 
 " 下記のautocmdの統合は案外難しい
 " FYI
@@ -312,11 +318,11 @@ function! s:work_setting()
   call s:save_highlight_to_backup_if_not_exist(['Normal','LineNr'])
 
   if IsPrivateWork()
-    let g:auto_format_flag = exists('g:auto_format_force_flag') ? g:auto_format_force_flag : 1
+    let b:auto_format_flag = 0
     let g:autochmodx_ignore_scriptish_file_patterns = []
     call s:restore_highlight_from_backup()
   else
-    let g:auto_format_flag = exists('g:auto_format_force_flag') ? g:auto_format_force_flag : 0
+    let b:auto_format_flag = 1
     " NOTE: disable auto chmod
     " shell file is exception
     let g:autochmodx_ignore_scriptish_file_patterns =[
@@ -335,18 +341,18 @@ function! s:detect_clang_format_style_file() abort
   return len(filepathes) > 0 ? filepathes[0] : ''
 endfunction
 function! s:clang_format_setting()
-  let g:auto_format_flag=1
+  let b:auto_format_flag=1
   let clang_format_filepath=s:detect_clang_format_style_file()
   if !IsPrivateWork() && IsInGitRepo(expand('%:p')) && !IsInSameGitRepo(expand('%:p'), clang_format_filepath)
-    let g:auto_format_flag=0
+    let b:auto_format_flag=0
   endif
 endfunction
 
 augroup private_or_public_work
   autocmd!
   autocmd BufWinEnter,TabEnter * :call <SID>work_setting()
-  autocmd BufWinEnter,TabEnter *.go :let g:auto_format_flag=1
-  autocmd BufWinEnter,TabEnter *.rs :let g:auto_format_flag=1
+  autocmd BufWinEnter,TabEnter *.go :let b:auto_format_flag=1
+  autocmd BufWinEnter,TabEnter *.rs :let b:auto_format_flag=1
   " autocmd BufWinEnter,TabEnter *.{c,cc,cxx,cpp,h,hh,hpp} :call <SID>clang_format_setting()
   " autocmd FileType cpp :call <SID>clang_format_setting()
 augroup END
