@@ -318,11 +318,11 @@ function! s:work_setting()
   call s:save_highlight_to_backup_if_not_exist(['Normal','LineNr'])
 
   if IsPrivateWork()
-    let b:auto_format_flag = 0
+    let b:auto_format_flag = 1
     let g:autochmodx_ignore_scriptish_file_patterns = []
     call s:restore_highlight_from_backup()
   else
-    let b:auto_format_flag = 1
+    let b:auto_format_flag = 0
     " NOTE: disable auto chmod
     " shell file is exception
     let g:autochmodx_ignore_scriptish_file_patterns =[
