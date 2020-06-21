@@ -28,8 +28,10 @@
 	commit-lost  = :
 	commits-peco  = :
 	commits-range-peco  = :
+	count  = :
 	coverage-review-result  = :
 	coverage-review-result-csv  = :
+	cross-grep  = :
 	diff-lines  = :
 	diff-peco = :
 	diff-peco-range  = :
@@ -129,3 +131,4 @@
 	typo-peco-vim  = :
 	update-dummy-alias  = :
 	wc  = :
+	xgrep  = :
