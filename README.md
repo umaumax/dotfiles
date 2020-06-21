@@ -15,9 +15,7 @@ git submodule update -i
 ./deploy.sh
 
 # after setting end
-colorbash ./deploy.sh
-colorbash ./update_tools.sh
-
+./update_tools.sh # or colorbash ./update_tools.sh
 # for debug
 # GIT_WGET_DEBUG=1 colorbash ./update_tools.sh
 
