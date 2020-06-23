@@ -198,7 +198,8 @@
   compactionHeuristic = true
 [grep]
   lineNumber = true
-
+[fetch]
+  prune = true
 # [merge]
 #   tool = vimdiff
 # #   conflictstyle = diff3
