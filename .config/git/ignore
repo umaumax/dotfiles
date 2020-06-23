@@ -172,6 +172,10 @@ lcov_html
 *.dot
 
 # for rust
+# rustc itself profile datas
+*-*.events
+*-*.string_data
+*-*.string_index
 **/target/debug/*
 **/target/release/*
 **/target/doc/*
