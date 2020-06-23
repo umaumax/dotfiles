@@ -1616,9 +1616,23 @@
 [clibboard manager print all tab content] copyq eval -- "tab('&clipboard'); for(i=1; i<=size(); i++) print('['+ str(i) +'] '+ str(read(i-1)) + '\n');" # i=0 lower is newer
 
 # download
-[install editor tmp] mkdir -p ~/.local/bin; pushd ~/.local/bin; [[ ! -e ./micro ]] && curl https://getmic.ro | bash; export PATH="$PWD:$PATH"; popd
-[fzf arm7 binary] tar xvzf <(curl --output - -L https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz) -C .
-[fzf arm7 binary url] https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz
+[download install editor tmp] mkdir -p ~/.local/bin; pushd ~/.local/bin; [[ ! -e ./micro ]] && curl https://getmic.ro | bash; export PATH="$PWD:$PATH"; popd
+[download fzf arm7 binary] tar xvzf <(curl --output - -L https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz) -C .
+[download fzf arm7 binary url] https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/socat
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/nano
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/strace
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/file
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/nm
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/objdump
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/readelf
+[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/strace
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/gdb-arm-static-7.11 -O gdb
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/gdbserver-armel-static-8.0.1 -O gdb-server
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/ldd-arm-static -O ldd
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/lsof-armel-static -O lsof
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/ltrace-arm-static-0.7.91 -O ltrace
+[download linux static binary] wget https://raw.githubusercontent.com/therealsaumil/static-arm-bins/master/socat-armel-static -O socat
 
 # cat
 [cat with separators among files] tail -n +1 $FILES
