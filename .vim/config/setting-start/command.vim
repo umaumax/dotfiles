@@ -300,14 +300,18 @@ if Doctor('racer', 'rust struct field generator') && Doctor('cargo', '') && Doct
     "   このとき，対象ソースファイルと同一のディレクトリにある`use`の読み込みも行われる
     " echoする内容に構造体の定義を含めるか(e.g. racer complete 1 4 <(echo 'XXX.'; cat src/main.rs)
     let tmp_srcfile=fnameescape(expand('%:p:h').'/.racer_completion_tmp.'.expand('%:t'))
-    let cmd="cd $(dirname $(cd ".shellescape(expand('%:p:h'))."; cargo locate-project | jq -r '.root')); racer complete 1 ".query_length." '".tmp_srcfile."' | grep '^MATCH' | grep StructField | awk -F'[, ]' '{print $2, $9;}'"
-    echom cmd
+    let cmd="cd $(dirname $(cd ".shellescape(expand('%:p:h'))."; cargo locate-project | jq -r '.root')); racer complete 1 ".query_length." '".tmp_srcfile."' | tee ".shellescape(tempname())." | grep '^MATCH' | grep -o 'StructField.*' | sed 's/StructField,//'"
+    " echom cmd
     call writefile([query], tmp_srcfile)
     let struct_fields=split(system(cmd),'\n')
     call delete(tmp_srcfile)
     let lines=[]
     for struct_field_info in struct_fields
-      let [field,type]=split(struct_field_info,' ')
+      let ret=split(struct_field_info,': ')
+      if len(ret)==1
+        let ret+=['']
+      endif
+      let [field,type]=ret
       let lines+=[printf('  %s: %s,', field, type)]
     endfor
     call append(line('.'), lines)
