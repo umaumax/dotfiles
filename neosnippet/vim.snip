@@ -176,3 +176,6 @@ snippet append_file
 	execute ":redir! >> ".output_filepath
 	silent! echon '${1}'."\n"
 	redir END
+
+snippet echom_debug
+	echom string(${0})
