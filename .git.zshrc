@@ -1066,7 +1066,8 @@ EOF
     if [[ -p /dev/stdin ]]; then
       cat
     else
-      find . -type d -depth 1
+      # NOTE: -depth is BSD only
+      find . -mindepth 1 -maxdepth 1 -type d
     fi
   } | {
     # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
