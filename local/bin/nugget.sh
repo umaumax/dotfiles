@@ -165,6 +165,10 @@ function nugget_ubuntu_tig() {
   popd
   popd
   rm -rf "$tmpdir/tig"
+
+  # maybe new version tig uses external diff-highlight command
+  sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+  ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight ~/local/bin/diff-highlight
 }
 # ################################
 

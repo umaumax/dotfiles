@@ -148,8 +148,14 @@ if [[ -d ~/cpp ]]; then
   unset CPPROOT
 fi
 
-[[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
-[[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]] && export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+# for mac
+if [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]]; then
+  export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
+fi
+# for Ubuntu
+if [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]]; then
+  export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
+fi
 
 # WARN: no need?
 # clang(LLVM)
