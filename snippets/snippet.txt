@@ -388,6 +388,7 @@
 [ol awk RMSE] awk 'NF>=2{s+=($1-$2)*($1-$2);n++;} NF==1 || NF>2 {printf "[WARN] wrong format\n", $0;} function out(){rmse=sqrt(s/n);printf"RMSE of %d data=%f\n", n, rmse;s=0;n=0;} NF==0&&n>=1{out()} END{out()}'
 [ol cut] cut -d' ' -f \%#
 [ol awk cut] awk '{ print $\%#; }'
+[ol awk last field] awk '{print $NF}'
 [ol awk unbuffer] '{fflush()}'
 [ol each N lines to one line] awk -v N=\%# '{printf "%s", $0; } (NR%N==0){print ""}'
 [ol remove last blank line] perl -pe "chomp if eof"
