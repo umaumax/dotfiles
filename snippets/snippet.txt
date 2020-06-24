@@ -154,6 +154,7 @@
 [git push current local branch to remote] git push origin $(git symbolic-ref --short HEAD) # same local and remote name
 [git pull current local branch] git pull origin $(git symbolic-ref --short HEAD)
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
+[git delete remote branch] git push --delete origin $branch_name
 [git staged file diff] git diff --cached # <file>
 [git unstaged file diff] git diff
 [git both staged and unstaged file diff] git diff HEAD
@@ -1363,6 +1364,7 @@
 [trace network system call] strace -e trace=network 
 [trace file system call] strace -e trace=file 
 [trace signal system call] strace -e trace=signal 
+[trace external command execution] strace -f -s 9999 -e execve,execveat,fork,vfork 
 
 [check PIE or not in linux] hardening-check \%#
 [check PIE or not in mac] otool -hv \%#
