@@ -324,6 +324,7 @@
 [git get the number (count) of commits across all branches] git rev-list --all --count
 
 [git log even if merge commits] git log --stat -c
+[git log same format of stdout even if using pipe] log --pretty=oneline --decorate
 
 [git overwrite remote url] git remote set-url origin \%#
 
