@@ -65,6 +65,7 @@ _:
 - - source
 - - specification
 - - sudo
+- - substitution
 - - tutorials
 - - unique
 - - variable
