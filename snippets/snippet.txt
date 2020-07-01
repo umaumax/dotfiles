@@ -193,6 +193,8 @@
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
 [git tag old to new] git tag --sort=taggerdate
 [git latest named tag] git tag --sort=taggerdate | tail -n1
+[git remote tag delete/remove] git push --delete origin $TAG
+[git update tags] git fetch --force --tags
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
 [git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
@@ -586,6 +588,7 @@
 [nmcli network reboot] echo "sudo service network-manager restart" !
 # [nmcli nic reboot] $CONNECTIONNAME=\%# && (sudo nmcli connection down $CONNECTION_NAME; sudo nmcli connection up $CONNECTION_NAME)
 [nmcli nic reboot] sudo nmcli connection up $CONNECTION_NAME\%# # you can adopt setting only up command (without down)
+[nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.route-metric 99 # permanent setting of route add default gw XXX
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
@@ -597,6 +600,7 @@
 [nmcli set dhcp   ] sudo nmcli connection modify "Wired connection \%#" ipv4.method auto
 [nmcli wi-fi info list] sudo nmcli d w
 [nmcli remote dump] ssh \%# "nmcli device show"
+[nmcli dump connection setting] sudo nmcli connection show "Wired connection \%#"
 
 [global ip] curl ifconfig.moe || curl ifconfig.io
 [search 1000 ports(tcp)] nmap $IP_ADDRESS
@@ -1567,7 +1571,7 @@
 [terminal image: hello gopher] curl 'https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F665%2Fe44c3fbc-af63-c555-1941-e39040bb385d.png?ixlib=rb-1.2.2&auto=compress%2Cformat&gif-q=60&s=fbe7017dcf4a56a8b391cf91f76b77b5' | img2sixel
 
 # xargs
-[xargs per one] xargs -L 1 -I{} \%#
+[xargs per one] xargs -L 1 -I{} \%# # DO NOT USE -I {} -L 1
 
 [readline] | while IFS= read -r line || [[ -n "$line" ]]; do\%$  \%#  \%$  \%$\%$done
 
