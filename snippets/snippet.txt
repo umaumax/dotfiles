@@ -601,6 +601,7 @@
 [nmcli wi-fi info list] sudo nmcli d w
 [nmcli remote dump] ssh \%# "nmcli device show"
 [nmcli dump connection setting] sudo nmcli connection show "Wired connection \%#"
+[nmcli dump full settings] nmcli c show --active | awk 'NR>1' | sed -E 's/ *[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}  .*$//' | xargs -L 1 -I{} bash -c 'nmcli c show "{}"; echo'
 
 [global ip] curl ifconfig.moe || curl ifconfig.io
 [search 1000 ports(tcp)] nmap $IP_ADDRESS
@@ -1235,6 +1236,9 @@
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
 [time command redirect tips] (time \%#) # |& tee $FILEPATH
 [time command redirect tips] {time \%#} # |& tee $FILEPATH
+[time verbose log (mac)] /usr/bin/time -l 
+[time verbose log (linux)] /usr/bin/time -v 
+[time /usr/bin/time] command time \%# # or \time or 'time'
 
 # unbuffer command
 # [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
@@ -1261,6 +1265,7 @@
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
 [perf frame graph] perf script -i \%# | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
 [perf top (see function)] perf top -t $TID
+[perf event list] perf list
 
 # TERM
 [TERM tmux] export TERM=screen-256color
@@ -1372,6 +1377,7 @@
 [trace file system call] strace -e trace=file 
 [trace signal system call] strace -e trace=signal 
 [trace external command execution] strace -f -s 9999 -e execve,execveat,fork,vfork 
+[list systemcall of command] strace \%# 3>&1 1>&2 2>&3 3>&- | sed -E 's/^([^(]+)\(.*$/\1/g' | sort | uniq
 
 [check PIE or not in linux] hardening-check \%#
 [check PIE or not in mac] otool -hv \%#
@@ -1380,6 +1386,8 @@
 [tput lines(terminal height)] tput lines
 [tput color list] echo "tput setaf <val>"; for ((i = 0; i <= 255; i++)); do printf "%s%03d " $(tput setaf $i) $i; done # echo $(tput setaf 1) RED $(tput sgr0) DEFAULT
 
+# ただし、STATの表示が一部省略されているように見える(ps auxで見える1文字目のみと思われる)
+[ps list threads ubuntu] ps -Lfl -p $PID
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [pstree on ubuntu] ps -e f ww
 [pstree with args ubuntu] ps -e f
@@ -1528,6 +1536,7 @@
 # dot graphviz
 [dot graphviz find gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg -o "{}.svg" "{}"
 [dot graphviz pipe] \%# | xargs -L1 -I{} dot -T svg -o "{}".svg "{}"
+[dot graphviz from pipe text input tool install] pip3 install https://github.com/umaumax/dotpipe/archive/master.tar.gz
 
 # bash
 [echo alphabet] echo {a..z}
