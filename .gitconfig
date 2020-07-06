@@ -194,6 +194,8 @@
 
 [push]
   default = simple
+[pull]
+  rebase = false
 [diff]
   compactionHeuristic = true
 [grep]
