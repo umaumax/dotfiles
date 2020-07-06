@@ -385,6 +385,8 @@
 [ol awk ave] awk 's+=$0{}END{print s/NR}' # NOTE: one line one number
 [ol awk max] awk '{if(max<$0) max=$0} END{print max}'
 [ol awk min] awk 'BEGIN{min="null"}{if(min=="null" || min>$0) min=$0} END{print min}'
+[ol awk variance] awk '{d[NR]=$1;avg+=$1}END{a=avg/NR;for(i in d)s+=(d[i]-a)^2;print s/(NR-1)}'
+[ol awk standard deviation] awk '{d[NR]=$1;avg+=$1}END{a=avg/NR;for(i in d)s+=(d[i]-a)^2;print sqrt(s/(NR-1))}'
 [ol awk grep regex range] awk '/\%#/,//' # '/BEGIN_STRING/,/END_STRING/'
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [ol awk uniq without sort] awk '!a[$0]++'
@@ -1239,6 +1241,7 @@
 [time verbose log (mac)] /usr/bin/time -l 
 [time verbose log (linux)] /usr/bin/time -v 
 [time /usr/bin/time] command time \%# # or \time or 'time'
+[time /usr/bin/time json] /usr/bin/time -f "{\"maxrss\":%M}" -o out.json \%#
 
 # unbuffer command
 # [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
@@ -1265,6 +1268,7 @@
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
 [perf frame graph] perf script -i \%# | ~/local/bin/FlameGraph/stackcollapse-perf.pl | ~/local/bin/FlameGraph/flamegraph.pl > perf.data.flame_graph.svg
 [perf top (see function)] perf top -t $TID
+[perf top (see function)] perf top -p $PID
 [perf event list] perf list
 
 # TERM
@@ -1357,6 +1361,7 @@
 [man user command] man 1 
 [man systemcall] man 2 
 [man glibc func] man 3 
+[man prcofs] man 5 procfs
 
 # grep
 [grep without message] grep -sq \%#
