@@ -73,6 +73,8 @@ sudo apt-get install -y pandoc
 sudo apt-get install -y shellcheck
 sudo apt-get install -y doxygen
 sudo apt-get install -y graphviz
+# NOTE: for pip3 install pygraphviz
+sudo apt-get install -y graphviz-dev
 
 # build tools
 sudo apt-get install -y cmake
@@ -238,3 +240,7 @@ sudo apt-get install -y nmap
 sudo apt-get install -y libc6-dbg
 sudo apt-get install -y gdb-multiarch
 sudo apt-get install -y nasm
+
+# NOTE: for perf
+sudo apt-get install -y linux-tools-generic
+sudo apt-get install -y linux-tools-$(uname -r)
