@@ -69,6 +69,7 @@ brew install rpl
 brew install rust
 brew install colormake
 brew install sshfs
+brew install st
 brew install ghq
 # WARN: original repo
 # brew install bats
