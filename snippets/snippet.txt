@@ -1023,6 +1023,7 @@
 [echo bash PS1 example] echo -n "PS1="; echo J1xbXGVbMTszM21cXVx1QFxoIFx3IC0+XG5cW1xlWzE7MzZtXF1cJFxbXGVbbVxdICc= | python -c "import base64; import sys; sys.stdout.write(base64.b64decode(sys.stdin.read()).decode('utf-8'))" !
 [bash version check] echo $BASH_VERSION # or use $BASH_VERSINFO
 [bash template enigne] envsubst
+[bash environment variable list] bash -c 'for char in {A..Z} ; do vars=($(eval echo \$\{\!${char}*\})) ; echo "${char}: (${#vars[*]}) ${vars[*]}" ; done'
 
 # cpp environment variables
 [cpp include file path] export CPATH="\%#:$CPATH"
@@ -1333,6 +1334,7 @@
 [LD] LD_DEBUG=help /bin/echo \%#
 [LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
 [ld show default linker script] ld --verbose
+[list loaded functions from dynamic libraries] LD_DEBUG=bindings \%#
 
 [show dynamic library of process] sudo lsof -p $PID
 [show dynamic library of process] sudo pldd $PID
@@ -1368,6 +1370,7 @@
 [grep fixed string] grep -F \%# # no regex '$' -> '\$', '\' -> '\\'
 [grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
 [binary grep] bingrep \%# # cargo install bingrep
+[grep force even if binary] grep -a \%#
 
 # linux
 [segmentation backtrace] catchsegv \%# # command
