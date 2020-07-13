@@ -556,6 +556,8 @@
 [pip by python3] python3 -m pip
 [pip upgrade] pip install --upgrade \%#
 [pip list] pip freeze
+[pip filelist] pip show -f \%#
+[pip exec command filelist] pip show -f \%# | grep bin
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 [pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME\%#/archive/master.tar.gz
