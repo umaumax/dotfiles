@@ -32,3 +32,24 @@ snippet type_debug
 alias what_is_this_type
 abbr way to know type via build message
 	let _ :() = ${0};
+
+snippet sleep_ms
+abbr use std::{thread, time};
+	thread::sleep(time::Duration::from_millis(${0}));
+
+snippet sleep_us
+abbr use std::{thread, time};
+	thread::sleep(time::Duration::from_micros(${0}));
+
+snippet sleep_ns
+abbr use std::{thread, time};
+	thread::sleep(time::Duration::from_nanos(${0}));
+
+snippet fibonacci
+	pub fn fib(n: i32) -> i32 {
+		match n {
+			0 => 0,
+			1 => 1,
+			_ => fib(n - 2) + fib(n - 1),
+		}
+	}${0}
