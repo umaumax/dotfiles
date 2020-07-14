@@ -3,6 +3,7 @@
 # \%$: \n
 
 # find
+[find root without home/docker dir] sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \) 
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
 [find root dir] sudo find / -name "\%#" -exec grep --color=auto -H -n {} +
 [find some ext file] find . -name "*.\%#"
