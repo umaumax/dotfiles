@@ -363,6 +363,7 @@
 # FYI: [tree コマンドが無い環境で tree コマンドを実現 \- Qiita]( https://qiita.com/yone098\%#github/items/bba8a42de6b06e40983b )
 [tree not found] pwd;find . | sort | sed '1d;s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'
 [tree depth] tree -L $DEPTH
+[any text to tree style] sort | forest # cargo install --git https://github.com/KoharaKazuya/forest
 
 # shell one liner
 [tab] $'\\t'

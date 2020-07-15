@@ -35,3 +35,6 @@ cargo install cargo-tomlfmt
 cargo install cargo-expand
 # cargo nm
 cargo install cargo-binutils
+
+# any text to tree style converter
+cargo install --git https://github.com/KoharaKazuya/forest
