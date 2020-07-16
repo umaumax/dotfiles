@@ -53,3 +53,9 @@ snippet fibonacci
 			_ => fib(n - 2) + fib(n - 1),
 		}
 	}${0}
+
+snippet arc_mutex_new
+	Arc::new(Mutex::new(${0}))
+
+snippet thread_spawn
+	thread::spawn(move || {${0}});
