@@ -31,6 +31,7 @@
 [set arg] set args 
 [set environment(✗:remote target)] set environment ## RUST_BACKTRACE=1
 [set environment(✗:remote target)] set exec-wrapper env 'LD_PRELOAD=' 'LD_LIBRARY_PATH='
+[force disas even stripped file] disas ## disas $rip, +0x100 (use 2nd arg)
 ## threads
 [show backtraces for all the threads] thread apply all bt
 ## breakpoints
