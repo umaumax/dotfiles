@@ -141,6 +141,7 @@
 [ctest] GTEST_COLOR=yes ctest --output-on-failure
 [ctest verbose] ctest -V # -VV, --debug
 [ctest filter] ctest -V -R $REGEX
+[ctest show tests list] ctest -N
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
