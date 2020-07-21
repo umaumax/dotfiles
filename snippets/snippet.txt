@@ -184,6 +184,7 @@
 [git stash] git stash pop "stash@{\%#}"
 [git stash not staged] git stash --keep-index
 [git stash interactive] git stash push --patch
+[git stash specific file] git stash push \%# # 2.13 or later
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git commit without hook (force commit)] git commit --no-verify
