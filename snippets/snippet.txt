@@ -159,6 +159,7 @@
 [git pull current local branch] git pull origin $(git symbolic-ref --short HEAD)
 [git push specific commit hash id] git push origin $COMMIT_SHA\%#:refs/heads/master
 [git delete remote branch] git push --delete origin $branch_name
+[git delete local branch] git branch --delete $branch_name # -D = --delete
 [git staged file diff] git diff --cached # <file>
 [git unstaged file diff] git diff
 [git both staged and unstaged file diff] git diff HEAD
