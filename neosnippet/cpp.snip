@@ -343,6 +343,9 @@ alias cast_shared_void_pointer
 abbr cast std::shared_ptr<void> to some pointer (also unique pointer)
 	(${0:#:dst pointer type}*)${1:#:smart pointer var name}.get()
 
+snippet mutex
+  std::unique_lock<std::mutex> lock(${0:mutex});
+
 snippet lock_guard
 	{
 	  std::lock_guard<decltype($2)> ${1:lock}(${2:#:mutex});
@@ -1176,3 +1179,12 @@ snippet char_to_string
 
 snippet chars_to_string
 	std::string(${1:#:char pointer}, ${0:#:len});
+
+snippet gettid
+	#include <unistd.h>
+	#include <sys/types.h>
+	#include <sys/syscall.h>
+	
+	pid_t gettid(void) {
+	  return syscall(SYS_gettid);
+	}${0}
