@@ -271,6 +271,9 @@
 [git patch force] git apply --reject \%# # rejected file generates xxx.rej at same directory of the file
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 
+[git search commit from derived branch] git show-branch --merge-base master\%# HEAD
+[git branch diff from derived branch] git diff $(git show-branch --merge-base master\%# HEAD) HEAD
+
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
 # [git current branch name] git name-rev --name-only HEAD
