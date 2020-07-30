@@ -50,6 +50,8 @@
 # FYI: [https://www\.kernel\.org/doc/Documentation/sysctl/vm\.txt]( https://www.kernel.org/doc/Documentation/sysctl/vm.txt ) see at drop_caches
 [ubuntu check drop file page cache size] free -m
 [ubuntu drop file page cache] sync; sudo sh -c "echo \%# > /proc/sys/vm/drop_caches" # 1:pagecache, 2:reclaimable slab objects (includes dentries and inodes), 3:slab objects and pagecache
+[check dirty page size] grep "Dirty" /proc/meminfo
+[flush dirty page] sync # You can confirm by grep "Dirty" /proc/meminfo
 [ubuntu screen recoder(movie capture)] kazam # for install: sudo apt-get install kazam
 
 [lsusb tree] lsusb -t
@@ -685,6 +687,8 @@
 # FYI: [exportfsコマンド：exportsファイルでのNFSの設定を反映する \| Step On Board]( http://www.lesstep.jp/step_on_board/linux/1106/ )
 [nfs update] sudo exportfs -ra
 [nfs show] sudo exportfs -v
+
+[disk partition list] fdisk -l
 
 # read
 [read] read -s sudo_pass
