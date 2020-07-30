@@ -35,7 +35,6 @@ go get -u github.com/ericchiang/pup
 
 # NOTE: csvdiff tool
 go get -u github.com/aswinkarthik/csvdiff
-go get -u github.com/mithrandie/csvq
 
 # NOTE: for cron visualization
 go get -u github.com/takumakanari/cronv/...

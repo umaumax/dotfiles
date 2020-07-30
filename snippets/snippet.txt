@@ -1548,7 +1548,6 @@
 [csv2markdown] cat \%# | tty-table # npm install -g tty-table
 [csv2markdown] csvtomd \%# # pip3 install csvtomd
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
-[csvq sql num sort] NUM=\%# ; CLASS= ; csvq "select $CLASS, COUNT(*) AS $NUM GROUP BY $CLASS HAVING COUNT(*) > 1 ORDER BY $NUM DESC"
 [csv colorful output] cat \$# | ccsv /dev/stdin # go get -u github.com/nak1114/ccsv
 [csv diff] daff \%# # pip3 install daff
 
