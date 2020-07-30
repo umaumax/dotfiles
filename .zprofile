@@ -255,6 +255,7 @@ export MORE='--quit-if-one-screen -MR'
 export GREP_COLOR='4;1;31'
 export GREP_COLORS='sl=0:cx=1;32:mt=1;31:ms=4;1;31:mc=1;31:fn=1;32:ln=34:bn=36:se=0;37'
 
+unset LS_COLORS
 # FYI: [sharkdp/vivid: A generator for LS\_COLORS with support for multiple color themes]( https://github.com/sharkdp/vivid )
 # export LS_COLORS="$(vivid generate snazzy)"
 # NOTE: disable because of too long output at env command
