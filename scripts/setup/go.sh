@@ -3,7 +3,6 @@ set -ex
 
 go get -u github.com/b4b4r07/gomi/...
 go get -u github.com/jingweno/ccat
-go get -u github.com/kentaro-m/md2confl
 go get -u github.com/mattn/files
 go get -u github.com/prasmussen/gdrive
 go get -u github.com/yudai/gotty

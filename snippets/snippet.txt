@@ -1744,9 +1744,6 @@
 [count threds per process(bash)] ( echo "pid name threads"; find /proc/[0-9]*/status | xargs grep -E '^(Name|Threads)' | perl -nle 'if (/^\/proc\/([0-9]+)\/.+:Name:\s+(.+)$/) { $p=$1; $n=$2 } elsif (/^\/proc\/([0-9]+)\/.+:Threads:\s+(.+)$/ && $1==$p) { print "$p $n $2" }' )
 [count threds per process(zsh) ] ( echo "pid name threads"; echo /proc/<0-9>*/status | xargs grep -E '^(Name|Threads)' | perl -nle 'if (/^\/proc\/([0-9]+)\/.+:Name:\s+(.+)$/) { $p=$1; $n=$2 } elsif (/^\/proc\/([0-9]+)\/.+:Threads:\s+(.+)$/ && $1==$p) { print "$p $n $2" }' )
 
-# markdown
-[markdown to confluence] md2confl \%# # go get -u github.com/kentaro-m/md2confl
-
 # lolcat
 [delay(annimated) cat] lolcat -a
 
