@@ -20,6 +20,9 @@ cargo install bingrep
 # NOTE: for vim deoplete-rust
 cargo +nightly install racer
 
+# NOTE: for enhanced ps command
+cargo install procs
+
 # NOTE: for adding lib dependency
 # cargo add xxx
 cargo install cargo-edit
