@@ -176,7 +176,10 @@ sudo update-locale LANG=ja_JP.UTF-8
 sudo apt-get install -y ldap-utils
 
 sudo apt-get install -y ntp
-sudo apt-get install -y bashdb
+
+# NOTE: Ubuntu 18.04 has no bashdb package
+# [apt \- How can I install bashdb on Ubuntu 18\.04 \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/440816/how-can-i-install-bashdb-on-ubuntu-18-04 )
+# sudo apt-get install -y bashdb
 
 # for nfs mount
 sudo apt-get install -y nfs-common
