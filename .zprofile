@@ -137,6 +137,10 @@ if [[ -d "/usr/lib/go-1.10" ]]; then
   append_path /usr/lib/go-1.10/bin
 fi
 
+if [[ -d "/snap/bin" ]]; then
+  append_path /snap/bin
+fi
+
 # c++
 mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
 if [[ -d ~/cpp ]]; then
