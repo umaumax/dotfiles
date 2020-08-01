@@ -44,16 +44,17 @@ Plug 'Shougo/neosnippet-snippets' " default snippets
 let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
 
 " not essential
-
-let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#enable_camel_case = 0
 let g:deoplete#enable_ignore_case = 0
-let g:deoplete#enable_refresh_always = 0
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#max_list = 10000
-
 call plug#end()
+
+call deoplete#custom#var('file', 'enable_buffer_path', v:true)
+call deoplete#custom#option({
+      \ 'auto_complete_start_length': 1,
+      \ 'enable_smart_case': v:true,
+      \ 'enable_refresh_always': v:false,
+      \ 'max_list': 10000,
+      \ })
 
 inoremap <expr><Tab> pumvisible() ? "\<C-n>" :
       \ neosnippet#expandable_or_jumpable() ?

@@ -157,7 +157,19 @@ if v:version >= 800 && has('python3')
   endif
   " [neovimの補完プラグインdeopleteが重い\(快適設定にする\) \- sinshutu\_kibotuの日記]( https://sinshutu-kibotu.hatenablog.jp/entry/2017/01/27/062757 )
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_complete_delay = 0
+  let g:deoplete#enable_camel_case = 0
+  let g:deoplete#enable_ignore_case = 0
+  augroup deoplete_config_group
+    autocmd!
+    autocmd VimEnter call deoplete#custom#option('auto_complete_delay', 0)
+    autocmd VimEnter call deoplete#custom#var('file', 'enable_buffer_path', v:true)
+    autocmd VimEnter call deoplete#custom#option({
+          \ 'auto_complete_start_length': 1,
+          \ 'enable_smart_case': v:true,
+          \ 'enable_refresh_always': v:false,
+          \ 'max_list': 10000,
+          \ })
+  augroup END
   if Doctor('pyls','python lsp')
   else
     " NOTE: zchee/deoplete-jedi 利用時
@@ -165,17 +177,10 @@ if v:version >= 800 && has('python3')
     " pythonのときに文字表示がおかしくなるときの対策として100ではなく200にするとわりと安定する?
     augroup deoplete_bug
       autocmd!
-      autocmd FileType * let g:deoplete#auto_complete_delay = 0
-      autocmd FileType python let g:deoplete#auto_complete_delay = 200
+      autocmd FileType * call deoplete#custom#option('auto_complete_delay', 0)
+      autocmd FileType python call deoplete#custom#option('auto_complete_delay', 200)
     augroup END
   endif
-  let g:deoplete#auto_complete_start_length = 1
-  let g:deoplete#enable_camel_case = 0
-  let g:deoplete#enable_ignore_case = 0
-  let g:deoplete#enable_refresh_always = 0
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#file#enable_buffer_path = 1
-  let g:deoplete#max_list = 10000
   " disable preview window(このウィンドウの影響である程度以上，候補が多いと点滅する(特に，中段~下段の候補を移動している時))
   set completeopt-=preview
   " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
