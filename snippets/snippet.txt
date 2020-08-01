@@ -1803,3 +1803,6 @@
 [little endian <-> big endian(64bit)] xxd -e -g8 /dev/stdin | xxd -r 
 [write by 4B units to binary] echo -n 6ffffffb\%# | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
 [write by 8B units to binary] echo -n 000000006ffffffb\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
+
+# snap
+[snap installed package file list] tree /snap/$PACKAGE\%#/current/
