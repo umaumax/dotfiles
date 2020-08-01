@@ -66,7 +66,10 @@ sudo apt-get install -y sshpass
 sudo apt-get install -y sshfs
 sudo apt-get install -y sshuttle
 sudo apt-get install -y imagemagick
-sudo apt-get install -y pdftk
+# NOTE: only Ubuntu16.04
+# sudo apt-get install -y pdftk
+# NOTE: for Ubuntu18.04 or later
+sudo snap install pdftk
 sudo apt-get install -y figlet
 sudo apt-get install -y expect
 sudo apt-get install -y pandoc
