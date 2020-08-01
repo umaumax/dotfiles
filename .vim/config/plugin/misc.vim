@@ -504,6 +504,7 @@ Plug '5t111111/neat-json.vim', {'for': 'json'}
 " to use this lib, you have to set filetype=gnuplot by autocmd
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
+let g:airline_extensions = []
 LazyPlug 'vim-airline/vim-airline'
 " NOTE: default settings
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
