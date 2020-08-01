@@ -938,7 +938,8 @@ function pipevim() {
   fi
 }
 # alias g='googler -n 5'
-alias xargs-vim='_xargs-vim -'
+# NOTE: for avoiding 'suspended (tty output)'
+alias xargs-vim='_xargs-vim - | command cat'
 # NOTE: VIMINFO_LS_N: number of max hit
 function viminfo-ls() {
   command cat ~/.vim_edit_log | grep -v '^$' | awk '!a[$0]++' \
