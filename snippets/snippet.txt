@@ -1806,3 +1806,6 @@
 
 # snap
 [snap installed package file list] tree /snap/$PACKAGE\%#/current/
+
+[force pkill] pkill -KILL \%#
+[force kill] kill -KILL \%#
