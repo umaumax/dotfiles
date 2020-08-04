@@ -1810,3 +1810,6 @@
 
 [force pkill] pkill -KILL \%#
 [force kill] kill -KILL \%#
+
+# vnc
+[ubuntu vnc] sudo gsettings set org.gnome.Vino require-encryption false; /usr/lib/vino/vino-server --display=:0
