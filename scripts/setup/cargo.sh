@@ -23,6 +23,12 @@ cargo +nightly install racer
 # NOTE: for enhanced ps command
 cargo install procs
 
+# NOTE: for enhanced grep command
+cargo install ripgrep
+
+# NOTE: not working at Mac OS X
+cargo install bandwhich
+
 # NOTE: for adding lib dependency
 # cargo add xxx
 cargo install cargo-edit
