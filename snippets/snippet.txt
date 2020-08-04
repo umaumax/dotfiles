@@ -1813,3 +1813,6 @@
 
 # vnc
 [ubuntu vnc] sudo gsettings set org.gnome.Vino require-encryption false; /usr/lib/vino/vino-server --display=:0
+
+# jenkins
+[jenkins pipeline groovy file lint(check)] curl -X POST -F "jenkinsfile=<$(readlink -f $JENKINS_PIPELINE_GROOVY_FILEPATH\#%)" $JENKINS_SERVER/pipeline-model-converter/validate # or use jenkins-lint command
