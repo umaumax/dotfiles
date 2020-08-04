@@ -83,6 +83,7 @@ brew install lighttpd
 
 brew install nmap
 brew install bashdb
+brew install fd
 
 # for bookmarklet
 brew install closure-compiler
