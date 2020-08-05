@@ -3240,6 +3240,25 @@ if cmdcheck peco; then
   }
 fi
 
+function jenkins-lint() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+  $(basename "$0") filepath
+EOF
+    return 1
+  fi
+  if [[ -z "$JENKINS_SERVER" ]]; then
+    echo 1>&2 "Not found JENKINS_SERVER environment variable e.g. JENKINS_SERVER=http://jenkins.example.com"
+    return 1
+  fi
+  local JENKINS_PIPELINE_GROOVY_FILEPATH=$1
+  local result=$(curl --silent -X POST -F "jenkinsfile=<$(readlink -f $JENKINS_PIPELINE_GROOVY_FILEPATH)" $JENKINS_SERVER/pipeline-model-converter/validate)
+  printf '%s\n' "$result"
+  if ! (printf '%s' "$result" | grep -q "Jenkinsfile successfully validated."); then
+    return 1
+  fi
+}
+
 # FYI: [If you need to 'diff' two dmesg files, you will find that the timestamps cause diff\-noise\. Remove the timestamps so that you get to the underlying diff\. · GitHub]( https://gist.github.com/kbingham/c96812ed4e6c26f1c0264a022ab91a88 )
 function dmesg-T-diff() {
   local file1=$1
