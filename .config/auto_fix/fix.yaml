@@ -45,6 +45,8 @@ _:
 - - install
 - - lambda
 - - line
+- - lint
+- - linter
 - - maintenance
 - - maintenance
 - - multi
