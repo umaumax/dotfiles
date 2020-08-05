@@ -297,8 +297,8 @@ if cmdcheck tig; then
   function tig() {
     if [[ $# == 0 ]]; then
       # NOTE: +5 means 'move to Changes not staged for commit line when no staged file'
-      command tig status '+5'
-      return
+      # NOTE: set "$@" as below
+      set -- status '+5'
     fi
     command tig "$@"
   }
