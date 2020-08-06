@@ -1420,28 +1420,21 @@ cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
 # for colordiff
 # NOTE: prezto has default diff function
 # FYI: [prezto/diff at master · sorin\-ionescu/prezto]( https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/functions/diff )
-if cmdcheck icdiff; then
-  function diff() {
-    if [[ -t 1 ]] && [[ -t 2 ]]; then
-      icdiff -U 1 --line-numbers "$@"
-    else
-      command diff "$@"
-    fi
-  }
-  alias git-icdiff='git difftool --extcmd icdiff -y | less'
-elif cmdcheck colordiff; then
-  function diff() {
-    if [[ -t 1 ]] && [[ -t 2 ]]; then
-      colordiff -u "$@"
-    else
-      command diff "$@"
-    fi
-  }
-else
-  function diff() {
-    diff -u "$@"
-  }
-fi
+function diff() {
+  # /usr/bin/diff failed with 'Bad file description' by process substitution with pipe
+  # icdiff, colordiff: ok
+  # command diff -u a.txt b.txt | delta
+
+  if cmdcheck icdiff; then
+    icdiff -U 1 --line-numbers "$@"
+    return
+  elif cmdcheck colordiff; then
+    colordiff -u "$@"
+    return
+  fi
+  command diff "$@"
+}
+alias git-icdiff='git difftool --extcmd icdiff -y | less'
 
 # install command: `brew install ccat` or `go get github.com/jingweno/ccat`
 if cmdcheck ccat; then
