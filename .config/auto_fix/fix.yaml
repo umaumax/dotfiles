@@ -27,6 +27,7 @@ _:
 - - definition
 - - deprecate
 - - deprecated
+- - destination
 - - destructor
 - - directive
 - - dirpath
