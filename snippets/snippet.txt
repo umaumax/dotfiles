@@ -196,6 +196,7 @@
 [git submodule init and update] git submodule update --init --recursive
 [git submodule force add] git submodule add -f \%#
 [git Another git process seems to be running in this repository...]  rm -f $(git rev-parse --show-toplevel)/.git/index.lock
+[git tag to specific commit] git tag $TAG $COMMIT
 [git tag delete (local)] git tag -d $TAG
 [git tag delete (remote)] git push --delete origin $TAG # required: 'git tag -d $TAG' in advance
 [git tag with message] git tag -a $TAG -m "$MESSAGE"
