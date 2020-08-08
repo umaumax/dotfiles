@@ -1118,6 +1118,7 @@ if cmdcheck tmux; then
     tmux new-session -s '____tmux-resurrect____' \; detach-client >/dev/null 2>&1
     # restore is ongoing at background
   }
+  alias ta='tmux-attach'
   alias tmuxa='tmux-attach'
   function tmux-attach() {
     is_in_tmux_with_message || return
