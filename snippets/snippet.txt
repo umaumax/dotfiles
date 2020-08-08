@@ -1283,7 +1283,7 @@
 
 [gdb running process backtrace (gstack)] gdb-backtrace # use this script than pstack command
 
-[gdb switch fd(stdin,out,err)] fdswap # my command
+[gdb switch fd(stdin,out,err)] fdswap # my command (you can also use reptyr or retty)
 
 # perf
 [git clone FlameGraph] cd ~/local/bin && git clone https://github.com/brendangregg/FlameGraph
