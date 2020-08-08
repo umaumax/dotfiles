@@ -1652,6 +1652,8 @@ function chpwd() {
   printf '%s\n' "$PWD" >>"$HOME/.cdinfo"
   set-dirname-title
 
+  type >/dev/null 2>&1 tmux && tmux set automatic-rename on
+
   # NOTE: auto python venv activate and deactivate
   function lambda() {
     local python_venv_activator='bin/activate'
