@@ -517,6 +517,7 @@
 [brew install local formula] brew install $FORMULA_FILEPATH
 [brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
 # linux
+[ubuntu version] lsb_release -r -s
 [linuxbrew clean cache] brew cleanup -s && rm -rf $HOME/.cache/Homebrew/
 [linuxbrew formula dirpath] ~/.linuxbrew/Library/Taps/homebrew/homebrew-core/Formula
 
@@ -1051,6 +1052,7 @@
 
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
+[realtime network conmmunication] sudo env PATH="$PATH" bandwhich # cargo install bandwhich
 
 # compile_commands.json
 [list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'
@@ -1305,6 +1307,8 @@
 [tmux show current window setting] tmux show-window-options
 [tmux fix fixed window title setting] tmux set automatic-rename on # run after restore session
 [tmux get current session name] tmux display-message -p '#S'
+[tmux dump variables] tmux display-message -a
+[tmux show variable] tmux display-message -p '#{pane_current_path\%#}'
 
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
@@ -1574,6 +1578,9 @@
 [bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
 
 # rust
+[rust install nightly] rustup install nightly
+[rust switch to nightly] rustup default $(rustup toolchain list | grep -o '^nightly-[^ ]*' | head -n 1)
+[rust add cross build target] rustup target add \%#
 [rust env_logger] RUST_LOG=debug \%#
 [ltrace cargo run] CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER=ltrace cargo run
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
