@@ -938,8 +938,13 @@ function pipevim() {
   fi
 }
 # alias g='googler -n 5'
-# NOTE: for avoiding 'suspended (tty output)'
-alias xargs-vim='_xargs-vim - | command cat'
+if [[ "$(uname -a)" =~ Ubuntu ]] && [[ $(lsb_release -r -s) == "18.04" ]]; then
+  # NOTE: for avoiding 'suspended (tty output)'
+  alias xargs-vim='_xargs-vim -| cat'
+else
+  alias xargs-vim='_xargs-vim -'
+fi
+
 # NOTE: VIMINFO_LS_N: number of max hit
 function viminfo-ls() {
   command cat ~/.vim_edit_log | grep -v '^$' | awk '!a[$0]++' \
