@@ -150,6 +150,7 @@
 
 # git
 [git init, add files, and commit] git init && git add -A -f . && git commit --no-verify
+[git no verify option ] --no-verify
 [git undo init commit] git update-ref -d HEAD
 # [git commit] git commit -m '\%#'
 [git push] git push -u origin master # normal push
@@ -1825,3 +1826,6 @@
 
 # jenkins
 [jenkins pipeline groovy file lint(check)] curl -X POST -F "jenkinsfile=<$(readlink -f $JENKINS_PIPELINE_GROOVY_FILEPATH\#%)" $JENKINS_SERVER/pipeline-model-converter/validate # or use jenkins-lint command
+
+# hostname
+[lookup hostname] uname -n # [【Linux】インフラエンジニアの僕が「hostname」コマンドを使わない理由とは？ \- Qiita]( https://qiita.com/satton6987/items/f50ad3df302290d1f544 )
