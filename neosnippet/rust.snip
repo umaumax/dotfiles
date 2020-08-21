@@ -59,3 +59,7 @@ snippet arc_mutex_new
 
 snippet thread_spawn
 	thread::spawn(move || {${0}});
+
+snippet args
+abbr use std::env;
+	let args: Vec<String> = env::args().collect();${0}
