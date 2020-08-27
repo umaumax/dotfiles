@@ -29,6 +29,7 @@ brew_install_formula_list=(
   go
   grep
   htop
+  hub
   icdiff
   imagemagick
   jid

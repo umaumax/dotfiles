@@ -13,6 +13,9 @@ brew install fzf    # 0.17.4
 brew install tmux   # 2.7
 brew install screen # 4.06.02
 brew install go     # 1.11
+# NOTE: [github/hub: A command\-line tool that makes git easier to use with GitHub\.]( https://github.com/github/hub )
+# We do not recommend installing the snap anymore.
+brew install hub
 
 brew install wget
 brew install tree
