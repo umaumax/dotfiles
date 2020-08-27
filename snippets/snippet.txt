@@ -355,6 +355,9 @@
 
 [git checkout -b at commit] git checkout -b $NEW_BRANCH\%# $COMMIT
 
+# hub
+[show pull request] hub pr list
+
 # tig
 [tig file history] tig $FILE
 [tig blame] tig blame $FILE
