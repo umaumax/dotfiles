@@ -357,6 +357,7 @@
 
 # hub
 [show pull request] hub pr list
+[create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
 
 # tig
 [tig file history] tig $FILE
