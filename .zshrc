@@ -242,7 +242,7 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 
 function command_not_found_handler() {
   # NOTE: this handler called in zle mode
-  if cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
+  if false && cmdcheck img2sixel && [[ $(uname) == "Darwin" ]]; then
     mkdir -p ~/.cache/zsh/
     local cache_not_found_img_dirpath="$HOME/.cache/zsh/not_found_img"
     mkdir -p "$cache_not_found_img_dirpath"
