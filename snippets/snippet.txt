@@ -1608,6 +1608,7 @@
 [rust arch target list] rustup target list
 [rust build unused function] RUSTFLAGS="-C link-dead-code" cargo build 
 [cargo with flags] RUSTFLAGS="\%#" cargo build 
+[rust 'Blocking waiting for file lock on package cache' while building] rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
