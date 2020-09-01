@@ -1127,8 +1127,9 @@ if cmdcheck copyq; then
   alias clipeco='clippeco'
   function clippeco() {
     local n
+    local max=${1:-30}
     local tab=${COPYQ_TAB:-'&clipboard'}
-    n=$(copyq eval -- "tab('$tab'); for(i=1; i<=size(); i++) print(str(read(i-1)) + '\0');" | perl -0ne 'BEGIN{$count=0} $_ =~ s/\n/\\n/g; printf("[%3d]:%s", $count,$_); $count++' | tr '\0' '\n' | bat -l js --plain --color always --theme "zenburn" | fzf --query="'" | sed -E 's/^\[[ ]*([0-9]+)\]:.*$/\1/g')
+    n=$(copyq eval -- "tab('$tab'); max=$max; if (max<0) max=size(); for(i=1; i<=max; i++) print(str(read(i-1)) + '\0');" | perl -0ne 'BEGIN{$count=0} $_ =~ s/\n/\\n/g; printf("[%3d]:%s", $count,$_); $count++' | tr '\0' '\n' | bat -l js --plain --color always --theme "zenburn" | fzf --query="'" | sed -E 's/^\[[ ]*([0-9]+)\]:.*$/\1/g')
     [[ -z $n ]] && return
     echo 1>&2 "${YELLOW}[log] copy copyq['$n']${DEFAULT}"
     copyq tab "$tab" read "$n" | tee >(bat -l js --plain --color always --theme "zenburn" >/dev/stderr) | c
