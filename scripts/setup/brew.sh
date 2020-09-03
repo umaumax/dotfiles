@@ -25,6 +25,7 @@ brew_install_formula_list=(
   gcc
   gdrive
   git
+  gitui
   gnu-sed
   go
   grep
