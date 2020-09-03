@@ -20,6 +20,7 @@ dotfiles=(
   .config/ranger/rc.conf
   .config/tilda/style.css
   .config/xkeysnail/config.py
+  .config/gitui/key_config.ron
   .gdbinit
   .inputrc
   .myclirc
@@ -103,6 +104,8 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf ~/dotfiles/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
   mkdir -p "$HOME/Library/Preferences/rustfmt/"
   ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
+  mkdir -p "$HOME/Library/Application Support/gitui/"
+  ln -sf ~/dotfiles/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
 fi
 
 eval "cat <<EOF
