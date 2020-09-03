@@ -29,6 +29,10 @@ cargo install ripgrep
 # NOTE: not working at Mac OS X
 cargo install bandwhich
 
+# cargo install gitui --version 0.10.1 # build error
+# cargo install gitui --version 0.10.0 # build error
+cargo install gitui --version 0.9.1
+
 # NOTE: for adding lib dependency
 # cargo add xxx
 cargo install cargo-edit
