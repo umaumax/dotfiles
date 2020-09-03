@@ -6,6 +6,8 @@ cd ${current_abs_directory_path%/}
 
 set -e
 
+DOTPATH=${DOTPATH:-~/dotfiles}
+
 # git submodule
 git submodule update -i
 
@@ -41,7 +43,7 @@ dotfiles=(
 for filepath in "${dotfiles[@]}"; do
   target_dirpath="$HOME/$(dirname "$filepath")/"
   mkdir -p "$target_dirpath"
-  ln -sf ~/dotfiles/"$filepath" "$target_dirpath"
+  ln -sf "$DOTPATH/$filepath" "$target_dirpath"
 done
 
 zsh_dotfiles=(
@@ -58,58 +60,58 @@ zsh_dotfiles=(
 )
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
 for filepath in "${zsh_dotfiles[@]}"; do
-  ln -sf ~/dotfiles/"$filepath" ~/.zsh/
+  ln -sf "$DOTPATH/$filepath" ~/.zsh/
 done
 
 # cp not ln -f
-[[ ! -f ~/.gitconfig ]] && cp ~/dotfiles/.tmpl.gitconfig ~/.gitconfig
-[[ ! -f ~/.local.vimrc ]] && cp ~/dotfiles/.tmpl.local.vimrc ~/.local.vimrc
-[[ ! -d ~/.local.git_template/ ]] && cp -R ~/dotfiles/.local.git_template ~/
+[[ ! -f ~/.gitconfig ]] && cp "$DOTPATH/.tmpl.gitconfig" ~/.gitconfig
+[[ ! -f ~/.local.vimrc ]] && cp "$DOTPATH/.tmpl.local.vimrc" ~/.local.vimrc
+[[ ! -d ~/.local.git_template/ ]] && cp -R "$DOTPATH/.local.git_template" ~/
 
 # cp .git_template dirs
 find .git_template/hooks -type d -not -name '.*' -print0 | xargs -0 -L 1 -IXXX mkdir -p "$HOME/XXX"
 # ln .git_template files
-find .git_template/hooks -type f -not -name '.*' -print0 | xargs -0 -L 1 -IXXX ln -sf "$HOME/dotfiles/XXX" "$HOME/XXX"
+find .git_template/hooks -type f -not -name '.*' -print0 | xargs -0 -L 1 -IXXX ln -sf "$DOTPATH/XXX" "$HOME/XXX"
 # -a: enable copy symbolic links
-find .git_template/hooks -type l -not -name '.*' -print0 | xargs -0 -L 1 -IXXX cp -a "$HOME/dotfiles/XXX" "$HOME/XXX"
+find .git_template/hooks -type l -not -name '.*' -print0 | xargs -0 -L 1 -IXXX cp -a "$DOTPATH/XXX" "$HOME/XXX"
 
 [[ ! -d ~/.vim/ ]] && mkdir -p ~/.vim
 # NOTE: windows ln behave like cp (to avoid 'cannot overwrite directory')
 if [[ $OS =~ Windows ]]; then
   [[ -e ~/.vim/config ]] && rm -rf ~/.vim/config
 fi
-ln -fs ~/dotfiles/.vim/config ~/.vim/
-ln -fs ~/dotfiles/.vim/patch ~/.vim/
+ln -fs "$DOTPATH"/.vim/config ~/.vim/
+ln -fs "$DOTPATH"/.vim/patch ~/.vim/
 
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME=".config"
 [[ ! -d "$HOME/$XDG_CONFIG_HOME" ]] && mkdir -p "$HOME/$XDG_CONFIG_HOME"
 
-ln -sf ~/dotfiles/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
+ln -sf "$DOTPATH"/.config/pep8 "$HOME/$XDG_CONFIG_HOME/pep8"
 
 # NOTE: auto create .config dir
 find .config -type d -print0 | xargs -0 -L 1 -IXXX mkdir -p "$HOME/XXX"
 
-ln -sf ~/dotfiles/.vimrc ~/.config/nvim/init.vim
-ln -sf ~/dotfiles/.config/golfix/*.golfix ~/.config/golfix/
-ln -sf ~/dotfiles/.config/auto_fix/* ~/.config/auto_fix/
-ln -sf ~/dotfiles/.config/autostart/*.desktop ~/.config/autostart/
+ln -sf "$DOTPATH"/.vimrc ~/.config/nvim/init.vim
+ln -sf "$DOTPATH"/.config/golfix/*.golfix ~/.config/golfix/
+ln -sf "$DOTPATH"/.config/auto_fix/* ~/.config/auto_fix/
+ln -sf "$DOTPATH"/.config/autostart/*.desktop ~/.config/autostart/
 
 if [[ $(uname) == "Linux" ]]; then
-  ln -sf ~/dotfiles/.config/pip/pip.conf ~/.config/pip/pip.conf
-  ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
+  ln -sf "$DOTPATH"/.config/pip/pip.conf ~/.config/pip/pip.conf
+  ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
 fi
 if [[ $(uname) == "Darwin" ]]; then
   # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
   mkdir -p "$HOME/Library/Application Support/pip/"
-  ln -sf ~/dotfiles/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
+  ln -sf "$DOTPATH"/.config/pip/pip.conf "$HOME/Library/Application Support/pip/pip.conf"
   mkdir -p "$HOME/Library/Preferences/rustfmt/"
-  ln -sf ~/dotfiles/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
+  ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
   mkdir -p "$HOME/Library/Application Support/gitui/"
-  ln -sf ~/dotfiles/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
+  ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
 fi
 
 eval "cat <<EOF
-$(<~/dotfiles/compile_flags.txt.bash.tmpl)
+$(<"$DOTPATH"/compile_flags.txt.bash.tmpl)
 EOF
 " >~/compile_flags.txt
 if [[ -f ~/compile_flags.local.txt ]]; then
@@ -129,15 +131,15 @@ function safe_ln() {
   # NOTE: target_file -> source_file
   ln -sf "$source_file" "$target_file"
 }
-safe_ln ~/dotfiles/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-safe_ln ~/dotfiles/.minimal.bashrc ~/.config/oressh/default/.bashrc
-safe_ln ~/dotfiles/.minimal.vimrc ~/.config/oressh/default/.vimrc
-safe_ln ~/dotfiles/.inputrc ~/.config/oressh/default/.inputrc
+safe_ln "$DOTPATH"/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+safe_ln "$DOTPATH"/.minimal.bashrc ~/.config/oressh/default/.bashrc
+safe_ln "$DOTPATH"/.minimal.vimrc ~/.config/oressh/default/.vimrc
+safe_ln "$DOTPATH"/.inputrc ~/.config/oressh/default/.inputrc
 
 if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
-  ls ~/dotfiles/.config/karabiner/assets/complex_modifications/ | while read -r filepath || [ -n "${filepath}" ]; do
+  ls "$DOTPATH"/.config/karabiner/assets/complex_modifications/ | while read -r filepath || [ -n "${filepath}" ]; do
     karabiner_name=${filepath#*.}
-    ln -sf ~/dotfiles/.config/karabiner/assets/complex_modifications/$filepath ~/.config/karabiner/assets/complex_modifications/$karabiner_name
+    ln -sf "$DOTPATH"/.config/karabiner/assets/complex_modifications/$filepath ~/.config/karabiner/assets/complex_modifications/$karabiner_name
   done
 fi
 
