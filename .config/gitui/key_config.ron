@@ -84,7 +84,7 @@
         ),
     ),
     exit_popup: (
-        code: Esc,
+        code: Char('q'),
         modifiers: (
             bits: 0,
         ),
