@@ -1,3 +1,4 @@
+// This config is valid v0.10.0 or later.
 (
     tab_status: (
         code: Char('1'),
