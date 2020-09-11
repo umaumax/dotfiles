@@ -105,6 +105,7 @@
 [docker compose update(rebuild)] docker-compose build && docker-compose stop && docker-compose up # you can build at running containers
 [docker info] docker inspect \%#
 [docker root login option] -u root
+[docker disk usage] sudo docker ps --format '{{.Names}}' | sudo xargs -L 1 -I{} docker exec {} bash -c "cd /home; echo {}; du -sh *"
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
