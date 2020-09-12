@@ -517,6 +517,7 @@
 [realtime log viewer] tail -f
 
 # mac
+[mac free command (check memory usage)] vm_stat
 [mac os version] sw_vers -productVersion
 [brew clean cache] brew cleanup -s
 [brew clean cache dry-run] brew cleanup -n
@@ -835,6 +836,7 @@
 # time
 [unix timestamp] date +%s
 [unix timestamp with millsec] date +%s%3N
+[ubuntu date after or ago] date -d "+90\%# days"
 
 # pgrep
 [pgrep with user info 1] ps wup $(pgrep -f \%#)
@@ -1098,7 +1100,7 @@
 [python cpu core info] python -c 'import multiprocessing as m; print(m.cpu_count());' # with hyper threads
 [linux cat log] cat /var/log/messages
 
-[ubuntu mother board info] sudo dmidecode -t baseboard
+[ubuntu mother board info (hint for machine model or maker)] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
 [ubuntu memory info] sudo lshw -class memory
 [ubuntu memory info] cat /proc/meminfo
@@ -1264,6 +1266,7 @@
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
 [ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
 [namei ubuntu] namei \%#
+[check symbolic link] for src in $(find .\%# -type l); do if [ -e "$src" ]; then printf 'OK'; else printf 'NG'; fi; printf ': %s -> %s\n' "$src" "$(readlink "$src")"; done # for busybox ls command
 
 # time
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
