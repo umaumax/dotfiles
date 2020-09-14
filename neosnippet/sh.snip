@@ -687,8 +687,13 @@ snippet no_auto_shfmt
 	)
 
 snippet pipestatus_bash_and_zsh
-alias pipe_exit_code
-	local exit_code=${PIPESTATUS[${1:#:cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
+alias pipe_exit_code_bash_and_zsh
+abbr bash:PIPESTATUS, zsh:pipestatus
+	local exit_code=${PIPESTATUS[${1:#:bash cmd idx 0,1,...}]:-$pipestatus[$(($1+1))]}${0}
+
+snippet pipestatus_bash
+alias pipe_exit_code_bash
+	${PIPESTATUS[${1:#:bash cmd idx 0,1,2,...}]}${0}
 
 snippet yes_or_no_zsh
 abbr default no
