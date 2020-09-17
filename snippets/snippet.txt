@@ -559,7 +559,7 @@
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
 [ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
 [ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
-[get public key from private key] ssh-keygen -y -f $ID_RSA
+[get public key from private key] ssh-keygen -y -f $ID_RSA # chmod 0600 $ID_RSA
 [remove key from ssh-agent] ssh-add -d <(ssh-add -L | cut -d" " -f1,2 | awk 'NR==\%#') # line:N?
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
