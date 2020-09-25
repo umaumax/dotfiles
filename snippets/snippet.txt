@@ -1617,6 +1617,7 @@
 [cargo build with compile commands] cargo build --verbose
 [rust dump some function] objdump -d \%# | c++filt | awk -v RS= '/^[[:xdigit:]]+ <std::env::var>/'
 [rust dump main function only] objdump -d \%# | awk -v RS= '/^[[:xdigit:]]+ <[0-9A-Za-z_]+main[0-9A-Za-z_]+>/'
+[rust repl] evcxr # cargo install evcxr_repl
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
