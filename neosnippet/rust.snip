@@ -63,3 +63,12 @@ snippet thread_spawn
 snippet args
 abbr use std::env;
 	let args: Vec<String> = env::args().collect();${0}
+
+snippet stopwatch
+alias calc_time
+	use std::time::Instant;
+
+	let start = Instant::now();
+	${0}
+	let end = start.elapsed();
+	println!("{} sec", end.as_secs_f64());
