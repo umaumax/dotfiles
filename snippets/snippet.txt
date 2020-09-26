@@ -1244,6 +1244,7 @@
 [diff only new line] diff -c $SRC_FILE\%# $DST_FILE | grep '^+'
 # mainly for cat /proc/interrupts files
 [diff between number] paste -d ' ' $SRC\%# $DST | awk -F' ' 'BEGIN{w=16} {for(i=1;i<=NF/2;i++){ a=$i; b=$(i+NF/2); if (a ~ /^[0-9]+$/ && b ~ /^[0-9]+$/) {printf("%"w"s", sprintf("%+d(%s)", int(b)-int(a), int(a)!=0?sprintf("%.1f%%", (int(b)-int(a))/int(a)*100.0):"-"))} else {printf("%"w"s", a)}; printf " " }; printf "\n"}' | grep '+[1-9][0-9]*'
+[diff with zsh process substitution] # use =() instead of <()
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
@@ -1265,7 +1266,7 @@
 # symbolic link
 [ln symbolic link file      overwrite] ln -sf $LINK_FILE_DST $LINK_FILE_SRC
 [ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
-[namei ubuntu] namei \%#
+[traverse symbolic link at ubuntu] namei \%#
 [check symbolic link] for src in $(find .\%# -type l); do if [ -e "$src" ]; then printf 'OK'; else printf 'NG'; fi; printf ': %s -> %s\n' "$src" "$(readlink "$src")"; done # for busybox ls command
 
 # time
@@ -1408,6 +1409,7 @@
 [grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
 [binary grep] bingrep \%# # cargo install bingrep
 [grep force even if binary] grep -a \%#
+[grep only highlight] grep -e '$' -e '\%#' # or use '|' or use '-C 99999'
 
 # linux
 [segmentation backtrace] catchsegv \%# # command
@@ -1528,6 +1530,7 @@
 # dummy file
 [dummy file : linux] fallocate -l \%# # 10(without B), 10K, 10M, 10G
 [dummy file : mac] mkfile -v \%# # 10(without B), 10K, 10M, 10G
+[dummy file] dd if=/dev/zero of=1G.bin bs=1024000 count=1000
 
 # vscode
 [vscode install extension] code --install-extension \%#
@@ -1784,6 +1787,7 @@
 # top
 [docker container top] ctop # brew install ctop (or nugget ctop or see [bcicen/ctop: Top\-like interface for container metrics]( https://github.com/bcicen/ctop ))
 [top log] top -b -d 1 -n 60 # 1sec * 60
+[htop ansi as html] echo q | htop | aha --black --line-fix > htop.html
 
 # systemd
 [systemd running service list] systemctl list-units --type=service
