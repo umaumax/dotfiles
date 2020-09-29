@@ -959,7 +959,7 @@ function viminfo-ls() {
 alias viminfo-ls-edit='vim ~/.vim_edit_log'
 
 function clean-vim-undofile() {
-  find ~/.vim/tmp -type f -maxdepth 1 -size +1M -ls -delete
+  find ~/.vim/tmp -maxdepth 1 -type f -size +1M -ls -delete
 }
 
 [[ -f ~/dotfiles/.min.plug.vimrc ]] && alias vimplugtest='vim -u ~/dotfiles/.min.plug.vimrc'
