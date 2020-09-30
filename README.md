@@ -18,6 +18,8 @@ git submodule update -i
 ./update_tools.sh # or colorbash ./update_tools.sh
 # for debug
 # GIT_WGET_DEBUG=1 colorbash ./update_tools.sh
+# for force update
+# GIT_WGET_TMP_DIR= ./update_tools.sh
 
 # for update
 git-update-dummy-alias

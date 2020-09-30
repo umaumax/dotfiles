@@ -34,7 +34,7 @@ mkdir -p "$LOCAL_BIN_PATH"
 cd "$LOCAL_BIN_PATH"
 
 set -e
-export GIT_WGET_TMP_DIR=~/.config/git-wget/
+export GIT_WGET_TMP_DIR=${GIT_WGET_TMP_DIR:-~/.config/git-wget/}
 
 zsh_completion_dirpath="$HOME/local/share/zsh/site-functions/"
 mkdir -p "$zsh_completion_dirpath"
