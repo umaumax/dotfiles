@@ -106,6 +106,7 @@
 [docker info] docker inspect \%#
 [docker root login option] -u root
 [docker disk usage] sudo docker ps --format '{{.Names}}' | sudo xargs -L 1 -I{} docker exec {} bash -c "cd /home; echo {}; du -sh *"
+[show docker container ip address] docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -921,6 +922,7 @@
 [rostest run tests] catkin_make tests # for 2nd or later?
 [rostest check results] catkin_test_results # WARN: run at rosroot
 [rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
+[rostest check results with color] catkin_test_results --verbose | bat -pp -l xml # WARN: run at rosroot
 [catkin_make] catkin_make --pkg $PACAKGE_NAME
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
