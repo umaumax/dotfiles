@@ -39,3 +39,6 @@ npm install -g phantomjs-prebuilt --unsafe-perm
 npm install -g align-yaml
 
 npm install -g yarn
+
+# for generating markdown Table of Contents
+npm install -g doctoc
