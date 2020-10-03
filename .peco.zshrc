@@ -779,12 +779,13 @@ alias gfvc='gfvimc'
 # git ls-files | pecovim
 # }
 alias gfvimc='git ls-files | pecovim'
-alias gfv='gfvim'
+alias gfv='gfvimc'
 # function gfvim() {
 # is_git_repo_with_message || return
 # git ls-files $(git rev-parse --show-toplevel) | pecovim
 # }
-alias gfvim='git ls-files $(git rev-parse --show-toplevel) | pecovim'
+alias gfvim='gfvimc'
+alias gfvimr='git ls-files $(git rev-parse --show-toplevel) | pecovim'
 
 # alias git-status-tabvim='vim -p `git status -s | -e "^ M" -e "^A" | cut -c4-`'
 # alias git-status-allvim='git-status-tabvim'
