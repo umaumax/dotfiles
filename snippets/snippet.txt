@@ -252,6 +252,8 @@
 [git vim diff files] git difftool --tool=vimdiff --no-prompt --trust-exit-code HEAD -- \%#
 [git diff side-by-side] ydiff -s # pip3 install --upgrade ydiff
 
+[git file edit log with patterns] git log --stat '*/\%#'
+
 [git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH\%# # you can use dir path
 
 [git list ignored files] git ls-files --other --ignored --exclude-standard
@@ -1341,6 +1343,7 @@
 
 # route
 [route add default gateway] sudo route add default gw \%# # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
+[add gateway to specific addr] sudo route add -net $TARGET_ADDR gw $GW_ADDR netmask 255.255.255.0 $NIC
 
 # static lib
 [nm: with object filename] nm -A \%#
@@ -1658,6 +1661,7 @@
 
 # ntp
 [ubuntu set time force (tmp ntp)] sudo date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
+[update time without ntp command] sudo date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g') -0000"
 
 # print0
 [print0] tr '\n' '\0'
