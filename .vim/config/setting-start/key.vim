@@ -876,14 +876,31 @@ if !exists("*Source")
   command! -nargs=? Reload call Source(<f-args>)
 endif
 
+function! AbsFilePathToGitRelFilePathWithRepoName(abs_filepath)
+  let escaped_filepath=shellescape(a:abs_filepath)
+  let cmd=printf('git -C $(dirname %s) ls-files --full-name %s', escaped_filepath, escaped_filepath)
+  let relpath= substitute(system(cmd), '\n$', '', '')
+  if relpath==''
+    return ''
+  endif
+  let cmd=printf('basename $(git -C $(dirname %s) rev-parse --show-toplevel)', escaped_filepath)
+  let repo_name= substitute(system(cmd), '\n$', '', '')
+  if repo_name==''
+    return ''
+  endif
+  return repo_name.'/'.relpath
+endfunction
+
 command! FileName     :let @+ = expand('%:t')               | echo '[COPY!]: ' . @+
 command! FilePath     :let @+ = expand('%:p')               | echo '[COPY!]: ' . @+
 command! FilePathNR   :let @+ = expand('%:p').':'.line('.') | echo '[COPY!]: ' . @+
+command! FilePathGit  :let @+ = AbsFilePathToGitRelFilePathWithRepoName(expand('%:p')) | echo '[COPY!]: ' . @+
 command! DirPath      :let @+ = expand('%:p:h')             | echo '[COPY!]: ' . @+
 command! DirName      :let @+ = expand('%:p:h:t')           | echo '[COPY!]: ' . @+
 command! CopyFileName   :FileName
 command! CopyFilePath   :FilePath
 command! CopyFilePathNR :FilePathNR
+command! CopyFilePathGit :FilePathGit
 command! CopyDirPath    :DirPath
 command! CopyDirName    :DirName
 
