@@ -107,8 +107,12 @@ abbr for nvim
 	system('zsh -c "(${0:#:command}) &" 2>&1 > /dev/null')
 
 snippet shellescape
+alias escape
 abbr for 'system' function
 	shellescape(${0:#:})
+
+snippet system_without_newline
+	substitute(system(${0}), '\n$', '', '')
 
 snippet dict_default
 alias default_dict
