@@ -604,7 +604,7 @@
 [pip search cui (fullmatch)] pip search
 [pip search gui] open "https://pypi.org/search/?q=\%#"
 [python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
-[pip install from github subdir] pip install "git+ssh://git@github.com/$USER_NAME\$#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
+[pip install from github subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
@@ -1293,8 +1293,8 @@
 [gdb with args] gdb --args # [exec command] [args...]
 [gdb without loading .gdbinit] gdb -n \%#
 [gdb server] gdbserver --multi localhost:10080
-[gdb swap stdout] echo -e 'call close(1)\ncall open("'"$(tty)\#%"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
-[gdb swap stderr] echo -e 'call close(2)\ncall open("'"$(tty)\#%"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
+[gdb swap stdout] echo -e 'call close(1)\ncall open("'"$(tty)\%#"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
+[gdb swap stderr] echo -e 'call close(2)\ncall open("'"$(tty)\%#"'", 66, 066)\ndetach\nquit' | sudo gdb -q -p $PID --nx # you can use filepath instead of tty
 [rust gdb] rust-gdb -q $(cargo metadata --format-version=1 | jq -r '(.target_directory + "/debug/" + (.workspace_root | gsub(".*/";"")))')
 [rust remote target debug] RUST_GDB=gdb-multiarch rust-gdb -q
 [check glibc version] ldd --version
@@ -1575,7 +1575,7 @@
 [csv2markdown] cat \%# | tty-table # npm install -g tty-table
 [csv2markdown] csvtomd \%# # pip3 install csvtomd
 [csv2svg] csv2svg \%# # go get -u github.com/umaumax/csv2svg/...
-[csv colorful output] cat \$# | ccsv /dev/stdin # go get -u github.com/nak1114/ccsv
+[csv colorful output] cat \%# | ccsv /dev/stdin # go get -u github.com/nak1114/ccsv
 [csv diff] daff \%# # pip3 install daff
 
 # yum
@@ -1825,10 +1825,10 @@
 [golang core dump generation enable] GOTRACEBACK=crash \%#
 
 # sudo
-[sudo with current PATH] sudo env PATH="$PATH" \$#
+[sudo with current PATH] sudo env PATH="$PATH" \%#
 [sudo su with current PATH] sudo su -p
 
-[show i-node number] ls -i \#%
+[show i-node number] ls -i \%#
 [search file from i-node] find \%# -inum $I_NODE
 [check device major/minor number] ls -l /dev/\%#
 
@@ -1851,7 +1851,7 @@
 [ubuntu vnc] sudo gsettings set org.gnome.Vino require-encryption false; /usr/lib/vino/vino-server --display=:0
 
 # jenkins
-[jenkins pipeline groovy file lint(check)] curl -X POST -F "jenkinsfile=<$(readlink -f $JENKINS_PIPELINE_GROOVY_FILEPATH\#%)" $JENKINS_SERVER/pipeline-model-converter/validate # or use jenkins-lint command
+[jenkins pipeline groovy file lint(check)] curl -X POST -F "jenkinsfile=<$(readlink -f $JENKINS_PIPELINE_GROOVY_FILEPATH\%#)" $JENKINS_SERVER/pipeline-model-converter/validate # or use jenkins-lint command
 
 # hostname
 [lookup hostname] uname -n # [【Linux】インフラエンジニアの僕が「hostname」コマンドを使わない理由とは？ \- Qiita]( https://qiita.com/satton6987/items/f50ad3df302290d1f544 )
