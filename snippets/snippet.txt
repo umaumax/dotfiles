@@ -1259,6 +1259,8 @@
 
 # heredoc
 [heredoc to filename] cat > $FILEPATH\%# << 'EOF'
+[heredoc to filename] cat << 'EOF' > $FILEPATH\%#
+[heredoc to pipe] cat << 'EOF' | \%#
 [string to pipe input] <<<"\%#"
 
 [linux: check shared lib path objdump -p] objdump -p \%# # readelf -d
