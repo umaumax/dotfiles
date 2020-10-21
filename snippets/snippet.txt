@@ -42,6 +42,7 @@
 [ubuntu apps settings] cd /usr/share/applications !
 # ubuntu network
 [ubuntu network reboot] sudo service networking restart
+[network reboot] sudo /etc/init.d/networking restart
 [ubuntu ip flush] sudo ip addr flush
 [ubuntu ip down up] NIC=\%# && sudo ifdown $NIC && sudo ifup $NIC
 # ubuntu *.deb install
