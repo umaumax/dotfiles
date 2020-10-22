@@ -211,6 +211,7 @@
 [git remote tag delete/remove] git push --delete origin $TAG
 [git update tags] git fetch --force --tags
 [git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
+[git 特定のcommitの特定のfileのdiff] git show $COMMIT\%# -- $FILEPATH
 [git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
