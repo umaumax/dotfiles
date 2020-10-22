@@ -1253,6 +1253,8 @@
 [diff between number] paste -d ' ' $SRC\%# $DST | awk -F' ' 'BEGIN{w=16} {for(i=1;i<=NF/2;i++){ a=$i; b=$(i+NF/2); if (a ~ /^[0-9]+$/ && b ~ /^[0-9]+$/) {printf("%"w"s", sprintf("%+d(%s)", int(b)-int(a), int(a)!=0?sprintf("%.1f%%", (int(b)-int(a))/int(a)*100.0):"-"))} else {printf("%"w"s", a)}; printf " " }; printf "\n"}' | grep '+[1-9][0-9]*'
 [diff with zsh process substitution] # use =() instead of <()
 [diff yaml or json] dyff between --omit-header # go get github.com/homeport/dyff/cmd/dyff
+[git diff to html] git diff | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
+[unified diff to html] command diff -u $SRC\%# $DST | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb

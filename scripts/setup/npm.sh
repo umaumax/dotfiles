@@ -42,3 +42,5 @@ npm install -g yarn
 
 # for generating markdown Table of Contents
 npm install -g doctoc
+
+npm install -g diff2html-cli
