@@ -222,7 +222,7 @@ function catkin_test_results() {
   cd $ros_ws_root >/dev/null 2>&1
   command catkin_test_results "$@"
   local exit_code=$?
-  cd -
+  cd - >/dev/null 2>&1
   return $exit_code
 }
 
