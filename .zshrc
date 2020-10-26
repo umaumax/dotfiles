@@ -2493,9 +2493,16 @@ function precmd_hook() {
   # to prevent `Vimを使ってくれてありがとう` at tab
   set-dirname-title
 }
+function preexec_hook() {
+  printf '\e[1A%*s\r' "$COLUMNS" ''
+  echo -n "\$ $1"
+  printf '%*s\n' "${#1}" ''
+}
+
 autoload -Uz add-zsh-hook
 add-zsh-hook zshaddhistory zshaddhistory_hook
 add-zsh-hook precmd precmd_hook
+add-zsh-hook preexec preexec_hook
 
 function detail_history() {
   cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'
