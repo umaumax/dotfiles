@@ -2497,6 +2497,8 @@ function precmd_hook() {
   set-dirname-title
 }
 function preexec_hook() {
+}
+
 function re-prompt() {
   # redraw right prompt for clean terminal
   if [[ -n "$RPROMPT" ]]; then
