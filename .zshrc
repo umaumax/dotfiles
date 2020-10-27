@@ -2487,6 +2487,9 @@ function zshaddhistory_hook() {
   fi
 }
 function precmd_hook() {
+  if [[ -n "$_RPROMPT" ]]; then
+    RPROMPT="$_RPROMPT"
+  fi
   cmdcheck cmdstack && cmdcheck cmdstack_len && [[ $(cmdstack_len) != 0 ]] && cmdstack
   # local cmd="$history[$((HISTCMD - 1))]"
   # NOTE: macのiTermでは必要ない(vimに関しては)
@@ -2494,10 +2497,16 @@ function precmd_hook() {
   set-dirname-title
 }
 function preexec_hook() {
-  printf '\e[1A%*s\r' "$COLUMNS" ''
-  echo -n "\$ $1"
-  printf '%*s\n' "${#1}" ''
+function re-prompt() {
+  # redraw right prompt for clean terminal
+  if [[ -n "$RPROMPT" ]]; then
+    _RPROMPT="$RPROMPT"
+  fi
+  RPROMPT=''
+  zle .reset-prompt
+  zle .accept-line
 }
+zle -N accept-line re-prompt
 
 autoload -Uz add-zsh-hook
 add-zsh-hook zshaddhistory zshaddhistory_hook
