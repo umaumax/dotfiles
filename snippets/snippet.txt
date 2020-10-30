@@ -271,6 +271,8 @@
 [git status without untracked-files] git status --untracked-files=no
 [git without cd] REPO_DIRPATH=$(realpath \%#) && git --git-dir "$REPO_DIRPATH/.git" -C "$REPO_DIRPATH" 
 
+[git common root of master and current branch] git show-branch | tail -n1 | perl -nle '$_=~/\[([^[\]]+)\]/;print $1;'
+
 [git discard staged changes in working directory] git checkout -- . # dangerous
 [git fetch remote branches] git fetch –all
 [git checkout remote branch as local] git checkout -t origin/\%#BRANCH_NAME
@@ -1107,6 +1109,7 @@
 [mac cpu core info] sysctl -a | egrep -e "hw.ncpu*|hw.activecpu*|hw.logicalcpu*|hw.physicalcpu*" # or sysctl -n hw.ncpu
 [python cpu core info] python -c 'import multiprocessing as m; print(m.cpu_count());' # with hyper threads
 [linux cat log] cat /var/log/messages
+[show syslog] cat /var/log/syslog
 
 [ubuntu mother board info (hint for machine model or maker)] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
@@ -1870,3 +1873,6 @@
 
 # backlight
 [control backlight at ubuntu] echo 100\%# | sudo tee /sys/class/backlight/intel_backlight/brightness # 0~1808
+
+# touch
+[update file access/modify/change date] touch \%# # you can check by stat command
