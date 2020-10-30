@@ -396,6 +396,7 @@
 # shell one liner
 [tab] $'\\t'
 [ol tac] perl -e 'print reverse<>'
+[ol cr2lf] sed "s/\r/\n/g"
 [ol ls -a without . and ..] ls -A
 [ol ls -a without . and ..] ls -a | tail -n +3
 [ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
