@@ -1983,15 +1983,7 @@ function swap() {
   [[ $? != 0 ]] && echo "err:$_l" && return 1
 }
 
-# 改行コード変換
-alias CR2LF='sed "s/\r/\n/g"'
-alias remove-blank-line='awk "NF > 0"'
-
 alias cl='clear'
-# alias t='touch'
-
-alias ty='type'
-alias wh='which'
 
 alias cmake-touch='touch CMakeLists.txt'
 
