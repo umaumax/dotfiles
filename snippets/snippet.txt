@@ -1845,11 +1845,15 @@
 [check device major/minor number] ls -l /dev/\%#
 
 # binary
-[hex to binary (big endian)] echo -n 1234abcd\%# | xxd -r -p - 
-[hex to binary (little endian 32bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r 
-[hex to binary (little endian 64bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r 
-[little endian <-> big endian(32bit)] xxd -e -g4 /dev/stdin | xxd -r 
-[little endian <-> big endian(64bit)] xxd -e -g8 /dev/stdin | xxd -r 
+[hex string to binary (big endian)] echo -n 1234abcd\%# | xxd -r -p - 
+[hex string to binary (little endian 32bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r 
+[hex string to binary (little endian 64bit)] echo -n 1234abcd | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r 
+[little endian <-> big endian(32bit binary)] xxd -e -g4 /dev/stdin | xxd -r 
+[little endian <-> big endian(64bit binary)] xxd -e -g8 /dev/stdin | xxd -r 
+[hex string endian reverse(32bit)] echo -n 1234abcd2345bcde\%# | fold -w8 | python3 -c "import sys, binascii; [print(binascii.hexlify(binascii.unhexlify(word.rstrip())[::-1]).decode(), end='') for word in sys.stdin.readlines()]"
+[hex string endian reverse(32bit)] echo -n 1234abcd2345bcde\%# | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r | xxd -p
+[hex string endian reverse(64bit)] echo -n 1234abcd2345bcde\%# | fold -w16 | python3 -c "import sys, binascii; [print(binascii.hexlify(binascii.unhexlify(word.rstrip())[::-1]).decode(), end='') for word in sys.stdin.readlines()]"
+[hex string endian reverse(64bit)] echo -n 1234abcd2345bcde\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | xxd -p
 [write by 4B units to binary] echo -n 6ffffffb\%# | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
 [write by 8B units to binary] echo -n 000000006ffffffb\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
 
@@ -1877,3 +1881,6 @@
 
 # touch
 [update file access/modify/change date] touch \%# # you can check by stat command
+
+# fold
+[split string to n chars] fold -w2 # default is 2
