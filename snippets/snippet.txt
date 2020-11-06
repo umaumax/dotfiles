@@ -473,6 +473,7 @@
 [g++ dynamic library flag] -shared -fPIC
 [g++ dynamic malloc library flag] -shared -fPIC $SRC -ldl # for correct way to manage default --as-needed option undefined symbol: dlsym
 [cpp c++11 verbose help] g++ -v --help
+[gcc dump command log(dry run)] g++ '-###'
 [c11] g++ -std=c++11 \%#
 [cpp c++11 compile] g++ -std=c++11 \%#
 [cpp c++11 compile] clang++ -std=c++11 \%#
