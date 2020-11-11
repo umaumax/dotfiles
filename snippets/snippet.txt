@@ -483,6 +483,7 @@
 [cpp demangle] echo "\%#" | c++filt
 [cpp demangle at dawrin] echo "\%#" | c++filt -n
 [cpp c++11 compile shared library] g++ -std=c++11 -shared -fPIC \%#
+[check compiled with -fPIC or not] readelf --relocs \%# | egrep '(GOT|PLT|JU?MP_SLOT)'
 [g++ warning options] -Wall -Wextra -Wformat=2 -Wstrict-aliasing=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith -Wswitch-enum # by binary-hacks book
 [g++ extract macro] TARGET_FILE=\%#; g++ -CC -E $TARGET_FILE | awk '/^# [0-9]*/ { FLAG=0; } /^# [0-9]* "'"$TARGET_FILE"'"/ { FLAG=1; } { if(FLAG) print $0;}'
 [g++ asm] g++ -S -fno-asynchronous-unwind-tables -g \%# # -fno-asynchronous-unwind-tables: disable CFI directive
