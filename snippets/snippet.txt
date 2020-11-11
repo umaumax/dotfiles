@@ -395,6 +395,7 @@
 
 # shell one liner
 [tab] $'\\t'
+[ol get line number of pattern] awk '/\%#/{ print NR; exit }'
 [ol tac] perl -e 'print reverse<>'
 [ol cr2lf] sed "s/\r/\n/g"
 [ol ls -a without . and ..] ls -A
