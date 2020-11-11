@@ -495,8 +495,8 @@ function git-log-example-peco() {
 
 # "-p[^/]HEAD": hit HEAD not origin/HEAD
 # -j.5: set cursor to middle line, but if HEAD is in first line, I want to scroll at from top, so use '+n16k'
-alias gl='git graph --color=always | less "-p[^/]HEAD" +n16k'
-alias glst='git graph-stat --color=always | less "-p[^/]HEAD" +n16k'
+alias gl='git graph --color=always | less +32k "-p[^/]HEAD"'
+alias glst='git graph-stat --color=always | less +32k "-p[^/]HEAD"'
 
 # [\`git remote add upstream\`を楽にする \| Tomorrow Never Comes\.]( http://blog.sgr-ksmt.org/2016/03/04/git_remote_add_upstream/ )
 function git-remote-add-upstream() {
