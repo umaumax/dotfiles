@@ -366,6 +366,9 @@
 
 [git checkout -b at commit] git checkout -b $NEW_BRANCH\%# $COMMIT
 
+[git is detached head or not] git rev-parse --abbrev-ref --symbolic-full-name HEAD # this gives me HEAD for a detached head, or the branch name on the other case.
+[git retag(local/remote)] TAG=\%#; git tag --delete "$TAG" && git push --delete origin "$TAG" && git tag "$TAG" && git push origin "$TAG" # or use git retag
+
 # hub
 [show pull request] hub pr list
 [create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
