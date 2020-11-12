@@ -514,6 +514,13 @@ function glst() {
   fi
 }
 
+function git-retag() {
+  is_git_repo_with_message || return
+  [[ $# -lt 1 ]] && echo "$(basename "$0") tag" && return 1
+  local tag="$1"
+  git tag --delete "$tag" && git push --delete origin "$tag" && git tag "$tag" && git push origin "$tag"
+}
+
 # [\`git remote add upstream\`を楽にする \| Tomorrow Never Comes\.]( http://blog.sgr-ksmt.org/2016/03/04/git_remote_add_upstream/ )
 function git-remote-add-upstream() {
   if ! type jq >/dev/null 2>&1; then
