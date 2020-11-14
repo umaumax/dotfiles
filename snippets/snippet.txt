@@ -423,6 +423,7 @@
 [ol awk variance] awk '{d[NR]=$1;avg+=$1}END{a=avg/NR;for(i in d)s+=(d[i]-a)^2;print s/(NR-1)}'
 [ol awk standard deviation] awk '{d[NR]=$1;avg+=$1}END{a=avg/NR;for(i in d)s+=(d[i]-a)^2;print sqrt(s/(NR-1))}'
 [ol awk grep regex range] awk '/\%#/,//' # '/BEGIN_STRING/,/END_STRING/'
+[ol awk display blocks between patterns] awk '/\%#/,//' # '/$start_pattern\%#/,/$stop_pattern/'
 # [ソートしないで重複行を削除する \- Qiita]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 [ol awk uniq without sort] awk '!a[$0]++'
 [ol perl uniq without sort] perl -ne 'print unless $count{$_}++'
