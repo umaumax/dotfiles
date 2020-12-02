@@ -1072,7 +1072,7 @@ if cmdcheck docker; then
   }
   function docker-remove-container() {
     local container_id=$(docker ps -a | peco | awk '{print $1}')
-    [[ -n $container_id ]] && docker rm $container_id
+    [[ -n $container_id ]] && { echo "$container_id" | xargs -L1 docker rm; }
   }
   function docker-container-id() {
     local ret=$(docker ps | peco | awk '{print $1}')
