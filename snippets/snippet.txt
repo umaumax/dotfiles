@@ -108,6 +108,7 @@
 [docker root login option] -u root
 [docker disk usage] sudo docker ps --format '{{.Names}}' | sudo xargs -L 1 -I{} docker exec {} bash -c "cd /home; echo {}; du -sh *"
 [show docker container ip address] docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
+[docker rename container] docker rename \%# # $SRC $DST
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -512,6 +513,9 @@
 
 # line filter
 [sed add header] sed '1i\%#'
+[insert line to specific range line] sed -e '$START\%#,$ENDs/^/#/g' file # start from 1
+[insert line(before) to specification pattern] sed -e '/$PATTERN/i\%#' file # space is ignored after i
+[insert line(after)  to specification pattern] sed -e '/$PATTERN/a\%#' file # space is ignored after a
 [sed line filter] sed -n $START\%#,${END}p # index starts with 1
 [sed line filter] sed -n \%#P # only line (index starts with 1)
 [sed (before) <= some line] sed -n '1,/\%#/p'
@@ -1721,7 +1725,7 @@
 [download fzf arm7 binary url] https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/socat
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/nano
-[download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/strace
+[download linux static binary] wget https://raw.githubusercontent.com/yunchih/static-binaries/master/strace
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/file
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/nm
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/arm/objdump
