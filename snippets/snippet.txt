@@ -1356,6 +1356,7 @@
 [nohup pseudo watch command] nohup bash -c 'i=0; while true; do sleep 1; bash -c "\%#"; i=$((i+1)); done' &
 [for one liner] for i in $(seq \%#); do echo $i; done
 [ntimes for command] for ((i=1; i <=\%# ; i++)); do\%$sleep 1\%$echo "$i"\%$echo 'error' |& grep -v 'error'\%$if [[ $? != 0 ]]; then\%$break\%$fi\%$done
+[loop command] i=0; while true; do bash -c "echo $i; \%# ;sleep 0.1;"; i=$((i+1)); done
 
 [stopwatch] time cat # stop:c-c
 
