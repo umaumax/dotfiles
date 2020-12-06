@@ -8,13 +8,13 @@ LazyPlug 'AndrewRadev/switch.vim'
 let g:switch_custom_definitions =
       \ [
       \   ['~', "\$HOME"],
-      \   'for c/c++ e.g. "xxx.hpp" <-> "xxx.h"',
+      "\  for c/c++ e.g. "xxx.hpp" <-> "xxx.h"
       \   {'"\([a-zA-Z0-9/\-_.]*\).h"' : '"\1.hpp"', '"\([a-zA-Z0-9/\-_.]*\).hpp"' : '"\1.h"'},
-      \   'for c/c++ e.g. #include "stdio" <-> #include <stdio>',
+      "\  for c/c++ e.g. #include "stdio" <-> #include <stdio>
       \   {'#include <\([a-zA-Z0-9/\-_.]\+\)>' : '#include "\1"', '#include "\([a-zA-Z0-9/\-_.]\+\)"' : '#include <\1>'},
-      \   'for general e.g. "xxx" '."<->"." 'xxx'",
+      "\  for general e.g. "xxx" '."<->"." 'xxx'
       \   {"'\\([^']*\\)'" : '"\1"', '"\([^"]*\)"' : "'\\1'"},
-      \   'for markdown e.g. ` '."<->"." ```",
+      "\  for markdown e.g. ` '."<->"." ```
       \   {"\\([^`]\\|^\\)`\\([^`]\\|$\\)" : '\1```\2', '\([^`]\|^\)```\([^`]\|$\)' : "\\1`\\2"},
       \   ['Nanoha', 'Fate', 'Hayate'],
       \   ['nanoha', 'fate', 'hayate'],
@@ -77,9 +77,9 @@ let g:switch_custom_definitions =
       \   ['begin', 'end'],
       \   ['first', 'second'],
       \   ['ifs', 'ofs'],
-      \   'for shell e.g. $(ls) <-> `ls`',
+      "\  for shell e.g. $(ls) <-> `ls`
       \   {'`\(.\+\)`' : '$(\1)', '$(\(.\+\))' : '`\1`'},
-      \   'for c/c++ e.g. i++ <-> ++i',
+      "\  for c/c++ e.g. i++ <-> ++i
       \   {'\(\w*\)++' : '++\1', '++\(\w*\)' : '\1++'},
       \   {'\(\w*\)--' : '--\1', '--\(\w*\)' : '\1--'},
       \   {
@@ -89,9 +89,6 @@ let g:switch_custom_definitions =
       \ ]
 " \   'for rust e.g. &xxx <-> xxx',
 " \   {'^&\([0-9a-zA-Z_]\+\)$' : '\1', '^\([0-9a-zA-Z_]\+\)$' : '\&\1'},
-
-" NOTE: drop comment
-call filter(g:switch_custom_definitions, "type(v:val) != type('comment')")
 
 function! s:toggle(value)
   let opt= a:value >= 0 ? {} : {'reverse': a:value}
