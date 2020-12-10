@@ -501,11 +501,11 @@ function git_is_detached_head() {
 # -j.5: set cursor to middle line, but if HEAD is in first line, I want to scroll at from top, so use '+n16k'
 function gl() {
   # show grpah even detached heads
-  git graph --color=always $(git rev-list -g --all) | less +32k "-p[^/]HEAD"
+  git graph --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
 }
 function glst() {
   # show grpah even detached heads
-  git graph-stat --color=always $(git rev-list -g --all) | less +32k "-p[^/]HEAD"
+  git graph-stat --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
 }
 
 function git-retag() {
