@@ -148,7 +148,8 @@ function to_prompt() {
 }
 function hpeco() {
   local HPECO_NUM=${HPECO_NUM:-1}
-  builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1 | to_prompt
+  # --no-sort: hight priority to history order
+  builtin history -nr $HPECO_NUM | shell_color_filter | fzf --query=$1 --no-sort | to_prompt
 }
 function hpecopy() {
   hpeco | tr -d '\n' | c
