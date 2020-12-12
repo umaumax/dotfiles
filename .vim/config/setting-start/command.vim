@@ -391,14 +391,20 @@ command! -nargs=* -complete=file DiffSplit call s:diff_split(<f-args>)
 command! DisableDeoplete :call deoplete#disable()
 command! EnableDeoplete :call deoplete#enable()
 
-function! s:git_url()
+function! s:git_url(...)
+  let opt_arg = get(a:, 1, {})
   " TODO: add arg to select target
   " TODO: enable this function even if current working directory is out of git repo dir
-  let cmd='git url '.expand('%').' '.line('.')." | tr -d '\n'"
+  let opt_cmd=''
+  if has_key(opt_arg, 'branch')
+    let opt_cmd='--branch ' . opt_arg['branch']
+  endif
+  let cmd='git url '.opt_cmd.' '.expand('%').' '.line('.')." | tr -d '\n'"
   let url=system(cmd)
   return url
 endfunction
 command! GitURL :let @+ = s:git_url() | echo '[COPY!]: ' . @+
+command! GitURLMaster :let @+ = s:git_url({'branch':'master'}) | echo '[COPY!]: ' . @+
 
 function! s:git_open()
   call OpenURL(s:git_url())
