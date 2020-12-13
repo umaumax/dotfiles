@@ -108,6 +108,7 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
   mkdir -p "$HOME/Library/Application Support/gitui/"
   ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
+  ln -sf "$DOTPATH"/.config/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
 fi
 
 eval "cat <<EOF

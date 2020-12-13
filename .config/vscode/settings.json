@@ -1,0 +1,9 @@
+{
+    "window.zoomLevel": -1,
+    "files.exclude": {
+        "**/*.meta": true
+    },
+    "terminal.integrated.env.osx": {
+        "PATH": "$PATH:$HOME/.dotnet"
+    }
+}
