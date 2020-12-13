@@ -39,6 +39,7 @@ brew_install_formula_list=(
   lcov
   lsd # The next gen ls command
   micro
+  mono # for unity(compltion)
   ninja
   node
   peco
