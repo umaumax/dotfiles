@@ -411,3 +411,14 @@ alias tempfile_generator
 	    temp_name = next(tempfile._get_candidate_names())
 	    return os.path.join(default_tmp_dir, temp_name)
 		${0}
+
+snippet dump_env_var
+	for key, val in os.environ.items():
+	    print('{}: {}'.format(key, val))
+	${0}
+
+snippet clean_cross_build_env_var
+	# force init cross build environment variables for pip command
+	for name in ["AR", "ARCH", "AS", "CC", "CXX", "LD", "NM", "PKG_CONFIG_LIBDIR", "PKG_CONFIG_PATH", "PKG_CONFIG_SYSROOT_DIR", "RANLIB"]:
+	    os.environ.pop(name, None)
+	${0}
