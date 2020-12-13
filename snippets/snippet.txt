@@ -3,6 +3,7 @@
 # \%$: \n
 
 # find
+[find exec snippet with md5sum or xargs] find . -name \%# | xargs -L1 md5sum
 [find root without home/docker dir] sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \) 
 [find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
 [find root dir] sudo find / -name "\%#" -exec grep --color=auto -H -n {} +
@@ -289,6 +290,8 @@
 
 [git search commit from derived branch] git show-branch --merge-base master\%# HEAD
 [git branch diff from derived branch] git diff $(git show-branch --merge-base master\%# HEAD) HEAD
+
+[git sed] git sed "s/\%#//g"
 
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
@@ -774,6 +777,7 @@
 [unload kernel] modprobe -r \%#
 [kernel module list of fs] modprobe -lt fs
 [list kernel module] lsmod
+[lsmod depenency graph] lsmod | perl -e 'print "digraph \"lsmod\" {";<>;while(<>){@_=split/\s+/; print "\"$_\" -> \"$_[0]\"\n" for split/,/,$_[3]}print "}"' | dot -Tsvg > kernel-module-dependency.svg
 
 # lsof
 [lookup pid from filepath] lsof $FILEPATH
@@ -1372,12 +1376,16 @@
 [route add default gateway] sudo route add default gw \%# # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
 [add gateway to specific addr] sudo route add -net $TARGET_ADDR gw $GW_ADDR netmask 255.255.255.0 $NIC
 
-# static lib
+# lib
 [nm: with object filename] nm -A \%#
 [nm: dynamic symbol] nm -AD \%# # e.g. calloc, free
 [nm: demangle] nm --demabgle \%# # or nm -C FYI: c++filt
 [nm: find all    -D] find . -name "*.so\%#" -exec nm -AD {} \; 2>/dev/null #     include dynamic symbol table
 [nm: find all no -D] find . -name "*.a\%#" -exec nm -A  {} \; 2>/dev/null # not include dynamic symbol table
+[nm: reverse resolution of undefined function] ldd \%# | grep -o -E '/[^ ]*' | xargs nm -AD | grep "$FUNC"
+
+[list lib dependency without ldd] readelf -a \%# | grep "Shared "
+[list lib dependency without ldd(arm)] arm-linux-gnueabihf-readelf -a \%# | grep "Shared "
 
 [elf: elf header] readelf -h \%#
 [elf: program header] readelf -l \%#
