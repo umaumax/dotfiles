@@ -1,5 +1,41 @@
 [
   {
+    "key": "ctrl+h",
+    "command": "cursorLeft"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "cursorRight"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "cursorUp"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "cursorDown"
+  },
+  {
+    "key": "tab",
+    "command": "selectNextQuickFix",
+    "when": "editorFocus && quickFixWidgetVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevQuickFix",
+    "when": "editorFocus && quickFixWidgetVisible"
+  },
+  {
+    "key": "tab",
+    "command": "selectNextSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
     "key": "cmd+right",
     "command": "workbench.action.nextEditor"
   },
