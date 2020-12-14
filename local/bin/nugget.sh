@@ -282,7 +282,7 @@ function nugget_ubuntu_bat() {
   cmdcheck bat && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   pushd "$tmpdir"
-  wget https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
+  wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
   sudo dpkg -i bat_*_amd64.deb
   rm -rf bat_*_amd64.deb
   popd
