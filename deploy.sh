@@ -109,6 +109,7 @@ if [[ $(uname) == "Darwin" ]]; then
   mkdir -p "$HOME/Library/Application Support/gitui/"
   ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
   ln -sf "$DOTPATH"/.config/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
+  ln -sf "$DOTPATH"/.config/vscode/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
 fi
 
 eval "cat <<EOF
