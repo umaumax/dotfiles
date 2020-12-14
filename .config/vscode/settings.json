@@ -1,9 +1,15 @@
 {
-    "window.zoomLevel": -1,
-    "files.exclude": {
-        "**/*.meta": true
-    },
-    "terminal.integrated.env.osx": {
-        "PATH": "$PATH:$HOME/.dotnet"
-    }
+  "window.zoomLevel": -1,
+  "editor.formatOnSave": false,
+  "[csharp]": {
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/*.meta": true
+  },
+  "terminal.integrated.env.osx": {
+    "PATH": "$PATH:$HOME/.dotnet"
+  },
+  "omnisharp.useGlobalMono": "always",
+  "omnisharp.monoPath": "/usr/local/opt/mono/"
 }
