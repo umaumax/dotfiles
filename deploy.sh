@@ -26,6 +26,7 @@ dotfiles=(
   .gdbinit
   .inputrc
   .myclirc
+  .omnisharp/omnisharp.json
   .replyrc
   .screenrc
   .textlintrc
