@@ -548,6 +548,8 @@
 [check SIP status] csrutil status
 [brew install local formula] brew install $FORMULA_FILEPATH
 [brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
+[brew check prefix (filepath location)] brew --prefix 
+
 # linux
 [ubuntu version] lsb_release -r -s
 [linuxbrew clean cache] brew cleanup -s && rm -rf $HOME/.cache/Homebrew/
@@ -940,6 +942,7 @@
 [rosbag fix] rosbag reindex *.bag.active && rosbag fix *.bag.active repaired.bag
 [roslaunch output screen] roslaunch --screen \%#
 
+[roslaunch file cat] bat -m '*.launch:XML' 
 
 [ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
@@ -1574,6 +1577,8 @@
 
 # vscode
 [vscode install extension] code --install-extension \%#
+[vscode list extensions] code --list-extensions
+[vscode force update all extensions] code --list-extensions | xargs -I {} code --install-extension {} --force
 
 # icon
 [icon icns(mac) extract] iconutil --convert iconset \%#
@@ -1909,3 +1914,9 @@
 
 # arch
 [display the machine's arch type] arch # uname -p [macos \ Why does arch output i386?]( https://apple.stackexchange.com/questions/140651/why-does-arch-output-i386 )
+
+[run piped script with arg] \#% | bash -s -- # arg1 arg2
+
+[delete chars(only for ascii)] colrm # $START(1~) $END(default:last)
+
+[report current working directory of a process] pwdx $PID # output is /proc/$PID/cwd
