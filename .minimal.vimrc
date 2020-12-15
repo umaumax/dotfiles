@@ -1,5 +1,3 @@
-" vi互換を切る
-set nocompatible
 " 新しい行のインデントを現在の行と同じにする
 set autoindent
 " タブの代わりに空白文字を挿入する
