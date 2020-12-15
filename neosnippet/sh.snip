@@ -115,6 +115,15 @@ snippet ispipe_in_if
 
 	fi
 
+snippet isredirect_or_pipe_out
+	[[ -f /dev/stdout ]] || [[ -p /dev/stdout ]] && ${0}
+snippet isredirect_or_pipe_out_if
+	[[ -f /dev/stdout ]] || if [[ -p /dev/stdout ]]; then
+		${0}
+	else
+
+	fi
+
 snippet isterminal_out
 	[[ -t 1 ]] && [[ -t 2 ]] && ${0}
 snippet isterminal_out_if
