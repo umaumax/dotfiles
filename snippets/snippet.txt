@@ -610,7 +610,7 @@
 [pip exec command filelist] pip show -f \%# | grep bin
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-[pip install from github] pip install https://github.com/$USER_NAME/$REPO_NAME\%#/archive/master.tar.gz
+[pip install from github] pip install \%#/archive/master.tar.gz # https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 [pip show] pip show \%# # e.g. Location
 [pip show with files] pip show -f \%#
@@ -1280,6 +1280,9 @@
 [diff yaml or json] dyff between --omit-header # go get github.com/homeport/dyff/cmd/dyff
 [git diff to html] git diff | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
 [unified diff to html] command diff -u $SRC\%# $DST | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
+[diff to  svg] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg diff.svg
+[diff to  png] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p raster diff.png
+[diff to html] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p html diff.html
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
