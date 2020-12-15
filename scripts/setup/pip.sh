@@ -55,6 +55,8 @@ pip3 install jupyter
 pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz
 pip install cmakelint
 
+pip3 install https://github.com/umaumax/AnsiToImg/archive/master.tar.gz
+
 # for translate
 pip3 install https://github.com/umaumax/gtrans/archive/master.tar.gz
 

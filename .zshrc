@@ -401,6 +401,12 @@ function homedir_normalization() {
   fi
 }
 
+# how to install
+# pip3 install https://github.com/umaumax/AnsiToImg/archive/master.tar.gz
+cmdcheck ansitoimg && function ansitoimg() {
+  COLUMNS=$COLUMNS command ansitoimg "$@"
+}
+
 # NOTE: -o nolookups: speedup
 cmdcheck ccze && alias ccze='ccze -A -o nolookups'
 
