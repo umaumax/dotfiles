@@ -44,7 +44,7 @@
     "command": "-workbench.action.nextEditor"
   },
   {
-    "key": "cmd+left",
+    "key": "shift+cmd+t",
     "command": "workbench.action.reopenClosedEditor"
   },
   {
