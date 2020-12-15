@@ -1284,6 +1284,10 @@
 [diff to  png] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p raster diff.png
 [diff to html] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p html diff.html
 
+[source code to  svg] bat --color=always \%# | ansitoimg code.svg
+[source code to  png] bat --color=always \%# | ansitoimg -p raster code.png
+[source code to html] bat --color=always \%# | ansitoimg -p html code.html
+
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
 [brew switch version] brew switch $formula\%# $version
