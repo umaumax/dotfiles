@@ -66,6 +66,8 @@ runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
 runtime! config/setting-end/*.vim
 
+syntax on
+
 if isdirectory(s:cwd)
   execute("lcd " . s:cwd)
 endif

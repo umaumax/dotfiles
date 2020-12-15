@@ -245,8 +245,6 @@ if exists('$TMUX')
 endif
 
 "#### END ####
-syntax on
-
 " ################ end of setting ################
 
 " [not work on Mac OSX Mavericks · Issue \#41 · suan/vim\-instant\-markdown]( https://github.com/suan/vim-instant-markdown/issues/41 )
