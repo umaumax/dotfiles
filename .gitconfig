@@ -198,6 +198,7 @@
   rebase = false
 [diff]
   compactionHeuristic = true
+  colorMoved = dimmed-zebra
 [delta]
     features = side-by-side decorations
     syntax-theme = 'Monokai Extended'
