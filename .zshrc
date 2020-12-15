@@ -1429,22 +1429,13 @@ cmdcheck src-hilite-lesspipe.sh && alias hless="src-hilite-lesspipe.sh"
 # at ubuntu
 [[ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && alias hless="/usr/share/source-highlight/src-hilite-lesspipe.sh"
 
-# for colordiff
-# NOTE: prezto has default diff function
-# FYI: [prezto/diff at master · sorin\-ionescu/prezto]( https://github.com/sorin-ionescu/prezto/blob/master/modules/utility/functions/diff )
-function diff() {
-  # /usr/bin/diff failed with 'Bad file description' by process substitution with pipe
-  # icdiff, colordiff: ok
-  # command diff -u a.txt b.txt | delta
-
-  if cmdcheck icdiff; then
-    icdiff -U 1 --line-numbers "$@"
-    return
-  elif cmdcheck colordiff; then
-    colordiff -u "$@"
-    return
+cmdcheck delta && function diff() {
+  if [[ -f /dev/stdout ]] || [[ -p /dev/stdout ]]; then
+    # redirect or pipe
+    command diff "$@"
+  else
+    command diff -u "$@" | delta
   fi
-  command diff "$@"
 }
 alias git-icdiff='git difftool --extcmd icdiff -y | less'
 
