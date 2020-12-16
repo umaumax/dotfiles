@@ -200,18 +200,18 @@
   compactionHeuristic = true
   colorMoved = dimmed-zebra
 [delta]
-  features = side-by-side decorations
+  features = decorations
   syntax-theme = 'Monokai Extended'
-  keep-plus-minus-markers = true
-  plus-color = "17"
-  minus-color = "#400000"
-  plus-emph-color = "21"
-  minus-emph-color = "#BF2040"
+  # keep-plus-minus-markers = true
 
 [delta "decorations"]
   file-style = bold yellow
   file-decoration-style = none
   hunk-header-decoration-style = cyan box ul
+  plus-style = syntax "17"
+  minus-style = syntax "#400000"
+  plus-emph-style = syntax "21"
+  minus-emph-style = syntax "#BF2040"
 [grep]
   lineNumber = true
 [fetch]
