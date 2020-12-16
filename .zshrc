@@ -2750,6 +2750,8 @@ cmdcheck say && function mississippi() {
   done
 }
 
+alias ssh='TERM=xterm-256color ssh'
+cmdcheck oressh && alias oressh='TERM=xterm-256color oressh'
 function ssh() {
   local exit_code=0
   if cmdcheck autossh; then
