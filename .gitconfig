@@ -200,6 +200,11 @@
   compactionHeuristic = true
   colorMoved = dimmed-zebra
 [delta]
+  # features = side-by-side decorations
+  # deltaのside-by-sideで1行が長いと切れる
+  # [dandavison/delta: A viewer for git and diff output]( https://github.com/dandavison/delta#side-by-side-view )
+  # > Wide lines in the left or right panel are currently truncated. If the truncation is a problem, one approach is to set the width of Delta's output to be larger than your terminal (e.g. delta --width 250) and ensure that less doesn't wrap long lines (e.g. export LESS=-RS); then one can scroll right to view the full content. (Another approach is to decrease font size in your terminal.)
+  # 現状は、`width`を長く設定すれば途切れないが、この長さはdiffの結果に依存して変化するので、大きい値にするとterminalで見にくいが小さい値にするとtruncateされることに注意
   features = decorations
   syntax-theme = 'Monokai Extended'
   # keep-plus-minus-markers = true
