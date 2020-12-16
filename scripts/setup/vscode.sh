@@ -11,6 +11,9 @@ extensions=(
   artdiniz.quitcontrol-vscode
   GitHub.vscode-pull-request-github
   jebbs.plantuml
+  wayou.vscode-todo-highlight
+  shardulm94.trailing-spaces
+  mosapride.zenkaku
 
   # for unity
   ms-dotnettools.csharp
