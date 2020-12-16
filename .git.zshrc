@@ -1105,3 +1105,37 @@ function bat-support-lang() {
     echo ".$ext"
   } | sort | uniq -d
 }
+
+function git-cat() {
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF 1>&2
+git cat file
+usage:
+  $(basename "$0") <commit> [relative filepath]
+EOF
+    return 1
+  fi
+
+  local commit="$1"
+  if [[ $(git cat-file -t "$commit") != "commit" ]]; then
+    return 1
+  fi
+  local filepath="${2:-$(git ls-files -- $(git rev-parse --show-toplevel) | fzf -m 1)}"
+  [[ -z "$filepath" ]] && return
+  {
+    git show "$commit":"$filepath"
+  } | {
+    if [[ ! -f /dev/stdout ]]; then
+      if type >/dev/null 2>&1 bat; then
+        local opt=()
+        local lang=$(bat-support-lang "$filepath")
+        [[ -n "$lang" ]] && opt=(-l "$lang")
+        bat --style=plain "${opt[@]}"
+      else
+        cat
+      fi
+    else
+      command cat
+    fi
+  }
+}
