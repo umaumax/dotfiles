@@ -1095,3 +1095,13 @@ EOF
     done
   }
 }
+
+function bat-support-lang() {
+  local file="$1"
+  local ext="${file##*.}"
+  {
+    bat --list-languages | cut -f1 | sed 's/[^:]*://' | tr ',' '\n' | sort | uniq
+    echo "$ext"
+    echo ".$ext"
+  } | sort | uniq -d
+}
