@@ -212,8 +212,12 @@
 [git latest named tag] git tag --sort=taggerdate | tail -n1
 [git remote tag delete/remove] git push --delete origin $TAG
 [git update tags] git fetch --force --tags
-[git 特定のtag(commit)の特定のファイルのcat] git show $TAG_OR_COMMIT:$FILEPATH
-[git 特定のcommitの特定のfileのdiff] git show $COMMIT\%# -- $FILEPATH
+[git cat file(interactive)] git show HEAD:$(git ls-files -- $(git rev-parse --show-toplevel) | fzf -m 1)
+[git cat specific commit] git show $TAG_OR_COMMIT:$FILEPATH # or use git cat
+[git diff specific commit file] git show $COMMIT\%# -- $FILEPATH
+[git get relative filepath] git ls-files -- $(git rev-parse --show-toplevel)
+[git filterd file log] git log -p HEAD -- $RELPATH
+[git filterd file log(interactive)] git log -p HEAD -- $(git ls-files -- $(git rev-parse --show-toplevel) | fzf -m)
 [git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
@@ -292,6 +296,8 @@
 [git branch diff from derived branch] git diff $(git show-branch --merge-base master\%# HEAD) HEAD
 
 [git sed] git sed "s/\%#//g"
+
+[git check if the commit exists] $(git cat-file -t "$commit\%#") != "commit"
 
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
@@ -462,6 +468,8 @@
 [ol split by string(cut)] perl -ne '@col=split(/\%#/); print(join(",", @col[0,1,2..$#col]));'
 [ol show one line as lines] sed -e 's/\s\+/ /g' | tr ' ' '\n'
 [ol realpath] python3 -c 'import sys,os.path; [print(os.path.realpath(v)) for v in list(sys.argv)[1:]]'
+[ol realpath get relative filepath] realpath --canonicalize-missing --no-symlinks --relative-to=$SRC\%# $DST
+[ol realpath get absolute filepath] realpath --canonicalize-missing --no-symlinks --relative-base=$SRC\%# $DST
 # NOTE: eval echo $filepath: extract ~ to $HOME
 [ol expand $HOME] perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}\/'
 
@@ -1312,6 +1320,7 @@
 [ln symbolic link directory overwrite] ln -sfn $LINK_DIR_DST $LINK_DIR_SRC
 [traverse symbolic link at ubuntu] namei \%#
 [check symbolic link] for src in $(find .\%# -type l); do if [ -e "$src" ]; then printf 'OK'; else printf 'NG'; fi; printf ': %s -> %s\n' "$src" "$(readlink "$src")"; done # for busybox ls command
+[check symbolic link(sudo)] for src in $(sudo find .\%# -type l); do if [ -e "$src" ]; then printf 'OK'; else printf 'NG'; fi; printf ': %s -> %s\n' "$src" "$(sudo readlink "$src")"; done
 
 # time
 # [shell \- How can I redirect the output of the "time" command? \- Stack Overflow]( https://stackoverflow.com/questions/2408981/how-can-i-redirect-the-output-of-the-time-command )
