@@ -500,8 +500,17 @@ function git_is_detached_head() {
 # "-p[^/]HEAD": hit HEAD not origin/HEAD
 # -j.5: set cursor to middle line, but if HEAD is in first line, I want to scroll at from top, so use '+n16k'
 function gl() {
-  # show grpah even detached heads
-  git graph --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
+  local filepath="$1"
+  if [[ -z $filepath ]]; then
+    # show grpah even detached heads
+    git graph --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
+  else
+    # 特定のファイルを編集したcommitをグラフでたどりたい
+    # [Show specific commits in git log, in context of other commits? \- Stack Overflow]( https://stackoverflow.com/questions/61510067/show-specific-commits-in-git-log-in-context-of-other-commits )
+    local pattern="$(git log --pretty=%h -- "$filepath" | perl -pe "chomp if eof" | tr '\n' '|')"
+    [[ -z "$pattern" ]] && echo "invalid filepath:$filepath" && return 1
+    git log --oneline --decorate=yes --graph --color=always | grep -E -e "^" -e "$pattern" --color=always | less -p"$pattern"
+  fi
 }
 function glst() {
   # show grpah even detached heads
