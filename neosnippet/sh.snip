@@ -154,6 +154,18 @@ snippet is_root_if
 snippet is_root
 	[[ "$(id -u)" == "0" ]] && ${0}
 
+snippet isabspath
+alias isnot_relpath
+	if [[ "${1:#:dir}" =~ ^/.* ]]; then
+		${0}
+	fi
+
+snippet isrelpath
+alias isnot_abspath
+	if [[ ! "${1:#:dir}" =~ ^/.* ]]; then
+		${0}
+	fi
+
 snippet trimspace
 	sed "s/^[ \t]*//" ${0}
 
