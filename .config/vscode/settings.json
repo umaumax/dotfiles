@@ -3,6 +3,8 @@
   "workbench.colorCustomizations": {
     "editor.selectionHighlightBackground": "#f002f088"
   },
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.smoothScrolling": true,
   "editor.formatOnSave": false,
   "[csharp]": {
     "editor.formatOnSave": true
