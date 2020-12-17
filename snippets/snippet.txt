@@ -125,8 +125,9 @@
 [cmake find modules] cmake --help-module-list | grep -e '^Find' | sed 's/Find//'
 [cmake confirm make install files] cmake -DCMAKE_INSTALL_PREFIX=$(mktemp -d install) .. # using by tmp dir way
 [cmake gui tool(edit cache var)] ccmake # sudo apt-get install -y cmake-curses-gui
-[cmake option list] cmake -LH ..
-[cmake option list] cmake .. && ccmake
+[cmake option list(text)] cmake -LA -N ..
+[cmake option list(GUI)] ccmake ..
+[cmake find_package debug] -DCMAKE_FIND_DEBUG_MODE=1
 
 # make
 [make debug verbose] make VERBOSE=1 \%# # made by autotoools or cmake
