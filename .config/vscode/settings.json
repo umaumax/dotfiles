@@ -1,4 +1,6 @@
 {
+  "explorer.confirmDragAndDrop": false,
+  "editor.copyWithSyntaxHighlighting": false,
   "window.zoomLevel": -1,
   "workbench.colorCustomizations": {
     "editor.selectionHighlightBackground": "#f002f088"
@@ -8,6 +10,11 @@
   "editor.formatOnSave": false,
   "[csharp]": {
     "editor.formatOnSave": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
   },
   "files.exclude": {
     "**/*.meta": true
