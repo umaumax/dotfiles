@@ -41,6 +41,12 @@ git-update-dummy-alias
 * `required`
   * tmux 3.1b or later
 
+## VSCode for Windows setup
+Run below code at PowerShell
+``` ps
+Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/vscode/settings.json -OutFile $HOME/AppData/Roaming/Code/User/settings.json
+```
+
 ### local setting
 #### files
 * `~/.local.zshrc`
