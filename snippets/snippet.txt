@@ -109,7 +109,8 @@
 [docker root login option] -u root
 [docker disk usage] sudo docker ps --format '{{.Names}}' | sudo xargs -L 1 -I{} docker exec {} bash -c "cd /home; echo {}; du -sh *"
 [show docker container ip address] docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
-[docker rename container] docker rename \%# # $SRC $DST
+[docker rename container] docker rename \%# # $SRC $DST # you can rename on running
+[docker log] docker logs --timestamps $CONTAINER_ID
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -302,7 +303,7 @@
 
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
-# [git current branch name] git name-rev --name-only HEAD
+# [git current branch name] git name-rev --name-only HEAD --exclude 'tags*'
 [git current branch name] git symbolic-ref --short HEAD
 [git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
@@ -379,6 +380,9 @@
 
 [git is detached head or not] git rev-parse --abbrev-ref --symbolic-full-name HEAD # this gives me HEAD for a detached head, or the branch name on the other case.
 [git retag(local/remote)] TAG=\%#; git tag --delete "$TAG" && git push --delete origin "$TAG" && git tag "$TAG" && git push origin "$TAG" # or use git retag
+
+[git log my commit] git log --author="$(git config --get user.name)"
+[git log my commit(all)] git log --all --author="$(git config --get user.name)"
 
 # hub
 [show pull request] hub pr list
