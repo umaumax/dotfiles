@@ -130,6 +130,8 @@
   pull-rebase-upstream-master = pull --rebase upstream master
   pull-rebase-origin-master = pull --rebase origin master
 
+  pull-dry-run  = !"git fetch origin; B=$(git rev-parse --abbrev-ref HEAD); git diff --stat --summary ${B}..origin/${B}"
+
   rebase-abort = rebase --abort
   rebase-undo-from-pre-commit = reset --hard HEAD
   rebase-undo-from-post-commit = reset --hard ORIG_HEAD
