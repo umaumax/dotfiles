@@ -14,6 +14,8 @@ extensions=(
   wayou.vscode-todo-highlight
   shardulm94.trailing-spaces
   mosapride.zenkaku
+  YoshinoriN.current-file-path
+  ms-vscode-remote.vscode-remote-extensionpack
 
   # for unity
   ms-dotnettools.csharp
