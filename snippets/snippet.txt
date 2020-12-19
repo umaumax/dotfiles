@@ -282,7 +282,7 @@
 
 [git discard staged changes in working directory] git checkout -- . # dangerous
 [git fetch remote branches] git fetch –all
-[git checkout remote branch as local] git checkout -t origin/\%#BRANCH_NAME
+[git checkout remote branch as local] git checkout -t origin/\%#BRANCH_NAME # use git-checkout-local(gcl)
 
 [git find detached commits] git fsck --lost-found
 
@@ -306,7 +306,7 @@
 [git current branch name] git symbolic-ref --short HEAD
 [git current tag name] git describe --tags
 [git current commit id] git rev-parse HEAD # or git rev-parse --short HEAD or git show -s --format=%H
-[git checkout local(create local branch)] git checkout -b $(git name-rev --name-only HEAD | sed 's:^remotes/origin/::' | sed -E 's/~.*$//')
+[git checkout local(create local branch)] git checkout -b $(git name-rev --name-only HEAD --exclude 'tags*' | sed 's:^remotes/origin/::' | sed -E 's/~.*$//') # use git-checkout-local(gcl)
 
 [git find file] git ls-files "*\%#"
 

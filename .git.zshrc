@@ -500,6 +500,7 @@ function git_is_detached_head() {
 # "-p[^/]HEAD": hit HEAD not origin/HEAD
 # -j.5: set cursor to middle line, but if HEAD is in first line, I want to scroll at from top, so use '+n16k'
 function gl() {
+  is_git_repo_with_message || return
   local filepath="$1"
   if [[ -z $filepath ]]; then
     # show grpah even detached heads
@@ -509,10 +510,23 @@ function gl() {
     # [Show specific commits in git log, in context of other commits? \- Stack Overflow]( https://stackoverflow.com/questions/61510067/show-specific-commits-in-git-log-in-context-of-other-commits )
     local pattern="$(git log --pretty=%h -- "$filepath" | perl -pe "chomp if eof" | tr '\n' '|')"
     [[ -z "$pattern" ]] && echo "invalid filepath:$filepath" && return 1
-    git log --oneline --decorate=yes --graph --color=always | grep -E -e "^" -e "$pattern" --color=always | less -p"$pattern"
+    git-log-pattern "$pattern"
   fi
 }
+function glme() {
+  is_git_repo_with_message || return
+  local filepath="$1"
+  local pattern="$(git log --all --pretty=%h --author="$(git config --get user.name)" | perl -pe "chomp if eof" | tr '\n' '|')"
+  git-log-pattern "$pattern"
+}
+function git-log-pattern() {
+  is_git_repo_with_message || return
+  [[ $# -lt 1 ]] && echo "$(basename "$0") pattern" && return 1
+  local pattern="$1"
+  git log --oneline --decorate=yes --graph --color=always | grep -E -e "^" -e "$pattern" --color=always | less -p"$pattern"
+}
 function glst() {
+  is_git_repo_with_message || return
   # show grpah even detached heads
   git graph-stat --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
 }
@@ -1064,13 +1078,14 @@ function git-coverage-review-result-csv() {
 
 function git-checkout-local() {
   local branch_name
-  branch_name=$(git name-rev --name-only HEAD)
+  branch_name=$(git name-rev --name-only HEAD --exclude 'tags*')
   if [[ ! $branch_name =~ ^remotes/origin/ ]]; then
     echo "${RED}current branch '$branch_name' is not remote branch${DEFAULT}"
     return 1
   fi
   local local_branch_name
   local_branch_name=${branch_name#remotes/origin/}
+  local_branch_name=${local_branch_name%\~*}
   git checkout -b "$local_branch_name"
 }
 
