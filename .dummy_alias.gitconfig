@@ -11,6 +11,7 @@
 	branch-new-to-old  = :
 	branch-old-to-new  = :
 	branch-peco  = :
+	cat  = :
 	check-up-to-date  = :
 	checkout-branch-peco  = :
 	checkout-commit-peco  = :
@@ -77,6 +78,7 @@
 	log-example-peco  = :
 	log-file-find-peco  = :
 	log-grep  = :
+	log-pattern  = :
 	log-peco  = :
 	log-src-grep-peco  = :
 	logs-HEAD  = :
@@ -101,6 +103,7 @@
 	reset-hard-peco  = :
 	reset-soft-peco  = :
 	restore-stash  = :
+	retag  = :
 	revert-files  = :
 	root  = :
 	search-open  = :
