@@ -16,6 +16,11 @@
     "command": "cursorDown"
   },
   {
+    "key": "ctrl+f",
+    "command": "deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
     "key": "tab",
     "command": "selectNextQuickFix",
     "when": "editorFocus && quickFixWidgetVisible"
