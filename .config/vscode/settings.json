@@ -17,6 +17,7 @@
     "**/node_modules/*/**": true
   },
   "files.exclude": {
+    "**/*.exe": true,
     "**/*.meta": true
   },
   "terminal.integrated.env.osx": {
