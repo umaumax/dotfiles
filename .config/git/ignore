@@ -258,7 +258,12 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 # ----
 
-
+# for asset store files
+Assets/*.meta
+Assets/*
+!Assets/Project/
 # for unity project local editor extensions
 Assets/Editor
 Assets/Editor.meta
+Assets/**/Editor
+Assets/**/Editor.meta
