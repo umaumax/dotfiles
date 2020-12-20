@@ -843,6 +843,10 @@
 [add update-alternatives   ] sudo update-alternatives --install $LINK_PATH $CONFIG_NAME $REAL_CMD_PATH $PRIORITY
 [switch update-alternatives] sudo update-alternatives --config $CMD
 
+[apt search specific file from remote apt-get packages] apt-file search # sudo apt-get install -y apt-file
+[apt search specific file from local apt-get packages] dpkg-query --search "*/\%#"
+[apt check dependency] apt-cache rdepends --installed $package
+
 # at docker
 [install lsof at docker] sudo apt-get install lsof
 
