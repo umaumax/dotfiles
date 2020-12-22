@@ -47,6 +47,12 @@ Run below code at PowerShell
 Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/vscode/settings.json -OutFile $HOME/AppData/Roaming/Code/User/settings.json
 ```
 
+## Windows Terminal for Windows setup
+Run below code at PowerShell
+``` ps
+Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/Microsoft.WindowsTerminal/settings.json -OutFile $env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+```
+
 ### local setting
 #### files
 * `~/.local.zshrc`
