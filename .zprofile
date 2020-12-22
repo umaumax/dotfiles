@@ -280,6 +280,10 @@ if [[ -z $DISPLAY ]]; then
   xset q >/dev/null 2>&1 || unset DISPLAY
 fi
 
+# NOTE: tmux stores the server socket in a directory under TMUX_TMPDIR or /tmp if it is unset.
+export TMUX_TMPDIR="$HOME/.tmux/tmp/"
+mkdir -p "$TMUX_TMPDIR"
+
 # NOTE: for my markdowns
 export MDROOT="$HOME/md"
 export MDLINK="$HOME/md/link"
