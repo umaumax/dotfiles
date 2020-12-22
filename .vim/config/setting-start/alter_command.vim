@@ -38,8 +38,13 @@ AlterCommand g[oogletrans] :OpenGoogleTranslate
 AlterCommand del[ete] Delete
 AlterCommand f[ile]n FileName
 AlterCommand f[ilename] FileName
+AlterCommand gu GitURL
+AlterCommand gum GitURLMaster
+AlterCommand fpg FilePathGit
+AlterCommand fp FilePath
 AlterCommand f[ile]p FilePath
 AlterCommand f[ilepath] FilePath
+AlterCommand ca CopyAll
 AlterCommand c[opy]a CopyAll
 AlterCommand c[opyall] CopyAll
 AlterCommand t[emplate] T
