@@ -11,6 +11,8 @@
 [find Don't descend directories on other filesystems. option] -xdev
 [find depth(BSD)] find . -depth 1 -type f
 [find depth(common)] find . -mindepth 1 -maxdepth 1 -type f
+[find size] find .\%# -size +1G -print
+[find size] find .\%# -size +1G -exec ls -lh {} \;
 
 [find remove empty directory] find . -type d -empty -delete
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
@@ -111,6 +113,7 @@
 [show docker container ip address] docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $INSTANCE_ID
 [docker rename container] docker rename \%# # $SRC $DST # you can rename on running
 [docker log] docker logs --timestamps $CONTAINER_ID
+[docker mount dirpath] docker ps --format "{{.Names}}" | xargs -L 1 -I{} bash -c "echo {}; docker inspect -f '{{ .Mounts }}' {}"
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -128,7 +131,7 @@
 [cmake gui tool(edit cache var)] ccmake # sudo apt-get install -y cmake-curses-gui
 [cmake option list(text)] cmake -LA -N ..
 [cmake option list(GUI)] ccmake ..
-[cmake find_package debug] -DCMAKE_FIND_DEBUG_MODE=1
+[cmake find_package debug] -DCMAKE_FIND_DEBUG_MODE=1 # 3.17~
 
 # make
 [make debug verbose] make VERBOSE=1 \%# # made by autotoools or cmake
@@ -1424,6 +1427,8 @@
 [elf: symbol header] readelf -s \%#
 [show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep -A 1 strtab | tr -d '\n' | xargs bash -c 'od --skip-bytes 0x$4 --read-bytes 0x$5 -t x1z '"$FILE_PATH"
 [show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep strtab | grep -o '\[[0-9]*\]' | sed 's/\[\|\]//g' | xargs -I{} readelf -x{} $FILE_PATH
+
+[strings? by readelf] target=\%#;readelf -S "$target" | grep "\[.*]" | awk '{print $2}' | grep '^\.' | xargs -L1 -I{} bash -c "echo {}1>&2; readelf -x {} '$target'" | grep -C 3 "$keyword"
 
 [static library: list objects] ar tv \%#
 
