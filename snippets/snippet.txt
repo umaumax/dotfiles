@@ -1950,3 +1950,8 @@
 [delete chars(only for ascii)] colrm # $START(1~) $END(default:last)
 
 [report current working directory of a process] pwdx $PID # output is /proc/$PID/cwd
+
+# display
+[set external 1st display input source setting] ddcctl -d 1 -i # DVI-1:3, DVI-2:4, HDMI-1:17, HDMI-2:18 # https://github.com/kfix/ddcctl
+[set external 1st display brightness to 0] ddcctl -d 1 -b 0
+[set external 1st display brightness to 100] ddcctl -d 1 -b 100
