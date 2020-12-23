@@ -16,6 +16,9 @@ extensions=(
   mosapride.zenkaku
   YoshinoriN.current-file-path
   ms-vscode-remote.vscode-remote-extensionpack
+  CoenraadS.bracket-pair-colorizer
+  ionutvmi.path-autocomplete
+  bwildeman.tabulous
 
   # for unity
   ms-dotnettools.csharp
