@@ -82,6 +82,10 @@
     [
         // new tab of "Ubuntu-16.04
         { "command": { "action": "newTab", "index": 2 }, "keys": "ctrl+t" },
+        { "command": "prevTab", "keys": "ctrl+left" },
+        { "command": "nextTab", "keys": "ctrl+right" },
+        { "command": "prevTab", "keys": "alt+left" },
+        { "command": "nextTab", "keys": "alt+right" },
         { "command": { "action": "switchToTab", "index": 0 }, "keys": "ctrl+1" },
         { "command": { "action": "switchToTab", "index": 1 }, "keys": "ctrl+2" },
         { "command": { "action": "switchToTab", "index": 2 }, "keys": "ctrl+3" },
