@@ -19,6 +19,8 @@ extensions=(
   CoenraadS.bracket-pair-colorizer
   ionutvmi.path-autocomplete
   bwildeman.tabulous
+  sygene.auto-correct
+  oderwat.indent-rainbow
 
   # for unity
   ms-dotnettools.csharp
