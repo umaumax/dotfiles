@@ -129,6 +129,7 @@
 	submodule-remove = :
 	submodule-remove  = :
 	tag-peco  = :
+	tags  = :
 	tmp-commit-force  = :
 	tmp-commit-force-undo  = :
 	typo-peco-vim  = :
