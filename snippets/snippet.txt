@@ -302,6 +302,8 @@
 
 [git sed] git sed "s/\%#//g"
 
+[git dump tag with date] git tags # oreore command
+
 [git check if the commit exists] $(git cat-file -t "$commit\%#") != "commit"
 
 # WARN: return 'HEAD' on remote branch

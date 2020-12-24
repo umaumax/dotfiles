@@ -531,6 +531,10 @@ function glst() {
   git graph-stat --color=always $(git rev-list -g --all) | less +32k "-p\(HEAD"
 }
 
+function git-tags() {
+  is_git_repo_with_message || return
+  git for-each-ref --sort=-creatordate --format '%(refname) %(creatordate:short) %(subject)' refs/tags | safe-cat-pipe cgrep '(refs/tags[^ ]*)|([0-9-]*)|([^ ]*)' 92,201,43
+}
 function git-retag() {
   is_git_repo_with_message || return
   [[ $# -lt 1 ]] && echo "$(basename "$0") tag [commit]" && return 1
