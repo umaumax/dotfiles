@@ -286,6 +286,22 @@ if cmdcheck thefuck; then
   }
 fi
 
+function safe-cat-pipe() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") command [args...]
+if command is exist at '\$PATH', run that command, otherwise run only cat command
+EOF
+    return 1
+  fi
+  local cmd="$1"
+  if type >/dev/null 2>&1 "$cmd"; then
+    "$@"
+  else
+    command cat
+  fi
+}
+
 # NOTE: or use: perl -e 'print reverse<>'
 cmdcheck tac || alias tac='tail -r'
 
