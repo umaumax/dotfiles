@@ -35,9 +35,14 @@
     {
       "languages": ["*"],
       "words": {
+        "+>": "=>",
+        "warn": "WARN:",
+        "todo": "TODO:",
+        "note": "NOTE:",
         "flaot": "float",
         "stuct": "struct",
-        "publci": "public",
+        "pravite": "private",
+        "{publci,pubcli}": "{public}",
         "hte": "the",
         "mispell": "misspell",
         "mispelled": "misspelled",
