@@ -286,6 +286,8 @@ if cmdcheck thefuck; then
   }
 fi
 
+cmdcheck unbuffer || alias unbuffer=''
+
 function safe-cat-pipe() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
@@ -2136,7 +2138,7 @@ function ifconfig() {
   local COLOR_END="\e[m"
   # `inet `: mac
   # `inet addr:`: ubuntu
-  command ifconfig "$@" \
+  unbuffer command ifconfig "$@" \
     | perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
@@ -2148,7 +2150,7 @@ function du() {
   if [[ -p /dev/stdout ]]; then
     command du -kh "$@"
   else
-    command du -kh "$@" \
+    unbuffer command du -kh "$@" \
       | perl -pe "s/^([ 0-9.]+[BK])/${GREEN}$&${DEFAULT}/; s/^([ 0-9.]+[M])/${YELLOW}$&${DEFAULT}/; s/^([ 0-9.]+[G])/${RED}$&${DEFAULT}/"
   fi
 }
@@ -2157,7 +2159,7 @@ function id() {
   if [[ -p /dev/stdout ]]; then
     command id "$@"
   else
-    command id "$@" \
+    unbuffer command id "$@" \
       | perl -pe "s/(\([^()]*\))/${LIGHT_BLUE}$&${DEFAULT}/g"
   fi
 }
@@ -2166,7 +2168,7 @@ function pstree() {
   if [[ -p /dev/stdout ]]; then
     command pstree "$@"
   else
-    command pstree "$@" \
+    unbuffer command pstree "$@" \
       | bat -l zsh --color always --plain | perl -pe "s/root/${RED}$&${DEFAULT}/; s/$USER/${GREEN}$&${DEFAULT}/"
   fi
 }
@@ -2175,7 +2177,7 @@ function env() {
   if [[ -p /dev/stdout ]] || [[ $# -gt 0 ]]; then
     command env "$@"
   else
-    command env "$@" \
+    unbuffer command env "$@" \
       | perl -pe "s/^([^=]+)/${GREEN}$&${DEFAULT}/g"
   fi
 }
