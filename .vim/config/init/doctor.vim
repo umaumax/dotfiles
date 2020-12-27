@@ -13,7 +13,7 @@ let s:doctor_map={
       \'code':         'brew cask install visual-studio-code || [Running Visual Studio Code on Linux]( https://code.visualstudio.com/docs/setup/linux )',
       \'cmake-format': 'pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz (pip install cmake_format)',
       \'cmakelint':    'pip install cmakelint',
-      \'cmigemo':      'brew install cmigemo || sudo apt-get install cmigemo',
+      "\ 'cmigemo':      'brew install cmigemo || sudo apt-get install cmigemo',
       \'clang-format': 'brew install clang-format || sudo apt0get install clang-format',
       \'cpplint':      'pip install cpplint',
       \'css-languageserver': 'npm install -g vscode-css-languageserver-bin',
