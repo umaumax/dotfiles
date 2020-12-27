@@ -44,3 +44,6 @@ npm install -g yarn
 npm install -g doctoc
 
 npm install -g diff2html-cli
+
+# for develop vscode plugin
+npm install -g vsce
