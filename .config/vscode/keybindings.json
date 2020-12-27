@@ -46,34 +46,34 @@
     "when": "terminalFocus"
   },
   {
-      "key": "ctrl+right",
-      "command": "workbench.action.terminal.focusNext",
-      "when": "terminalFocus"
+    "key": "ctrl+right",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
   },
   {
-      "key": "ctrl+left",
-      "command": "workbench.action.terminal.focusPrevious",
-      "when": "terminalFocus"
+    "key": "ctrl+left",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
   },
   {
-      "key": "alt+right",
-      "command": "workbench.action.terminal.focusNext",
-      "when": "terminalFocus"
+    "key": "alt+right",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
   },
   {
-      "key": "alt+left",
-      "command": "workbench.action.terminal.focusPrevious",
-      "when": "terminalFocus"
+    "key": "alt+left",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
   },
   {
-      "key": "ctrl+tab",
-      "command": "workbench.action.terminal.focusNext",
-      "when": "terminalFocus"
+    "key": "ctrl+tab",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
   },
   {
-      "key": "ctrl+shift+tab",
-      "command": "workbench.action.terminal.focusPrevious",
-      "when": "terminalFocus"
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
   },
   {
     "key": "cmd+right",
@@ -169,26 +169,28 @@
     "command": "vscode-extension-eval.action",
     "when": "editorHasSelection",
     "args": {
-    "lang": "ts",
+      "lang": "ts",
       "command": [
-      "function clamp(value: number, min: number, max: number): number {",
-      "  return Math.min(Math.max(value, min), max);",
-      "}",
-      "const editor = vscode.window.activeTextEditor!;",
-      "const document = editor.document;",
-      "const selection = editor.selection;",
-      "const startLine = document.lineAt(",
-      "  clamp(selection.start.line - 1, 0, document.lineCount - 1)",
-      ");",
-      "editor.selection = new vscode.Selection(",
-      "  startLine.range.start,",
-      "  selection.end",
-      ");",
+        "function clamp(value: number, min: number, max: number): number {",
+        "  return Math.min(Math.max(value, min), max);",
+        "}",
+        "const editor = vscode.window.activeTextEditor!;",
+        "const document = editor.document;",
+        "const selection = editor.selection;",
+        "const startLine = document.lineAt(",
+        "  clamp(selection.start.line - 1, 0, document.lineCount - 1)",
+        ");",
+        "editor.selection = new vscode.Selection(",
+        "  startLine.range.start,",
+        "  selection.end",
+        ");",
       ]
     },
   },
   // select all word under cursor by multi cursor: e.g. cmd+d, cmd+a alternative for cmd+shift+l
-  { "key": "cmd+a", "command": "editor.action.selectHighlights", "when": "editorHasSelection" },
+  {
+    "key": "cmd+a","command": "editor.action.selectHighlights","when": "editorHasSelection"
+  },
   // {
   //   "key": "ctrl+s",
   //   "command": "vim-search-and-replace.start",
@@ -229,7 +231,7 @@
         "    vscode.commands.executeCommand('vim-search-and-replace.start', word);",
         "    vscode.window.showInformationMessage('vscode-extension-eval: use ctrl+j or ctrl+k');",
         "})();",
-        ]
+      ]
     },
   },
   {
@@ -237,15 +239,15 @@
     "command": "vim-search-and-replace.expandSelection",
     "when": "vim-search-and-replace.active",
     "args": {
-        "down": 1
+      "down": 1
     }
   },
   {
-      "key": "ctrl+k",
-      "command": "vim-search-and-replace.expandSelection",
-      "when": "vim-search-and-replace.active",
-      "args": {
-          "up": 1
-      }
+    "key": "ctrl+k",
+    "command": "vim-search-and-replace.expandSelection",
+    "when": "vim-search-and-replace.active",
+    "args": {
+      "up": 1
+    }
   }
 ]
