@@ -850,3 +850,7 @@ snippet pid
 snippet shell_abs_path
 abbr valid only no command exec before, try at the top of shell
 	$_${0}
+
+snippet color_default
+alias color_reset
+	$'\e[m'${0}
