@@ -2155,6 +2155,12 @@ function du() {
   fi
 }
 
+if [[ $(uname) == "Darwin" ]]; then
+  function df() {
+    command df "$@" | safe-cat-pipe cgrep 'disk1s1.* ([0-9.]*Gi)' 198
+  }
+fi
+
 function id() {
   if [[ -p /dev/stdout ]]; then
     command id "$@"
