@@ -10,7 +10,10 @@
     "tab.unfocusedActiveBorder": "#000000"
   },
   "editor.rulers": [
-    80,160,240,320
+    80,
+    160,
+    240,
+    320
   ],
   "files.insertFinalNewline": true,
   "terminal.integrated.copyOnSelection": true,
@@ -24,6 +27,9 @@
   "[csharp]": {
     "editor.formatOnSave": true,
     "editor.codeLens": false
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true
   },
   "[typescript]": {
     "editor.formatOnSave": true
@@ -44,7 +50,9 @@
   "omnisharp.monoPath": "/usr/local/opt/mono/",
   "auto-correct.dictionary": [
     {
-      "languages": ["*"],
+      "languages": [
+        "*"
+      ],
       "words": {
         "+>": "=>",
         "warn": "WARN:",

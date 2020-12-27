@@ -189,7 +189,9 @@
   },
   // select all word under cursor by multi cursor: e.g. cmd+d, cmd+a alternative for cmd+shift+l
   {
-    "key": "cmd+a","command": "editor.action.selectHighlights","when": "editorHasSelection"
+    "key": "cmd+a",
+    "command": "editor.action.selectHighlights",
+    "when": "editorHasSelection"
   },
   // {
   //   "key": "ctrl+s",
