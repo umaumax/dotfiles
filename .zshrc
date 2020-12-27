@@ -2528,14 +2528,17 @@ add-zsh-hook zshaddhistory zshaddhistory_hook
 add-zsh-hook precmd precmd_hook
 add-zsh-hook preexec preexec_hook
 
+alias history_detail='detail_history'
 function detail_history() {
-  cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1'
+  cat ~/.detail_history | sed 's/^/'$(tput setaf 69)'/1' | sed 's/@/'$(tput setaf 202)' /1' | sed 's/@/'$(tput setaf 112)' /1' | sed 's/@/'$(tput setaf 99)' /1' | cat
 }
+alias history_recent='recent_history'
 function recent_history() {
   local n=${1:-20}
   cat ~/.detail_history | grep "$TTY" | cut -d"@" -f4 | tail -n $n
 }
 alias current_history='wd_history'
+alias history_wd='wd_history'
 function wd_history() {
   local n=${1:-20}
   cat ~/.detail_history | grep "@$(pwd)@" | cut -d"@" -f4 | tail -n $n
