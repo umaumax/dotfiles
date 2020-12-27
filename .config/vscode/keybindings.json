@@ -162,5 +162,90 @@
   {
     "key": "ctrl+9",
     "command": "-workbench.action.openEditorAtIndex9"
+  },
+  // for reverse expandLineSelection (cmd+l)
+  {
+    "key": "cmd+shift+l",
+    "command": "vscode-extension-eval.action",
+    "when": "editorHasSelection",
+    "args": {
+    "lang": "ts",
+      "command": [
+      "function clamp(value: number, min: number, max: number): number {",
+      "  return Math.min(Math.max(value, min), max);",
+      "}",
+      "const editor = vscode.window.activeTextEditor!;",
+      "const document = editor.document;",
+      "const selection = editor.selection;",
+      "const startLine = document.lineAt(",
+      "  clamp(selection.start.line - 1, 0, document.lineCount - 1)",
+      ");",
+      "editor.selection = new vscode.Selection(",
+      "  startLine.range.start,",
+      "  selection.end",
+      ");",
+      ]
+    },
+  },
+  // select all word under cursor by multi cursor: e.g. cmd+d, cmd+a alternative for cmd+shift+l
+  { "key": "cmd+a", "command": "editor.action.selectHighlights", "when": "editorHasSelection" },
+  // {
+  //   "key": "ctrl+s",
+  //   "command": "vim-search-and-replace.start",
+  //   "when": "editorFocus",
+  // },
+  {
+    "key": "ctrl+s",
+    "command": "vscode-extension-eval.action",
+    "when": "editorFocus",
+    "args": {
+      "lang": "ts",
+      "command": [
+        "import { TextEditor, Selection } from 'vscode';",
+        "function selectWordAtCursorPosition(editor: TextEditor): boolean {",
+        "    if (!editor.selection.isEmpty) {",
+        "        return true;",
+        "    }",
+        "    const cursorWordRange = editor.document.getWordRangeAtPosition(editor.selection.active);",
+        "    if (!cursorWordRange) {",
+        "        return false;",
+        "    }",
+        "    const newSe = new Selection(cursorWordRange.start.line, cursorWordRange.start.character, cursorWordRange.end.line, cursorWordRange.end.character);",
+        "    editor.selection = newSe;",
+        "    return true;",
+        "}",
+        "(() => {",
+        "    const editor = vscode.window.activeTextEditor!;",
+        "    if (!editor) { return; }",
+        "    let word = '';",
+        "    if (editor.selection.isEmpty) {",
+        "        if (!selectWordAtCursorPosition(editor)) {",
+        "            vscode.window.showInformationMessage('vscode-extension-eval: Can not get word at cursor!');",
+        "            return;",
+        "        }",
+        "    }",
+        "    word = editor.document.getText(editor.selection);",
+        "    console.log('word is', word);",
+        "    vscode.commands.executeCommand('vim-search-and-replace.start', word);",
+        "    vscode.window.showInformationMessage('vscode-extension-eval: use ctrl+j or ctrl+k');",
+        "})();",
+        ]
+    },
+  },
+  {
+    "key": "ctrl+j",
+    "command": "vim-search-and-replace.expandSelection",
+    "when": "vim-search-and-replace.active",
+    "args": {
+        "down": 1
+    }
+  },
+  {
+      "key": "ctrl+k",
+      "command": "vim-search-and-replace.expandSelection",
+      "when": "vim-search-and-replace.active",
+      "args": {
+          "up": 1
+      }
   }
 ]
