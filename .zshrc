@@ -2253,6 +2253,15 @@ function git-sed-gen-name-from-camelcase-pipe() {
   done
 }
 
+function vscode-extension-eval-encoder() {
+  echo '['
+  sed 's/'$'\t''/    /g' | sed 's/"/\\"/g' | sed -e 's/^/"/' -e 's/$/",/'
+  echo ']'
+}
+function vscode-extension-eval-decoder() {
+  sed -E 's/^ *([\["]|\])|",$//g' | sed '1{/^$/d}; ${/^$/d}'
+}
+
 alias jobs='jobs -l'
 # [裏と表のジョブを使い分ける \- ザリガニが見ていた\.\.\.。]( http://d.hatena.ne.jp/zariganitosh/20141212/fore_back_ground_job )
 cmdcheck stop || alias stop='kill -TSTP'
