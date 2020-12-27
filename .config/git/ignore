@@ -267,3 +267,5 @@ Assets/Editor
 Assets/Editor.meta
 Assets/**/Editor
 Assets/**/Editor.meta
+# for console c# exe file
+*.exe.meta
