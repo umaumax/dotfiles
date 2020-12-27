@@ -220,6 +220,7 @@ append_path "$HOME/.cargo/bin"
 
 # NOTE: disable brew analytics
 export HOMEBREW_NO_ANALYTICS
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # linuxbrew
 # FYI: [Linuxbrew \| The Homebrew package manager for Linux]( http://linuxbrew.sh/ )
