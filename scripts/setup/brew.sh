@@ -37,7 +37,6 @@ brew_install_formula_list=(
   jq
   libpng
   lcov
-  lsd # The next gen ls command
   micro
   mono # for unity(compltion)
   ninja
