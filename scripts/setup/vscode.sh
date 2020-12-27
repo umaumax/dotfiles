@@ -21,6 +21,7 @@ extensions=(
   bwildeman.tabulous
   sygene.auto-correct
   oderwat.indent-rainbow
+  Atishay-Jain.All-Autocomplete
 
   # for unity
   ms-dotnettools.csharp
