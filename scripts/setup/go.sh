@@ -82,6 +82,9 @@ go get -u github.com/umaumax/cgrep/...
 go get -u github.com/umaumax/terminal-truncate
 go get -u github.com/umaumax/gogt/...
 
+# my forked tools
+go get -u github.com/umaumax/jsonc/...
+
 # go get -v github.com/zquestz/s
 # cd $GOPATH/src/github.com/zquestz/s
 # make
