@@ -58,6 +58,9 @@ GSYMS
 !.gitattributes
 !.gitmodules
 
+# vscode extension
+!.vscodeignore
+
 # generated files
 GPL/include/vpu/autoconf.h
 GPL/include/vpu/version.h
