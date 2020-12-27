@@ -1158,20 +1158,19 @@ if cmdcheck copyq; then
 fi
 
 if cmdcheck tmux; then
-  if cmdcheck ccze; then
-    alias tmuxh='tmux-history'
-    function tmux-history() {
-      if [[ ! -n "$TMUX" ]]; then
-        echo 1>&2 'not in tmux'
-        return 1
-      fi
-      # | perl -0pe "s/^()(.*)(❯)(❯)(❯) ([^ ]*)/${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
-      # NOTE: -e: with ansi color, -p: output is stdout, -NUMBER: negative line number for rollback start line
-      local history_limit=$(tmux show-options -g history-limit | cut -d' ' -f2)
-      [[ -z $history_limit ]] && history_limit='10000'
-      tmux capture-pane -epS "-${history_limit}" \
-        | perl -ne "$(
-          cat <<'EOF'
+  alias tmuxh='tmux-history'
+  function tmux-history() {
+    if [[ ! -n "$TMUX" ]]; then
+      echo 1>&2 'not in tmux'
+      return 1
+    fi
+    # | perl -0pe "s/^()(.*)(❯)(❯)(❯) ([^ ]*)/${BLUE}\$2 ${RED}\$3${YELLOW}\$4${GREEN}\$5 ${PURPLE}\$6${DEFAULT}/g" \
+    # NOTE: -e: with ansi color, -p: output is stdout, -NUMBER: negative line number for rollback start line
+    local history_limit=$(tmux show-options -g history-limit | cut -d' ' -f2)
+    [[ -z $history_limit ]] && history_limit='10000'
+    tmux capture-pane -epS "-${history_limit}" \
+      | perl -ne "$(
+        cat <<'EOF'
 BEGIN {
   $flag=0;
   $line="";
@@ -1192,21 +1191,20 @@ END {
   }
 }
 EOF
-        )" \
-        | wrap_fzf_preview --multi --no-mouse --no-hscroll --preview-window 'down:70%' --query="'" \
-          --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' \
-        | remove-ansi | remove_terminal_extra_string
-    }
-    alias tmuxhvim='tmux-history-vim'
-    function tmux-history-vim() {
-      local ret
-      ret=$(tmux-history)
-      if [[ -z $ret ]]; then
-        return
-      fi
-      printf '%s' "$ret" | pipevim $(mktemp).log
-    }
-  fi
+      )" \
+      | wrap_fzf_preview --multi --no-mouse --no-hscroll --preview-window 'down:70%' --query="'" \
+        --bind='ctrl-x:cancel,btab:backward-kill-word,ctrl-g:jump,ctrl-f:backward-delete-char,ctrl-h:backward-char,ctrl-l:forward-char,shift-left:preview-page-up,shift-right:preview-page-down,shift-up:preview-up,shift-down:preview-down' \
+      | remove-ansi | remove_terminal_extra_string
+  }
+  alias tmuxhvim='tmux-history-vim'
+  function tmux-history-vim() {
+    local ret
+    ret=$(tmux-history)
+    if [[ -z $ret ]]; then
+      return
+    fi
+    printf '%s' "$ret" | pipevim $(mktemp).log
+  }
 fi
 
 function cargo-crate-local-history() {
