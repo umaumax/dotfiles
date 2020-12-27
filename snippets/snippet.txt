@@ -82,7 +82,7 @@
 # size
 ## h: human readable
 [file size(GUI)] ncdu # sudo apt-get install -y ncdu
-[file size(CUI)] du -sh $(find . -maxdepth 1)
+[file size(CUI)] du -sh $(find . -maxdepth 1 -not -name '.')
 # [file size] du -sh * # for zsh (setopt GLOB_DOTS)
 # [file size for bash] du -sh *
 # [file size for bash] du -sh .[^.]* * # both
@@ -257,6 +257,7 @@
 [git overwrite another branch file] git checkout $BRANCH_NAME $FILE_PATH_FROM_GIT_ROOT
 [git show another commit file] git show $COMMIT_ID:$FILE_PATH_FROM_GIT_ROOT
 [git only one commit log] COMMIT_ID=\%# && git log $COMMIT_ID...$COMMIT_ID~
+[git diff number of lines] git diff --stat
 [git diff from current branch] git diff $BRANCH\%# $REL_FILEPATH
 [git diff between branches] git diff $OLD_BRANCH:$REL_FILEPATH $NEW_BRANCH:$REL_FILEPATH
 [git diff grep] git diff -G \%#
@@ -567,6 +568,14 @@
 [brew install local formula] brew install $FORMULA_FILEPATH
 [brew install without tap] brew install $GIT_AUTHOR/$REPO_NAME/$FORMULA
 [brew check prefix (filepath location)] brew --prefix 
+[brew dependecy tree] brew deps --tree 
+[brew list reverese dependecy(global)] brew use 
+[brew list reverese dependecy(local)] brew use --installed
+[brew tap list only] HOMEBREW_NO_AUTO_UPDATE=1 brew tap
+[brew tap list with update] unset HOMEBREW_NO_AUTO_UPDATE; brew tap
+[brew list tap formulas (without cask)] brew list --full-name | grep '.*/.*'
+[brew list cask formulas] brew list --cask
+[brew tap all formulas] brew tap-info --json $TAP\%# | jq -r '.[]|(.formula_names[],.cask_tokens[])'
 
 # linux
 [ubuntu version] lsb_release -r -s
@@ -1078,7 +1087,8 @@
 
 # echo
 [echo  x char] echo -e "\\x61\%#"
-[echo unicode] echo -e "\\U1F363\%#"
+[echo unicode] echo -e "\\u2020\%#" # UCS-2
+[echo unicode] echo -e "\\U0001F363\%#" # UCS-4
 
 [unexport] unset \%# # remove export
 
@@ -1611,6 +1621,8 @@
 [vscode install extension] code --install-extension \%#
 [vscode list extensions] code --list-extensions
 [vscode force update all extensions] code --list-extensions | xargs -I {} code --install-extension {} --force
+[vscode open new project] code -n .
+[vscode open project(at active window)] code --add .
 
 # icon
 [icon icns(mac) extract] iconutil --convert iconset \%#
@@ -1675,6 +1687,7 @@
 [rust env_logger] RUST_LOG=debug \%#
 [ltrace cargo run] CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER=ltrace cargo run
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
+[cargo install list] cargo install --list
 [cargo create new lib crate] cargo new --lib \%#
 [cargo create new bin crate] cargo new --bin \%#
 [cargo test show output] cargo test -- --nocapture \%#
