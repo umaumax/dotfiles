@@ -100,6 +100,8 @@ ln -sf "$DOTPATH"/.config/autostart/*.desktop ~/.config/autostart/
 if [[ $(uname) == "Linux" ]]; then
   ln -sf "$DOTPATH"/.config/pip/pip.conf ~/.config/pip/pip.conf
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
+  ln -sf "$DOTPATH"/.config/Code/User/settings.json ~/.config/Code/User/settings.json
+  ln -sf "$DOTPATH"/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
 fi
 if [[ $(uname) == "Darwin" ]]; then
   # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
@@ -109,8 +111,8 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
   mkdir -p "$HOME/Library/Application Support/gitui/"
   ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
-  ln -sf "$DOTPATH"/.config/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
-  ln -sf "$DOTPATH"/.config/vscode/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
 fi
 
 eval "cat <<EOF

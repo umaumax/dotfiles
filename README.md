@@ -44,7 +44,8 @@ git-update-dummy-alias
 ## VSCode for Windows setup
 Run below code at PowerShell
 ``` ps
-Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/vscode/settings.json -OutFile $HOME/AppData/Roaming/Code/User/settings.json
+Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/Code/User/settings.json    -OutFile $HOME/AppData/Roaming/Code/User/settings.json
+Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/Code/User/keybindings.json -OutFile $HOME/AppData/Roaming/Code/User/keybindings.json
 ```
 
 ## Windows Terminal for Windows setup
