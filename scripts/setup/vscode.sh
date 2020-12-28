@@ -25,6 +25,8 @@ extensions=(
   christian-kohler.path-intellisense
   mhutchie.git-graph
   praveencrony.total-lines
+  eamodio.gitlens
+  tranhl.find-then-jump
 
   # for unity
   ms-dotnettools.csharp
