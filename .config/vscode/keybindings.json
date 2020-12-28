@@ -1,24 +1,48 @@
 [
   {
     "key": "ctrl+h",
-    "command": "cursorLeft"
+    "command": "cursorLeft",
+    "when": "isMac"
   },
   {
     "key": "ctrl+l",
-    "command": "cursorRight"
+    "command": "cursorRight",
+    "when": "isMac"
   },
   {
     "key": "ctrl+k",
-    "command": "cursorUp"
+    "command": "cursorUp",
+    "when": "isMac && textInputFocus"
   },
   {
     "key": "ctrl+j",
-    "command": "cursorDown"
+    "command": "cursorDown",
+    "when": "isMac && textInputFocus"
+  },
+  // for cmd + shift + p
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "isMac && inQuickOpen"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "isMac && inQuickOpen"
+  },
+  {
+    "key": "cmd+k cmd+j",
+    "command": "workbench.action.togglePanel"
   },
   {
     "key": "ctrl+f",
     "command": "deleteLeft",
-    "when": "textInputFocus"
+    "when": "isMac && textInputFocus"
+  },
+  {
+    "key": "cmd+j",
+    "command": "editor.action.joinLines",
+    "when": "editorTextFocus && !editorReadonly"
   },
   {
     "key": "tab",
@@ -43,17 +67,17 @@
   {
     "key": "ctrl+t",
     "command": "workbench.action.terminal.new",
-    "when": "terminalFocus"
+    "when": "isWindows && terminalFocus"
   },
   {
     "key": "ctrl+right",
     "command": "workbench.action.terminal.focusNext",
-    "when": "terminalFocus"
+    "when": "isWindows && terminalFocus"
   },
   {
     "key": "ctrl+left",
     "command": "workbench.action.terminal.focusPrevious",
-    "when": "terminalFocus"
+    "when": "isWindows && terminalFocus"
   },
   {
     "key": "alt+right",
@@ -163,6 +187,26 @@
     "key": "ctrl+9",
     "command": "-workbench.action.openEditorAtIndex9"
   },
+  {
+    "key": "cmd+k cmd+h",
+    "command": "workbench.action.editor.nextChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+k cmd+shift+h",
+    "command": "workbench.action.editor.previousChange",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+k cmd+h",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "isInDiffEditor"
+  },
+  {
+    "key": "cmd+k cmd+shift+h",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "isInDiffEditor"
+  },
   // for reverse expandLineSelection (cmd+l)
   {
     "key": "cmd+shift+l",
@@ -191,7 +235,7 @@
   {
     "key": "cmd+a",
     "command": "editor.action.selectHighlights",
-    "when": "editorHasSelection"
+    "when": "editorHasSelection && editorFocus && !findInputFocussed"
   },
   // {
   //   "key": "ctrl+s",
@@ -201,7 +245,7 @@
   {
     "key": "ctrl+s",
     "command": "vscode-extension-eval.action",
-    "when": "editorFocus",
+    "when": "isMac && editorFocus",
     "args": {
       "lang": "ts",
       "command": [
@@ -239,7 +283,7 @@
   {
     "key": "ctrl+j",
     "command": "vim-search-and-replace.expandSelection",
-    "when": "vim-search-and-replace.active",
+    "when": "isMac && vim-search-and-replace.active",
     "args": {
       "down": 1
     }
@@ -247,9 +291,14 @@
   {
     "key": "ctrl+k",
     "command": "vim-search-and-replace.expandSelection",
-    "when": "vim-search-and-replace.active",
+    "when": "isMac && vim-search-and-replace.active",
     "args": {
       "up": 1
     }
+  },
+  {
+    "key": "shift+enter",
+    "command": "findThenJump.initiate",
+    "when": "isMac && editorTextFocus"
   }
 ]
