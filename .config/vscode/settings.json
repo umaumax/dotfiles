@@ -2,12 +2,20 @@
   "explorer.confirmDragAndDrop": false,
   "editor.copyWithSyntaxHighlighting": false,
   "window.zoomLevel": -1,
+  "editor.renderLineHighlight": "all",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorWidth": 3,
+  "editor.cursorStyle": "line",
+  "editor.minimap.maxColumn": 80,
+  "editor.minimap.showSlider": "always",
   "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#404040",
     "editor.selectionHighlightBackground": "#f002f044",
     "tab.activeBorder": "#2266ff",
     "tab.unfocusedActiveBorder": "#000000",
     "editor.findMatchBorder": "#FDFF0CCC"
   },
+  "workbench.startupEditor": "none",
   "editor.rulers": [
     80,
     160,
@@ -23,6 +31,11 @@
   "editor.cursorSmoothCaretAnimation": true,
   "editor.smoothScrolling": true,
   "editor.formatOnSave": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
   "[csharp]": {
     "editor.formatOnSave": true,
     "editor.codeLens": false
@@ -33,9 +46,15 @@
   "[typescript]": {
     "editor.formatOnSave": true
   },
+  "files.associations": {
+    "*.txt": "markdown"
+  },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
+  "search.exclude": {
     "**/node_modules/*/**": true
   },
   "files.exclude": {
@@ -47,6 +66,7 @@
   },
   "omnisharp.useGlobalMono": "always",
   "omnisharp.monoPath": "/usr/local/opt/mono/",
+  "gitlens.hovers.changesDiff": "hunk",
   "auto-correct.dictionary": [
     {
       "languages": [
@@ -57,6 +77,7 @@
         "warn": "WARN:",
         "todo": "TODO:",
         "note": "NOTE:",
+        "forcus": "focus",
         "flaot": "float",
         "stuct": "struct",
         "pravite": "private",
@@ -71,5 +92,6 @@
   ],
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
-  "plantuml.commandArgs": []
+  "plantuml.commandArgs": [],
+  "gitlens.hovers.currentLine.over": "line"
 }
