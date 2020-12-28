@@ -22,6 +22,9 @@ extensions=(
   sygene.auto-correct
   oderwat.indent-rainbow
   Atishay-Jain.All-Autocomplete
+  christian-kohler.path-intellisense
+  mhutchie.git-graph
+  praveencrony.total-lines
 
   # for unity
   ms-dotnettools.csharp
