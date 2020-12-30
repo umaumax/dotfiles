@@ -1,6 +1,13 @@
 - name: text
   patterns: ["\"[^\"]*\"", "'[^\']*'"]
   color: "#ffff5f"
+- name: git
+  patterns: ["[^a-zA-Z0-9](modified|add|restore|change|checkout)[^a-zA-Z0-9]"]
+  color: "125"
+  modified:
+- name: label
+  patterns: ["[^a-zA-Z0-9](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9]"]
+  color: "209"
 - name: space_for_time
   patterns: [" +"]
   color: "#000000"
@@ -46,15 +53,8 @@
 - name: type
   patterns: ["int", "float", "string", "double"]
   color: "30"
-- name: git
-  patterns: ["[^a-zA-Z0-9](modified|add|restore|change)[^a-zA-Z0-9]"]
-  color: "125"
-  modified:
-- name: label
-  patterns: ["[^a-zA-Z0-9](tmp|fix|wip|TODO:|comment)[^a-zA-Z0-9]"]
-  color: "209"
 - name: keyword
-  patterns: ["get", "set", "class", "private", "public", "protected"]
+  patterns: ["get", "set", "class", "private", "public", "protected", "size", "version", "type", "file", "path","directory","funcion","func","time"]
   color: "46"
 - name: colon
   patterns: ["[0-9a-zA-Z]+:"]
@@ -62,6 +62,18 @@
 - name: hex
   patterns: ["0x[0-9a-fA-F]+"]
   color: "197"
+- name: fatal
+  patterns: ["fatal|failure|not"]
+  color: "160"
+- name: complete
+  patterns: ["done|end|open"]
+  color: "155"
+- name: warning
+  patterns: ["close|warning|warn"]
+  color: "226"
+- name: resume
+  patterns: ["resume"]
+  color: "123"
 # below config takes a time to generate regex pattern
 # - name: fatal
 #   patterns: ["alarm|alarmable|alarmed|alarmedly|alarming|alarmingly|alarmism|alarmist|critch|criteria|criteriology|criterion|criterional|criterium|crith|Crithidia|crithmene|crithomancy|critic|critical|criticality|critically|criticalness|criticaster|criticasterism|criticastry|criticisable|criticism|criticist|criticizable|criticize|criticizer|criticizingly|critickin|criticship|criticule|critique|critling|error|errorful|errorist|errorless|fail|failing|failingly|failingness|faille|failure|false|falsehearted|falseheartedly|falseheartedness|falsehood|falsely|falsen|falseness|falser|falsettist|falsetto|falsework|fatal|fatalism|fatalist|fatalistic|fatalistically|fatality|fatalize|fatally|fatalness|invalid|invalidate|invalidation|invalidator|invalidcy|invalidhood|invalidish|invalidism|invalidity|invalidly|invalidness|invalidship"]
