@@ -29,7 +29,7 @@ extensions=(
   tranhl.find-then-jump
   rust-lang.rust
   zhengxiaoyao0716.intelligence-change-case
-
+  be5invis.toml
   # for unity
   ms-dotnettools.csharp
   ms-vscode.mono-debug
