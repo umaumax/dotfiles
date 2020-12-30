@@ -27,6 +27,8 @@ extensions=(
   praveencrony.total-lines
   eamodio.gitlens
   tranhl.find-then-jump
+  rust-lang.rust
+  zhengxiaoyao0716.intelligence-change-case
 
   # for unity
   ms-dotnettools.csharp

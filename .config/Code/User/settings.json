@@ -46,6 +46,9 @@
   "[typescript]": {
     "editor.formatOnSave": true
   },
+  "[rust]": {
+    "editor.formatOnSave": true
+  },
   "files.associations": {
     "*.txt": "markdown"
   },
@@ -90,8 +93,15 @@
       }
     }
   ],
+  "change-case.default": [
+    "camelCase",
+    "PascalCase",
+    "snake_case",
+    "param-case",
+    "CONST_CASE"
+  ],
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
-  "plantuml.commandArgs": [],
-  "gitlens.hovers.currentLine.over": "line"
+  "plantuml.commandArgs": []
+  // "gitlens.hovers.currentLine.over": "line"
 }
