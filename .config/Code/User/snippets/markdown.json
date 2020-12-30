@@ -1,0 +1,39 @@
+{
+  "checkbox": {
+    "prefix": [
+      "checkbox"
+    ],
+    "body": [
+      "* [ ] $0"
+    ],
+    "description": "checkbox for github markdown"
+  },
+  "expand block(close)": {
+    "prefix": [
+      "expand",
+      "detail"
+    ],
+    "body": [
+      "<details>",
+      "<summary>${1:title}</summary>",
+      "<!-- you must insert blank line -->",
+      "$0",
+      "</details>"
+    ],
+    "description": "expand block html"
+  },
+  "expand block(open)": {
+    "prefix": [
+      "expand",
+      "detail"
+    ],
+    "body": [
+      "<details open>",
+      "<summary>${1:title}</summary>",
+      "<!-- you must insert blank line -->",
+      "$0",
+      "</details>"
+    ],
+    "description": "expand block html"
+  }
+}

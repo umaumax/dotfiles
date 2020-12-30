@@ -30,6 +30,7 @@ extensions=(
   rust-lang.rust
   zhengxiaoyao0716.intelligence-change-case
   be5invis.toml
+  inu1255.easy-snippet
   # for unity
   ms-dotnettools.csharp
   ms-vscode.mono-debug

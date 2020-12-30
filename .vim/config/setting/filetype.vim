@@ -20,6 +20,8 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.nex                                    setlocal ft=log
   " NOTE: for goyacc
   autocmd BufRead,BufNewFile *.y                                      setlocal ft=goyacc
+  " NOTE: for vscode snipept
+  autocmd BufRead,BufNewFile *.code-snippets                          setlocal ft=json
 
   " NOTE: for cpp library header files which has no ext (e.g. cstdio)
   autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif

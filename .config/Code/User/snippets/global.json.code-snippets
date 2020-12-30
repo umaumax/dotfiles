@@ -1,0 +1,47 @@
+{
+    "filename": {
+        "prefix": [
+            "filename"
+        ],
+        "body": [
+            "$TM_FILENAME"
+        ],
+        "description": "filename"
+    },
+    "filepath(abs)": {
+        "prefix": [
+            "filepath"
+        ],
+        "body": [
+            "$TM_FILEPATH"
+        ],
+        "description": "filepath"
+    },
+    "filename_base": {
+        "prefix": [
+            "filename_base"
+        ],
+        "body": [
+            "$TM_FILENAME_BASE"
+        ],
+        "description": "base filename(without ext)"
+    },
+    "directory(abs)": {
+        "prefix": [
+            "directory"
+        ],
+        "body": [
+            "$TM_DIRECTORY"
+        ],
+        "description": "directory"
+    },
+    "workspace": {
+        "prefix": [
+            "workspace"
+        ],
+        "body": [
+            "$WORKSPACE_NAME"
+        ],
+        "description": "workspace"
+    }
+}

@@ -103,6 +103,7 @@ if [[ $(uname) == "Linux" ]]; then
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
   ln -sf "$DOTPATH"/.config/Code/User/settings.json ~/.config/Code/User/settings.json
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
+  ln -sf "$DOTPATH"/.config/Code/User/snippets/* ~/.config/Code/User/snipepts/
 fi
 if [[ $(uname) == "Darwin" ]]; then
   # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
@@ -114,6 +115,7 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
   ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/snippets/* "$HOME/Library/Application Support/Code/User/snippets/"
 fi
 
 eval "cat <<EOF
