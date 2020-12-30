@@ -23,6 +23,7 @@ dotfiles=(
   .config/tilda/style.css
   .config/xkeysnail/config.py
   .config/gitui/key_config.ron
+  .config/ecat/config.yaml
   .gdbinit
   .inputrc
   .myclirc

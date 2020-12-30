@@ -51,3 +51,5 @@ cargo install cargo-binutils
 
 # any text to tree style converter
 cargo install --git https://github.com/KoharaKazuya/forest
+
+cargo install --git https://github.com/umaumax/ecat
