@@ -13,6 +13,16 @@ function git() {
   "$cmd" "$@"
 }
 
+function git-status() {
+  safe-colorize command git status "$@"
+}
+function git-fetch() {
+  safe-colorize command git fetch "$@"
+}
+function git-push() {
+  safe-colorize command git push "$@"
+}
+
 function git-count() {
   git rev-list --count HEAD
 }

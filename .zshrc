@@ -288,11 +288,45 @@ fi
 
 cmdcheck unbuffer || alias unbuffer=''
 
+function safe-colorize() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+$(basename "$0") [--force] command [args...]
+if command exists at '\$PATH', run that command, otherwise run only cat command
+EOF
+    return 1
+  fi
+  local force_flag=0
+  if [[ "$1" == "--force" ]]; then
+    force_flag=1
+    shift
+  fi
+  local colorize_cmds=(ecat)
+  if ! type >/dev/null 2>&1 "${colorize_cmds[1]}"; then
+    colorize_cmds=(ccze -A -o nolookups)
+    if ! type >/dev/null 2>&1 "${colorize_cmds[1]}"; then
+      colorize_cmds=()
+    fi
+  else
+    if [[ "$force_flag" == 1 ]]; then
+      colorize_cmds=("${colorize_cmds[@]}" '--color=always')
+    fi
+  fi
+
+  if { { [[ -t 1 ]] && [[ -t 2 ]]; } || [[ "$force_flag" == 1 ]]; } && [[ ${#colorize_cmds[@]} -gt 0 ]]; then
+    "$@" |& "${colorize_cmds[@]}"
+    local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
+    return $exit_code
+  else
+    "$@"
+  fi
+}
+
 function safe-cat-pipe() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
 $(basename "$0") command [args...]
-if command is exist at '\$PATH', run that command, otherwise run only cat command
+if command exists at '\$PATH', run that command, otherwise run only cat command
 EOF
     return 1
   fi
@@ -1889,7 +1923,7 @@ function cmake() {
   else
     {
       # NOTE: maybe ccze wait output for parse
-      command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@" |& ccze -A -o nolookups
+      safe-colorize --force command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
       exit_code=$?
     } |& auto_save_log cmake
   fi
@@ -1933,17 +1967,19 @@ function make() {
   local exit_code
   {
     if cmdcheck colormake; then
-      colormake "$@"
-      exit_code="$?"
+      {
+        colormake "$@"
+        exit_code="$?"
+      } |& {
+        if cmdcheck ccze; then
+          ccze -A
+        else
+          command cat
+        fi
+      }
     else
-      command make "$@"
+      safe-colorize --force command make "$@"
       exit_code="$?"
-    fi
-  } |& {
-    if cmdcheck ccze; then
-      ccze -A
-    else
-      command cat
     fi
   } |& auto_save_log make
   return "$exit_code"
