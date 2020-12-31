@@ -31,6 +31,8 @@ extensions=(
   zhengxiaoyao0716.intelligence-change-case
   be5invis.toml
   ZakCodes.rust-snippets
+  ryu1kn.text-marker
+
   inu1255.easy-snippet
   # for unity
   ms-dotnettools.csharp

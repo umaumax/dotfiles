@@ -315,5 +315,10 @@
     "key": "shift+enter",
     "command": "findThenJump.initiate",
     "when": "isMac && editorTextFocus"
+  },
+  {
+    "key": "cmd+h",
+    "command": "textmarker.toggleHighlight",
+    "when": "editorTextFocus"
   }
 ]
