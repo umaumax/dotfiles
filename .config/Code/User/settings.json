@@ -1,6 +1,6 @@
 {
   "explorer.confirmDragAndDrop": false,
-  "editor.snippetSuggestions": "top",
+  // "editor.snippetSuggestions": "top",
   "emmet.showSuggestionsAsSnippets": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.copyWithSyntaxHighlighting": false,
