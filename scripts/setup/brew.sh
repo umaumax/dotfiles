@@ -147,6 +147,7 @@ brew install --cask copyq
 # NOTE: after osxfuse beacuse of dependency
 brew install ext4fuse
 brew install --cask flash-player
+brew install homebrew/cask-versions/visual-studio-code-insiders
 
 # NOTE: if you need
 # brew cask install blender
