@@ -454,8 +454,9 @@ if Doctor('code', 'vscode')
       call system('code '.shellescape(fnamemodify(file, ":p")))
     endfor
   endfunction
-  command! VSCodeOpen call s:vscode_open([expand('%')])
-  command! VSCodeOpenAll call  s:vscode_open(s:get_active_buffers())
+  command! Code          call s:vscode_open([expand('%')])
+  command! VSCodeOpen    call s:vscode_open([expand('%')])
+  command! VSCodeOpenAll call s:vscode_open(s:get_active_buffers())
 endif
 
 " NOTE: echo value to new tab
