@@ -30,6 +30,7 @@ extensions=(
   rust-lang.rust
   zhengxiaoyao0716.intelligence-change-case
   be5invis.toml
+  ZakCodes.rust-snippets
   inu1255.easy-snippet
   # for unity
   ms-dotnettools.csharp

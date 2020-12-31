@@ -101,9 +101,14 @@ ln -sf "$DOTPATH"/.config/autostart/*.desktop ~/.config/autostart/
 if [[ $(uname) == "Linux" ]]; then
   ln -sf "$DOTPATH"/.config/pip/pip.conf ~/.config/pip/pip.conf
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
+  mkdir -p ~/.config/Code/User/snipepts/
   ln -sf "$DOTPATH"/.config/Code/User/settings.json ~/.config/Code/User/settings.json
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
   ln -sf "$DOTPATH"/.config/Code/User/snippets/* ~/.config/Code/User/snipepts/
+  mkdir -p "$HOME/.config/Code - Insiders/User/snippets"
+  ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/.config/Code - Insiders/User/settings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/.config/Code - Insiders/User/keybindings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/snippets/* "$HOME/.config/Code - Insiders/User/snippets/"
 fi
 if [[ $(uname) == "Darwin" ]]; then
   # FYI: [User Guide — pip 19\.0\.1 documentation]( https://pip.pypa.io/en/stable/user_guide/#configuration )
@@ -113,9 +118,19 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml "$HOME/Library/Preferences/rustfmt/.rustfmt.toml"
   mkdir -p "$HOME/Library/Application Support/gitui/"
   ln -sf "$DOTPATH"/.config/gitui/key_config.ron "$HOME/Library/Application Support/gitui/key_config.ron"
+  mkdir -p "$HOME/Library/Application Support/Code/User/snippets/"
   ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/Library/Application Support/Code/User/keybindings.json"
   ln -sf "$DOTPATH"/.config/Code/User/snippets/* "$HOME/Library/Application Support/Code/User/snippets/"
+  mkdir -p "$HOME/Library/Application Support/Code - Insiders/User/snippets/"
+  ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/Library/Application Support/Code - Insiders/User/settings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/Library/Application Support/Code - Insiders/User/keybindings.json"
+  ln -sf "$DOTPATH"/.config/Code/User/snippets/* "$HOME/Library/Application Support/Code - Insiders/User/snippets/"
+  if [[ -d ~/.vscode-insiders/extensions ]] && [[ ! -L ~/.vscode-insiders/extensions ]]; then
+    echo 1>&2 $'\e[93m'"[!] ~/.vscode-insiders/extensions is not symbolic link"$'\e[m'
+    echo 1>&2 $'\e[93m'"rm -rf ~/.vscode-insiders/extensions"$'\e[m'
+    echo 1>&2 $'\e[93m'"ln -s ~/.vscode/extensions ~/.vscode-insiders/extensions"$'\e[m'
+  fi
 fi
 
 eval "cat <<EOF

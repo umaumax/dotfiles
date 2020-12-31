@@ -43,5 +43,185 @@
             "$WORKSPACE_NAME"
         ],
         "description": "workspace"
+    },
+    "⭐　": {
+        "prefix": "emoji:star",
+        "body": "⭐",
+        "description": "⭐ star"
+    },
+    "🙇　": {
+        "prefix": "emoji:bowing man bow - respect thanks",
+        "body": "🙇",
+        "description": "🙇 bowing man bow - respect thanks"
+    },
+    "💥　": {
+        "prefix": "emoji:boom collision - explode",
+        "body": "💥",
+        "description": "💥 boom collision - explode"
+    },
+    "🐬　": {
+        "prefix": "emoji:dolphin flipper",
+        "body": "🐬",
+        "description": "🐬 dolphin flipper "
+    },
+    "🌩　": {
+        "prefix": "emoji:cloud with lightning",
+        "body": "🌩",
+        "description": "🌩 cloud with lightning "
+    },
+    "📖　": {
+        "prefix": "emoji:book open book",
+        "body": "📖",
+        "description": "📖 book open book "
+    },
+    "🐾　": {
+        "prefix": "emoji:feet paw prints",
+        "body": "🐾",
+        "description": "🐾 feet paw prints "
+    },
+    "📝　": {
+        "prefix": "emoji:memo pencil - document note",
+        "body": "📝",
+        "description": "📝 memo pencil - document note"
+    },
+    "🗓　": {
+        "prefix": "emoji:spiral calendar",
+        "body": "🗓",
+        "description": "🗓 spiral calendar "
+    },
+    "🗒　": {
+        "prefix": "emoji:spiral notepad",
+        "body": "🗒",
+        "description": "🗒 spiral notepad "
+    },
+    "⏰　": {
+        "prefix": "emoji:alarm clock - morning",
+        "body": "⏰",
+        "description": "⏰ alarm clock - morning"
+    },
+    "⛈　": {
+        "prefix": "emoji:cloud with lightning and rain",
+        "body": "⛈",
+        "description": "⛈ cloud with lightning and rain "
+    },
+    "✅　": {
+        "prefix": "emoji:white check mark",
+        "body": "✅",
+        "description": "✅ white check mark "
+    },
+    "❎　": {
+        "prefix": "emoji:negative squared cross mark",
+        "body": "❎",
+        "description": "❎ negative squared cross mark "
+    },
+    "🆗　": {
+        "prefix": "emoji:ok - yes",
+        "body": "🆗",
+        "description": "🆗 ok - yes"
+    },
+    "🉐　": {
+        "prefix": "emoji:ideograph advantage",
+        "body": "🉐",
+        "description": "🉐 ideograph advantage "
+    },
+    "🌎　": {
+        "prefix": "emoji:earth americas - globe world international",
+        "body": "🌎",
+        "description": "🌎 earth americas - globe world international"
+    },
+    "🌕　": {
+        "prefix": "emoji:full moon",
+        "body": "🌕",
+        "description": "🌕 full moon "
+    },
+    "🌲　": {
+        "prefix": "emoji:evergreen tree - wood",
+        "body": "🌲",
+        "description": "🌲 evergreen tree - wood"
+    },
+    "🌳　": {
+        "prefix": "emoji:deciduous tree - wood",
+        "body": "🌳",
+        "description": "🌳 deciduous tree - wood"
+    },
+    "🌶　": {
+        "prefix": "emoji:hot pepper - spicy",
+        "body": "🌶",
+        "description": "🌶 hot pepper - spicy"
+    },
+    "🍀　": {
+        "prefix": "emoji:four leaf clover - luck",
+        "body": "🍀",
+        "description": "🍀 four leaf clover - luck"
+    },
+    "🍁　": {
+        "prefix": "emoji:maple leaf - canada",
+        "body": "🍁",
+        "description": "🍁 maple leaf - canada"
+    },
+    "🍖　": {
+        "prefix": "emoji:meat on bone",
+        "body": "🍖",
+        "description": "🍖 meat on bone "
+    },
+    "🍗　": {
+        "prefix": "emoji:poultry leg - meat chicken",
+        "body": "🍗",
+        "description": "🍗 poultry leg - meat chicken"
+    },
+    "🍩　": {
+        "prefix": "emoji:doughnut",
+        "body": "🍩",
+        "description": "🍩 doughnut "
+    },
+    "🍫　": {
+        "prefix": "emoji:chocolate bar",
+        "body": "🍫",
+        "description": "🍫 chocolate bar "
+    },
+    "🍯　": {
+        "prefix": "emoji:honey pot",
+        "body": "🍯",
+        "description": "🍯 honey pot "
+    },
+    "🎄　": {
+        "prefix": "emoji:christmas tree",
+        "body": "🎄",
+        "description": "🎄 christmas tree "
+    },
+    "🎉　": {
+        "prefix": "emoji:tada - hooray party",
+        "body": "🎉",
+        "description": "🎉 tada - hooray party"
+    },
+    "🎊　": {
+        "prefix": "emoji:confetti ball",
+        "body": "🎊",
+        "description": "🎊 confetti ball "
+    },
+    "🎲　": {
+        "prefix": "emoji:game die - dice gambling",
+        "body": "🎲",
+        "description": "🎲 game die - dice gambling"
+    },
+    "🎵　": {
+        "prefix": "emoji:musical note",
+        "body": "🎵",
+        "description": "🎵 musical note "
+    },
+    "📁　": {
+        "prefix": "emoji:file folder - directory",
+        "body": "📁",
+        "description": "📁 file folder - directory"
+    },
+    "🔎　": {
+        "prefix": "emoji:mag right",
+        "body": "🔎",
+        "description": "🔎 mag right "
+    },
+    "🔐　": {
+        "prefix": "emoji:closed lock with key - security",
+        "body": "🔐",
+        "description": "🔐 closed lock with key - security"
     }
 }

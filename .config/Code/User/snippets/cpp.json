@@ -1,0 +1,11 @@
+{
+    "debug": {
+        "prefix": [
+            "debug"
+        ],
+        "body": [
+            "std::cerr << \"$1: \"<< $1 << std::endl;"
+        ],
+        "description": "debug log"
+    }
+}
