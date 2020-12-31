@@ -117,36 +117,36 @@ brew install libsixel
 
 # brew cask
 ## WARN: don't install by your self (by GUI)
-brew cask install iterm2
-brew cask install alacritty
-brew cask install cheatsheet
-brew cask install firefox
-brew cask install google-chrome
-brew cask install chromedriver
-brew cask install chromium
-brew cask install google-japanese-ime
-brew cask install karabiner-elements
-brew cask install sublime-text
-brew cask install shiftit
-brew cask install xquartz
-brew cask install ip-in-menu-bar
+brew install --cask iterm2
+brew install --cask alacritty
+brew install --cask cheatsheet
+brew install --cask firefox
+brew install --cask google-chrome
+brew install --cask chromedriver
+brew install --cask chromium
+brew install --cask google-japanese-ime
+brew install --cask karabiner-elements
+brew install --cask sublime-text
+brew install --cask shiftit
+brew install --cask xquartz
+brew install --cask ip-in-menu-bar
 # WARN: do not brew install docker
-brew cask install docker
-brew cask install adobe-acrobat-reader
-brew cask install totalspaces
-brew cask install qlmarkdown
-brew cask install qlstephen
-brew cask install quicklook-json
-brew cask install quicklook-csv
-brew cask install betterzip
-brew cask install qlcolorcode
-brew cask install qlimagesize
-brew cask install texpad
-brew cask install osxfuse
-brew cask install copyq
+brew install --cask docker
+brew install --cask adobe-acrobat-reader
+brew install --cask totalspaces
+brew install --cask qlmarkdown
+brew install --cask qlstephen
+brew install --cask quicklook-json
+brew install --cask quicklook-csv
+brew install --cask betterzip
+brew install --cask qlcolorcode
+brew install --cask qlimagesize
+brew install --cask texpad
+brew install --cask osxfuse
+brew install --cask copyq
 # NOTE: after osxfuse beacuse of dependency
 brew install ext4fuse
-brew cask install flash-player
+brew install --cask flash-player
 
 # NOTE: if you need
 # brew cask install blender
