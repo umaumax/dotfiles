@@ -45,6 +45,21 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
+    "key": "ctrl+c",
+    "command": "cancelSelection",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "editor.action.smartSelect.expand",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "editor.action.smartSelect.shrink",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
     "key": "tab",
     "command": "selectNextQuickFix",
     "when": "editorFocus && quickFixWidgetVisible"

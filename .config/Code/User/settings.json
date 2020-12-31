@@ -1,5 +1,8 @@
 {
   "explorer.confirmDragAndDrop": false,
+  "editor.snippetSuggestions": "top",
+  "emmet.showSuggestionsAsSnippets": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.copyWithSyntaxHighlighting": false,
   "window.zoomLevel": -1,
   "editor.renderLineHighlight": "all",
@@ -39,6 +42,9 @@
   "[csharp]": {
     "editor.formatOnSave": true,
     "editor.codeLens": false
+  },
+  "[json]": {
+    "editor.formatOnSave": true
   },
   "[jsonc]": {
     "editor.formatOnSave": true
