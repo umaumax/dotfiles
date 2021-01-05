@@ -13,7 +13,7 @@
   color:    "155"
 - name:     git
   patterns: ["[^a-zA-Z0-9](modified|add|restore|change|checkout)[^a-zA-Z0-9]", "(origin|refs)/[0-9a-zA-Z]*"]
-  color:    "125"
+  color:    "128"
   modified:
 - name:     label
   patterns: ["[^a-zA-Z0-9](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9]"]
