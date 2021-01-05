@@ -25,6 +25,9 @@ function git-push() {
 function git-pull() {
   safe-colorize command git pull "$@"
 }
+function git-stash() {
+  safe-colorize command git stash "$@"
+}
 
 function git-count() {
   git rev-list --count HEAD
