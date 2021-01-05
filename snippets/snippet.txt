@@ -1312,9 +1312,9 @@
 [diff yaml or json] dyff between --omit-header # go get github.com/homeport/dyff/cmd/dyff
 [git diff to html] git diff | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
 [unified diff to html] command diff -u $SRC\%# $DST | diff2html --input stdin --output stdout --style side > diff.html # npm install -g diff2html-cli
-[diff to  svg] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg diff.svg
-[diff to  png] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p raster diff.png
-[diff to html] diff -u $SRC\%# $DST | delta --no-gitconfig --side-by-side --width $COLUMNS | ansitoimg -p html diff.html
+[diff to  svg] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg diff.svg
+[diff to  png] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg -p raster diff.png
+[diff to html] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg -p html diff.html
 
 [source code to  svg] bat --color=always \%# | ansitoimg code.svg
 [source code to  png] bat --color=always \%# | ansitoimg -p raster code.png
