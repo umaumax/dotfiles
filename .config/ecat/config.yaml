@@ -1,105 +1,105 @@
 # for trim ansi color
-- name: ansi
+- name:     ansi
   patterns: ["\x1b\\[[0-9;]*m.*\x1b\\[[0-9;]*m", "\x1b\\[[0-9;]*m"]
-  color: "195"
-- name: text
+  color:    "195"
+- name:     text
   patterns: ["\"[^\"]*\"", "'[^\']*'"]
-  color: "222"
-- name: default
+  color:    "222"
+- name:     default
   patterns: ["and/or", "depend", "target"]
-  color: "195"
-- name: log
+  color:    "195"
+- name:     log
   patterns: ["\\[[^\\[]*\\]"]
-  color: "155"
-- name: git
+  color:    "155"
+- name:     git
   patterns: ["[^a-zA-Z0-9](modified|add|restore|change|checkout)[^a-zA-Z0-9]", "(origin|refs)/[0-9a-zA-Z]*"]
-  color: "125"
+  color:    "125"
   modified:
-- name: label
+- name:     label
   patterns: ["[^a-zA-Z0-9](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9]"]
-  color: "209"
-- name: space_for_time
+  color:    "209"
+- name:     space_for_time
   patterns: [" +"]
-  color: "#000000"
-- name: url
+  color:    "#000000"
+- name:     url
   patterns: ["[a-zA-z]+://[0-9a-zA-z._/]+", "[a-zA-z.]+:[0-9a-zA-z._]+/[0-9a-zA-z._]+"]
-  color: "175"
-- name: mac_addr
+  color:    "175"
+- name:     mac_addr
   patterns: ["[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}"]
-  color: "120"
-- name: mail
+  color:    "120"
+- name:     mail
   patterns: ["[0-9a-zA-Z]+@[0-9a-zA-Z]+\\.[0-9a-zA-Z]+"]
-  color: "141"
-- name: time
+  color:    "141"
+- name:     time
   patterns: ["[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}"]
-  color: "51"
-- name: ip_addr
+  color:    "51"
+- name:     ip_addr
   patterns: ["[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}"] # TODO: add ipv6
-  color: "228"
-- name: percent
+  color:    "228"
+- name:     percent
   patterns: ["[0-9]+%", "[0-9]+\\.[0-9]*%"]
-  color: "193"
-- name: version
+  color:    "193"
+- name:     version
   patterns: ["v?[0-9]+(\\.[0-9]+){2,}(a|b|rc)?"]
-  color: "180"
-- name: func
+  color:    "180"
+- name:     func
   patterns: ["[0-9a-zA-Z_]+\\([^)]*\\)"]
-  color: "77"
-- name: ratio
+  color:    "77"
+- name:     ratio
   patterns: ["[0-9]+(\\.[0-9]+)?/[0-9]+(\\.[0-9]+)?"]
-  color: "155"
-- name: filepath
+  color:    "155"
+- name:     filepath
   patterns: ["(\\.[0-9a-zA-Z~\\-_/.]+)|([0-9a-zA-Z~\\-_/.]+\\.[0-9a-zA-Z~\\-_]+)", "/+[0-9a-zA-Z~\\-_/.]+"]
-  color: "78"
-- name: size
+  color:    "78"
+- name:     size
   patterns: ["KB", "MB", "GB", "TB", "Ki[B]", "Mi[B]", "Gi[B]", "Ti[B]"]
-  color: "#00ff00"
-# - name: googletest
+  color:    "#00ff00"
+# - name:   googletest
 #   patterns: ["[TODO FAIL]", "[ TODO OK ]"]
-#   color: "#00ff00"
-- name: type
+#   color:  "#00ff00"
+- name:     type
   patterns: ["int", "float", "string", "double"]
-  color: "30"
-- name: keyword
+  color:    "30"
+- name:     keyword
   patterns: ["get", "set", "class", "private", "public", "protected", "size", "version", "type", "file[s]?", "path","directory","funcion","func","time"]
-  color: "46"
-- name: colon
+  color:    "46"
+- name:     colon
   patterns: ["[0-9a-zA-Z]+:"]
-  color: "93"
-- name: hex
+  color:    "93"
+- name:     hex
   patterns: ["0x[0-9a-fA-F]+"]
-  color: "197"
-- name: fatal
+  color:    "197"
+- name:     fatal
   patterns: ["fatal|failure|nothing|not"]
-  color: "202"
-- name: complete
+  color:    "202"
+- name:     complete
   patterns: ["done|end|open"]
-  color: "155"
-- name: warning
+  color:    "155"
+- name:     warning
   patterns: ["close|warning|WARN:|clean"]
-  color: "226"
-- name: resume
+  color:    "226"
+- name:     resume
   patterns: ["resume"]
-  color: "123"
+  color:    "123"
 # below config takes a time to generate regex pattern
-# - name: fatal
+# - name:   fatal
 #   patterns: ["alarm|alarmable|alarmed|alarmedly|alarming|alarmingly|alarmism|alarmist|critch|criteria|criteriology|criterion|criterional|criterium|crith|Crithidia|crithmene|crithomancy|critic|critical|criticality|critically|criticalness|criticaster|criticasterism|criticastry|criticisable|criticism|criticist|criticizable|criticize|criticizer|criticizingly|critickin|criticship|criticule|critique|critling|error|errorful|errorist|errorless|fail|failing|failingly|failingness|faille|failure|false|falsehearted|falseheartedly|falseheartedness|falsehood|falsely|falsen|falseness|falser|falsettist|falsetto|falsework|fatal|fatalism|fatalist|fatalistic|fatalistically|fatality|fatalize|fatally|fatalness|invalid|invalidate|invalidation|invalidator|invalidcy|invalidhood|invalidish|invalidism|invalidity|invalidly|invalidness|invalidship"]
-#   color: "160"
-# - name: complete
+#   color:  "160"
+# - name:   complete
 #   patterns: ["activable|activate|activation|activator|active|actively|activeness|activin|activism|activist|activital|activity|activize|attempt|attemptability|attemptable|attempter|attemptless|check|checkable|checkage|checkbird|checkbite|checkbook|checked|checker|checkerbelly|checkerberry|checkerbloom|checkerboard|checkerbreast|checkered|checkerist|checkers|checkerwise|checkerwork|checkhook|checkless|checkman|checkmate|checkoff|checkrack|checkrein|checkroll|checkroom|checkrope|checkrow|checkrowed|checkrower|checkstone|checkstrap|checkstring|checkup|checkweigher|checkwork|checky|complete|completedness|completely|completement|completeness|completer|connect|connectable|connectant|connected|connectedly|connectedness|connectible|connection|connectional|connectival|connective|connectively|connectivity|connector|done|donee|Donet|doney|enable|enablement|enabler|finish|finishable|finished|finisher|finishing|listen|listener|listening|load|loadage|loaded|loaden|loader|loading|loadless|loadpenny|loadsome|loadstone|Ok|oka|okapi|Okapia|okee|okenite|oket|oki|okia|Okie|Okinagan|Oklafalaya|Oklahannali|Oklahoma|Oklahoman|okoniosis|okonite|okra|okrug|okshoofd|okthabah|Okuari|okupukupu|onliness|open|openable|openband|openbeak|openbill|opencast|opener|openhanded|openhandedly|openhandedness|openhead|openhearted|openheartedly|openheartedness|opening|openly|openmouthed|openmouthedly|openmouthedness|openness|openside|openwork|ready|register|registered|registerer|registership|start|starter|startful|startfulness|starthroat|starting|startingly|startish|startle|startler|startling|startlingly|startlingness|startlish|startlishness|startly|startor|starty"]
-#   color: "155"
-# - name: warning
+#   color:  "155"
+# - name:   warning
 #   patterns: ["backdoor|blocking|cannot|close|closecross|closed|closefisted|closefistedly|closefistedness|closehanded|closehearted|closely|closemouth|closemouthed|closen|closeness|closer|closestool|closet|closewing|deny|denyingly|disable|disabled|disablement|down|downbear|downbeard|downbeat|downby|downcast|downcastly|downcastness|downcome|downcomer|downcoming|downcry|downcurved|downcut|downdale|downdraft|downer|downface|downfall|downfallen|downfalling|downfeed|downflow|downfold|downfolded|downgate|downgone|downgrade|downgrowth|downhanging|downhaul|downheaded|downhearted|downheartedly|downheartedness|downhill|downily|downiness|Downing|Downingia|downland|downless|downlie|downlier|downligging|downlike|downline|downlooked|downlooker|downlying|downmost|downness|downpour|downpouring|downright|downrightly|downrightness|downrush|downrushing|downset|downshare|downshore|downside|downsinking|downsitting|downsliding|downslip|downslope|downsman|downspout|downstage|downstairs|downstate|downstater|downstream|downstreet|downstroke|downswing|downtake|downthrow|downthrown|downthrust|Downton|downtown|downtrampling|downtreading|downtrend|downtrodden|downtroddenness|downturn|downward|downwardly|downwardness|downway|downweed|downweigh|downweight|downweighted|downwind|downwith|downy|empty|emptyhearted|emptysis|end|endable|endamage|endamageable|endamagement|endamask|endameba|endamebic|Endamoeba|endamoebiasis|endamoebic|Endamoebidae|endanger|endangerer|endangerment|endangium|endaortic|endaortitis|endarch|endarchy|endarterial|endarteritis|endarterium|endaspidean|endaze|endboard|endbrain|endear|endearance|endeared|endearedly|endearedness|endearing|endearingly|endearingness|endearment|endeavor|endeavorer|ended|endeictic|endellionite|endemial|endemic|endemically|endemicity|endemiological|endemiology|endemism|endenizen|ender|endere|endermatic|endermic|endermically|enderon|enderonic|endevil|endew|endgate|endiadem|endiaper|ending|endite|endive|endless|endlessly|endlessness|endlichite|endlong|endmatcher|endmost|endoabdominal|endoangiitis|endoaortitis|endoappendicitis|endoarteritis|endoauscultation|endobatholithic|endobiotic|endoblast|endoblastic|endobronchial|endobronchially|endobronchitis|endocannibalism|endocardiac|endocardial|endocarditic|endocarditis|endocardium|endocarp|endocarpal|endocarpic|endocarpoid|endocellular|endocentric|Endoceras|Endoceratidae|endoceratite|endoceratitic|endocervical|endocervicitis|endochondral|endochorion|endochorionic|endochrome|endochylous|endoclinal|endocline|endocoelar|endocoele|endocoeliac|endocolitis|endocolpitis|endocondensation|endocone|endoconidium|endocorpuscular|endocortex|endocranial|endocranium|endocrinal|endocrine|endocrinic|endocrinism|endocrinological|endocrinologist|endocrinology|endocrinopathic|endocrinopathy|endocrinotherapy|endocrinous|endocritic|endocycle|endocyclic|endocyemate|endocyst|endocystitis|endoderm|endodermal|endodermic|endodermis|endodontia|endodontic|endodontist|endodynamomorphic|endoenteritis|endoenzyme|endoesophagitis|endofaradism|endogalvanism|endogamic|endogamous|endogamy|endogastric|endogastrically|endogastritis|endogen|Endogenae|endogenesis|endogenetic|endogenic|endogenous|endogenously|endogeny|endoglobular|endognath|endognathal|endognathion|endogonidium|endointoxication|endokaryogamy|endolabyrinthitis|endolaryngeal|endolemma|endolumbar|endolymph|endolymphangial|endolymphatic|endolymphic|endolysin|endomastoiditis|endome|endomesoderm|endometrial|endometritis|endometrium|endometry|endomitosis|endomitotic|endomixis|endomorph|endomorphic|endomorphism|endomorphy|Endomyces|Endomycetaceae|endomysial|endomysium|endoneurial|endoneurium|endonuclear|endonucleolus|endoparasite|endoparasitic|Endoparasitica|endopathic|endopelvic|endopericarditis|endoperidial|endoperidium|endoperitonitis|endophagous|endophagy|endophasia|endophasic|endophlebitis|endophragm|endophragmal|Endophyllaceae|endophyllous|Endophyllum|endophytal|endophyte|endophytic|endophytically|endophytous|endoplasm|endoplasma|endoplasmic|endoplast|endoplastron|endoplastular|endoplastule|endopleura|endopleural|endopleurite|endopleuritic|endopod|endopodite|endopoditic|endoproct|Endoprocta|endoproctous|endopsychic|Endopterygota|endopterygote|endopterygotic|endopterygotism|endopterygotous|endorachis|endoral|endore|endorhinitis|endorsable|endorsation|endorse|endorsed|endorsee|endorsement|endorser|endorsingly|endosalpingitis|endosarc|endosarcode|endosarcous|endosclerite|endoscope|endoscopic|endoscopy|endosecretory|endosepsis|endosiphon|endosiphonal|endosiphonate|endosiphuncle|endoskeletal|endoskeleton|endosmometer|endosmometric|endosmosic|endosmosis|endosmotic|endosmotically|endosome|endosperm|endospermic|endospore|endosporium|endosporous|endoss|endosteal|endosteally|endosteitis|endosteoma|endosternite|endosternum|endosteum|endostitis|endostoma|endostome|endostosis|endostracal|endostracum|endostylar|endostyle|endostylic|endotheca|endothecal|endothecate|endothecial|endothecium|endothelia|endothelial|endothelioblastoma|endotheliocyte|endothelioid|endotheliolysin|endotheliolytic|endothelioma|endotheliomyoma|endotheliomyxoma|endotheliotoxin|endothelium|endothermal|endothermic|endothermous|endothermy|Endothia|endothoracic|endothorax|Endothrix|endothys|endotoxic|endotoxin|endotoxoid|endotracheitis|endotrachelitis|Endotrophi|endotrophic|endotys|endovaccination|endovasculitis|endovenous|endow|endower|endowment|endozoa|endpiece|Endromididae|Endromis|endue|enduement|endungeon|endura|endurability|endurable|endurableness|endurably|endurance|endurant|endure|endurer|enduring|enduringly|enduringness|endways|endwise|endyma|endymal|Endymion|endysis|exit|exite|exition|exitus|miss|missable|missal|missay|missayer|misseem|missel|missemblance|missentence|misserve|misservice|misset|misshape|misshapen|misshapenly|misshapenness|misshood|missible|missile|missileproof|missiness|missing|missingly|mission|missional|missionarize|missionary|missionaryship|missioner|missionize|missionizer|missis|Missisauga|missish|missishness|Mississippi|Mississippian|missive|missmark|missment|Missouri|Missourian|Missourianism|missourite|misspeak|misspeech|misspell|misspelling|misspend|misspender|misstate|misstatement|misstater|misstay|misstep|missuade|missuggestion|missummation|missuppose|missy|missyish|missyllabication|missyllabify|not|notabilia|notability|notable|notableness|notably|notacanthid|Notacanthidae|notacanthoid|notacanthous|Notacanthus|notaeal|notaeum|notal|notalgia|notalgic|Notalia|notan|notandum|notanencephalia|notarial|notarially|notariate|notarikon|notarize|notary|notaryship|notate|notation|notational|notative|notator|notch|notchboard|notched|notchel|notcher|notchful|notching|notchweed|notchwing|notchy|note|notebook|notecase|noted|notedly|notedness|notehead|noteholder|notekin|Notelaea|noteless|notelessly|notelessness|notelet|notencephalocele|notencephalus|noter|notewise|noteworthily|noteworthiness|noteworthy|notharctid|Notharctidae|Notharctus|nother|nothing|nothingarian|nothingarianism|nothingism|nothingist|nothingize|nothingless|nothingly|nothingness|nothingology|Nothofagus|Notholaena|nothosaur|Nothosauri|nothosaurian|Nothosauridae|Nothosaurus|nothous|notice|noticeability|noticeable|noticeably|noticer|Notidani|notidanian|notidanid|Notidanidae|notidanidan|notidanoid|Notidanus|notifiable|notification|notified|notifier|notify|notifyee|notion|notionable|notional|notionalist|notionality|notionally|notionalness|notionary|notionate|notioned|notionist|notionless|Notiosorex|notitia|Notkerian|notocentrous|notocentrum|notochord|notochordal|notodontian|notodontid|Notodontidae|notodontoid|Notogaea|Notogaeal|Notogaean|Notogaeic|notommatid|Notommatidae|Notonecta|notonectal|notonectid|Notonectidae|notopodial|notopodium|notopterid|Notopteridae|notopteroid|Notopterus|notorhizal|Notorhynchus|notoriety|notorious|notoriously|notoriousness|Notornis|Notoryctes|Notostraca|Nototherium|Nototrema|nototribe|notour|notourly|Notropis|notself|Nottoway|notum|Notungulata|notungulate|Notus|notwithstanding|restart|shutting|Sigillaria|Sigillariaceae|sigillariaceous|sigillarian|sigillarid|sigillarioid|sigillarist|sigillaroid|sigillary|sigillate|sigillated|sigillation|sigillistic|sigillographer|sigillographical|sigillography|sigillum|Skip|skip|skipbrain|Skipetar|skipjack|skipjackly|skipkennel|skipman|skippable|skippel|skipper|skippered|skippership|skippery|skippet|skipping|skippingly|skipple|skippund|skippy|skiptail|stop|stopa|stopback|stopblock|stopboard|stopcock|stope|stoper|stopgap|stophound|stoping|stopless|stoplessness|stopover|stoppability|stoppable|stoppableness|stoppably|stoppage|stopped|stopper|stopperless|stoppeur|stopping|stoppit|stopple|stopwater|stopwork|terminate|unable|unableness|unreachable|unreachably|unreached|warn|warnel|warner|warning|warningly|warningproof|warnish|warnoth|warnt"]
-#   color: "226"
-# - name: resume
+#   color:  "226"
+# - name:   resume
 #   patterns: ["bios|bioscope|bioscopic|bioscopy|biose|biosis|biosocial|biosociological|biosphere|biostatic|biostatical|biostatics|biostatistics|biosterin|biosterol|biostratigraphy|biosynthesis|biosynthetic|biosystematic|biosystematics|biosystematist|biosystematy|discharging|ide|idea|ideaed|ideaful|ideagenous|ideal|idealess|idealism|idealist|idealistic|idealistical|idealistically|ideality|idealization|idealize|idealizer|idealless|ideally|idealness|ideamonger|Idean|ideate|ideation|ideational|ideationally|ideative|ideist|idempotent|identic|identical|identicalism|identically|identicalness|identifiable|identifiableness|identification|identifier|identify|identism|identity|ideogenetic|ideogenical|ideogenous|ideogeny|ideoglyph|ideogram|ideogrammic|ideograph|ideographic|ideographical|ideographically|ideography|ideolatry|ideologic|ideological|ideologically|ideologist|ideologize|ideologue|ideology|ideomotion|ideomotor|ideophone|ideophonetics|ideophonous|ideoplastia|ideoplastic|ideoplastics|ideoplasty|ideopraxist|ides|Isaac|Isabel|isabelina|isabelita|Isabella|Isabelle|Isabelline|isabnormal|isaconitine|isacoustic|isadelphous|Isadora|isagoge|isagogic|isagogical|isagogically|isagogics|isagon|Isaiah|Isaian|isallobar|isallotherm|isamine|Isander|isandrous|isanemone|isanomal|isanomalous|isanthous|isapostolic|Isaria|isarioid|isatate|isatic|isatide|isatin|isatinic|Isatis|isatogen|isatogenic|Isaurian|Isawa|isazoxy|iso|isoabnormal|isoagglutination|isoagglutinative|isoagglutinin|isoagglutinogen|isoalantolactone|isoallyl|isoamarine|isoamide|isoamyl|isoamylamine|isoamylene|isoamylethyl|isoamylidene|isoantibody|isoantigen|isoapiole|isoasparagine|isoaurore|isobar|isobarbaloin|isobarbituric|isobare|isobaric|isobarism|isobarometric|isobase|isobath|isobathic|isobathytherm|isobathythermal|isobathythermic|isobenzofuran|isobilateral|isobilianic|isobiogenetic|isoborneol|isobornyl|isobront|isobronton|isobutane|isobutyl|isobutylene|isobutyraldehyde|isobutyrate|isobutyric|isobutyryl|isocamphor|isocamphoric|isocaproic|isocarbostyril|Isocardia|Isocardiidae|isocarpic|isocarpous|isocellular|isocephalic|isocephalism|isocephalous|isocephaly|isocercal|isocercy|isochasm|isochasmic|isocheim|isocheimal|isocheimenal|isocheimic|isocheimonal|isochlor|isochlorophyll|isochlorophyllin|isocholanic|isocholesterin|isocholesterol|isochor|isochoric|isochromatic|isochronal|isochronally|isochrone|isochronic|isochronical|isochronism|isochronize|isochronon|isochronous|isochronously|isochroous|isocinchomeronic|isocinchonine|isocitric|isoclasite|isoclimatic|isoclinal|isocline|isoclinic|isocodeine|isocola|isocolic|isocolon|isocoria|isocorybulbin|isocorybulbine|isocorydine|isocoumarin|isocracy|isocrat|isocratic|isocreosol|isocrotonic|isocrymal|isocryme|isocrymic|isocyanate|isocyanic|isocyanide|isocyanine|isocyano|isocyanogen|isocyanurate|isocyanuric|isocyclic|isocymene|isocytic|isodactylism|isodactylous|isodiabatic|isodialuric|isodiametric|isodiametrical|isodiazo|isodiazotate|isodimorphic|isodimorphism|isodimorphous|isodomic|isodomous|isodomum|isodont|isodontous|isodrome|isodulcite|isodurene|isodynamia|isodynamic|isodynamical|isoelectric|isoelectrically|isoelectronic|isoelemicin|isoemodin|isoenergetic|isoerucic|Isoetaceae|Isoetales|Isoetes|isoeugenol|isoflavone|isoflor|isogamete|isogametic|isogametism|isogamic|isogamous|isogamy|isogen|isogenesis|isogenetic|isogenic|isogenotype|isogenotypic|isogenous|isogeny|isogeotherm|isogeothermal|isogeothermic|isogloss|isoglossal|isognathism|isognathous|isogon|isogonal|isogonality|isogonally|isogonic|isogoniostat|isogonism|isograft|isogram|isograph|isographic|isographical|isographically|isography|isogynous|isohaline|isohalsine|isohel|isohemopyrrole|isoheptane|isohesperidin|isohexyl|isohydric|isohydrocyanic|isohydrosorbic|isohyet|isohyetal|isoimmune|isoimmunity|isoimmunization|isoimmunize|isoindazole|isoindigotin|isoindole|isoionone|isokeraunic|isokeraunographic|isokeraunophonic|Isokontae|isokontan|isokurtic|isolability|isolable|isolapachol|isolate|isolated|isolatedly|isolating|isolation|isolationism|isolationist|isolative|Isolde|isolecithal|isoleucine|isolichenin|isolinolenic|isologous|isologue|isology|Isoloma|isolysin|isolysis|isomagnetic|isomaltose|isomastigate|isomelamine|isomenthone|isomer|Isomera|isomere|isomeric|isomerical|isomerically|isomeride|isomerism|isomerization|isomerize|isomeromorphism|isomerous|isomery|isometric|isometrical|isometrically|isometrograph|isometropia|isometry|isomorph|isomorphic|isomorphism|isomorphous|Isomyaria|isomyarian|isoneph|isonephelic|isonergic|isonicotinic|isonitramine|isonitrile|isonitroso|isonomic|isonomous|isonomy|isonuclear|isonym|isonymic|isonymy|isooleic|isoosmosis|isopachous|isopag|isoparaffin|isopectic|isopelletierin|isopelletierine|isopentane|isoperimeter|isoperimetric|isoperimetrical|isoperimetry|isopetalous|isophanal|isophane|isophasal|isophene|isophenomenal|isophoria|isophorone|isophthalic|isophthalyl|isophyllous|isophylly|isopicramic|isopiestic|isopiestically|isopilocarpine|isoplere|isopleth|Isopleura|isopleural|isopleuran|isopleurous|isopod|Isopoda|isopodan|isopodiform|isopodimorphous|isopodous|isopogonous|isopolite|isopolitical|isopolity|isopoly|isoprene|isopropenyl|isopropyl|isopropylacetic|isopropylamine|isopsephic|isopsephism|Isoptera|isopterous|isoptic|isopulegone|isopurpurin|isopycnic|isopyre|isopyromucic|isopyrrole|isoquercitrin|isoquinine|isoquinoline|isorcinol|isorhamnose|isorhodeose|isorithm|isorosindone|isorrhythmic|isorropic|isosaccharic|isosaccharin|isoscele|isosceles|isoscope|isoseismal|isoseismic|isoseismical|isoseist|isoserine|isosmotic|Isospondyli|isospondylous|isospore|isosporic|isosporous|isospory|isostasist|isostasy|isostatic|isostatical|isostatically|isostemonous|isostemony|isostere|isosteric|isosterism|isostrychnine|isosuccinic|isosulphide|isosulphocyanate|isosulphocyanic|isosultam|isotac|isoteles|isotely|isotheral|isothere|isotherm|isothermal|isothermally|isothermic|isothermical|isothermobath|isothermobathic|isothermous|isotherombrose|isothiocyanates|isothiocyanic|isothiocyano|isothujone|isotimal|isotome|isotomous|isotonia|isotonic|isotonicity|isotony|isotope|isotopic|isotopism|isotopy|isotrehalose|Isotria|isotrimorphic|isotrimorphism|isotrimorphous|isotron|isotrope|isotropic|isotropism|isotropous|isotropy|isotype|isotypic|isotypical|isovalerate|isovalerianate|isovalerianic|isovaleric|isovalerone|isovaline|isovanillic|isovoluminal|isoxanthine|isoxazine|isoxazole|isoxime|isoxylene|isoyohimbine|isozooid|resume|resumer"]
-#   color: "123"
-- name: word
+#   color:  "123"
+- name:     word
   patterns: ["(([a-zA-Z_]+[0-9]+)|([0-9]+[a-zA-Z_]+))[0-9a-zA-Z_]*"]
-  color: "195"
-- name: number
+  color:    "195"
+- name:     number
   patterns: ["[0-9]+", "0x[0-9a-fA-F]+"]
-  color: "39"
-- name: default
+  color:    "39"
+- name:     default
   patterns: [".*"]
-  color: "195"
+  color:    "195"
