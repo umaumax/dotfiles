@@ -6,14 +6,23 @@
   patterns: ["\"[^\"]*\"", "'[^\']*'"]
   color:    "222"
 - name:     default
-  patterns: ["and/or", "depend", "target"]
+  patterns: ["and/or", "depend", "target", "[pP]rint"]
   color:    "195"
 - name:     log
   patterns: ["\\[[^\\[]*\\]"]
   color:    "155"
+- name:     diff_plus
+  patterns: ["\\+{3,}"]
+  color:    "48"
+- name:     diff_minus
+  patterns: ["-{3,}"]
+  color:    "197"
+- name:     option
+  patterns: ["--?[a-zA-Z0-9]+"]
+  color:    "190"
 - name:     git
   patterns: ["[^a-zA-Z0-9](modified|add|restore|change|checkout)[^a-zA-Z0-9]", "(origin|refs)/[0-9a-zA-Z]*"]
-  color:    "128"
+  color:    "135"
   modified:
 - name:     label
   patterns: ["[^a-zA-Z0-9](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9]"]
@@ -65,10 +74,13 @@
   color:    "46"
 - name:     colon
   patterns: ["[0-9a-zA-Z]+:"]
-  color:    "93"
+  color:    "135"
 - name:     hex
   patterns: ["0x[0-9a-fA-F]+"]
   color:    "197"
+- name:     commit_sha
+  patterns: ["[0-9a-f]{7,}"]
+  color:    "229"
 - name:     fatal
   patterns: ["fatal|failure|nothing|not"]
   color:    "202"
