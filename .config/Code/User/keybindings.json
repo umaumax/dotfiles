@@ -50,12 +50,12 @@
     "when": "editorTextFocus && editorHasSelection"
   },
   {
-    "key": "ctrl+j",
+    "key": "cmd+j",
     "command": "editor.action.smartSelect.expand",
     "when": "editorTextFocus && editorHasSelection"
   },
   {
-    "key": "ctrl+k",
+    "key": "cmd+k cmd+k",
     "command": "editor.action.smartSelect.shrink",
     "when": "editorTextFocus && editorHasSelection"
   },
