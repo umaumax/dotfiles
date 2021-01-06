@@ -37,6 +37,8 @@
             "padding": "0, 0, -16, 0",
             "fontFace": "Noto Sans Mono CJK JP",
             "fontSize": 10,
+            "cursorShape": "bar",
+            "cursorColor": "#d75f00",
             "useAcrylic": true,
             "acrylicOpacity": 0.85
         },
@@ -111,7 +113,8 @@
         // These two lines additionally bind them to Ctrl+C and Ctrl+V.
         // To learn more about selection, visit https://aka.ms/terminal-selection
         { "command": {"action": "copy", "singleLine": false }, "keys": "ctrl+c" },
-        { "command": "paste", "keys": "ctrl+v" },
+        // disable for an unexpected behavior of paste command (multi line paste, paste as input chars) -> use zsh ctrl-v to paste
+        // { "command": "paste", "keys": "ctrl+v" },
 
         // Press Ctrl+Shift+F to open the search box
         { "command": "find", "keys": "ctrl+shift+f" },
