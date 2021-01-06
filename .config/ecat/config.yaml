@@ -25,7 +25,7 @@
   color:    "135"
   modified:
 - name:     label
-  patterns: ["[^a-zA-Z0-9](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9]"]
+  patterns: ["[^a-zA-Z0-9/](tmp|fix|wip|todo|note|comment)[^a-zA-Z0-9/]"]
   color:    "209"
 - name:     space_for_time
   patterns: [" +"]
