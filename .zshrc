@@ -2178,7 +2178,7 @@ function ifconfig() {
   local COLOR_END="\e[m"
   # `inet `: mac
   # `inet addr:`: ubuntu
-  unbuffer command ifconfig "$@" \
+  unbuffer ifconfig "$@" \
     | perl -pe "s/^(\w)+/${COLOR_BLUE}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet )(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
     | perl -pe "s/(?<=inet addr:)(\d+\.){3}\d+(\/\d+)?/${COLOR_YELLOW}$&${COLOR_END}/g" \
@@ -2190,7 +2190,7 @@ function du() {
   if [[ -p /dev/stdout ]]; then
     command du -kh "$@"
   else
-    unbuffer command du -kh "$@" \
+    unbuffer du -kh "$@" \
       | perl -pe "s/^([ 0-9.]+[BK])/${GREEN}$&${DEFAULT}/; s/^([ 0-9.]+[M])/${YELLOW}$&${DEFAULT}/; s/^([ 0-9.]+[G])/${RED}$&${DEFAULT}/"
   fi
 }
@@ -2205,7 +2205,7 @@ function id() {
   if [[ -p /dev/stdout ]]; then
     command id "$@"
   else
-    unbuffer command id "$@" \
+    unbuffer id "$@" \
       | perl -pe "s/(\([^()]*\))/${LIGHT_BLUE}$&${DEFAULT}/g"
   fi
 }
@@ -2214,7 +2214,7 @@ function pstree() {
   if [[ -p /dev/stdout ]]; then
     command pstree "$@"
   else
-    unbuffer command pstree "$@" \
+    unbuffer pstree "$@" \
       | bat -l zsh --color always --plain | perl -pe "s/root/${RED}$&${DEFAULT}/; s/$USER/${GREEN}$&${DEFAULT}/"
   fi
 }
@@ -2223,7 +2223,7 @@ function env() {
   if [[ -p /dev/stdout ]] || [[ $# -gt 0 ]]; then
     command env "$@"
   else
-    unbuffer command env "$@" \
+    unbuffer env "$@" \
       | perl -pe "s/^([^=]+)/${GREEN}$&${DEFAULT}/g"
   fi
 }
