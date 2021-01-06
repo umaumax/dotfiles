@@ -56,6 +56,7 @@ zsh_dotfiles=(
   .comp.zshrc
   .bindkey.zshrc
   .windows.zshrc
+  .wsl.zshrc
   .nugget.zshrc
   .ros.zshrc
   .prezto.git.init.zshrc

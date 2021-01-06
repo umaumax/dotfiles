@@ -431,6 +431,10 @@ if [[ $OS == Windows_NT ]]; then
   return
 fi
 
+if [[ -n $WSLENV ]]; then
+  [[ -f ~/.zsh/.wsl.zshrc ]] && source ~/.zsh/.wsl.zshrc
+fi
+
 function expand_home() {
   if [[ $# == 0 ]]; then
     perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}\//'
