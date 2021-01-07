@@ -1069,7 +1069,7 @@
 [relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
 [relogin] exec $SHELL -l # WARN same env
 # really?
-[clean relogin (completely)] exec sudo su - $(whoami) # NOTE: don't miss type sudo password
+[clean relogin (completely)] sudo true && exec sudo su - $(whoami)
 
 [fix perl local warning] sudo apt-get install -y locales && sudo locale-gen $LANG
 [enable emoji] sudo apt-get install -y language-pack-ja && sudo update-locale LANG=ja_JP.UTF-8
@@ -1620,6 +1620,7 @@
 # vscode
 [vscode install extension] code --install-extension \%#
 [vscode list extensions] code --list-extensions
+[vscode check remote ssh server setting extensions] code --extensions-dir ~/.vscode-server/extensions --list-extensions
 [vscode force update all extensions] code --list-extensions | xargs -I {} code --install-extension {} --force
 [vscode open new project] code -n .
 [vscode open project(at active window)] code --add .
