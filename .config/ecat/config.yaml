@@ -6,7 +6,7 @@
   patterns: ["\"[^\"]*\"", "'[^\']*'"]
   color:    "222"
 - name:     default
-  patterns: ["and/or", "depend", "target", "wget", "[pP]rint"]
+  patterns: ["and/or", "depend", "target", "wget", "[pP]rint", "send"]
   color:    "195"
 - name:     ctest_failed
   patterns: ["\\[  FAILED  \\]"]
