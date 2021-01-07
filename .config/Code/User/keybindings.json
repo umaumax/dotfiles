@@ -60,6 +60,11 @@
     "when": "editorTextFocus && editorHasSelection"
   },
   {
+    "key": "cmd+y",
+    "command": "redo",
+    "when": "isMac"
+  },
+  {
     "key": "tab",
     "command": "selectNextQuickFix",
     "when": "editorFocus && quickFixWidgetVisible"
