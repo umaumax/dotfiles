@@ -102,10 +102,10 @@ ln -sf "$DOTPATH"/.config/autostart/*.desktop ~/.config/autostart/
 if [[ $(uname) == "Linux" ]]; then
   ln -sf "$DOTPATH"/.config/pip/pip.conf ~/.config/pip/pip.conf
   ln -sf "$DOTPATH"/.config/rustfmt/.rustfmt.toml ~/.config/rustfmt/.rustfmt.toml
-  mkdir -p ~/.config/Code/User/snipepts/
+  mkdir -p ~/.config/Code/User/snippets/
   ln -sf "$DOTPATH"/.config/Code/User/settings.json ~/.config/Code/User/settings.json
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
-  ln -sf "$DOTPATH"/.config/Code/User/snippets/* ~/.config/Code/User/snipepts/
+  ln -sf "$DOTPATH"/.config/Code/User/snippets/* ~/.config/Code/User/snippets/
   mkdir -p "$HOME/.config/Code - Insiders/User/snippets"
   ln -sf "$DOTPATH"/.config/Code/User/settings.json "$HOME/.config/Code - Insiders/User/settings.json"
   ln -sf "$DOTPATH"/.config/Code/User/keybindings.json "$HOME/.config/Code - Insiders/User/keybindings.json"
