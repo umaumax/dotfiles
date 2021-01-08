@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-#
+
 function wmopen() {
   # NOTE: default filepath is clipboard
   local filepath=${1:-$(/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard')}
