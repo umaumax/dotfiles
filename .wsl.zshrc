@@ -10,3 +10,8 @@ function wmopen() {
   echo "$drive:\\$filepath"
   /mnt/c/Windows/explorer.exe "$drive:\\$filepath"
 }
+
+function open() {
+  local dirpath="${1:-.}"
+  /mnt/c/Windows/explorer.exe "${dirpath//\//\\}"
+}
