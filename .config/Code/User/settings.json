@@ -106,6 +106,8 @@
     "param-case",
     "CONST_CASE"
   ],
+  // disable to auto complete Japanese
+  "AllAutocomplete.whitespace": "[^\\w\\-_\\$\\u0080-\\uFFFF]+|[\"']+|[亜-熙ぁ-んァ-ヶ]+",
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
   "plantuml.commandArgs": []
