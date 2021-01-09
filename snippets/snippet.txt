@@ -422,6 +422,7 @@
 [ol get line number of pattern] awk '/\%#/{ print NR; exit }'
 [ol tac] perl -e 'print reverse<>'
 [ol cr2lf] sed "s/\r/\n/g"
+[ol unix to windos cr] sed -z "s/\n/\r\n/g"
 [ol ls -a without . and ..] ls -A
 [ol ls -a without . and ..] ls -a | tail -n +3
 [ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
