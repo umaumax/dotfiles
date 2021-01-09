@@ -33,6 +33,7 @@ dotfiles=(
   .textlintrc
   .tigrc
   .tmux.conf
+  .tmux.reset.conf
   .toprc
   .vimrc
   .wgit
