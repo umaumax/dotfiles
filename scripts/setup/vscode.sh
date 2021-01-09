@@ -38,6 +38,12 @@ extensions=(
   zhengxiaoyao0716.intelligence-change-case
 )
 
+if [[ "$OS" =~ Windows ]]; then
+  extensions=("${extensions[@]}"
+    slevesque.vscode-autohotkey
+  )
+fi
+
 if [[ $(uname) == "Darwin" ]]; then
   extensions=("${extensions[@]}"
     ms-vscode-remote.vscode-remote-extensionpack
