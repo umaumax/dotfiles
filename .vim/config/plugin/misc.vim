@@ -466,6 +466,9 @@ LazyPlug 'bronson/vim-trailing-whitespace'
 
 " NOTE: A vim plugin to display the indention levels with thin vertical lines
 let g:indentLine_char_list = ['|', '¦']
+" It's impossible to share background color with another syntax.
+" You can use global setting only.
+" let g:indentLine_defaultGroup = 'SyntaxGroupName'
 LazyPlug 'Yggdroot/indentLine'
 
 " ```のあとで<CR>するとindentされてしまう問題がある
