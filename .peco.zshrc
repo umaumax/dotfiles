@@ -107,7 +107,7 @@ alias pv='pecovim'
 alias pvim='pecovim'
 alias cpeco='command peco'
 function pecovim() {
-  pecocat "$@" | expand_home | xargs-vim
+  pecocat "$@" | expand_home | tee /dev/tty | xargs-vim
 }
 # peco copy
 alias ranking_color_cat='cat'
