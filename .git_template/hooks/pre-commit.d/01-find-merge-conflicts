@@ -26,7 +26,7 @@ files=($(
 stop_flag=0
 if [[ ${#files[@]} -ge 1 ]]; then
   # NOTE: only diff
-  output=$(echo "${files[@]}" | xargs git diff --cached -G '^[><=]{7}' --color)
+  output=$(echo "${files[@]}" | xargs git diff --cached -G '^[><=]{7}([^><=]|$)' --color)
   # NOTE: whole diff files
   # output=$(echo "${files[@]}" | xargs $grep -E '^[><=]{7}' -C 1 -H -n --color=always)
   printf '%s\n' "$output"
