@@ -47,7 +47,7 @@
   {
     "key": "ctrl+c",
     "command": "cancelSelection",
-    "when": "editorTextFocus && editorHasSelection"
+    "when": "editorTextFocus && editorHasSelection && isMac"
   },
   {
     "key": "cmd+j",
@@ -58,6 +58,11 @@
     "key": "cmd+k cmd+k",
     "command": "editor.action.smartSelect.shrink",
     "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "cursorLineEnd",
+    "when": "isWindows"
   },
   {
     "key": "cmd+y",

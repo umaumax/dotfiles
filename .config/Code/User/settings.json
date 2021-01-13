@@ -70,6 +70,9 @@
     "**/*.exe": true,
     "**/*.meta": true
   },
+  // "remote.SSH.remotePlatform": {
+  // "ip address": "linux"
+  // },
   "terminal.integrated.env.osx": {
     "PATH": "$PATH:$HOME/.dotnet:/usr/local/bin/"
   },
