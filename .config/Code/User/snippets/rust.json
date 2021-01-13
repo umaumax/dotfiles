@@ -17,6 +17,15 @@
         ],
         "description": ""
     },
+    "sleep": {
+        "prefix": [
+            "sleep"
+        ],
+        "body": [
+            "thread::sleep(time::Duration::from_millis($1));"
+        ],
+        "description": "use std::{thread, time};"
+    },
     // [Visual Studio Code\(VSCode\) Rust snippet]( https://gist.github.com/s4i/3e9f0e5a60ca238ed2d192329472d23e )
     "allow": {
         "prefix": "allow",
