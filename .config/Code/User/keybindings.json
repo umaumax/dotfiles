@@ -331,6 +331,22 @@
     }
   },
   {
+    "key": "cmd+'",
+    "command": "editor.togglequotes"
+  },
+  {
+    "key": "cmd+\"",
+    "command": "editor.togglequotes"
+  },
+  {
+    "key": "ctrl+'",
+    "command": "editor.togglequotes"
+  },
+  {
+    "key": "ctrl+\"",
+    "command": "editor.togglequotes"
+  },
+  {
     "key": "shift+enter",
     "command": "findThenJump.initiate",
     "when": "isMac && editorTextFocus"
