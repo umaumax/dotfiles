@@ -8,7 +8,6 @@ function doctor() {
   echo "# These commands are missing..."
   echo $_NO_CMD | sed 's/^://' | tr ':' '\n' | sort | uniq
 }
-function funccheck() { declare -f "$1" >/dev/null; }
 function cmdcheck() {
   [[ $# == 0 ]] && echo "$0 <cmd>" && return
   # typeset -g -A cmdcheck_cache
@@ -171,7 +170,7 @@ function source() {
 _export_funcs=()
 function exportf() {
   [[ $# == 0 ]] && echo "Usage: $0 [func name]" && return 1
-  ! funccheck "$1" && echo "$1 is not function" && return 1
+  ! declare -f "$1" >/dev/null && echo "$1 is not function" && return 1
   [[ -n $BASH ]] && export -f "$1" && return 0
 
   local func="$(whence -f $1 | sed -e "s/$1 //")"
@@ -190,7 +189,6 @@ function exportf() {
 # [[ $ZSH_NAME == zsh ]] && alias -s {sh,bash}='env "${_export_funcs[@]}" bash'
 # ----------------
 
-exportf funccheck
 exportf cmdcheck
 
 # [iandeth. - bashにて複数端末間でコマンド履歴(history)を共有する方法]( http://iandeth.dyndns.org/mt/ian/archives/000651.html )
@@ -2056,24 +2054,28 @@ function webcatd() {
   gotty $(which gechota) -p=$WEBCAT_PORT &
 }
 
-# 2nd arg is symbolic link: default
-function mdlink() {
-  [[ $# == 0 ]] && echo "$0 <target> [<link name>]" && return 1
-  local file_path="$1"
-  #   local abspathdir=$(cd $(dirname $file_path) && pwd)
-  local abspathfile="${PWD%/}/$file_path"
-  local link_name=$2
-  [[ -z $link_name ]] && local link_name=$abspathfile
-  function trim_prefix() { echo ${1##$2}; }
-  function trim_suffix() { echo ${1%%$2}; }
-  echo $link_name $HOME
-  local link_name=$(trim_prefix "$link_name" "$HOME/")
-  local link_name=$(trim_suffix "$link_name" "/.")
-  local link_name=$(echo $link_name | sed 's:/:-:g')
-  [[ ! -e $file_path ]] && echo "$file_path does not exist!" && return 2
-  echo ln -sf "$abspathfile" "$MDLINK/$link_name"
-  ln -sf "$abspathfile" "$MDLINK/$link_name"
-}
+# # NOTE: for my markdowns
+# export MDROOT="$HOME/md"
+# export MDLINK="$HOME/md/link"
+# [[ -d $MDROOT ]] && [[ ! -d $MDLINK ]] && mkdir -p $MDLINK
+# # 2nd arg is symbolic link: default
+# function mdlink() {
+# [[ $# == 0 ]] && echo "$0 <target> [<link name>]" && return 1
+# local file_path="$1"
+# #   local abspathdir=$(cd $(dirname $file_path) && pwd)
+# local abspathfile="${PWD%/}/$file_path"
+# local link_name=$2
+# [[ -z $link_name ]] && local link_name=$abspathfile
+# function trim_prefix() { echo ${1##$2}; }
+# function trim_suffix() { echo ${1%%$2}; }
+# echo $link_name $HOME
+# local link_name=$(trim_prefix "$link_name" "$HOME/")
+# local link_name=$(trim_suffix "$link_name" "/.")
+# local link_name=$(echo $link_name | sed 's:/:-:g')
+# [[ ! -e $file_path ]] && echo "$file_path does not exist!" && return 2
+# echo ln -sf "$abspathfile" "$MDLINK/$link_name"
+# ln -sf "$abspathfile" "$MDLINK/$link_name"
+# }
 
 # NOTE: print string which fill terminal line
 function line() {

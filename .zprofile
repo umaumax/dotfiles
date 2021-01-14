@@ -2,37 +2,12 @@
 # DEBUG_MODE='ON'
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
-
-#
-# Language
-#
-
 # FYI: [基本の復習: 優先順位は LANGUAGE, LC\_ALL, LC\_xxx, LANG の順 \- Qiita]( https://qiita.com/kitsuyui/items/4ee5bf1baa47553be477 )
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-export LANGUAGE=''
+unset LANGUAGE
 export LANG='ja_JP.UTF-8'
-# if [[ -z "$LANGUAGE" ]]; then
-# 	export LANGUAGE='en_US.UTF-8'
-# fi
 
-#
-# Paths
-#
-
-# Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-# Set the the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
-
-# Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
   $path
@@ -45,26 +20,9 @@ fpath=(
 )
 mkdir -p ~/local/share/zsh/site-functions
 
-#
-# Less
-#
-
-# Set the default Less options.
-# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-# Remove -X and -F (exit if the content fits on one screen) to enable it.
 export LESS='-F -g -i -M -R -S -w -X -z-4'
-# ubuntu
+# for ubuntu
 [[ -e "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-
-# # Set the Less input preprocessor.
-# # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-#if (( $#commands[(i)lesspipe(|.sh)] )); then
-#	export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-#fi
-
-#
-# Temporary Files
-#
 
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
@@ -76,26 +34,22 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 # ---- zsh ----
 # ---- bash ----
 
-funccheck() { declare -f "$1" >/dev/null; }
-cmdcheck() {
+function cmdcheck() {
   type "$1" >/dev/null 2>&1
   local code=$?
   [[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
   return $code
 }
 
-#alias cmdcheck='type > /dev/null 2>&1'
-#alias funccheck='declare -f > /dev/null'
-
-prepend_path() {
+function prepend_path() {
   local p="$1"
   [[ -d $p ]] && export PATH=$p:$PATH
 }
-append_path() {
+function append_path() {
   local p="$1"
   [[ -d $p ]] && export PATH=$PATH:$p
 }
-exist() {
+function exist() {
   var=$1
   [[ -e $var ]]
 }
@@ -133,6 +87,7 @@ fi
 if [[ -d "$HOME/local/go" ]]; then
   append_path "$HOME/local/go/bin"
 fi
+# for Ubuntu16.04
 if [[ -d "/usr/lib/go-1.10" ]]; then
   append_path /usr/lib/go-1.10/bin
 fi
@@ -289,13 +244,6 @@ fi
 # NOTE: tmux stores the server socket in a directory under TMUX_TMPDIR or /tmp if it is unset.
 export TMUX_TMPDIR="$HOME/.tmux/tmp/"
 mkdir -p "$TMUX_TMPDIR"
-
-# NOTE: for my markdowns
-export MDROOT="$HOME/md"
-export MDLINK="$HOME/md/link"
-[[ -d $MDROOT ]] && [[ ! -d $MDLINK ]] && mkdir -p $MDLINK
-
-# cmdcheck micro && export EDITOR='micro' && export VISUAL=$EDITOR
 
 if [[ -s "${ZDOTDIR:-$HOME}/.local.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.local.zprofile"
