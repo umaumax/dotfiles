@@ -27,6 +27,8 @@ extensions=(
   jebbs.plantuml
   mhutchie.git-graph
   mosapride.zenkaku
+  ms-python.python
+  ms-python.vscode-pylance
   oderwat.indent-rainbow
   rust-lang.rust
   ryu1kn.text-marker

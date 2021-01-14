@@ -113,6 +113,7 @@
   "AllAutocomplete.whitespace": "[^\\w\\-_\\$\\u0080-\\uFFFF]+|[\"']+|[亜-熙ぁ-んァ-ヶ]+",
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
+  "python.languageServer": "Pylance",
   "plantuml.commandArgs": []
   // "gitlens.hovers.currentLine.over": "line"
 }
