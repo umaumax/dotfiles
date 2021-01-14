@@ -218,6 +218,11 @@ fi
 # rust
 append_path "$HOME/.cargo/bin"
 
+if [[ $(uname) == "Darwin" ]]; then
+  # add PATH for binutils(e.g. gobjdump)
+  append_path /usr/local/opt/binutils/bin
+fi
+
 # NOTE: disable brew analytics
 export HOMEBREW_NO_ANALYTICS
 export HOMEBREW_NO_AUTO_UPDATE=1
