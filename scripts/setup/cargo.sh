@@ -49,6 +49,8 @@ cargo install cargo-expand
 # cargo nm
 cargo install cargo-binutils
 
+cargo install cargo-docserver
+
 # any text to tree style converter
 cargo install --git https://github.com/KoharaKazuya/forest
 
