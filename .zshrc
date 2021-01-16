@@ -1999,6 +1999,9 @@ function rgrep() {
 # OK: find . -not -iwholename '*/.git/*' -ls
 # NG: find . -ls -not -iwholename '*/.git/*'
 function find() {
+  if [[ $# == 0 ]]; then
+    set -- '.'
+  fi
   # NOTE: target is for rust
   command find "$@" -not -iwholename '*/.git/*' -not -iwholename '*/target/rls/*' -not -iwholename '*/target/debug/*' -not -iwholename '*/target/arm-*/*'
 }
