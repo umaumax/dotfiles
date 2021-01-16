@@ -335,7 +335,8 @@ snippet tmpfile_with_trap
 alias trap_tmpfile
 abbr don't use trap in .xxxrc or .xxx_profile
 	tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
-	trap "signal=\$((\$? - 128)); [[ -e $tmpfile ]] && rm -f $tmpfile; exit \\$signal" 0 1 2 3 15
+	trap "signal=\\$((\\$? - 128)); [[ -e $tmpfile ]] && rm -f $tmpfile; exit \\$signal" 0 1 2 3 15
+	trap "exit_code=\\$?; [[ -e $tmpfile ]] && rm -f $tmpfile; exit \\$exit_code" 0 1 2 3 15
 	${0}
 snippet tmpfile_in_function
 	local tmpfile=$(mktemp "$(basename \$0).$$.tmp.XXXXXX")
@@ -348,7 +349,8 @@ snippet tmpdir_with_trap
 alias trap_tmpdir
 abbr don't use trap in .xxxrc or .xxx_profile
 	tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
-	trap "signal=\$((\$? - 128)); [[ -d $tmpdir ]] && rm -rf $tmpdir; exit \$signal" 0 1 2 3 15
+	trap "signal=\\$((\\$? - 128)); [[ -d $tmpfile ]] && rm -rf $tmpfile; exit \\$signal" 0 1 2 3 15
+	trap "exit_code=\\$?; [[ -d $tmpfile ]] && rm -rf $tmpfile; exit \\$exit_code" 0 1 2 3 15
 	${0}
 snippet tmpdir_in_function
 	local tmpdir=$(mktemp -d "/tmp/$(basename \$0).$$.tmp.XXXXXX")
