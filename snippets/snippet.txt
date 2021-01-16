@@ -1696,6 +1696,8 @@
 [cargo create new bin crate] cargo new --bin \%#
 [cargo test show output] cargo test -- --nocapture \%#
 [cargo open doc] cargo doc --open
+[cargo doc: run server] cargo docserver -p 12345 # cargo install cargo-docserver
+[cargo doc: run server] ( cd target/doc && python3 -m http.server 12345 )
 [cargo add lib dependency] cargo add \%# # cargo install cargo-edit
 [cargo module tree list] cargo tree \%# # cargo install cargo-tree
 [cargo fix warning] cargo fix \%# # cargo install cargo-fix
@@ -1974,3 +1976,6 @@
 [set external 1st display input source setting] ddcctl -d 1 -i # DVI-1:3, DVI-2:4, HDMI-1:17, HDMI-2:18 # https://github.com/kfix/ddcctl
 [set external 1st display brightness to 0] ddcctl -d 1 -b 0
 [set external 1st display brightness to 100] ddcctl -d 1 -b 100
+
+# less
+[less: open without close] less +F
