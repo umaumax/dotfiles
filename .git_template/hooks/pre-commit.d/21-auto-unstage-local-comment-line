@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+## pre-commit script to unstage local comment lines
+# you can customize setting by using GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX
+
+RED=$'\e[31m'
+YELLOW=$'\e[33m'
+DEFAULT=$'\e[0m'
+
+# NOTE: cached == staged
+changed_files=($(git diff --cached --name-only))
+[[ ${#changed_files[@]} == 0 ]] && exit 0
+
+staged_diff_tmpfile=$(mktemp)
+git diff --staged >$staged_diff_tmpfile
+GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX=${GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX:-[💀⭐🌟🔥💡]}
+filtered_staged_diff_tmpfile=$(mktemp)
+cat $staged_diff_tmpfile | sed -E '/^\+.*'"${GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX}"'/d' >$filtered_staged_diff_tmpfile
+
+trap "signal=$(($? - 128)); [[ -e $staged_diff_tmpfile ]] && rm -f $staged_diff_tmpfile; exit \$signal" 0 1 2 3 15
+trap "signal=$(($? - 128)); [[ -e $filtered_staged_diff_tmpfile ]] && rm -f $filtered_staged_diff_tmpfile; exit \$signal" 0 1 2 3 15
+
+if cmp $staged_diff_tmpfile $filtered_staged_diff_tmpfile -s; then
+  # no local comment
+  exit 0
+fi
+
+# unstage
+git reset >/dev/null 2>&1
+# stage without local comment
+GIT_EDITOR="cat ${filtered_staged_diff_tmpfile} > " git add -e
+
+echo "${YELLOW}unstaged below lines${DEFAULT}"
+echo -n "$RED"
+diff -u $staged_diff_tmpfile $filtered_staged_diff_tmpfile | grep '^-+.*' | sed -E 's/^\-\+//g'
+echo -n "$DEFAULT"
+
+exit 0
