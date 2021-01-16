@@ -3378,10 +3378,12 @@ EOF
   fi
 }
 
+alias ctrace='set_command_logger'
+alias cmdtrace='set_command_logger'
 function set_command_logger() {
   local target_command=$1
-  local log_output_filepath=$2
-  if [[ $# -lt 2 ]]; then
+  local log_output_filepath=${2:-$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXXX")}
+  if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
 usage: $(basename "$0") <target_command> <log_output_filepath>
 
@@ -3402,13 +3404,14 @@ EOF
 
   cat >"$dummy_command_path" <<EOF
 #!/usr/bin/env bash
-printf '$target_command %s\\n' "\$*" > "$log_output_filepath"
+printf '$target_command %s\\n' "\$*" >> "$log_output_filepath"
 $target_command_fullpath "\$@"
 EOF
   chmod u+x "$dummy_command_path"
   export PATH="$tmpdir:$PATH"
 
   echo 1>&2 "${YELLOW}[LOG] Add '$tmpdir' to \$PATH for dummy '$target_command'"
+  echo 1>&2 "${YELLOW}[LOG] See output: less +F '$log_output_filepath'"
 }
 
 # NOTE: for ruby
