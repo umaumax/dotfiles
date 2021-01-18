@@ -30,9 +30,8 @@ git reset >/dev/null 2>&1
 # stage without local comment
 GIT_EDITOR="cat ${filtered_staged_diff_tmpfile} > " git add -e
 
-echo "${YELLOW}unstaged below lines${DEFAULT}"
-echo -n "$RED"
-diff -u $staged_diff_tmpfile $filtered_staged_diff_tmpfile | grep '^-+.*' | sed -E 's/^\-\+//g'
-echo -n "$DEFAULT"
-
-exit 1
+{
+  echo "${YELLOW}unstaged below lines${DEFAULT}"
+  diff -u $staged_diff_tmpfile $filtered_staged_diff_tmpfile | grep '^-+.*' | sed -E 's/^\-\+//g' | awk "{ printf \"${RED}%s${DEFAULT}\\n\", \$0; }"
+} | less -+F
+exit 0
