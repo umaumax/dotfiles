@@ -771,6 +771,7 @@ alias ext_replace
 	${${1:#:var name}%.*}.${0:#:ext}
 
 snippet cd_abspath_of_current_file
+alias current_filepath abs_filepath_cd
 	current_abs_directory_path=$(cd $(dirname \$0) && pwd)
 	cd ${current_abs_directory_path%/}
 	${0}
