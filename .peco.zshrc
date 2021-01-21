@@ -1077,6 +1077,7 @@ function global_func_prefix() {
 
 # FYI: [Examples · junegunn/fzf Wiki]( https://github.com/junegunn/fzf/wiki/examples#processes )
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+alias killpeco='fkill'
 function fkill() {
   local pid
   local sinal_num
