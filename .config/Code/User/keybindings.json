@@ -70,6 +70,16 @@
     "when": "isMac"
   },
   {
+    "key": "ctrl+up",
+    "command": "cursorTop",
+    "when": "isWindows && textInputFocus"
+  },
+  {
+    "key": "ctrl+down",
+    "command": "cursorBottom",
+    "when": "isWindows && textInputFocus"
+  },
+  {
     "key": "tab",
     "command": "selectNextQuickFix",
     "when": "editorFocus && quickFixWidgetVisible"
