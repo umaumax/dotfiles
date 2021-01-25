@@ -1428,7 +1428,7 @@ function cmds() {
 alias lscmds='allcmds'
 function pathcmds() {
   for name in $(echo $PATH | sed "s/:/\n/g"); do
-    echo $name
+    # echo $name
     find $name -maxdepth 1 -type f -follow -perm -=+x 2>/dev/null
   done
 }
