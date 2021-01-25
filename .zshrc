@@ -1190,6 +1190,10 @@ if cmdcheck tmux; then
     local output
     local color_command=(cat)
     type >/dev/null 2>&1 cgrep && color_command=(cgrep '([^ ]*) *([0-9]*) *(\(.*\)) / (\(.*\))')
+    # in tmux ls -F
+    # can't use custom time format, shell, attribute
+    # [Formats · tmux/tmux Wiki]( https://github.com/tmux/tmux/wiki/Formats#summary-of-modifiers )
+    # [tmux\(1\) \- Linux manual page]( https://man7.org/linux/man-pages/man1/tmux.1.html#FORMATS )
     output=$(timeout 1 tmux ls -F "#{p64:session_name}: #{p-3;s/%//:pane_id} (#{t:session_last_attached}) / (#{t:session_created})" | sort -k2 -n -r | "${color_command[@]}") || return
     if [[ -z $output ]]; then
       # auto restore
