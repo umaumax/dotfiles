@@ -1188,7 +1188,9 @@ if cmdcheck tmux; then
   function tmux-attach() {
     is_in_tmux_with_message || return
     local output
-    output=$(timeout 1 tmux ls) || return
+    local color_command=(cat)
+    type >/dev/null 2>&1 cgrep && color_command=(cgrep '([^ ]*) *([0-9]*) *(\(.*\)) / (\(.*\))')
+    output=$(timeout 1 tmux ls -F "#{p64:session_name}: #{p-3;s/%//:pane_id} (#{t:session_last_attached}) / (#{t:session_created})" | sort -k2 -n -r | "${color_command[@]}") || return
     if [[ -z $output ]]; then
       # auto restore
       tmux-resurrect-restore
@@ -1198,7 +1200,7 @@ if cmdcheck tmux; then
       echo "${PURPLE}tmux set automatic-rename on${DEFAULT}"
       return 1
     fi
-    local tag_id=$(echo $output | peco | cut -d : -f 1)
+    local tag_id=$(echo $output | peco | cut -d : -f 1 | sed 's/ *$//')
     [[ -n $tag_id ]] && tmux a -t $tag_id
   }
   alias tmuxrename='tmux-rename-session'
