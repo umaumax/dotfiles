@@ -1183,3 +1183,32 @@ EOF
     fi
   }
 }
+
+function git-when-merged() {
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF 1>&2
+git-when-merged
+usage:
+  $(basename "$0") <commit> [branch(default: current branch)]
+EOF
+    return 1
+  fi
+
+  local commit="$1"
+  local branch=${2:-$(git symbolic-ref --short HEAD)}
+
+  local merge_commit=$(
+    grep -Fxf \
+      <(
+        git log --first-parent --merges --pretty=format:%h "${branch}"
+        echo
+      ) \
+      <(
+        git log --ancestry-path --merges --pretty=format:%h "${commit}..${branch}"
+        echo
+      ) \
+      | tail -n 1
+  )
+  [[ -z $merge_commit ]] && return 1
+  git log -1 $merge_commit
+}
