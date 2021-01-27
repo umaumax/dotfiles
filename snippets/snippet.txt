@@ -184,6 +184,7 @@
 [git commit reset] git reset --soft "HEAD^"
 [git amend reset] git reset --soft "HEAD@{1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
+[git change old commit message with rebase] git-change-commit-message-rebase-peco # original command
 [git merge all conflict(adopt upper one)] git checkout --ours .
 [git merge all conflict(adopt lower one)] git checkout --theirs .
 [git merge retry all conflict] git checkout -m .
@@ -203,6 +204,7 @@
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git show author(default) and commit date] git log --pretty=fuller
 [git change both date] git commit --amend --date="$(date)" # normal amend changes CommitDate only
+[git change both date(old commit)] git-rebase-peco --ignore-date # original command
 [git commit without hook (force commit)] git commit --no-verify
 [git reload git hooks]  (cd $(git rev-parse --show-toplevel) >/dev/null 2>&1 && rm -rf ".git/hooks" && git init) # WARN: It's possible to delete local git hooks
 [git first empty commit] git commit --allow-empty -m "first commit"
@@ -1129,6 +1131,7 @@
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
 [realtime network conmmunication] sudo env PATH="$PATH" bandwhich # cargo install bandwhich
+[port bind address/port check] ss -antu
 
 # compile_commands.json
 [list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'
@@ -1916,6 +1919,7 @@
 
 # sudo
 [sudo with current PATH] sudo env PATH="$PATH" \%#
+[sudo with current env] sudo -i \%#
 [sudo su with current PATH] sudo su -p
 
 [show i-node number] ls -i \%#
@@ -1979,3 +1983,9 @@
 
 # less
 [less: open without close] less +F
+
+# socat
+[port listen request to stdout] socat tcp-listen:8080\%#,fork stdout
+
+# originals
+[select command of all commands] allcmdspeco !
