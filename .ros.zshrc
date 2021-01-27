@@ -104,7 +104,7 @@ function catkin_make() {
     exit_code=$?
   else
     {
-      command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+      safe-colorize --force command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
       exit_code=$?
     } |& auto_save_log catkin_make
   fi
