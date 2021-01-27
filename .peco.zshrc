@@ -317,8 +317,18 @@ function git-commits-peco() {
 function git-rebase-peco() {
   local commit=$(_git-commit-peco)
   [[ -z $commit ]] && return 1
-  git rebase -i "$commit^"
+  git rebase -i "$commit^" "$@"
 }
+
+function git-change-commit-message-rebase-peco() {
+  local commit=$(_git-commit-peco)
+  [[ -z $commit ]] && return 1
+  # commit sha characters must be 7
+  local sed_command='sed'
+  type >/dev/null 2>&1 gsed && sed_command='gsed'
+  git -c "sequence.editor=f() { $sed_command -i 's/^pick $commit/reword $commit/' \$1; }; f" rebase -i "$commit^"
+}
+
 function git-cherry-pick-peco() {
   local commit=$(_git-commit-peco)
   [[ -z $commit ]] && return 1
