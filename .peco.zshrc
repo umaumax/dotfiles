@@ -317,7 +317,10 @@ function git-commits-peco() {
 function git-rebase-peco() {
   local commit=$(_git-commit-peco)
   [[ -z $commit ]] && return 1
-  git rebase -i "$commit^" "$@"
+  if [[ $# == 0 ]]; then
+    set -- '-i'
+  fi
+  git rebase "$commit^" "$@"
 }
 
 function git-change-commit-message-rebase-peco() {
