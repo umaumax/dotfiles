@@ -12,6 +12,7 @@
 	branch-old-to-new  = :
 	branch-peco  = :
 	cat  = :
+	change-commit-message-rebase-peco  = :
 	check-up-to-date  = :
 	checkout-branch-peco  = :
 	checkout-commit-peco  = :
@@ -37,6 +38,7 @@
 	diff-peco = :
 	diff-peco-range  = :
 	dir  = :
+	fetch  = :
 	file-log-cat  = :
 	file-ranking  = :
 	file-ranking-peco  = :
@@ -85,7 +87,9 @@
 	ls-time  = :
 	open  = :
 	preview  = :
+	pull  = :
 	pull-all  = :
+	push  = :
 	ranking  = :
 	rebase-peco  = :
 	rebase-root-commit-from-master  = :
@@ -113,6 +117,7 @@
 	show-peco  = :
 	show-root-commit-from-master  = :
 	show-stashes  = :
+	stash  = :
 	stash-as-patch  = :
 	stash-checkout  = :
 	stash-checkout-branch-peco  = :
@@ -124,6 +129,7 @@
 	stash-recover  = :
 	stash-staged-as-patch  = :
 	stash-unstaged-as-patch  = :
+	status  = :
 	status-check  = :
 	submodule-move  = :
 	submodule-remove = :
