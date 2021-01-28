@@ -1918,6 +1918,7 @@ alias make.pv='fg.make.pv'
 alias cmake.pv='fg.cmake.pv'
 alias readme.pv='fg.readme.pv'
 
+alias ctest='safe-colorize ctest'
 function cmake() {
   if [[ ! $(basename $(dirname $PWD/.)) =~ build ]]; then
     echo 1>&2 "${RED}[WARN]: current directory doesn't include 'build'${DEFAULT}"
