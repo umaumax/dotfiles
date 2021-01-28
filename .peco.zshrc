@@ -1248,3 +1248,12 @@ if cmdcheck cargo-add; then
     cargo rm "$(printf '%s' "$ret" | xargs)"
   }
 fi
+
+function ctest-peco() {
+  local test_name
+  test_name=$(ctest -N | grep '^  Test' | fzf | sed -E 's/^ *Test #[0-9]+: *//g')
+  if [[ -z $test_name ]]; then
+    return
+  fi
+  printf '%s' "ctest . -V -R $test_name" | to_prompt
+}
