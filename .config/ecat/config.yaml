@@ -5,6 +5,9 @@
 - name:     text
   patterns: ["\"[^\"]*\"", "'[^\']*'"]
   color:    "222"
+- name:     error_text
+  patterns: ["‘.*’"]
+  color:    "#ff5f5f"
 - name:     ctest_failed
   patterns: ["\\[  FAILED  \\]"]
   color:    "197"
@@ -27,6 +30,9 @@
 - name:     label
   patterns: ["\\b(tmp|fix|wip|todo|note|comment)\\b"]
   color:    "209"
+- name:     error_cursor
+  patterns: [" +\\^ +"]
+  color:    "#ff0087"
 - name:     space_for_time
   patterns: [" +"]
   color:    "#000000"
@@ -57,6 +63,9 @@
 - name:     ratio
   patterns: ["[0-9]+(\\.[0-9]+)?/[0-9]+(\\.[0-9]+)?"]
   color:    "155"
+- name:     float
+  patterns: ["\\b([0-9]+\\.[0-9]+)(e[+-][0-9]+)?\\b"]
+  color:    "45"
 - name:     filepath
   patterns: ["(\\.[0-9a-zA-Z~\\-_/.]+)|([0-9a-zA-Z~\\-_/.]+\\.[0-9a-zA-Z~\\-_]+)", "/+[0-9a-zA-Z~\\-_/.]+"]
   color:    "78"
@@ -72,9 +81,6 @@
 - name:     keyword
   patterns: ["\\b(get|set|class|private|public|protected|size|version|type|file[s]?|path|directory|function|func|time)\\b"]
   color:    "46"
-- name:     colon
-  patterns: ["[0-9a-zA-Z]+:"]
-  color:    "135"
 - name:     hex
   patterns: ["0x[0-9a-fA-F]+"]
   color:    "197"
@@ -82,13 +88,13 @@
   patterns: ["[0-9a-f]{7,}"]
   color:    "229"
 - name:     fatal
-  patterns: ["\\b(fatal|failure|nothing|not)\\b"]
+  patterns: ["\\b([Ee]rror|[Ff]atal|[Ff]ailure|[Nn]othing|[Nn]ot|[Ff]ail(ed)?)\\b"]
   color:    "202"
 - name:     complete
-  patterns: ["\\b(done|end|open)\\b"]
+  patterns: ["\\b(done|end|open|[Pp]ass(ed)?)\\b"]
   color:    "155"
 - name:     warning
-  patterns: ["\\b(close|warning|WARN:|clean)\\b"]
+  patterns: ["\\b(close|[Ww]arn(ing)?|clean|timeout)\\b"]
   color:    "226"
 - name:     resume
   patterns: ["\\b(resume)\\b"]
@@ -106,6 +112,9 @@
 # - name:   resume
 #   patterns: ["\\b(bios|bioscope|bioscopic|bioscopy|biose|biosis|biosocial|biosociological|biosphere|biostatic|biostatical|biostatics|biostatistics|biosterin|biosterol|biostratigraphy|biosynthesis|biosynthetic|biosystematic|biosystematics|biosystematist|biosystematy|discharging|ide|idea|ideaed|ideaful|ideagenous|ideal|idealess|idealism|idealist|idealistic|idealistical|idealistically|ideality|idealization|idealize|idealizer|idealless|ideally|idealness|ideamonger|Idean|ideate|ideation|ideational|ideationally|ideative|ideist|idempotent|identic|identical|identicalism|identically|identicalness|identifiable|identifiableness|identification|identifier|identify|identism|identity|ideogenetic|ideogenical|ideogenous|ideogeny|ideoglyph|ideogram|ideogrammic|ideograph|ideographic|ideographical|ideographically|ideography|ideolatry|ideologic|ideological|ideologically|ideologist|ideologize|ideologue|ideology|ideomotion|ideomotor|ideophone|ideophonetics|ideophonous|ideoplastia|ideoplastic|ideoplastics|ideoplasty|ideopraxist|ides|Isaac|Isabel|isabelina|isabelita|Isabella|Isabelle|Isabelline|isabnormal|isaconitine|isacoustic|isadelphous|Isadora|isagoge|isagogic|isagogical|isagogically|isagogics|isagon|Isaiah|Isaian|isallobar|isallotherm|isamine|Isander|isandrous|isanemone|isanomal|isanomalous|isanthous|isapostolic|Isaria|isarioid|isatate|isatic|isatide|isatin|isatinic|Isatis|isatogen|isatogenic|Isaurian|Isawa|isazoxy|iso|isoabnormal|isoagglutination|isoagglutinative|isoagglutinin|isoagglutinogen|isoalantolactone|isoallyl|isoamarine|isoamide|isoamyl|isoamylamine|isoamylene|isoamylethyl|isoamylidene|isoantibody|isoantigen|isoapiole|isoasparagine|isoaurore|isobar|isobarbaloin|isobarbituric|isobare|isobaric|isobarism|isobarometric|isobase|isobath|isobathic|isobathytherm|isobathythermal|isobathythermic|isobenzofuran|isobilateral|isobilianic|isobiogenetic|isoborneol|isobornyl|isobront|isobronton|isobutane|isobutyl|isobutylene|isobutyraldehyde|isobutyrate|isobutyric|isobutyryl|isocamphor|isocamphoric|isocaproic|isocarbostyril|Isocardia|Isocardiidae|isocarpic|isocarpous|isocellular|isocephalic|isocephalism|isocephalous|isocephaly|isocercal|isocercy|isochasm|isochasmic|isocheim|isocheimal|isocheimenal|isocheimic|isocheimonal|isochlor|isochlorophyll|isochlorophyllin|isocholanic|isocholesterin|isocholesterol|isochor|isochoric|isochromatic|isochronal|isochronally|isochrone|isochronic|isochronical|isochronism|isochronize|isochronon|isochronous|isochronously|isochroous|isocinchomeronic|isocinchonine|isocitric|isoclasite|isoclimatic|isoclinal|isocline|isoclinic|isocodeine|isocola|isocolic|isocolon|isocoria|isocorybulbin|isocorybulbine|isocorydine|isocoumarin|isocracy|isocrat|isocratic|isocreosol|isocrotonic|isocrymal|isocryme|isocrymic|isocyanate|isocyanic|isocyanide|isocyanine|isocyano|isocyanogen|isocyanurate|isocyanuric|isocyclic|isocymene|isocytic|isodactylism|isodactylous|isodiabatic|isodialuric|isodiametric|isodiametrical|isodiazo|isodiazotate|isodimorphic|isodimorphism|isodimorphous|isodomic|isodomous|isodomum|isodont|isodontous|isodrome|isodulcite|isodurene|isodynamia|isodynamic|isodynamical|isoelectric|isoelectrically|isoelectronic|isoelemicin|isoemodin|isoenergetic|isoerucic|Isoetaceae|Isoetales|Isoetes|isoeugenol|isoflavone|isoflor|isogamete|isogametic|isogametism|isogamic|isogamous|isogamy|isogen|isogenesis|isogenetic|isogenic|isogenotype|isogenotypic|isogenous|isogeny|isogeotherm|isogeothermal|isogeothermic|isogloss|isoglossal|isognathism|isognathous|isogon|isogonal|isogonality|isogonally|isogonic|isogoniostat|isogonism|isograft|isogram|isograph|isographic|isographical|isographically|isography|isogynous|isohaline|isohalsine|isohel|isohemopyrrole|isoheptane|isohesperidin|isohexyl|isohydric|isohydrocyanic|isohydrosorbic|isohyet|isohyetal|isoimmune|isoimmunity|isoimmunization|isoimmunize|isoindazole|isoindigotin|isoindole|isoionone|isokeraunic|isokeraunographic|isokeraunophonic|Isokontae|isokontan|isokurtic|isolability|isolable|isolapachol|isolate|isolated|isolatedly|isolating|isolation|isolationism|isolationist|isolative|Isolde|isolecithal|isoleucine|isolichenin|isolinolenic|isologous|isologue|isology|Isoloma|isolysin|isolysis|isomagnetic|isomaltose|isomastigate|isomelamine|isomenthone|isomer|Isomera|isomere|isomeric|isomerical|isomerically|isomeride|isomerism|isomerization|isomerize|isomeromorphism|isomerous|isomery|isometric|isometrical|isometrically|isometrograph|isometropia|isometry|isomorph|isomorphic|isomorphism|isomorphous|Isomyaria|isomyarian|isoneph|isonephelic|isonergic|isonicotinic|isonitramine|isonitrile|isonitroso|isonomic|isonomous|isonomy|isonuclear|isonym|isonymic|isonymy|isooleic|isoosmosis|isopachous|isopag|isoparaffin|isopectic|isopelletierin|isopelletierine|isopentane|isoperimeter|isoperimetric|isoperimetrical|isoperimetry|isopetalous|isophanal|isophane|isophasal|isophene|isophenomenal|isophoria|isophorone|isophthalic|isophthalyl|isophyllous|isophylly|isopicramic|isopiestic|isopiestically|isopilocarpine|isoplere|isopleth|Isopleura|isopleural|isopleuran|isopleurous|isopod|Isopoda|isopodan|isopodiform|isopodimorphous|isopodous|isopogonous|isopolite|isopolitical|isopolity|isopoly|isoprene|isopropenyl|isopropyl|isopropylacetic|isopropylamine|isopsephic|isopsephism|Isoptera|isopterous|isoptic|isopulegone|isopurpurin|isopycnic|isopyre|isopyromucic|isopyrrole|isoquercitrin|isoquinine|isoquinoline|isorcinol|isorhamnose|isorhodeose|isorithm|isorosindone|isorrhythmic|isorropic|isosaccharic|isosaccharin|isoscele|isosceles|isoscope|isoseismal|isoseismic|isoseismical|isoseist|isoserine|isosmotic|Isospondyli|isospondylous|isospore|isosporic|isosporous|isospory|isostasist|isostasy|isostatic|isostatical|isostatically|isostemonous|isostemony|isostere|isosteric|isosterism|isostrychnine|isosuccinic|isosulphide|isosulphocyanate|isosulphocyanic|isosultam|isotac|isoteles|isotely|isotheral|isothere|isotherm|isothermal|isothermally|isothermic|isothermical|isothermobath|isothermobathic|isothermous|isotherombrose|isothiocyanates|isothiocyanic|isothiocyano|isothujone|isotimal|isotome|isotomous|isotonia|isotonic|isotonicity|isotony|isotope|isotopic|isotopism|isotopy|isotrehalose|Isotria|isotrimorphic|isotrimorphism|isotrimorphous|isotron|isotrope|isotropic|isotropism|isotropous|isotropy|isotype|isotypic|isotypical|isovalerate|isovalerianate|isovalerianic|isovaleric|isovalerone|isovaline|isovanillic|isovoluminal|isoxanthine|isoxazine|isoxazole|isoxime|isoxylene|isoyohimbine|isozooid|resume|resumer)\\b"]
 #   color:  "123"
+- name:     colon
+  patterns: ["[0-9a-zA-Z]+:"]
+  color:    "135"
 - name:     word
   patterns: ["(([a-zA-Z_]+[0-9]+)|([0-9]+[a-zA-Z_]+))[0-9a-zA-Z_]*"]
   color:    "195"
