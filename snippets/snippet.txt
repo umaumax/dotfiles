@@ -5,8 +5,9 @@
 # find
 [find exec snippet with md5sum or xargs] find . -name \%# | xargs -L1 md5sum
 [find root without home/docker dir] sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \) 
-[find current dir] find . -name "\%#" -exec grep --color=auto -H -n {} +
-[find root dir] sudo find / -name "\%#" -exec grep --color=auto -H -n {} +
+[find current dir] find . -name "\%#" -exec grep '' --color=auto -H -n {} +
+[find root dir] sudo find / -name "\%#" -exec grep '' --color=auto -H -n {} +
+[find grep exec option] -exec grep '\%#' --color=auto -H -n {} +
 [find some ext file] find . -name "*.\%#"
 [find Don't descend directories on other filesystems. option] -xdev
 [find depth(BSD)] find . -depth 1 -type f
