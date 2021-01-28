@@ -156,6 +156,7 @@ bind generic <Ctrl-r> find-prev
 bind generic | :set vertical-split = yes
 bind generic - :set vertical-split = no
 
+bind blame B back
 bind generic <Delete> back
 bind generic <Backspace> back
 
