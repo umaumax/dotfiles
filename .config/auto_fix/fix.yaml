@@ -23,6 +23,8 @@ _:
 - - constructor
 - - content
 - - context
+- - custom
+- - customer
 - - cursor
 - - declaration
 - - default
