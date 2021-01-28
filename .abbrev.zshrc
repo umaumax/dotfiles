@@ -47,6 +47,8 @@ abbrev-alias -c sshdel='ssh-keygen-R-peco'
 abbrev-alias -c tmuxs="tmux new -s '\%#'"
 
 abbrev-alias -c g='git '
+abbrev-alias -c gc='git checkout '
+abbrev-alias -c gcb='git checkout -b '
 abbrev-alias -c gp='git push '
 abbrev-alias -c gco=" git checkout ."
 abbrev-alias -c gcoc='git-checkout-commit-peco'
