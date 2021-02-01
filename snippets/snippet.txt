@@ -186,6 +186,7 @@
 [git amend reset] git reset --soft "HEAD@{1}" # WARN: use this comand just after wrong amend
 [git merge reset] git reset --hard ORIG_HEAD
 [git change old commit message with rebase] git-change-commit-message-rebase-peco # original command
+[git split old commit message with rebase] git-split-commit-rebase-peco # original command
 [git merge all conflict(adopt upper one)] git checkout --ours .
 [git merge all conflict(adopt lower one)] git checkout --theirs .
 [git merge retry all conflict] git checkout -m .
@@ -882,6 +883,7 @@
 [sed cut before] sed -E 's/^([^ ]+?( )+?){\%#}//'
 # [Rubyやsedで複数行の文章を任意の箇所に挿入する \- grep Tips \*]( https://www.greptips.com/posts/1170/#%E5%88%A5%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E5%86%85%E5%AE%B9%E3%82%92sed%E3%81%A7%E6%8C%BF%E5%85%A5%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95 )
 [sed insert text before n lines at last] FILE=\%# ;cat << 'EOF' | sed -i $(cat $FILE | awk 'END{ n=1; printf "%d",NR-n}')'r '"/dev/stdin" $FILE\%$\%$EOF
+[sed dry run] sedry # https://github.com/umaumax/sedry
 
 # json,yaml
 [json to yaml one liner] ruby -ryaml -rjson -e 'puts YAML.dump(JSON.parse(STDIN.read))'
@@ -903,6 +905,8 @@
 [unix timestamp] date +%s
 [unix timestamp with millsec] date +%s%3N
 [ubuntu date after or ago] date -d "+90\%# days"
+[unixtime stamp to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
+[unixtime stamp to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
 
 # pgrep
 [pgrep with user info 1] ps wup $(pgrep -f \%#)
@@ -971,7 +975,8 @@
 [rosbag] rosbag decompresss
 [rosbag] rosbag filter
 [rosbag] rosbag play
-[save to rosbag file] rosbag record -O \%#.bag $TOPIC
+[rosbag save to file] rosbag record -O \%#.bag $TOPIC
+[rosbag record all topic] rosbag record -a -O \%#.bag
 [rosbag play with rename topic] rosbag play \%# $FROM_TOPIC:=$TO_TOPIC# from:=to
 [rosbag csv] rostopic echo -b $BAG_FILEPATH -p /$TOPIC_NAME
 [rosbag rqt_bag viewer] rqt_bag # <bag file>
@@ -1308,7 +1313,7 @@
 [diff ignore space(blank)] diff -b \%#
 [diff directory] diff -r \%# # DIR_A DIR_B
 [diff directory only filepath] diff -rq \%# # DIR_A DIR_B
-[diff multifiles] \\diff --from-file=$SRC\%# $CMP1 $CMP2 # ... # for diff or colordiff
+[diff multifiles] diff --from-file=$SRC\%# $FILE1 $FILE2 # don't use process substitution at --from-file
 ## FYI: [How to get diff working like git\-diff? \- Stack Overflow]( https://stackoverflow.com/questions/4857310/how-to-get-diff-working-like-git-diff )
 [git style diff at out of repo] git diff --no-index -- \%#
 [diff for patch file] command diff -up $SRC_FILE\%# $DST_FILE
@@ -1711,7 +1716,7 @@
 [cargo modules of toml file] cargo metadata --format-version=1 --no-deps | jq '.packages[].dependencies[].name' -r
 [cargo expand macro debug] cargo exapnd \%# # cargo install cargo-expand
 [cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
-[cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf
+[cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf # rustup target add armv7-unknown-linux-gnueabihf
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
 [rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nighlty`
@@ -1904,6 +1909,9 @@
 [service time] systemd-analyze
 [service time plot] systemd-analyze plot > plot.svg
 
+# journalctl
+[journalctl unit filter] journalctl -u $UNIT_NAME # systemctl list-unit-files --all
+
 # pid
 [pid files location] /var/run/
 
@@ -1991,4 +1999,5 @@
 [port listen request to stdout] socat tcp-listen:8080\%#,fork stdout
 
 # originals
-[select command of all commands] allcmdspeco !
+[original: select command of all commands] allcmdspeco !
+[original: diff filter with grep] grep-diff
