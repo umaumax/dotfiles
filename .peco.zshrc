@@ -332,6 +332,20 @@ function git-change-commit-message-rebase-peco() {
   git -c "sequence.editor=f() { $sed_command -i 's/^pick $commit/reword $commit/' \$1; }; f" rebase -i "$commit^"
 }
 
+function git-split-commit-rebase-peco() {
+  local commit=$(_git-commit-peco)
+  [[ -z $commit ]] && return 1
+  # commit sha characters must be 7
+  local sed_command='sed'
+  type >/dev/null 2>&1 gsed && sed_command='gsed'
+  git -c "sequence.editor=f() { $sed_command -i 's/^pick $commit/edit $commit/' \$1; }; f" rebase -i "$commit^" || return 1
+  echo
+  echo "${PURPLE}[LOG] uncommited below commit${DEFAULT}"
+  echo "${PURPLE}[LOG] create commits and git rebase --continue${DEFAULT}"
+  echo
+  git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset
+}
+
 function git-cherry-pick-peco() {
   local commit=$(_git-commit-peco)
   [[ -z $commit ]] && return 1
