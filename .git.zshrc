@@ -1212,3 +1212,54 @@ EOF
   [[ -z $merge_commit ]] && return 1
   git log -1 $merge_commit
 }
+
+function git-merge-conflict-diff() {
+  is_git_repo_with_message || return 1
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF 1>&2
+git-merge-conflict-diff
+usage:
+  $(basename "$0") merge_commit
+EOF
+    return 1
+  fi
+  local merge_commit="$1"
+  local base_branch="${merge_commit}"
+  local merge_branch="${merge_commit}^2"
+  git-merge-conflict-diff-from-branches "$base_branch" "$merge_branch"
+}
+
+function git-merge-conflict-diff-from-branches() {
+  is_git_repo_with_message || return 1
+  # git no stage/unstaged files
+  [[ -z "$(git status --untracked-files=no --porcelain)" ]] || {
+    echo "${RED}[LOG] dirty status${DEFAULT}"
+    git status
+    return 1
+  }
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF 1>&2
+git-merge-conflict-diff-from-branches
+usage:
+  $(basename "$0") [base_branch(default:HEAD)] merge_branch
+EOF
+    return 1
+  fi
+
+  if [[ $# -lt 1 ]]; then
+    local base_branch="$(git symbolic-ref --short HEAD)"
+    local merge_branch="$1"
+  else
+    local base_branch="$1"
+    local merge_branch="$2"
+  fi
+  base_branch="$(git rev-parse --short "$base_branch")"
+  merge_branch="$(git rev-parse --short "$merge_branch")"
+
+  git checkout "${base_branch}~" 1>&2
+  # temporary disable rerere
+  git -c "rerere.enabled=false" merge "$merge_branch" 1>&2
+  git diff -R "$base_branch"
+  git merge --abort 1>&2
+  git checkout - 1>&2
+}
