@@ -395,6 +395,11 @@
 [git log my commit] git log --author="$(git config --get user.name)"
 [git log my commit(all)] git log --all --author="$(git config --get user.name)"
 
+[git no stage/unstaged files] git diff-index --quiet HEAD # untracked files are ignored
+[git no stage/unstaged files] [ -z "$(git status --untracked-files=no --porcelain)" ] # untracked files are ignored
+[git is clean status?] [ -z "$(git status --porcelain)" ] # includes untracked files
+[git convert commit text to commit sha] git rev-parse --short "HEAD\%#"
+
 # hub
 [show pull request] hub pr list
 [create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
@@ -2001,3 +2006,5 @@
 # originals
 [original: select command of all commands] allcmdspeco !
 [original: diff filter with grep] grep-diff
+[original: git show merge conflict solution diff] git-merge-conflict-diff
+
