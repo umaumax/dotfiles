@@ -65,6 +65,41 @@
     "when": "isWindows"
   },
   {
+    "key": "ctrl+numpad_add",
+    "command": "editor.action.fontZoomIn",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+shift+oem_plus",
+    "command": "editor.action.fontZoomIn",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+oem_plus",
+    "command": "editor.action.fontZoomIn",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+numpad_subtract",
+    "command": "editor.action.fontZoomOut",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+shift+oem_minus",
+    "command": "editor.action.fontZoomOut",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+oem_minus",
+    "command": "editor.action.fontZoomOut",
+    "when": "isWindows"
+  },
+  {
+    "key": "ctrl+numpad0",
+    "command": "editor.action.fontZoomReset",
+    "when": "isWindows"
+  },
+  {
     "key": "cmd+y",
     "command": "redo",
     "when": "isMac"
