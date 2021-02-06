@@ -46,6 +46,8 @@ augroup END
 
 Plug 'zchee/vim-goiferr', {'for': 'go'}
 
+Plug 'mattn/vim-gomod'
+
 " " for fatih/vim-go
 " let g:go_asmfmt_autosave=0
 " " .s -> Plan9形式でのformatとする
