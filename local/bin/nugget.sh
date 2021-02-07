@@ -456,4 +456,26 @@ function nugget_ubuntu_go() {
   rm -rf "$tmpdir"
 }
 # ################################
+
+# ################################
+function nugget_mac_git-webui() {
+  cmdcheck git-webui && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  local src_dirpath="$NUGGET_INSTALL_PREIFX/src"
+  mkdir -p "$src_dirpath"
+  pushd "$src_dirpath"
+  if [[ ! -d git-webui ]]; then
+    git clone https://github.com/alberthier/git-webui.git
+  else
+    pushd git-webui
+    git pull
+    popd
+  fi
+  ln -sf "$src_dirpath/git-webui/release/libexec/git-core/git-webui" "$NUGGET_INSTALL_BIN_PREIFX/"
+  popd
+}
+function nugget_ubuntu_git-webui() {
+  nugget_mac_git-webui "$@"
+}
+# ################################
 nugget "$@"

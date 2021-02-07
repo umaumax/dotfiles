@@ -368,6 +368,7 @@
 [git fetch grafted repo] git fetch --unshallow
 
 [git public on web temporary] git instaweb -p 12345
+[git public on web temporary] git webui --no-browser --port 12345
 
 [git execute command on each commit when rebasing] git rebase HEAD~\%# --exec "ls"
 

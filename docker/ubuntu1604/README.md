@@ -58,6 +58,7 @@ nugget googletest
 nugget exa
 nugget ctop
 nugget rust
+nugget git-webui
 
 ~/dotfiles/scripts/setup/cargo.sh
 
