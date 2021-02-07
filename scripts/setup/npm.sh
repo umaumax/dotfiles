@@ -47,3 +47,5 @@ npm install -g diff2html-cli
 
 # for develop vscode plugin
 npm install -g vsce
+
+npm install -g prettier
