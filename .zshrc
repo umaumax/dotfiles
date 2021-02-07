@@ -455,6 +455,23 @@ function homedir_normalization() {
   fi
 }
 
+function file-line-filter() {
+  [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]] && echo 'seq 1 9 | '"$0 "'<(echo "4\\n3\\n1")' && return 1
+  local filter_file="$1"
+  perl -e 'my %hash; open(my $fh, "<", @ARGV[0]); while (my $line = <$fh>) { $hash{$line} += 1; }; close $fh; while (<STDIN>) { print $_ if exists($hash{$_}); }' "$filter_file"
+}
+
+# e.g. <(echo 1), =(echo 1), $(echo | psub)
+function psub() {
+  local tmpfilepath=$(mktemp)
+  if [[ -p /dev/stdin ]]; then
+    command cat >$tmpfilepath
+    printf '%s' "$tmpfilepath"
+  else
+    return 1
+  fi
+}
+
 # how to install
 # pip3 install https://github.com/umaumax/AnsiToImg/archive/master.tar.gz
 cmdcheck ansitoimg && function ansitoimg() {
