@@ -401,6 +401,8 @@
 [git is clean status?] [ -z "$(git status --porcelain)" ] # includes untracked files
 [git convert commit text to commit sha] git rev-parse --short "HEAD\%#"
 
+[git tag dump with commit sha] git tag | grep "^\%#" | xargs -L 1 -I{} bash -c "git rev-parse --short {} | tr -d '\n'; echo :{};"
+
 # hub
 [show pull request] hub pr list
 [create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
@@ -1729,7 +1731,7 @@
 [rust arch target list] rustup target list
 [rust build unused function] RUSTFLAGS="-C link-dead-code" cargo build 
 [cargo with flags] RUSTFLAGS="\%#" cargo build 
-[rust 'Blocking waiting for file lock on package cache' while building] rm -rf ~/.cargo/registry/index/* ~/.cargo/.package-cache
+[rust 'Blocking waiting for file lock on package cache' while building] rm -rf ~/.cargo/registry/index/ ~/.cargo/.package-cache # cargo clean # pkill rls cargo
 [cargo build with compile commands] cargo build --verbose
 [rust dump some function] objdump -d \%# | c++filt | awk -v RS= '/^[[:xdigit:]]+ <std::env::var>/'
 [rust dump main function only] objdump -d \%# | awk -v RS= '/^[[:xdigit:]]+ <[0-9A-Za-z_]+main[0-9A-Za-z_]+>/'
