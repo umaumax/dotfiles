@@ -87,6 +87,7 @@ fi
 ln -fs "$DOTPATH"/.vim/config ~/.vim/
 ln -fs "$DOTPATH"/.vim/patch ~/.vim/
 # for nvim
+mkdir -p ~/.config
 ln -fs "$DOTPATH"/.vim/runtimepath/after ~/.config/nvim/
 # for vim
 ln -fs "$DOTPATH"/.vim/runtimepath/after ~/.vim/
