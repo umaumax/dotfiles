@@ -7,9 +7,10 @@
 // For documentation on these settings, see: https://aka.ms/terminal-documentation
 {
   "$schema": "https://aka.ms/terminal-profiles-schema",
-
+  // Ubuntu 16.04
   "defaultProfile": "{6f9994f0-4403-5e85-9cce-98e5da3839bb}",
-
+  // Ubuntu 20.04
+  // "defaultProfile": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
   // You can add more global application settings here.
   // To learn more about global settings, visit https://aka.ms/terminal-global-settings
 
@@ -62,6 +63,12 @@
         "source": "Windows.Terminal.Wsl"
       },
       {
+        "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+        "hidden": false,
+        "name": "Ubuntu-20.04",
+        "source": "Windows.Terminal.Wsl"
+      },
+      {
         "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
         "hidden": false,
         "name": "Azure Cloud Shell",
@@ -78,7 +85,7 @@
   // To unbind a key combination from your defaults.json, set the command to "unbound".
   // To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
   "actions": [
-    // new tab of "Ubuntu-16.04
+    // new tab of Ubuntu-16.04
     { "command": { "action": "newTab", "index": 2 }, "keys": "ctrl+t" },
     { "command": "prevTab", "keys": "ctrl+left" },
     { "command": "nextTab", "keys": "ctrl+right" },
