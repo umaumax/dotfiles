@@ -41,6 +41,10 @@ if Doctor('vint', 'Kuniwak/vint')
 endif
 Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 
+if Doctor('nextword', 'deoplete-plugins/deoplete-nextword')
+  Plug 'deoplete-plugins/deoplete-nextword'
+endif
+
 " auto tab indent detector
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 LazyPlug 'tpope/vim-sleuth'

@@ -32,6 +32,7 @@ let s:doctor_map={
       \'jsonlint':     'npm install -g jsonlint',
       \'jq':           'brew install jq || sudo apt -y install jq',
       \'look':         'maybe default command',
+      \'nextword':     'go get -u github.com/high-moctane/nextword; nugget nextword-data',
       \'npm':          'install node',
       \'pylint':       'pip install pylint',
       \'pyls':         'pip install python-language-server',
