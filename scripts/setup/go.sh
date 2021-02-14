@@ -71,6 +71,8 @@ go get -u github.com/yamnikov-oleg/nasmfmt
 # NOTE: for stats (statistics command)
 go get github.com/jweslley/stats-tools/...
 
+go get -u github.com/high-moctane/nextword
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms

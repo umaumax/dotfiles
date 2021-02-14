@@ -478,4 +478,25 @@ function nugget_ubuntu_git-webui() {
   nugget_mac_git-webui "$@"
 }
 # ################################
+
+# ################################
+function nugget_mac_nextword-data() {
+  if [[ -z $NEXTWORD_DATA_PATH ]]; then
+    return $NUGGET_FAILURE
+  fi
+  [[ -e $NEXTWORD_DATA_PATH ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  rm -rf "$NEXTWORD_DATA_PATH"
+  mkdir -p "$(dirname $NEXTWORD_DATA_PATH)"
+
+  pushd "$tmpdir"
+  wget https://github.com/high-moctane/nextword-data/archive/large.tar.gz
+  tar xvf large.tar.gz -C "$(dirname $NEXTWORD_DATA_PATH)"
+  popd
+  rm -rf "$tmpdir"
+}
+function nugget_ubuntu_nextword-data() {
+  nugget_mac_nextword-data "$@"
+}
+# ################################
 nugget "$@"

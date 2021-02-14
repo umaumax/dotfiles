@@ -255,6 +255,8 @@ cmdcheck nvim && [[ ! -f ~/local/bin/vim ]] && ln -s $(which nvim) ~/local/bin/v
 
 append_path ~/dotfiles/local/bin
 
+export NEXTWORD_DATA_PATH=$HOME/.cache/nextword/nextword-data-large
+
 # ----
 
 [[ -n $BASH ]] && export HISTFILESIZE=100000

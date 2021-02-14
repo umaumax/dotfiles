@@ -26,6 +26,7 @@ extensions=(
   bwildeman.tabulous
   christian-kohler.path-intellisense
   eamodio.gitlens
+  high-moctane.nextword
   ionutvmi.path-autocomplete
   jebbs.plantuml
   mhutchie.git-graph
