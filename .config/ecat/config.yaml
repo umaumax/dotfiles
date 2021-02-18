@@ -88,13 +88,13 @@
   patterns: ["[0-9a-f]{7,}"]
   color:    "229"
 - name:     fatal
-  patterns: ["\\b([Ee]rror|[Ff]atal|[Ff]ailure|[Nn]othing|[Nn]ot|[Ff]ail(ed)?)\\b"]
-  color:    "202"
+  patterns: ["\\b([Ee]rror|[Ff]atal|[Ff]ailure|[Ff]ail(ed)?)\\b"]
+  color:    "196"
 - name:     complete
   patterns: ["\\b(done|end|open|[Pp]ass(ed)?)\\b"]
   color:    "155"
 - name:     warning
-  patterns: ["\\b(close|[Ww]arn(ing)?|clean|timeout)\\b"]
+  patterns: ["\\b(close|[Ww]arn(ing)?|clean|timeout|[Nn]othing|[Nn]ot)\\b"]
   color:    "226"
 - name:     resume
   patterns: ["\\b(resume)\\b"]
