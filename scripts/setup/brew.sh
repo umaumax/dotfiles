@@ -145,7 +145,7 @@ brew install --cask qlimagesize
 brew install --cask texpad
 brew install --cask osxfuse
 brew install --cask copyq
-# NOTE: after osxfuse beacuse of dependency
+# NOTE: after osxfuse because of dependency
 brew install ext4fuse
 brew install --cask flash-player
 brew install homebrew/cask-versions/visual-studio-code-insiders

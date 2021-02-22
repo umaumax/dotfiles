@@ -36,7 +36,7 @@ brew install ninja
 
 # error
 # Checked out revision 342395.
-# Error: An exception occured within a build process:
+# Error: An exception occurred within a build process:
 #   NoMethodError: undefined method `installed?' for OS::Mac::Xcode:Module
 # Did you mean?  instance_of?
 # brew install clang-format

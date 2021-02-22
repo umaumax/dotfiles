@@ -86,7 +86,7 @@ end
 # NOTE: load $PWD/.gdbinit
 set auto-load local-gdbinit
 
-# WARN: ./stdlib is extra directory (no existance)
+# WARN: ./stdlib is extra directory (no existence)
 # I don't know why libc6-dbg has extra `../` (e.g. ../sysdeps/posix/signal.c)
 # maybe for `apt-get source libc6`
 # for Ubuntu16.04

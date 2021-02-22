@@ -1152,7 +1152,7 @@
 # compile_commands.json
 [list -I dirs] cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'
 [add -I dirs list to CPATH] export CPATH="$(cat compile_commands.json| grep -o "\-I[^ ]*" | sort | uniq | sed 's/^-I//' | tr '\n' ':'):$CPATH"
-[add header infomation to compile_commands.json] compdb list > ../compile_commands.json
+[add header information to compile_commands.json] compdb list > ../compile_commands.json
 
 # dev usb
 [dev usb0] /dev/ttyUSB0
@@ -1503,7 +1503,7 @@
 # man
 [man ld] man ld.so!
 [man ascii] man ascii!
-[man seach] man -k \%#
+[man search] man -k \%#
 [man shell builtin command] man n \%#
 [man user command] man 1 
 [man systemcall] man 2 

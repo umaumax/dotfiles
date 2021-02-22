@@ -3,8 +3,8 @@
 # ...
 # clang_format(${target})
 option(FORMAT_FILES_WITH_CLANG_FORMAT_BEFORE_EACH_BUILD
-	"If the command clang-format is avilable, format source files before each build.\
-Turn this off if the build time is too slow."
+	"If the command clang-format is available, format source files before each build.\
+	Turn this off if the build time is too slow."
 	ON)
 find_program(CLANG_FORMAT_EXE clang-format)
 
