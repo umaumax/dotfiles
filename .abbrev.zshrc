@@ -77,6 +77,8 @@ abbrev-alias -c ggcpp="ggpvc '\%#' -- '*.cpp' '*.hpp' '*.c' '*.h' '*.cxx' '*.cc'
 abbrev-alias -c ggrs="ggpvc '\%#' -- '*.rs'"
 abbrev-alias -c ggrust="ggpvc '\%#' -- '*.rs'"
 
+abbrev-alias -c ggjs="ggpvc -E -e '^.{,500}$' --and -e '\%#' -- '*.js' '*.ts'"
+
 abbrev-alias -c ggcs="ggpvc '\%#' -- '*.cs'"
 
 abbrev-alias -c ggmake="ggpvc '\%#' -- '*[M|m]akefile'"
@@ -100,7 +102,7 @@ abbrev-alias -c fgcs="findgrep '\%#' -- -type f \( -name '*.cs' \)"
 abbrev-alias -c fgrs="findgrep '\%#' -- -type f \( -name '*.rs' \)"
 abbrev-alias -c fgrust="findgrep '\%#' -- -type f \( -name '*.rs' \)"
 abbrev-alias -c fggo="findgrep '\%#' -- -type f \( -name '*.go' \)"
-abbrev-alias -c fgjs="findgrep '\%#' -- -type f \( -name '*.js' -o -name '*.ts' \)"
+abbrev-alias -c fgjs="findgrep '\%#' -- -type f \( -name '*.js' -o -name '*.ts' \) | awk 'length(\$0) < 512'"
 abbrev-alias -c fgmake="findgrep '\%#' -- -type f \( -name 'Makefile' -o -name 'makefile' -o -name '*.mk' \)"
 abbrev-alias -c fgcmake="findgrep '\%#' -- -type f \( -name 'CMakeLists.txt' -o -name '*.cmake' \)"
 abbrev-alias -c fgconfig="findgrep '\%#' -- -type f \( -name '.*' -o -name '*.config' -o -path '*/config/*' \)"
