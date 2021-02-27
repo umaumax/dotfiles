@@ -1420,6 +1420,13 @@ alias allow='direnv allow'
 alias envrc='vim .envrc'
 alias vm='vim README.md'
 
+# move to tmp directory by date
+function tmpd() {
+  local dir="$HOME/tmp/$(date +'%Y/%m%d')"
+  mkdir -p "$dir"
+  cd "$dir"
+}
+
 # for ssh
 alias vissh='vim ~/.ssh/config'
 alias vimssh='vim ~/.ssh/config'
