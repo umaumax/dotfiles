@@ -93,7 +93,6 @@ function show_PROMPT_2_text_by_array() {
   _PROMPT=$PROMPT
   PROMPT="${PROMPT_2}$PROMPT"
   zle reset-prompt
-  abc=$PROMPT
   PROMPT=$_PROMPT
 }
 function cat_PROMPT_2_text() {
