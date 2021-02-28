@@ -2010,4 +2010,5 @@
 [original: select command of all commands] allcmdspeco !
 [original: diff filter with grep] grep-diff
 [original: git show merge conflict solution diff] git-merge-conflict-diff
+[git log enhanced] git foresta # alias is gf
 

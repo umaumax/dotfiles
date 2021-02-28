@@ -71,6 +71,7 @@ download https://github.com/umaumax/bash_onerror/blob/master/bash_onerror
 download https://github.com/umaumax/yaml-sort/blob/master/_yaml-sort -O "$zsh_completion_dirpath/"
 download https://github.com/umaumax/dotorphan/blob/master/_dotorphan -O "$zsh_completion_dirpath/"
 
+download https://github.com/takaaki-kasai/git-foresta/blob/master/git-foresta
 download https://github.com/paulirish/git-recent/blob/master/git-recent
 download https://github.com/stedolan/git-ls/blob/master/git-ls
 download https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame

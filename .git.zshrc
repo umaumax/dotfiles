@@ -513,6 +513,10 @@ function git_is_detached_head() {
   [[ $(git rev-parse --abbrev-ref --symbolic-full-name HEAD) == "HEAD" ]]
 }
 
+function gf() {
+  # use bat --plain or less -RSX
+  git-foresta --all --style=10 "$@" | less +32k "-p\(HEAD"
+}
 # "-p[^/]HEAD": hit HEAD not origin/HEAD
 # -j.5: set cursor to middle line, but if HEAD is in first line, I want to scroll at from top, so use '+n16k'
 function gl() {
