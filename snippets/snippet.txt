@@ -133,6 +133,7 @@
 [cmake option list(text)] cmake -LA -N ..
 [cmake option list(GUI)] ccmake ..
 [cmake find_package debug] -DCMAKE_FIND_DEBUG_MODE=1 # 3.17~
+[find installed files by make install by cmake] find . -name "install_manifest.txt" -exec grep '\%#' --color=auto -H -n {} +
 
 # make
 [make debug verbose] make VERBOSE=1 \%# # made by autotoools or cmake
