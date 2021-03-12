@@ -82,9 +82,9 @@ abbrev-alias -c ggjs="ggpvc -E -e '^.{,500}$' --and -e '\%#' -- '*.js' '*.ts'"
 abbrev-alias -c ggcs="ggpvc '\%#' -- '*.cs'"
 
 abbrev-alias -c ggmake="ggpvc '\%#' -- '*[M|m]akefile'"
-abbrev-alias -c ggcmake="ggpvc '\%#' -- '*/CMakeLists.txt' '*.cmake'"
+abbrev-alias -c ggcmake="ggpvc '\%#' -- '*CMakeLists.txt' '*.cmake'"
 
-abbrev-alias -c ggconfig="ggpvc '\%#' -- '*/.*' '*.config' '*.config' '*/config/*'"
+abbrev-alias -c ggconfig="ggpvc '\%#' -- '.*' '*/.*' '*.config' '*/config/*'"
 
 abbrev-alias -c ggtest="ggpvc '\%#' -- '*test*'"
 
