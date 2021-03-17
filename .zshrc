@@ -265,7 +265,7 @@ function command_not_found_handler() {
       echo ''
     fi
   fi
-  echo 1>&2 -n "${YELLOW}ヽ(*゜д゜)ノ$DEFAULT"
+  echo 1>&2 -n "${YELLOW}👻ヽ(*゜д゜)ノ$DEFAULT"
   echo 1>&2 "not found ${RED}'$0'${DEFAULT}"
   if cmdcheck thefuck; then
     echo 1>&2 "Maybe you can find true command by typing ${PURPLE}fuck${DEFAULT}!"
