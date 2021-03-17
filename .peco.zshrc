@@ -275,8 +275,8 @@ alias pvls='peco-ls | xargs-vim'
 alias pvlst='peco-lstr | xargs-vim'
 alias pvlstr='peco-lst | xargs-vim'
 alias pf='fpeco'
-alias pft='find-time-sortr | ranking_color_cat | fzf | awk "{print \$9}"'
-alias pftr='find-time-sort | ranking_color_cat | fzf | awk "{print \$9}"'
+alias pft='find-time-sortr | ranking_color_cat | fzf --no-sort | awk "{print \$9}"'
+alias pftr='find-time-sort | ranking_color_cat | fzf --no-sort | awk "{print \$9}"'
 alias pvft='find-time-sortr | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
 alias pvftr='find-time-sort | awk "{printf \"%-48s :%s %s %s\n\", \$9, \$6, \$7, \$8;}" | ranking_color_cat | pecovim'
 
@@ -284,7 +284,7 @@ function git-branch-peco() {
   local options=(refs/heads/ refs/remotes/ refs/tags/)
   [[ $# -gt 0 ]] && options=("$@")
   local branch=$(git for-each-ref --format="%(refname:short) (%(authordate:relative)%(taggerdate:relative))" --sort=-committerdate "${options[@]}" | sed -e "s/^refs\///g" | awk '{s=""; for(i=2;i<=NF;i++) s=s" "$i; printf "%-34s%+24s\n", $1, s;}' \
-    | fzf --reverse --ansi --multi --preview 'git graph --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' \
+    | fzf --no-sort --reverse --ansi --multi --preview 'git graph --color | sed -E "s/^/ /g" | sed -E '"'"'/\(.*[^\/]'"'"'$(echo {} | cut -d" " -f1 | sed "s:/:.:g")'"'"'.*\)/s/^ />/g'"'"'' \
     | awk '{print $1}')
   printf '%s' "$branch"
 }
@@ -413,7 +413,7 @@ function git-rename-to-backup-branch-peco() {
 function git-reflog-commit-id() {
   function color_filter() { command cat; }
   cmdcheck cgrep && function color_filter() { cgrep '([0-9a-zA-Z]+) (HEAD@{[0-9]+})(: [^:]+: )(.*)$' 'green,yellow,default,magenta'; }
-  git reflog | color_filter | fzf | cut -d" " -f1
+  git reflog | color_filter | fzf --no-sort | cut -d" " -f1
 }
 function git-reset-hard-peco() {
   is_git_repo_with_message || return
@@ -940,7 +940,7 @@ function git-add-force-peco() {
 function git-file-ranking-peco() {
   is_git_repo_with_message || return
   local target=${1:-.}
-  git-file-ranking "$target" | ranking_color_cat | fzf
+  git-file-ranking "$target" | ranking_color_cat | fzf --no-sort
 }
 
 function git-log-diff-current() {
@@ -979,16 +979,16 @@ alias color_peco_ansi256='ansi_color_256_peco'
 alias color_peco_hex256='hex_color_256_peco'
 alias color_peco_hexfull='hex_color_full_peco'
 function ansi_color_peco() {
-  cat ~/dotfiles/dict/color/ansi_color.txt | fzf | cut -d':' -f2
+  cat ~/dotfiles/dict/color/ansi_color.txt | fzf --no-sort | cut -d':' -f2
 }
 function ansi_color_256_peco() {
-  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf | cut -d':' -f2
+  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f2
 }
 function hex_color_256_peco() {
-  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf | cut -d':' -f3
+  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f3
 }
 function hex_color_full_peco() {
-  cat ~/dotfiles/dict/color/color_full.txt | fzf | cut -d':' -f3
+  cat ~/dotfiles/dict/color/color_full.txt | fzf --no-sort | cut -d':' -f3
 }
 
 alias vimbackuppeco='vim-backup-peco'
