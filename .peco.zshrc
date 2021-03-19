@@ -1010,6 +1010,7 @@ function pecodiff() {
   fzf --multi --ansi --reverse --preview "$diff_cmd '$filepath' {}" --preview-window 'down:80%'
 }
 
+alias git-file-history='git-file-log-cat'
 function git-file-log-cat() {
   ! type >/dev/null 2>&1 bat && echo 1>&2 "install bat" && return 1
   [[ $# -lt 1 ]] && echo "$(basename "$0") filepath" && return 1
@@ -1049,6 +1050,7 @@ function cdcmake() {
   printf '%s' "$ret" | FZF_DEFAULT_OPTS="--height '30%'" cdpeco
 }
 
+alias errno='errnopeco'
 alias pecoerrno='errnopeco'
 function errnopeco() {
   bat --color=always -p ~/dotfiles/dict/cpp/errno.hpp | fzf
