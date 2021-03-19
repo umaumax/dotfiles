@@ -83,6 +83,7 @@ go get -u github.com/umaumax/fixedgrep
 go get -u github.com/umaumax/cgrep/...
 go get -u github.com/umaumax/terminal-truncate
 go get -u github.com/umaumax/gogt/...
+go get -u github.com/umaumax/joincat
 
 # go get -v github.com/zquestz/s
 # cd $GOPATH/src/github.com/zquestz/s

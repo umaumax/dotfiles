@@ -12,6 +12,6 @@ function main() {
   fi
   # NOTE: paste command is not fit for fzf preview?
   # paste <(command cat "$filepath_1" | terminal-truncate -max="$width" -fill_space -fill_char="x") <(command cat "$filepath_2" | terminal-truncate -max="$width" -fill_space -fill_char="x")
-  joincat -d=" | " <(command cat "$filepath_1" | terminal-truncate -max="$width" -fill_space) <(command cat "$filepath_2" | terminal-truncate -max="$width" -fill_space)
+  joincat -w="$width" -d=" | " <(command cat "$filepath_1" | terminal-truncate -max="$width" -fill_space) <(command cat "$filepath_2" | terminal-truncate -max="$width" -fill_space)
 }
 main "$@"
