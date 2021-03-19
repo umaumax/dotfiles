@@ -1174,6 +1174,12 @@ snippet gmock_ElementsAre
 abbr actual, matcher
 	EXPECT_THAT(${0}, testing::ElementsAre(${1:#:0,1,2,3}));
 
+snippet ASSERT_EQ
+	ASSERT_EQ(${1:#:expected}, ${0:#:actual});
+
+snippet EXPECT_EQ
+	EXPECT_EQ(${1:#:expected}, ${0:#:actual});
+
 snippet char_to_string
 	std::string(1, ${0});
 
