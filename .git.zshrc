@@ -528,22 +528,31 @@ function gl() {
   else
     # 特定のファイルを編集したcommitをグラフでたどりたい
     # [Show specific commits in git log, in context of other commits? \- Stack Overflow]( https://stackoverflow.com/questions/61510067/show-specific-commits-in-git-log-in-context-of-other-commits )
-    local pattern="$(git log --pretty=%h -- "$filepath" | perl -pe "chomp if eof" | tr '\n' '|')"
+    local pattern="$(git log --pretty=%h -m -- "$filepath" | perl -pe "chomp if eof" | tr '\n' '|')"
     [[ -z "$pattern" ]] && echo "invalid filepath:$filepath" && return 1
-    git-log-pattern "$pattern"
+    local less_pattern="$pattern"
+    git-log-pattern "$pattern" "$less_pattern"
   fi
 }
 function glme() {
   is_git_repo_with_message || return
   local filepath="$1"
-  local pattern="$(git log --all --pretty=%h --author="$(git config --get user.name)" | perl -pe "chomp if eof" | tr '\n' '|')"
+  local pattern="$(git log --all --pretty=%h -m --author="$(git config --get user.name)" | perl -pe "chomp if eof" | tr '\n' '|')"
   git-log-pattern "$pattern"
+}
+alias glb='glbranch'
+function glbranch() {
+  is_git_repo_with_message || return
+  local pattern="$(git log --pretty=%h -m | perl -pe "chomp if eof" | tr '\n' '|')"
+  local less_pattern="\(HEAD"
+  git-log-pattern "$pattern" "$less_pattern"
 }
 function git-log-pattern() {
   is_git_repo_with_message || return
-  [[ $# -lt 1 ]] && echo "$(basename "$0") pattern" && return 1
+  [[ $# -lt 1 ]] && echo "$(basename "$0") pattern [less_pattern]" && return 1
   local pattern="$1"
-  git log --oneline --decorate=yes --graph --color=always | grep -E -e "^" -e "$pattern" --color=always | less -p"$pattern"
+  local less_pattern="${2:-$pattern}"
+  git log --oneline --decorate=yes --graph --color=always $(git rev-list -g --all) | grep -E -e "^" -e "$pattern" --color=always | less +32k -p"$less_pattern"
 }
 function glst() {
   is_git_repo_with_message || return
@@ -755,7 +764,7 @@ if $(cmdcheck fzf); then
     [[ -f $ret ]] && cat $ret
   }
   function tigl() {
-    git log --color --oneline | fzf --reverse --ansi --multi --preview 'git -c color.diff=always show {+1}'
+    git log --color --oneline | fzf --no-sort --reverse --ansi --multi --preview 'git -c color.diff=always show {+1}'
   }
 fi
 
