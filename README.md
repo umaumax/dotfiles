@@ -51,7 +51,10 @@ Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.con
 ## Windows Terminal for Windows setup
 Run below code at PowerShell (__Don't run on PowerShell on Windows Terminal__)
 ``` ps
+# for Windows Terminal
 Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/Microsoft.WindowsTerminal/settings.json -OutFile $env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
+# for Windows Terminal Preview
+Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.config/Microsoft.WindowsTerminal/settings.json -OutFile $env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json
 ```
 
 ### local setting
