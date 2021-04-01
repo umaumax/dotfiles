@@ -33,6 +33,7 @@
 [set environment(✗:remote target)] set exec-wrapper env 'LD_PRELOAD=' 'LD_LIBRARY_PATH='
 [force disas even stripped file] disas ## disas $rip, +0x100 (use 2nd arg)
 [show function args] info args
+[create coredump] generate-core-file
 ## vars
 [print virtual table] info vtbl ## <address or var name>
 [print variable type] ptype ##<var name>
