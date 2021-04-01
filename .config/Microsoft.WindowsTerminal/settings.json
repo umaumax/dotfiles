@@ -120,6 +120,8 @@
     // disable for an unexpected behavior of paste command (multi line paste, paste as input chars) -> use zsh ctrl-v to paste
     // { "command": "paste", "keys": "ctrl+v" },
 
+    { "command": { "action": "paste" }, "keys": "ctrl+v" },
+
     // Press Ctrl+Shift+F to open the search box
     { "command": "find", "keys": "ctrl+shift+f" },
 
