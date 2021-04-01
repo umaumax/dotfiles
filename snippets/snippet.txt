@@ -448,6 +448,7 @@
 [ol ls -a without . and ..] ls -a | grep -v -e '^.$' -e '^..$'
 [ol show only non-unique(common/same item) lines] sort | uniq -d
 [common line without sort] grep -Fxf $FILE1\%# $FILE2
+[ol upper case only first character] awk '{print toupper(substr($1,1,1))substr($1,2)}'
 [ol show only uniq lines] sort | uniq -u
 [ol show n~ lines] tail -n +\%# # n行目以降
 [ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
@@ -706,6 +707,8 @@
 [nmcli dump connection setting] sudo nmcli connection show "Wired connection \%#"
 [nmcli dump full settings] nmcli c show --active | awk 'NR>1' | sed -E 's/ *[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}  .*$//' | xargs -L 1 -I{} bash -c 'nmcli c show "{}"; echo'
 
+[ifconfig set ip address(temporary)] sudo ifconfig ethX\%# 192.168.1.100 netmask 255.255.255.0
+
 [global ip] curl ifconfig.moe || curl ifconfig.io
 [search 1000 ports(tcp)] nmap $IP_ADDRESS
 [search port range(tcp)] nmap -p\%# $IP_ADDRESS # -p1-1024
@@ -916,7 +919,8 @@
 
 # time
 [unix timestamp] date +%s
-[unix timestamp with millsec] date +%s%3N
+[unix timestamp with millsec(ubuntu)] date +%s%3N
+[unix timestamp with millsec(mac)] gdate +%s%3N
 [ubuntu date after or ago] date -d "+90\%# days"
 [unixtime stamp to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
 [unixtime stamp to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
@@ -1342,6 +1346,7 @@
 [diff to  svg] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg diff.svg
 [diff to  png] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg -p raster diff.png
 [diff to html] diff -u $SRC\%# $DST | delta --no-gitconfig --24-bit-color=always --side-by-side --width $COLUMNS | ansitoimg -p html diff.html
+[word diff] git diff --word-diff --no-index -- \%#
 
 [source code to  svg] bat --color=always \%# | ansitoimg code.svg
 [source code to  png] bat --color=always \%# | ansitoimg -p raster code.png
@@ -1355,6 +1360,7 @@
 [heredoc to filename] cat > $FILEPATH\%# << 'EOF'
 [heredoc to filename] cat << 'EOF' > $FILEPATH\%#
 [heredoc to pipe] cat << 'EOF' | \%#
+[heredoc with git diff apply] cat << 'EOF' | git apply # paste git diff result and type EOR and enter
 [string to pipe input] <<<"\%#"
 
 [linux: check shared lib path objdump -p] objdump -p \%# # readelf -d
@@ -2021,3 +2027,6 @@
 
 # version
 [python version compare] python3 -c "import sys; from distutils.version import LooseVersion; exit(0 if LooseVersion(sys.argv[1]) <=\%# LooseVersion(sys.argv[2]) else 1);" $CURRENT $NEW
+
+# stress
+[simple stress] seq 1 100 | xargs -I{} -P 3 bash -c "yes > /dev/null" # 300%
