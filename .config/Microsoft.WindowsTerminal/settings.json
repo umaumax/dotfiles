@@ -35,7 +35,7 @@
       "colorScheme": "One Half Dark",
       "padding": "0, 0, -16, 0",
       "fontFace": "Consolas",
-       // "fontFace": "Noto Sans Mono CJK JP",
+      // "fontFace": "Noto Sans Mono CJK JP",
       "fontSize": 10,
       "cursorShape": "bar",
       "cursorColor": "#87afff",
