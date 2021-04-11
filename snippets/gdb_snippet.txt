@@ -34,6 +34,7 @@
 [force disas even stripped file] disas ## disas $rip, +0x100 (use 2nd arg)
 [show function args] info args
 [create coredump] generate-core-file
+[print pid] print getpid()
 ## vars
 [print virtual table] info vtbl ## <address or var name>
 [print variable type] ptype ##<var name>
