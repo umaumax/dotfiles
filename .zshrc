@@ -67,6 +67,28 @@ function ls_abbrev() {
   fi
 }
 
+if cmdcheck tmux; then
+  function tmux-ls-format() {
+    timeout 1 tmux ls -F "#{p64:session_name}: [#{p-3;s/%//:pane_id}] (#{t:session_last_attached}) - (#{t:session_created})" \
+      | sed -E 's/\([A-Z][a-z]* /(/g' \
+      | sed -E 's:\(Jan :(01/:g' \
+      | sed -E 's:\(Feb :(02/:g' \
+      | sed -E 's:\(Mar :(03/:g' \
+      | sed -E 's:\(Apr :(04/:g' \
+      | sed -E 's:\(May :(05/:g' \
+      | sed -E 's:\(Jun :(06/:g' \
+      | sed -E 's:\(Jul :(07/:g' \
+      | sed -E 's:\(Aug :(08/:g' \
+      | sed -E 's:\(Sep :(09/:g' \
+      | sed -E 's:\(Oct :(10/:g' \
+      | sed -E 's:\(Nov :(11/:g' \
+      | sed -E 's:\(Dec :(12/:g' \
+      | sed -E 's/[0-9]+:[0-9]+:[0-9]+ //g' \
+      | sed -E 's:/ ([0-9]):/0\1:g' \
+      | sed -E 's:\(([0-9]*/[0-9]*) ([0-9]*)\):(\2/\1):g'
+  }
+fi
+
 # ---- WARN ---- print current status for pseudo ealry startup ----
 # FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
 function login_init() {
@@ -75,7 +97,7 @@ function login_init() {
   if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
     local tmux_ls
     # NOTE: this timeout is used for freezed tmux server (tmux client doesn't accept signals e.g. c-c)
-    tmux_ls=$(timeout 1 tmux ls 2>/dev/null)
+    tmux_ls=$(tmux-ls-format 2>/dev/null)
     [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
   fi
 }
@@ -1206,12 +1228,12 @@ if cmdcheck tmux; then
     is_in_tmux_with_message || return
     local output
     local color_command=(cat)
-    type >/dev/null 2>&1 cgrep && color_command=(cgrep '([^ ]*) *([0-9]*) *(\(.*\)) / (\(.*\))')
+    type >/dev/null 2>&1 cgrep && color_command=(cgrep '(.*:) ([^ ]*) *(\[[ 0-9]*\]) *(\(.*\)) - (\(.*\))')
     # in tmux ls -F
     # can't use custom time format, shell, attribute
     # [Formats · tmux/tmux Wiki]( https://github.com/tmux/tmux/wiki/Formats#summary-of-modifiers )
     # [tmux\(1\) \- Linux manual page]( https://man7.org/linux/man-pages/man1/tmux.1.html#FORMATS )
-    output=$(timeout 1 tmux ls -F "#{p64:session_name}: #{p-3;s/%//:pane_id} (#{t:session_last_attached}) / (#{t:session_created})" | sort -k2 -n -r | "${color_command[@]}") || return
+    output=$(tmux-ls-format | sort -k2 -n -r | "${color_command[@]}") || return
     if [[ -z $output ]]; then
       # auto restore
       tmux-resurrect-restore
