@@ -208,6 +208,7 @@
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git show author(default) and commit date] git log --pretty=fuller
+[git one line log] git log --oneline
 [git change both date] git commit --amend --date="$(date)" # normal amend changes CommitDate only
 [git change both date(old commit)] git-rebase-peco --ignore-date # original command
 [git commit without hook (force commit)] git commit --no-verify
@@ -520,6 +521,7 @@
 
 # g++
 ## g++ not clang++
+[g++ pkg-config option] $(pkg-config --cflags \%#) $(pkg-config --libs \%#)
 [g++ dynamic library] g++ -shared -fPIC -std=c++11 \%#
 [g++ dynamic library flag] -shared -fPIC
 [g++ dynamic malloc library flag] -shared -fPIC $SRC -ldl # for correct way to manage default --as-needed option undefined symbol: dlsym
@@ -986,7 +988,7 @@
 [ros publish] rostopic pub -1 /\%# $TYPE -- '{$KEY: $VAL}' # '{header: {seq: 0, stamp: now, frame_id:sample_id}, data: [], position: {x: 0.0, y: 0.0, z: 0.0}}'
 [ros echo publish (pipe)] rostopic echo /\%# | rostopic pub /\%# $TYPE
 [roscore daemon start by screen] pgrep roscore >/dev/null 2>&1 || screen -dmS "roscore" roscore
-[roscore restart by screen] pkill roscore && screen -dmS "roscore" roscore
+[roscore restart by screen] pkill roscore; screen -dmS "roscore" roscore
 
 [rosbag] rosbag compresss
 [rosbag] rosbag decompresss
