@@ -23,6 +23,7 @@ extensions=(
   ZakCodes.rust-snippets
   artdiniz.quitcontrol-vscode
   be5invis.toml
+  bierner.markdown-preview-github-styles
   bwildeman.tabulous
   christian-kohler.path-intellisense
   eamodio.gitlens
