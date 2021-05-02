@@ -1559,6 +1559,7 @@
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [pstree on ubuntu] ps -e f ww
 [pstree with args ubuntu] ps -e f
+[pstree of current shell] ps -e f ww | grep -C 10 $$
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
 [send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
