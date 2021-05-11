@@ -23,12 +23,12 @@
   {
     "key": "ctrl+k",
     "command": "workbench.action.quickOpenSelectPrevious",
-    "when": "isMac && inQuickOpen"
+    "when": "inQuickOpen"
   },
   {
     "key": "ctrl+j",
     "command": "workbench.action.quickOpenSelectNext",
-    "when": "isMac && inQuickOpen"
+    "when": "inQuickOpen"
   },
   {
     "key": "cmd+k cmd+j",
