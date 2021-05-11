@@ -1,5 +1,18 @@
 [
   {
+    "key": "ctrl+m",
+    "command": "type",
+    "args": {
+      "text": "\n"
+    },
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+m",
+    "command": "editor.action.nextMatchFindAction",
+    "when": "editorFocus && findInputFocussed"
+  },
+  {
     "key": "ctrl+h",
     "command": "cursorLeft",
     "when": "isMac"
