@@ -30,6 +30,7 @@ npm install -g vscode-html-languageserver-bin
 npm install -g vscode-css-languageserver-bin
 npm install -g javascript-typescript-langserver
 npm install -g node-notifier-cli
+npm install -g git-split-diffs
 # for markdown linting
 npm install -g alex
 # FYI: [Exporting Plots — Bokeh 1\.0\.4 documentation]( https://bokeh.pydata.org/en/latest/docs/user_guide/export.html )
