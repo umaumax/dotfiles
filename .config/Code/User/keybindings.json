@@ -1,10 +1,11 @@
 [
   {
     "key": "ctrl+m",
-    "command": "type",
-    "args": {
-      "text": "\n"
-    },
+    "command": "editor.action.insertLineAfter",
+    // "command": "type",
+    // "args": {
+    // "text": "\n"
+    // },
     "when": "editorTextFocus && !editorReadonly"
   },
   {
