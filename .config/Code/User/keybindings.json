@@ -15,23 +15,21 @@
   },
   {
     "key": "ctrl+h",
-    "command": "cursorLeft",
-    "when": "isMac"
+    "command": "cursorLeft"
   },
   {
     "key": "ctrl+l",
-    "command": "cursorRight",
-    "when": "isMac"
+    "command": "cursorRight"
   },
   {
     "key": "ctrl+k",
     "command": "cursorUp",
-    "when": "isMac && textInputFocus"
+    "when": "textInputFocus"
   },
   {
     "key": "ctrl+j",
     "command": "cursorDown",
-    "when": "isMac && textInputFocus"
+    "when": "textInputFocus"
   },
   // for cmd + shift + p
   {
