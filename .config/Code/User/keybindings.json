@@ -318,9 +318,9 @@
         "editor.selection = new vscode.Selection(",
         "  startLine.range.start,",
         "  selection.end",
-        ");",
+        ");"
       ]
-    },
+    }
   },
   // select all word under cursor by multi cursor: e.g. cmd+d, cmd+a alternative for cmd+shift+l
   {
@@ -367,9 +367,9 @@
         "    console.log('word is', word);",
         "    vscode.commands.executeCommand('vim-search-and-replace.start', word);",
         "    vscode.window.showInformationMessage('vscode-extension-eval: use ctrl+j or ctrl+k');",
-        "})();",
+        "})();"
       ]
-    },
+    }
   },
   {
     "key": "ctrl+j",
