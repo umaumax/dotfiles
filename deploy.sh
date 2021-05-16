@@ -25,6 +25,7 @@ dotfiles=(
   .config/gitui/key_config.ron
   .config/ecat/config.yaml
   .gdbinit
+  .hammerspoon/init.lua
   .inputrc
   .myclirc
   .omnisharp/omnisharp.json
