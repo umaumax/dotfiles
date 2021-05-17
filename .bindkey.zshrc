@@ -343,6 +343,8 @@ bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; 
 bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
 bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
 
+bindkey '^B' _nothing_to_do && zle -N _nothing_to_do && function _nothing_to_do() { :; }
+
 # NOTE: git show $| git-commits-peco [enter]
 # NOTE: cat $| ls -a | grep zsh [enter]
 bindkey '^M' _accept_line && zle -N _accept_line && function _accept_line() {
