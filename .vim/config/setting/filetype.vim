@@ -1,8 +1,8 @@
 augroup set_filetype
   autocmd!
-  autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal filetype=gnuplot
-  autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript syntax=jquery
-  autocmd BufRead,BufNewFile *.vue                                    setlocal filetype=vue.html.javascript.css
+  autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal ft=gnuplot
+  autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript
+  autocmd BufRead,BufNewFile *.vue                                    setlocal ft=vue.html.javascript.css
   autocmd BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile,envrc} setlocal ft=sh
   autocmd BufRead,BufNewFile *.{zsh,zshrc,zshenv,zprofile}            setlocal ft=zsh
   autocmd BufRead,BufNewFile *interfaces                              setlocal ft=interfaces
