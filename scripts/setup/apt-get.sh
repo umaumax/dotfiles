@@ -252,3 +252,5 @@ sudo apt-get install -y linux-tools-generic
 sudo apt-get install -y linux-tools-$(uname -r)
 
 sudo apt-get install -y apt-file
+
+sudo apt-get install -y aha
