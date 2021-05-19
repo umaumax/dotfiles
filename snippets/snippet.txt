@@ -283,6 +283,8 @@
 
 [git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH\%# # you can use dir path
 
+[git commit-base diff like pull request] git log --no-merges # $pr_dst..$pr_src e.g. master..topic_branch
+
 [git list ignored files] git ls-files --other --ignored --exclude-standard
 [git remove untracked files and dirs] git clean -d --dry-run
 [git remove untracked and ignored files and dirs] git clean -x -d --dry-run
@@ -317,6 +319,8 @@
 [git dump tag with date] git tags # oreore command
 
 [git check if the commit exists] $(git cat-file -t "$commit\%#") != "commit"
+
+[git cat file] git cat-file -p HEAD:$FILE\%#
 
 # WARN: return 'HEAD' on remote branch
 # [git current branch name] git rev-parse --abbrev-ref HEAD
@@ -601,6 +605,9 @@
 [brew list tap formulas (without cask)] brew list --full-name | grep '.*/.*'
 [brew list cask formulas] brew list --cask
 [brew tap all formulas] brew tap-info --json $TAP\%# | jq -r '.[]|(.formula_names[],.cask_tokens[])'
+[brew list upgradable formulas] brew outdated
+[brew check unused forlumras] brew autoremove --dry-run
+[brew installed formula version list] brew list --versions 
 
 # linux
 [ubuntu version] lsb_release -r -s
@@ -1224,7 +1231,7 @@
 # font
 [confirm fonts list at ubuntu(mac)] fc-list
 [pygame font] python3 -c 'import pygame; print(pygame.font.get_fonts())'
-
+[update fonts at ubuntu] fc-cache -f -v
 
 [how to know image size] file
 [how to know image size] identify
