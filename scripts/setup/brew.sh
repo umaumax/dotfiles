@@ -27,6 +27,7 @@ brew_install_formula_list=(
   gdrive
   git
   gitui
+  gist
   gnu-sed
   go
   grep
@@ -119,7 +120,6 @@ brew install libsixel
 # brew cask
 ## WARN: don't install by your self (by GUI)
 brew install --cask iterm2
-brew install --cask alacritty
 brew install --cask cheatsheet
 brew install --cask firefox
 brew install --cask google-chrome
@@ -128,9 +128,10 @@ brew install --cask chromium
 brew install --cask google-japanese-ime
 brew install --cask karabiner-elements
 brew install --cask sublime-text
-brew install --cask shiftit
+brew install --cask hammerspoon
 brew install --cask xquartz
 brew install --cask ip-in-menu-bar
+brew install --cask alt-tab
 # WARN: do not brew install docker
 brew install --cask docker
 brew install --cask adobe-acrobat-reader
@@ -156,3 +157,4 @@ brew install homebrew/cask-versions/visual-studio-code-insiders
 # brew cask install atom
 # brew cask install gimp
 # brew cask install skype
+# brew install --cask alacritty
