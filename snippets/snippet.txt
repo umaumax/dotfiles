@@ -247,6 +247,7 @@
 [git grep filename example] git grep -H "c++11" -- "*[Mm]akefile" # include and with hit line
 [git grep filename example] git grep -L "c++11" -- "*[Mm]akefile" # not include
 [git grep crossing over multiple repo] git xgrep \%# # my command
+[git grep exclude long line(e.g. .min.js)] git grep -E -e '^.{,512}$' --and -e 
 [git clone rename] git clone \%# $NEW_NAME
 [git clone with submodule] git clone --recursive \%#
 [git commit log grep] git log --stat -S "\%#" # -m includes merge commit
@@ -255,6 +256,9 @@
 [git is commit hash?] git rev-parse --verify \%# >/dev/null 2>&1
 [git repository local name] basename $(git rev-parse --show-toplevel)
 [git repository remote name] basename $(git remote show origin -n | grep "Fetch URL:" | sed 's/.*://;s/.git$//')
+
+[git list untracked files(includes ignored files)] git ls-files --other
+[git list ignored files] git ls-files -io --exclude-standard
 
 [git copy file/dir from another branch] git checkout \%# #$BRANCH $FILE_PATH
 
@@ -281,7 +285,7 @@
 
 [git file edit log with patterns] git log --stat '*/\%#'
 
-[git follow file (find some file at log)] git log --follow --stat $REL_FILE_PATH\%# # you can use dir path
+[git follow file (find some file at log)] git log --follow --find-renames=100% --stat $REL_FILE_PATH\%# # you can use dir path
 
 [git commit-base diff like pull request] git log --no-merges # $pr_dst..$pr_src e.g. master..topic_branch
 
@@ -455,6 +459,7 @@
 [common line without sort] grep -Fxf $FILE1\%# $FILE2
 [ol upper case only first character] awk '{print toupper(substr($1,1,1))substr($1,2)}'
 [ol show only uniq lines] sort | uniq -u
+[ol show only uniq lines] sort -u
 [ol show n~ lines] tail -n +\%# # n行目以降
 [ol filter only number] perl -pe 's/[^\d]*(\d+\.\d+|\d+)[^\d]*/ (0+$1)." " /ge; print "\n"' | awk 'NF' | sed -E 's/ $//g'
 [ol compact space] sed -e 's/\s\+/ /g'
@@ -686,7 +691,7 @@
 [pip search cui (fullmatch)] pip search
 [pip search gui] open "https://pypi.org/search/?q=\%#"
 [python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
-[pip install from github subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
+[pip install from ithub subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
@@ -1378,7 +1383,9 @@
 [nkf guess] nkf -g \%#
 [nkf auto conv] nkf -w \%#
 [nkf add UTF-8 BOM] nkf --oc=UTF-8-BOM
+[nkf add UTF-8 BOM] nkf --oc=UTF-8-BOM --overwrite 
 [nkf drop(remove,delete) UTF-8 BOM] nkf --oc=UTF-8
+[nkf drop(remove,delete) UTF-8 BOM] nkf --oc=UTF-8 --overwrite 
 [nkf zenkaku to hankaku] nkf -Z
 
 # symbolic link
