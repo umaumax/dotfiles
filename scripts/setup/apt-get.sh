@@ -254,3 +254,4 @@ sudo apt-get install -y linux-tools-$(uname -r)
 sudo apt-get install -y apt-file
 
 sudo apt-get install -y aha
+sudo apt-get install -y gist
