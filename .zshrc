@@ -543,7 +543,7 @@ EOF
   # NOTE: rename command version: find . -name "*test*" | tac | xargs -L 1 -I{} rename -v 's:^(.*/)test([^/]*)$:$1XXXXXXXX$2:' '{}'
   # NOTE: tacを噛ませる意味として，先に深い階層のファイルのbasenameを置換する，その後，ディレクトリのbasenameを置換するということをファイルのリストアップを終了してから行うため
   # NOTE: findの代わりに幅優先探索のbfsでも特に問題ない
-  sort -r | uniq | while IFS= read -r target_path || [[ -n "$target_path" ]]; do
+  LANG=C sort -r | uniq | while IFS= read -r target_path || [[ -n "$target_path" ]]; do
     local dirpath=$(dirname "$target_path")
     local target_name=$(basename "$target_path")
     local new_target_name=$(printf '%s' "$target_name" | sed -E "$rename_pattern")
@@ -684,7 +684,7 @@ alias lcd='cd -P'
 # history
 alias history='history 1'
 function history_ranking() {
-  builtin history -n 1 | grep -e "^[^#]" | awk '{ print $1 }' | sort | uniq -c | sort
+  builtin history -n 1 | grep -e "^[^#]" | awk '{ print $1 }' | LANG=C sort | uniq -c | LANG=C sort
 }
 alias h='history'
 alias hgrep='h | grep'

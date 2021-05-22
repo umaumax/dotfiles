@@ -63,7 +63,7 @@ function git-open() {
 }
 alias git-alias-list='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
 function git-ranking() {
-  builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | sort -gr | uniq | sed -n 1,30p | cat -n
+  builtin history -r 1 | awk '{ print $2,$3 }' | grep '^git' | LANG=C sort | uniq -c | awk '{com[NR]=$3;a[NR]=$1;sum=sum+$1} END{for(i in com) printf("%6.2f%% %s %s \n" ,(a[i]/sum)*100."%","git",com[i])}' | LANG=C sort -gr | uniq | sed -n 1,30p | cat -n
 }
 function vim-git-modified() {
   is_git_repo_with_message || return
@@ -364,7 +364,7 @@ function git-history-filter() {
 # NOTE: 過去にcdしたdirectoryをsortした後に順番にアクセスし，git statusを行う
 function git-history() {
   # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
-  cdinfo | sort | git-history-filter | while IFS= read -r line || [[ -n "$line" ]]; do
+  cdinfo | LANG=C sort | git-history-filter | while IFS= read -r line || [[ -n "$line" ]]; do
     local git_repo_dir="$line"
     local dot_git_dir="$line/.git"
     if [[ -d "$dot_git_dir" ]]; then
@@ -833,7 +833,7 @@ function git-find-rename() {
     # NOTE: only file
     git ls-files "$@"
     # NOTE: only dir
-    git ls-files "$@" | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq
+    git ls-files "$@" | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | LANG=C sort | uniq
   } | FIND_RENAME_GIT_MV_CMD=1 find-rename-pipe "$rename_pattern"
 }
 
@@ -895,7 +895,7 @@ function git-file-ranking() {
   local target=${1:-.}
   # filter by current existing files
   # psub function is used insetead of <()
-  git log --name-only --pretty='' "$target" | file-line-filter $(git ls-files -- "$target" | psub) | awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
+  git log --name-only --pretty='' "$target" | file-line-filter $(git ls-files -- "$target" | psub) | awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | LANG=C sort -nr
 }
 
 # FYI: [List all authors of a particular git project Using sort]( https://www.commandlinefu.com/commands/view/4519/list-all-authors-of-a-particular-git-project )

@@ -453,7 +453,7 @@ EOF
         output=$({
           git ls-files $(git rev-parse --show-toplevel)
           git ls-files $(git rev-parse --show-toplevel) | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | awk '!a[$0]++'
-        } | sort | fzf --multi | tr '\n' ' ')
+        } | LANG=C sort | fzf --multi | tr '\n' ' ')
       else
         output=$(find . | fzf --multi | tr '\n' ' ')
       fi
