@@ -878,15 +878,18 @@ endif
 
 function! AbsFilePathToGitRelFilePathWithRepoName(abs_filepath)
   let escaped_filepath=shellescape(a:abs_filepath)
-  let cmd=printf('git -C $(dirname %s) ls-files --full-name %s', escaped_filepath, escaped_filepath)
-  let relpath= substitute(system(cmd), '\n$', '', '')
-  if relpath==''
-    return ''
-  endif
   let cmd=printf('basename $(git -C $(dirname %s) rev-parse --show-toplevel)', escaped_filepath)
   let repo_name= substitute(system(cmd), '\n$', '', '')
   if repo_name==''
     return ''
+  endif
+
+  let cmd=printf('git -C $(dirname %s) ls-files --full-name %s', escaped_filepath, escaped_filepath)
+  let relpath= substitute(system(cmd), '\n$', '', '')
+  if relpath==''
+    let cmd=printf('realpath --canonicalize-missing --no-symlinks --relative-to $(git -C $(dirname %s) rev-parse --show-toplevel) %s', escaped_filepath, escaped_filepath)
+    let relpath= substitute(system(cmd), '\n$', '', '')
+    return repo_name.'/'.relpath
   endif
   return repo_name.'/'.relpath
 endfunction
