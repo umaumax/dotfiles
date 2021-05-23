@@ -26,12 +26,14 @@ extensions=(
   bierner.markdown-preview-github-styles
   bwildeman.tabulous
   christian-kohler.path-intellisense
+  cweijan.vscode-autohotkey-plus
   eamodio.gitlens
   high-moctane.nextword
   ionutvmi.path-autocomplete
   jebbs.plantuml
   mhutchie.git-graph
   mosapride.zenkaku
+  ms-vscode.powershell
   ms-python.python
   ms-python.vscode-pylance
   oderwat.indent-rainbow

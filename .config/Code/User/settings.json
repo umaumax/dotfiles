@@ -56,6 +56,14 @@
   "[rust]": {
     "editor.formatOnSave": true
   },
+  "[ahk]": {
+    "files.encoding": "utf8bom",
+    "editor.formatOnSave": true
+  },
+  "[powershell]": {
+    "files.encoding": "utf8bom",
+    "editor.formatOnSave": true
+  },
   "files.associations": {
     "*.txt": "markdown"
   },
