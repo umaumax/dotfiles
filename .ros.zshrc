@@ -105,8 +105,8 @@ function catkin_make() {
   else
     {
       safe-colorize --force command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
-      exit_code=$?
     } |& auto_save_log catkin_make
+    exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
   fi
   if [[ $exit_code == 0 ]]; then
     local setup_zsh_filepath="./devel/setup.zsh"

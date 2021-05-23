@@ -1979,8 +1979,8 @@ function cmake() {
     {
       # NOTE: maybe ccze wait output for parse
       safe-colorize --force command cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
-      exit_code=$?
     } |& auto_save_log cmake
+    exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
   fi
   # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
@@ -2019,12 +2019,10 @@ function make() {
     return
   fi
 
-  local exit_code
   {
     if cmdcheck colormake; then
       {
         colormake "$@"
-        exit_code="$?"
       } |& {
         if cmdcheck ccze; then
           ccze -A
@@ -2032,12 +2030,13 @@ function make() {
           command cat
         fi
       }
+      return ${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
     else
       safe-colorize --force command make "$@"
-      exit_code="$?"
+      return
     fi
   } |& auto_save_log make
-  return "$exit_code"
+  return ${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
 }
 
 alias rvgrep="rgrep"
