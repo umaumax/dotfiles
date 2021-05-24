@@ -87,7 +87,7 @@
   // To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
   "actions": [
     // new tab of Ubuntu-16.04
-    { "command": { "action": "newTab", "index": 2 }, "keys": "ctrl+t" },
+    { "command": { "action": "newTab", "index": 2 }, "keys": "ctrl+shift+t" },
     { "command": "prevTab", "keys": "ctrl+left" },
     { "command": "nextTab", "keys": "ctrl+right" },
     { "command": "prevTab", "keys": "alt+left" },
