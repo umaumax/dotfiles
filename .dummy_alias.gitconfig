@@ -39,6 +39,7 @@
 	diff-peco-range  = :
 	dir  = :
 	fetch  = :
+	file-history = :
 	file-log-cat  = :
 	file-ranking  = :
 	file-ranking-peco  = :
@@ -85,6 +86,8 @@
 	log-src-grep-peco  = :
 	logs-HEAD  = :
 	ls-time  = :
+	merge-conflict-diff  = :
+	merge-conflict-diff-from-branches  = :
 	open  = :
 	preview  = :
 	pull  = :
@@ -117,6 +120,7 @@
 	show-peco  = :
 	show-root-commit-from-master  = :
 	show-stashes  = :
+	split-commit-rebase-peco  = :
 	stash  = :
 	stash-as-patch  = :
 	stash-checkout  = :
@@ -141,4 +145,5 @@
 	typo-peco-vim  = :
 	update-dummy-alias  = :
 	wc  = :
+	when-merged  = :
 	xgrep  = :
