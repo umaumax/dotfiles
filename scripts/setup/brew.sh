@@ -40,7 +40,6 @@ brew_install_formula_list=(
   libpng
   lcov
   micro
-  mono # for unity(compltion)
   ninja
   node
   peco
@@ -68,6 +67,10 @@ brew_install_formula_list=(
 for formula in "${brew_install_formula_list[@]}"; do
   brew install "$formula"
 done
+
+# brew install mono # for unity(compltion)
+# for Apple M1
+# brew install --build-from-source mono
 
 brew install rpl
 brew install rust
