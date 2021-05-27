@@ -182,6 +182,16 @@ fi
 export HOMEBREW_NO_ANALYTICS
 export HOMEBREW_NO_AUTO_UPDATE=1
 
+# for Apple M1 home brew
+if [[ -e /opt/homebrew ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
+  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+fi
+
 # linuxbrew
 # FYI: [Linuxbrew \| The Homebrew package manager for Linux]( http://linuxbrew.sh/ )
 if [[ ! -d ~/.linuxbrew ]] && [[ $(uname) == "Linux" ]]; then
