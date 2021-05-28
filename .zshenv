@@ -29,14 +29,13 @@ if cmdcheck peco; then
 fi
 
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
+  alias _c='pbcopy'
   if cmdcheck nkf; then
-    alias _c='nkf -w | pbcopy'
     alias p='pbpaste | nkf -w'
     alias udec='nkf -w --url-input'
     alias uenc='nkf -WwMQ | tr = %'
     alias overwrite-utf8='nkf -w --overwrite'
   else
-    alias _c='pbcopy'
     alias p='pbpaste'
   fi
   # 改行コードなし
