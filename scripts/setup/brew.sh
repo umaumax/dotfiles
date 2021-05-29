@@ -48,14 +48,15 @@ brew_install_formula_list=(
   python3
   qt
   rlwrap
+  rustup
   screen
-  shellcheck
+  # shellcheck
   terminal-notifier
   tig
   tmux
   tree
   translate-shell
-  unrar
+  # unrar
   vim
   watch
   zsh
@@ -73,9 +74,9 @@ done
 # brew install --build-from-source mono
 
 brew install rpl
-brew install rust
+# brew install rust # don't install rust by brew (cannot use cargo +nightly option)
 brew install colormake
-brew install sshfs
+# brew install sshfs
 brew install st
 brew install ghq
 # WARN: original repo
@@ -89,7 +90,7 @@ brew install google-benchmark
 brew install lighttpd
 
 brew install nmap
-brew install bashdb
+# brew install bashdb
 brew install fd
 
 # for bookmarklet
@@ -107,7 +108,7 @@ brew install socat
 
 brew install plantuml
 
-brew install hadolint
+# brew install hadolint
 
 # for perl
 brew install cpanminus
@@ -117,11 +118,12 @@ brew install cpanminus
 # brew install kaitai-struct-compiler
 
 # brew tap
-brew tap aki017/sixel
-brew install libsixel
+# brew tap aki017/sixel
+# brew install libsixel
 
 # brew cask
 ## WARN: don't install by your self (by GUI)
+brew install --cask visual-studio-code
 brew install --cask iterm2
 brew install --cask cheatsheet
 brew install --cask firefox
@@ -138,7 +140,7 @@ brew install --cask alt-tab
 # WARN: do not brew install docker
 brew install --cask docker
 brew install --cask adobe-acrobat-reader
-brew install --cask totalspaces
+# brew install --cask totalspaces
 brew install --cask qlmarkdown
 brew install --cask qlstephen
 brew install --cask quicklook-json
@@ -150,8 +152,8 @@ brew install --cask texpad
 brew install --cask osxfuse
 brew install --cask copyq
 # NOTE: after osxfuse because of dependency
-brew install ext4fuse
-brew install --cask flash-player
+# brew install ext4fuse
+# brew install --cask flash-player
 brew install homebrew/cask-versions/visual-studio-code-insiders
 
 # NOTE: if you need
@@ -160,4 +162,3 @@ brew install homebrew/cask-versions/visual-studio-code-insiders
 # brew cask install atom
 # brew cask install gimp
 # brew cask install skype
-# brew install --cask alacritty
