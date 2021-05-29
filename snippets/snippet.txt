@@ -250,8 +250,9 @@
 [git grep exclude long line(e.g. .min.js)] git grep -E -e '^.{,512}$' --and -e 
 [git clone rename] git clone \%# $NEW_NAME
 [git clone with submodule] git clone --recursive \%#
-[git commit log grep] git log --stat -S "\%#" # -m includes merge commit
-[git commit log grep only deleted files] git log --diff-filter=D -S "\%#" # -m includes merge commit
+[git commit log grep(stat)] git log --stat -S "\%#" # add -m if yout want to include merge commit
+[git commit log grep(diff)] git log -p -S "\%#" # add -m if yout want to include merge commit
+[git commit log grep only deleted files] git log --diff-filter=D -S "\%#" # add -m if yout want to include merge commit
 [git search deleted files] git log --diff-filter=D --summary '*/*\%#'
 [git is commit hash?] git rev-parse --verify \%# >/dev/null 2>&1
 [git repository local name] basename $(git rev-parse --show-toplevel)
@@ -675,6 +676,7 @@
 [pip updatable package list] pip list -o
 [pip3 error recover at ubuntu] sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
 [pip install from github] pip install \%#/archive/master.tar.gz # https://github.com/$USER_NAME/$REPO_NAME/archive/master.tar.gz
+[pip install from github] pip install git+\%# # http://github.com/user/repo.git
 [pip Installing collected packages: UNKNOWN] pip install setuptools --upgrade
 [pip show] pip show \%# # e.g. Location
 [pip show with files] pip show -f \%#
