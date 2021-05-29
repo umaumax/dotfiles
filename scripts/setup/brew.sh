@@ -17,6 +17,7 @@ brew_install_formula_list=(
   cmake
   coreutils
   datamash
+  ddcctl
   direnv
   exa # A modern version of ‘ls’.
   ffmpeg
@@ -59,6 +60,7 @@ brew_install_formula_list=(
   # unrar
   vim
   watch
+  wget
   zsh
   zsh-autosuggestions
   zsh-completions
