@@ -69,7 +69,7 @@ function ls_abbrev() {
 
 if cmdcheck tmux; then
   function tmux-ls-format() {
-    timeout 1 tmux ls -F "#{p64:session_name}: [#{p-3;s/%//:pane_id}] (#{t:session_last_attached}) - (#{t:session_created})" \
+    timeout 1 tmux ls -F "#{p64:session_name}:(#{t:session_last_attached}) - (#{t:session_created}) [#{p-3;s/%//:pane_id}]" \
       | sed -E 's/\([A-Z][a-z]* /(/g' \
       | sed -E 's:\(Jan :(01/:g' \
       | sed -E 's:\(Feb :(02/:g' \
@@ -1233,7 +1233,7 @@ if cmdcheck tmux; then
     # can't use custom time format, shell, attribute
     # [Formats · tmux/tmux Wiki]( https://github.com/tmux/tmux/wiki/Formats#summary-of-modifiers )
     # [tmux\(1\) \- Linux manual page]( https://man7.org/linux/man-pages/man1/tmux.1.html#FORMATS )
-    output=$(tmux-ls-format | sort -k2 -n -r | "${color_command[@]}") || return
+    output=$(tmux-ls-format | sort -k2 -r -t':' | "${color_command[@]}") || return
     if [[ -z $output ]]; then
       # auto restore
       tmux-resurrect-restore
