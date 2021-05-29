@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -eux
 
+if ! type >/dev/null 2>&1 rustup; then
+  echo 'install rustup first!'
+  echo 'e.g. brew install rustup; rustup-init; rustup toolchain add nightly; rustup install nightly'
+  exit 1
+fi
+
 # NOTE: A command-line hex viewer
 cargo install hexyl
 
