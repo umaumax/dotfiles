@@ -655,8 +655,10 @@
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [scp between two remote hosts] scp -3 $SRC $DST # hoge:~/src.txt fuga:~/dst.txt
-[rsync        ] rsync -auvzh $SRC_DIR/ \%# # set dst with dirname
-[rsync dry-run] rsync -auvzhn $SRC_DIR/ \%# # set dst with dirname
+[rsync        ] rsync -auvzh $SRC_DIR \%# # set dst without dirname e.g. src ~/
+[rsync dry-run] rsync -auvzhn $SRC_DIR \%# # set dst without dirname e.g. src ~/
+[rsync        ] rsync -auvzh $SRC_DIR/ \%# # set dst with dirname e.g. src/ ~/dst
+[rsync dry-run] rsync -auvzhn $SRC_DIR/ \%# # set dst with dirname e.g. src/ ~/dst
 # [rsync: how can I configure it to create target directory on server? \- Stack Overflow]( https://stackoverflow.com/questions/1636889/rsync-how-can-i-configure-it-to-create-target-directory-on-server )
 [rsync same dir] [[ -z $TARGET_HOST ]] && selhost; \%#rsync -auvzh --rsync-path="mkdir -p $(pwd) && rsync" . $TARGET_HOST:$(pwd)
 [rsync cp only dir with    src dir] rsync -avz --include "*/" --exclude "*" $SRC  $DST
