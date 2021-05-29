@@ -1668,12 +1668,11 @@ if cmdcheck nkf; then
 fi
 
 if $(cmdcheck pbcopy && cmdcheck pbpaste); then
+  alias _c='pbcopy'
   if cmdcheck nkf; then
-    alias _c='nkf -w | pbcopy'
     # NOTE: need nkf -w ?
     alias _p='pbpaste'
   else
-    alias _c='pbcopy'
     alias _p='pbpaste'
   fi
   # 改行コードなし
