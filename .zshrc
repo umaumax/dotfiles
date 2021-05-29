@@ -2491,54 +2491,56 @@ function google_web_url_to_wget_url() {
 # Failed to find root dir: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded
 #
 # required: gdrive
-function memosync() {
-  local n=${1:-30}
-  for ((i = 0; i < $n; i++)); do
-    gsync-gshare && break
-    sleep 10
-  done
-}
-function gsync-gshare() {
-  # NOTE: zsh cd message stdout
-  # NOTE: gsync  message stderr
-  local _
-  _=$(gshare && gsync 1>&2)
-}
-function gsync() {
-  local ID=$1
-  [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-  [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
-  echo "${YELLOW}ID:$ID${DEFAULT}"
+if cmdcheck gdrive; then
+  function memosync() {
+    local n=${1:-30}
+    for ((i = 0; i < $n; i++)); do
+      gsync-gshare && break
+      sleep 10
+    done
+  }
+  function gsync-gshare() {
+    # NOTE: zsh cd message stdout
+    # NOTE: gsync  message stderr
+    local _
+    _=$(gshare && gsync 1>&2)
+  }
+  function gsync() {
+    local ID=$1
+    [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
+    [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
+    echo "${YELLOW}ID:$ID${DEFAULT}"
 
-  echo "# ${GREEN}downloading...${DEFAULT}"
-  local ret=$(gdrive sync download $ID . 2>&1 | tee $(tty))
-  local code=0
-  echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
-  [[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && return $code
+    echo "# ${GREEN}downloading...${DEFAULT}"
+    local ret=$(gdrive sync download $ID . 2>&1 | tee $(tty))
+    local code=0
+    echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
+    [[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: download" && return $code
 
-  echo "# ${GREEN}uploading...${DEFAULT}"
-  local ret=$(gdrive sync upload . $ID 2>&1 | tee $(tty))
-  local code=0
-  echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
-  [[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && return $code
-  return $code
-}
-function gsync-download() {
-  local ID=$1
-  [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-  [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
-  echo "ID:$ID"
-  echo "# downloading..."
-  gdrive sync download $ID .
-}
-function gsync-upload() {
-  local ID=$1
-  [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
-  [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
-  echo "ID:$ID"
-  echo "# uploading..."
-  gdrive sync upload . $ID
-}
+    echo "# ${GREEN}uploading...${DEFAULT}"
+    local ret=$(gdrive sync upload . $ID 2>&1 | tee $(tty))
+    local code=0
+    echo "$ret" | grep -E "Failed .*: googleapi: Error 403: Rate Limit Exceeded, rateLimitExceeded" >/dev/null 2>&1 && local code=1
+    [[ ! $code == "0" ]] && echo "${RED}[Error]$DEFAULT: upload" && return $code
+    return $code
+  }
+  function gsync-download() {
+    local ID=$1
+    [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
+    [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
+    echo "ID:$ID"
+    echo "# downloading..."
+    gdrive sync download $ID .
+  }
+  function gsync-upload() {
+    local ID=$1
+    [[ $# == 0 ]] && [[ -f .gdrive ]] && local ID=$(command cat .gdrive | tr -d '\n')
+    [[ -z $ID ]] && echo "$0 <ID> or set <ID> '.gdrive'" && return 1
+    echo "ID:$ID"
+    echo "# uploading..."
+    gdrive sync upload . $ID
+  }
+fi
 
 # ---- bash ----
 # ---- zsh ----
