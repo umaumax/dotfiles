@@ -190,6 +190,8 @@ if [[ -e /opt/homebrew ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
   export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
   export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
+  export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
 fi
 
 # linuxbrew
