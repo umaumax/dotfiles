@@ -59,8 +59,10 @@ function webcat() {
   # screen clear and clear font
   gocat -prefix='\x1b[2J\x1b[1;1H\033[0m' -suffix='# END\n' | _webcat "$@"
 }
-function webcatd() {
-  gotty $(which gechota) -p=$WEBCAT_PORT &
-}
+if cmdcheck gotty; then
+  function webcatd() {
+    gotty $(which gechota) -p=$WEBCAT_PORT &
+  }
+fi
 
 [[ $ZSH_NAME == zsh ]] && unsetopt all_export
