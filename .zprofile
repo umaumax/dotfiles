@@ -138,7 +138,7 @@ if cmdcheck pyenv; then
 
   # NOTE: slow
   # NOTE: if you add --no-rehash (it will be a little faster)
-  eval "$(pyenv init - --no-rehash)"
+  eval "$(pyenv init --no-rehash 2>&1)"
 
   # NOTE: for virtualenv
   # 	eval "$(pyenv virtualenv-init -)"
