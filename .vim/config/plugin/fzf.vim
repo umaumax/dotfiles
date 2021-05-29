@@ -10,6 +10,11 @@ Plug 'junegunn/fzf.vim' ", {'on':['Pt', 'FZFTabOpen', 'FZFMru', 'FZFOpenFile']}
 
 " --------------------------------
 
+" To use fzf in Vim
+if isdirectory('/opt/homebrew/opt/fzf')
+  set rtp+=/opt/homebrew/opt/fzf
+endif
+
 augroup terminal_disable_ambiwidth_group
   function! s:fzf_init()
     let b:ambiwidth = &ambiwidth
