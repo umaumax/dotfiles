@@ -22,7 +22,7 @@ brew_install_formula_list=(
   ffmpeg
   figlet
   freetype
-  fzf
+  fzf # run /opt/homebrew/opt/fzf/install to install useful keybindings and fuzzy completion:
   gcc
   gdrive
   git
