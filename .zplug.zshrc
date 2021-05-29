@@ -106,7 +106,14 @@ if [[ $USE_ZPLUG == 0 ]]; then
     }
 
     local zsh_completion_dir=''
-    [[ $(uname) == "Darwin" ]] && local zsh_completion_dir='/usr/local/share/zsh/site-functions'
+    if [[ $(uname) == "Darwin" ]]; then
+      if [[ -d /usr/local/share/zsh/site-functions ]]; then
+        local zsh_completion_dir='/usr/local/share/zsh/site-functions'
+      fi
+      if [[ -d /opt/homebrew/share/zsh/site-functions ]]; then
+        local zsh_completion_dir='/opt/homebrew/share/zsh/site-functions'
+      fi
+    fi
     [[ $(uname) == "Linux" ]] && local zsh_completion_dir="$HOME/.zsh/completion"
     # [docker コマンドの zsh autocompletion \- Qiita]( https://qiita.com/mickamy/items/daa2a0de5f34c9c59ad9 )
     if [[ $(uname) == "Darwin" ]]; then
