@@ -6,10 +6,12 @@ set -eu
 # code --list-extensions
 
 remote_option=0
-if [[ $1 == "--remote" ]]; then
-  remote_option=1
-  echo $'\e[95m'"[ENABLE REMOTE OPTION]"$'\e[m'
-  shift
+if [[ $# -gt 0 ]]; then
+  if [[ $1 == "--remote" ]]; then
+    remote_option=1
+    echo $'\e[95m'"[ENABLE REMOTE OPTION]"$'\e[m'
+    shift
+  fi
 fi
 
 extensions=(
