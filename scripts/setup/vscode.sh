@@ -26,14 +26,12 @@ extensions=(
   bierner.markdown-preview-github-styles
   bwildeman.tabulous
   christian-kohler.path-intellisense
-  cweijan.vscode-autohotkey-plus
   eamodio.gitlens
   high-moctane.nextword
   ionutvmi.path-autocomplete
   jebbs.plantuml
   mhutchie.git-graph
   mosapride.zenkaku
-  ms-vscode.powershell
   ms-python.python
   ms-python.vscode-pylance
   oderwat.indent-rainbow
@@ -47,8 +45,10 @@ extensions=(
   zhengxiaoyao0716.intelligence-change-case
 )
 
-if [[ "$OS" =~ Windows ]]; then
+if [[ "$(uname)" =~ Windows ]]; then
   extensions=("${extensions[@]}"
+    cweijan.vscode-autohotkey-plus
+    ms-vscode.powershell
     slevesque.vscode-autohotkey
   )
 fi
