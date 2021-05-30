@@ -73,7 +73,6 @@ function nugget() {
   NUGGET_INSTALL_PREIFX=${NUGGET_INSTALL_PREIFX:-~/local}
   NUGGET_INSTALL_BIN_PREIFX="$NUGGET_INSTALL_PREIFX/bin"
   mkdir -p "$NUGGET_INSTALL_BIN_PREIFX"
-  mkdir -p ~/opt
 
   local tmpdir=$(mktemp -d)
   [[ -z $tmpdir ]] && echo 1>&2 "Fail to mktemp -d!" && return 1
