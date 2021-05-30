@@ -159,6 +159,13 @@ brew install --cask copyq
 # brew install --cask flash-player
 brew install homebrew/cask-versions/visual-studio-code-insiders
 
+# for touch bar feedback
+# for Apple M1 follow github issue
+# [Does this work on a M1 Mac? · Issue \#50 · niw/HapticKey]( https://github.com/niw/HapticKey/issues/50 )
+# brew install --cask haptickey
+# for dock in touch bar
+brew install --cask pock
+
 # NOTE: if you need
 # brew cask install blender
 # brew cask install cura
