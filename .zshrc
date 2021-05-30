@@ -306,7 +306,7 @@ if cmdcheck thefuck; then
   }
 fi
 
-cmdcheck unbuffer || alias unbuffer=''
+cmdcheck unbuffer || alias unbuffer='command'
 
 function safe-colorize() {
   if [[ $# -lt 1 ]]; then

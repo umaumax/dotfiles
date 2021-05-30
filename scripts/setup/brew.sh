@@ -20,6 +20,7 @@ brew_install_formula_list=(
   ddcctl
   direnv
   exa # A modern version of ‘ls’.
+  expect # for unbuffer command
   ffmpeg
   figlet
   freetype
