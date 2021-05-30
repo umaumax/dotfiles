@@ -43,6 +43,7 @@ brew_install_formula_list=(
   lcov
   micro
   ninja
+  nkf
   node
   peco
   pstree
