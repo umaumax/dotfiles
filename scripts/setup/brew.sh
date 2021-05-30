@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-set -ex
+set -eux
 
-# brew
 brew_install_formula_list=(
   aha
   ansible
