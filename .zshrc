@@ -2998,12 +2998,10 @@ function cmd_fuzzy_error_check() {
   shift
 
   local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
-  # NOTE: no pop below setop, so there is side effect
-  # NOTE: if you use subprocess `()` -> you cannot get exit_code
-  setopt nomultios
-  command $cmd $@ 3>&1 1>&2 2>&3 3>&- | tee "$tmpfile" 1>&2
-  local exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
-  # NOTE: ignore warning
+  # save stderr to file and pass stderr to pipe
+  eval "command $cmd $@ 2>>(tee "$tmpfile" 1>&2)"
+  local exit_code=$?
+  # NOTE: ignore bellow warning
   # @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
   # Warning: Permanently added 'x.x.x.x' (ECDSA) to the list of known hosts.
   command cat "$tmpfile" | grep -v -i 'warning:' | grep ': ' -q
@@ -3017,7 +3015,7 @@ function cmd_fuzzy_error_check() {
       hr '#'
       command cat "$tmpfile" | grep -C 1 ': '
       hr '#'
-    } 1>&2
+    } >$(tty)
     return $exit_code
   else
     [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
