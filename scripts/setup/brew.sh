@@ -44,6 +44,7 @@ brew_install_formula_list=(
   ninja
   nkf
   node
+  opencv
   peco
   pstree
   pyenv
