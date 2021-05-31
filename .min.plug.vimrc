@@ -16,9 +16,10 @@ let g:deoplete#sources#jedi#python_path = python3_path
 
 " NOTE: pylsのlinterの結果がソースコード上に表示されるのは仕様?
 " ただし，その結果がredrawしないと消えないのは他の設定の影響?
+" apply patch for Apple M1
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
+      \ 'do': 'bash -c \"[[ $(uname -sm) == \\"Darwin arm64\\" ]] && git checkout . && git apply ~/.vim/patch/LanguageClient-neovim.patch; bash install.sh\"',
       \ }
 " Required: 'autozimu/LanguageClient-neovim'
 " python: auopep8 linter -> ale

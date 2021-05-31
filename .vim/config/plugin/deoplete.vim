@@ -5,9 +5,10 @@
 " ===> pip3 install --upgrade neovim
 if v:version >= 800 && has('python3')
   " NOTE: this plugin has 'neovim' in name, but we can use normal vim
+  " apply patch for Apple M1
   LazyPlug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
+        \ 'do': 'bash -c \"[[ $(uname -sm) == \\"Darwin arm64\\" ]] && git checkout . && git apply ~/.vim/patch/LanguageClient-neovim.patch; bash install.sh\"',
         \ }
   " let g:LanguageClient_autoStart = 0
   " Required: 'autozimu/LanguageClient-neovim'

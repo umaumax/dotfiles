@@ -1,0 +1,14 @@
+diff --git a/install.sh b/install.sh
+index 558a6bf..441e354 100755
+--- a/install.sh
++++ b/install.sh
+@@ -9,7 +9,8 @@ set -o errexit    # exit when command fails
+ version=0.1.161
+ name=languageclient
+ 
+-arch=$(uname -sm)
++# arch=$(uname -sm)
++arch='Darwin x86_64'
+ 
+ try_curl() {
+     command -v curl > /dev/null && \
