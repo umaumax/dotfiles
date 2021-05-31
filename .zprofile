@@ -127,6 +127,22 @@ append_path ~/.dotnet
 # [systemd\-path user\-binaries]( https://unix.stackexchange.com/questions/316765/which-distributions-have-home-local-bin-in-path )
 append_path ~/.local/bin
 
+# NOTE: disable brew analytics
+export HOMEBREW_NO_ANALYTICS
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# for Apple M1 home brew
+if [[ -e /opt/homebrew ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
+  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
+  export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
+fi
+
 # python
 ## pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -176,22 +192,6 @@ append_path "$HOME/.cargo/bin"
 if [[ $(uname) == "Darwin" ]]; then
   # add PATH for binutils(e.g. gobjdump)
   append_path /usr/local/opt/binutils/bin
-fi
-
-# NOTE: disable brew analytics
-export HOMEBREW_NO_ANALYTICS
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# for Apple M1 home brew
-if [[ -e /opt/homebrew ]]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-  export HOMEBREW_REPOSITORY="/opt/homebrew"
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
-  export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
-
-  export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
 fi
 
 # linuxbrew
