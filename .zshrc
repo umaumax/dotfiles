@@ -1130,6 +1130,29 @@ cmdcheck ipython && function python() {
   fi
 }
 
+if cmdcheck conda; then
+  function conda() {
+    local conda_root=$(dirname $(dirname $(which -p conda)))
+
+    __conda_setup="$(command conda 'shell.zsh' 'hook' 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+    else
+      if [ -f "$conda_root/etc/profile.d/conda.sh" ]; then
+        . "$conda_root/etc/profile.d/conda.sh"
+      else
+        export PATH="$conda_root/bin:$PATH"
+      fi
+    fi
+    unset __conda_setup
+
+    # NOTE: upper script overwrite conda function, so below conda is not this function
+    if [[ -n "$CONDA_SHLVL" ]] && [[ "$CONDA_SHLVL" != 0 ]]; then
+      conda "$@"
+    fi
+  }
+fi
+
 # rtags daemon start
 cmdcheck rdm && alias rdmd='pgrep rdm || rdm --daemon'
 
@@ -2603,14 +2626,19 @@ function zshaddhistory_hook() {
     printf "%s@%s@%s@%s\n" "$date_str" "$TTY" "$(pwd)" "$cmd" >>~/.detail_history
   fi
 
-  # NOTE: 列数に応じて，自動的にpromptを改行する
-  local cols=$(tput cols)
-  if [[ $cols -le $PROMPT_COLS_BOUNDARY ]]; then
-    # NOTE: %F{3}: YELLOW
-    # NOTE: $'\n': new line
-    PS1="$_PS1"$'\n%F{3}$%F{255} '
+  # conda environment has PS1 prefix
+  if [[ -n "$CONDA_SHLVL" ]] && [[ "$CONDA_SHLVL" != 0 ]]; then
+    :
   else
-    PS1="$_PS1"
+    # NOTE: auto replace PS1 depending on cols
+    local cols=$(tput cols)
+    if [[ $cols -le $PROMPT_COLS_BOUNDARY ]]; then
+      # NOTE: %F{3}: YELLOW
+      # NOTE: $'\n': new line
+      PS1="$_PS1"$'\n%F{3}$%F{255} '
+    else
+      PS1="$_PS1"
+    fi
   fi
 }
 function precmd_hook() {
