@@ -2051,3 +2051,8 @@
 
 # stress
 [simple stress] seq 1 100 | xargs -I{} -P 3 bash -c "yes > /dev/null" # 300%
+
+# manual
+[bash builtin commands manual] man bash
+[zsh builtin commands manual] man zshbuiltins
+[zsh builtin commands manual] run-help type
