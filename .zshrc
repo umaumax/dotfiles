@@ -3503,6 +3503,8 @@ EOF
   echo 1>&2 "${YELLOW}[LOG] See output: less +F '$log_output_filepath'"
 }
 
+alias help='run-help'
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
