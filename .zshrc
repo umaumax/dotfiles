@@ -69,6 +69,12 @@ function ls_abbrev() {
 
 if cmdcheck tmux; then
   function tmux-ls-format() {
+    # in tmux ls -F
+    # can't use custom time format, shell, attribute
+    # [Formats · tmux/tmux Wiki]( https://github.com/tmux/tmux/wiki/Formats#summary-of-modifiers )
+    # [tmux\(1\) \- Linux manual page]( https://man7.org/linux/man-pages/man1/tmux.1.html#FORMATS )
+    local color_command=(cat)
+    type >/dev/null 2>&1 cgrep && color_command=(cgrep '(.*:)(\(.*\)) - (\(.*\)) ([^ ]*)(\[[ 0-9]*\])')
     timeout 1 tmux ls -F "#{p64:session_name}:(#{t:session_last_attached}) - (#{t:session_created}) [#{p-3;s/%//:pane_id}]" \
       | sed -E 's/\([A-Z][a-z]* /(/g' \
       | sed -E 's:\(Jan :(01/:g' \
@@ -85,7 +91,9 @@ if cmdcheck tmux; then
       | sed -E 's:\(Dec :(12/:g' \
       | sed -E 's/[0-9]+:[0-9]+:[0-9]+ //g' \
       | sed -E 's:/ ([0-9]):/0\1:g' \
-      | sed -E 's:\(([0-9]*/[0-9]*) ([0-9]*)\):(\2/\1):g'
+      | sed -E 's:\(([0-9]*/[0-9]*) ([0-9]*)\):(\2/\1):g' \
+      | sort -k2 -r -t':' \
+      | "${color_command[@]}"
   }
 fi
 
@@ -98,7 +106,7 @@ function login_init() {
     local tmux_ls
     # NOTE: this timeout is used for freezed tmux server (tmux client doesn't accept signals e.g. c-c)
     tmux_ls=$(tmux-ls-format 2>/dev/null)
-    [[ $? == 0 ]] && echo '[tmux ls]' && echo "$tmux_ls"
+    [[ $? == 0 ]] && echo "${PURPLE}[tmux ls]${DEFAULT}" && echo "$tmux_ls"
   fi
 }
 if [[ $ZSH_NAME == zsh ]]; then
@@ -1250,13 +1258,7 @@ if cmdcheck tmux; then
   function tmux-attach() {
     is_in_tmux_with_message || return
     local output
-    local color_command=(cat)
-    type >/dev/null 2>&1 cgrep && color_command=(cgrep '(.*:) ([^ ]*) *(\[[ 0-9]*\]) *(\(.*\)) - (\(.*\))')
-    # in tmux ls -F
-    # can't use custom time format, shell, attribute
-    # [Formats · tmux/tmux Wiki]( https://github.com/tmux/tmux/wiki/Formats#summary-of-modifiers )
-    # [tmux\(1\) \- Linux manual page]( https://man7.org/linux/man-pages/man1/tmux.1.html#FORMATS )
-    output=$(tmux-ls-format | sort -k2 -r -t':' | "${color_command[@]}") || return
+    output=$(tmux-ls-format) || return
     if [[ -z $output ]]; then
       # auto restore
       tmux-resurrect-restore
