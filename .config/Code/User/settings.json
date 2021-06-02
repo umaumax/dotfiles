@@ -118,6 +118,8 @@
     "param-case",
     "CONST_CASE"
   ],
+  "cSpell.ignoreRegExpList": ["０-９Ａ-Ｚａ-ｚ[亜-熙纊-黑ぁ-んァ-ヶ]+"],
+  "cSpell.words": ["hoge", "fuga", "piyo"],
   // disable to auto complete Japanese
   "AllAutocomplete.whitespace": "[^\\w\\-_\\$\\u0080-\\uFFFF]+|[\"']+|[亜-熙ぁ-んァ-ヶ]+",
   "plantuml.render": "PlantUMLServer",

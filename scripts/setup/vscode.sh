@@ -41,6 +41,7 @@ extensions=(
   ryu1kn.text-marker
   shardulm94.trailing-spaces
   shd101wyy.markdown-preview-enhanced
+  streetsidesoftware.code-spell-checker
   sygene.auto-correct
   tranhl.find-then-jump
   wayou.vscode-todo-highlight
