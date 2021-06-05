@@ -77,9 +77,10 @@
   // "remote.SSH.remotePlatform": {
   // "ip address": "linux"
   // },
-  "terminal.integrated.env.osx": {
-    "PATH": "$PATH:$HOME/.dotnet:/usr/local/bin/"
-  },
+  // this settings is only for integrated terminal not for global vscode app
+  // "terminal.integrated.env.osx": {
+  // "PATH": "${env:PATH}:${env:$HOME}/.dotnet:/usr/local/bin/:/opt/homebrew/bin/"
+  // },
   "omnisharp.useGlobalMono": "always",
   "omnisharp.monoPath": "/usr/local/opt/mono/",
   "gitlens.hovers.changesDiff": "hunk",
