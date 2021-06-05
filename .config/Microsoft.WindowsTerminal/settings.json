@@ -40,7 +40,8 @@
       "cursorShape": "bar",
       "cursorColor": "#87afff",
       "useAcrylic": true,
-      "acrylicOpacity": 0.85
+      // no transparency
+      "acrylicOpacity": 1.0
     },
     "list": [
       {
