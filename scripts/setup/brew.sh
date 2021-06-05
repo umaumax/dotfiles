@@ -3,6 +3,7 @@
 set -eux
 
 brew_install_formula_list=(
+  act
   aha
   ansible
   autossh
@@ -166,6 +167,10 @@ brew install homebrew/cask-versions/visual-studio-code-insiders
 # brew install --cask haptickey
 # for dock in touch bar
 brew install --cask pock
+
+# for unity
+# brew install --cask dotnet # this formula conflicts below formula
+brew install --cask dotnet-sdk
 
 # NOTE: if you need
 # brew cask install blender
