@@ -4,7 +4,8 @@
 
 # find
 [find exec snippet with md5sum or xargs] find . -name \%# | xargs -L1 md5sum
-[find root without home/docker dir] sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \) 
+[find root without home/docker dir (ubuntu)] sudo find / \( -path "$HOME" -o -path '/var/lib/docker' -o -path '/tmp' -o -path '/proc' -o -path '/run' -o -path '/dev' -o -path '/opt' \) -prune -false -o -name '\%#'
+[find root without home/docker dir    (mac)] sudo find / \( -path "$HOME" -o -path '/Library' -o -path '/System/Library' -o -path '/System/Volumes' -o -path '/private/var/folders' -o -path '/tmp'  -o -path '/private/tmp' -o -path '/proc' -o -path '/run' -o -path '/dev' \) -prune -false -o -name '\%#'
 [find current dir] find . -name "\%#" -exec grep '' --color=auto -H -n {} +
 [find root dir] sudo find / -name "\%#" -exec grep '' --color=auto -H -n {} +
 [find grep exec option] -exec grep '\%#' --color=auto -H -n {} +
