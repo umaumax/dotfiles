@@ -1264,6 +1264,17 @@ if cmdcheck cargo-add; then
     cargo rm "$(printf '%s' "$ret" | xargs)"
   }
 fi
+if cmdcheck rustup; then
+  function rustup-toolchain-switch() {
+    local ret
+    ret=$(rustup toolchain list | fzf)
+    if [[ -z $ret ]]; then
+      return
+    fi
+    local toolchain=$(printf '%s' "$ret" | sed 's/ (default)//')
+    rustup default "$toolchain"
+  }
+fi
 
 function ctest-peco() {
   local test_name
