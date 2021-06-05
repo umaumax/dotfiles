@@ -740,9 +740,10 @@ cmdcheck rust-gdb && function rust-gdb() {
   local gdb_cmd="gdb"
   cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
   if [[ -z "$SUDO_GDB" ]]; then
-    RUST_GDB="$gdb_cmd" command rust-gdb -q "$@" "${debug_src_opt[@]}"
+    # NOTE: if RUST_GDB=gdb use /usr/bin/gdb, if you want to use e.g. ~/local/bin/gdb set full path of it
+    RUST_GDB="${RUST_GDB:-$gdb_cmd}" command rust-gdb -q "$@" "${debug_src_opt[@]}"
   else
-    sudo env PATH="$PATH" RUST_GDB="$gdb_cmd" rust-gdb -q "$@" "${debug_src_opt[@]}"
+    sudo env PATH="$PATH" RUST_GDB="${RUST_GDB:-$gdb_cmd}" rust-gdb -q "$@" "${debug_src_opt[@]}"
   fi
 } && alias sudo-rust-gdb='SUDO_GDB=1 rust-gdb'
 
