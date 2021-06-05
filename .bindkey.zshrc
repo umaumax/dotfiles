@@ -342,6 +342,18 @@ bindkey "^X^O" _exec2_quotes && zle -N _exec2_quotes && function _exec2_quotes()
 bindkey "(" _paren && zle -N _paren && function _paren() { _insert_strs '()' 1; }
 bindkey "{" _brace && zle -N _brace && function _brace() { _insert_strs '{}' 1; }
 bindkey "[" _bracket && zle -N _bracket && function _bracket() { _insert_strs '[]' 1; }
+bindkey "/" _slash && zle -N _slash && function _slash() {
+  # change `/` -> ~/
+  if [[ "${LBUFFER[-1]}" == "\`" ]]; then
+    if [[ "${RBUFFER[1]}" == "\`" ]]; then
+      zle delete-char
+    fi
+    zle backward-delete-char
+    _insert_strs "~/"
+    return
+  fi
+  _insert_strs "/"
+}
 
 bindkey '^B' _nothing_to_do && zle -N _nothing_to_do && function _nothing_to_do() { :; }
 bindkey '^N' _nothing_to_do && zle -N _nothing_to_do && function _nothing_to_do() { :; }
