@@ -88,13 +88,25 @@
   "omnisharp.useGlobalMono": "always",
   "omnisharp.monoPath": "/usr/local/opt/mono/",
   "gitlens.hovers.changesDiff": "hunk",
+  "autofix.dictionary": [
+    {
+      "languages": ["*"],
+      "words": {
+        "forcus": "focus"
+      }
+    }
+    {
+      "languages": ["rust"],
+      "words": {
+        ";;": "::",
+        "\\+>": "=>"
+      }
+    }
+  ],
   "auto-correct.dictionary": [
     {
-      "languages": [
-        "*"
-      ],
+      "languages": ["*"],
       "words": {
-        "+>": "=>",
         "warn": "WARN:",
         "todo": "TODO:",
         "note": "NOTE:",
