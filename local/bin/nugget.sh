@@ -348,14 +348,15 @@ function nugget_mac_rust() {
   nugget_ubuntu_rust "$@"
 }
 
+# you can use brew install ddcctl
 function nugget_mac_ddcctl() {
   cmdcheck ddcctl && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   pushd "$tmpdir"
   git clone https://github.com/kfix/ddcctl
   cd ddcctl/
-  make intel
-  cp ./ddcctl "$NUGGET_INSTALL_BIN_PREIFX/ddcctl"
+  make
+  cp ./bin/release/ddcctl "$NUGGET_INSTALL_BIN_PREIFX/ddcctl"
   popd
   rm -rf "$tmpdir/ddcctl"
 }
