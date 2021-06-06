@@ -9,7 +9,7 @@ brew_install_formula_list=(
   autossh
   bash
   bat
-  binutils # add /usr/local/opt/binutils/bin to PATH
+  binutils # add /usr/local/opt/binutils/bin (or /opt/homebrew/opt/binutils/bin) to $PATH
   boost
   ccat
   clang-format
