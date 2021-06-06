@@ -860,6 +860,8 @@
 [lsof port to process (kill)] sudo kill $(sudo lsof -t -i:\%#)
 [lsof process name to ports] lsof -Pan -i tcp -i udp -c \%# | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 [lsof process name to ports] pgrep \%# | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
+[lsof open files by process] sudo lsof -p $PID
+
 [netstat process name to ports] netstat -anp | grep \%#
 
 # proxy
