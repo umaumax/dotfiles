@@ -3,6 +3,7 @@
   // "editor.snippetSuggestions": "top",
   "emmet.showSuggestionsAsSnippets": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggest.localityBonus": true,
   "editor.copyWithSyntaxHighlighting": false,
   "window.zoomLevel": -1,
   "editor.renderLineHighlight": "all",
@@ -11,6 +12,7 @@
   "editor.cursorStyle": "line",
   "editor.minimap.maxColumn": 80,
   "editor.minimap.showSlider": "always",
+  "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#404040",
     "editor.selectionHighlightBackground": "#f002f044",
