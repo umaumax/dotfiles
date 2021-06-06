@@ -37,13 +37,14 @@ extensions=(
   bwildeman.tabulous
   christian-kohler.path-intellisense
   eamodio.gitlens
-  high-moctane.nextword
+  # high-moctane.nextword # this conflict Atishay-Jain.All-Autocomplete
   ionutvmi.path-autocomplete
   jebbs.plantuml
   mhutchie.git-graph
   mosapride.zenkaku
   ms-python.python
   ms-python.vscode-pylance
+  ms-vscode.cpptools
   oderwat.indent-rainbow
   rust-lang.rust
   ryu1kn.text-marker
@@ -56,7 +57,7 @@ extensions=(
   zhengxiaoyao0716.intelligence-change-case
 extensions_url=(
   https://github.com/umaumax/vscode-extension-eval/releases/download/v0.0.4/vscode-extension-eval-0.0.4.vsix
-  https://github.com/umaumax/vscode-extension-autofix/releases/download/v0.0.1/vscode-extension-autofix-0.0.1.vsix
+  https://github.com/umaumax/vscode-extension-autofix/releases/download/v0.0.2/vscode-extension-autofix-0.0.2.vsix
 )
 extensions_source_url=($(for e in ${extensions_url[@]}; do echo "$e"; done | grep -v 'vsix$' || true))
 extensions_vsix_url=($(for e in ${extensions_url[@]}; do echo "$e"; done | grep 'vsix$' || true))
