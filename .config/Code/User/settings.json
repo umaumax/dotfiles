@@ -84,6 +84,7 @@
   "omnisharp.useGlobalMono": "always",
   "omnisharp.monoPath": "/usr/local/opt/mono/",
   "gitlens.hovers.changesDiff": "hunk",
+ "gitlens.codeLens.enabled": false,
   "autofix.dictionary": [
     {
       "languages": ["*"],
@@ -143,5 +144,4 @@
   "plantuml.server": "https://www.plantuml.com/plantuml",
   "python.languageServer": "Pylance",
   "plantuml.commandArgs": []
-  // "gitlens.hovers.currentLine.over": "line"
 }
