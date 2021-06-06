@@ -199,7 +199,7 @@
 [git stash list src] git stash show "stash@{0}" -p
 # WARN: git stash save is deprecated use git stash push -m
 # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
-[git stash staged] git stash save --keep-index "tmp stash" && git stash save "\%#" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'; git status
+[git stash staged] git stash save --keep-index "tmp stash" && git stash save "\%#" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'; git status; git reset
 [git stash with name] git stash save "\%#"
 [git stash with untracked-files] git stash save --include-untracked "\%#"
 [git stash] git stash pop "stash@{\%#}"
