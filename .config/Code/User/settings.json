@@ -27,7 +27,10 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.cursorSmoothCaretAnimation": true,
-  "editor.mouseWheelScrollSensitivity": 15,
+  // for windows
+  // "editor.mouseWheelScrollSensitivity": 15,
+  // for Mac OS X
+  "editor.mouseWheelScrollSensitivity": 1,
   "editor.smoothScrolling": true,
   "editor.formatOnSave": false,
   "editor.quickSuggestions": {
