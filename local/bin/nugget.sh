@@ -360,6 +360,18 @@ function nugget_mac_ddcctl() {
   popd
   rm -rf "$tmpdir/ddcctl"
 }
+
+function nugget_mac_archinfo() {
+  cmdcheck archinfo && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  git clone https://github.com/hrbrmstr/archinfo
+  cd archinfo
+  make
+  cp ./archinfo "$NUGGET_INSTALL_BIN_PREIFX/archinfo"
+  popd
+  rm -rf "$tmpdir/archinfo"
+}
 # ################################
 
 # ################################
