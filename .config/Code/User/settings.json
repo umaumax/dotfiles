@@ -82,7 +82,7 @@
   // "PATH": "${env:PATH}:${env:$HOME}/.dotnet:/usr/local/bin/:/opt/homebrew/bin/"
   // },
   "omnisharp.useGlobalMono": "always",
-  "omnisharp.monoPath": "/usr/local/opt/mono/",
+  "omnisharp.monoPath": "/opt/homebrew/opt/mono/",
   "gitlens.hovers.changesDiff": "hunk",
  "gitlens.codeLens.enabled": false,
   "autofix.dictionary": [
