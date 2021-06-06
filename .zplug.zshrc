@@ -129,9 +129,8 @@ if [[ $USE_ZPLUG == 0 ]]; then
       # NOTE: below setting is written in README.md
       [[ ! -e $zsh_completion_dir/_tig ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.zsh -O $zsh_completion_dir/_tig
       [[ ! -e $zsh_completion_dir/tig-completion.bash ]] && wget https://raw.githubusercontent.com/jonas/tig/master/contrib/tig-completion.bash -O $zsh_completion_dir/tig-completion.bash
-
-      fpath=(~/.zsh/completion $fpath)
     fi
+    fpath=($zsh_completion_dir $fpath)
 
     # pip
     cmdcheck pip && [[ ! -e $zsh_completion_dir/_pip ]] && pip completion --zsh >$zsh_completion_dir/_pip
