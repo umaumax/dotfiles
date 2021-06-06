@@ -55,6 +55,7 @@ extensions=(
   tranhl.find-then-jump
   wayou.vscode-todo-highlight
   zhengxiaoyao0716.intelligence-change-case
+)
 extensions_url=(
   https://github.com/umaumax/vscode-extension-eval/releases/download/v0.0.4/vscode-extension-eval-0.0.4.vsix
   https://github.com/umaumax/vscode-extension-autofix/releases/download/v0.0.2/vscode-extension-autofix-0.0.2.vsix
