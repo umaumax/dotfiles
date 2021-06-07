@@ -34,6 +34,8 @@ if [[ "$remote_sha" == $z40 ]]; then
 else
   # NOTE: no change?
   [[ -z $local_sha ]] && exit 0
+  # NOTE: maybe deleteing tag or branch
+  [[ "$local_sha" == $z40 ]] && exit 0
   # Update to existing branch, examine new commits
   range="$remote_sha..$local_sha"
 fi
