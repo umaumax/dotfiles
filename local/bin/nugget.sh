@@ -99,7 +99,7 @@ function nugget_mac_nvim() {
   # nightly build
   wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
   # stable build
-  # wget https://github.com/neovim/neovim/releases/download/v0.4.3/nvim-macos.tar.gz
+  # wget https://github.com/neovim/neovim/releases/download/v0.4.4/nvim-macos.tar.gz
 
   tar xzvf nvim-macos.tar.gz
   rm -rf "$NUGGET_INSTALL_PREIFX/nvim-osx64/"
