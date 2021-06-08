@@ -841,6 +841,8 @@ abbr from double(us)
 	std::chrono::duration<double, std::micro>(${0})
 
 snippet unix_timestamp_us
+alias now_timestamp
+abbr return type is double
 	std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count()${0}
 
 snippet log_tmp
