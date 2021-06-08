@@ -121,7 +121,7 @@ function catkin_make() {
       echo 12
       echo "${RED}"'[compdb log] WARNING or ERROR: see "'$PWD'/.compdb_stderr.log"'"${DEFAULT}"
     fi
-    [[ -f ~/compile_flags.txt ]] && command cp -f ~/compile_flags.txt .
+    [[ -f ~/.config/clangd/compile_flags.txt ]] && command cp -f ~/.config/clangd/compile_flags.txt .
   fi
   # popd >/dev/null 2>&1
   cd "$_PWD" >/dev/null 2>&1

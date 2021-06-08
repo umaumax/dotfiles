@@ -141,15 +141,17 @@ if [[ $(uname) == "Darwin" ]]; then
   fi
 fi
 
+# below config setting is not official location
+mkdir -p ~/.config/clangd/
 eval "cat <<EOF
-$(<"$DOTPATH"/compile_flags.txt.bash.tmpl)
+$(<"$DOTPATH"/.config/clangd/compile_flags.txt.bash.tmpl)
 EOF
-" >~/compile_flags.txt
-if [[ -f ~/compile_flags.local.txt ]]; then
+" >~/.config/clangd/compile_flags.txt
+if [[ -f ~/.local.compile_flags.txt ]]; then
   eval "cat <<EOF
-$(<~/compile_flags.local.txt)
+$(<~/.local.compile_flags.txt)
 EOF
-" >>~/compile_flags.txt
+" >>~/.config/clangd/compile_flags.txt
 fi
 
 # NOTE: backup original setting file if exists
