@@ -3002,7 +3002,7 @@ function cmd_fuzzy_error_check() {
 
   local tmpfile=$(mktemp "/tmp/$(basename $0).$$.tmp.XXXXX")
   # save stderr to file and pass stderr to pipe
-  eval "command $cmd $@ 2>>(tee "$tmpfile" 1>&2)"
+  command $cmd $@ 2> >(tee "$tmpfile" 1>&2)
   local exit_code=$?
   # NOTE: ignore bellow warning
   # @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
