@@ -148,5 +148,8 @@
   "plantuml.render": "PlantUMLServer",
   "plantuml.server": "https://www.plantuml.com/plantuml",
   "python.languageServer": "Pylance",
-  "plantuml.commandArgs": []
+  "plantuml.commandArgs": [],
+  "git.ignoreMissingGitWarning": true,
+  "remote.SSH.remotePlatform": {
+  }
 }
