@@ -18,7 +18,7 @@
   "copyOnSelect": true,
 
   // If enabled, formatted data is also copied to your clipboard
-  "copyFormatting": false,
+  "copyFormatting": "none",
 
   "multiLinePasteWarning": false,
   "largePasteWarning": true,
@@ -41,7 +41,9 @@
       "cursorColor": "#87afff",
       "useAcrylic": true,
       // no transparency
-      "acrylicOpacity": 1.0
+      "acrylicOpacity": 1.0,
+      "historySize": 50000,
+      "antialiasingMode": "cleartype"
     },
     "list": [
       {
@@ -81,7 +83,9 @@
 
   // Add custom color schemes to this array.
   // To learn more about color schemes, visit https://aka.ms/terminal-color-schemes
-  "schemes": [],
+  "schemes": [
+    "theme": "system"
+  ],
 
   // Add custom actions and keybindings to this array.
   // To unbind a key combination from your defaults.json, set the command to "unbound".
