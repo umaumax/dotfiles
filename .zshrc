@@ -1258,6 +1258,7 @@ if cmdcheck tmux; then
   alias tmuxa='tmux-attach'
   function tmux-attach() {
     is_in_tmux_with_message || return
+    local query=$(printf '%s' "${1:-}")
     local output
     output=$(tmux-ls-format) || return
     if [[ -z $output ]]; then
@@ -1269,7 +1270,7 @@ if cmdcheck tmux; then
       echo "${PURPLE}tmux set automatic-rename on${DEFAULT}"
       return 1
     fi
-    local tag_id=$(echo $output | peco | cut -d : -f 1 | sed 's/ *$//')
+    local tag_id=$(echo $output | fzf --query=$query | cut -d : -f 1 | sed 's/ *$//')
     [[ -n $tag_id ]] && tmux a -t $tag_id
   }
   alias tmuxrename='tmux-rename-session'
