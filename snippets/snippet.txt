@@ -1950,7 +1950,7 @@
 [systemd disable] systemctl disable $SERVICE_NAME
 [systemd status(info)] systemctl status $SERVICE_NAME
 [systemd settig filepath] /usr/lib/systemd/system
-[service setting file cat] systemctl cat $SERVICE_NAME
+[service setting file cat] systemctl cat $SERVICE_NAME # sshd.service
 [service dump setting variable] systemctl show $SERVICE_NAME
 [service time] systemd-analyze
 [service time plot] systemd-analyze plot > plot.svg
