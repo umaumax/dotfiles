@@ -737,8 +737,8 @@ cmdcheck rust-gdb && function rust-gdb() {
     fi
   done
 
-  local gdb_cmd="gdb"
-  cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
+  local gdb_cmd="$(\where -p gdb | head -n1)"
+  cmdcheck gdb-multiarch && gdb_cmd="$(\where -p gdb-multiarch | head -n1)"
   if [[ -z "$SUDO_GDB" ]]; then
     # NOTE: if RUST_GDB=gdb use /usr/bin/gdb, if you want to use e.g. ~/local/bin/gdb set full path of it
     RUST_GDB="${RUST_GDB:-$gdb_cmd}" command rust-gdb -q "$@" "${debug_src_opt[@]}"
