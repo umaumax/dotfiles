@@ -2008,8 +2008,12 @@ function cmake() {
     exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
   fi
   # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
+  # update compile_commands.json infomation
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
-    compdb list >../compile_commands.json
+    compdb list 1>../compile_commands.json 2>../.compdb_stderr.log
+    if [[ -s "../.compdb_stderr.log" ]]; then
+      echo "${RED}"'[compdb log] WARNING or ERROR: see "'$PWD'/../.compdb_stderr.log"'"${DEFAULT}"
+    fi
     [[ -f ~/.config/clangd/compile_flags.txt ]] && command cp -f ~/.config/clangd/compile_flags.txt ../
   fi
   return $exit_code
