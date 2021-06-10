@@ -725,6 +725,7 @@
 [nmcli remote dump] ssh \%# "nmcli device show"
 [nmcli dump connection setting] sudo nmcli connection show "Wired connection \%#"
 [nmcli dump full settings] nmcli c show --active | awk 'NR>1' | sed -E 's/ *[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}  .*$//' | xargs -L 1 -I{} bash -c 'nmcli c show "{}"; echo'
+[nmcli gui like terminal user interface] nmtui
 
 [ifconfig set ip address(temporary)] sudo ifconfig ethX\%# 192.168.1.100 netmask 255.255.255.0
 
@@ -1215,6 +1216,7 @@
 [python cpu core info] python -c 'import multiprocessing as m; print(m.cpu_count());' # with hyper threads
 [linux cat log] cat /var/log/messages
 [show syslog] cat /var/log/syslog
+[syslog force rotate manually] sudo logrotate -f /etc/logrotate.conf
 
 [ubuntu mother board info (hint for machine model or maker)] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
@@ -1495,6 +1497,8 @@
 [elf: symbol header] readelf -s \%#
 [show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep -A 1 strtab | tr -d '\n' | xargs bash -c 'od --skip-bytes 0x$4 --read-bytes 0x$5 -t x1z '"$FILE_PATH"
 [show string table] FILE_PATH=\%# && readelf -S $FILE_PATH | grep strtab | grep -o '\[[0-9]*\]' | sed 's/\[\|\]//g' | xargs -I{} readelf -x{} $FILE_PATH
+[objdump dump .plt] objdump -d -j .plt 
+[objdump dump .plt.got] objdump -d -j .plt.got 
 
 [strings? by readelf] target=\%#;readelf -S "$target" | grep "\[.*]" | awk '{print $2}' | grep '^\.' | xargs -L1 -I{} bash -c "echo {}1>&2; readelf -x {} '$target'" | grep -C 3 "$keyword"
 
