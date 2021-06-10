@@ -138,7 +138,8 @@ snippet stream_vector
 	std::copy(${1:#:vector}.begin(), $1.end(), ostream_iterator<${2:#:type}>(${3:std::cout}, " "));${0}
 
 snippet random
-	std::${1:mt19937} ${2:rnd}((std::random_device())())${0}
+abbr engine() return value
+	std::${1:mt19937} ${2:engine}((std::random_device())())${0}
 
 snippet thread
 	std::thread ${1:#:name}([${2:&}]{
