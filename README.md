@@ -75,7 +75,7 @@ Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.con
 ```
 
 ## TODO
-* [ ] use `DOTPATH` not use `~/dotfiles/` (done at deploy.sh)
+* [x] use `DOTPATH` not use `~/dotfiles/` (done at deploy.sh)
 * [ ] use `init.sh` which runs only once for setup
 * [ ] use `update.sh`
 * [ ] test docker ubuntu16.04
