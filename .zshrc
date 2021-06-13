@@ -2074,6 +2074,23 @@ function make() {
   return "$exit_code"
 }
 
+cmdcheck semgrep && function semgrep() {
+  local args=(${@})
+  local lang_flag=0
+  for arg in "${args[@]}"; do
+    if [[ "$arg" =~ ^(-l|--lang) ]]; then
+      lang_flag=1
+    fi
+  done
+  # auto lang detection
+  if [[ $lang_flag == 0 ]]; then
+    local lang=$(git-lang-detection)
+    args=("${args[@]}" "--lang=$lang")
+  fi
+
+  command semgrep "${args[@]}"
+}
+
 alias rvgrep="rgrep"
 function rgrep() {
   [[ $# -lt 1 ]] && echo "$(basename $0) keyword" && return 1

@@ -1277,3 +1277,31 @@ EOF
   git merge --abort 1>&2
   git checkout - 1>&2
 }
+
+function git-lang-detection() {
+  [[ ${1:-} =~ ^(-h|-{1,2}help)$ ]] && echo "$0 "'[-f:force update]' && return 1
+  is_git_repo_with_message || return 1
+
+  local git_root_dir=$(git rev-parse --show-toplevel)
+  local cache_dir="$HOME/.cache/git-lang-detection"
+  mkdir -p "$cache_dir"
+  local cache_file="$cache_dir/$(echo "$git_root_dir" | sed 's:/:_:g')"
+
+  local force_flag=0
+  if [[ ${1:-} == '-f' ]]; then
+    force_flag=1
+    shift
+  fi
+
+  if [[ force_flag == 0 ]] && [[ -f "$cache_file" ]]; then
+    cat "$cache_file"
+  fi
+
+  # only file number
+  # local lang=$(git ls-files | grep -o -E '\..*$' | sort | uniq -c | sort -nr | head -n 1 | cut -d'.' -f2-)
+  # by file line number
+  local lang=$(git ls-files "*.*" | xargs wc -l | sed '$d' | sed -E 's/^ *([0-9]*) .*\.(.*)$/\1 \2/' | grep -v -E 'md|lock' | awk 'map[$2]+=$1{} END{for(k in map){print map[k],k;}}' | sort -nr | head -n 1 | cut -d' ' -f2-)
+  if [[ -n "$lang" ]]; then
+    echo "$lang" | tee "$cache_file"
+  fi
+}
