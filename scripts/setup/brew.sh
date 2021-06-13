@@ -54,6 +54,7 @@ brew_install_formula_list=(
   rlwrap
   rustup
   screen
+  semgrep
   # shellcheck
   terminal-notifier
   tig
