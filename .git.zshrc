@@ -164,7 +164,7 @@ function git_diff() {
   for file in "${files[@]}"; do
     [[ -f "$file" ]] && printf '%s\n' "$file" >>$tmpfile
   done
-  git-at "$(git rev-parse --show-toplevel)" "$diff_cmd" -O${tmpfile} "$@"
+  git -C "$(git rev-parse --show-toplevel)" "$diff_cmd" -O${tmpfile} "$@"
   [[ -f "$tmpfile" ]] && rm -f "$tmpfile"
 }
 alias gd='git_diff'
@@ -333,7 +333,7 @@ fi
 #   - git command exit code
 #######################################
 function git-at() {
-  # is_git_repo_with_message || return
+  # NOTE: you can use -C ./repo (not this function)
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
   $(basename "$0") <repo_dirpath> [commands]...
@@ -351,7 +351,7 @@ EOF
 # NOTE: ignore untracked-files
 function git-status-check() {
   local repo_dir=$1
-  git-at "$repo_dir" status -sb | grep -E -e '##.*\[ahead [0-9]+]' -e '^ ' >/dev/null 2>&1
+  git -C "$repo_dir" status -sb | grep -E -e '##.*\[ahead [0-9]+]' -e '^ ' >/dev/null 2>&1
   if [[ $? == 0 ]]; then
     return 1
   else
@@ -370,7 +370,7 @@ function git-history() {
     if [[ -d "$dot_git_dir" ]]; then
       echo "${GREEN}[GIT_HISTORY][FOUND]: $git_repo_dir${DEFAULT}"
       if ! $(git-status-check "$git_repo_dir"); then
-        git-at "$git_repo_dir" status
+        git -C "$git_repo_dir" status
       fi
     fi
   done
@@ -408,7 +408,7 @@ function git-repo-exec() {
   local base_dir=''
   while IFS= read -r git_repo || [[ -n "$git_repo" ]]; do
     echo "# $git_repo"
-    git-at "$git_repo" "$@"
+    git -C "$git_repo" "$@"
   done
 }
 
@@ -1149,7 +1149,7 @@ EOF
   } | {
     # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
     while IFS= read -r repo_dirpath || [[ -n "$repo_dirpath" ]]; do
-      git-at "$repo_dirpath" grep --color=always "$@" | awk -v prefix="$repo_dirpath" '{printf "%s/%s\n", prefix, $0; }'
+      git -C "$repo_dirpath" grep --color=always "$@" | awk -v prefix="$repo_dirpath" '{printf "%s/%s\n", prefix, $0; }'
     done
   }
 }
