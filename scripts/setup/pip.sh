@@ -99,6 +99,8 @@ pip3 install ranger-fm
 
 pip3 install mycli
 
+pip3 install semgrep
+
 # --------------------------------
 # NOTE: as library
 # --------------------------------
@@ -117,5 +119,4 @@ pip3 install pandas
 # for bokeh svg
 pip3 install selenium
 
-# NOTE: pip install colout failed...(colout v0.5)
-pip3 install https://github.com/nojhan/colout/archive/master.tar.gz
+pip3 install colout
