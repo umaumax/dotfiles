@@ -298,6 +298,7 @@
 [git pull rebase master] git pull --rebase origin master
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
 [git log with marge commit diff] git log -p -m
+[git log of specific function] git log -L :$FUNC_NAME\%#:$FILEPATH
 [git relative modified files] git status -s | cut -c4-
 [git status without untracked-files] git status --untracked-files=no
 [git without cd] REPO_DIRPATH=$(realpath \%#) && git --git-dir "$REPO_DIRPATH/.git" -C "$REPO_DIRPATH" 
@@ -495,6 +496,8 @@
 [ol repeat text] printf '$TEXT\%#%.0s' {1..$N}
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+\%#[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
+[ol word count ranking] sort | uniq -c | sort -nr # this includes spaces
+
 # random
 [ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
 [ol random texts dev] LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 32\%#
@@ -510,7 +513,7 @@
 [ol hex] python3 -c 'import sys; [print(hex(int(v)).upper()) for v in list(sys.argv)[1:]]' \%#
 [ol binary num] python3 -c 'import sys; [print(bin(int(v))) for v in list(sys.argv)[1:]]' \%#
 [ol octal num] python3 -c 'import sys; [print(oct(int(v))) for v in list(sys.argv)[1:]]' \%#
-[ol dump binary hex] python3 -c 'import sys; [print(bytes(v, encoding="utf-8")) for v in list(sys.argv)[1:]]' \%# # xargs bash -c 'echo -e $0'
+[ol dump utf-8 args binary hex] python3 -c 'import sys; [print(bytes(v, encoding="utf-8")) for v in list(sys.argv)[1:]]' \%# # xargs bash -c 'echo -e $0'
 [ol split by string(cut)] perl -ne '@col=split(/\%#/); print(join(",", @col[0,1,2..$#col]));'
 [ol show one line as lines] sed -e 's/\s\+/ /g' | tr ' ' '\n'
 [ol realpath] python3 -c 'import sys,os.path; [print(os.path.realpath(v)) for v in list(sys.argv)[1:]]'
@@ -766,8 +769,8 @@
 # serial
 [serial communication cu] sudo cu -l /dev/ttyUSB0 -s 115200\%#
 [serial communication screen] sudo screen /dev/ttyUSB0 115200\%#
-[serial baudrate example] echo '1200 2400 4800 9600 19200 38400 57600 115200' !
 [show tty info for serial port] sudo stty -a -F /dev/ttyUSB0
+[serial baudrate list] echo 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000, 256000
 
 # screenshot of ubuntu
 [ubuntu screenshot (all)] gnome-screenshot # PrintScreen
@@ -1071,6 +1074,7 @@
 [hexdump -C] od -t x1z -A x
 [hexdump -C] hexly
 [hexdump range] hexdump -C -s $((0x\%#)) -n $((0x100)) # -s:start, -n:length
+[hexdump only hex value] hexdump -ve '16/1 "%.2x " "\n"'
 [od range] od -tx1c -Ax --skip-bytes='0x\%#' --read-bytes='0x100'
 [od next line] od -t x1c -A x
 [file to c++ array] od -A n -v -t x1 \%# | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
@@ -1678,6 +1682,7 @@
 [dummy file : linux] fallocate -l \%# # 10(without B), 10K, 10M, 10G
 [dummy file : mac] mkfile -v \%# # 10(without B), 10K, 10M, 10G
 [dummy file] dd if=/dev/zero of=1G.bin bs=1024000 count=1000
+[dummy random file] dd if=<(openssl enc -aes-256-ctr -pass pass:"$(dd if=/dev/urandom bs=128 count=1 2>/dev/null | base64)" -nosalt < /dev/zero 2>/dev/null) of=100MB.bin bs=1MB count=100 iflag=fullblock
 
 # vscode
 [vscode install extension] code --install-extension \%#
@@ -1999,6 +2004,7 @@
 [hex string endian reverse(64bit)] echo -n 1234abcd2345bcde\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | xxd -p
 [write by 4B units to binary] echo -n 6ffffffb\%# | xxd -r -p - | xxd -e -g4 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
 [write by 8B units to binary] echo -n 000000006ffffffb\%# | xxd -r -p - | xxd -e -g8 /dev/stdin | xxd -r | dd of=$TARGET bs=1 seek=$OFFSET conv=notrunc
+[write by raw data to binary] echo -en \%# | dd of=$TARGET bs=1 seek=$OFFSET conf=notrunc # data example: '\xE0\x1F\x80\x52\xC0\x03\x5F\xD6'
 
 # snap
 [snap installed package file list] tree /snap/$PACKAGE\%#/current/
@@ -2064,3 +2070,7 @@
 [bash builtin commands manual] man bash
 [zsh builtin commands manual] man zshbuiltins
 [zsh builtin commands manual] run-help type
+
+# ASLR
+[disable ASLR temporary (ubuntu)] setarch $(uname -m) -R $COMMAND
+[disable ASLR temporary (ubuntu, mac)] disaslr $COMMAND # my command
