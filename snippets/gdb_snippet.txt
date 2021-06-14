@@ -43,6 +43,7 @@
 ## breakpoints
 [see breakpoints] info breakpoints
 [see breakpoints file] pipe info breakpoints | fzf --preview='fl=$(echo {} | awk "{print \$NF}"); f=${fl%:*} l=${fl#*:}; cat -n $f | grep --color=always -B 5 -A 100 "^ *$l'$'\t''.*\$"'
+[clear all breakpoints] d ## delete
 ## show
 [show current file location] list
 # debug
@@ -52,3 +53,5 @@
 [c-l] ## clear
 # cheat sheet
 [cheat sheet wiki] echo \033[0;1;33mhttps://gitlab.com/umaumax/memo/-/wikis/gdb\n\033[0m
+# registers
+[show all registers] info all-registers
