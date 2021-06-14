@@ -281,7 +281,7 @@ function _edit_splitted_command_line() {
 
   # Open the editor, placing the cursor at the right place if we know how.
   local editor=( "${(@Q)${(z)${VISUAL:-${EDITOR:-vi}}}}" )
-  case $editor in 
+  case $editor in
     (*vim*)
       integer byteoffset=$(( $#PREBUFFER + $#LBUFFER + 1 ))
       "${(@)editor}" -c "normal! ${byteoffset}go" -- $1;;
@@ -294,7 +294,7 @@ function _edit_splitted_command_line() {
   (( $+zle_bracketed_paste )) && print -r -n - $zle_bracketed_paste[1]
 
   # Replace the buffer with the editor output.
-  # print -Rz - "$(<$1)" 
+  # print -Rz - "$(<$1)"
   OUTPUT="$(<$1)"
 } =(<<<"$PREBUFFER$BUFFER")
 
