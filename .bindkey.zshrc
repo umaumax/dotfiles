@@ -570,7 +570,8 @@ bindkey "^X^V" copy-prev-shell-word
 
 function _copy_command() {
   printf '%s' "$BUFFER" | perl -pe "chomp if eof" | c
-  zle kill-buffer
+  # 履歴には実行するまで登録されず、コマンドを消した状態で、ここでこれを実行すると意図するコマンドとはずれた結果となることが頻発したので、コマンドを消去しないように変更
+  # zle kill-buffer
   zle -R -c # refresh
   echo ''
   if cmdcheck bat; then
