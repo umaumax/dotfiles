@@ -603,23 +603,25 @@ else
 endif
 endfunction
 
-function! s:get_window_n()
-  let wn=0
-  let save_winnr = winnr()
-  windo let wn+=1
-  exe save_winnr. 'wincmd w'
-  return wn
-endfunction
-function! s:last_window_event()
-  if &ft == 'vimconsole'
-    q
-  endif
-endfunction
-augroup auto_window_quit
-  autocmd!
-  " NOTE: below silent! is for 'Not allowed to edit another buffer now'
-  autocmd WinEnter,BufWinEnter,BufEnter * silent! if s:get_window_n() == 1 | call s:last_window_event() | endif
-augroup END
+" for auto quit vimconsole
+" function! s:get_window_n()
+  " let wn=0
+  " let save_winnr = winnr()
+  " windo let wn+=1
+  " exe save_winnr. 'wincmd w'
+  " return wn
+" endfunction
+" function! s:last_window_event()
+  " if &ft == 'vimconsole'
+    " q
+  " endif
+" endfunction
+" augroup auto_window_quit
+  " autocmd!
+  " " NOTE: below silent! is for 'Not allowed to edit another buffer now'
+  " autocmd WinEnter,BufWinEnter,BufEnter * silent! if s:get_window_n() == 1 | call s:last_window_event() | endif
+" augroup END
+
 " save and quit
 " write all
 " nnoremap wa :wa<CR>
