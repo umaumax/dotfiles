@@ -197,6 +197,7 @@
 [git stash pop reset] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
 [git stash list] git stash list
 [git stash list src] git stash show "stash@{0}" -p
+[git stash including with untrack files] git stash -u
 # WARN: git stash save is deprecated use git stash push -m
 # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
 [git stash staged] git stash save --keep-index "tmp stash" && git stash save "\%#" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'; git status; git reset
@@ -1461,6 +1462,7 @@
 [tmux dump variables] tmux display-message -a
 [tmux show variable] tmux display-message -p '#{pane_current_path\%#}'
 
+[watch with bash] watch -n 1 "bash -c '\%#'" # use "" to surround bash
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done
 [pseudo watch command] while true\%$do sleep 1\%$clear\%$\%#\%$done
@@ -1966,6 +1968,7 @@
 
 # journalctl
 [journalctl unit filter] journalctl -u $UNIT_NAME # systemctl list-unit-files --all
+[force clear journalctl] journalctl --flush --rotate; journalctl --vacuum-time=1s
 
 # pid
 [pid files location] /var/run/
@@ -2077,3 +2080,4 @@
 
 # seq
 [seq with text] seq -f 'hoge\%#_%g' 1 3
+[seq incremental with N] seq # START INC END
