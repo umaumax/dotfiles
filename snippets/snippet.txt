@@ -2074,3 +2074,6 @@
 # ASLR
 [disable ASLR temporary (ubuntu)] setarch $(uname -m) -R $COMMAND
 [disable ASLR temporary (ubuntu, mac)] disaslr $COMMAND # my command
+
+# seq
+[seq with text] seq -f 'hoge\%#_%g' 1 3
