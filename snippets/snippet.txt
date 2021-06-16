@@ -421,6 +421,9 @@
 
 [git tag dump with commit sha] git tag | grep "^\%#" | xargs -L 1 -I{} bash -c "git rev-parse --short {} | tr -d '\n'; echo :{};"
 
+[git list branch includes specific commit] git branch --contains 
+[git list tag includes specific commit] git tag --contains 
+
 # hub
 [show pull request] hub pr list
 [create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
@@ -1547,6 +1550,8 @@
 # man
 [man ld] man ld.so!
 [man ascii] man ascii!
+[ascii table(ubuntu)] printf "$(printf '\\x%x' {0..255})" | od -Ax -tx1z
+[ascii table(   mac)] printf "$(printf '\\x%x' {0..255})" | god -Ax -tx1z
 [man search] man -k \%#
 [man shell builtin command] man n \%#
 [man user command] man 1 
@@ -1785,6 +1790,8 @@
 [rust dump main function only] objdump -d \%# | awk -v RS= '/^[[:xdigit:]]+ <[0-9A-Za-z_]+main[0-9A-Za-z_]+>/'
 [rust repl] evcxr # cargo install evcxr_repl
 [rust change toolchain default <-> nighlty] rustup-toolchain-switch # my command
+[cargo feature tree(all)] cargo tree -e features
+[cargo feature tree(sepecific)] cargo tree -e features -i $crate_name
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
