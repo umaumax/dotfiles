@@ -34,6 +34,9 @@
 
 [find only directory symbolic link at ubuntu] find . -type l -xtype d -ls
 
+# grep
+[grep for ps or with header output] { head -n 1; grep \%#; }
+
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
 
@@ -318,6 +321,7 @@
 [git patch apply] git apply $PATCH_FILEPATH # <(p)
 [git patch force] git apply --reject \%# # rejected file generates xxx.rej at same directory of the file
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
+[git diff for patch command] git diff $FILE\%# > p1.patch # cat p1.patch | patch -p1
 
 [git search commit from derived branch] git show-branch --merge-base master\%# HEAD
 [git branch diff from derived branch] git diff $(git show-branch --merge-base master\%# HEAD) HEAD
@@ -1597,6 +1601,7 @@
 [pstree with args ubuntu] ps -e f
 [pstree of current shell] ps -e f ww | grep -C 10 $$
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
+[decl ppid like pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t }
 [send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
@@ -2082,9 +2087,16 @@
 [zsh builtin commands manual] run-help type
 
 # ASLR
-[disable ASLR temporary (ubuntu)] setarch $(uname -m) -R $COMMAND
-[disable ASLR temporary (ubuntu, mac)] disaslr $COMMAND # my command
+[disable ASLR(address ranomization) temporary (ubuntu)] setarch $(uname -m) -R $COMMAND
+[disable ASLR(address ranomization) temporary (ubuntu, mac)] disaslr $COMMAND # my command
 
 # seq
 [seq with text] seq -f 'hoge\%#_%g' 1 3
 [seq incremental with N] seq # START INC END
+
+# zombie
+[check zombie process] ps aux | grep 'Z'
+[create zombie process] echo 'import os; import time; pid = os.fork();\nif pid==0: exit(0);\nprint("parent pid:{}".format(os.getpid())); print("zombi  pid:{}".format(pid));\nwhile 1: time.sleep(1);' | python3 -
+
+# chrt
+[change SCHED_FIFO priority] chrt -f -p 99 $PID # 1 is lowest, 99 is highest
