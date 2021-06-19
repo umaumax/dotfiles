@@ -40,6 +40,7 @@ extensions=(
   # high-moctane.nextword # this conflict Atishay-Jain.All-Autocomplete
   ionutvmi.path-autocomplete
   jebbs.plantuml
+  leodevbro.blockman
   mhutchie.git-graph
   mosapride.zenkaku
   ms-python.python
