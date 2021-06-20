@@ -1197,3 +1197,13 @@ snippet gettid
 	pid_t gettid(void) {
 	  return syscall(SYS_gettid);
 	}${0}
+
+snippet errno_to_str
+abbr #include <cstring>
+	std::strerror(errnor)${0}
+
+snippet ismac
+	#ifdef __APPLE__${0}
+
+snippet islinux
+	#ifdef __linux__${0}
