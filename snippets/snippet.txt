@@ -162,6 +162,7 @@
 [ctest verbose] ctest -V # -VV, --debug
 [ctest filter] ctest -V -R $REGEX
 [ctest show tests list] ctest -N
+[ctest gtest filter] GTEST_FILTER='TestCaseName\%#' ctest -V -R $TEST
 
 # timeout
 [timeout] timeout -sKILL # timeout -sKILL 5 bash -c 'while true; do date;sleep 1;done'
@@ -958,10 +959,6 @@
 [unixtime stamp to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
 [unixtime stamp to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
 
-# pgrep
-[pgrep with user info 1] ps wup $(pgrep -f \%#)
-[pgrep with user info 2] ps aux | grep -v grep | grep -i \%#
-
 # vagrant
 [vagrant for proxy] vagrant plugin install vagrant-proxyconf
 [vagrant ubuntu14.04 box download] vagrant box add ubuntu/trusty64
@@ -1601,7 +1598,7 @@
 [pstree with args ubuntu] ps -e f
 [pstree of current shell] ps -e f ww | grep -C 10 $$
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
-[decl ppid like pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t }
+[decl ppid like reverse pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); [[ -z "$pid" ]] && return 1; recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t }
 [send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
@@ -1609,6 +1606,9 @@
 [show  process environment] ps e -ww -p $PID
 [ubuntu show process environment(pgrep)] strings /proc/$(pgrep \%#)/environ
 [ubuntu show process environment(pid)] strings /proc/\%#/environ
+[pgrep with user info] ps wup $(pgrep -f \%#)
+[pgrep with user info] ps aux | grep -v grep | grep -i \%#
+[ps thread at mac] ps aux -M $PID
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH\%# | gprof2dot | dot -Tsvg -o output.svg
@@ -2100,3 +2100,5 @@
 
 # chrt
 [change SCHED_FIFO priority] chrt -f -p 99 $PID # 1 is lowest, 99 is highest
+
+[show inode] ls -i
