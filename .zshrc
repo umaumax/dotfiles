@@ -3455,7 +3455,10 @@ function addr2func() {
       for arg in "$@"; do
         local orig_addr=$arg
         local addr=${arg##0x}
-        objdump -d --prefix-addresses -l "$elf_filepath" | grep -A 1 "^0*$addr" | awk 'NR==1{objdump_addr=$1; func_name=$2} NR==2&& /^\// { file=$1 } END{ if (func_name!="") { if (file!="") { func_name = func_name ":" file} printf("%s %s\n", "'"$orig_addr"'", func_name); } }'
+        objdump -d --prefix-addresses -l "$elf_filepath" \
+          | awk '/^_.*:$/{file=""} /^\// { file=$1 } /^[0-9a-fA-F]+ / {printf "%s %s", $1, $2; if (file!=""){ printf ":%s", file}; printf "\n"; }' \
+          | grep "^0*$addr" \
+          | awk '{objdump_addr=$1; func_name=$2; printf("%s %s\n", "'"$orig_addr"'", func_name); }'
       done
     } | awk 'NF'
   ))
