@@ -3442,6 +3442,30 @@ if cmdcheck peco; then
   }
 fi
 
+function addr2func() {
+  if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# == 1 ]]; then
+    echo "$0 "'elf_filepath [hex style addrs...]'
+    return 1
+  fi
+
+  local elf_filepath=$1
+  shift
+  local output=($(
+    {
+      for arg in "$@"; do
+        local orig_addr=$arg
+        local addr=${arg##0x}
+        objdump -d --prefix-addresses -l "$elf_filepath" | grep -A 1 "^0*$addr" | awk 'NR==1{objdump_addr=$1; func_name=$2} NR==2&& /^\// { file=$1 } END{ if (func_name!="") { if (file!="") { func_name = func_name ":" file} printf("%s %s\n", "'"$orig_addr"'", func_name); } }'
+      done
+    } | awk 'NF'
+  ))
+  if [[ -p /dev/stdin ]]; then
+    perl -ne 'BEGIN { @src_pts=(); @dst_pts=(); $pts_len=$#ARGV / 2; while($#ARGV > 0){ push(@src_pts, shift); push(@dst_pts, shift); }; } for ($i = 0; $i < $pts_len; $i++){ s/@src_pts[$i]/@dst_pts[$i]/; } print $_' "${output[@]}"
+  else
+    printf '%s ' "${output[@]}" | tr ' ' '\n' | awk '{if (NR>1 && NR%2==1) {printf "\n";} printf "%s", $0; if (NR%2!=0) {printf " ";}}'
+  fi
+}
+
 function jenkins-lint() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
