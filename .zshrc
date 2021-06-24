@@ -3448,20 +3448,26 @@ function addr2func() {
     return 1
   fi
 
+  local tmpfile=$(mktemp)
+  local OBJDUMP=${OBJDUMP:-objdump}
   local elf_filepath=$1
   shift
+  $OBJDUMP -d --prefix-addresses -l "$elf_filepath" | awk '/^_.*:$/{file=""} /^\// { file=$1 } /^[0-9a-fA-F]+ / {printf "%s %s", $1, $2; if (file!=""){ printf ":%s", file}; printf "\n"; }' >"$tmpfile"
   local output=($(
     {
       for arg in "$@"; do
         local orig_addr=$arg
         local addr=${arg##0x}
-        objdump -d --prefix-addresses -l "$elf_filepath" \
-          | awk '/^_.*:$/{file=""} /^\// { file=$1 } /^[0-9a-fA-F]+ / {printf "%s %s", $1, $2; if (file!=""){ printf ":%s", file}; printf "\n"; }' \
-          | grep "^0*$addr" \
+        cat "$tmpfile" \
+          | grep -E "^[0 ]*$addr" \
           | awk '{objdump_addr=$1; func_name=$2; printf("%s %s\n", "'"$orig_addr"'", func_name); }'
       done
     } | awk 'NF'
   ))
+  if [[ "${#output[@]}" == "0" ]]; then
+    echo 1>&2 "objdump filter ends with 0 result"
+    return 1
+  fi
   if [[ -p /dev/stdin ]]; then
     perl -ne 'BEGIN { @src_pts=(); @dst_pts=(); $pts_len=$#ARGV / 2; while($#ARGV > 0){ push(@src_pts, shift); push(@dst_pts, shift); }; } for ($i = 0; $i < $pts_len; $i++){ s/@src_pts[$i]/@dst_pts[$i]/; } print $_' "${output[@]}"
   else
