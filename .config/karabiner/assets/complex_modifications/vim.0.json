@@ -2,7 +2,7 @@
   "title": "For Vim",
   "rules": [
     {
-      "description": "Command + Semicolon to ESC",
+      "description": "Command/Ctrl + Semicolon to ESC",
       "manipulators": [
         {
           "from": {
@@ -27,6 +27,42 @@
             "key_code": "semicolon",
             "modifiers": {
               "mandatory": ["right_command"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": ["left_control"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": ["right_control"],
               "optional": ["any"]
             }
           },
