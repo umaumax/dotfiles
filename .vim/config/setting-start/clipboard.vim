@@ -1,23 +1,25 @@
-" OS clupboard share
-" [vimのクリップボードとレジスタのコピーアンドペースト - たけし備忘録](http://takeshid.hatenadiary.jp/entry/2015/09/08/001517)
-" [zshとVimでOS判定 - shkh's blog](http://shkh.hatenablog.com/entry/2012/06/17/222936)
-
-function! s:init_clipboard()
+function! s:good_clipboard_setting()
   if has('windows')
-    " NOTE: for windows
-    set clipboard=unnamed,unnamedplus
+    return 'unnamed,unnamedplus'
   elseif has('mac') " NOTE: mac also has 'unix'
-    " NOTE: for mac
-    " for cui vim
-    " set clipboard=unnamed,autoselect
-    " for gvim and cui vim
-    set clipboard=unnamed,unnamedplus
+    return 'unnamed,unnamedplus'
   elseif has('unix')
-    " NOTE: for ubuntu
-    set clipboard=unnamedplus
+    return 'unnamedplus'
   endif
-  execute "setlocal clipboard=".&clipboard
 endfunction
 
-call s:init_clipboard()
-command! InitClipBoard :call s:init_clipboard()
+function! s:set_clipboard()
+  let clipboard_setting=s:good_clipboard_setting()
+  if &clipboard != clipboard_setting
+    execute "set clipboard=".clipboard_setting
+    execute "setlocal clipboard=".clipboard_setting
+  endif
+endfunction
+command! InitClipBoard :call s:set_clipboard()
+
+" auto reset clipboard event workaround (But, I don't know what makes blank &clipboard setting.)
+augroup clipboard_setting_group
+  autocmd!
+  " InsertLeave is used instead of when you entered normal mode
+  autocmd VimEnter,InsertLeave * call s:set_clipboard()
+augroup END
