@@ -1631,6 +1631,7 @@
 [vmstat to csv] grep -v '^procs' | grep -v '^ r' | sed -E 's/ +/,/g' | sed -E 's/^,//g'
 
 # image
+[image resize] convert $IN\%# -resize 48x48 $OUT
 [image convert extend] convert $IMAGE\%# -append -background none -gravity center -extent 320x320 $OUTPUT
 [image resize] mogrify -resize 160x $IMAGE\%# # e.g. 160x or 160x160
 [image white noise] convert -size 128x128 xc:gray +noise random -colorspace gray noise.png
