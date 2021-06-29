@@ -958,6 +958,7 @@
 [ubuntu date after or ago] date -d "+90\%# days"
 [unixtime stamp to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
 [unixtime stamp to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
+[mac date x hour ago] date -v -1H
 
 # vagrant
 [vagrant for proxy] vagrant plugin install vagrant-proxyconf
