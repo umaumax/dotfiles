@@ -20,6 +20,5 @@ command! InitClipBoard :call s:set_clipboard()
 " auto reset clipboard event workaround (But, I don't know what makes blank &clipboard setting.)
 augroup clipboard_setting_group
   autocmd!
-  " InsertLeave is used instead of when you entered normal mode
-  autocmd VimEnter,InsertLeave * call s:set_clipboard()
+  autocmd VimEnter,CursorHold,CursorHoldI,InsertEnter,InsertLeave,CmdlineEnter,CmdLineLeave * call s:set_clipboard()
 augroup END
