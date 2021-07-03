@@ -3565,6 +3565,13 @@ EOF
 
 alias help='run-help'
 
+if [[ $(uname) == "Darwin" ]]; then
+  # disable to use binutils ar, ranlib
+  # FYI: [macでライブラリをビルドしてインストールするときはbinutilsに気をつける \- Qiita]( https://qiita.com/nagomiso/items/dc6021beb72d09f2128f )
+  ln -sf /usr/bin/ar ~/local/bin/ar
+  ln -sf /usr/bin/ranlib ~/local/bin/ranlib
+fi
+
 # NOTE: for ruby
 # FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
 # WARN: rubyコマンドの起動が遅いための，暫定処置
