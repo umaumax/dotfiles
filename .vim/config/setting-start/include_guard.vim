@@ -12,7 +12,7 @@ endfunction
 function! s:include_guard_c()
   let name = fnamemodify(expand('%'),':t')
   let name = toupper(name)
-  let included = substitute(name,'\.\|-','_','g').'_INCLUDED__'
+  let included = substitute(name,'\.\|-','_','g').'_INCLUDED'
   let s:head = [
         \ '#ifndef '.included,
         \ "#define ".included,
