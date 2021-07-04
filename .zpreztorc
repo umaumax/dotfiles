@@ -145,6 +145,10 @@ function prompt-pwd() {
     disable_abbr_flag=1
   fi
 
+  local zsh_red='%%F{9}'
+  local zsh_blue='%%F{4}'
+  local zsh_green='%%F{2}'
+
   dirs=("${(@s[/])current_pwd}")
   local i=0
   local n=${#dirs[@]}
@@ -157,16 +161,16 @@ function prompt-pwd() {
     fi
     # wanring color if not under $HOME dir
     if [[ $i == 1 ]] && [[ "$dir" == "" ]]; then
-      printf "$RED"
+      printf "$zsh_red"
     fi
     # emphasize git repo dir
     target_dir_slice=("${dirs[@]:0:$i}")
     target_dir=${(j:/:)target_dir_slice}
     if [[ -d ${target_dir/#\~/$HOME}/.git ]]; then
       if [[ $abbr_flag == 0 ]]; then
-        printf "${GREEN}${dir}${BLUE}${suffix}"
+        printf "${zsh_green}${dir}${zsh_blue}${suffix}"
       else
-        printf "${GREEN}${dir}${BLUE}${suffix}"
+        printf "${zsh_green}${dir}${zsh_blue}${suffix}"
       fi
       continue
     fi
