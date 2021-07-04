@@ -1142,6 +1142,7 @@
 [zsh completion bug fix] rm -rf ~/.zcompdump ~/.zcompcache # HINT: command not found
 [zsh completion fielpath search] echo $fpath | tr " " "\n" | xargs -L 1 -I{} find {} -name '\%#'
 [zsh completion function reload] cmd_name=\%#; unfunction "_${cmd_name}" && autoload -U "_${cmd_name}"
+[zsh completion reset] autoload -U compinit && compinit
 
 # sudo
 [enter root as user env] sudo su \%#
@@ -1772,6 +1773,7 @@
 [ltrace cargo run] CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUNNER=ltrace cargo run
 [cargo install from github] cargo install --git $GIT_URL # e.g. https://github.com/jameysharp/static-ldd
 [cargo install list] cargo install --list
+[cargo install] cargo install --path .
 [cargo create new lib crate] cargo new --lib \%#
 [cargo create new bin crate] cargo new --bin \%#
 [cargo test show output] cargo test -- --nocapture \%#
