@@ -153,6 +153,20 @@ function prompt-pwd() {
   local i=0
   local n=${#dirs[@]}
   local abbr_flag=0
+
+  # check closest git repo index
+  local git_repo_dir_index=0
+  for dir in "${dirs[@]}"; do
+    ((i++))
+    target_dir_slice=("${dirs[@]:0:$i}")
+    target_dir=${(j:/:)target_dir_slice}
+    if [[ -d ${target_dir/#\~/$HOME}/.git ]]; then
+      git_repo_dir_index=$i
+    fi
+  done
+
+  i=0
+  local root_dir_show_flag=0
   for dir in "${dirs[@]}"; do
     ((i++))
     local suffix='/'
@@ -164,9 +178,7 @@ function prompt-pwd() {
       printf "$zsh_red"
     fi
     # emphasize git repo dir
-    target_dir_slice=("${dirs[@]:0:$i}")
-    target_dir=${(j:/:)target_dir_slice}
-    if [[ -d ${target_dir/#\~/$HOME}/.git ]]; then
+    if [[ $git_repo_dir_index == $i ]]; then
       if [[ $abbr_flag == 0 ]]; then
         printf "${zsh_green}${dir}${zsh_blue}${suffix}"
       else
@@ -175,11 +187,15 @@ function prompt-pwd() {
       continue
     fi
     # omit directory
-    if [[ $disable_abbr_flag == 0 ]] && [[ $i -gt 2 ]] && [[ $i -le $((n - 2)) ]]; then
+    if [[ $disable_abbr_flag == 0 ]] && [[ $root_dir_show_flag == 1 ]] && [[ $i -le $((n - 2)) ]]; then
       if [[ $abbr_flag == 0 ]]; then
         printf ""
       fi
-      printf "📁/"
+      if [[ $(uname) == "Darwin" ]]; then
+        printf "📁/"
+      else
+        printf "■/"
+      fi
       abbr_flag=1
       continue
     fi
@@ -188,6 +204,9 @@ function prompt-pwd() {
       printf ""
     fi
 
+    if [[ "$dir" != "" ]]; then
+      root_dir_show_flag=1
+    fi
     printf "${dir}${suffix}"
   done
 }
