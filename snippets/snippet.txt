@@ -202,15 +202,19 @@
 [git stash list] git stash list
 [git stash list src] git stash show "stash@{0}" -p
 [git stash including with untrack files] git stash -u
-[git stash force pop] cd $(git rev-parse --show-toplevel) && { git stash show -p | git apply; }
+[git stash force pop] git stash show -p | git -C $(git rev-parse --show-toplevel) apply
 # WARN: git stash save is deprecated use git stash push -m
 # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
-[git stash staged] git stash save --keep-index "tmp stash" && git stash save "\%#" && git stash apply 'stash@{1}' && { git stash show -p | git apply -R; } && git stash drop 'stash@{1}'; git status; git reset
+[git stash staged] git-stash-staged
+[git stash not staged(unstaged)] git-stash-unstaged
+[git clear staged file change] git -C $(git rev-parse --show-toplevel) apply <(git diff --staged -R) && git reset HEAD
+[git clear unstaged file change] git -C $(git rev-parse --show-toplevel) apply <(git diff -R)
 [git stash with name] git stash save "\%#"
 [git stash with untracked-files] git stash save --include-untracked "\%#"
 [git stash] git stash pop "stash@{\%#}"
-[git stash not staged] git stash --keep-index
 [git stash interactive] git stash push --patch
+[git stash pop with staged info] git stash pop --index
+[git stash apply with staged info] git stash apply --index
 [git stash specific file] git stash push \%# # 2.13 or later
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
@@ -317,11 +321,11 @@
 
 [git find detached commits] git fsck --lost-found
 
-[git apply patch even it has conflict] git apply --3way \%#
-[git apply dry-run] git apply --check \%#
-[git apply patch stat] git apply --stat \%#
-[git patch apply] git apply $PATCH_FILEPATH # <(p)
-[git patch force] git apply --reject \%# # rejected file generates xxx.rej at same directory of the file
+[git apply patch even it has conflict] git -C $(git rev-parse --show-toplevel) apply --3way \%#
+[git apply dry-run] git -C $(git rev-parse --show-toplevel) apply --check \%#
+[git apply patch stat] git -C $(git rev-parse --show-toplevel) apply --stat \%#
+[git patch apply] git -C $(git rev-parse --show-toplevel) apply $PATCH_FILEPATH # <(p)
+[git patch force] git -C $(git rev-parse --show-toplevel) apply --reject \%# # rejected file generates xxx.rej at same directory of the file
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 [git diff for patch command] git diff $FILE\%# > p1.patch # cat p1.patch | patch -p1
 
@@ -1395,7 +1399,7 @@
 [heredoc to filename] cat > $FILEPATH\%# << 'EOF'
 [heredoc to filename] cat << 'EOF' > $FILEPATH\%#
 [heredoc to pipe] cat << 'EOF' | \%#
-[heredoc with git diff apply] cat << 'EOF' | git apply # paste git diff result and type EOR and enter
+[heredoc with git diff apply] cat << 'EOF' | git -C $(git rev-parse --show-toplevel) apply # paste git diff result and type EOR and enter
 [string to pipe input] <<<"\%#"
 
 [linux: check shared lib path objdump -p] objdump -p \%# # readelf -d

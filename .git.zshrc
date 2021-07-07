@@ -1305,3 +1305,25 @@ function git-lang-detection() {
     echo "$lang" | tee "$cache_file"
   fi
 }
+
+function git-stash-staged() {
+  is_git_repo_with_message || return 1
+
+  git stash --keep-index
+  git stash
+  git stash pop --index 'stash@{1}'
+  git -C $(git rev-parse --show-toplevel) apply <(git diff --staged -R)
+  git reset HEAD
+}
+
+function git-stash-unstaged() {
+  is_git_repo_with_message || return 1
+
+  git stash
+  git stash apply --index 'stash@{0}'
+  git -C $(git rev-parse --show-toplevel) apply <(git diff --staged -R)
+  git reset HEAD
+  git stash
+  git stash pop --index 'stash@{1}'
+  git -C $(git rev-parse --show-toplevel) apply <(git diff -R)
+}
