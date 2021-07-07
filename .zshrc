@@ -2034,8 +2034,8 @@ EOF
   local raw_tmpfile
 
   local uuid="$(uuidgen)"
-  ansi_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').${uuid}.$(pwd | sed 's:/:_:g').ansi.log")"
-  raw_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').${uuid}.$(pwd | sed 's:/:_:g').raw.log")"
+  ansi_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').${uuid}.XXXXX.$(pwd | sed 's:/:_:g').ansi.log")"
+  raw_tmpfile="$(mktemp "/tmp/$name.$(date +'%Y-%m-%d-%H-%M-%S').${uuid}.XXXXX.$(pwd | sed 's:/:_:g').raw.log")"
   eval "export ${name}_ANSI_LOGPATH="$ansi_tmpfile""
   eval "export ${name}_RAW_LOGPATH="$raw_tmpfile""
 
