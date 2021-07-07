@@ -72,6 +72,7 @@
 	info  = :
 	is-my-repo  = :
 	is-own-repo = :
+	lang-detection  = :
 	local-checkout  = :
 	log-diff  = :
 	log-diff-current  = :
@@ -89,7 +90,6 @@
 	merge-conflict-diff  = :
 	merge-conflict-diff-from-branches  = :
 	open  = :
-	preview  = :
 	pull  = :
 	pull-all  = :
 	push  = :
