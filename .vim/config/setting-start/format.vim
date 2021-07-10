@@ -245,6 +245,14 @@ if Doctor('align', 'yaml format')
   " command! -bar YAMLFormatWrapper :YAMLFormat
 endif
 
+if Doctor('prettier', 'toml format')
+  augroup toml_format_group
+    autocmd!
+    autocmd FileType toml ++once autocmd BufWinEnter *.{toml,yml} command! -bar Format TomlFormat
+    autocmd FileType toml ++once autocmd BufWritePre *.{toml,yml} if IsAutoFormat() | :TomlFormat | endif
+  augroup END
+endif
+
 if Doctor('rustfmt', 'rust format')
   augroup rust_format_group
     autocmd!
