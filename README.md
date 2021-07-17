@@ -31,8 +31,7 @@ git-update-dummy-alias
 * second time~: open vim and puts `:PlugUpdate` and `:PlugUpgrade`
 
 ## Karabiner-Element for Mac setup
-* open `~/.config/karabiner/assets/complex_modifications` directory
-  * FYI: [Karabiner\-Elementsの設定項目をまとめました]( https://qiita.com/s-show/items/a1fd228b04801477729c )
+use `~/.config/karabiner/assets/complex_modifications/*.json`
 
 ## NOTE
 * `./.gitignore`: This `.gitignore` file is for this repo not for a host machine setting.
