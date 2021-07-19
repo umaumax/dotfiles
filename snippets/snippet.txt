@@ -1102,6 +1102,7 @@
 # user
 [add new user] NEW_USER=\%# && sudo adduser $NEW_USER
 [add new sudo user] NEW_USER=\%# && sudo adduser $NEW_USER && sudo gpasswd -a $NEW_USER sudo
+[join user to sudo group] sudo adduser $USER\%# sudo
 [add group to user usermod] sudo usermod -aG $GROUP\%# $USER
 [add group to user gpasswd] sudo gpasswd -a $USER $GROUP\%#
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP\%#
@@ -1615,7 +1616,7 @@
 [ubuntu show process environment(pid)] strings /proc/\%#/environ
 [pgrep with user info] ps wup $(pgrep -f \%#)
 [pgrep with user info] ps aux | grep -v grep | grep -i \%#
-[ps thread at mac] ps aux -M $PID
+[ps thread at mac(but no tid)] ps aux -M $PID
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH\%# | gprof2dot | dot -Tsvg -o output.svg
@@ -1757,6 +1758,7 @@
 # pkg-config
 [pkg-config confirm opencv version] pkg-config --modversion opencv
 [confirm opencv version] opencv_version
+[pkg-config list all config] pkg-config --list-all
 
 # dot graphviz
 [dot graphviz find gen] find . -name '*.dot' | xargs -L1 -I{} dot -Kdot -Tsvg -o "{}.svg" "{}"
