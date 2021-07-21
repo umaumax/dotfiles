@@ -3565,6 +3565,22 @@ EOF
 
 alias help='run-help'
 
+function journalctl-diff() {
+  if [[ $# -lt 2 ]]; then
+    command cat <<EOF 1>&2
+usage: $(basename "$0") <file1> <file2>
+EOF
+    return 1
+  fi
+  local file1=$1
+  local file2=$2
+  tmpfile1=$(mktemp "/tmp/$(basename $file1).XXXXX")
+  tmpfile2=$(mktemp "/tmp/$(basename $file1).XXXXX")
+  cat "$file1" | cut -c17- >"$tmpfile1"
+  cat "$file2" | cut -c17- >"$tmpfile2"
+  git diff --word-diff --no-index -- "$tmpfile1" "$tmpfile2"
+}
+
 if [[ $(uname) == "Darwin" ]]; then
   # disable to use binutils ar, ranlib
   # FYI: [macでライブラリをビルドしてインストールするときはbinutilsに気をつける \- Qiita]( https://qiita.com/nagomiso/items/dc6021beb72d09f2128f )
