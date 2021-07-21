@@ -178,19 +178,23 @@ fi
 
 # tmux
 if type >/dev/null 2>&1 tmux; then
-  # install manager
-  [[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  tmux source-file ~/.tmux.conf
-  output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh 2>&1) || {
-    echo $'\e[91m'"[✗] tmux plugin install failed."$'\e[m'
-    echo "$output"
-    exit 1
-  }
-  output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
-    echo $'\e[91m'"[✗] tmux plugin update failed."$'\e[m'
-    echo "$output"
-    exit 1
-  }
+  if tmux info >/dev/null 2>&1; then
+    # install manager
+    [[ ! -d ~/.tmux/plugins/tpm ]] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    tmux source-file ~/.tmux.conf
+    output=$(~/.tmux/plugins/tpm/scripts/install_plugins.sh 2>&1) || {
+      echo $'\e[91m'"[✗] tmux plugin install failed."$'\e[m'
+      echo "$output"
+      exit 1
+    }
+    output=$(~/.tmux/plugins/tpm/scripts/update_plugin.sh all 2>&1) || {
+      echo $'\e[91m'"[✗] tmux plugin update failed."$'\e[m'
+      echo "$output"
+      exit 1
+    }
+  else
+    echo $'\e[93m'"[-] tmux server is not running."$'\e[m'
+  fi
 else
   echo $'\e[91m'"[✗] tmux command not found."$'\e[m'
   exit 1
