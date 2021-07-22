@@ -12,7 +12,7 @@ crontab ./crontab
 ```
 mkdir -p $HOME/github.com/
 go get -u github.com/umaumax/gms
-# NOTE: gms bin path is $HOME/go/my/bin/gms
+# NOTE: gms bin path is $HOME/go/bin/gms
 git clone https://github.com/umaumax/umaumax.github.io-md.git -O $HOME/github.com/
 ```
 

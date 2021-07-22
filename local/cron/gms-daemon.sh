@@ -7,7 +7,7 @@
 PATH=/usr/sbin:/usr/local/bin/:$PATH
 
 app_name='gms'
-app_cmd_path="$HOME/go/my/bin/gms"
+app_cmd_path="$HOME/go/bin/gms"
 
 cd $(dirname $0)
 logfile="$HOME/.log/$app_name.log"

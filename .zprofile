@@ -76,12 +76,8 @@ export LC_MESSAGES="en_US.UTF-8"
 # ----
 
 # golang
-mkdir -p ~/go/{3rd,my}/{bin,src,pkg}
+mkdir -p ~/go
 if [[ -d ~/go ]]; then
-  # go1.9~: If $GOPATH is not specified, $HOME/go will be used by default:
-  # export GOPATH=~/go/3rd:~/go/my
-  # append_path ~/go/3rd/bin
-  # append_path ~/go/my/bin
   append_path ~/go/bin
 fi
 # NOTE: for ubuntu apt-get
