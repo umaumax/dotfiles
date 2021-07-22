@@ -96,6 +96,10 @@ if [[ -d "/snap/bin" ]]; then
   append_path /snap/bin
 fi
 
+# for node
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
+
 # c++
 mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
 if [[ -d ~/cpp ]]; then

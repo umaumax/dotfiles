@@ -3,11 +3,11 @@
 set -ex
 
 if [[ $1 == '--sudo-env' ]]; then
-  function npm() {
+  function sudo-npm() {
     sudo -E npm "$@"
   }
 else
-  function npm() {
+  function sudo-npm() {
     sudo npm "$@"
   }
 fi
@@ -21,7 +21,9 @@ npm -g config set registry http://registry.npmjs.org/
 # npm -g config rm https-proxy
 # npm -g config rm registry
 
-npm install -g n
+sudo-npm install -g n
+n latest
+
 npm install -g neovim
 npm install -g jsonlint
 npm install -g vue-language-server
