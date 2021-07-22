@@ -86,7 +86,9 @@ sudo apt-get install -y gnuplot
 sudo apt-get install -y ctags
 # sudo apt-get install -y global # gtags 5.7.1-2
 # NOTE: [6\.5\.6\-2 : global : amd64 : Zesty \(17\.04\) : Ubuntu]( https://launchpad.net/ubuntu/zesty/amd64/global/6.5.6-2 )
-dpkg_url 'http://launchpadlibrarian.net/301614632/global_6.5.6-2_amd64.deb'
+# for x86_64 Ubuntu
+# dpkg_url 'http://launchpadlibrarian.net/301614632/global_6.5.6-2_amd64.deb'
+sudo apt-get install -y global
 
 # for man
 sudo apt-get install -y ruby-ronn
@@ -154,7 +156,7 @@ sudo apt-get install -y screen
 # sudo apt-get install -y python-pygments
 
 sudo apt-get install -y clang llvm
-sudo apt-get install -y libclang-5.0-dev
+# sudo apt-get install -y libclang-5.0-dev
 
 sudo apt-get install -y gawk
 
@@ -238,8 +240,8 @@ sudo apt-get install -y sqlitebrowser
 
 sudo apt-get install -y chromium-browser
 # for flash
-sudo apt-get install -y pepperflashplugin-nonfree
-sudo update-pepperflashplugin-nonfree --install
+# sudo apt-get install -y pepperflashplugin-nonfree
+# sudo update-pepperflashplugin-nonfree --install
 
 sudo apt-get install -y nmap
 
@@ -249,7 +251,9 @@ sudo apt-get install -y nasm
 
 # NOTE: for perf
 sudo apt-get install -y linux-tools-generic
-sudo apt-get install -y linux-tools-$(uname -r)
+if [[ ! -f /.dockerenv ]]; then
+  sudo apt-get install -y linux-tools-$(uname -r)
+fi
 
 sudo apt-get install -y apt-file
 
