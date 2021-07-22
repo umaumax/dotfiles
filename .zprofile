@@ -47,7 +47,7 @@ function prepend_path() {
 }
 function append_path() {
   local p="$1"
-  [[ -d $p ]] && export PATH=$PATH:$p
+  export PATH="$PATH:$p"
 }
 function exist() {
   var=$1
