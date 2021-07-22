@@ -1842,8 +1842,8 @@
 [tee output process substitution] tee >(\%#)
 
 # ntp
-[ubuntu set time force (tmp ntp)] sudo date --set @"$(wget -q https://ntp-a1.nict.go.jp/cgi-bin/jst -O - | sed -n 4p | cut -d. -f1)"
-[update time without ntp command] sudo date -s "$(curl -s --head http://google.com | grep ^Date: | sed 's/Date: //g') -0000"
+[ubuntu set time force (tmp ntp)] sudo date --set "@$(curl 'http://worldtimeapi.org/api/timezone/Asia/Tokyo' | grep -o '"unixtime":[0-9]*' | cut -c12-)"
+[update time without ntp command] sudo date --set "$(curl -s --head http://google.com | grep '^Date:' | sed 's/Date: //g') -0000"
 
 # print0
 [print0] tr '\n' '\0'
