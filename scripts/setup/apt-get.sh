@@ -38,7 +38,8 @@ sudo apt-get install -y openssh-server git tree wget less vim zsh sudo curl man 
 # build for yourself
 # sudo apt-get install -y tmux
 
-sudo apt-get install -y python-pip
+# only for Ubuntu16.04
+# sudo apt-get install -y python-pip
 sudo apt-get install -y python3-pip
 
 sudo apt-get install -y git
