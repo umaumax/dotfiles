@@ -145,13 +145,14 @@ else
   fi
 fi
 
-unalias scp
+unalias scp 2>/dev/null
 
 # NOTE: maybe zprezto define below function
 # slit () {
 # awk "{ print ${(j:,:):-\$${^@}} }"
 # }
-unset -f slit
+
+unset -f slit 2>/dev/null
 # NOTE: space区切りでの並べ替え
 function reorder() {
   [[ $# -lt 1 ]] && echo "$(basename "$0") [1st_col_no 2nd_col_no...]" && return 1
