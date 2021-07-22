@@ -61,3 +61,6 @@ cargo install cargo-docserver
 cargo install --git https://github.com/KoharaKazuya/forest
 
 cargo install --git https://github.com/umaumax/ecat
+
+cargo install bat
+cargo install exa
