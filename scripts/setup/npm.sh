@@ -37,7 +37,9 @@ npm install -g git-split-diffs
 npm install -g alex
 # FYI: [Exporting Plots — Bokeh 1\.0\.4 documentation]( https://bokeh.pydata.org/en/latest/docs/user_guide/export.html )
 # for bokeh svg
-npm install -g phantomjs-prebuilt --unsafe-perm
+if [[ $(arch) != 'aarch64' ]]; then
+  npm install -g phantomjs-prebuilt --unsafe-perm
+fi
 # for yaml format
 npm install -g align-yaml
 
