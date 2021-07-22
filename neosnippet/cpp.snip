@@ -345,7 +345,7 @@ abbr cast std::shared_ptr<void> to some pointer (also unique pointer)
 	(${0:#:dst pointer type}*)${1:#:smart pointer var name}.get()
 
 snippet mutex
-  std::unique_lock<std::mutex> lock(${0:mutex});
+  std::lock_guard<std::mutex> lock(${0:mutex});
 
 snippet lock_guard
 	{
