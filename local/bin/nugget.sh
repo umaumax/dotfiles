@@ -95,6 +95,11 @@ function nugget() {
 function nugget_mac_nvim() {
   cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
+  if [[ $(arch) == 'aarch64' ]]; then
+    echo 1>&2 "Not supported arch"
+    return 1
+  fi
+
   pushd "$tmpdir"
   # nightly build
   wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
