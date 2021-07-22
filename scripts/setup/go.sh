@@ -8,13 +8,8 @@ go get -u github.com/prasmussen/gdrive
 # go get -u github.com/yudai/gotty # build error
 go get -u github.com/zmb3/gogetdoc
 go get -u github.com/monochromegane/the_platinum_searcher/...
-if [[ $(uname) == "Darwin" ]]; then
-  go get -u mvdan.cc/sh/cmd/shfmt
-else
-  # NOTE: go get failure at linux
-  go_bin_path=$(echo "${GOPATH:-$HOME/go}" | cut -d: -f1)/bin
-  [[ ! -f "${go_bin_path}/shfmt" ]] && wget https://github.com/mvdan/sh/releases/download/v2.6.2/shfmt_v2.6.2_linux_amd64 -O "${go_bin_path}/shfmt" && chmod u+x "${go_bin_path}/shfmt"
-fi
+go get -u mvdan.cc/sh/cmd/shfmt
+
 # FYI: [ターミナルで簡単にグラフを描くツール termeter \- Qiita]( https://qiita.com/atsaki/items/e7d2e53bac8ba6fdbce0 )
 go get -u github.com/atsaki/termeter/cmd/termeter
 go get -u github.com/mattn/typogrep
@@ -22,10 +17,10 @@ go get -u github.com/mattn/typogrep
 # for makefile linting
 go get -u github.com/mrtazz/checkmake
 # for markdown linting
-go get -u github.com/errata-ai/vale
+# go get -u github.com/errata-ai/vale
 
 # NOTE: binary editor
-go get -u github.com/itchyny/bed/cmd/bed
+# go get -u github.com/itchyny/bed/cmd/bed
 
 # FYI: [複数のコマンドを画面分割してwatchするwatchコマンド作った \- Qiita]( https://qiita.com/jiro4989/items/867b6f96184c9c80e30c )
 go get -u github.com/jiro4989/vhwatch
@@ -37,7 +32,7 @@ go get -u github.com/ericchiang/pup
 go get -u github.com/aswinkarthik/csvdiff
 
 # NOTE: json yaml diff tool
-go get -u github.com/homeport/dyff/cmd/dyff
+# go get -u github.com/homeport/dyff/cmd/dyff
 
 # NOTE: for cron visualization
 go get -u github.com/takumakanari/cronv/...
