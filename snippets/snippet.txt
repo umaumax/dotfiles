@@ -1135,7 +1135,7 @@
 [login shell: set new zsh shell to /etc/shells] { cat /etc/shells | grep -q $(command which zsh); } || command which zsh | sudo tee -a /etc/shells
 [login shell: set zsh as login shell] command which zsh >/dev/null 2>&1 && sudo chsh -s $(command which zsh) $(whoami)
 [relogin zsh > bash] command which zsh >/dev/null 2>&1 && exec $(command which zsh) -l
-[relogin] exec $SHELL -l # WARN same env
+[relogin] exec ${SHELL:$0} -l # WARN same env
 # really?
 [clean relogin (completely)] sudo true && exec sudo su - $(whoami)
 

@@ -1000,7 +1000,7 @@ alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
 alias w2upath='sed "s:\\\:/:g"'
 alias w2p='p|w2upath|p2c'
 
-alias relogin='exec $SHELL -l'
+alias relogin='exec ${SHELL:$0} -l'
 alias clean-login-zsh='ZDOTDIR= zsh -l'
 alias clean-login-bash='bash --rcfile <(:)'
 
