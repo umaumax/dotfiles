@@ -394,7 +394,7 @@ if cmdcheck exa; then
   alias la='exa -al --sort=name'
   alias lat='exa --sort modified --sort oldest -alt modified'
   alias latr='exa --sort modified --sort oldest -alrt modified'
-  unalias ls
+  unalias ls >/dev/null 2>&1
   function ls() {
     if [[ $# == 0 ]]; then
       LS_COLORS= exa -h
