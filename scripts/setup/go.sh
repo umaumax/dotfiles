@@ -12,7 +12,7 @@ if [[ $(uname) == "Darwin" ]]; then
   go get -u mvdan.cc/sh/cmd/shfmt
 else
   # NOTE: go get failure at linux
-  go_bin_path=$(echo "$GOPATH" | cut -d: -f1)/bin
+  go_bin_path=$(echo "${GOPATH:-$HOME/go}" | cut -d: -f1)/bin
   [[ ! -f "${go_bin_path}/shfmt" ]] && wget https://github.com/mvdan/sh/releases/download/v2.6.2/shfmt_v2.6.2_linux_amd64 -O "${go_bin_path}/shfmt" && chmod u+x "${go_bin_path}/shfmt"
 fi
 # FYI: [ターミナルで簡単にグラフを描くツール termeter \- Qiita]( https://qiita.com/atsaki/items/e7d2e53bac8ba6fdbce0 )
