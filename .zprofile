@@ -79,9 +79,10 @@ export LC_MESSAGES="en_US.UTF-8"
 mkdir -p ~/go/{3rd,my}/{bin,src,pkg}
 if [[ -d ~/go ]]; then
   # go1.9~: If $GOPATH is not specified, $HOME/go will be used by default:
-  export GOPATH=~/go/3rd:~/go/my
-  append_path ~/go/3rd/bin
-  append_path ~/go/my/bin
+  # export GOPATH=~/go/3rd:~/go/my
+  # append_path ~/go/3rd/bin
+  # append_path ~/go/my/bin
+  append_path ~/go/bin
 fi
 # NOTE: for ubuntu apt-get
 if [[ -d "$HOME/local/go" ]]; then
@@ -90,6 +91,9 @@ fi
 # for Ubuntu16.04
 if [[ -d "/usr/lib/go-1.10" ]]; then
   append_path /usr/lib/go-1.10/bin
+fi
+if [[ -d "/usr/lib/go" ]]; then
+  append_path /usr/lib/go/bin
 fi
 
 if [[ -d "/snap/bin" ]]; then
