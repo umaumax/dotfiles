@@ -63,10 +63,7 @@ sudo apt-get install -y sshpass
 sudo apt-get install -y sshfs
 sudo apt-get install -y sshuttle
 sudo apt-get install -y imagemagick
-# NOTE: only Ubuntu16.04
-# sudo apt-get install -y pdftk
-# NOTE: for Ubuntu18.04 or later
-sudo snap install pdftk
+
 sudo apt-get install -y figlet
 sudo apt-get install -y expect
 sudo apt-get install -y pandoc
@@ -95,6 +92,12 @@ dpkg_url 'http://launchpadlibrarian.net/301614632/global_6.5.6-2_amd64.deb'
 sudo apt-get install -y ruby-ronn
 
 if [[ ! -f /.dockerenv ]]; then
+  # NOTE: only Ubuntu16.04
+  # sudo apt-get install -y pdftk
+  # NOTE: for Ubuntu18.04 or later
+  sudo apt-get install -y snapd
+  sudo snap install pdftk
+
   # NOTE: install docker
   # [Get Docker CE for Debian \| Docker Documentation]( https://docs.docker.com/install/linux/docker-ce/debian/#set-up-the-repository )
   sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
