@@ -147,17 +147,16 @@ fi
 
 if [[ -f /.dockerenv ]]; then
   # NOTE: to avoid 表示の乱れ (don't use sorin)
-  # コマンドの存在確認
-  prompt kylewest
-  function check_last_exit_code() {
-    local LAST_EXIT_CODE=$?
-    if [[ $LAST_EXIT_CODE -ne 0 ]]; then
-      local EXIT_CODE_PROMPT=' '
-      EXIT_CODE_PROMPT+="%F{166}$LAST_EXIT_CODE"
-      echo "$EXIT_CODE_PROMPT"
-    fi
-  }
-  RPROMPT='$(check_last_exit_code)'
+  # type >/dev/null 2>&1 prompt && prompt kylewest
+  # function check_last_exit_code() {
+  # local LAST_EXIT_CODE=$?
+  # if [[ $LAST_EXIT_CODE -ne 0 ]]; then
+  # local EXIT_CODE_PROMPT=' '
+  # EXIT_CODE_PROMPT+="%F{166}$LAST_EXIT_CODE"
+  # echo "$EXIT_CODE_PROMPT"
+  # fi
+  # }
+  # RPROMPT='$(check_last_exit_code)'
   PS1='%F{3}(docker) %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
   [[ $LC_CTYPE == "ja_JP.UTF-8" ]] && PS1='🐳 %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 fi
