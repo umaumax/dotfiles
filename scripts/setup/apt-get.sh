@@ -38,8 +38,6 @@ sudo apt-get install -y openssh-server git tree wget less vim zsh sudo curl man 
 # build for yourself
 # sudo apt-get install -y tmux
 
-# only for Ubuntu16.04
-# sudo apt-get install -y python-pip
 sudo apt-get install -y python3-pip
 
 sudo apt-get install -y git
@@ -57,11 +55,9 @@ sudo apt-get install -y ccze
 sudo apt-get install -y rpl
 
 sudo apt-get install -y clang-tidy
-sudo apt-get install -y clang-format # maybe 3.8
-sudo apt-get install -y clang-format-5.0
+sudo apt-get install -y clang-format
 # sudo apt-get install -y vim-gnome # old vim
-sudo apt-get install -y golang-1.10
-# HINT: export PATH="/usr/lib/go-1.10/bin:$PATH"
+sudo apt-get install -y golang-go # HINT: export PATH="/usr/lib/go/bin:$PATH"
 sudo apt-get install -y openssh-server
 sudo apt-get install -y sshpass
 sudo apt-get install -y sshfs
