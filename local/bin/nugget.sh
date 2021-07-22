@@ -203,6 +203,9 @@ function nugget_ubuntu_rtags() {
     echo "${RED}Failed get clang version${DEFAULT}" 1>&2
     return 1
   fi
+  if [[ "$clang_version" == "10.0" ]]; then
+    clang_version="10"
+  fi
   sudo apt-get install -y libclang-${clang_version}-dev
   # for Could NOT find CPPUNIT (missing: CPPUNIT_LIBRARY CPPUNIT_INCLUDE_DIR)
   sudo apt-get install -y libcppunit-dev
@@ -281,9 +284,13 @@ function nugget_ubuntu_bat() {
   cmdcheck bat && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   pushd "$tmpdir"
-  wget https://github.com/sharkdp/bat/releases/download/v0.17.1/bat_0.17.1_amd64.deb
-  sudo dpkg -i bat_*_amd64.deb
-  rm -rf bat_*_amd64.deb
+  local download_url='https://github.com/sharkdp/bat/releases/download/v0.18.2/bat_0.18.2_amd64.deb'
+  if [[ $(arch) == 'aarch64' ]]; then
+    download_url='https://github.com/sharkdp/bat/releases/download/v0.18.2/bat_0.18.2_arm64.deb'
+  fi
+  wget "$download_url"
+  sudo dpkg -i bat_*.deb
+  rm -rf bat_*.deb
   popd
 }
 # ################################
@@ -306,7 +313,12 @@ function nugget_ubuntu_exa() {
   cmdcheck exa && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   pushd "$tmpdir"
-  wget https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+  local download_url='https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip'
+  if [[ $(arch) == 'aarch64' ]]; then
+    echo 1>&2 "Not supported arch: use cargo install exa"
+    return 1
+  fi
+  wget "$download_url"
   unzip exa-linux-x86_64-*.zip
   cp exa-linux-x86_64 "$NUGGET_INSTALL_BIN_PREIFX/exa"
   rm -rf exa-linux-x86_64-*.zip
@@ -380,6 +392,9 @@ function nugget_ubuntu_ctop() {
   [[ -f "$ctop_bin_path" ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   local download_url="https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64"
+  if [[ $(arch) == 'aarch64' ]]; then
+    download_url='https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-arm64'
+  fi
   wget "$download_url" -O "$ctop_bin_path"
   chmod +x "$ctop_bin_path"
 }
