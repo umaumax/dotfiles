@@ -340,7 +340,7 @@ function git-split-commit-rebase-peco() {
   type >/dev/null 2>&1 gsed && sed_command='gsed'
   git -c "sequence.editor=f() { $sed_command -i 's/^pick $commit/edit $commit/' \$1; }; f" rebase -i "$commit^" || return 1
   echo
-  echo "${PURPLE}[LOG] uncommited below commit${DEFAULT}"
+  echo "${PURPLE}[LOG] uncommitted below commit${DEFAULT}"
   echo "${PURPLE}[LOG] create commits and git rebase --continue${DEFAULT}"
   echo
   git log --pretty=oneline --abbrev-commit "HEAD^..HEAD" && git reset --soft "HEAD^" && git reset
@@ -1179,8 +1179,8 @@ if cmdcheck copyq; then
     done
   }
   function copyq_init() {
-    copyq config command_history_size 10000 # defualt: 100, max: 10000
-    copyq config maxitems 10000             # defualt: 200, max: 10000
+    copyq config command_history_size 10000 # default: 100, max: 10000
+    copyq config maxitems 10000             # default: 200, max: 10000
   }
   function copyq_clean() {
     copyq removetab "&clipboard"

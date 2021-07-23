@@ -87,6 +87,6 @@ function _screen() {
     -ls'[list]' \
     -dmS'[daemon]' \
     -s'[select session]' \
-    -X'[screen commmand]'
+    -X'[screen command]'
 }
 compdef _screen screen

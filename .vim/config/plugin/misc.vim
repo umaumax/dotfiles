@@ -136,7 +136,7 @@ function! s:default_expand_rest_wcm()
   let &wcm = s:save_wcm
   unlet s:save_wcm
 
-  " NOTE: no expand by defualt tab key
+  " NOTE: no expand by default tab key
   if getcmdline()[-1:] == "\t"
     cnoremap <silent><expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
     call feedkeys("\<BS>\<Plug>(launch_command_line_completion:tab)", 'm')

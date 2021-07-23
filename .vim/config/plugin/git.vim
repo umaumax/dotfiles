@@ -77,7 +77,7 @@ Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
 " NOTE: reveal the commit messages under the cursor like git blame
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
 let g:git_messenger_include_diff='current'
-" NOTE: <Leader>gm: defualt key mapping of Plug load trigger
+" NOTE: <Leader>gm: default key mapping of Plug load trigger
 nmap <Leader>gm :<C-u>GitMessenger<CR>
 augroup git_messenger_vim_color_group
   function! s:git_messenger_init()

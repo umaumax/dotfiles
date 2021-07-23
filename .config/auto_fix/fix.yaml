@@ -28,6 +28,7 @@ _:
 - - cursor
 - - declaration
 - - default
+  - defualt
 - - definition
 - - deprecate
 - - deprecated
@@ -55,6 +56,8 @@ _:
 - - maintenance
 - - maintenance
 - - multi
+- - night
+- - nightly
 - - official
 - - parallel
 - - path

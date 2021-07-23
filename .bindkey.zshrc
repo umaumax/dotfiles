@@ -116,7 +116,7 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     done
     export _AUTO_PROMPT_LIST_WITH_COLOR=$(
       {
-        echo -e "${GRAY}[history]${DEFUALT}"
+        echo -e "${GRAY}[history]${DEFAULT}"
         # NOTE: grep is to late, ag is faster than grep
         printf '%s' "$output" | sed -E 's/^[ 0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
       }

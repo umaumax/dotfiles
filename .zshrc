@@ -2016,7 +2016,7 @@ function cmake() {
     exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
   fi
   # FYI: [NeovimでC/C\+\+のIDE\(っぽい\)環境を構築する \- Qiita]( https://qiita.com/arwtyxouymz0110/items/b09ef1ed7a2f7bf1c5e6 )
-  # update compile_commands.json infomation
+  # update compile_commands.json information
   if cmdcheck compdb && [[ -f compile_commands.json ]]; then
     compdb list 1>../compile_commands.json 2>../.compdb_stderr.log
     if [[ -s "../.compdb_stderr.log" ]]; then

@@ -5,7 +5,7 @@ endif
 call altercmd#load()
 
 " NOTE: vim-altercmdはcmap <CR>にマッピングがないことが前提
-" vim-smartinputではdefualtで設定されてしまうので注意
+" vim-smartinputではdefaultで設定されてしまうので注意
 " NOTE: cnoremapとするとvim-altercmdで設定したcnoreabbrevが機能しない
 augroup ovrewrite_cmap_cr
   autocmd!

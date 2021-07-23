@@ -114,7 +114,7 @@ function catkin_make() {
     # NOTE: disable for cpu usage
     # pgrep rdm >/dev/null 2>&1 && rc -J build
   fi
-  # update compile_commands.json infomation
+  # update compile_commands.json information
   if cmdcheck compdb && [[ -f ./build/compile_commands.json ]]; then
     compdb -p ./build list 1>./compile_commands.json 2>.compdb_stderr.log
     if [[ -s ".compdb_stderr.log" ]]; then

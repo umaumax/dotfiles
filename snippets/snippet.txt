@@ -240,8 +240,8 @@
 [git cat specific commit] git show $TAG_OR_COMMIT:$FILEPATH # or use git cat
 [git diff specific commit file] git show $COMMIT\%# -- $FILEPATH
 [git get relative filepath] git ls-files -- $(git rev-parse --show-toplevel)
-[git filterd file log] git log -p HEAD -- $RELPATH
-[git filterd file log(interactive)] git log -p HEAD -- $(git ls-files -- $(git rev-parse --show-toplevel) | fzf -m)
+[git filtered file log] git log -p HEAD -- $RELPATH
+[git filtered file log(interactive)] git log -p HEAD -- $(git ls-files -- $(git rev-parse --show-toplevel) | fzf -m)
 [git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
@@ -664,7 +664,7 @@
 [sshfs mount read only] sshfs -o ro \%# # $REMOTE_HOST_AND_DIR $LOCAL_DIR
 [sshuttle vpn] sshuttle -r \%# # 192.168.0.1/24
 [ssh key finger print] ssh-keygen -E md5 -l -f \%#
-[list ssh public key fingerpint] ls *.pub | xargs -L1 -I{} bash -c "printf '{} ' ; ssh-keygen -l -E md5 -f {} | awk 'NR>=2 {printf \"└──────────────────── \"} {print \$0}'" | column -t
+[list ssh public key fingerprint] ls *.pub | xargs -L1 -I{} bash -c "printf '{} ' ; ssh-keygen -l -E md5 -f {} | awk 'NR>=2 {printf \"└──────────────────── \"} {print \$0}'" | column -t
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
 [ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
 [ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
@@ -713,7 +713,7 @@
 [pip search cui (fullmatch)] pip search
 [pip search gui] open "https://pypi.org/search/?q=\%#"
 [python/pip version check] echo -n 'python :'; python --version; echo -n 'python2:'; python2 --version; echo -n 'python3:'; python3 --version; echo -n 'pip :'; pip --version; echo -n 'pip2:'; pip2 --version; echo -n 'pip3:'; pip3 --version !
-[pip install from ithub subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACAKGE_NAME&subdirectory=$DIR_NAME"
+[pip install from ithub subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACKAGE_NAME&subdirectory=$DIR_NAME"
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
@@ -1041,13 +1041,13 @@
 
 [roslaunch file cat] bat -m '*.launch:XML' 
 
-[ros catkin_create_pkg] catkin_create_pkg $PACAKGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
+[ros catkin_create_pkg] catkin_create_pkg $PACKAGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
 [rostest run tests] catkin_make run_tests # for 1st?
 [rostest run tests] catkin_make tests # for 2nd or later?
 [rostest check results] catkin_test_results # WARN: run at rosroot
 [rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
 [rostest check results with color] catkin_test_results --verbose | bat -pp -l xml # WARN: run at rosroot
-[catkin_make] catkin_make --pkg $PACAKGE_NAME
+[catkin_make] catkin_make --pkg $PACKAGE_NAME
 [catkin_make clean] catkin_make clean
 [catkin_make install] catkin_make install
 [catkin_make without tests] catkin_make -DCATKIN_ENABLE_TESTING=0
@@ -1796,7 +1796,7 @@
 [cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf # rustup target add armv7-unknown-linux-gnueabihf
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
-[rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nighlty`
+[rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nightly`
 [rust arch target list] rustup target list
 [rust build unused function] RUSTFLAGS="-C link-dead-code" cargo build 
 [cargo with flags] RUSTFLAGS="\%#" cargo build 
@@ -1805,7 +1805,7 @@
 [rust dump some function] objdump -d \%# | c++filt | awk -v RS= '/^[[:xdigit:]]+ <std::env::var>/'
 [rust dump main function only] objdump -d \%# | awk -v RS= '/^[[:xdigit:]]+ <[0-9A-Za-z_]+main[0-9A-Za-z_]+>/'
 [rust repl] evcxr # cargo install evcxr_repl
-[rust change toolchain default <-> nighlty] rustup-toolchain-switch # my command
+[rust change toolchain default <-> nightly] rustup-toolchain-switch # my command
 [cargo feature tree(all)] cargo tree -e features
 [cargo feature tree(sepecific)] cargo tree -e features -i $crate_name
 
