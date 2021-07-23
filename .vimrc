@@ -137,6 +137,7 @@ if $VIM_MAN_FLAG==1
   augroup man_map_setting_group
     autocmd!
     autocmd VimEnter * call <SID>man_map_setting()
+    autocmd FileType man,neoman nunmap <buffer> q
   augroup END
 endif
 
