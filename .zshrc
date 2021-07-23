@@ -874,6 +874,11 @@ if [[ $(uname) == "Linux" ]]; then
     done
   }
 
+  # start clipboard daemon
+  if ! pgrep -f clipboard-daemon >/dev/null; then
+    nohup bash -c "exec -a clipboard-daemon bash -c 'while true; do nc -l 5556 | xclip -sel clip; done'" >/dev/null 2>&1 &
+  fi
+
   alias apt-upgrade='sudo apt-get upgrade'
   alias apt-update='sudo apt-get update'
   alias apt-install='sudo apt-get install'
