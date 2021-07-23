@@ -36,6 +36,7 @@ dotfiles=(
   .tmux.conf
   .tmux.reset.conf
   .toprc
+  .typos.toml
   .vimrc
   .wgit
   .xbindkeysrc

@@ -64,3 +64,6 @@ cargo install --git https://github.com/umaumax/ecat
 
 cargo install bat
 cargo install exa
+
+# typo check command: typos
+cargo install typos-cli
