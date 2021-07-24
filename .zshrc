@@ -3588,6 +3588,59 @@ EOF
   git diff --word-diff --no-index -- "$tmpfile1" "$tmpfile2"
 }
 
+function calc-hex() {
+  bash -s -- "$@" <<'FUNC_EOF'
+  if [[ $# == 0 ]]; then
+    command cat <<EOF 1>&2
+usage: $0
+cal-hex "0x10 ** 2"
+cal-hex 0x100 + 0x20
+cal-hex 2#100 + 4#10
+EOF
+    return 1
+  fi
+
+  ret=$(echo $(($@)))
+  base2ret=$(echo "obase=2; $ret" | bc)
+
+  printf "( 2 be) %s  \n" $base2ret
+  printf '( 8 be) %#o \n' $ret
+  printf "(10 be) %s  \n" $ret
+  printf '(16 be) 0X%016X \n' $ret
+
+  # 64bit
+  ret_le=$(((ret << 8 & 0xff00ff00ff00ff00) | (ret >> 8 & 0x00ff00ff00ff00ff)))
+  ret_le=$(((ret_le << 16 & 0xffff0000ffff0000) | ret_le >> 16 & 0x0000ffff0000ffff))
+  ret_le=$(((ret_le << 32 & 0xffffffff00000000) | ret_le >> 32))
+  printf '(16 le) 0X%016X\n' $ret_le
+
+  # 32bit
+  ret_le=$(((ret << 8 & 0xff00ff00) | (ret >> 8 & 0xff00ff)))
+  ret_le=$(((ret_le << 16 & 0xffff0000) | ret_le >> 16))
+  printf '(16 le) 0X%08X\n' $ret_le
+
+  echo
+
+  ret=$(echo $(($ret / 1024)))
+  base2ret=$(echo "obase=2; $ret" | bc)
+
+  printf "( 2) %8s KB\n" $base2ret
+  printf '( 8) %#8o KB\n' $ret
+  printf "(10) %8s KB\n" $ret
+  printf '(16) %#8X KB\n' $ret
+
+  echo
+
+  ret=$(echo $(($ret / 1024)))
+  base2ret=$(echo "obase=2; $ret" | bc)
+
+  printf "( 2) %8s MB\n" $base2ret
+  printf '( 8) %#8o MB\n' $ret
+  printf "(10) %8s MB\n" $ret
+  printf '(16) %#8X MB\n' $ret
+FUNC_EOF
+}
+
 if [[ $(uname) == "Darwin" ]]; then
   # disable to use binutils ar, ranlib
   # FYI: [macでライブラリをビルドしてインストールするときはbinutilsに気をつける \- Qiita]( https://qiita.com/nagomiso/items/dc6021beb72d09f2128f )
