@@ -50,6 +50,7 @@ abbrev-alias -c g='git '
 abbrev-alias -c gc='git checkout '
 abbrev-alias -c gcb='git checkout -b '
 abbrev-alias -c gp='git push '
+abbrev-alias -c gpu='git push -u origin master'
 abbrev-alias -c gpc='git push origin $(git symbolic-ref --short HEAD)'
 abbrev-alias -c gco=" git checkout ."
 abbrev-alias -c gcoc='git-checkout-commit-peco'
@@ -92,6 +93,7 @@ abbrev-alias -c ggtest="ggpvc '\%#' -- '*test*'"
 abbrev-alias -c gglaunch="ggpvc '\%#' -- '*.launch'"
 
 ## find
+abbrev-alias -c fn='find . -name "\%#"'
 abbrev-alias -c fgpeco="findgrep '\%#' -- | pecocat"
 abbrev-alias -c fgmd="findgrep '\%#' -- -type f \( -name '*.md' -o -name 'README.txt' -o -name 'readme.txt' \)"
 abbrev-alias -c fgvim="findgrep '\%#' -- -type f \( -name '*.vim' -o -name '*.vimrc' \)"
