@@ -535,6 +535,7 @@ endfunction
 " NOTE: call function of inoremap expr
 inoremap <silent><expr> <Plug>(fzf#rust_module_header) fzf#rust_module_header()
 command! -narg=? RustModuleHeader :call FZF_rust_module_header(<f-args>)
+command! -narg=? RustImport :call FZF_rust_module_header(<f-args>)
 
 function! FZF_ansi_color_reducer(lines)
   let ret=[]
