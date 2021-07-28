@@ -5,7 +5,7 @@ if ! [[ -f /opt/ros/kinetic/setup.zsh ]]; then
 fi
 
 # source setup file automatically
-source /opt/ros/kinetic/setup.zsh
+# source /opt/ros/kinetic/setup.zsh
 
 function tmp_force_pyenv_system_shell_start() {
   if type >/dev/null 2>&1 pyenv; then
@@ -64,21 +64,21 @@ ros_cmds=(
 )
 
 for ros_cmd in "${ros_cmds[@]}"; do
-  if type >/dev/null 2>&1 $ros_cmd; then
-    # alias $ros_cmd="$(
-    # cat <<EOF | tr '\n' ' '
-    # () {
-    # tmp_force_pyenv_system_shell_start;
-    # $ros_cmd "\$@";
-    # local exit_code=\$?;
-    # tmp_force_pyenv_system_shell_end;
-    # return \$exit_code;
-    # }
-    # EOF
-    # )"
-    # NOTE: simple command version
-    alias $ros_cmd="PYENV_VERSION=\${PYENV_VERSION:-system} $ros_cmd"
-  fi
+  # if type >/dev/null 2>&1 $ros_cmd; then
+  # alias $ros_cmd="$(
+  # cat <<EOF | tr '\n' ' '
+  # () {
+  # tmp_force_pyenv_system_shell_start;
+  # $ros_cmd "\$@";
+  # local exit_code=\$?;
+  # tmp_force_pyenv_system_shell_end;
+  # return \$exit_code;
+  # }
+  # EOF
+  # )"
+  # NOTE: simple command version
+  alias $ros_cmd="PYENV_VERSION=\${PYENV_VERSION:-system} $ros_cmd"
+  # fi
 done
 
 # for catkin_make shortcut (auto catkin work dir detection)
@@ -166,7 +166,7 @@ function rosroot() {
   dirpath=$PWD
   local grep_ret
   while :; do
-    grep_ret=$(find "$dirpath" -maxdepth 3 -path "$dirpath/src/*/CMakeLists.txt" -exec grep -o "catkin" {} \+)
+    grep_ret=$(find "$dirpath" -maxdepth 3 -path "$dirpath/src/*/CMakeLists.txt" -exec grep -o "catkin" {} \+ 2>/dev/null)
     if [[ -n $grep_ret ]]; then
       printf '%s' "$dirpath"
       return

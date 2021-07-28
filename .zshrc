@@ -1816,6 +1816,11 @@ function chpwd() {
       [[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
     done
   } && lambda
+
+  if [[ -z "$ROS_VERSION" ]] && type >/dev/null 2>&1 rosroot; then
+    local ros_ws_root=$(rosroot)
+    [[ -d $ros_ws_root ]] && echo 'load' && source /opt/ros/kinetic/setup.zsh
+  fi
 }
 
 function cdninja() {
