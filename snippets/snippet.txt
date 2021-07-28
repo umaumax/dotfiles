@@ -36,6 +36,7 @@
 
 # grep
 [grep for ps or with header output] { head -n 1; grep \%#; }
+[color grep] grep -e '^' -e '\%#'
 
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
@@ -215,7 +216,7 @@
 [git stash interactive] git stash push --patch
 [git stash pop with staged info] git stash pop --index
 [git stash apply with staged info] git stash apply --index
-[git stash specific file] git stash push \%# # 2.13 or later
+[git stash specific files] git stash -- \%# # 2.13 or later
 [git reset deleted files] git checkout HEAD -- \%# # <file>
 [git force update of author and email for all commits] git filter-branch -f --env-filter "GIT_AUTHOR_NAME='"$(git config user.name)"'; GIT_AUTHOR_EMAIL='"$(git config user.email)"'; GIT_COMMITTER_NAME='"$(git config user.name)"'; GIT_COMMITTER_EMAIL='"$(git config user.email)"';" HEAD
 [git show author(default) and commit date] git log --pretty=fuller
@@ -1365,6 +1366,8 @@
 [complete relogin] su -l $(whoami)
 [complete relogin  zsh(linux)] su $(whoami) -s $(which zsh)
 [complete relogin bash(linux)] su $(whoami) -s $(which bash)
+[clean login(mac)] login -p -f $USER
+[clean login(ubuntu)] sudo bash -c "exec -l login -p -f $USER" # need sudo
 
 # diff
 [diff ignore space(blank)] diff -b \%#
