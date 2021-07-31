@@ -100,11 +100,13 @@ function catkin_make() {
   # NOTE: force append compile_commands.json option
   local exit_code
   if [[ ! -t 1 ]] || [[ ! -t 2 ]]; then
-    command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+    PATH=$(echo "$PATH" | python -c "import sys, re; print(':'.join(x for x in sys.stdin.read().strip().split(':') if not 'pyenv' in x))") \
+      command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
     exit_code=$?
   else
     {
-      safe-colorize --force command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
+      PATH=$(echo "$PATH" | python -c "import sys, re; print(':'.join(x for x in sys.stdin.read().strip().split(':') if not 'pyenv' in x))") \
+        safe-colorize --force command catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1 "$@"
     } |& auto_save_log catkin_make
     exit_code=${PIPESTATUS[0]:-$pipestatus[$((0 + 1))]}
   fi
