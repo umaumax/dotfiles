@@ -67,3 +67,5 @@ cargo install exa
 
 # typo check command: typos
 cargo install typos-cli
+
+cargo install hyperfine
