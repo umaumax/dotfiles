@@ -3591,6 +3591,36 @@ EOF
 
 alias help='run-help'
 
+if cmdcheck cargo; then
+  function cargo() {
+    local cmd="cargo-$1"
+    if ! cmdcheck "$cmd"; then
+      command cargo "$@"
+      return
+    fi
+    shift 1
+    "$cmd" "$@"
+  }
+  function cargo-tmp() {
+    if [[ $# -lt 1 ]]; then
+      cargo new --help
+      return 1
+    fi
+    tmpd
+    cargo new "$@"
+    local exit_code="$?"
+    if [[ "$exit_code" == 0 ]]; then
+      for arg in "$@"; do
+        if [[ -d "$arg" ]]; then
+          cd "$arg"
+          break
+        fi
+      done
+    fi
+    return "$exit_code"
+  }
+fi
+
 function journalctl-diff() {
   if [[ $# -lt 2 ]]; then
     command cat <<EOF 1>&2
