@@ -3575,6 +3575,20 @@ EOF
   echo 1>&2 "${YELLOW}[LOG] See output: less +F '$log_output_filepath'"
 }
 
+function ntimes() {
+  if [[ $# -lt 2 ]]; then
+    command cat <<EOF 1>&2
+usage: $0 repeat-number commands...
+EOF
+    return 1
+  fi
+  local number=$1
+  shift
+  for i in $(seq $number); do
+    $@
+  done
+}
+
 alias help='run-help'
 
 function journalctl-diff() {
