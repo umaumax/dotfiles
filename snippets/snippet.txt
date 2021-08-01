@@ -2118,3 +2118,10 @@
 [change SCHED_FIFO priority] chrt -f -p 99 $PID # 1 is lowest, 99 is highest
 
 [show inode] ls -i
+
+[print irq count log] cat /proc/interrupts
+
+# ntimes
+[ntimes] ntimes # 3 ls
+[ntimes zsh builtin] repeat # 3 ls
+[ntimes hyperfine] hyperfine --min-runs # 5 'sleep 0.2' 'sleep 3.2'
