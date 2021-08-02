@@ -22,3 +22,11 @@ map gk       <Plug>(easymotion-k)
 map gl       <Plug>(easymotion-lineforward)
 map gh       <Plug>(easymotion-linebackward)
 map gw       <Plug>(easymotion-overwin-w)
+
+Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
+nmap ga <Plug>(AerojumpBolt)
+
+" nmap gas <Plug>(AerojumpSpace)
+" nmap gab <Plug>(AerojumpBolt)
+" nmap gaa <Plug>(AerojumpFromCursorBolt)
+" nmap gad <Plug>(AerojumpDefault) " Boring mode
