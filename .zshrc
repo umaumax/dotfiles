@@ -1240,6 +1240,79 @@ if cmdcheck docker; then
   alias dls='docker ps'
   alias dlsa='docker ps -a'
   alias did='docker-container-id'
+
+  function docker-mount() {
+    if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# -lt 3 ]]; then
+      command cat <<EOF 1>&2
+usage:
+$(basename "$0") <container_id> <host_path> <container_path>
+
+lazy mount volume to docker container
+
+e.g.
+$(basename "$0") xxxxxxxx ./ws ~/ws
+EOF
+      return 1
+    fi
+
+    if ! type >/dev/null 2>&1 docker-enter; then
+      echo 1>&2 "not found docker-enter"
+      return 1
+    fi
+
+    local CONTAINER="$1"
+    local HOST_PATH="$2"
+    local CONTAINER_PATH="$3"
+    (
+      set -e
+
+      REALPATH=$(readlink --canonicalize $HOST_PATH)
+      FILESYS=$(df -P $REALPATH | tail -n 1 | awk '{print $6}')
+
+      while read DEV_HOST_ROOT MOUNT JUNK; do
+        [[ $MOUNT == $FILESYS ]] && break
+      done </proc/mounts
+      [[ $MOUNT == $FILESYS ]] # sanity check
+
+      while read _1 _2 _3 SUBROOT MOUNT JUNK; do
+        [[ $MOUNT == $FILESYS ]] && break
+      done </proc/self/mountinfo
+      [[ $MOUNT == $FILESYS ]] # sanity check
+
+      SUBPATH=$(echo $REALPATH | sed "s:^$FILESYS::")
+      DEVDEC=$(printf "%d %d" $(stat --format "0x%t 0x%T" $DEV_HOST_ROOT))
+
+      docker-enter $CONTAINER bash -c "[[ -b $DEV_HOST_ROOT ]] || mknodmode 0600 $DEV_HOST_ROOT b $DEVDEC"
+      docker-enter $CONTAINER mkdir -p /tmpmnt
+      docker-enter $CONTAINER bash -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
+      docker-enter $CONTAINER mkdir -p "$CONTAINER_PATH"
+      docker-enter $CONTAINER mount -o bind "/tmpmnt/$SUBROOT/$SUBPATH" "$CONTAINER_PATH"
+      docker-enter $CONTAINER umount /tmpmnt
+      docker-enter $CONTAINER rmdir /tmpmnt
+
+      GREEN=$'\e[32m'
+      YELLOW=$'\e[33m'
+      BLUE=$'\e[34m'
+      DEFAULT=$'\e[0m'
+      echo "$BLUE""[✔] mount""$DEFAULT"
+      echo "$YELLOW""HOST:""$GREEN""$HOST_PATH""$DEFAULT"" to 🐳""$YELLOW""$CONTAINER:""$GREEN""$CONTAINER_PATH""$DEFAULT"
+    )
+  }
+
+  type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
+    local container="$1"
+    if [ -z "$container" ]; then
+      echo "Usage: $0 CONTAINER [COMMAND ARGS...]"
+      echo
+      docker ps
+      return 1
+    fi
+    shift
+    if [[ $# == 0 ]]; then
+      set -- "/bin/bash"
+    fi
+    sudo nsenter -m -u -i -n -p -t "$(docker inspect --format {{.State.Pid}} "$container")" "$@"
+  }
 fi
 
 if cmdcheck tmux; then
