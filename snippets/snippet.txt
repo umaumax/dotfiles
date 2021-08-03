@@ -37,6 +37,7 @@
 # grep
 [grep for ps or with header output] { head -n 1; grep \%#; }
 [color grep] grep -e '^' -e '\%#'
+[grep unbuffer option] --line-buffered
 
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
