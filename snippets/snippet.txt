@@ -1981,6 +1981,7 @@
 # top
 [docker container top] ctop # brew install ctop (or nugget ctop or see [bcicen/ctop: Top\-like interface for container metrics]( https://github.com/bcicen/ctop ))
 [top log] top -b -d 1 -n 60 # 1sec * 60
+[top with threads] top -H -b -n 1
 [htop ansi as html] echo q | htop | aha --black --line-fix > htop.html
 
 # systemd
