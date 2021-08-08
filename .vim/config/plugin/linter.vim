@@ -40,7 +40,7 @@ let g:ale_linters = {
       \   'sh': ['shellcheck'],
       \   'vim': ['vint'],
       \   'cpp': ['cpplint','clang'],
-      \   'rust': ['rls','cargo','rustc'],
+      \   'rust': ['rls','cargo'],
       \   'markdown': ['alex','vale'],
       \   'txt': ['textlint'],
       \   'make': ['checkmake'],
@@ -51,6 +51,8 @@ let g:ale_linters = {
 " 'yaml': ['yamllint'],
 " NOTE: maybe cause little spped down
 " 'cpp': ['clangcheck', 'clangtidy'],
+" NOTE: rustc make all lines with underline (I don't know the reason)
+" 'rust': ['rustc']
 " NOTE: check linter commands existence
 for [key, linters] in items(g:ale_linters)
   for linter in linters
