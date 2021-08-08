@@ -1,5 +1,5 @@
 [files]
-extend-exclude = [".git"]
+extend-exclude = [".git", "*.min.js"]
 
 [default.extend-words]
 exportfs = "exportfs"
