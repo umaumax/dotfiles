@@ -1,6 +1,10 @@
 " NOTE: python syntax highlight
 if has('nvim')
   Plug 'numirias/semshi', {'for':['python'], 'do': ':UpdateRemotePlugins'}
+  augroup semshi_group
+    autocmd!
+    autocmd BufWritePost *.py :Semshi highlight
+  augroup END
 else
   Plug 'hdima/python-syntax', {'for':['python']}
   let g:python_highlight_all = 1
