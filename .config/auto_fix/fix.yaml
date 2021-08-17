@@ -164,6 +164,7 @@ go:
   - ragne
 - - regexp
 - - return
+- - run
 - - rune
 - - string
 - - struct
