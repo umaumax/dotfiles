@@ -1290,8 +1290,6 @@
 
 [iso usb image ubuntu] usb-creator-gtk # sudo apt-get install usb-creator-gtk
 
-[repeat command] watch -n $SEC "$CMD"
-
 # base64
 [mac base64 encode] base64 \%#
 [mac base64 decode] base64 -D \%#
@@ -1480,6 +1478,8 @@
 [tmux dump variables] tmux display-message -a
 [tmux show variable] tmux display-message -p '#{pane_current_path\%#}'
 
+[modern watch command] viddy -n \%# # go get github.com/sachaos/viddy
+[repeat command] watch -n $SEC "$CMD"
 [watch with bash] watch -n 1 "bash -c '\%#'" # use "" to surround bash
 [cmd repeat like watch] while true; do sleep 1; \%#; done
 [pseudo watch command] while true; do sleep 1; bash -c "clear; \%#"; done

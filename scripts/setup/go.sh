@@ -68,6 +68,9 @@ go get github.com/jweslley/stats-tools/...
 
 go get -u github.com/high-moctane/nextword
 
+# modern watch command
+go get -u github.com/sachaos/viddy
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms
