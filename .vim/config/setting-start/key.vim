@@ -497,11 +497,14 @@ function! OpenURL(...)
   let url=get(a:, 1, matchstr(getline("."), '\(http\(s\)\?://[^ ]\+\)', 0))
   echom '[open url]: '.url
   if has('mac')
-    call system("open '".url."'")
+    let output = system("open -n '".url."'")
   elseif !has('win')
-    call system("xdg-open &>/dev/null '".url."'")
+    let output = call system("xdg-open &>/dev/null '".url."'")
   else
     echom 'not supported on windows!'
+  endif
+  if v:shell_error != 0
+    echom '[failed to open url]: ' . output
   endif
 endfunction
 " to overwrite : n  gx @<Plug>Markdown_OpenUrlUnderCursor
