@@ -1243,6 +1243,7 @@
 [ubuntu memory info] sudo dmidecode -t memory
 [ubuntu memory info] sudo lshw -class memory
 [ubuntu memory info] cat /proc/meminfo
+[ubuntu buddy memory info] awk 'BEGIN{printf "%21s",""; v=4; for(i=0;i<15;i++) {if(v<1024){printf "%5dKB",v}else{printf "%5dMB",v/1024}; v*=2}; printf"\n"}'; cat /proc/buddyinfo
 [ubuntu cpu info] cat /proc/cpuinfo
 [ubuntu gpu info] lspci | grep VGA
 [ubuntu nvidia gpu info] nvidia-smi
@@ -2130,3 +2131,5 @@
 
 # commands
 [spell typo check command] typos
+
+[list namespace] lsns
