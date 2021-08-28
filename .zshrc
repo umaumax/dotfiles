@@ -3671,14 +3671,25 @@ if cmdcheck cargo; then
       command cargo "$@"
       return
     fi
-    shift 1
+    # don't run below command
+    # We need to pass the same command.
+    # shift 1
+    # cargo hoge arg1 => cargo-hoge hoge arg1
     "$cmd" "$@"
   }
   function cargo-tmp() {
     if [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+usage: $(basename "$0") tmp [OPTIONS] <path>
+EOF
+      return 1
+    fi
+    if [[ $# -lt 2 ]]; then
       cargo new --help
       return 1
     fi
+    # drop 1st arg(tmp)
+    shift 1
     tmpd
     cargo new "$@"
     local exit_code="$?"
