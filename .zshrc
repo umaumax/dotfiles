@@ -867,7 +867,6 @@ if [[ $(uname) == "Linux" ]]; then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
   fi
-  #   alias gsed='sed'
   function open() {
     for arg in "$@"; do
       xdg-open &>/dev/null "$arg"
