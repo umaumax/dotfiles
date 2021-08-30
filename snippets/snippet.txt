@@ -535,6 +535,9 @@
 [ol realpath] python3 -c 'import sys,os.path; [print(os.path.realpath(v)) for v in list(sys.argv)[1:]]'
 [ol realpath get relative filepath] realpath --canonicalize-missing --no-symlinks --relative-to=$SRC\%# $DST
 [ol realpath get absolute filepath] realpath --canonicalize-missing --no-symlinks --relative-base=$SRC\%# $DST
+[clean relative filepath from current path (based on exist dirs/files)] ruby -e 'require "pathname"; puts Pathname.new(ARGV[0]).expand_path.relative_path_from(Pathname.new(Dir.pwd)).to_s' $EXIST_FILEPATH
+[clean relative filepath from path of arg (based on exist dirs/files)] ruby -e 'require "pathname"; puts Pathname.new(ARGV[1]).expand_path.relative_path_from(Pathname.new(ARGV[0]).expand_path).to_s' $EXIST_BASEPATH $EXIST_FILEPATH
+[clean file non-exist filepath ok] ruby -e 'require "pathname"; puts Pathname.new(ARGV[0]).cleanpath.to_s' $ANY_FILEPATH
 # NOTE: eval echo $filepath: extract ~ to $HOME
 [ol expand $HOME] perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}\/'
 
@@ -1801,6 +1804,7 @@
 [cargo expand macro debug] cargo exapnd \%# # cargo install cargo-expand
 [cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
 [cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf # rustup target add armv7-unknown-linux-gnueabihf
+[cross arch test build only] cargo test --target armv7-unknown-linux-gnueabihf --no-run
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
 [rustc linker flags] rustc -Z print-link-args # only nightly rust run `rustup default nightly`
