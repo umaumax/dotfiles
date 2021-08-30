@@ -840,6 +840,12 @@ EOF
   function vscode() {
     VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
   }
+
+  function open() {
+    # -n: for avoiding below message
+    # The application cannot be opened for an unexpected reason, error=Error Domain=NSOSStatusErrorDomain Code=-600 "procNotFound: no eligible process with specified descriptor" UserInfo={_LSLine=379, _LSFunction=_LSAnnotateAndSendAppleEventWithOptions}
+    command open -n "$@"
+  }
 fi
 
 function vscode_ext_search() {
