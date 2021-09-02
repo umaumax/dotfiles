@@ -1049,8 +1049,8 @@
 [roslaunch file cat] bat -m '*.launch:XML' 
 
 [ros catkin_create_pkg] catkin_create_pkg $PACKAGE_NAME pcl_conversions pcl_ros roscpp sensor_msgs # dependency packages...
-[rostest run tests] catkin_make run_tests # for 1st?
-[rostest run tests] catkin_make tests # for 2nd or later?
+[rostest run tests] catkin_make run_tests
+[rostest build tests] catkin_make tests
 [rostest check results] catkin_test_results # WARN: run at rosroot
 [rostest check results verbose] catkin_test_results --verbose # WARN: run at rosroot
 [rostest check results with color] catkin_test_results --verbose | bat -pp -l xml # WARN: run at rosroot
