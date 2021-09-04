@@ -1326,3 +1326,21 @@ function git-stash-unstaged() {
   git stash pop --index 'stash@{1}'
   git -C $(git rev-parse --show-toplevel) apply <(git diff -R)
 }
+
+function git-diff-lines() {
+  is_git_repo_with_message || return 1
+  if ! type gawk >/dev/null 2>&1; then
+    echo "'gawk' is not installed." >&2
+    return 1
+  fi
+
+  git diff | gawk '
+match($0,"^diff --git a/(.*) b/.*$",a) {filepath=a[1];}
+   match($0,"^@@ -([0-9]+),[0-9]+ [+]([0-9]+),[0-9]+ @@",a){left=a[1];right=a[2];next};
+   /^(---|\+\+\+|[^-+ ])/{print;next};
+   {line=substr($0,2)};
+   /^-/{print filepath ":" "-" left++ ":" line;next};
+   /^[+]/{print filepath ":" "+" right++ ":" line;next};
+   {print filepath ":" "(" left++ "," right++ "):"line}
+'
+}
