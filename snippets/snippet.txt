@@ -248,6 +248,7 @@
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
 [git checkout root]  git checkout $(git rev-parse --show-toplevel)
+[git show head commit hash id] git show -s --format=%H
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH\%# && git reset --hard "HEAD~1"
 [git grep example] git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md'
 [git man grep] man git-grep
@@ -2004,6 +2005,7 @@
 # journalctl
 [journalctl unit filter] journalctl -u $UNIT_NAME # systemctl list-unit-files --all
 [force clear journalctl] journalctl --flush --rotate; journalctl --vacuum-time=1s
+[journalctl cut timestamp] journalctl | cut -c17-
 
 # pid
 [pid files location] /var/run/
