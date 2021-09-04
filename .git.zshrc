@@ -51,14 +51,13 @@ alias merge='git mergetool'
 
 alias gr='cd-git-root'
 alias cdgr='cd-git-root'
-# [ターミナルからカレントディレクトリのGitHubページを開く \- Qiita]( https://qiita.com/kobakazu0429/items/0dc93aeeb66e497f51ae )
 function git-open() {
   is_git_repo_with_message || return
   local url=$(git-url "$@")
   if [[ -n $url ]]; then
-    open "$url"
+    open -n "$url"
   else
-    open $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $0 }')
+    open -n $(git remote -v | head -n 1 | awk '{ print $2 }' | awk -F'[:]' '{ print $2 }' | awk -F'.git' '{ print "https://github.com/" $0 }')
   fi
 }
 alias git-alias-list='git alias | sed "s/^alias\.//g" | sed -e "s:^\([a-zA-Z0-9_-]* \):\x1b[35m\1\x1b[0m:g" | sort | '"awk '{printf \"%-38s = \", \$1; for(i=2;i<=NF;i++) printf \"%s \", \$i; print \"\";}'"
