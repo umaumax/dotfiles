@@ -131,7 +131,9 @@
 	stash-dropped  = :
 	stash-rebase-peco  = :
 	stash-recover  = :
+	stash-staged  = :
 	stash-staged-as-patch  = :
+	stash-unstaged  = :
 	stash-unstaged-as-patch  = :
 	status  = :
 	status-check  = :
