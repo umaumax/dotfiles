@@ -3710,6 +3710,33 @@ EOF
   }
 fi
 
+function pack() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+description: generate file generation command
+usage: $(basename "$0") [files... or dirs...]
+EOF
+    return 1
+  fi
+
+  local tmpfile=$(mktemp)
+  echo " echo '"$(
+    {
+      for arg in "$@"; do
+        echo "$arg"
+      done
+    } | {
+      if command tar -cvz -T - -f "$tmpfile"; then
+        command cat "$tmpfile"
+        rm -f "$tmpfile"
+        echo 1>&2 '\033[32m✔[success] copy file generation command to clipboard\033[0m'
+      else
+        echo 1>&2 '\033[31m✗[failure] copy file generation command to clipboard\033[0m'
+      fi
+    } | { [[ $(uname) == 'Darwin' ]] && base64 || base64 -w; }
+  )"' | { [[ $(uname) == 'Darwin' ]] && base64 -D || base64 -d; } | tar -C . -xv -\n" | c
+}
+
 function journalctl-diff() {
   if [[ $# -lt 2 ]]; then
     command cat <<EOF 1>&2
