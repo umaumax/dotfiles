@@ -800,6 +800,8 @@
 [ubuntu screenshot (window)] gnome-screenshot --window # Alt + PrintScreen
 [ubuntu screenshot {delay} ] gnome-screenshot --delay=5
 [ubuntu screenshot (area with delay)] sleep 3\%# && gnome-screenshot --area # both --area and --delay flag is forbidden
+[screenshot] xwd -out /dev/stdout -root -display :0.0 | convert - screenshot.png
+[screenshot] DISPLAY=:0 scrot my.png # sudo apt-get install -y scrot
 
 # screen
 [screen list  ] screen -ls
@@ -882,11 +884,13 @@
 [lookup pid from filepath] lsof $FILEPATH
 [lsof port to process] sudo lsof -i:\%#
 [lsof port to PID] lsof -i :8080 | awk '{l=$2} END {print l}'
+[fuser port to PID] fuser --namespace tcp 8080
 [lsof listening ports] lsof -Pan -i tcp -i udp
 [lsof port to process (kill)] sudo kill $(sudo lsof -t -i:\%#)
 [lsof process name to ports] lsof -Pan -i tcp -i udp -c \%# | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 [lsof process name to ports] pgrep \%# | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 [lsof open files by process] sudo lsof -p $PID
+[fuser kill process from port] fuser -k 8000/tcp
 
 [netstat process name to ports] netstat -anp | grep \%#
 
