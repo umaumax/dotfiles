@@ -162,6 +162,8 @@ brew install --cask copyq
 # brew install --cask flash-player
 brew install homebrew/cask-versions/visual-studio-code-insiders
 
+brew install --cask itsycal
+
 # for touch bar feedback
 # for Apple M1 follow github issue
 # [Does this work on a M1 Mac? · Issue \#50 · niw/HapticKey]( https://github.com/niw/HapticKey/issues/50 )
