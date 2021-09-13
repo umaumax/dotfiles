@@ -3241,6 +3241,33 @@ function is_binary() {
   file --mime "$filepath" | grep -q "charset=binary"
 }
 
+function xdiff() {
+  if [[ $# -lt 1 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    command cat <<EOF
+usage:
+echo file1 file2 ... | $0 <xargs commands>
+
+e.g.
+echo libhoge.so libfuga.so libpiyo.so | $0 'nm -D {}'
+EOF
+    return 1
+  fi
+
+  local tmpdir=$(mktemp -d "/tmp/$(basename $0).XXXXXX")
+  local commands="$*"
+  cat | tr ' ' '\n' | xargs -n1 -I{} bash -c "$commands > '${tmpdir}/{}.log'"
+  local basefile=''
+  for file in $(ls -rt "$tmpdir/"); do
+    local filepath="$tmpdir/$file"
+    if [[ ! -f "$basefilepath" ]]; then
+      basefilepath="$filepath"
+      continue
+    fi
+    echo "[diff] $basefilepath" "$filepath"
+    diff -u "$basefilepath" "$filepath" | delta
+  done
+}
+
 alias diff-grep='grep-diff'
 function grep-diff() {
   function _help() {
