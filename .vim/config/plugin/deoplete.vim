@@ -30,7 +30,9 @@ if v:version >= 800 && has('python3')
   if Doctor('gopls', 'go langage server')
     let g:LanguageClient_serverCommands['go']=['gopls']
   endif
-  if Doctor('rls', 'rust lsp')
+  if Doctor('rust-analyzer', 'rust lsp')
+    let g:LanguageClient_serverCommands['rust']=['rust-analyzer']
+  elseif Doctor('rls', 'rust lsp')
     let g:LanguageClient_serverCommands['rust']=['rls']
   endif
   if Doctor('vim-language-server', 'Vim script lsp')

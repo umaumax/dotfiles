@@ -364,6 +364,31 @@ function nugget_mac_rust() {
   nugget_ubuntu_rust "$@"
 }
 
+function nugget_ubuntu_rust-analyzer() {
+  cmdcheck rust-analyzer && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  local target_arch=$(arch)
+  if [[ "$target_arch" == 'arm64' ]]; then
+    target_arch='aarch64'
+  fi
+  local target_os='unknown-linux-gnu'
+  if [[ $(uname) == 'Darwin' ]]; then
+    target_os='apple-darwin'
+  fi
+
+  local download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/nightly/rust-analyzer-${target_arch}-${target_os}.gz"
+
+  local rust_analyzer_bin_path="$NUGGET_INSTALL_BIN_PREIFX/rust_analyzer"
+  wget "$download_url" -O "$rust_analyzer_bin_path"
+  chmod +x "$rust_analyzer_bin_path"
+
+  rustup component add rust-src
+}
+
+function nugget_mac_rust-analyzer() {
+  nugget_ubuntu_rust-analyzer "$@"
+}
+
 # you can use brew install ddcctl
 function nugget_mac_ddcctl() {
   cmdcheck ddcctl && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED

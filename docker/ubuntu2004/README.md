@@ -37,6 +37,7 @@ nugget googlebenchmark
 nugget googletest
 nugget ctop
 nugget rust
+nugget rust-analyzer
 nugget git-webui
 
 ~/dotfiles/scripts/setup/cargo.sh
