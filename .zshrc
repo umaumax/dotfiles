@@ -3256,7 +3256,7 @@ EOF
   local tmpdir=$(mktemp -d "/tmp/$(basename $0).XXXXXX")
   local commands="$*"
   cat | tr ' ' '\n' | xargs -n1 -I{} bash -c "$commands > '${tmpdir}/{}.log'"
-  local basefile=''
+  local basefilepath=''
   for file in $(ls -rt "$tmpdir/"); do
     local filepath="$tmpdir/$file"
     if [[ ! -f "$basefilepath" ]]; then
