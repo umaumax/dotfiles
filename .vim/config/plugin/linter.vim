@@ -1,6 +1,6 @@
 " syntax check
 "   Plug 'neomake/neomake'
-LazyPlug 'w0rp/ale'
+LazyPlug 'dense-analysis/ale'
 
 let g:ale_disable_lsp = 1
 
