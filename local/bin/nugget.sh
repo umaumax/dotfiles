@@ -95,7 +95,7 @@ function nugget() {
 function nugget_mac_nvim() {
   cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
-  if [[ $(arch) == 'aarch64' ]]; then
+  if [[ $(arch) == 'arm64' ]]; then
     echo 1>&2 "Not supported arch"
     return 1
   fi
@@ -289,7 +289,7 @@ function nugget_ubuntu_bat() {
 
   pushd "$tmpdir"
   local download_url='https://github.com/sharkdp/bat/releases/download/v0.18.2/bat_0.18.2_amd64.deb'
-  if [[ $(arch) == 'aarch64' ]]; then
+  if [[ $(arch) == 'arm64' ]]; then
     download_url='https://github.com/sharkdp/bat/releases/download/v0.18.2/bat_0.18.2_arm64.deb'
   fi
   wget "$download_url"
@@ -318,7 +318,7 @@ function nugget_ubuntu_exa() {
 
   pushd "$tmpdir"
   local download_url='https://github.com/ogham/exa/releases/download/v0.10.1/exa-linux-x86_64-v0.10.1.zip'
-  if [[ $(arch) == 'aarch64' ]]; then
+  if [[ $(arch) == 'arm64' ]]; then
     echo 1>&2 "Not supported arch: use cargo install exa"
     return 1
   fi
@@ -396,7 +396,7 @@ function nugget_ubuntu_ctop() {
   [[ -f "$ctop_bin_path" ]] && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   local download_url="https://github.com/bcicen/ctop/releases/download/v0.7.3/ctop-0.7.3-linux-amd64"
-  if [[ $(arch) == 'aarch64' ]]; then
+  if [[ $(arch) == 'arm64' ]]; then
     download_url='https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-arm64'
   fi
   wget "$download_url" -O "$ctop_bin_path"
