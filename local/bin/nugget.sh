@@ -378,7 +378,7 @@ function nugget_ubuntu_rust-analyzer() {
 
   local download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/nightly/rust-analyzer-${target_arch}-${target_os}.gz"
 
-  local rust_analyzer_bin_path="$NUGGET_INSTALL_BIN_PREIFX/rust_analyzer"
+  local rust_analyzer_bin_path="$NUGGET_INSTALL_BIN_PREIFX/rust-analyzer"
   wget "$download_url" -O "$rust_analyzer_bin_path"
   chmod +x "$rust_analyzer_bin_path"
 
