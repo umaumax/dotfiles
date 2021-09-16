@@ -40,7 +40,7 @@ let g:ale_linters = {
       \   'sh': ['shellcheck'],
       \   'vim': ['vint'],
       \   'cpp': ['cpplint','clang'],
-      \   'rust': ['rls','cargo'],
+      \   'rust': ['rls','cargo','analyzer'],
       \   'markdown': ['alex','vale'],
       \   'txt': ['textlint'],
       \   'make': ['checkmake'],
@@ -56,6 +56,9 @@ let g:ale_linters = {
 " NOTE: check linter commands existence
 for [key, linters] in items(g:ale_linters)
   for linter in linters
+    if linter ==# 'analyzer'
+      continue
+    endif
     if !Doctor(linter, 'for '.key.' linter')
       call remove(g:ale_linters[key], linter)
     endif
@@ -68,6 +71,7 @@ let g:ale_python_autopep8_options = '--ignore=E501' " E501:line too long
 let g:ale_python_flake8_options = '--ignore=E501' " E501:line too long
 
 let g:ale_rust_rls_toolchain = 'nightly'
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " ALE用プレフィックス
 nmap [ale] <Nop>
