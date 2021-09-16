@@ -17,13 +17,8 @@ term xterm-256color
 # escape ^Bb
 
 # NOTE
-# 画面分割
+# screen splitting
 # c-b |
 # c-b tab
 # c-b c
 # c-b tab
-
-# TODO
-# マウスでウィンドウ毎にスクロール
-# alt矢印でウィンドウを移動
-# mouse copy

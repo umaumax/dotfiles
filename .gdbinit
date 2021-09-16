@@ -11,7 +11,6 @@ source ~/dotfiles/.config/gdb/gdb-trace.py
 
 alias -a exit = quit
 
-# FYI: [gdbで効率的にデバッグするためのTips \- Qiita]( https://qiita.com/aosho235/items/e8efd18364408231062d )
 set history save on
 set history size 100000
 set history filename ~/.gdb_history
@@ -25,26 +24,25 @@ set pagination off
 set print repeats 0
 
 # set print static-members off
-# シンボリック形式のアドレス表示の際に、シンボルのソース・ファイル名と行番号を表示する
 set print symbol-filename on
 
 set charset UTF-8
 #set charset ASCII
 
-# C++の仮想関数テーブルを綺麗に表示する。
-set print vtbl   on
+# for c++ virtual function table
+set print vtbl on
 
 # for c++
 set print demangle on
 set print asm-demangle on
 set demangle-style auto
 
-# 構造体のメンバを1行ずつ表示できる
+# display members of a structure line by line.
 set print pretty on
 
 set verbose on
 
-# quitコマンドで終了するときに確認しない
+# end gdb command by quit without confirmation
 define hook-quit
   set confirm off
 end

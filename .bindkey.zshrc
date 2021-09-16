@@ -20,12 +20,14 @@ bindkey -M vicmd "^X^E" kill-line
 zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{white}❮%f%b%B%F{magenta}❮%f%b%B%F{blue}❮%f%b'
 
 # FYI: [hchbaw/zce\.zsh: \# zsh EasyMotion/ace\-jump\-mode]( https://github.com/hchbaw/zce.zsh )
+# jump to any character at current command line
 bindkey "^G" zce
+
 # FYI: [IngoHeimbach/zsh\-easy\-motion: Vim's easy\-motion for zsh]( https://github.com/IngoHeimbach/zsh-easy-motion )
+# e.g. ' '+{b, B, w, W, e, E, ge, gE, f, F, t, T, c}
+# WARN: not working?
 # NOTE: register vicmd 'space' as prefix of vi-easy-motion plugin
-# e.g. ' '+{b, B, w, W, e, E, ge, gE, f, F, t, T, c}などで移動が可能
-# bindkey "^G" vi-easy-motion
-bindkey -M vicmd ' ' vi-easy-motion
+bindkey -M vicmd 'h' vi-easy-motion
 
 #--------------------------------
 
@@ -76,17 +78,17 @@ function gen_PROMPT_2_text() {
 function show_PROMPT_2_text_by_array() {
   # FYI: [dotfiles/\.zshrc at master · asmsuechan/dotfiles]( https://github.com/asmsuechan/dotfiles/blob/master/.zshrc )
   # FYI: man 5 terminfo
-  # NOTE: prompt下に領域を確保
-  # NOTE: $terminfo[cud1] x 出力するline+1
-  # NOTE: $terminfo[cuu1] x 出力するline+1
-  # NOTE: カーソル位置のsave
+  # NOTE: reserve space under prompt
+  # NOTE: echo $terminfo[cud1] x  (the number of output lines + 1) times
+  # NOTE: echo $terminfo[cuu1] x  (the number of output lines + 1) times
+  # NOTE: save cursor position
   # NOTE: $terminfo[sc]
-  # NOTE: prompt下に移動
+  # NOTE: move under prompt
   # NOTE: $terminfo[cud1]
-  # NOTE: 1行出力 + $terminfo[cud1] を繰り返す
-  # NOTE: カーソル位置のrestore
+  # NOTE: repeat { output a line with $terminfo[cud1] }
+  # NOTE: restore cursor position
   # NOTE: terminfo[rc]
-  # NOTE: %{, %}で囲む理由は不明
+  # NOTE: I don't know why wrap %{, %}
   local PROMPT_texts=("$@")
   local PROMPT_2=$(gen_PROMPT_2_text "${PROMPT_texts[@]}")
   # cmdcheck terminal-truncate && PROMPT_2=$(printf '%s' "$PROMPT_2" | terminal-truncate -max=$(tput cols) -tab=8)

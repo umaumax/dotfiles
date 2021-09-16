@@ -5,7 +5,6 @@ let g:python_host_prog  = python2_path
 let g:python3_host_prog = python3_path
 let g:deoplete#sources#jedi#python_path = python3_path
 
-" [deoplete\-clangで快適C\+\+エディット！！！ \- Qiita]( https://qiita.com/musou1500/items/3f0b139d37d78a18786f )
 " for 'zchee/deoplete-clang'
 if has('mac')
 	let g:deoplete#sources#clang#libclang_path = '/opt/homebrew/opt/llvm/lib/libclang.dylib'

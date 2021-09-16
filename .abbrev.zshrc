@@ -137,7 +137,6 @@ abbrev-alias -g chekcout='checkout '
 abbrev-alias -g staus='status '
 abbrev-alias -g @wd='pwd'
 
-# [zsh の exntended\_glob と HEAD^^^ を共存させる。 \- 冬通りに消え行く制服ガールは✖夢物語にリアルを求めない。 \- subtech]( http://subtech.g.hatena.ne.jp/cho45/20080617/1213629154 )
 abbrev-alias -g 'HEAD^'='HEAD\^'
 abbrev-alias -g 'HEAD^^'='HEAD\^\^'
 abbrev-alias -g 'HEAD^^^'='HEAD\^\^\^'
