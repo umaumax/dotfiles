@@ -54,8 +54,10 @@
     "editor.formatOnSave": true
   },
   "[rust]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "matklad.rust-analyzer"
   },
+  "rust-analyzer.checkOnSave.command": "clippy",
   "[ahk]": {
     "files.encoding": "utf8bom",
     "editor.formatOnSave": true

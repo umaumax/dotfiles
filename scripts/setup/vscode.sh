@@ -41,6 +41,7 @@ extensions=(
   ionutvmi.path-autocomplete
   jebbs.plantuml
   leodevbro.blockman
+  matklad.rust-analyzer
   mhutchie.git-graph
   mosapride.zenkaku
   ms-python.python
