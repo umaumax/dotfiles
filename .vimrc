@@ -1,7 +1,8 @@
-" disable plugins
+" disable below plugins
 let g:no_gvimrc_example=1
 let g:no_vimrc_example=1
 
+" disable loading below functions
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
 let g:loaded_tarPlugin         = 1
@@ -16,11 +17,6 @@ let g:loaded_getscriptPlugin   = 1
 let g:did_install_default_menus = 1
 let g:skip_loading_mswin        = 1
 let g:did_install_syntax_menu   = 1
-" NOTE: enable netrw
-" let g:loaded_netrw             = 1
-" let g:loaded_netrwPlugin       = 1
-" let g:loaded_netrwSettings     = 1
-" let g:loaded_netrwFileHandlers = 1
 if !has('gui_running')
   let g:loaded_matchparen = 1
 endif
@@ -38,17 +34,17 @@ set nobackup
 let mapleader = "\<Space>"
 
 " 'default', 'moonfly'
-" 'tender' " difficult to see visual mode
+" 'tender': difficult to see visual mode
 let g:colorscheme = 'molokai'
 
-let g:plug_home=$HOME."/.vim/plugged"
+let g:plug_home=$HOME.'/.vim/plugged'
 let s:user_local_vimrc = expand('~/.local.vimrc')
 let g:vim_edit_log_path = expand('~/.vim_edit_log')
 
 " [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let g:tempfiledir = expand('~/.vim/tmp')
 if !isdirectory(g:tempfiledir) " auto mkdir
-  call mkdir(g:tempfiledir, "p")
+  call mkdir(g:tempfiledir, 'p')
 endif
 
 runtime! config/init/*.vim
@@ -59,7 +55,6 @@ if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off' || v:version < 800
   runtime! config/package_manager/*.vim
 endif
 
-" WARN: Enhanceする際に，VimEnter系のイベントが正常に発火するかどうかが未確認
 command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<Plug>(vim_enter_draw_post)")
 
 runtime! config/setting-start/*.vim
@@ -69,7 +64,7 @@ runtime! config/setting-end/*.vim
 syntax on
 
 if isdirectory(s:cwd)
-  execute("lcd " . s:cwd)
+  execute('lcd ' . s:cwd)
 endif
 
 function! s:filepathjoin(a,b)
@@ -94,8 +89,8 @@ endif
 " NOTE: bufnr() contains tabs
 " NOTE: VimEnter前はtabpagenr('$') == 1 (always)
 function! s:buffer_to_tab()
-  let filename=expand('%')
-  let full_path = expand("%:p")
+  let filename = expand('%')
+  let full_path = expand('%:p')
   " skip tmp file
   for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
     if full_path =~ pattern
@@ -117,7 +112,7 @@ augroup END
 
 " NOTE: only use some plugins for man
 if $VIM_MAN_FLAG==1
-  set ft=neoman
+  set filetype=neoman
   " NOTE:
   " 詳しい理由は不明だが，おそらくcolorscheme変更処理によって，syntaxが反映されないので，defalut
   " man syntaxを利用する
