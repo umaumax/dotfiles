@@ -23,6 +23,14 @@ function! s:init_color()
   highlight FilePath term=underline guifg=#5faf87 ctermfg=72
   highlight SnippetDecl term=underline guifg=#D75FD7 ctermfg=170
   highlight SnippetCommand term=underline guifg=#87FF87 ctermfg=120
+
+  highlight Visual ctermbg=55 guibg=#800080
+
+  " NOTE: Don't set foreground color, because whole line style is overwritten by that color
+  highlight DiffAdd        ctermfg=NONE ctermbg=24  guifg=NONE guibg=#13354A cterm=NONE gui=NONE
+  highlight DiffChange     ctermfg=NONE ctermbg=239 guifg=NONE guibg=#4C4745 cterm=NONE gui=NONE
+  highlight DiffDelete     ctermfg=NONE ctermbg=233 guifg=NONE guibg=#1E0010 cterm=NONE gui=NONE
+  highlight DiffText       ctermfg=NONE ctermbg=102 guifg=NONE guibg=#4C4745 cterm=NONE gui=NONE
 endfunction
 
 augroup init_color_group
