@@ -201,9 +201,7 @@ nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 "   let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
 " endif
 " " bookmark example
-" let g:startify_bookmarks = [
-"       \ '~/.vimrc',
-"       \ ]
+" let g:startify_bookmarks = [ '~/.vimrc' ]
 
 " high light word when replacing
 " command line window modeでの動作しない?
@@ -413,8 +411,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 " crm "mixed_case" -> "MixedCase"
 " crc "camel_case" -> "camelCase"
 " cru "upper_case" -> "UPPER_CASE"
-" call extend(Abolish.Coercions, {
-"       \ 'c': Abolish.camelcase,
+" call extend(Abolish.Coercions, { 'c': Abolish.camelcase,
 "       \ 'm': Abolish.mixedcase,
 "       \ 's': Abolish.snakecase,
 "       \ '_': Abolish.snakecase,
@@ -644,10 +641,10 @@ if 0
     " 同じファイルを開いているときにtabがひとまとめになってしまう問題がある
     return filter(map(copy(buffers), {
           \   index,val-> {
-          \     "active": val.bufnr == bufnr("%"),
-          \     "name": get(bufnr2tabnr_dict,val.bufnr,"-")." ".fnamemodify(val.name, ":t")." ". (getbufvar(val.bufnr, "&mod") ? "[+]" : "")
-          \   }
-          \ }),{->v:val['name']!~'^-'})
+            \     "active": val.bufnr == bufnr("%"),
+            \     "name": get(bufnr2tabnr_dict,val.bufnr,"-")." ".fnamemodify(val.name, ":t")." ". (getbufvar(val.bufnr, "&mod") ? "[+]" : "")
+            \   }
+            \ }),{->v:val['name']!~'^-'})
   endfunction
   let g:Responsive_tabline_custom_label_func = function('s:show_buffers_to_tabline')
 endif
@@ -667,24 +664,20 @@ xmap e\|      <Plug>(EasyAlign)*<Bar>
 let g:easy_align_delimiters = {
       \ '>': { 'pattern': '>>\|=>\|>' },
       \ '\': { 'pattern': '\\' },
-      \ '/': {
-      \     'pattern':         '//\+\|/\*\|\*/',
+      \ '/': { 'pattern':    '//\+\|/\*\|\*/',
       \     'delimiter_align': 'l',
       \     'ignore_groups':   ['!Comment'] },
-      \ ']': {
-      \     'pattern':       '[[\]]',
+      \ ']': { 'pattern':    '[[\]]',
       \     'left_margin':   0,
       \     'right_margin':  0,
       \     'stick_to_left': 0
       \   },
-      \ ')': {
-      \     'pattern':       '[()]',
+      \ ')': { 'pattern':    '[()]',
       \     'left_margin':   0,
       \     'right_margin':  0,
       \     'stick_to_left': 0
       \   },
-      \ 'd': {
-      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+      \ 'd': { 'pattern':   ' \(\S\+\s*[;=]\)\@=',
       \     'left_margin':  0,
       \     'right_margin': 0
       \   }
@@ -861,11 +854,9 @@ LazyPlug 'philj56/vim-asm-indent', {'for': 'nasm'}
 "
 " let s:menus = {}
 " let s:menus.zsh = { 'description': 'zsh configuration' }
-" let s:menus.zsh.file_candidates = [
-" \ ['zshrc', '~/.zshrc'], ['zplug', '~/.init.zplug']]
+" let s:menus.zsh.file_candidates = [ ['zshrc', '~/.zshrc'], ['zplug', '~/.init.zplug']]
 " let s:menus.my_commands = { 'description': 'my commands' }
-" let s:menus.my_commands.command_candidates = [
-" \ ['Split the window', 'vnew'], ['Open zsh menu', 'Denite menu:zsh']]
+" let s:menus.my_commands.command_candidates = [ ['Split the window', 'vnew'], ['Open zsh menu', 'Denite menu:zsh']]
 "
 " augroup dinite_group
 " autocmd!
