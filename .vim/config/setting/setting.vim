@@ -261,20 +261,8 @@ if filereadable(glob('~/.zshenv'))
   let $ZSH_ENV=expand('~/.zshenv')
 endif
 
-" colorscheme
-if g:colorscheme == 'molokai'
-  colorscheme molokai
-  " for terminal transparent background color
-  "   highlight Normal ctermbg=none
-  "   highlight Normal ctermbg=235
-  augroup visualmode_color
-    autocmd!
-    autocmd ColorScheme,BufWinEnter * highlight Visual ctermbg=55 guibg=#800080
-  augroup END
-elseif g:colorscheme == 'moonfly'
-  colorscheme moonfly
-elseif g:colorscheme == 'tender'
-  colorscheme tender
-  " set airline theme
-  let g:airline_theme = 'tender'
+let valid_colorscheme = getcompletion('', 'color')
+if index(valid_colorscheme, colorscheme) < 0
+  let g:colorscheme = g:default_colorscheme
 endif
+execute 'colorscheme '. g:colorscheme
