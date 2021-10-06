@@ -818,6 +818,12 @@ LazyPlug 'Shirk/vim-gas', {'for': 'gas'}
 " for nasm indent
 LazyPlug 'philj56/vim-asm-indent', {'for': 'nasm'}
 
+" color scheme which support nvim-treesitter
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'mhartington/oceanic-next'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " else

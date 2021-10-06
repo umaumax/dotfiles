@@ -33,9 +33,11 @@ set nobackup
 " NOTE: <Leader> must be set before use
 let mapleader = "\<Space>"
 
-" 'default', 'moonfly'
-" 'tender': difficult to see visual mode
-let g:colorscheme = 'molokai'
+" NOTE: please set colorscheme which has no support of nvim-treesitter (this value is used no nvim-treesitter)
+let g:default_colorscheme = 'molokai'
+
+let g:colorscheme = 'OceanicNext'
+" let g:colorscheme = 'tokyonight'
 
 let g:plug_home=$HOME.'/.vim/plugged'
 let s:user_local_vimrc = expand('~/.local.vimrc')
@@ -62,6 +64,25 @@ runtime! config/setting/*.vim
 runtime! config/setting-end/*.vim
 
 syntax on
+
+" this treesitter setting must be called after plug#end()
+if &rtp =~ 'nvim-treesitter'
+  lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = {}, -- List of parsers to ignore installing
+  highlight = {
+  enable = true,              -- false will disable the whole extension
+  disable = {},  -- list of language that will be disabled
+  -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+  -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+  -- Using this option may slow down your editor, and you may see some duplicate highlights.
+  -- Instead of true it can also be a list of languages
+  additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+endif
 
 if isdirectory(s:cwd)
   execute('lcd ' . s:cwd)
