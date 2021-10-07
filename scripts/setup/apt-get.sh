@@ -259,3 +259,7 @@ sudo apt-get install -y apt-file
 
 sudo apt-get install -y aha
 sudo apt-get install -y gist
+
+# for ubuntu 16.04
+sudo apt-get install -y lua5.3
+sudo update-alternatives --install /usr/bin/lua lua /usr/bin/lua5.3 10
