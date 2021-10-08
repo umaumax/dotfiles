@@ -14,11 +14,11 @@ snippet printf
 snippet join_string
 	${1:#:var name}""${2:#:var name}${0}
 
-snippet replace
+snippet replace_gsub
 abbr ret is replace count (not replace str ret)
 alias gsub
 	gsub(${1:#:src}, ${2:#:dst}, ${3:#:var})${0}
-snippet replace
+snippet replace_gensub
 alias gensub
 abbr group match "\\1"
 	${0} = gensub(${1:#:src}, ${2:#:dst}, ${3:"g"}, ${4:#:var})
