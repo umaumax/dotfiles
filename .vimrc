@@ -43,9 +43,8 @@ let g:plug_home=$HOME.'/.vim/plugged'
 let s:user_local_vimrc = expand('~/.local.vimrc')
 let g:vim_edit_log_path = expand('~/.vim_edit_log')
 
-" [vimエディタが（勝手に）作成する、一見、不要に見えるファイルが何をしているか — 名無しのvim使い]( http://nanasi.jp/articles/howto/file/seemingly-unneeded-file.html#id8 )
 let g:tempfiledir = expand('~/.vim/tmp')
-if !isdirectory(g:tempfiledir) " auto mkdir
+if !isdirectory(g:tempfiledir)
   call mkdir(g:tempfiledir, 'p')
 endif
 
@@ -92,12 +91,14 @@ function! s:filepathjoin(a,b)
   return substitute(a:a,'/$','','').'/'.a:b
 endfunction
 
-" FYI: [local\_vimrc の焼き直し localrc\.vim 書いた \- 永遠に未完成]( https://thinca.hatenablog.com/entry/20110108/1294427418 )
 " load local vimrc
-if filereadable(s:user_local_vimrc) | execute 'source' s:user_local_vimrc | endif
-let s:local_vimrc=s:filepathjoin(expand('%:p:h'), '.local.vimrc')
-" NOTE: fileが存在するディレクトリのlocal vimrc
-if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc) | execute 'source' s:local_vimrc | endif
+if filereadable(s:user_local_vimrc)
+  execute 'source' s:user_local_vimrc
+endif
+let s:local_vimrc = s:filepathjoin(expand('%:p:h'), '.local.vimrc')
+if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc)
+  execute 'source' s:local_vimrc
+endif
 if $VIM_PROJECT_ROOT != ''
   let s:vim_project_root_local_vimrc = s:filepathjoin($VIM_PROJECT_ROOT, '.local.vimrc')
   if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc && filereadable(s:vim_project_root_local_vimrc)
@@ -105,10 +106,7 @@ if $VIM_PROJECT_ROOT != ''
   endif
 endif
 
-" NOTE: tab sballしたときのvimにsetされている状態がコピーされるような挙動のため，最後に行うこと
-" NOTE: buffers -> tabs
-" NOTE: bufnr() contains tabs
-" NOTE: VimEnter前はtabpagenr('$') == 1 (always)
+" NOTE: before VimEnter event, tabpagenr('$') is always 1
 function! s:buffer_to_tab()
   let filename = expand('%')
   let full_path = expand('%:p')
@@ -118,9 +116,9 @@ function! s:buffer_to_tab()
       return
     endif
   endfor
-  " NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade -> [Plugins]
+  " NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade makes new buffer which name is '[Plugins]'
   if filename != '' && filename != '[Plugins]' && winnr('$') == 1 && bufnr('$') >= 2
-    :tab sball
+    tab sball
     " NOTE: to kick autocmd
     call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
   endif
@@ -131,14 +129,9 @@ augroup buffer_to_tab_group
   autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
 augroup END
 
-" NOTE: only use some plugins for man
 if $VIM_MAN_FLAG==1
   set filetype=neoman
-  " NOTE:
-  " 詳しい理由は不明だが，おそらくcolorscheme変更処理によって，syntaxが反映されないので，defalut
-  " man syntaxを利用する
   set syntax=man
-  " NOTE: to adopt e.g. vimdiff(1)
   call plug#begin(g:plug_home)
   " NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
   Plug 'umaumax/neoman.vim'
@@ -157,7 +150,7 @@ if $VIM_MAN_FLAG==1
   augroup END
 endif
 
-" python path setting
+" python command path setting
 let python2_path = substitute(system('which python2'), "\n", '', '')
 let python3_path = substitute(system('which python3'), "\n", '', '')
 
