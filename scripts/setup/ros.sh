@@ -12,11 +12,5 @@ sudo apt-get install -y ros-kinetic-desktop-full
 sudo rosdep init
 rosdep update
 
-# echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-# source ~/.bashrc
-# # or
-# echo "source /opt/ros/kinetic/setup.zsh" >> ~/.zshrc
-# source ~/.zshrc
-
 # NOTE: Dependencies for building packages
 sudo apt-get install -y python-rosinstall python-rosinstall-generator python-wstool build-essential
