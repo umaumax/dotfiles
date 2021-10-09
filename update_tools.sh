@@ -79,11 +79,6 @@ download https://github.com/nornagon/git-rebase-all/blob/master/git-rebase-all
 download https://github.com/unixorn/git-extra-commands/blob/master/bin/git-pylint
 download https://github.com/unixorn/git-extra-commands/blob/master/bin/git-rename-branches
 download https://github.com/tj/git-extras/blob/master/bin/git-touch
-# NOTE: Can't locate DiffHighlight.pm in @INC (you may need to install the DiffHighlight module)
-# download https://github.com/so-fancy/diff-so-fancy/blob/master/diff-so-fancy
-# USE: brew install diff-so-fancy or use the fatpack version
-# FYI: [Can't locate DiffHighlight\.pm in @INC \(Windows 10\) · Issue \#265 · so\-fancy/diff\-so\-fancy]( https://github.com/so-fancy/diff-so-fancy/issues/265 )
-# wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
 download https://github.com/so-fancy/diff-so-fancy/blob/master/third_party/build_fatpack/diff-so-fancy
 
 download https://github.com/jantman/misc-scripts/blob/master/dot_find_cycles.py
@@ -94,13 +89,11 @@ python3 "$(dirname $0)/dot_find_cycles.py" $@
 EOF
 chmod u+x dot_find_cycles
 
-# only for ubuntu
 if [[ "$(uname -a)" =~ Ubuntu ]]; then
   download https://github.com/umaumax/window-toggle/blob/master/window-toggle
   download https://github.com/umaumax/window-toggle/blob/master/wintoggle
 fi
 
-# only for Mac OS X
 if [[ $(uname) == "Darwin" ]]; then
   download https://github.com/Rasukarusan/fzf-chrome-active-tab/blob/master/chrome-tab-activate
   download https://github.com/umaumax/fzf-chrome-history/blob/master/chromeHistory.sh -O chromeHistory
