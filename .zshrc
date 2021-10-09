@@ -1866,8 +1866,6 @@ function set-dirname-title() {
 # when cd
 function chpwd() {
   ls_abbrev
-  # NOTE: cdr
-  # [pecoる]( https://qiita.com/tmsanrinsha/items/72cebab6cd448704e366#cdr%E3%81%A7peco%E3%82%8B )
   printf '%s\n' "$PWD" >>"$HOME/.cdinfo"
   set-dirname-title
 
@@ -1896,7 +1894,7 @@ function chpwd() {
 
   if [[ -z "$ROS_VERSION" ]] && type >/dev/null 2>&1 rosroot; then
     local ros_ws_root=$(rosroot)
-    [[ -d $ros_ws_root ]] && echo 'load' && source /opt/ros/kinetic/setup.zsh
+    [[ -d $ros_ws_root ]] && [[ -e /opt/ros/kinetic/setup.zsh ]] && echo '[ros setup script loaded]load' && source /opt/ros/kinetic/setup.zsh
   fi
 }
 

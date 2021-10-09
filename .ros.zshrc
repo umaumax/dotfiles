@@ -1,11 +1,9 @@
 #!/usr/bin/env zsh
 
+# for ubuntu16.04
 if ! [[ -f /opt/ros/kinetic/setup.zsh ]]; then
   return
 fi
-
-# source setup file automatically
-# source /opt/ros/kinetic/setup.zsh
 
 function tmp_force_pyenv_system_shell_start() {
   if type >/dev/null 2>&1 pyenv; then
