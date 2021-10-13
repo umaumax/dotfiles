@@ -60,7 +60,7 @@ function fccat() {
   fi
   eval $CAT $@
 }
-# FYI: [grep の結果をインタラクティブに確認する \- Qiita]( https://qiita.com/m5d215/items/013f466fb21f7d7f52d6 )
+
 # NOTE: input lines
 # e.g.
 # README.md                            : filename
@@ -170,7 +170,7 @@ function dirspeco() {
 function pecokill() {
   pgrep -lf ${1:-.} | peco | cut -d" " -f1 | xargs kill -KILL
 }
-# FYI: [最近 vim で編集したファイルを、peco で選択して開く \- Qiita]( https://qiita.com/Cside/items/9bf50b3186cfbe893b57 )
+
 function rvim() {
   local n=${1:-}
   VIMINFO_LS_N="$n" viminfo-ls | expand_home | ranking_color_cat | pecovim

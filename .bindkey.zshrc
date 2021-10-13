@@ -641,7 +641,7 @@ for ((i = 1; i <= 10; i++)); do
   eval "function _select_prompt_list_$i() { _select_prompt_list_n $i; }"
 done
 
-# [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
+# FYI: [最近のzshrcとその解説 \- mollifier delta blog]( http://mollifier.hatenablog.com/entry/20090502/p1 )
 # quote previous word in single or double quote
 autoload -U modify-current-argument
 _quote-previous-word-in-single() {
@@ -728,9 +728,7 @@ bindkey -M vicmd '^X^?' my-backward-delete-word-extend
 # zle -N peco-select-history
 # bindkey '^X^O' peco-select-history
 
-# [Vimの生産性を高める12の方法 \| POSTD]( https://postd.cc/how-to-boost-your-vim-productivity/ )
-# Ctrl-Zを使ってVimにスイッチバックする
-# vim -> C-z -> zsh -> Ctrl-z or fg
+# while using vim -> C-z -> back to zsh -> Ctrl-z or fg -> back to vim
 function fancy-ctrl-z() {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -743,7 +741,6 @@ function fancy-ctrl-z() {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# FYI: [fzfで捗る自作コマンド一覧\(zsh\) \- ハイパーマッスルエンジニアになりたい]( https://www.rasukarusan.com/entry/2018/08/14/083000 )
 function fgpeco() {
   local job_n
   job_n=$(jobs | wc -l | tr -d ' ')

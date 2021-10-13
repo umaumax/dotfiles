@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
-# MEMO
-# git-xxx系はaliasではなくfunctionとすること
-# 下記のコマンドではaliasは実行できないため
-# NOTE: e.g. bind git open to git-open function (not command)
+# NOTE:
+# define git-xxx as function not alias (because below command cannot run alias)
+# e.g. bind git open to git-open function (not command one)
 function git() {
   local cmd="git-$1"
   if ! cmdcheck "$cmd"; then

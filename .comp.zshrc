@@ -1,9 +1,5 @@
 #!/usr/bin/env zsh
 
-# FYI
-# [zsh\-completions/zsh\-completions\-howto\.org at master · zsh\-users/zsh\-completions]( https://github.com/zsh-users/zsh-completions/blob/master/zsh-completions-howto.org )
-# [zsh の補完関数の自作導入編]( https://gist.github.com/mitukiii/4954559 )
-
 # NOTE: copy completion
 cmdcheck oressh && compdef oressh=ssh
 cmdcheck clip-share && compdef clip-share=ssh
