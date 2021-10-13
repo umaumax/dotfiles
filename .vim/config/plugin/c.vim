@@ -1,10 +1,3 @@
-Plug 'octol/vim-cpp-enhanced-highlight', {'for':['c','cpp']}
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_no_function_highlight = 1
-
 if Doctor('clang-rename', 'uplus/vim-clang-rename')
   " WARN: 実際に使用する場合には，対象ファイルをopenしてから編集してはならない
   " WARN: errorが発生してもlogにはでてこない
