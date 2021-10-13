@@ -2,10 +2,6 @@ function! s:init_color()
   highlight Search    term=reverse ctermfg=0 ctermbg=222 guifg=#000000 guibg=#FFE792
   highlight IncSearch term=reverse ctermfg=0 ctermbg=222 guifg=#000000 guibg=#FFE792
 
-  if &rtp =~ 'vim-cpp-syntax-reserved_identifiers'
-    highlight cReservedIdentifiers ctermfg=white ctermbg=red guifg=#ffffff guibg=#ff0000
-  endif
-
   " NOTE: below color effect floating windows
   " completion menu color setting
   " highlight Pmenu    ctermfg=white ctermbg=26  guifg=#ffffff guibg=#4169E1
@@ -18,7 +14,9 @@ function! s:init_color()
 
   " NOTE: visualize fullwidth space
   highlight TrailingSpaces term=underline guibg=#ff0000 ctermbg=Red
-  match TrailingSpaces /　/
+  " function matchadd high priority compared than 2match or 3match
+  " 2match TrailingSpaces /　/
+  call matchadd("TrailingSpaces", '　')
 
   highlight FilePath term=underline guifg=#5faf87 ctermfg=72
   highlight SnippetDecl term=underline guifg=#D75FD7 ctermfg=170
@@ -72,3 +70,36 @@ function! s:ansi_color_set()
   highlight Red cterm=reverse ctermfg=Red gui=reverse guifg=Red
   highlight Blue cterm=reverse ctermfg=Blue gui=reverse guifg=Blue
 endfunction
+
+let b:syntax_highlighting_list=[]
+function! s:reset_syntax_highlighting() abort
+  " clear all matching patterns
+  for m in b:syntax_highlighting_list
+    call matchdelete(m)
+  endfor
+  let b:syntax_highlighting_list=[]
+endfunction
+
+function! s:init_syntax_highlighting(ext) abort
+  call s:reset_syntax_highlighting()
+
+  " cpp
+  highlight NoColor guibg=NONE ctermbg=Red
+  highlight ReservedIdentifiers term=underline guibg=#ff0000 ctermbg=Red
+
+  let rules = {
+        \ "cpp":[
+        \   {"group":'ReservedIdentifiers', 'pattern': '\([^[:alnum:]]\zs_\w\+\)\|\(\w*__\w*\)'},
+        \   {"group":'NoColor', 'pattern': '__asm__\|__restrict'},
+        \ ],
+        \ }
+  for rule in rules[a:ext]
+    let m = matchadd(rule['group'], rule['pattern'])
+    call add(b:syntax_highlighting_list, m)
+  endfor
+endfunction
+
+augroup syntax_highlighting_group
+  autocmd!
+  autocmd FileType c,cpp call s:init_syntax_highlighting("cpp")
+augroup END

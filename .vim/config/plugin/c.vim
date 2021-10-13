@@ -38,5 +38,3 @@ endif
 
 Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
 
-" [C/C\+\+ で予約済み識別子をシンタックスハイライトする Vimプラグインつくった \- Qiita]( https://qiita.com/pink_bangbi/items/5df92c35c3a5a41879f0 )
-Plug 'umaumax/vim-cpp-syntax-reserved_identifiers', {'for': ['c','cpp']}
