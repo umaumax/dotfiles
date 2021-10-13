@@ -208,7 +208,7 @@ alias gc='git commit'
 alias gadd='git add'
 alias gap='git add -p'
 alias gai='git add -i'
-# this alias overwrite Ghostscript command
+# this gs alias overwrite Ghostscript command
 alias gs='git status'
 alias gsall='git status --ignored --untracked-files'
 alias gst='git status'
@@ -220,7 +220,7 @@ alias gstcall='git status --ignored --untracked-files .'
 alias gstp='git log HEAD...HEAD~ --stat'
 
 alias glog='git log'
-# NOTE: [git logでマージコミットの中の変更を表示する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/11/git-log-merge-diff/ )
+# -c: this is used to show the differences of merge commit
 alias gstlog='git log --stat -c'
 alias gstlogp='git log --stat -c -p'
 alias glogst='git log --stat'
@@ -467,7 +467,7 @@ function find-git-non-up-to-date-repo-pipe() {
     git-check-up-to-date "$line" | eval $ccze
   done
 }
-# [Gitのルートディレクトリへ簡単に移動できるようにする関数]( https://qiita.com/ponko2/items/d5f45b2cf2326100cdbc )
+
 function cd-git-root() {
   is_git_repo_with_message || return
   cd $(git rev-parse --show-toplevel)
@@ -590,7 +590,6 @@ function git-remote-add-upstream() {
   git remote add upstream "git@github.com:${upstream}.git"
 }
 
-# NOTE: 現在のcommitにおける最新のtagを取得する
 function git_tag_name() {
   local commit=$(git rev-parse HEAD)
   if [[ -n $commit ]]; then

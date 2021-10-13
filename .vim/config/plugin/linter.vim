@@ -1,32 +1,15 @@
-" syntax check
-"   Plug 'neomake/neomake'
 LazyPlug 'dense-analysis/ale'
 
 let g:ale_disable_lsp = 1
 
-" [NeovimでモダンなPython環境を構築する]( https://qiita.com/lighttiger2505/items/e0ada17634516c081ee7 )
-
-" 'vim-airline/vim-airline'では変更不可(固定format)
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-" エラー行に表示するマーク
-" let g:ale_sign_error = '✖'
-" let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '*'
-" エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" エラー表示の列を常時表示
 let g:ale_sign_column_always = 1
 
-" ファイルを開いたときにlint実行
 let g:ale_lint_on_enter = 1
-" ファイルを保存したときにlint実行
 let g:ale_lint_on_save = 1
-" 編集中のlintはしない
 let g:ale_lint_on_text_changed = 'never'
-
-" lint結果をロケーションリストとQuickFixには表示しない
-" 出てると結構わずらわしいしQuickFixを書き換えられるのは困る
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
@@ -73,9 +56,8 @@ let g:ale_python_flake8_options = '--ignore=E501' " E501:line too long
 let g:ale_rust_rls_toolchain = 'nightly'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
-" ALE用プレフィックス
 nmap [ale] <Nop>
 map <C-k> [ale]
-" エラー行にジャンプ
+
 nmap <silent> [ale]<C-P> <Plug>(ale_previous)
 nmap <silent> [ale]<C-N> <Plug>(ale_next)
