@@ -540,22 +540,8 @@ augroup vim-airline_group
   autocmd User AirlineAfterInit call AirlineInit()
 augroup END
 
-" NOTE: cmake v.s. rainbow
-" [Syntax highlighting not working as expected · Issue \#5 · pboettch/vim\-cmake\-syntax]( https://github.com/pboettch/vim-cmake-syntax/issues/5 )
-" [plugin cmake\.vim \- CMake syntax highlighting not working as expected \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/14803/cmake-syntax-highlighting-not-working-as-expected/14811 )
-" The issue it turns out is a conflict with the Rainbow Parenthesis plugin:
-" NOTE' for raibow ()
-" If you want to lazy load run :RainbowToggle after loaded
-" NOTE: 場合によっては複数の同じsyntax matchが実行される
-" ~/.vim/plugged/rainbow/autoload/rainbow.vim:36
-" NOTE: fix error by pull request
-Plug 'luochen1990/rainbow', {'do': 'git remote add pull-request-KushNee https://github.com/KushNee/rainbow.git && git fetch pull-request-KushNee && git merge pull-request-KushNee/master'}
-let g:rainbow_active = 0 "0 if you want to enable it later via :RainbowToggle
-" [Emacs のカッコの色を抵抗のカラーコードにしてみる \- Qiita]( https://qiita.com/gnrr/items/8f9efd5ced058e576f5e )
-let g:rainbow_conf = {
-      \ 'guifgs': ["#ca8080", "#ff5e5e","#ffaa77", "#dddd77", "#80ee80", "#66bbff", "#da6bda", "#afafaf", "#f0f0f0"],
-      \ 'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'lightgreen', 'lightred', 'lightgray', 'darkgray', 'white'],
-      \}
+" required nvim-treesitter
+LazyPlug 'p00f/nvim-ts-rainbow'
 
 " NOTE: 対応する()をhighlight
 " disable default matchparen plugin
