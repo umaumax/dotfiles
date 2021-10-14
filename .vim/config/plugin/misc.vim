@@ -77,9 +77,6 @@ augroup vim_highlightedyank_color_group
   "   autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
-" NOTE: this plugin remap (),[],{}
-" Plug 'vim-scripts/Highlight-UnMatched-Brackets'
-
 " jenkins script formatter
 " jenkinsfile indent require groovy format
 Plug 'martinda/Jenkinsfile-vim-syntax', {'for':'Jenkinsfile'}
@@ -672,6 +669,7 @@ let g:easy_align_delimiters = {
 " NOTE: This plugin makes scrolling nice and smooth.
 LazyPlug 'psliwka/vim-smoothie'
 
+" NOTE: nvim-treesitter can not highlight log file
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
 " NOTE: vim-open-googletranslate requires open-browser

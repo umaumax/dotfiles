@@ -222,16 +222,6 @@ if Doctor('gofmt', 'go format')
   augroup END
 endif
 
-" NOTE: コメントが消える不具合がある
-" augroup yaml_format_group
-" autocmd!
-" autocmd FileType yaml autocmd BufWinEnter *.{yaml,yml} command! -bar Format YAMLFormat
-" autocmd FileType yaml autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YAMLFormatWrapper | endif
-" autocmd FileType yaml autocmd! yaml_format_group FileType
-" augroup END
-" " NOTE: original YAMLFormat has no '-bar' option
-" command! -bar YAMLFormatWrapper :YAMLFormat
-
 if Doctor('align', 'yaml format')
   augroup yaml_format_group
     autocmd!
