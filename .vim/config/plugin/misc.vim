@@ -669,9 +669,8 @@ let g:easy_align_delimiters = {
       \   }
       \ }
 
-" NOTE: スムーズに画面をスクロール可能
-" NOTE: don't use load lazy
-Plug 'yuttie/comfortable-motion.vim'
+" NOTE: This plugin makes scrolling nice and smooth.
+LazyPlug 'psliwka/vim-smoothie'
 
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
