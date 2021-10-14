@@ -47,6 +47,7 @@ augroup END
 Plug 'zchee/vim-goiferr', {'for': 'go'}
 
 Plug 'mattn/vim-gomod'
+Plug 'mattn/vim-goimports', {'for': 'go'}
 
 " " for fatih/vim-go
 " let g:go_asmfmt_autosave=0
