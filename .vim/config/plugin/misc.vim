@@ -77,12 +77,6 @@ augroup vim_highlightedyank_color_group
   "   autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
-" jenkins script formatter
-" jenkinsfile indent require groovy format
-Plug 'martinda/Jenkinsfile-vim-syntax', {'for':'Jenkinsfile'}
-Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
-" Plug 'modille/groovy.vim'
-
 " 検索ワード入力中に、タブで入力ワード補完
 " nmap / が上書きされる
 " Plug 'vim-scripts/SearchComplete'
@@ -233,14 +227,6 @@ nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 " A comprehensive Vim utility functions for Vim plugins
 " Plug 'vim-jp/vital.vim'
 
-" NOTE: syntax file
-Plug 'ekalinin/Dockerfile.vim', {'for':'dockerfile'}
-" overwrite ft 'Dockerfile' -> 'dockerfile'
-augroup dockerfiletype_group
-  autocmd!
-  autocmd FileType Dockerfile setlocal ft=dockerfile
-augroup END
-
 " ---- tags ----
 
 " Required: ctags
@@ -324,12 +310,6 @@ let g:markology_enable=1
 " :InstantMarkdownPreview
 " let g:instant_markdown_autostart = 0
 
-" [vim で JavaScript の開発するときに最近いれた設定やプラグインとか - 憧れ駆動開発](http://atasatamatara.hatenablog.jp/entry/2013/03/09/211908)
-" Plug 'vim-scripts/JavaScript-Indent', {'for': 'javascript'}
-" Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-" Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
-" Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
-Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
 if Doctor('npm', 'maksimr/vim-jsbeautify')
@@ -718,8 +698,6 @@ Plug 'Shougo/vimfiler.vim', {'on': ['VimFiler']}
 
 " NOTE: vim plugin to dim inactive windows (highlight active window background)
 LazyPlug 'blueyed/vim-diminactive'
-
-Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
 
 " NOTE: Reorder delimited items.
 " g<

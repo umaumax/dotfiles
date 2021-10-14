@@ -22,6 +22,29 @@ let g:cpp_concepts_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_no_function_highlight = 1
 
+" jenkins
+Plug 'martinda/Jenkinsfile-vim-syntax', {'for':'Jenkinsfile'}
+Plug 'vim-scripts/groovyindent-unix', {'for':'Jenkinsfile'}
+
+" docker
+" for syntax file
+Plug 'ekalinin/Dockerfile.vim', {'for':'dockerfile'}
+" overwrite ft 'Dockerfile' -> 'dockerfile'
+augroup dockerfiletype_group
+  autocmd!
+  autocmd FileType Dockerfile setlocal ft=dockerfile
+augroup END
+
+" web
+" Plug 'vim-scripts/JavaScript-Indent', {'for': 'javascript'}
+" Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+" Plug 'kchmck/vim-coffee-script', {'for': 'javascript'}
+" Plug 'felixge/vim-nodejs-errorformat', {'for': 'javascript'}
+Plug 'othree/html5.vim', {'for': ['html', 'javascript']}
+
+" plantuml
+Plug 'aklt/plantuml-syntax', {'for':'plantuml'}
+
 " golang
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 let g:go_disable_autoinstall = 1
