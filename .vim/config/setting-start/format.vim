@@ -217,11 +217,9 @@ endif
 if Doctor('gofmt', 'go format')
   augroup go_format_group
     autocmd!
-    autocmd FileType go ++once autocmd BufWinEnter *.go command! -bar Format GoFmt
-    autocmd FileType go ++once autocmd BufWritePre *.go if IsAutoFormat() | :GoFmtWrapper | endif
+    autocmd FileType go ++once autocmd BufWinEnter *.go command! -bar Format GoFormat
+    autocmd FileType go ++once autocmd BufWritePre *.go if IsAutoFormat() | :GoFormat | endif
   augroup END
-  " NOTE: original GoFmt has no '-bar' option
-  command! -bar GoFmtWrapper :GoFmt
 endif
 
 " NOTE: コメントが消える不具合がある
