@@ -148,8 +148,10 @@ if v:version >= 800 && has('python3')
   "   Plug 'zchee/deoplete-zsh', {'for': ['sh','zsh']}
   " NOTE: [KeyError\('runtimepath'\)  Issue \#9  zchee/deoplete\-zsh]( https://github.com/zchee/deoplete-zsh/issues/9 is not merged yet)
   Plug 'umaumax/deoplete-zsh', {'for': ['sh','zsh']}
-  " filetypeのsyntaxファイルの中にある記述を見て 補完候補を追加
-  " NOTE: カーソル移動速度低下の要因?
+  " NOTE:
+  " This source analyzes a syntax file like autoload/syntaxcomplete.vim offered by
+  " default, and to add to candidate completion.  The plugin can recognize
+  " candidates a lot more than autoload/syntaxcomplete.vim.
   LazyPlug 'Shougo/neco-syntax'
   if Doctor('clang','zchee/deoplete-clang')
     " NOTE: This 'tweekmonster/deoplete-clang2' doesn't work
