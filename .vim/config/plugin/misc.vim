@@ -428,9 +428,6 @@ Plug 'chrisbra/Colorizer', {'for': filetype_list, 'on':['ColorHighlight']}
 " let g:colorizer_auto_filetype=join(filetype_list,',')
 let g:colorizer_disable_bufleave = 1
 
-" this plugin fix vim's awk bugs
-Plug 'vim-scripts/awk.vim', {'for': 'awk'}
-
 " for ascii color code
 Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 
@@ -481,9 +478,6 @@ Plug 'elzr/vim-json', {'for': 'json'}
 " :NeatJson     Format
 " :NeatRawJson    EncodedFormat
 Plug '5t111111/neat-json.vim', {'for': 'json'}
-
-" to use this lib, you have to set filetype=gnuplot by autocmd
-Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
 let g:airline_extensions = []
 LazyPlug 'vim-airline/vim-airline'
@@ -685,8 +679,6 @@ let g:RenamerWildIgnoreSetting=''
 
 Plug 'umaumax/bats.vim', {'for':'bats'}
 
-Plug 'cespare/vim-toml', {'for':'toml'}
-
 " NOTE: for goyacc
 Plug 'rhysd/vim-goyacc', {'for':'goyacc'}
 
@@ -771,13 +763,6 @@ LazyPlug 'tyru/capture.vim'
 Plug 'umaumax/vim-blink'
 
 Plug 'mbbill/undotree', {'on':['UndotreeToggle']}
-
-" for &ft='gas'
-LazyPlug 'Shirk/vim-gas', {'for': 'gas'}
-" for nasm use &ft='nasm'
-
-" for nasm indent
-LazyPlug 'philj56/vim-asm-indent', {'for': 'nasm'}
 
 " color scheme which support nvim-treesitter
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
