@@ -431,13 +431,8 @@ function! s:switch()
           continue
         endif
         let result = def[pattern]
-        " {'#include <\([a-zA-Z0-9/\-_.]\+\)>' : '#include "\1"', '#include "\([a-zA-Z0-9/\-_.]\+\)"' : '#include <\1>'},
         if type(result) == type('')
           let target = substitute(target, pattern, result, '')
-          " {
-          "   "^[^']*'[^']*$" : {"'":'"'},
-          "   "^[^\"]*\"[^\"]*$" : {'"':"'"},
-          " }
         elseif type(result) == type({})
           for pattern2 in keys(result)
             if target =~# pattern2
@@ -538,9 +533,6 @@ vnoremap $ $<Left>
 augroup bufenter_group
   autocmd!
   autocmd WinEnter,TabEnter * if @% == '__LanguageClient__' | exe winnr().'wincmd c' | endif
-  " NOTE: move previous focus
-  " autocmd WinEnter,TabEnter * if @% == '__LanguageClient__' | :bN | endif
-  " 上記を適用してもまだ，popup windowに入り込むケースがある模様 why?
 augroup END
 
 " FYI: [dogfiles/vimrc at master · rhysd/dogfiles]( https://github.com/rhysd/dogfiles/blob/master/vimrc#L254 )
