@@ -470,14 +470,7 @@ Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
 let g:table_mode_corner="|"
 
-" autocomplete
-" Plug 'vim-scripts/L9'
-" Plug 'othree/vim-autocomplpop'
-
 Plug 'elzr/vim-json', {'for': 'json'}
-" :NeatJson     Format
-" :NeatRawJson    EncodedFormat
-Plug '5t111111/neat-json.vim', {'for': 'json'}
 
 let g:airline_extensions = []
 LazyPlug 'vim-airline/vim-airline'
@@ -485,21 +478,8 @@ LazyPlug 'vim-airline/vim-airline'
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
 function! AirlineInit()
   let spc = g:airline_symbols.space
-  let emoji_flag=0
-  let emoji = ' '
-  if has('mac')
-    " NOTE: 星座: ♈おひつじ座、♉おうし座、♊ふたご座、♋かに座、♌しし座、♍おとめ座、♎てんびん座、♏さそり座、♐いて座、♑やぎ座、♒みずがめ座、♓うお座
-    " NOTE: 干支: 🐭ね、🐮うし、🐯とら、🐰う、🐲たつ、🐍み、🐴うま、🐏ひつじ、🐵さる、🐔とり、🐶いぬ、🐗い
-    let emojis='♈♉♊♋♌♍♎♏♐♑♒♓🐭🐮🐯🐰🐲🐍🐴🐏🐵🐔🐶🐗🍺🍣'
-    let Len = { s -> strlen(substitute(s, ".", "x", "g"))}
-    let rand = reltimestr(reltime())[matchend(reltimestr(reltime()), '\d\+\.') + 1 : ] % (Len(emojis))
-    let emoji = split(emojis, '\zs')[rand]
-  endif
-  if emoji_flag==0
-    let emoji = ' '
-  endif
   " NOTE: condition: $HOME doesn't include regex
-  let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", emoji, 'file', spc, 'readonly'])
+  let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", ' ', 'file', spc, 'readonly'])
   let g:airline_section_y = ''
   let g:airline_symbols.linenr=':'
   let g:airline_section_z = airline#section#create(['%2p%%', 'linenr', '/%L', ':%3v'])
@@ -534,77 +514,10 @@ xmap <S-Up>    <Plug>(textmanip-move-up)
 xmap <S-Left>  <Plug>(textmanip-move-left)
 xmap <S-Right> <Plug>(textmanip-move-right)
 
-" NOTE: for tab number and [+] if the current buffer has been modified for tabline
+" NOTE: for add tab number to tab title bar
+" add [+] mark, if the current buffer has been modified for tabline
+" NOTE: This repository has been archived.
 LazyPlug 'mkitt/tabline.vim'
-" %!Tabline()
-
-" function! Tabline()
-" let s = ''
-" for i in range(tabpagenr('$'))
-" let tab = i + 1
-" let winnr = tabpagewinnr(tab)
-" let buflist = tabpagebuflist(tab)
-" let bufnr = buflist[winnr - 1]
-" let bufname = bufname(bufnr)
-" let bufmodified = getbufvar(bufnr, "&mod")
-"
-" let s .= '%' . tab . 'T'
-" let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-" let s .= ' ' . tab .':'
-" let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . '] ' : '[No Name] ')
-"
-" if bufmodified
-" let s .= '[+] '
-" endif
-" endfor
-"
-" let s .= '%#TabLineFill#'
-" if (exists("g:tablineclosebutton"))
-" let s .= '%=%999XX'
-" endif
-" return s
-" endfunction
-" set tabline=%!Tabline()
-
-" FYI: [タブページ数に応じて幅が変わる tabline プラグインを作成しました \- Qiita]( https://qiita.com/yami_beta/items/6c999fe18fa3fa154cd3 )
-" WARN: tabに画面内分割したbufferも含まれてしまう
-" LazyPlug 'yami-beta/vim-responsive-tabline'
-if 0
-  let g:responsive_tabline_enable = 0
-  set tabline=%!responsive_tabline#get_tabline()
-
-  function! s:is_bufmodified(i)
-    let tab = a:i + 1
-    let winnr = tabpagewinnr(tab)
-    let buflist = tabpagebuflist(tab)
-    let bufnr = buflist[winnr - 1]
-    let bufname = bufname(bufnr)
-    let bufmodified = getbufvar(v:val.bufnr, "&mod")
-    return bufmodified
-  endfunction
-
-  " FYI: [tabline\.vim/tabline\.vim at master · mkitt/tabline\.vim]( https://github.com/mkitt/tabline.vim/blob/master/plugin/tabline.vim )
-  function! s:show_buffers_to_tabline()
-    let buffers = getbufinfo({ 'buflisted': 1 })
-    let bufnr2tabnr_dict = {}
-    for i in range(tabpagenr('$'))
-      let tab = i + 1
-      let winnr = tabpagewinnr(tab)
-      let buflist = tabpagebuflist(tab)
-      let bufnr = buflist[winnr - 1]
-      let bufnr2tabnr_dict[bufnr]=string(tab)
-    endfor
-    " NOTE:
-    " 同じファイルを開いているときにtabがひとまとめになってしまう問題がある
-    return filter(map(copy(buffers), {
-          \   index,val-> {
-            \     "active": val.bufnr == bufnr("%"),
-            \     "name": get(bufnr2tabnr_dict,val.bufnr,"-")." ".fnamemodify(val.name, ":t")." ". (getbufvar(val.bufnr, "&mod") ? "[+]" : "")
-            \   }
-            \ }),{->v:val['name']!~'^-'})
-  endfunction
-  let g:Responsive_tabline_custom_label_func = function('s:show_buffers_to_tabline')
-endif
 
 LazyPlug 'junegunn/vim-easy-align'
 xmap e<Space> <Plug>(EasyAlign)*<Space>
@@ -658,7 +571,8 @@ Plug 'hotwatermorning/auto-git-diff', {'on':[]}
 " :w suda://%
 LazyPlug 'lambdalisue/suda.vim'
 
-" Plug 'tpope/vim-repeat'
+" enforce . repeat actions
+Plug 'tpope/vim-repeat'
 
 " NOTE: for git mergetool
 LazyPlug 'rickhowe/diffchar.vim'
