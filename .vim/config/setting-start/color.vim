@@ -43,29 +43,6 @@ augroup init_color_group
   autocmd BufEnter snippet.txt call matchadd('SnippetCommand','^\[[^]]*\]\zs *[^ ]\+')
 augroup END
 
-if &rtp =~ 'rainbow'
-  function! s:rainbow_group_func(action)
-    if &ft=='cmake' || &ft=='bats'
-      if a:action=='enter'
-        call rainbow_main#clear()
-      endif
-    else
-      if a:action=='enter'
-        " NOTE:
-        " pluginの行儀が良くないので，同じ&ftで複数回loadするとその分増えていく
-        call rainbow_main#clear()
-        call rainbow_main#load()
-      endif
-    endif
-  endfunction
-  augroup rainbow_group
-    autocmd!
-    autocmd User VimEnterDrawPost call <SID>rainbow_group_func('enter')
-    autocmd BufEnter * call <SID>rainbow_group_func('enter')
-    "   autocmd BufLeave * call <SID>rainbow_group_func('leave')
-  augroup END
-endif
-
 function! s:ansi_color_set()
   highlight Red cterm=reverse ctermfg=Red gui=reverse guifg=Red
   highlight Blue cterm=reverse ctermfg=Blue gui=reverse guifg=Blue
