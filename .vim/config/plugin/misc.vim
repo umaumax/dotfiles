@@ -322,14 +322,6 @@ endif
 " NOTE: I don't like default jsbeautify_json format
 " let g:formatters_json = ['fixjson', 'prettier']
 
-" for Vue.js
-" [Neovim/Vim8で快適Vue\.js開発\(Vue Language Server\)]( https://muunyblue.github.io/520bae6649b42ff5a3c8c58b7fcfc5a9.html )
-" npm install -g neovim
-" npm install -g vue-language-server
-Plug 'digitaltoad/vim-pug', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
-Plug 'posva/vim-vue', {'for': ['html', 'vue', 'vue.html.javascript.css']}
-Plug 'Shougo/context_filetype.vim', {'for': ['vue', 'vue.html.javascript.css']}
-
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
 if g:colorscheme == 'molokai'

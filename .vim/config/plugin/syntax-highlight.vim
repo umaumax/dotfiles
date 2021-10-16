@@ -96,3 +96,8 @@ Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 " awk
 " this plugin fix vim's awk bugs
 Plug 'vim-scripts/awk.vim', {'for': 'awk'}
+
+" for Vue.js
+Plug 'digitaltoad/vim-pug', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
+Plug 'posva/vim-vue', {'for': ['html', 'vue', 'vue.html.javascript.css']}
+Plug 'Shougo/context_filetype.vim', {'for': ['vue', 'vue.html.javascript.css']}
