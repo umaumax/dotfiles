@@ -55,7 +55,7 @@ brew_install_formula_list=(
   rustup
   screen
   semgrep
-  # shellcheck
+  shellcheck
   terminal-notifier
   tig
   tmux
