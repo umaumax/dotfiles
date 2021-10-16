@@ -1,8 +1,7 @@
-" [Vim scriptでのイミディエイトウィンドウを作った。 \- Qiita]( https://qiita.com/rbtnn/items/89c78baf3556e33c880f )
 LazyPlug 'rbtnn/vimconsole.vim'
 let g:vimconsole#height = 8
 let g:vimconsole#auto_redraw=1
-" NOTE: 出力を逆順に表示
+" NOTE: reverse cat
 function! s:tac(context)
   let firstline=1
   let lastline=line('$')-1 " NOTE: last line is let s:PROMPT_STRING = 'VimConsole>'
@@ -53,10 +52,6 @@ let g:sleuth_neighbor_limit=0
 let g:sleuth_automatic=0
 " Plug 'ciaranm/detectindent'
 
-" NOTE: 必要とあらば試してみる
-" [Vimで自動的にファイルタイプを設定してくれる便利プラグインvim\-autoftを作りました！ \- プログラムモグモグ]( https://itchyny.hatenablog.com/entry/2015/01/15/100000 )
-" Plug 'itchyny/vim-autoft'
-
 Plug 'Shougo/unite.vim', {'on':['Unite']}
 " mainly for markdown
 " :Unite outline
@@ -73,8 +68,6 @@ let g:highlightedyank_highlight_duration = -1
 augroup vim_highlightedyank_color_group
   autocmd!
   autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
-  "   autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion cterm=reverse gui=reverse
-  "   autocmd ColorScheme,BufWinEnter * highlight def link HighlightedyankRegion Visual
 augroup END
 
 " 検索ワード入力中に、タブで入力ワード補完
@@ -164,71 +157,6 @@ Plug 'umaumax/vim-auto-fix'
 imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
 nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 
-" Plug 'rust-lang/rust.vim', {'for':'rust'}
-
-" WARN: this plugin break vim window?
-" LazyPlug 'timonv/vim-cargo', {'for': ['cargo', 'rust']}
-" let g:cargo_command = "make {cmd} | copen"
-
-" start screen
-" Plug 'mhinz/vim-startify'
-" " FYI: [vim\-startifyでvimのロゴを起動画面に設定する \- Devlion Memo]( http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify )
-" function! s:filter_header(lines) abort
-" let longest_line   = max(map(copy(a:lines), 'len(v:val)'))
-" let centered_lines = map(copy(a:lines),
-" \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
-" return centered_lines
-" endfunction
-"
-" let g:startify_custom_header=s:filter_header([
-" \'ヽ(*゜д゜)ノ (」・ω・)」 (/・ω・)/',
-" \])
-
-" " startifyのヘッダー部分に表示する文字列をdateの結果に設定する
-" let g:startify_custom_header =''
-" " set file key short cut (i:insert, e:empty, q:quit)
-" let s:key_mapping = "asdfghjklzxcvbnmwrtyuop"
-" if v:version >= 800
-"   let g:startify_custom_indices = map(range(len(s:key_mapping)), { index, val -> s:key_mapping[val] })
-" endif
-" " bookmark example
-" let g:startify_bookmarks = [ '~/.vimrc' ]
-
-" high light word when replacing
-" command line window modeでの動作しない?
-" Plug 'osyo-manga/vim-over'
-
-" NOTE: 特に必要ではなさそうなので，temporarily disabled
-" color picker
-" :VCoolor
-" :VCoolIns r   " For rgb color insertion
-" :VCoolIns h   " For hsl color insertion
-" :VCoolIns ra  " For rgba color insertion
-" Plug 'KabbAmine/vCoolor.vim', {'on':['VCoolor','VCoolIns']}
-
-" IMEがOFFにならない...
-" Plug 'fuenor/im_control.vim'
-
-" quickly select the closest text object plugin
-" Plug 'gcmt/wildfire.vim'
-" let g:wildfire_fuel_map = "<ENTER>"
-" let g:wildfire_water_map = "<BS>"
-
-" auto auto type detector
-" this takes a little time to install
-" plug 'rhysd/libclang-vim'
-" plug 'libclang-vim/clang-type-inspector.vim'
-
-" too late
-" plug 'valloric/youcompleteme'
-" let g:ycm_filetype_blacklist = {'go': 1}
-" let g:ycm_global_ycm_extra_conf = expand('~/.vim/plugged/youcompleteme/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py')
-
-" A comprehensive Vim utility functions for Vim plugins
-" Plug 'vim-jp/vital.vim'
-
-" ---- tags ----
-
 " Required: ctags
 " :Tlist
 Plug 'vim-scripts/taglist.vim', {'for':['c','cpp']}
@@ -281,46 +209,14 @@ LazyPlug 'liuchengxu/vista.vim'
 " ---- tags ----
 
 " mark viewer
-" 'airblade/vim-gitgutter'と同様にsign機能を使うため，表示と競合するので，基本的にOFFにしてtoggleして使用する
-" NOTE:
-" 遅延読み込みをするとsign機能の反映が遅れるため，画面が無駄に動いてしまう
-" ALEのlintの結果が見にくくなる
-" マークを設定すると，その行のhighlightがおかしくなる(真っ白になる)
-Plug 'jeetsukumaran/vim-markology' ", {'on':['MarkologyToggle','MarkologyEnable']}
+Plug 'jeetsukumaran/vim-markology'
 let g:markology_enable=1
-
-" normal modeでddすると表示が一時的にずれる
-" Plug 'kshenoy/vim-signature'
-" highlight SignColumn ctermbg=Black guibg=#000000
-
-" 本体close時にbarがcloseしない...
-" Plug 'hisaknown/nanomap.vim'
-" " More scrollbar-ish behavior
-" let g:nanomap_auto_realign = 1
-" let g:nanomap_auto_open_close = 1
-" let g:nanomap_highlight_delay = 100
-
-" Plug 'reireias/vim-cheatsheet'
-" " TODO:拡張子によって，ファイルを変更する? or all for vim?
-" let g:cheatsheet#cheat_file = expand('~/.cheatsheet.md')
-
-" required
-" npm -g install instant-markdown-d
-" Plug 'suan/vim-instant-markdown'
-" :InstantMarkdownPreview
-" let g:instant_markdown_autostart = 0
 
 " Require: node?
 " NOTE: npm js-beautify is builtin this package
 if Doctor('npm', 'maksimr/vim-jsbeautify')
   Plug 'maksimr/vim-jsbeautify', {'for': ['javascript','css','html','vue','vue.html.javascript.css']}
 endif
-
-" NOTE: use 'umaumax/vim-format'
-" NOTE: for json but below plugin has no error...
-" Plug 'Chiel92/vim-autoformat'
-" NOTE: I don't like default jsbeautify_json format
-" let g:formatters_json = ['fixjson', 'prettier']
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない

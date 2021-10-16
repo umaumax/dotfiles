@@ -541,13 +541,11 @@ command! -nargs=0 CopyAll :%y
 " [vim のkeymapでCtrl-Spaceが設定できなかったので調べてみた。 - dgdgの日記]( http://d.hatena.ne.jp/dgdg/20080109/1199891258 )
 imap <Nul> <C-x><C-o>
 
-" [\[Vim\] インサートモードで行頭や行末へ移動する方法 ~ 0から始めるvim ~]( https://qiita.com/ymiyamae/items/cea5103c65184f55d62e )
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 vnoremap <C-a> ^
 vnoremap <C-e> $<Left>
 vnoremap $ $<Left>
-
 
 " NOTE: prevent forcus lsp popup
 augroup bufenter_group
@@ -806,7 +804,7 @@ function! ToggleWordBounds(type, line)
     return a:line
   endif
 endfunction
-" / と :s///g をトグルする
+" toggle / and :s///g
 cnoremap <expr> <C-o> ToggleSubstituteSearch(getcmdtype(), getcmdline())
 function! ToggleSubstituteSearch(type, line)
   if a:type == '/' || a:type == '?'

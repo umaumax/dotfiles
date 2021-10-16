@@ -147,7 +147,7 @@ function git-find-last-space-vim() {
     echo '# gi: back'
     echo ''
     echo $filelist
-  } | command vim --cmd "let g:auto_lcd_basedir=0 | autocmd VimEnter * :execute ':w '.tempname() | :lcd $PWD" -
+  } | command vim --cmd "autocmd VimEnter * :execute ':w '.tempname() | :lcd $PWD" -
 }
 
 cmdcheck 'git-ls' && alias gls='git-ls'

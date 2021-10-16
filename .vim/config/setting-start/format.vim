@@ -20,7 +20,27 @@ function! IsInSameGitRepo(file1, file2)
   return root1 != "" && root1 == root2
 endfunction
 
-" NOTE: git logのauthorが自分と一致する場合はプライベートなファイルであると仮定
+" with cache
+function! s:git_user_name()
+  let l:tempfilename = 'git.config.user.name'
+  let l:tempfiledir = expand('~/.vim/cache')
+  if !isdirectory(l:tempfiledir)
+    call mkdir(l:tempfiledir, "p")
+  endif
+  let l:tempfilepath = l:tempfiledir . '/' . l:tempfilename
+
+  if filereadable(l:tempfilepath)
+    return join(readfile(l:tempfilepath),'')
+  endif
+  let l:author = system("git config user.name")
+  if v:shell_error != 0
+    return ''
+  endif
+  call writefile(split(l:author, '\n'), l:tempfilepath)
+  return l:author
+endfunction
+
+" NOTE: if my name is equal to git log author name => private repository
 let g:is_private_work_cache={}
 function! IsPrivateWork(...)
   let l:dir_path = get(a:, 1, expand('%:p:h'))
@@ -34,27 +54,7 @@ function! IsPrivateWork(...)
     return 0
   endif
 
-  "   let l:author = system("git config user.name")
-  " TODO: create function
-  " cache data
-  let l:tempfilename = 'git.config.user.name'
-  "   let l:tempfilepath = fnamemodify(tempname(), ":p") . l:tempfilename
-  let l:tempfiledir = expand('~/.vim/cache')
-  if !isdirectory(l:tempfiledir)
-    call mkdir(l:tempfiledir, "p")
-  endif
-  let l:tempfilepath = l:tempfiledir . '/' . l:tempfilename
-
-  if filereadable(l:tempfilepath)
-    let l:author = join(readfile(l:tempfilepath),'')
-  else
-    let l:author = system("git config user.name")
-    if v:shell_error == 0
-      call writefile(split(l:author, '\n'), l:tempfilepath)
-    else
-      let l:author = ''
-    endif
-  endif
+  let l:author = s:git_user_name()
 
   " NOTE: use only 10 oldeset commits for lookup speed
   " TODO: oldestからn件を効率よくlookupする方法は?
@@ -65,12 +65,8 @@ function! IsPrivateWork(...)
   return l:is_private
 endfunction
 
-" NOTE: [vim で markdown を書いているときに prettier で整形する \(プラグイン使わずに\) \- Qiita]( https://qiita.com/pankona/items/a493bf97f46e3d52d0de )
-" formatargを設定する手法を利用してみると範囲指定のformatがやりやすいのでは?
-
 " NOTE: default format command
 function! s:format_file()
-  " FYI: [Vim:カーソル位置を移動せずにファイル全体を整形する \- ぼっち勉強会]( http://kannokanno.hatenablog.com/entry/2014/03/16/160109 )
   let l:view = winsaveview()
   normal! gg=G
   silent call winrestview(l:view)
@@ -95,10 +91,6 @@ command! AutoFormatForce let g:auto_format_force_flag=1
 command! ResetAutoFormatForce unlet g:auto_format_force_flag
 command! DisableAutoFormat let b:auto_format_flag=0
 command! AutoFormat let b:auto_format_flag=1
-
-" 下記のautocmdの統合は案外難しい
-" FYI
-" [vim\-codefmt/yapf\.vim at 5ede026bb3582cb3ca18fd4875bec76b98ce9a12 · google/vim\-codefmt]( https://github.com/google/vim-codefmt/blob/5ede026bb3582cb3ca18fd4875bec76b98ce9a12/autoload/codefmt/yapf.vim#L22 )
 
 if Doctor('clang-format', 'clang format')
   " NOTE: for partly ranged clang-format
@@ -128,7 +120,7 @@ if Doctor('autopep8', 'python format')
   augroup END
 endif
 
-" 'maksimr/vim-jsbeautify'
+" required: 'maksimr/vim-jsbeautify'
 if Doctor('npm', 'js,html,css format')
   augroup javascript_group
     autocmd!
@@ -183,7 +175,7 @@ endif
 if Doctor('cmake-format', 'cmake format')
   augroup cmake_format_group
     autocmd!
-    autocmd FileType cmake ++once autocmd BufWritePre CMakeLists.txt,*.{cmake}      if       IsAutoFormat() | :Format | endif
+    autocmd FileType cmake ++once autocmd BufWritePre CMakeLists.txt,*.{cmake} if IsAutoFormat() | :Format | endif
     autocmd FileType cmake ++once autocmd! cmake_format_group FileType
   augroup END
 endif
@@ -228,24 +220,21 @@ if Doctor('align', 'yaml format')
     autocmd FileType yaml ++once autocmd BufWinEnter *.{yaml,yml} command! -bar Format YamlFormat
     autocmd FileType yaml ++once autocmd BufWritePre *.{yaml,yml} if IsAutoFormat() | :YamlFormat | endif
   augroup END
-  " command! YAMLFormat :
-  " NOTE: original YAMLFormat has no '-bar' option
-  " command! -bar YAMLFormatWrapper :YAMLFormat
 endif
 
 if Doctor('prettier', 'toml format')
   augroup toml_format_group
     autocmd!
-    autocmd FileType toml ++once autocmd BufWinEnter *.{toml,yml} command! -bar Format TomlFormat
-    autocmd FileType toml ++once autocmd BufWritePre *.{toml,yml} if IsAutoFormat() | :TomlFormat | endif
+    autocmd FileType toml ++once autocmd BufWinEnter *.toml command! -bar Format TomlFormat
+    autocmd FileType toml ++once autocmd BufWritePre *.toml if IsAutoFormat() | :TomlFormat | endif
   augroup END
 endif
 
 if Doctor('rustfmt', 'rust format')
   augroup rust_format_group
     autocmd!
-    autocmd FileType rust ++once autocmd BufWinEnter *.{rs} command! -bar Format RustFormat
-    autocmd FileType rust ++once autocmd BufWritePre *.{rs} if IsAutoFormat() | :RustFormat | endif
+    autocmd FileType rust ++once autocmd BufWinEnter *.rs command! -bar Format RustFormat
+    autocmd FileType rust ++once autocmd BufWritePre *.rs if IsAutoFormat() | :RustFormat | endif
   augroup END
 endif
 
@@ -255,37 +244,10 @@ if Doctor('goenkins-format', 'jenkins pipeline format')
         \ }
   augroup jenkins_pipeline_format_group
     autocmd!
-    autocmd FileType groovy ++once autocmd BufWinEnter *.{groovy} command! -bar Format JenkinsFormat
-    autocmd FileType groovy ++once autocmd BufWritePre *.{groovy} if IsAutoFormat() | :JenkinsFormat | endif
+    autocmd FileType groovy ++once autocmd BufWinEnter *.groovy command! -bar Format JenkinsFormat
+    autocmd FileType groovy ++once autocmd BufWritePre *.groovy if IsAutoFormat() | :JenkinsFormat | endif
   augroup END
 endif
-
-" " error表示のwindowの制御方法が不明
-" " Plug 'tell-k/vim-autopep8'
-" function! Preserve(command)
-" " Save the last search.
-" let search = @/
-" " Save the current cursor position.
-" let cursor_position = getpos('.')
-" " Save the current window position.
-" normal! H
-" let window_position = getpos('.')
-" call setpos('.', cursor_position)
-" " Execute the command.
-" execute a:command
-" " Restore the last search.
-" let @/ = search
-" " Restore the previous window position.
-" call setpos('.', window_position)
-" normal! zt
-" " Restore the previous cursor position.
-" call setpos('.', cursor_position)
-" endfunction
-
-" function! Autopep8()
-" [vimでpythonのコーディングスタイルを自動でチェック&自動修正する \- blog\.ton\-up\.net]( https://blog.ton-up.net/2013/11/26/vim-python-style-check-and-fix/ )
-" call Preserve(':silent %!autopep8 --ignore=E501 -')
-" endfunction
 
 let g:highlight_backup_dict = {}
 function! s:highlight_backup(name)

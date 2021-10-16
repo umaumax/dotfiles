@@ -191,9 +191,6 @@ command! -nargs=* -range ContNum <line1>,<line2>call s:set_range_cmdline("s/^\\%
 command! -nargs=* -range Space2Tab let view = winsaveview() | <line1>,<line2>call s:substitute('^\(\t*\)'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), '\1\t', 'gG') | silent call winrestview(view)
 command! -nargs=* -range Tab2Space let view = winsaveview() | <line1>,<line2>call s:substitute('^\( *\)\?\t', '\1'.repeat(' ', s:argsWithDefaultArg(1, &tabstop, <f-args>)), 'gG') | silent call winrestview(view)
 
-" NOTE: 全角文字扱いだが，半角表示となるためにずれる
-" command! -nargs=0 -range ReplaceInterpunct <line1>,<line2>call s:substitute('·', '-', 'g')
-
 " NOTE: 匿名化コマンド
 execute "command! -range Anonymous :%s:".$HOME.":\${HOME}:gc | :%s:".$USER."@:\${USER}@:gc"
 
@@ -473,3 +470,22 @@ command! -range Run     <line1>,<line2>call Execute()
 command! -range Ex      <line1>,<line2>call Execute()
 command! -range Exe     <line1>,<line2>call Execute()
 command! -range Execute <line1>,<line2>call Execute()
+
+" below command name are named after grep command option
+command! -range -nargs=1 A :<line1>,<line2>call PrefixInsert("<args>")
+function! PrefixInsert(str)
+  let tmp = substitute(getline("."), '\(.*\)', a:str . '\1', 'g')
+  call setline('.', tmp)
+endfunction
+
+command! -range -nargs=1 B :<line1>,<line2>call SuffixInsert("<args>")
+function! SuffixInsert(str)
+  let tmp = substitute(getline("."), '\(.*\)', '\1' . a:str, 'g')
+  call setline('.', tmp)
+endfunction
+
+command! -range -nargs=+ C :<line1>,<line2>call PrefixSuffixInsert(<f-args>)
+function! PrefixSuffixInsert(pre, suf)
+  let tmp = substitute(getline("."), '\(.*\)', a:pre . '\1' . a:suf, 'g')
+  call setline('.', tmp)
+endfunction

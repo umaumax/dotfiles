@@ -2,7 +2,7 @@
 " 自動formatで変更されうる"----"は':'と合わせて4個となるように
 function! s:table_format_of_each_line()
   let firstline = 1
-  let lastline = line("$")
+  let lastline = line('$')
   for n in range(firstline, lastline)
     let l:line=getline(n)
     if l:line[0] != '|'

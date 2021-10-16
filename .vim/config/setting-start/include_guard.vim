@@ -1,7 +1,5 @@
-" FYI: [カレントファイルにインクルードガードを書き込むvimスクリプト - Qiita](http://qiita.com/xeno1991/items/27d9aaf0501c41116aec)
-
 " Insert include guard to the current file
-" head, foot: list(["", ""]) or string
+" head, foot arg: list(['', '']) or string
 function! s:include_guard(head, foot)
   let l:view = winsaveview()
   silent! execute '1s/^/\=a:head'
@@ -15,12 +13,12 @@ function! s:include_guard_c()
   let included = substitute(name,'\.\|-','_','g').'_INCLUDED'
   let s:head = [
         \ '#ifndef '.included,
-        \ "#define ".included,
+        \ '#define '.included,
         \ ]
   let s:foot = [
         \ '#endif // '.included,
         \ ]
-  call s:include_guard(join(s:head+["",""],"\n"), join(["",""]+s:foot,"\n"))
+  call s:include_guard(join(s:head+['',''],"\n"), join(['','']+s:foot,"\n"))
 endfunction
 
 function! s:include_guard_vim()
@@ -48,7 +46,7 @@ function! s:include_guard_vim()
         \ "let &cpo = s:save_cpo",
         \ "unlet s:save_cpo",
         \ ]
-  call s:include_guard(join(s:head+["",""],"\n"), join(["",""]+s:foot,"\n"))
+  call s:include_guard(join(s:head+['',''],"\n"), join(['','']+s:foot,"\n"))
 endfunction
 
 augroup include_guard

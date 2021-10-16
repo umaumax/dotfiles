@@ -52,7 +52,7 @@ function! s:diffget()
     echom 'Accept theirs'
   endif
   " NOTE: delet line
-  silent! execute ":".(ours_index+1).','.(theirs_index+1).'!:'
+  silent! execute ':'.(ours_index+1).','.(theirs_index+1).'!:'
   call append(ours_index, new_lines)
   return v:true
 endfunction

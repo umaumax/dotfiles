@@ -227,8 +227,6 @@ endif
 "#### END ####
 " ################ end of setting ################
 
-" [not work on Mac OSX Mavericks · Issue \#41 · suan/vim\-instant\-markdown]( https://github.com/suan/vim-instant-markdown/issues/41 )
-" 上記の!コマンドでaliasを利用するときとの相性が悪い
 " set shell=bash\ -i
 " [vim の :\! コマンドでも \.bashrc のエイリアス設定を有効にする \- Qiita]( https://qiita.com/horiem/items/5f503af679d8aed24dd5 )
 if filereadable(glob('~/.bashenv'))

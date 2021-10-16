@@ -34,49 +34,10 @@ for name in specialized_plugin_file_names
   endif
 endfor
 
-" ----
-
-" NOTE: auto PlugInstall detecter
-" NOTE: 一部修正しないと動かない
-" [おい、NeoBundle もいいけど vim\-plug 使えよ \- Qiita]( https://qiita.com/b4b4r07/items/fa9c8cceb321edea5da0 )
-function! s:plug_check_installation()
-  if empty(g:plugs)
-    return
-  endif
-
-  let list = []
-  for [name, spec] in items(g:plugs)
-    if !isdirectory(spec.dir)
-      call add(list, spec.uri)
-    endif
-  endfor
-
-  if len(list) > 0
-    let unplugged = map(list, 'substitute(v:val, "^.*github\.com/\\(.*/.*\\)\.git$", "\\1", "g")')
-
-    " Ask whether installing plugs like NeoBundle
-    echomsg 'Not installed plugs: ' . string(unplugged)
-    if confirm('Install plugs now?', "yes\nNo", 2) == 1
-      PlugInstall
-      " Close window for vim-plug
-      silent! close
-      " Restart vim
-      " silent! !vim
-      quit!
-    endif
-  endif
-endfunction
-
-function! Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
 let g:lazy_plug_map={}
-" NOTE: 主に'for'や'on'の指定がないものを対象とする
 function! LazyPlug(repo, ...)
   let opts = get(a:000, 0, {})
-  if !has_key(opts,'on')&& !has_key(opts,'for')
+  if !has_key(opts, 'on') && !has_key(opts, 'for')
     let opts=extend(opts, { 'on': [], 'for': []})
   endif
   let g:lazy_plug_map[split(a:repo,'/')[1]]=v:false
@@ -89,7 +50,6 @@ command! LazyPlugLoad call <SID>lazy_plug_load()
 function! s:lazy_plug_load()
   for key in keys(g:lazy_plug_map)
     if (g:lazy_plug_map[key]==v:false)
-      " NOTE: 可変長引数で文字列も指定可能
       call plug#load(key)
       let g:lazy_plug_map[key]=v:true
     endif
@@ -101,16 +61,10 @@ augroup lazy_load_after_vim_enter
   autocmd User VimEnterDrawPost ++once call <SID>lazy_plug_load()
 augroup END
 
-" NOTE: 適切にinstallされない?
-" command! -nargs=0 PlugCheckInstall call <SID>plug_check_installation()
-" augroup check-plug
-"   autocmd!
-"   autocmd User VimEnterDrawPost if !argc() | call <SID>plug_check_installation() | endif
-" augroup END
-
 call plug#begin(g:plug_home)
 if has('nvim')
-  " for consecutive shortcut input
+  " To detect if &rtp =~ 'vim-submode', load this at first.
+  " this plugin is used for consecutive shortcut input
   Plug 'kana/vim-submode'
 endif
 runtime! config/plugin/*.vim

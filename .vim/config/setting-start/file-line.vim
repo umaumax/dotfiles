@@ -111,7 +111,7 @@ endfunction
 function! s:handle_arg()
   " NOTE: for prevent 'E37: No write since last change (add ! to override)'
   "       caused by ls | vim - a.log b.log c.log
-  " NOTE: below codes cause go to line number error at first tab 
+  " NOTE: below codes cause go to line number error at first tab
   " if &modified
   " tabnew
   " endif

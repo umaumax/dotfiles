@@ -18,7 +18,8 @@ function! s:get_syn_attr(synid)
         \ "ctermfg": ctermfg,
         \ "ctermbg": ctermbg,
         \ "guifg": guifg,
-        \ "guibg": guibg}
+        \ "guibg": guibg
+        \}
 endfunction
 function! s:get_syn_info()
   let baseSyn = s:get_syn_attr(s:get_syn_id(0))

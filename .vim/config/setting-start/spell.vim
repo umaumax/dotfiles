@@ -24,6 +24,7 @@ function! ToggleSpellCheck()
 endfunction
 " English Check
 nnoremap <silent> <Space>sp :call ToggleSpellCheck()<CR>
+command! SpellCheckToggle call ToggleSpellCheck()<CR>
 
 if &rtp =~ 'vim-submode'
   call submode#enter_with('bufmove', 'n', '', 'zn', ']s')

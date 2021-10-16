@@ -57,7 +57,7 @@ xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 function! s:vim_gitgutter_group()
   if &rtp =~ 'vim-submode'
-    " NOTE: if you enter submode, you cannot see cursor
+    " NOTE: if you enter submode, you cannot see cursor, so below lines are disabled
     " call submode#enter_with('bufgit', 'n', 'r', '<Leader>gh', '<Plug>(vim-gitgutter:next_hunk_cycle)')
     " call submode#enter_with('bufgit', 'n', 'r', '<Leader>gH', '<Plug>(vim-gitgutter:prev_hunk_cycle)')
     " call submode#map('bufgit', 'n', 'r', 'h', '<Plug>(vim-gitgutter:next_hunk_cycle)')

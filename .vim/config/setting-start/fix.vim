@@ -37,7 +37,7 @@ if Doctor('golfix', 'wrong word fixer')
     else
       call s:error_message(ret)
     endif
-    return ""
+    return ''
   endfunction
   command! FixLine :call FixLine()
   command! Fix :call FixLine()

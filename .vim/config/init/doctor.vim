@@ -2,7 +2,6 @@
 " VIM_DOCTOR='on' vim
 
 " NOTE: temporarily comment out
-" \'yapf':'pip install yapf',
 let s:doctor_map={
       \'ag':           'brew install ag || sudo apt install silversearcher-ag',
       \'algin':        'npm install -g align-yaml',
@@ -13,7 +12,6 @@ let s:doctor_map={
       \'code':         'brew cask install visual-studio-code || [Running Visual Studio Code on Linux]( https://code.visualstudio.com/docs/setup/linux )',
       \'cmake-format': 'pip install https://github.com/umaumax/cmake_format/archive/master.tar.gz (pip install cmake_format)',
       \'cmakelint':    'pip install cmakelint',
-      "\ 'cmigemo':      'brew install cmigemo || sudo apt-get install cmigemo',
       \'clang-format': 'brew install clang-format || sudo apt0get install clang-format',
       \'cpplint':      'pip install cpplint',
       \'css-languageserver': 'npm install -g vscode-css-languageserver-bin',
@@ -49,6 +47,7 @@ let s:doctor_map={
       \}
 let s:doctor_logs=[]
 let s:no_cmd_map={}
+
 function! Doctor(cmd, description)
   if !has_key(s:doctor_map, a:cmd)
     let s:doctor_logs+=['Add ['.a:cmd.'] description for install']
@@ -69,6 +68,7 @@ function! Doctor(cmd, description)
   endif
   return 0
 endfunction
+
 function! s:print_doctor_result()
   if len(s:no_cmd_map)==0&&len(s:doctor_logs)==0
     echo '🍺You are healthy!'
@@ -87,4 +87,5 @@ function! s:print_doctor_result()
   endfor
   echohl None
 endfunction
+
 command! Doctor call s:print_doctor_result()
