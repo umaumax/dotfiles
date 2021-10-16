@@ -78,3 +78,21 @@ augroup go_setting
   autocmd FileType go :highlight goExtraVars cterm=bold ctermfg=136
   autocmd FileType go :match goExtraVars /\<ok\>\|\<err\>/
 augroup END
+
+" for &ft='gas'
+LazyPlug 'Shirk/vim-gas', {'for': 'gas'}
+" for nasm use &ft='nasm'
+
+" for nasm indent
+LazyPlug 'philj56/vim-asm-indent', {'for': 'nasm'}
+
+" toml
+Plug 'cespare/vim-toml', {'for':'toml'}
+
+" gnuplot
+" to use this lib, you have to set filetype=gnuplot by autocmd
+Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
+
+" awk
+" this plugin fix vim's awk bugs
+Plug 'vim-scripts/awk.vim', {'for': 'awk'}
