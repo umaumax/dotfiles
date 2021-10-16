@@ -344,21 +344,8 @@ nnoremap <silent> <Space>l :<C-u>setlocal relativenumber!<CR>
 " ##############
 " #### mark ####
 
-let mkeys = [
-      \'"',
-      \'^',
-      \'(',
-      \')',
-      \'{',
-      \'}',
-      \'[',
-      \']',
-      \'<',
-      \'>',
-      \'.',
-      \"'",
-      \]
-for key in mkeys
+" define shortcut key of going to mark position
+for key in split("^(){}[]<>.'\"", '\zs')
   execute 'nnoremap g'.key." '".key
   execute 'nnoremap m'.key." '".key
   execute 'nnoremap M'.key." '".key
