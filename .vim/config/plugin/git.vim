@@ -50,6 +50,8 @@ nmap <Leader>gp <Plug>(GitGutterPreviewHunk)
 " NOTE: for avoid same maping for 'pocke/vim-textobj-markdown' or 'christoomey/vim-textobj-codeblock'
 " ic,ac for markdown code block
 
+command! PreviewGitDiff call feedkeys("\<Plug>(GitGutterPreviewHunk)")
+
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
