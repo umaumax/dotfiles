@@ -48,13 +48,20 @@ function! s:ansi_color_set()
   highlight Blue cterm=reverse ctermfg=Blue gui=reverse guifg=Blue
 endfunction
 
-let b:syntax_highlighting_list=[]
+function! s:get_syntax_highlighting_list()
+  let b:syntax_highlighting_list = get(b:, 'syntax_highlighting_list', [])
+  return b:syntax_highlighting_list
+endfunction
+function! s:unlet_syntax_highlighting_list()
+  unlet b:syntax_highlighting_list
+endfunction
+
 function! s:reset_syntax_highlighting() abort
   " clear all matching patterns
-  for m in b:syntax_highlighting_list
+  for m in s:get_syntax_highlighting_list()
     call matchdelete(m)
   endfor
-  let b:syntax_highlighting_list=[]
+  call s:unlet_syntax_highlighting_list()
 endfunction
 
 function! s:init_syntax_highlighting(ext) abort
@@ -72,7 +79,7 @@ function! s:init_syntax_highlighting(ext) abort
         \ }
   for rule in rules[a:ext]
     let m = matchadd(rule['group'], rule['pattern'])
-    call add(b:syntax_highlighting_list, m)
+    call add(s:get_syntax_highlighting_list(), m)
   endfor
 endfunction
 
