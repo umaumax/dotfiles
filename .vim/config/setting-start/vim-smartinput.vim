@@ -312,6 +312,20 @@ function! s:smartinput_define()
         \ , 'filetype' : ['rust']
         \ })
 
+  " for lifetime
+  call s:smartinput_define_rule(
+        \ { 'at'    : '\(&\|<\)\%#'
+        \ , 'char'  : "'"
+        \ , 'input' : "'"
+        \ , 'filetype' : ['rust']
+        \ })
+  call s:smartinput_define_rule(
+        \ { 'at'    : '\%#>'
+        \ , 'char'  : "'"
+        \ , 'input' : "'"
+        \ , 'filetype' : ['rust']
+        \ })
+
   call s:smartinput_define_rule(
         \ { 'at'    : '<\%#>'
         \ , 'char'  : '<'
