@@ -171,14 +171,14 @@ let g:Gtags_OpenQuickfixWindow = 1
 
 " FYI: [Feature request: When jumping to a definition, increment the tag stack · Issue \#517 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/517 )
 function! DefinitionFunc()
-  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_definition', {'handle': v:true}))
+  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_definition', {'handle': v:true,'gotoCmd': 'tabnew'}))
     return
   endif
   " Show definetion of function cousor word on quickfix
   exe("Gtags ".expand('<cword>'))
 endfunction
 function! ReferencesFunc()
-  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_references', {'handle': v:true}))
+  if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_references', {'handle': v:true,'gotoCmd': 'tabnew'}))
     return
   endif
   " Show reference of cousor word on quickfix
@@ -188,12 +188,14 @@ endfunction
 " nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
 " nmap <buffer> K  <plug>DeopleteRustShowDocumentation
 
+noremap <silent> _ :call LanguageClient_textDocument_typeDefinition({'gotoCmd': 'tabnew'})<CR>
 noremap <silent> K :call DefinitionFunc()<CR>
 noremap <silent> R :call ReferencesFunc()<CR>
 " NORT: goto current file symbols
 " :Gtags -f %
 " :Tlist
 noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<CR>
+command! RenameRefactor :call LanguageClient#textDocument_rename()<CR>
 
 " ctags not found
 " gen_tags.vim need ctags to generate tags

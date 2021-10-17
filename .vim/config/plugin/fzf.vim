@@ -739,3 +739,23 @@ if Doctor('wcat', 'enhanced Lines of fzf#vim#lines')
         \   <bang>0)
   nnoremap L :Lines<CR>
 endif
+
+function! LC_FZFSelectionUI(source, sink) abort
+  function! s:callback(outputs)
+    let key=a:outputs[0]
+    if key == 'ctrl-c'
+      return
+    endif
+    let files = a:outputs[1:]
+    for file in files
+      execute 'tabedit '.file
+    endfor
+  endfunction
+  call fzf#run({
+        \ 'sink*': function('s:callback'),
+        \ 'source': a:source,
+        \ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind." --preview '~/dotfiles/scripts/fzf-file-preview.sh {}' --preview-window 'up:80%'",
+        \ 'down':    '100%'
+        \ })
+endfunction
+let g:LanguageClient_selectionUI = function('LC_FZFSelectionUI')
