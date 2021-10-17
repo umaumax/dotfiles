@@ -61,3 +61,11 @@ map <C-k> [ale]
 
 nmap <silent> [ale]<C-P> <Plug>(ale_previous)
 nmap <silent> [ale]<C-N> <Plug>(ale_next)
+
+command! ALECursorMessage call ale#cursor#ShowCursorDetail()
+
+" you can get message under cursor by below codes
+" let buffer=bufnr('')
+" let [info, loc] = ale#util#FindItemAtCursor(buffer)
+" let format = ale#Var(buffer, 'echo_msg_format')
+" let msg = ale#GetLocItemMessage(loc, ;format)
