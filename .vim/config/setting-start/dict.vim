@@ -37,6 +37,9 @@ function! s:vimconsole_logger()
   " NOTE: deoplete環境ではsnippet機能は通常の補完機能となってしまい，一工夫必要
   " [deoplete環境でneosnippetを使えるようにする \- グレインの備忘録]( http://grainrigi.hatenablog.com/entry/2017/08/28/230029 )
   if neosnippet_flag
+    " neosnippet use v:completed_item.user_data value which is json string e.g. "{\"snippet\": \"printf(\"${1}\\n\"${2});\"}"
+    " NOTE: v:completed_item is read only
+    "
     " NOTE: snippet自動展開
     " executeを利用すると，一旦normalモードに移行し，その後insertモードに戻るため，行末にカーソルがある場合に位置がずれる
     "     execute "normal a\<Plug>(neosnippet_expand)"
@@ -158,6 +161,13 @@ function! LCCompleteSnippet()
   call setline('.', l:start . l:end)
   call cursor('.', l:cur_col - l:comp_len + 2)
 
+  " overwrite snippet if it has lspitem
+  if type(v:completed_item) == v:t_dict
+    let user_data=json_decode(v:completed_item.user_data)
+    if has_key(user_data, 'lspitem')
+      let l:complete=user_data['lspitem']['textEdit']['newText']
+    endif
+  endif
   call UltiSnips#Anon(l:complete)
 endfunction
 
