@@ -78,3 +78,9 @@ snippet pi
 
 snippet println
 	println!("{:?}", ${0});
+
+snippet result_error
+	Result<()${0}, Box<dyn std::error::Error + Sync + Send>>
+
+snippet anyhow_result_conv
+	.map_err(|e| anyhow::anyhow!(e))?${0}
