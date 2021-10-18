@@ -62,6 +62,7 @@ command! ColorName16     :so $VIMRUNTIME/syntax/colortest.vim
 " WARN: take a lot of time
 " command! ColorSyntaxName :so $VIMRUNTIME/syntax/hitest.vim
 command! ColorSyntaxName verbose highlight
+command! ColorSyntaxNameNewTab call PipeCommandResultToNewTab("verbose highlight") | echom ':ColorHighlight'
 
 " user defined command
 command! SyntaxInfo call PipeCommandResultToNewTab("SyntaxInfoEcho")

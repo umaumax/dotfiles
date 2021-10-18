@@ -314,6 +314,7 @@ let g:colorizer_auto_color = 0
 " autocmd WinEnter, BufEnter * if len(filter(filetype_list, {index,val -> val == &ft})>=1) call Colorizer#ColorWinEnter() | endif
 " augroup END
 Plug 'chrisbra/Colorizer', {'for': filetype_list, 'on':['ColorHighlight']}
+command! ColorHighlightEnable :ColorHighlight
 " NOTE: 例えば，format.vimを開くととても遅くなるためdisableしている
 " let g:colorizer_auto_filetype=join(filetype_list,',')
 let g:colorizer_disable_bufleave = 1
