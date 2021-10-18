@@ -30,6 +30,10 @@ function! s:init_color()
   highlight GitGutterChangeLine ctermbg=55 guibg=#003200
   highlight DiffDelete     ctermfg=NONE ctermbg=233 guifg=NONE guibg=#b22222 cterm=NONE gui=NONE
   highlight DiffText       ctermfg=NONE ctermbg=102 guifg=NONE guibg=#4C4745 cterm=NONE gui=NONE
+
+  " background color of 'romgrk/nvim-treesitter-context'
+  highlight MyTreesitterContext ctermfg=NONE ctermbg=102 guifg=NONE guibg=#4c4d20 cterm=NONE gui=NONE
+  highlight link TreesitterContext MyTreesitterContext
 endfunction
 
 augroup init_color_group
