@@ -379,7 +379,8 @@ function nugget_ubuntu_rust-analyzer() {
   local download_url="https://github.com/rust-analyzer/rust-analyzer/releases/download/nightly/rust-analyzer-${target_arch}-${target_os}.gz"
 
   local rust_analyzer_bin_path="$NUGGET_INSTALL_BIN_PREIFX/rust-analyzer"
-  wget "$download_url" -O "$rust_analyzer_bin_path"
+  wget "$download_url" -O "$rust_analyzer_bin_path".gz
+  gzip -d -f "$rust_analyzer_bin_path".gz
   chmod +x "$rust_analyzer_bin_path"
 
   rustup component add rust-src
