@@ -18,7 +18,7 @@ inoremap <C-@> <C-[>
 nnoremap <leader>r :redraw!<CR>
 command! -nargs=0 Redraw :redraw!
 
-" undo情報を保つ
+" keep undo infomation
 inoremap <Left> <C-g>U<Left>
 
 " cursor movement in insert mode
@@ -27,9 +27,6 @@ inoremap <C-k> <C-r>=<SID>Up()<CR>
 inoremap <C-j> <C-r>=<SID>Down()<CR>
 inoremap <C-l> <Right>
 
-" NOTE: デフォルト割当のwindow移動を書き換え
-" Delete and Backspace key
-" inoremap <C-d> <Esc>lxi
 inoremap <C-d> <Delete>
 inoremap <C-f> <BS>
 nnoremap <C-d> "_x
@@ -233,8 +230,8 @@ vnoremap <silent> N :call <sid>select_search('N')<CR>
 vnoremap <silent> * "zy:let @/ = @z<CR>n
 vnoremap <silent> # "zy:let @/ = @z<CR>N
 
-" 貼り付けたテキストを選択する
 " gv: select pre visual selected range
+" gV: select pre pasted or yanked range
 noremap <silent> gV `[v`]
 command! -nargs=0 LastPaste normal! `[v`]
 " move to last edited
