@@ -927,39 +927,6 @@ command! CopyFilePathGit :FilePathGit
 command! CopyDirPath    :DirPath
 command! CopyDirName    :DirName
 
-" NOTE: don't use s:move_block use 't9md/vim-textmanip'
-" 文字数をカウントした方がよさそう
-" visual paste関数と組み合わせる?
-function! s:move_block(direction)
-  let n = { s -> strlen(substitute(s, ".", "x", "g"))}(@z)
-  " visual modeで切り取りを行った直後でカーソルが行の末尾場合の調整
-  let is_line_end = getpos("'<")[2]==col('$')
-  let paste_command = is_line_end ? 'p' : 'P'
-  if a:direction < 0
-    if col('.')==1
-      let paste_command='p'
-      execute "normal! \<Left>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
-    else
-      execute "normal! \<Left>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
-    endif
-  elseif a:direction > 0
-    if col('.')==col('$')-1
-      if !is_line_end
-        let paste_command='p'
-        execute "normal! \"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
-      else
-        let paste_command='P'
-        execute "normal! \<Right>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
-      endif
-    else
-      execute "normal! \<Right>\"z".paste_command.(n-1)."\<Left>v".(n-1)."\<Right>"
-    endif
-  endif
-endfunction
-" vnoremap <S-Left> "zd:call <SID>move_block(-1)<CR>
-" vnoremap <S-Right> "zd:call <SID>move_block(1)<CR>
-" <Left>"zPgv<Left>o<left>o
-
 " 左回り
 vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o
 " 右回り
