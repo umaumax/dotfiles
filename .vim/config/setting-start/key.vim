@@ -825,10 +825,51 @@ cnoremap %s %sno/
 " nnoremap g/ :g/\v
 " cnoremap g/ g/\v
 
-" /{pattern}の入力中は「/」をタイプすると自動で「\/」が、
-" ?{pattern}の入力中は「?」をタイプすると自動で「\?」が 入力されるようになる
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+
+" FYI: [cheapcmd\.vim/cheapcmd\.vim at master · LeafCage/cheapcmd\.vim]( https://github.com/LeafCage/cheapcmd.vim/blob/master/autoload/cheapcmd.vim#L22 )
+function! s:default_expand()
+  cnoremap <Plug>(tmp_command_mode:tab)  <Tab>
+  cnoremap <expr><Plug>(tmp_command_mode:rest-wcm) <SID>default_expand_rest_wcm()
+  let s:save_wcm = &wcm
+  set wcm=<Tab>
+  call feedkeys("\<Plug>(tmp_command_mode:tab)\<Plug>(tmp_command_mode:rest-wcm)", 'm')
+  return ''
+endfunction
+function! s:default_expand_rest_wcm()
+  cunmap <Plug>(tmp_command_mode:tab)
+  cunmap <Plug>(tmp_command_mode:rest-wcm)
+  let &wcm = s:save_wcm
+  unlet s:save_wcm
+
+  " NOTE: no expand by default tab key
+  if getcmdline()[-1:] == "\t"
+    cnoremap <silent><expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
+    call feedkeys("\<BS>\<Plug>(launch_command_line_completion:tab)", 'm')
+  endif
+  return ''
+endfunction
+cmap <silent><expr> <Tab> <SID>default_expand()
+
+function! Backword_delete_word()
+  let cmd = getcmdline()
+  let cmdpos = getcmdpos()
+  let lbuffer=cmd[:cmdpos-1-1]
+  let rbuffer=cmd[cmdpos-1:]
+  let lbuffer=substitute(lbuffer, '\([^/#\-+ (),.:"'."'".']*\( \)*\|.\)$', '', '')
+  " NOTE: The first position is 1.
+  call setcmdpos(1+len(lbuffer))
+  let buffer=lbuffer.rbuffer
+  return buffer
+endfunction
+function! s:un_tab()
+  if pumvisible()
+    return "\<C-p>"
+  endif
+  return "\<C-\>eBackword_delete_word()\<CR>"
+endfunction
+cnoremap <expr> <S-Tab> <SID>un_tab()
 
 " [俺的にはずせない【Vim】こだわりのmap（説明付き） \- Qiita]( https://qiita.com/itmammoth/items/312246b4b7688875d023 )
 " カーソル下の単語をハイライトしてから置換する

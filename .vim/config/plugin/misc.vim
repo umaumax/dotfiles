@@ -16,12 +16,6 @@ let g:vimconsole#hooks = {'on_post_redraw' : function('s:tac')}
 Plug 'thinca/vim-prettyprint', {'on':'PP'}
 
 Plug 'sbdchd/vim-shebang', {'on':['ShebangInsert']}
-" override and append
-" NOTE: mac's env command can deal multiple args by env, but linux can't
-" NOTE: [Shell Style Guide]( http://google.github.io/styleguide/shell.xml?showone=File_Header#File_Header )
-" use below shebang
-" #!/bin/bash
-" by using env, you can use new version of command
 let g:shebang#shebangs = {
       \ 'awk': '#!/usr/bin/awk -f',
       \ 'sh':  '#!/usr/bin/env bash',
@@ -31,14 +25,13 @@ let g:shebang#shebangs = {
       \ }
 
 " NOTE: cpp is not supported
-" NOTE: get function name
+" NOTE: get function name by cfi#get_func_name()
 Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','zsh']}
 
 " vim lint
-" pip install vim-vint
 if Doctor('vint', 'Kuniwak/vint')
+  Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 endif
-Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
 
 if Doctor('nextword', 'deoplete-plugins/deoplete-nextword')
   Plug 'deoplete-plugins/deoplete-nextword'
@@ -48,9 +41,8 @@ endif
 " [editor \- Can vim recognize indentation styles \(tabs vs\. spaces\) automatically? \- Stack Overflow]( https://stackoverflow.com/questions/9609233/can-vim-recognize-indentation-styles-tabs-vs-spaces-automatically )
 LazyPlug 'tpope/vim-sleuth'
 let g:sleuth_neighbor_limit=0
-" NOTE: 別の箇所で明示的に呼び出し
+" sleuth plugin settings are called explicitly at another file
 let g:sleuth_automatic=0
-" Plug 'ciaranm/detectindent'
 
 Plug 'Shougo/unite.vim', {'on':['Unite']}
 " mainly for markdown
@@ -70,88 +62,6 @@ augroup vim_highlightedyank_color_group
   autocmd ColorScheme,BufWinEnter * highlight HighlightedyankRegion ctermbg=237 guibg=#404040
 augroup END
 
-" 検索ワード入力中に、タブで入力ワード補完
-" nmap / が上書きされる
-" Plug 'vim-scripts/SearchComplete'
-" <C-n> <C-p>で補完(最後に不要な文字列が出現する可能性がある)
-" Plug 'vim-scripts/CmdlineComplete'
-
-" コマンドライン補完を拡張し、ユーザ定義コマンドの短縮名を展開
-" 置換中はエラーとなり，あくまでコマンド名の入力中のみ
-" LazyPlug 'LeafCage/cheapcmd.vim'
-
-" FYI: [autocompletion in command line/search \- Vi and Vim Stack Exchange]( https://vi.stackexchange.com/questions/11974/autocompletion-in-command-line-search )
-" [Autocomplete search word in vim \- Stack Overflow]( https://stackoverflow.com/questions/32068958/autocomplete-search-word-in-vim )
-" Plug 'ervandew/supertab'
-" let g:SuperTabContextDefaultCompletionType = "context"
-" let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" Plug 'vim-scripts/CmdlineComplete'
-" cmap <S-Tab> <Plug>CmdlineCompleteBackward
-" cmap <Tab> <Plug>CmdlineCompleteForward
-
-" Plug 'vim-scripts/SearchComplete'
-" cnoremap <Tab> <C-C>:call SearchComplete()<CR>/<C-R>s
-
-" Add completion in command line for '/', '?' and ':.../'
-" LazyPlug 'vim-scripts/sherlock.vim'
-" " NOTE: for avoid She[tab] to show menu for my ShebangInsert
-" augroup sherlock_group
-" autocmd!
-" autocmd User VimEnterDrawPost delcommand SherlockVimball
-" augroup END
-" NOTE:
-" 補完のpopupが出現するのではなく，入力場所にそのまま出現する
-" /\Vの後には対応していない
-" <C-\>esherlock#completeBackward()<CR>
-
-" FYI: [cheapcmd\.vim/cheapcmd\.vim at master · LeafCage/cheapcmd\.vim]( https://github.com/LeafCage/cheapcmd.vim/blob/master/autoload/cheapcmd.vim#L22 )
-function! s:default_expand()
-  cnoremap <Plug>(cheapcmd:tab)  <Tab>
-  cnoremap <expr><Plug>(cheapcmd:rest-wcm) <SID>default_expand_rest_wcm()
-  let s:save_wcm = &wcm
-  set wcm=<Tab>
-  call feedkeys("\<Plug>(cheapcmd:tab)\<Plug>(cheapcmd:rest-wcm)", 'm')
-  return ''
-endfunction
-function! s:default_expand_rest_wcm()
-  cunmap <Plug>(cheapcmd:tab)
-  cunmap <Plug>(cheapcmd:rest-wcm)
-  let &wcm = s:save_wcm
-  unlet s:save_wcm
-
-  " NOTE: no expand by default tab key
-  if getcmdline()[-1:] == "\t"
-    cnoremap <silent><expr> <Plug>(launch_command_line_completion:tab) Launch_command_line_completion()
-    call feedkeys("\<BS>\<Plug>(launch_command_line_completion:tab)", 'm')
-  endif
-  return ''
-endfunction
-cmap <silent><expr> <Tab> <SID>default_expand()
-
-" cmap <expr> <Tab> getcmdtype() != ':' ? "\<C-\>esherlock#completeForward()\<CR>" : "<Plug>(cheapcmd-expand)"
-
-" cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-" cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
-
-function! Backword_delete_word()
-  let cmd = getcmdline()
-  let cmdpos = getcmdpos()
-  let lbuffer=cmd[:cmdpos-1-1]
-  let rbuffer=cmd[cmdpos-1:]
-  let lbuffer=substitute(lbuffer, '\([^/#\-+ (),.:"'."'".']*\( \)*\|.\)$', '', '')
-  " NOTE: The first position is 1.
-  call setcmdpos(1+len(lbuffer))
-  let buffer=lbuffer.rbuffer
-  return buffer
-endfunction
-function! s:un_tab()
-  if pumvisible()
-    return "\<C-p>"
-  endif
-  return "\<C-\>eBackword_delete_word()\<CR>"
-endfunction
-cnoremap <expr> <S-Tab> <SID>un_tab()
 
 Plug 'umaumax/vim-auto-fix'
 imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
@@ -161,7 +71,6 @@ nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 " :Tlist
 Plug 'vim-scripts/taglist.vim', {'for':['c','cpp']}
 nnoremap <Space>T :Tlist<CR>
-" let Tlist_Ctags_Cmd='/path/to/gtags'
 
 " gtags
 Plug 'lighttiger2505/gtags.vim', {'for':['c','cpp']}
@@ -185,9 +94,6 @@ function! ReferencesFunc()
   exe("Gtags -r ".expand('<cword>'))
 endfunction
 
-" nmap <buffer> gd <plug>DeopleteRustGoToDefinitionDefault
-" nmap <buffer> K  <plug>DeopleteRustShowDocumentation
-
 noremap <silent> _ :call LanguageClient_textDocument_typeDefinition({'gotoCmd': 'tabnew'})<CR>
 noremap <silent> K :call DefinitionFunc()<CR>
 noremap <silent> R :call ReferencesFunc()<CR>
@@ -205,8 +111,9 @@ let g:gen_tags#gtags_auto_gen = 1
 " rtags
 Plug 'lyuts/vim-rtags', {'for':['c','cpp']}
 
+" WARN: doesn't work well
 " Vista!!
-LazyPlug 'liuchengxu/vista.vim'
+" LazyPlug 'liuchengxu/vista.vim'
 
 " ---- tags ----
 
@@ -326,8 +233,8 @@ Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
 let g:matchup_matchparen_enabled = 1
 LazyPlug 'andymass/vim-matchup'
 
-" 行末の半角スペース/tabを可視化
-" :FixWhitespaceというコマンドを実行すると、そうしたスペースを自動的に削除
+" visualize space at the end of line
+" :FixWhitespace command remove that space
 LazyPlug 'bronson/vim-trailing-whitespace'
 
 " NOTE: A vim plugin to display the indention levels with thin vertical lines
@@ -385,7 +292,7 @@ augroup END
 " required nvim-treesitter
 LazyPlug 'p00f/nvim-ts-rainbow'
 
-" NOTE: 対応する()をhighlight
+" NOTE: highlight () pair
 " disable default matchparen plugin
 let g:loaded_matchparen = 1
 LazyPlug 'sgur/vim-hlparen'
@@ -394,16 +301,35 @@ let g:hlparen_highlight_delay = 100
 " NOTE: expression: + between paran highlight
 let g:hlparen_highlight_style = 'expression'
 
-" NOTE: cmdlineの決め打ちショートカット機能
+" NOTE: cmdline alias command
 " NOTE: don't use lazy
 Plug 'tyru/vim-altercmd'
 
-" NOTE:選択範囲ごと移動
+" NOTE: This plugin makes scrolling nice and smooth.
+LazyPlug 'psliwka/vim-smoothie'
+silent! map <PageDown> <Plug>(SmoothieForwards)
+silent! map <PageUp>   <Plug>(SmoothieBackwards)
+
+" WARN: terminal input <S-Down> and <S-Up> are captured at out of vim and
+" send page down and page up
+" NOTE: move visual selection itself
 LazyPlug 't9md/vim-textmanip'
-xmap <S-Down>  <Plug>(textmanip-move-down)
-xmap <S-Up>    <Plug>(textmanip-move-up)
-xmap <S-Left>  <Plug>(textmanip-move-left)
-xmap <S-Right> <Plug>(textmanip-move-right)
+vmap <S-Down>  <Plug>(textmanip-move-down)
+vmap <S-Up>    <Plug>(textmanip-move-up)
+vmap <PageDown>  <Plug>(textmanip-move-down)
+vmap <PageUp>    <Plug>(textmanip-move-up)
+vmap <S-Left>  <Plug>(textmanip-move-left)
+vmap <S-Right> <Plug>(textmanip-move-right)
+
+" NOTE: this plugin is newer than above
+" MoveBlockRight -> MoveBlockLeft create extra space at the end of line
+" Plug 'matze/vim-move'
+" vmap <S-Down>   <Plug>MoveBlockDown
+" vmap <S-Up>     <Plug>MoveBlockUp
+" vmap <PageDown> <Plug>MoveBlockDown
+" vmap <PageUp>   <Plug>MoveBlockUp
+" vmap <S-Left>   <Plug>MoveBlockLeft
+" vmap <S-Right>  <Plug>MoveBlockRight
 
 " NOTE: for add tab number to tab title bar
 " add [+] mark, if the current buffer has been modified for tabline
@@ -443,9 +369,6 @@ let g:easy_align_delimiters = {
       \     'right_margin': 0
       \   }
       \ }
-
-" NOTE: This plugin makes scrolling nice and smooth.
-LazyPlug 'psliwka/vim-smoothie'
 
 " NOTE: nvim-treesitter can not highlight log file
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
