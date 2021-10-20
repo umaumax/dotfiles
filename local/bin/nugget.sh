@@ -355,7 +355,7 @@ function nugget_ubuntu_rust() {
   # NOTE: Dont't use brew because we cannot use rustup
   # -y                  Disable confirmation prompt.
   # --no-modify-path    Don't configure the PATH environment variable
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
   source $HOME/.cargo/env
   rustup update
   rustup install nightly
