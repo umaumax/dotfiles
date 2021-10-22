@@ -3758,7 +3758,7 @@ EOF
         echo 1>&2 '\033[31m✗[failure] copy file generation command to clipboard\033[0m'
       fi
     } | { [[ $(uname) == 'Darwin' ]] && base64 || base64 -w 0; }
-  )"' | { [[ \$(uname) == 'Darwin' ]] && base64 -D || base64 -d; } | { [[ \$(uname) == 'Darwin' ]] && tar -C . -xv - || tar -C . -xvz; }\n" | c
+  )"' | { [[ \$(uname) == 'Darwin' ]] && base64 -D || base64 -d; } | tar -C . -xvz" | c
 }
 
 function journalctl-diff() {
