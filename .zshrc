@@ -3750,15 +3750,15 @@ EOF
         echo "$arg"
       done
     } | {
-      if command tar -cvz -T - -f "$tmpfile"; then
+      if command tar -cvz -T - -f "$tmpfile" 1>&2; then
         command cat "$tmpfile"
         rm -f "$tmpfile"
         echo 1>&2 '\033[32m✔[success] copy file generation command to clipboard\033[0m'
       else
         echo 1>&2 '\033[31m✗[failure] copy file generation command to clipboard\033[0m'
       fi
-    } | { [[ $(uname) == 'Darwin' ]] && base64 || base64 -w; }
-  )"' | { [[ $(uname) == 'Darwin' ]] && base64 -D || base64 -d; } | tar -C . -xv -\n" | c
+    } | { [[ $(uname) == 'Darwin' ]] && base64 || base64 -w 0; }
+  )"' | { [[ \$(uname) == 'Darwin' ]] && base64 -D || base64 -d; } | { [[ \$(uname) == 'Darwin' ]] && tar -C . -xv - || tar -C . -xvz; }\n" | c
 }
 
 function journalctl-diff() {
