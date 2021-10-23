@@ -38,38 +38,55 @@ sudo apt-get install -y openssh-server git tree wget less vim zsh sudo curl man 
 # build for yourself
 # sudo apt-get install -y tmux
 
-sudo apt-get install -y python3-pip
-
-sudo apt-get install -y git
+sudo apt-get install -y aha
+sudo apt-get install -y apt-file
+sudo apt-get install -y ccze
+sudo apt-get install -y clang llvm
+sudo apt-get install -y clang-format
+sudo apt-get install -y clang-tidy
+sudo apt-get install -y colordiff
 sudo apt-get install -y direnv
-sudo apt-get install -y jq
-sudo apt-get install -y nkf
-sudo apt-get install -y htop
-sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y doxygen
+sudo apt-get install -y expect
+sudo apt-get install -y figlet
+sudo apt-get install -y gawk
+sudo apt-get install -y gdb-multiarch
 sudo apt-get install -y gdebi
+sudo apt-get install -y gist
+sudo apt-get install -y git
+sudo apt-get install -y gnuplot
+sudo apt-get install -y golang-go # HINT: export PATH="/usr/lib/go/bin:$PATH"
+sudo apt-get install -y graphviz
+sudo apt-get install -y htop
+sudo apt-get install -y imagemagick
+sudo apt-get install -y jq
+sudo apt-get install -y lcov
+sudo apt-get install -y ldap-utils
+sudo apt-get install -y libc6-dbg
+sudo apt-get install -y libsixel-bin
+sudo apt-get install -y lolcat
+sudo apt-get install -y nasm
+sudo apt-get install -y nkf
+sudo apt-get install -y nmap
 sudo apt-get install -y nodejs
 sudo apt-get install -y npm
-sudo apt-get install -y xsel xclip
-sudo apt-get install -y colordiff
-sudo apt-get install -y ccze
-sudo apt-get install -y rpl
-
-sudo apt-get install -y clang-tidy
-sudo apt-get install -y clang-format
-# sudo apt-get install -y vim-gnome # old vim
-sudo apt-get install -y golang-go # HINT: export PATH="/usr/lib/go/bin:$PATH"
+sudo apt-get install -y ntp
 sudo apt-get install -y openssh-server
-sudo apt-get install -y sshpass
-sudo apt-get install -y sshfs
-sudo apt-get install -y sshuttle
-sudo apt-get install -y imagemagick
-
-sudo apt-get install -y figlet
-sudo apt-get install -y expect
 sudo apt-get install -y pandoc
+sudo apt-get install -y parallel
+sudo apt-get install -y plantuml
+sudo apt-get install -y python3-pip
+sudo apt-get install -y rlwrap
+sudo apt-get install -y rpl
 sudo apt-get install -y shellcheck
-sudo apt-get install -y doxygen
-sudo apt-get install -y graphviz
+sudo apt-get install -y silversearcher-ag
+sudo apt-get install -y socat
+sudo apt-get install -y sshfs
+sudo apt-get install -y sshpass
+sudo apt-get install -y sshuttle
+sudo apt-get install -y valgrind
+sudo apt-get install -y xsel xclip
+
 # NOTE: for pip3 install pygraphviz
 sudo apt-get install -y graphviz-dev
 
@@ -79,8 +96,6 @@ sudo apt-get install -y cmake-curses-gui
 sudo apt-get install -y colormake
 sudo apt-get install -y ninja-build
 sudo apt-get install -y ccache
-
-sudo apt-get install -y gnuplot
 
 # tags
 sudo apt-get install -y ctags
@@ -150,37 +165,12 @@ sudo apt-get install -y cifs-utils
 # for serial communication
 sudo apt-get install -y cu
 sudo apt-get install -y screen
-# sudo apt-get install -y ckermit
-
-# maybe you can install -y by pip
-# sudo apt-get install -y python-pygments
-
-sudo apt-get install -y clang llvm
-# sudo apt-get install -y libclang-5.0-dev
-
-sudo apt-get install -y gawk
-
-# for tig
-sudo apt-get install -y libncursesw5-dev
-# maybe you should build tig yourself
-# [jonas/tig: Text\-mode interface for git]( https://github.com/jonas/tig )
-# sudo apt-get install -y tig
-
-# NOTE: you should use nvim.appimage
-# [neovim/neovim: Vim\-fork focused on extensibility and usability]( https://github.com/neovim/neovim )
-# sudo apt-get install -y nvim
-
-sudo apt-get install -y rlwrap
 
 # language
 sudo apt-get install -y locales
 sudo locale-gen en_US.UTF-8
 sudo apt-get install -y language-pack-ja
 sudo update-locale LANG=ja_JP.UTF-8
-
-sudo apt-get install -y ldap-utils
-
-sudo apt-get install -y ntp
 
 # NOTE: Ubuntu 18.04 has no bashdb package
 # [apt \- How can I install bashdb on Ubuntu 18\.04 \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/440816/how-can-i-install-bashdb-on-ubuntu-18-04 )
@@ -208,8 +198,6 @@ sudo apt install -y g++-aarch64-linux-gnu
 # NOTE: for git instaweb
 sudo apt-get install -y lighttpd
 
-sudo apt-get install -y lolcat
-
 # NOTE: for lddtree
 sudo apt-get install -y pax-utils
 
@@ -217,18 +205,8 @@ sudo apt-get install -y pax-utils
 # Ubuntu:16.04 use pip
 # sudo apt-get install -y buku
 
-sudo apt-get install -y parallel
-
 # svg to pdf
 sudo apt-get install -y librsvg2-bin
-
-sudo apt-get install -y plantuml
-
-sudo apt-get install -y lcov
-sudo apt-get install -y valgrind
-sudo apt-get install -y socat
-
-sudo apt-get install -y libsixel-bin
 
 # for perl
 sudo apt-get install -y cpanminus
@@ -243,22 +221,11 @@ sudo apt-get install -y chromium-browser
 # sudo apt-get install -y pepperflashplugin-nonfree
 # sudo update-pepperflashplugin-nonfree --install
 
-sudo apt-get install -y nmap
-
-sudo apt-get install -y libc6-dbg
-sudo apt-get install -y gdb-multiarch
-sudo apt-get install -y nasm
-
 # NOTE: for perf
 sudo apt-get install -y linux-tools-generic
 if [[ ! -f /.dockerenv ]]; then
   sudo apt-get install -y linux-tools-$(uname -r)
 fi
-
-sudo apt-get install -y apt-file
-
-sudo apt-get install -y aha
-sudo apt-get install -y gist
 
 # for ubuntu 16.04
 sudo apt-get install -y lua5.3
