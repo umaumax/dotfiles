@@ -41,9 +41,6 @@ source ~/.zshrc
 # ~/dotfiles/scripts/setup/gem.sh
 # ~/dotfiles/scripts/setup/linuxbrew.sh
 
-# ~/dotfiles/scripts/setup/ros.sh
-# ~/dotfiles/scripts/setup/apt-get-virtualbox.sh
-
 # nugget peco
 nugget tig
 nugget tmux
