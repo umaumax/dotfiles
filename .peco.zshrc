@@ -479,41 +479,6 @@ function umountpeco() {
   done
 }
 
-#######################################
-# Name: pecoole
-# Description: fuzzy finder of urls in dotfiles difinition file
-# Globals:
-#   - None
-# Output:
-#   - None
-# Arguments:
-#   - None
-# Returns:
-#   - None
-#######################################
-function pecoole() {
-  local ret
-  ret=$(
-    {
-      find ~/dotfiles/urls -name "*.md" | sed -E 's:(^.*/)|(\.md$)::g' | tr '\n' ' '
-      echo ''
-      echo '[dotfiles/urls at master · umaumax/dotfiles]( https://github.com/umaumax/dotfiles/tree/master/urls )'
-      echo ''
-      # NOTE: cat files with new blank line separator
-      awk 'FNR==1 && NR!=1 {print ""}{print}' ~/dotfiles/urls/*.md
-    } | awk '!/^$/{if (head!="") printf "%-40s: %s\n", head, $0; else head=$0} /^$/{head=""} {fflush();}' \
-      | bat -l markdown --color=always --plain --unbuffered \
-      | fzf --multi --query="'" \
-      | grep -E -o "http[s]?://[^ ]*"
-  )
-  [[ -z $ret ]] && return
-
-  while IFS= read -r url || [[ -n "$url" ]]; do
-    open "$url"
-    printf '%s\n' "$url"
-  done < <(printf '%s' "$ret")
-}
-
 function lnpeco() {
   [[ $# == 0 ]] && echo "$0 SYM_SRC_PATH" && return 1
   local SYM_SRC_PATH="$1"

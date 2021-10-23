@@ -530,11 +530,6 @@ bindkey "^R" _search_history
 bindkey "^X^H" _search_full_history
 bindkey "^X^R" fzf-history-widget
 
-function _pecoole() { pecoole; }
-zle -N _pecoole
-bindkey "^X^G" _pecoole
-bindkey "^XG" _pecoole
-
 # F:fix
 bindkey '^X^F' edit-command-line
 bindkey '^XF' edit-command-line
