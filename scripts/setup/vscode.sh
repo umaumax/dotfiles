@@ -25,7 +25,6 @@ fi
 extensions=(
   Atishay-Jain.All-Autocomplete
   BriteSnow.vscode-toggle-quotes
-  CoenraadS.bracket-pair-colorizer
   GitHub.vscode-pull-request-github
   # only for Python, TypeScript/JavaScript and Java
   VisualStudioExptTeam.vscodeintellicode

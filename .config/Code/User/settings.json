@@ -27,6 +27,7 @@
   "terminal.integrated.showExitAlert": false,
   "editor.acceptSuggestionOnEnter": "on",
   "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.bracketPairColorization.enabled": true,
   "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.cursorSmoothCaretAnimation": true,
   // for windows
