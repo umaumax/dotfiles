@@ -2,7 +2,6 @@
 # DEBUG_MODE='ON'
 [[ -n $DEBUG_MODE ]] && zmodload zsh/zprof && zprof
 
-# FYI: [基本の復習: 優先順位は LANGUAGE, LC\_ALL, LC\_xxx, LANG の順 \- Qiita]( https://qiita.com/kitsuyui/items/4ee5bf1baa47553be477 )
 unset LANGUAGE
 export LANG='ja_JP.UTF-8'
 
@@ -22,36 +21,40 @@ mkdir -p ~/local/share/zsh/site-functions
 
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 # for ubuntu
-[[ -e "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]] && export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+if [[ -e "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]]; then
+  export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+fi
 
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
   mkdir -p -m 700 "$TMPDIR"
 fi
 
-TMPPREFIX="${TMPDIR%/}/zsh"
-
 # ---- zsh ----
 # ---- bash ----
 
 function cmdcheck() {
-  type "$1" >/dev/null 2>&1
-  local code=$?
-  [[ ! $code ]] && _NO_CMD="$_NO_CMD:$1"
-  return $code
+  local cmd="$1"
+  if type "$cmd" >/dev/null 2>&1; then
+    :
+  else
+    local code=$?
+    _NO_CMD="$_NO_CMD:$cmd"
+    return $code
+  fi
 }
 
 function prepend_path() {
   local p="$1"
-  [[ -d $p ]] && export PATH=$p:$PATH
+  [[ -d "$p" ]] && export PATH="$p:$PATH"
 }
 function append_path() {
   local p="$1"
   export PATH="$PATH:$p"
 }
 function exist() {
-  var=$1
-  [[ -e $var ]]
+  local file="$1"
+  [[ -e "$file" ]]
 }
 
 #
@@ -119,10 +122,6 @@ fi
 if [[ -e /usr/share/doc/git/contrib/diff-highlight/diff-highlight ]]; then
   export GIT_DIFF_HIGHLIGHT='/usr/share/doc/git/contrib/diff-highlight/diff-highlight'
 fi
-
-# WARN: no need?
-# clang(LLVM)
-# prepend_path /usr/local/bin
 
 # for .NET
 append_path ~/.dotnet
@@ -213,9 +212,6 @@ if [[ -d ~/.linuxbrew ]]; then
 fi
 # NOTE: force alias to system pkg-config (the priority is higher than linuxbrew)
 [[ -f ~/.linuxbrew/bin/pkg-config ]] && ln -sf /usr/bin/pkg-config ~/local/bin/pkg-config
-
-# for mac vim
-# prepend_path /Applications/MacVim.app/Contents/bin/
 
 # for easy color output
 export BLACK=$'\e[30m'

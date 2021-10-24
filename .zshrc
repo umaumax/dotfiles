@@ -127,9 +127,9 @@ fi
 #   [[ -e $src ]] && ([[ ! -e $src.zwc ]] || [[ ${src} -nt $src.zwc ]]) && zcompile $src
 # done
 
-# Source Prezto.
+# Prezto settings
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  # NOTE: overwrite $LS_COLORS
+  # NOTE: backup $LS_COLORS
   _LS_COLORS="$LS_COLORS"
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
   # overwrite prompt setting
@@ -178,10 +178,7 @@ function reorder() {
 [[ -z $_PS1 ]] && _PS1="$PS1"
 PROMPT_COLS_BOUNDARY=48
 
-# default 10000?
 export HISTSIZE=100000
-
-# Customize to your needs...
 
 function traverse_path_list() {
   local dirpath=$(perl -MCwd -e 'print Cwd::abs_path shift' ${1:-$PWD})
@@ -201,9 +198,7 @@ function source() {
 
   local pwd_tmp=$(alias pwd)
   unalias pwd
-  #
   builtin source "$@"
-  #
   local exit_code=$?
   eval alias $pwd_tmp
   return $exit_code
@@ -252,10 +247,7 @@ if [[ $ZSH_NAME == zsh ]]; then
   # NOTE: how to check
   # setopt | grep 'xxx'
 
-  # history
   setopt hist_ignore_dups
-  #   unset share_history
-  # シェルのプロセスごとに履歴を共有
   setopt share_history
 
   # NOTE: these options are enabled
@@ -280,10 +272,8 @@ alias functions-list='functions | grep "() {" | grep -v -E "^\s+" | grep -v -E "
 
 [[ -f ~/dotfiles/.tools.bashrc ]] && source ~/dotfiles/.tools.bashrc
 
-# ----
 # NOTE: source bellow file to unalias git commands
 [[ -f ~/.zsh/.prezto.git.init.zshrc ]] && source ~/.zsh/.prezto.git.init.zshrc
-# ----
 
 function command_not_found_handler() {
   # NOTE: this handler called in zle mode
@@ -503,8 +493,15 @@ function homedir_normalization() {
 }
 
 function file-line-filter() {
-  [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]] && echo 'seq 1 9 | '"$0 "'<(echo "4\\n3\\n1")' && return 1
-  local filter_file="$1"
+  if [[ $# == 0 ]] || [[ $1 =~ ^(-h|-{1,2}help)$ ]]; then
+    cat <<EOF
+e.g.
+seq 1 9 | '"$0 "'<(echo "4\\n3\\n1")
+
+seq 1 9 | sed -n '4p; 3p; 1p;'
+EOF
+    return 1
+  fi
   perl -e 'my %hash; open(my $fh, "<", @ARGV[0]); while (my $line = <$fh>) { $hash{$line} += 1; }; close $fh; while (<STDIN>) { print $_ if exists($hash{$_}); }' "$filter_file"
 }
 
@@ -545,21 +542,21 @@ alias find-orig-files="find . -name '*.orig'"
 alias find-orig-files-and-delete="find . -name '*.orig' -delete"
 
 function find-rename-pipe() {
-  if ! type >/dev/null 2>&1 rename; then
-    echo 1>&2 'Not found rename command!'
-    return 1
-  fi
+  # if ! type >/dev/null 2>&1 rename; then
+  # echo 1>&2 'Not found rename command!'
+  # return 1
+  # fi
   # if ! type >/dev/null 2>&1 tac; then
   # echo 1>&2 'Not found tac command!'
   # return 1
   # fi
   if [[ $# -lt 1 ]]; then
-    cat <<EOF
+    echo "
 $(basename $0) <rename sed pattern>
 # e.g.
 find . | $(basename $0) 's///g'
 { git ls-files | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq; git ls-files } | $(basename $0) 's///g'
-EOF
+"
     return 1
   fi
   local rename_pattern="$1"
@@ -578,10 +575,8 @@ EOF
   done
 }
 
-# FYI: [ソートしないで重複行を削除する]( https://qiita.com/arcizan/items/9cf19cd982fa65f87546 )
 alias uniq-without-sort='awk "!a[\$0]++"'
 
-# alias vars='declare -p'
 alias vars='typeset'
 
 # cd
@@ -714,10 +709,8 @@ alias h='history'
 alias hgrep='h | grep'
 alias envgrep='env | grep'
 
-# 年号コマンド only for H
-# name of an era; year number
-#date | awk '{print "H"$6-2000+12}'
-alias era='echo H$(($(date +"%y") + 12))'
+# 年号コマンド
+alias era='echo H$(($(date +"%y") + 12)); echo R$(($(date +"%y") - 18))'
 
 alias q!='exit'
 alias qq='exit'
@@ -729,7 +722,6 @@ alias quit='exit'
 
 alias type='type -af'
 
-# [command line \- Disable crontab's remove option in CLI \- Ask Ubuntu]( https://askubuntu.com/questions/871178/disable-crontabs-remove-option-in-cli )
 function crontab() {
   [[ $@ =~ -[iel]*r ]] && echo "${RED}'r' NOT ALLOWED!${DEFAULT}" && return 1
   command crontab "$@"
@@ -788,7 +780,6 @@ function go-gdb() {
 ####  Mac   ####
 ################
 if [[ $(uname) == "Darwin" ]]; then
-  # cmds
   alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
   alias sysinfo='system_profiler SPSoftwareDataType'
   alias js='osascript -l JavaScript'
@@ -798,9 +789,7 @@ if [[ $(uname) == "Darwin" ]]; then
   # FYI: [Set the Desktop Background for all of your open Spaces in Mountain Lion]( https://gist.github.com/willurd/5829224 )
   function set-background-image() {
     if [[ $# -lt 1 ]]; then
-      command cat <<EOF 1>&2
-$(basename "$0") <image filepath>
-EOF
+      echo "$(basename "$0") <image filepath>"
       return 1
     fi
     local image_filepath
@@ -1071,7 +1060,7 @@ function pipevim() {
     return 1
   fi
 }
-# alias g='googler -n 5'
+
 if [[ "$(uname -a)" =~ Ubuntu ]] && [[ $(lsb_release -r -s) == "18.04" ]]; then
   # NOTE: for avoiding 'suspended (tty output)'
   alias xargs-vim='_xargs-vim -| cat'
@@ -1427,7 +1416,7 @@ cmdcheck 'go' && function got() {
 cmdcheck vim && alias vi='vim'
 cmdcheck nvim && alias vterminal="command nvim -c terminal -c \"call feedkeys('i','n')\""
 cmdcheck nvim && alias vt='vterminal'
-# NOTE: 行番号指定で開く
+
 function vim() {
   local vim_cmd=(command vim)
   cmdcheck nvim && vim_cmd=(nvim)
@@ -1443,17 +1432,6 @@ function vim() {
   fi
   "${vim_cmd[@]}" "${args[@]}"
   local exit_code=$?
-  # NOTE: nvim crash with changing window size
-  # ### window size change crash
-  # [tui\_flush: Assertion \`r\.bot < grid\->height && r\.right < grid\->width' failed\. Core dumped · Issue \#8774 · neovim/neovim · GitHub]( https://github.com/neovim/neovim/issues/8774 )
-  # [\[RFC\] tui: clip invalid regions on resize by bfredl · Pull Request \#8779 · neovim/neovim · GitHub]( https://github.com/neovim/neovim/pull/8779 )
-  # [Releases  neovim/neovim  GitHub]( https://github.com/neovim/neovim/releases )
-  # nvim v0.3.2-dev 5f15788ですでにmerge済み
-  # ```
-  # wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ~/local/bin/nvim && chmod u+x ~/local/bin/nvim
-  # ```
-  #   [[ $code == 134 ]] && fix-terminal && echo "nvim crash: $cmd"
-  # set-dirname-title
   return $exit_code
 }
 function _xargs-vim() {
@@ -1518,15 +1496,7 @@ function tmpvim() {
   vim ~/.tmp/$filename
 }
 
-# for bash
-# alias vibrc='vi ~/.bashrc'
-# alias vibp='vi ~/.bash_profile'
-# alias vimbrc='vi ~/.bashrc'
-# alias vimbp='vi ~/.bash_profile'
-# alias srcbp='source ~/.bash_profile'
-# alias srcbrc='source ~/.bashrc'
 # for zsh
-alias src='source ~/.zshrc'
 alias zshrc='vim ~/.zshrc'
 alias lzshrc='vim ~/.local.zshrc'
 alias zshenv='vim ~/.zshenv'
@@ -1551,7 +1521,6 @@ alias vm='vim README.md'
 alias allow='direnv allow'
 
 alias envrc='vim .envrc'
-alias vm='vim README.md'
 
 # move to tmp directory by date
 function tmpd() {
@@ -2252,29 +2221,6 @@ if cmdcheck gotty; then
   }
 fi
 
-# # NOTE: for my markdowns
-# export MDROOT="$HOME/md"
-# export MDLINK="$HOME/md/link"
-# [[ -d $MDROOT ]] && [[ ! -d $MDLINK ]] && mkdir -p $MDLINK
-# # 2nd arg is symbolic link: default
-# function mdlink() {
-# [[ $# == 0 ]] && echo "$0 <target> [<link name>]" && return 1
-# local file_path="$1"
-# #   local abspathdir=$(cd $(dirname $file_path) && pwd)
-# local abspathfile="${PWD%/}/$file_path"
-# local link_name=$2
-# [[ -z $link_name ]] && local link_name=$abspathfile
-# function trim_prefix() { echo ${1##$2}; }
-# function trim_suffix() { echo ${1%%$2}; }
-# echo $link_name $HOME
-# local link_name=$(trim_prefix "$link_name" "$HOME/")
-# local link_name=$(trim_suffix "$link_name" "/.")
-# local link_name=$(echo $link_name | sed 's:/:-:g')
-# [[ ! -e $file_path ]] && echo "$file_path does not exist!" && return 2
-# echo ln -sf "$abspathfile" "$MDLINK/$link_name"
-# ln -sf "$abspathfile" "$MDLINK/$link_name"
-# }
-
 # NOTE: print string which fill terminal line
 function line() {
   local C=${1:-=}
@@ -2323,11 +2269,6 @@ function script() {
 # [PSコマンドでプロセスの起動時刻を調べる | ex1-lab](http://ex1.m-yabe.com/archives/1144)
 function when() { ps -eo lstart,pid,args | grep -v grep; }
 
-# カラー表示
-# [aliasとシェル関数の使い分け - ももいろテクノロジー](http://inaz2.hatenablog.com/entry/2014/12/13/044630)
-# [bashでラッパースクリプトを覚えたい - Qiita](http://qiita.com/catfist/items/57327b7352940b1fd4ec)
-# [bashのalias に引数を渡すには？ - それマグで！](http://takuya-1st.hatenablog.jp/entry/2015/12/15/030119)
-# FYI: c2a0: [treeコマンドの出力をsedでパイプしてHTML化 \- Qiita]( https://qiita.com/narupo/items/b677a1de3af7837c749f )
 function tree() {
   local COLOR_OPT=()
   [[ ! -p /dev/stdout ]] && local COLOR_OPT=(-C)
@@ -2564,8 +2505,7 @@ function xargs-printf() {
 
 function cterms() {
   # [ターミナルで使える色と色番号を一覧にする \- Qiita]( https://qiita.com/tmd45/items/226e7c380453809bc62a )
-  local PROGRAM=$(
-    command cat <<EOF
+  ruby -e "$(echo '
 # -*- coding: utf-8 -*-
 
 @fg = "\x1b[38;5;"
@@ -2573,7 +2513,7 @@ function cterms() {
 @rs = "\x1b[0m"
 
 def color(code)
-  number = '%3d' % code
+  number = "%3d" % code
   "#{@bg}#{code}m #{number}#{@rs}#{@fg}#{code}m #{number}#{@rs} "
 end
 
@@ -2582,9 +2522,7 @@ end
   print "\n" if (n + 1).modulo(8).zero?
 end
 print "\n"
-EOF
-  )EOF
-  ruby -e "$PROGRAM"
+')"
 }
 
 # FYI: [Direct linking to your files on Dropbox, Google Drive and OneDrive — Milan Aryal]( https://milanaryal.com.np/direct-linking-to-your-files-on-dropbox-google-drive-and-onedrive/ )
@@ -3179,8 +3117,6 @@ function man-signal() {
 EOF
 }
 
-alias opencppref='open https://cpprefjp.github.io/index.html'
-
 # FYI: [How to view\-source of a Chrome extension]( https://gist.github.com/paulirish/78d6c1406c901be02c2d )
 function chrome-extension-code() {
   [[ $# -lt 1 ]] && echo "$(basename $0) [url]" && return 1
@@ -3339,9 +3275,9 @@ EOF
 }
 
 function splitbat() {
-  ! type >/dev/null 2>&1 "bat" && echo 1>&2 "install bat" && return 1
-  ! type >/dev/null 2>&1 "splitcat" && echo 1>&2 "install splitcat" && return 1
-  ! type >/dev/null 2>&1 "terminal-truncate" && echo 1>&2 "install terminal-truncate" && return 1
+  ! type >/dev/null 2>&1 bat && echo 1>&2 "install bat" && return 1
+  ! type >/dev/null 2>&1 splitcat && echo 1>&2 "install splitcat" && return 1
+  ! type >/dev/null 2>&1 terminal-truncate && echo 1>&2 "install terminal-truncate" && return 1
   [[ $# -lt 2 ]] && echo "$(basename "$0") [filepath] [filepath]" && return 1
   local filepath_1="$1"
   local filepath_2="$2"
@@ -3831,7 +3767,7 @@ FUNC_EOF
 }
 
 if [[ $(uname) == "Darwin" ]]; then
-  # disable to use binutils ar, ranlib
+  # disable to use binutils ar, ranlib, create symbolic link to default commands
   # FYI: [macでライブラリをビルドしてインストールするときはbinutilsに気をつける \- Qiita]( https://qiita.com/nagomiso/items/dc6021beb72d09f2128f )
   ln -sf /usr/bin/ar ~/local/bin/ar
   ln -sf /usr/bin/ranlib ~/local/bin/ranlib
@@ -3849,25 +3785,27 @@ fi
 # NOTE: ESC -> vicmd
 bindkey -v
 
-# NOTE: below line is added by fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function source_if_exist() {
+  local target="$1"
+  [[ -f "$target" ]] && source "$target"
+}
+
+source_if_exist ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
-[[ -f ~/.zsh/.zplug.zshrc ]] && source ~/.zsh/.zplug.zshrc
+source_if_exist ~/.zsh/.zplug.zshrc
 # NOTE: run after compinit
-[[ -f ~/.zsh/.comp.zshrc ]] && source ~/.zsh/.comp.zshrc
+source_if_exist ~/.zsh/.comp.zshrc
 
 # NOTE: run after zplug to avoid overwrite keybind
-[[ -f ~/.zsh/.bindkey.zshrc ]] && source ~/.zsh/.bindkey.zshrc
+source_if_exist ~/.zsh/.bindkey.zshrc
 # NOTE: run after zsh-abbrev-alias plugin and bindkey
-[[ -f ~/.zsh/.abbrev.zshrc ]] && source ~/.zsh/.abbrev.zshrc
+source_if_exist ~/.zsh/.abbrev.zshrc
 
-[[ -f ~/.zsh/.ros.zshrc ]] && source ~/.zsh/.ros.zshrc
-[[ -f ~/.zsh/.peco.zshrc ]] && source ~/.zsh/.peco.zshrc
-[[ -f ~/.zsh/.git.zshrc ]] && source ~/.zsh/.git.zshrc
+source_if_exist ~/.zsh/.ros.zshrc
+source_if_exist ~/.zsh/.peco.zshrc
+source_if_exist ~/.zsh/.git.zshrc
 
-if [[ -s "${ZDOTDIR:-$HOME}/.local.zshrc" ]]; then
-  source "${ZDOTDIR:-$HOME}/.local.zshrc"
-fi
+source_if_exist "${ZDOTDIR:-$HOME}/.local.zshrc"
 
 # ---------------------
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
