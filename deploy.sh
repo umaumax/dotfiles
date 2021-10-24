@@ -38,7 +38,6 @@ dotfiles=(
   .toprc
   .typos.toml
   .vimrc
-  .wgit
   .xbindkeysrc
   .zpreztorc
   .zprofile

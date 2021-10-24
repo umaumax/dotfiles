@@ -43,7 +43,6 @@ mkdir -p "$zsh_completion_dirpath"
 
 echo_log "[LOG] start download"
 
-download https://github.com/umaumax/wgit/blob/master/wgit
 download https://github.com/umaumax/oressh/blob/master/oressh
 download https://github.com/umaumax/diff-filter/blob/master/diff-filter
 download https://github.com/umaumax/git-sed/blob/master/git-sed
