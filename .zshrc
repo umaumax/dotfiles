@@ -3670,6 +3670,55 @@ EOF
   }
 fi
 
+function cargo-package-name() {
+  shift 1
+  cargo metadata --format-version=1 --no-deps | jq '.packages[].name' -r | sed 's/-/_/g'
+}
+function cargo-func-graph() {
+  shift 1
+  local pkgname="$(cargo package-name)"
+  RUSTFLAGS="--emit=llvm-bc" cargo build
+
+  LLVM_LINK="llvm-link-12"
+  local out="./target/debug/deps/${pkgname}.bc"
+  if $LLVM_LINK "./target/debug/deps/${pkgname}"-*.bc -o "$out"; then
+    rust-llvm-bc-to-graph "$out" "func-graph.svg"
+  else
+    return 1
+  fi
+}
+
+function rust-llvm-bc-to-graph() {
+  # e.g. ./deps/x2trace-628954abd329ae66.bc
+  local target="$1"
+  local output="$2"
+
+  if [[ $# -lt 2 ]]; then
+    command cat <<EOF 1>&2
+description: generate LLVM IR(bitcode) file to graphviz svg file
+usage: $(basename "$0") <target_bitcode_filepath> <output_svg_filepath>
+EOF
+    return 1
+  fi
+
+  OPT="opt-12"
+  # if you use --callgraph-dot-filename-prefix=raw, raw.callgraph.dot is created at current directory
+  $OPT -dot-callgraph "$target" -analyze
+  local tmpfile="${target}.callgraph.dot.tmp"
+  cat "${target}.callgraph.dot" | rustfilt \
+    | sed -E -e 's/"\{/"/g' -e 's/}"/"/g' | sed -E '/label/ s/\{/\\{/g' | sed -E '/label/ s/\}/\\}/g' | sed -E '/label/ s/</\\</g' | sed -E '/label/ s/>/\\>/g' \
+    | sed '/digraph "Call graph/a rankdir=LR' \
+      >"$tmpfile"
+
+  prune "$tmpfile" $(
+    cat "$tmpfile" \
+      | awk '/label=/{if (match($0, /label=".*"/)) {m=substr($0, RSTART+length("label=\""), RLENGTH-length("label=\"")-length("\"")); if (match(m, /^std::|^core::| as |^llvm|^cpp_demangle|^alloc|^__rust/)){print $1}}}' \
+      | awk '{printf "-n '%s' ", $0 }'
+  ) -N style=invisible 2> >(grep -v Warning) \
+    | gvpr -c 'N[$.degree==0]{delete(root, $)} N[$!=NULL]{ if(hasAttr($, "style")&&aget($, "style")=="invisible"){ delete(root, $); }}' \
+    | dot -Tsvg -o "$output"
+}
+
 function pack() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
