@@ -1551,6 +1551,7 @@
 [LD_PRELOAD in mac] DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=\%# # there is no LD_PRELOAD in mac
 [ld show default linker script] ld --verbose
 [list loaded functions from dynamic libraries] LD_DEBUG=bindings \%#
+[cross arch(arm) ldd] arm-linux-gnueabihf-readelf -a \%# | grep "Shared library:"
 
 [show dynamic library of process] sudo lsof -p $PID
 [show dynamic library of process] sudo pldd $PID
@@ -1825,6 +1826,7 @@
 [rust change toolchain default <-> nightly] rustup-toolchain-switch # my command
 [cargo feature tree(all)] cargo tree -e features
 [cargo feature tree(sepecific)] cargo tree -e features -i $crate_name
+[rust llvm version] rustc --version --verbose
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
