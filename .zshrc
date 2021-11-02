@@ -1244,6 +1244,7 @@ lazy mount volume to docker container
 
 e.g.
 $(basename "$0") xxxxxxxx ./ws ~/ws
+$(basename "$0") xxxxxxxx ./ws/hoge ~/ws/hoge
 EOF
       return 1
     fi
@@ -1275,7 +1276,7 @@ EOF
       SUBPATH=$(echo $REALPATH | sed "s:^$FILESYS::")
       DEVDEC=$(printf "%d %d" $(stat --format "0x%t 0x%T" $DEV_HOST_ROOT))
 
-      docker-enter $CONTAINER bash -c "[[ -b $DEV_HOST_ROOT ]] || mknodmode 0600 $DEV_HOST_ROOT b $DEVDEC"
+      docker-enter $CONTAINER bash -c "[[ -b $DEV_HOST_ROOT ]] || mknod --mode 0600 $DEV_HOST_ROOT b $DEVDEC"
       docker-enter $CONTAINER mkdir -p /tmpmnt
       docker-enter $CONTAINER bash -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
       docker-enter $CONTAINER mkdir -p "$CONTAINER_PATH"
