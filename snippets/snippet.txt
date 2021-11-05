@@ -514,6 +514,7 @@
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+\%#[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 [ol word count ranking] sort | uniq -c | sort -nr # this includes spaces
+[ol remove prefix] perl -MCwd -le '$target=shift; $prefix=shift; if ((rindex $target, $prefix, 0) == 0) { $target=substr($target, length($prefix)); } print $target' /home/hoge /home
 
 # random
 [ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
