@@ -3630,6 +3630,36 @@ EOF
 
 alias help='run-help'
 
+function svg-extention() {
+  if [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+usage: $0 <svg filepath>
+
+This command inserts javascript to svg for graphviz callgraph.
+Please open svg by Google Chrome (not Firefox).
+EOF
+    return 1
+  fi
+
+  local svg_filepath="$1"
+
+  {
+    cat <<'EOS'
+  <style type="text/css">
+    g:focus *:not(text) { fill: lightskyblue; stroke:midnightblue; stroke-width:2; }
+  </style>
+  <script><![CDATA[
+EOS
+
+    cat ~/dotfiles/scripts/svg-extention.js
+
+    cat <<'EOS'
+  ]]>
+  </script>
+EOS
+  } | sed -i '/^ viewBox=/r /dev/stdin' "$svg_filepath"
+}
+
 if cmdcheck cargo; then
   function cargo() {
     local cmd="cargo-$1"
