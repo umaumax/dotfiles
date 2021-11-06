@@ -499,6 +499,8 @@ Plug 'mhartington/oceanic-next'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " A Vim plugin that shows the context of the currently visible buffer contents.
 Plug 'romgrk/nvim-treesitter-context'
+" WARN: I don't know this plugin works well or not.
+Plug 'lewis6991/spellsitter.nvim'
 
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
