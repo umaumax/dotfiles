@@ -3737,8 +3737,9 @@ EOF
   $OPT -dot-callgraph "$target" -analyze
   local tmpfile="${target}.callgraph.dot.tmp"
   cat "${target}.callgraph.dot" | rustfilt \
-    | sed -E -e 's/"\{/"/g' -e 's/}"/"/g' | sed -E '/label/ s/\{/\\{/g' | sed -E '/label/ s/\}/\\}/g' | sed -E '/label/ s/</\\</g' | sed -E '/label/ s/>/\\>/g' \
-    | sed '/digraph "Call graph/a rankdir=LR' \
+    | sed -E 's/"\{/"/; s/}"/"/' \
+    | sed -E '/label/ s/\{/\\{/g; /label/ s/\}/\\}/g; /label/ s/</\\</g; /label/ s/>/\\>/g' \
+    | sed '/digraph "Call graph/a rankdir=LR;' \
       >"$tmpfile"
 
   prune "$tmpfile" $(
