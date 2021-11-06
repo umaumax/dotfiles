@@ -1257,40 +1257,53 @@ EOF
     local CONTAINER="$1"
     local HOST_PATH="$2"
     local CONTAINER_PATH="$3"
+
+    local RED=$'\e[31m'
+    local GREEN=$'\e[32m'
+    local YELLOW=$'\e[33m'
+    local BLUE=$'\e[34m'
+    local DEFAULT=$'\e[0m'
     (
       set -e
 
       REALPATH=$(readlink --canonicalize $HOST_PATH)
+      # e.g. FILESYS=/
       FILESYS=$(df -P $REALPATH | tail -n 1 | awk '{print $6}')
+      # below command is also ok
+      # FILESYS=$(stat --printf '%m' $REALPATH)
 
-      while read DEV_HOST_ROOT MOUNT JUNK; do
+      # for getting DEV_HOST_ROOT (e.g. /dev/sda2)
+      while read DEV_HOST_ROOT MOUNT _JUNK; do
         [[ $MOUNT == $FILESYS ]] && break
       done </proc/mounts
       [[ $MOUNT == $FILESYS ]] # sanity check
 
-      while read _1 _2 _3 SUBROOT MOUNT JUNK; do
+      # for getting SUBROOT which is mount point of $DEV_HOST_ROOT (e.g. /)
+      while read _MOUNT_ID _PARENT_MOUNT_ID _DEV_MAJOR_MINOR_NUMBER SUBROOT MOUNT _JUNK; do
         [[ $MOUNT == $FILESYS ]] && break
       done </proc/self/mountinfo
       [[ $MOUNT == $FILESYS ]] # sanity check
 
-      SUBPATH=$(echo $REALPATH | sed "s:^$FILESYS::")
+      SUBPATH=$(perl -MCwd -le '$target=shift; $prefix=shift; if ((rindex $target, $prefix, 0) == 0) { $target=substr($target, length($prefix)); } print $target' "$REALPATH" "$FILESYS")
+      # e.g. "18 12" decimal number of major device and minor device pair
       DEVDEC=$(printf "%d %d" $(stat --format "0x%t 0x%T" $DEV_HOST_ROOT))
 
-      docker-enter $CONTAINER bash -c "[[ -b $DEV_HOST_ROOT ]] || mknod --mode 0600 $DEV_HOST_ROOT b $DEVDEC"
+      # use sh for no bash docker container
+      # WARN: busybox mdnod has no long option --mode
+      docker-enter $CONTAINER sh -c "[ -b $DEV_HOST_ROOT ] || mknod -m 0600 $DEV_HOST_ROOT b $DEVDEC"
       docker-enter $CONTAINER mkdir -p /tmpmnt
-      docker-enter $CONTAINER bash -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
+      docker-enter $CONTAINER sh -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
       docker-enter $CONTAINER mkdir -p "$CONTAINER_PATH"
       docker-enter $CONTAINER mount -o bind "/tmpmnt/$SUBROOT/$SUBPATH" "$CONTAINER_PATH"
       docker-enter $CONTAINER umount /tmpmnt
       docker-enter $CONTAINER rmdir /tmpmnt
 
-      GREEN=$'\e[32m'
-      YELLOW=$'\e[33m'
-      BLUE=$'\e[34m'
-      DEFAULT=$'\e[0m'
-      echo "$BLUE""[✔] mount""$DEFAULT"
+      echo "$BLUE""[✔] mount success""$DEFAULT"
       echo "$YELLOW""HOST:""$GREEN""$HOST_PATH""$DEFAULT"" to 🐳""$YELLOW""$CONTAINER:""$GREEN""$CONTAINER_PATH""$DEFAULT"
-    )
+    ) || {
+      echo "$RED""[✗] mount failure""$DEFAULT"
+      return 1
+    }
   }
 
   type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
