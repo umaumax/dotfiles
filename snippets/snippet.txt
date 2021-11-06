@@ -324,7 +324,7 @@
 
 [git find detached commits] git fsck --lost-found
 
-[git apply patch even it has conflict] git -C $(git rev-parse --show-toplevel) apply --3way \%#
+[git apply patch even it has conflict or failed] git -C $(git rev-parse --show-toplevel) apply --3way \%#
 [git apply dry-run] git -C $(git rev-parse --show-toplevel) apply --check \%#
 [git apply patch stat] git -C $(git rev-parse --show-toplevel) apply --stat \%#
 [git patch apply] git -C $(git rev-parse --show-toplevel) apply $PATCH_FILEPATH # <(p)
