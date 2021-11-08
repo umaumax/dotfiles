@@ -3712,6 +3712,26 @@ EOF
     fi
     return "$exit_code"
   }
+  function cargo-decl() {
+    if [[ $# -lt 1 ]]; then
+      command cat <<EOF 1>&2
+usage: $(basename "$0") <source code>
+
+e.g.
+cargo decl 'use ecat::config; config::Config'
+EOF
+      return 1
+    fi
+    if [[ $# -lt 2 ]]; then
+      cargo new --help
+      return 1
+    fi
+    # drop 1st arg
+    shift 1
+
+    local SRC_CODE="$1"
+    racer find-definition 1 "${#SRC_CODE}" "$(\pwd | sed -E 's:/[^/]+:../:g')" <(printf '%s' "${SRC_CODE}")
+  }
 fi
 
 function cargo-package-name() {
