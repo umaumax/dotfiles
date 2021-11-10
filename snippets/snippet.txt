@@ -1738,6 +1738,7 @@
 [icon ico(windows)] convert \%#.png -define icon:auto-resize icon.ico
 
 [svg to pdf] rsvg-convert -f pdf -o test.pdf test.svg
+[svg to png] inkscape output.svg\%# --export-png=output.png -w 1024 -h 1024
 
 [plantuml png] plantuml test.uml # test.png
 [plantuml svg] plantuml -tsvg test.uml
