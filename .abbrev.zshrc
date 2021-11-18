@@ -95,6 +95,7 @@ abbrev-alias -c gglaunch="ggpvc '\%#' -- '*.launch'"
 
 ## find
 abbrev-alias -c fn='find . -name "\%#"'
+abbrev-alias -c fso='find . -name "*.so\%#"'
 abbrev-alias -c fgpeco="findgrep '\%#' -- | pecocat"
 abbrev-alias -c fgmd="findgrep '\%#' -- -type f \( -name '*.md' -o -name 'README.txt' -o -name 'readme.txt' \)"
 abbrev-alias -c fgvim="findgrep '\%#' -- -type f \( -name '*.vim' -o -name '*.vimrc' \)"
