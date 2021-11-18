@@ -746,8 +746,9 @@ function! LC_FZFSelectionUI(source, sink) abort
     if key == 'ctrl-c'
       return
     endif
-    let files = a:outputs[1:]
-    for file in files
+    let lines = a:outputs[1:]
+    for line in lines
+      let file =  matchstr(line, '[^:\t]*\(:[0-9]*\)\?')
       execute 'tabedit '.file
     endfor
   endfunction
