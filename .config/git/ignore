@@ -186,6 +186,7 @@ lcov_html
 **/target/rls/*
 **/target/arm-*/*
 **/target/armv*/*
+**/target/aarch*/*
 **/target/CACHEDIR.TAG
 # NOTE: don't use below
 # **/target/*
