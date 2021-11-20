@@ -1867,18 +1867,19 @@ function chpwd() {
     [[ -n "$VIRTUAL_ENV" ]] && deactivate
   } && lambda
 
+  # disable ros auto setting
   # NOTE: auto ros devel/setup.zsh runner
-  function lambda() {
-    for dir in $(traverse_path_list $PWD); do
-      local setup_zsh_filepath="$dir/devel/setup.zsh"
-      [[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
-    done
-  } && lambda
+  # function lambda() {
+  # for dir in $(traverse_path_list $PWD); do
+  # local setup_zsh_filepath="$dir/devel/setup.zsh"
+  # [[ -f $setup_zsh_filepath ]] && source "$setup_zsh_filepath"
+  # done
+  # } && lambda
 
-  if [[ -z "$ROS_VERSION" ]] && type >/dev/null 2>&1 rosroot; then
-    local ros_ws_root=$(rosroot)
-    [[ -d $ros_ws_root ]] && [[ -e /opt/ros/kinetic/setup.zsh ]] && echo '[ros setup script loaded]load' && source /opt/ros/kinetic/setup.zsh
-  fi
+  # if [[ -z "$ROS_VERSION" ]] && type >/dev/null 2>&1 rosroot; then
+  # local ros_ws_root=$(rosroot)
+  # [[ -d $ros_ws_root ]] && [[ -e /opt/ros/kinetic/setup.zsh ]] && echo '[ros setup script loaded]load' && source /opt/ros/kinetic/setup.zsh
+  # fi
 }
 
 function cdninja() {
