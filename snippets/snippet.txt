@@ -247,6 +247,7 @@
 [git keep] touch \%#.gitkeep
 [git remove all git files and .git] echo 'cd $(git rev-parse --show-toplevel) && git ls-files | xargs git rm && rm -rf .git' !
 [git root] git rev-parse --show-toplevel
+[git relative .git directory path] git rev-parse --git-common-dir
 [git checkout root]  git checkout $(git rev-parse --show-toplevel)
 [git show head commit hash id] git show -s --format=%H
 [git 間違えてmasterにcommit(1個)したので，他のブランチに移したい] git checkout master && git branch $NEW_BRANCH\%# && git reset --hard "HEAD~1"
@@ -610,6 +611,7 @@
 # patch
 [patch] echo 'git diff | c && cd $(git rev-parse --show-toplevel) && p | patch -p1' !
 [patch] p\%# | patch -p1 # p is original clipboard paste command
+[apply patch to specific file] cat hoge.patch | patch target_file
 [revert patch] cat \%# | patch -R
 
 # http server
@@ -1813,6 +1815,7 @@
 [cargo expand macro debug] cargo exapnd \%# # cargo install cargo-expand
 [cargo nm] cargo nm -- --demangle ./target/debug/\%# # cargo install cargo-binutils
 [cargo arm build] cargo build --target armv7-unknown-linux-gnueabihf # rustup target add armv7-unknown-linux-gnueabihf
+[cargo aarch build] cargo build --target aarch64-unknown-linux-gnu # rustup target add aarch64-unknown-linux-gnu
 [cross arch test build only] cargo test --target armv7-unknown-linux-gnueabihf --no-run
 [cargo run example] cargo run --example \%#
 [cargo project root] dirname $(cargo locate-project | jq -r '.root')
@@ -1923,6 +1926,8 @@
 [cat head and tail] (head; echo "\n----------------\n"; tail) < \%#
 
 [format output like a table] column -t
+[format output like a table] column -t -s,
+[format output like a table] tabulate -s, -f fancy_grid # pip install 'tabulate[widechars]'
 
 # vim / nvim
 [nvim deoplete plugin fix?] pip3 --user --no-cache-dir install -I pynvim; pip3 --user --no-cache-dir install -I neovim; echo 'open vim and run ":UpdateRemotePlugins"'
@@ -2149,3 +2154,5 @@
 [spell typo check command] typos
 
 [list namespace] lsns
+
+[easy to see output] \%#| pr -t -w $COLUMNS --columns=4
