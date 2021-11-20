@@ -101,9 +101,6 @@ function nugget_mac_nvim() {
   fi
 
   pushd "$tmpdir"
-  # nightly build
-  # wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
-  # stable build
   wget https://github.com/neovim/neovim/releases/download/v0.5.1/nvim-macos.tar.gz
 
   tar xzvf nvim-macos.tar.gz
@@ -122,9 +119,6 @@ function nugget_ubuntu_nvim() {
   cmdcheck nvim && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
   pushd "$tmpdir"
-  # nightly build(404 Not Found)
-  # wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-  # stable build
   wget https://github.com/neovim/neovim/releases/download/v0.5.1/nvim.appimage
 
   # TODO: how to detect FUSE or not?
