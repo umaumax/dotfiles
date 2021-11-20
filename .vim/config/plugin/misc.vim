@@ -502,6 +502,10 @@ Plug 'romgrk/nvim-treesitter-context'
 " WARN: I don't know this plugin works well or not.
 Plug 'lewis6991/spellsitter.nvim'
 
+Plug 'MunifTanjim/nui.nvim'
+Plug 'VonHeikemen/fine-cmdline.nvim'
+nnoremap <C-p> :lua require('fine-cmdline').open()<CR>
+
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " else

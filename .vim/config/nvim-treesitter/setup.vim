@@ -36,4 +36,43 @@ hl = 'SpellBad',
 --   internal spell_check() function
 spellchecker = 'vimfn',
 }
+
+local fn = require('fine-cmdline').fn
+require('fine-cmdline').setup({
+cmdline = {
+enable_keymaps = true
+},
+  popup = {
+    position = {
+      row = '10%',
+      col = '50%',
+      },
+    size = {
+      width = '60%',
+      height = 1
+      },
+    border = {
+      text = {
+        top = "Popup Command Line",
+        top_align = "center",
+        },
+      -- style = 'none',
+      style = { "#", "-", "#", "|", "#", "-", "#", "|" },
+      highlight = 'FloatBorder',
+      },
+    win_options = {
+      winhighlight = 'Normal:Normal',
+      },
+    },
+  hooks = {
+    before_mount = function(input)
+    input.input_props.prompt = ':'
+  end,
+  after_mount = function(input)
+end,
+set_keymaps = function(imap, feedkeys)
+imap('<Up>', fn.complete_or_next_item)
+    end
+    }
+  })
 EOF

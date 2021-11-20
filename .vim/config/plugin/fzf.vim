@@ -333,7 +333,6 @@ function! s:clean_filepath(orig_filepath)
   return filepath
 endfunction
 
-nnoremap <C-p> :FZF
 inoremap <c-x><c-f> <ESC>:FZFf
 inoremap <c-x>f     <ESC>:FZFf
 nnoremap <c-x><c-f> :FZFf
