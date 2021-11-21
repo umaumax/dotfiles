@@ -51,6 +51,7 @@ _:
 - - install
 - - lambda
 - - line
+- - linker
 - - lint
 - - linter
 - - maintenance
