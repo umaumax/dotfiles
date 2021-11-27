@@ -15,17 +15,11 @@ Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
 
 " NOTE: indentの整形がない
 " Plug 'umaumax/vim-yaml-format', {'for':'yaml'}
-"
-if Doctor('cmake-format', 'umaumax/vim-format')
-endif
-if Doctor('jq', 'umaumax/vim-format')
-endif
-if Doctor('shfmt', 'umaumax/vim-format')
-endif
-if Doctor('cmake-format', 'umaumax/vim-format')
-endif
-" NOTE: for format
-Plug 'umaumax/vim-format' ", {'for': ['cmake','json','sh','zsh','yaml']}
+
+for command in ['cmake-format', 'jq', 'shfmt', 'autopep8', 'nasmfmt', 'gofmt', 'rustfmt', 'goenkins-format', 'align', 'prettier']
+  call Doctor(command, 'umaumax/vim-format')
+endfor
+Plug 'umaumax/vim-format'
 
 " input helper
 " Plug 'kana/vim-smartinput'
