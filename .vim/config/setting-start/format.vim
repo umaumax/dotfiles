@@ -214,6 +214,14 @@ if Doctor('gofmt', 'go format')
   augroup END
 endif
 
+if Doctor('gawk', 'awk format')
+  augroup go_format_group
+    autocmd!
+    autocmd FileType awk ++once autocmd BufWinEnter *.awk command! -bar Format AwkFormat
+    autocmd FileType awk ++once autocmd BufWritePre *.awk if IsAutoFormat() | :AwkFormat | endif
+  augroup END
+endif
+
 if Doctor('align', 'yaml format')
   augroup yaml_format_group
     autocmd!
