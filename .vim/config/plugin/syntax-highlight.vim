@@ -93,10 +93,6 @@ Plug 'cespare/vim-toml', {'for':'toml'}
 " to use this lib, you have to set filetype=gnuplot by autocmd
 Plug 'vim-scripts/gnuplot.vim', {'for': 'gnuplot'}
 
-" awk
-" this plugin fix vim's awk bugs
-Plug 'vim-scripts/awk.vim', {'for': 'awk'}
-
 " for Vue.js
 Plug 'digitaltoad/vim-pug', {'for': ['javascript','json','css','html','vue','vue.html.javascript.css']}
 Plug 'posva/vim-vue', {'for': ['html', 'vue', 'vue.html.javascript.css']}
