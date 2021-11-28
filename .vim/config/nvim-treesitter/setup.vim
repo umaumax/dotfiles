@@ -75,4 +75,58 @@ imap('<Up>', fn.complete_or_next_item)
     end
     }
   })
+
+-- lukas-reineke/indent-blankline.nvim
+vim.opt.list = true
+vim.opt.listchars:append("space: ")
+vim.opt.listchars:append("eol:↴")
+
+vim.opt.termguicolors = true
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#703C35 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#75603B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent3 guifg=#486339 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent4 guifg=#265662 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent5 guifg=#315F7F gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent6 guifg=#66386D gui=nocombine]]
+
+vim.cmd [[highlight IndentBlanklineContextIndent1 guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineContextIndent2 guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineContextIndent3 guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineContextIndent4 guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineContextIndent5 guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineContextIndent6 guifg=#C678DD gui=nocombine]]
+
+require("indent_blankline").setup {
+  char = "|",
+  space_char_blankline = " ",
+  show_current_context = true,
+  show_current_context_start = true,
+  char_highlight_list = {
+    "IndentBlanklineIndent1",
+    "IndentBlanklineIndent2",
+    "IndentBlanklineIndent3",
+    "IndentBlanklineIndent4",
+    "IndentBlanklineIndent5",
+    "IndentBlanklineIndent6",
+  },
+  context_patterns={
+    "class",
+    "function",
+    "method",
+    "if",
+    "for",
+    "loop",
+    "let",
+    "while",
+  },
+  context_highlight_list={
+    "IndentBlanklineContextIndent1",
+    "IndentBlanklineContextIndent2",
+    "IndentBlanklineContextIndent3",
+    "IndentBlanklineContextIndent4",
+    "IndentBlanklineContextIndent5",
+    "IndentBlanklineContextIndent6",
+  },
+}
+ 
 EOF
