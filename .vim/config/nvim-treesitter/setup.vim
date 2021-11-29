@@ -79,7 +79,7 @@ imap('<Up>', fn.complete_or_next_item)
 -- lukas-reineke/indent-blankline.nvim
 vim.opt.list = true
 vim.opt.listchars:append("space: ")
-vim.opt.listchars:append("eol:↴")
+vim.opt.listchars:append("eol:↲")
 
 vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#703C35 gui=nocombine]]
