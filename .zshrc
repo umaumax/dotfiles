@@ -654,15 +654,6 @@ fi
 
 cmdcheck tig && alias t='tig'
 
-alias vp='cdvproot'
-alias vpr='cdvproot'
-alias vproot='cdvproot'
-alias cdv='cdvproot'
-alias cdvp='cdvproot'
-alias cdvproot='cd $VIM_PROJECT_ROOT'
-
-alias cpp-system-include-path="echo | CPATH='' clang -x c++ -v -fsyntax-only - |& grep '^ /' | sed 's:^ ::g'"
-
 alias mk='mkcd'
 alias mkdircd='mkcd'
 function mkcd() {
@@ -698,9 +689,6 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
-alias lcd='cd -P'
-
-# history
 alias history='history 1'
 function history_ranking() {
   builtin history -n 1 | grep -e "^[^#]" | awk '{ print $1 }' | LANG=C sort | uniq -c | LANG=C sort
