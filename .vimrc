@@ -51,7 +51,7 @@ endif
 
 runtime! config/init/*.vim
 
-let s:cwd = getcwd()
+" let s:cwd = getcwd()
 
 if $VIM_FAST_MODE == '' || $VIM_FAST_MODE == 'off' || v:version < 800
   runtime! config/package_manager/*.vim
@@ -70,9 +70,9 @@ if &rtp =~ 'nvim-treesitter'
   runtime! config/nvim-treesitter/setup.vim
 endif
 
-if isdirectory(s:cwd)
-  execute('lcd ' . s:cwd)
-endif
+" if isdirectory(s:cwd)
+  " execute('lcd ' . s:cwd)
+" endif
 
 function! s:filepathjoin(a,b)
   return substitute(a:a,'/$','','').'/'.a:b
