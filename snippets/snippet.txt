@@ -562,6 +562,7 @@
 [g++ dynamic library flag] -shared -fPIC
 [g++ dynamic malloc library flag] -shared -fPIC $SRC -ldl # for correct way to manage default --as-needed option undefined symbol: dlsym
 [cpp c++11 verbose help] g++ -v --help
+[cpp system include path] echo | CPATH='' clang -x c++ -v -fsyntax-only - |& grep '^ /' | sed 's:^ ::g'
 [gcc dump command log(dry run)] g++ '-###'
 [c11] g++ -std=c++11 \%#
 [cpp c++11 compile] g++ -std=c++11 \%#
@@ -1628,6 +1629,8 @@
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree
 [decl ppid like reverse pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); [[ -z "$pid" ]] && return 1; recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t }
 [send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
+[signal list of manual(ubuntu)] man 7 signal | grep -A 31 'Standard signals'
+[signal list of manual(mac)] MANPAGER=cat man 3 signal | grep -A 40 'SIGHUP'
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
 [list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
