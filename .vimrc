@@ -3,23 +3,25 @@ let g:no_gvimrc_example=1
 let g:no_vimrc_example=1
 
 " disable loading below functions
-let g:loaded_gzip              = 1
-let g:loaded_tar               = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_zip               = 1
-let g:loaded_zipPlugin         = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_2html_plugin      = 1
-let g:loaded_vimball           = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_getscript         = 1
-let g:loaded_getscriptPlugin   = 1
-let g:did_install_default_menus = 1
+let g:loaded_2html_plugin       = 1
+let g:loaded_getscript          = 1
+let g:loaded_getscriptPlugin    = 1
+let g:loaded_gzip               = 1
+let g:loaded_man                = 1
+let g:loaded_matchit            = 1
+let g:loaded_matchparen         = 1
+let g:loaded_rrhelper           = 1
+let g:loaded_shada_plugin       = 1
+let g:loaded_tar                = 1
+let g:loaded_tarPlugin          = 1
+let g:loaded_tutor_mode_plugin  = 1
+let g:loaded_vimball            = 1
+let g:loaded_vimballPlugin      = 1
+let g:loaded_zip                = 1
+let g:loaded_zipPlugin          = 1
 let g:skip_loading_mswin        = 1
+let g:did_install_default_menus = 1
 let g:did_install_syntax_menu   = 1
-if !has('gui_running')
-  let g:loaded_matchparen = 1
-endif
 
 if has('nvim')
   set runtimepath+=~/.vim
@@ -33,17 +35,16 @@ set nobackup
 " NOTE: <Leader> must be set before use
 let mapleader = "\<Space>"
 
-" NOTE: please set colorscheme which has no support of nvim-treesitter (this value is used no nvim-treesitter)
+" NOTE: please set colorscheme which has no support of nvim-treesitter (this value must be no dependency on nvim-treesitter)
 let g:default_colorscheme = 'molokai'
 
 let g:colorscheme = 'OceanicNext'
 " let g:colorscheme = 'tokyonight'
 
-let g:plug_home=$HOME.'/.vim/plugged'
-let s:user_local_vimrc = expand('~/.local.vimrc')
+let g:plug_home         = expand('~/.vim/plugged')
+let s:user_local_vimrc  = expand('~/.local.vimrc')
 let g:vim_edit_log_path = expand('~/.vim_edit_log')
-
-let g:tempfiledir = expand('~/.vim/tmp')
+let g:tempfiledir       = expand('~/.vim/tmp')
 if !isdirectory(g:tempfiledir)
   call mkdir(g:tempfiledir, 'p')
 endif
@@ -77,20 +78,22 @@ function! s:filepathjoin(a,b)
   return substitute(a:a,'/$','','').'/'.a:b
 endfunction
 
-" load local vimrc
-if filereadable(s:user_local_vimrc)
-  execute 'source' s:user_local_vimrc
-endif
-let s:local_vimrc = s:filepathjoin(expand('%:p:h'), '.local.vimrc')
-if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc)
-  execute 'source' s:local_vimrc
-endif
-if $VIM_PROJECT_ROOT != ''
-  let s:vim_project_root_local_vimrc = s:filepathjoin($VIM_PROJECT_ROOT, '.local.vimrc')
-  if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc && filereadable(s:vim_project_root_local_vimrc)
-    execute 'source' s:vim_project_root_local_vimrc
+function! s:load_local_vimrc()
+  if filereadable(s:user_local_vimrc)
+    execute 'source' s:user_local_vimrc
   endif
-endif
+  let s:local_vimrc = s:filepathjoin(expand('%:p:h'), '.local.vimrc')
+  if s:local_vimrc != s:user_local_vimrc && filereadable(s:local_vimrc)
+    execute 'source' s:local_vimrc
+  endif
+  if $VIM_PROJECT_ROOT != ''
+    let s:vim_project_root_local_vimrc = s:filepathjoin($VIM_PROJECT_ROOT, '.local.vimrc')
+    if s:vim_project_root_local_vimrc != s:user_local_vimrc && s:vim_project_root_local_vimrc != s:local_vimrc && filereadable(s:vim_project_root_local_vimrc)
+      execute 'source' s:vim_project_root_local_vimrc
+    endif
+  endif
+endfunction
+call s:load_local_vimrc()
 
 " NOTE: before VimEnter event, tabpagenr('$') is always 1
 function! s:buffer_to_tab()
