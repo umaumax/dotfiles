@@ -55,7 +55,8 @@ endfunction
 " no plug plugin mode
 " VIM_FAST_MODE='on' vim
 if $VIM_FAST_MODE == ''
-  if &readonly || $OS == "Windows_NT"
+  " if &readonly || $OS == "Windows_NT"
+  if $OS == "Windows_NT"
     let $VIM_FAST_MODE='on'
   endif
 

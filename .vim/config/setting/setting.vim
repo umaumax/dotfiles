@@ -224,6 +224,29 @@ if exists('$TMUX')
   augroup END
 endif
 
+" NOTE: before VimEnter event, tabpagenr('$') is always 1
+function! s:buffer_to_tab()
+  let filename = expand('%')
+  let full_path = expand('%:p')
+  " skip tmp file
+  for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
+    if full_path =~ pattern
+      return
+    endif
+  endfor
+  " NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade makes new buffer which name is '[Plugins]'
+  if filename != '' && filename != '[Plugins]' && winnr('$') == 1 && bufnr('$') >= 2
+    tab sball
+    " NOTE: to kick autocmd
+    call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
+  endif
+endfunction
+
+augroup buffer_to_tab_group
+  autocmd!
+  autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
+augroup END
+
 "#### END ####
 " ################ end of setting ################
 
