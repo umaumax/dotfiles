@@ -51,6 +51,8 @@ _:
 - - install
 - - lambda
 - - line
+- - link
+- - links
 - - linker
 - - lint
 - - linter
