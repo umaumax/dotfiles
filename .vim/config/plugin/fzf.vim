@@ -489,7 +489,7 @@ endfunction
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
 command! FZFCppIncludeHeader :call FZF_cpp_include_header()
 
-function! FZF_module_header_reducer(lines)
+function! FZF_rust_module_header_reducer(lines)
   let ret=[]
   for header in a:lines
     let header = substitute(header, ' *#.*$', '', '')
@@ -500,6 +500,20 @@ function! FZF_module_header_reducer(lines)
   endif
   return join(ret, "\n")
 endfunction
+function! s:rust_curent_crates()
+  let crates=system("cargo metadata --format-version=1 --no-deps | jq -r '.packages[].name'")
+  if v:shell_error != 0
+    return []
+  endif
+  return split(crates,"\n")
+endfunction
+function! s:rust_curent_crate()
+  let crates = s:rust_curent_crates()
+  if empty(crates)
+    return ''
+  endif
+  return crates[0]
+endfunction
 function! FZF_rust_module_header(...)
   let b:fzf_rust_module_header_query=get(a:, 1, '')
 
@@ -509,11 +523,13 @@ function! FZF_rust_module_header(...)
     endif
 
     " move to top of code of use
-    let line=search('^use', 'n')-1
+    let line=search('^use \+\%\('.join(['crate'] + s:rust_curent_crates(), '\|').'\)\@!', 'n')
     if line<=0
       let line=1
     endif
     call cursor(line, '1')
+    " To prevent the fzf screen from closing the moment it opens
+    sleep 500m
   endif
 
   call feedkeys("i\<Plug>(fzf#rust_module_header)", '')
@@ -526,7 +542,7 @@ function! fzf#rust_module_header()
   let b:fzf_rust_module_header_query=''
   return fzf#vim#complete({
         \ 'source':  'cat ~/dotfiles/dict/rust/rust_modules.txt',
-        \ 'reducer': function('FZF_module_header_reducer'),
+        \ 'reducer': function('FZF_rust_module_header_reducer'),
         \ 'options': '--multi --reverse '.printf('--query="%s"', query)." --preview 'echo {}' --preview-window 'right:20%'",
         \ 'up':    '50%'})
 endfunction
