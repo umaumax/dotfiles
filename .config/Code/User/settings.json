@@ -59,6 +59,9 @@
     "editor.defaultFormatter": "matklad.rust-analyzer"
   },
   "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.server.extraEnv": {
+      "CARGO_TARGET_DIR": "target/rust-analyzer"
+  },
   "[ahk]": {
     "files.encoding": "utf8bom",
     "editor.formatOnSave": true

@@ -31,6 +31,7 @@ if v:version >= 800 && has('python3')
     let g:LanguageClient_serverCommands['go']=['gopls']
   endif
   if Doctor('rust-analyzer', 'rust lsp')
+    let $CARGO_TARGET_DIR='target/rust-analyzer'
     let g:LanguageClient_serverCommands['rust']=['rust-analyzer']
   elseif Doctor('rls', 'rust lsp')
     let g:LanguageClient_serverCommands['rust']=['rustup', 'run', 'stable', 'rls']
