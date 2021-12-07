@@ -75,7 +75,8 @@ endfunction
 " NOTE: default format command
 function! s:format_file()
   let filetype_format_command = s:toupper_first(&filetype).'Format'
-  if exists(':'.filetype_format_command)
+  let exists_full_match_retval = 2
+  if exists(':'.filetype_format_command) == exists_full_match_retval
     execute filetype_format_command
     return
   endif
