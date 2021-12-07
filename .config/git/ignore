@@ -187,6 +187,7 @@ lcov_html
 **/target/arm-*/*
 **/target/armv*/*
 **/target/aarch*/*
+**/target/rust-analyzer/*
 **/target/CACHEDIR.TAG
 # NOTE: don't use below
 # **/target/*
