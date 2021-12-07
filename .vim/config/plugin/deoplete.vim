@@ -3,6 +3,15 @@
 " [vim-hug-neovim-rpc] Vim(pythonx):Traceback (most recent call last):
 " [deoplete] [vim-hug-neovim-rpc] requires `:pythonx import neovim` command to work
 " ===> pip3 install --upgrade neovim
+
+function! s:cargo_workspace()
+  let workspace=system("dirname $(cargo locate-project | jq -r '.root') | tr -d '\n'")
+  if v:shell_error != 0
+    return '.'
+  endif
+  return workspace
+endfunction
+
 if v:version >= 800 && has('python3')
   " NOTE: this plugin has 'neovim' in name, but we can use normal vim
   " apply patch for Apple M1
@@ -31,7 +40,7 @@ if v:version >= 800 && has('python3')
     let g:LanguageClient_serverCommands['go']=['gopls']
   endif
   if Doctor('rust-analyzer', 'rust lsp')
-    let $CARGO_TARGET_DIR='target/rust-analyzer'
+    let $CARGO_TARGET_DIR=s:cargo_workspace().'/target/rust-analyzer'
     let g:LanguageClient_serverCommands['rust']=['rust-analyzer']
   elseif Doctor('rls', 'rust lsp')
     let g:LanguageClient_serverCommands['rust']=['rustup', 'run', 'stable', 'rls']
