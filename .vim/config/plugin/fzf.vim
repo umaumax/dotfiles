@@ -489,16 +489,30 @@ endfunction
 inoremap <silent><expr> <Plug>(fzf#cpp_include_header) fzf#cpp_include_header()
 command! FZFCppIncludeHeader :call FZF_cpp_include_header()
 
-function! FZF_rust_module_header_reducer(lines)
+function! FZF_rust_module_header_reducer(outputs)
+  let lines = a:outputs
+
   let ret=[]
-  for header in a:lines
+  for header in lines
     let header = substitute(header, ' *#.*$', '', '')
     let ret+=['use '.header.';']
   endfor
-  if len(ret)>1 || getline('.')!=''
-    let ret+=['']
+
+  let line = '.'
+  if stridx(getline('.'), 'use') == -1
+    let line = s:search_rust_use_insert_line()
   endif
-  return join(ret, "\n")
+
+  call append(line, ret)
+  " show popup if the insertion point is far from the current line
+  if line('.') > line + 20
+    let content = getline(1, line + len(ret) + 4)
+    let i=0
+    for i in range(line, line + len(ret))
+      let content[i] = '🦀'.content[i]
+    endfor
+    call ShowPopup('RustImport Result', content)
+  endif
 endfunction
 function! s:rust_curent_crates()
   let crates=system("cargo metadata --format-version=1 --no-deps | jq -r '.packages[].name'")
@@ -514,43 +528,29 @@ function! s:rust_curent_crate()
   endif
   return crates[0]
 endfunction
-function! FZF_rust_module_header(...)
-  let b:fzf_rust_module_header_query=get(a:, 1, '')
-
-  if stridx(getline('.'), 'use') == -1
-    if b:fzf_rust_module_header_query==''
-      let b:fzf_rust_module_header_query=expand("<cword>")
-    endif
-
-    " move to top of code of use
-    let line=search('^use \+\%\('.join(['crate'] + s:rust_curent_crates(), '\|').'\)\@!', 'n')
-    if line<=0
-      let line=1
-    endif
-    call cursor(line, '1')
-    " To prevent the fzf screen from closing the moment it opens
-    sleep 500m
+function! s:search_rust_use_insert_line()
+  let line=search('^use \+\%\('.join(['crate'] + s:rust_curent_crates(), '\|').'\)\@!', 'n')
+  if line<=0
+    let line=1
   endif
-
-  call feedkeys("i\<Plug>(fzf#rust_module_header)", '')
-  return ''
+  return line
 endfunction
+function! fzf#rust_module_header(...)
+  let query_arg=get(a:, 1, '')
 
-function! fzf#rust_module_header()
-  let b:fzf_rust_module_header_query = get(b:, 'fzf_rust_module_header_query', '')
-  let query="'".b:fzf_rust_module_header_query
-  let b:fzf_rust_module_header_query=''
-  return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/rust/rust_modules.txt',
-        \ 'reducer': function('FZF_rust_module_header_reducer'),
+  if query_arg==''
+    let query_arg=expand("<cword>")
+  endif
+  let query="'" . substitute(query_arg, '[^a-zA-Z_]', '', 'g')
+
+  silent! call fzf#run({
+        \ 'source': 'cat ~/dotfiles/dict/rust/rust_modules.txt',
+        \ 'sink*': function('FZF_rust_module_header_reducer'),
         \ 'options': '--multi --reverse '.printf('--query="%s"', query)." --preview 'echo {}' --preview-window 'right:20%'",
         \ 'up':    '50%'})
 endfunction
 
-" NOTE: call function of inoremap expr
-inoremap <silent><expr> <Plug>(fzf#rust_module_header) fzf#rust_module_header()
-command! -narg=? RustModuleHeader :call FZF_rust_module_header(<f-args>)
-command! -narg=? RustImport :call FZF_rust_module_header(<f-args>)
+command! -narg=? RustImport :call fzf#rust_module_header(<f-args>)
 
 function! FZF_ansi_color_reducer(lines)
   let ret=[]
