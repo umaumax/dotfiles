@@ -123,6 +123,8 @@
 [docker rename container] docker rename \%# # $SRC $DST # you can rename on running
 [docker log] docker logs --timestamps $CONTAINER_ID
 [docker mount dirpath] docker ps --format "{{.Names}}" | xargs -L 1 -I{} bash -c "echo {}; docker inspect -f '{{ .Mounts }}' {}"
+[docker login] docker exec -it \%# bash
+[docker login with root] docker exec -u root -it \%# bash
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
