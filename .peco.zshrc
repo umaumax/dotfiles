@@ -1248,3 +1248,18 @@ function ctest-peco() {
   fi
   printf '%s' "ctest . -V -R $test_name" | to_prompt
 }
+
+function act-job() {
+  local job_name
+  local output
+  output=$(act -l)
+  if [[ $? != 0 ]]; then
+    printf '%s' "$output"
+    return 1
+  fi
+  job_name=$(printf '%s' "$output" | fzf | grep -v '^Stage' | awk '{ print $2 }')
+  if [[ -z $job_name ]]; then
+    return
+  fi
+  printf '%s' "act -j $job_name" | to_prompt
+}
