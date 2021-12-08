@@ -13,7 +13,7 @@ changed_files=($(git diff --cached --name-only))
 
 staged_diff_tmpfile=$(mktemp)
 git diff --staged >$staged_diff_tmpfile
-GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX=${GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX:-[💀⭐🌟🔥💡]}
+GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX=${GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX:-[💀⭐🌟🔥💡❓📒📔🆖❌]}
 filtered_staged_diff_tmpfile=$(mktemp)
 cat $staged_diff_tmpfile | sed -E '/^\+.*'"${GIT_AUTO_UNSTAGE_LOCAL_COMMENT_REGEX}"'/d' >$filtered_staged_diff_tmpfile
 
