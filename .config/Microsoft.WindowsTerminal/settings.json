@@ -118,6 +118,10 @@
     { "command": { "action": "switchToTab", "index": 8 }, "keys": "alt+9" },
     { "command": { "action": "switchToTab", "index": 9 }, "keys": "alt+0" },
 
+    // Toggle windows by global short cut keys
+    { "command": { "action": "globalSummon", "monitor": "any", "name": "_home" }, "keys": "ctrl+space" },
+    { "command": { "action": "globalSummon", "monitor": "any", "name": "_work" }, "keys": "ctrl+shift+space" },
+
     // Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
     // These two lines additionally bind them to Ctrl+C and Ctrl+V.
     // To learn more about selection, visit https://aka.ms/terminal-selection
