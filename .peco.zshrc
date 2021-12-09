@@ -1250,9 +1250,12 @@ function ctest-peco() {
 }
 
 function act-job() {
+  [[ $1 =~ ^(-h|-{1,2}help)$ ]] && echo "$0 "'[event(push, pull_request, ...)]' && return 1
+
   local job_name
   local output
-  output=$(act -l)
+  local event="$1"
+  output=$(act -l $event)
   if [[ $? != 0 ]]; then
     printf '%s' "$output"
     return 1
