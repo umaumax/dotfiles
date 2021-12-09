@@ -508,14 +508,14 @@ function! FZF_rust_module_header_reducer(outputs)
   if line('.') > line + 20
     let content = getline(1, line + len(ret) + 4)
     let i=0
-    for i in range(line, line + len(ret))
-      let content[i] = '🦀'.content[i]
+    for i in range(line, line + len(ret) - 1)
+      let content[i] = content[i] . " 🦀NEW🦀"
     endfor
     call ShowPopup('RustImport Result', content)
   endif
 endfunction
 function! s:rust_curent_crates()
-  let crates=system("cargo metadata --format-version=1 --no-deps | jq -r '.packages[].name'")
+  let crates=system("cargo metadata --format-version=1 --no-deps | jq -r '.packages[].name' | sed 's/-/_/g'")
   if v:shell_error != 0
     return []
   endif
