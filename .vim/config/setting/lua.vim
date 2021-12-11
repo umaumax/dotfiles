@@ -92,6 +92,17 @@ require("indent_blankline").setup {
   },
 }
 
+require 'colorizer'.setup(
+  {
+    'html';
+    'javascript';
+    'css';
+    'vim';
+  },
+  {
+    css = true;
+  }
+)
 EOF
 
 function! ShowPopup(title, lines)

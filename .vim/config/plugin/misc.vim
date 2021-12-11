@@ -202,29 +202,13 @@ LazyPlug 'tpope/vim-abolish'
 
 Plug 'lervag/vimtex', {'for': 'tex'}
 
-" NOTE: slow
-" Plug 'lilydjwg/colorizer', {'for': ['vim', 'html', 'css', 'javascript', 'vue', 'vue.html.javascript.css', 'markdown', 'yaml']}
-" augroup unmap_colorizer
-" autocmd!
-" autocmd VimEnter * silent! nunmap <Leader>tc
-" augroup END
-" NOTE:
-" ある程度の速度だが，起動時には時間がかかる(tab移動時にはそれほど時間を消費しない)
-let filetype_list=['vim', 'html', 'css', 'javascript', 'yaml']
-" NOTE:
-" auto=1とするとTextChangedIなどにもeventが登録されてしまうため危険
-" 'terryma/vim-multiple-cursors'と同時に使用するとCPU使用率が100%ほどになる
-let g:colorizer_auto_color = 0
-" NOTE: 下記は必要ない?
-" augroup colorizer_group
-" autocmd!
-" autocmd WinEnter, BufEnter * if len(filter(filetype_list, {index,val -> val == &ft})>=1) call Colorizer#ColorWinEnter() | endif
-" augroup END
-Plug 'chrisbra/Colorizer', {'for': filetype_list, 'on':['ColorHighlight']}
-command! ColorHighlightEnable :ColorHighlight
-" NOTE: 例えば，format.vimを開くととても遅くなるためdisableしている
-" let g:colorizer_auto_filetype=join(filetype_list,',')
-let g:colorizer_disable_bufleave = 1
+" NOTE: [Support lowercase color names? · Issue #17 · norcalli/nvim-colorizer.lua]( https://github.com/norcalli/nvim-colorizer.lua/issues/17 )
+" hit Blue only not blue
+Plug 'norcalli/nvim-colorizer.lua'
+augroup nvim-colorizer_group
+  autocmd!
+  autocmd FileType html,css,javascript,vim :ColorizerAttachToBuffer
+augroup END
 
 " for ascii color code
 Plug 'vim-scripts/AnsiEsc.vim', {'on': ['AnsiEsc']}
