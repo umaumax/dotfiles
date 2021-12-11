@@ -1837,6 +1837,8 @@
 [cargo feature tree(all)] cargo tree -e features
 [cargo feature tree(sepecific)] cargo tree -e features -i $crate_name
 [rust llvm version] rustc --version --verbose
+[cargo get bin target name] cargo metadata --format-version=1 --no-deps | jq -r '.packages[].targets[] | select(.kind[0]=="bin") | .name'
+[cargo clippy for test codes] cargo clippy --tests
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
