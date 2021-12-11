@@ -61,9 +61,8 @@ command! Enhance :let $VIM_FAST_MODE='off' | source ~/.vimrc | call feedkeys("\<
 
 runtime! config/setting-start/*.vim
 runtime! config/setting/*.vim
-runtime! config/setting-end/*.vim
-
 syntax on
+runtime! config/setting-end/*.vim
 
 " if isdirectory(s:cwd)
   " execute('lcd ' . s:cwd)

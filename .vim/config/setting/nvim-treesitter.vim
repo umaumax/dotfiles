@@ -1,5 +1,5 @@
 " NOTE: this treesitter setting must be called after plug#end()
-if !&rtp =~ 'nvim-treesitter'
+if &rtp !~ 'nvim-treesitter'
   finish
 endif
 
