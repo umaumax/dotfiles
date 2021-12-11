@@ -65,11 +65,6 @@ runtime! config/setting-end/*.vim
 
 syntax on
 
-" NOTE: this treesitter setting must be called after plug#end()
-if &rtp =~ 'nvim-treesitter'
-  runtime! config/nvim-treesitter/setup.vim
-endif
-
 " if isdirectory(s:cwd)
   " execute('lcd ' . s:cwd)
 " endif
