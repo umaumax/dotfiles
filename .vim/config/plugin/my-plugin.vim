@@ -16,7 +16,7 @@ Plug 'umaumax/benchvimrc-vim', {'on': ['BenchVimrc']}
 " NOTE: indentの整形がない
 " Plug 'umaumax/vim-yaml-format', {'for':'yaml'}
 
-for command in ['cmake-format', 'jq', 'shfmt', 'autopep8', 'nasmfmt', 'gofmt', 'rustfmt', 'goenkins-format', 'align', 'prettier']
+for command in ['cmake-format', 'jq', 'shfmt', 'autopep8', 'nasmfmt', 'gofmt', 'rustfmt', 'goenkins-format', 'align', 'prettier', 'stylua']
   call Doctor(command, 'umaumax/vim-format')
 endfor
 Plug 'umaumax/vim-format'

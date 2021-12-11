@@ -25,6 +25,9 @@ cargo install evcxr_repl
 # NOTE: not working at Mac OS X
 cargo install bandwhich
 
+# NOTE: for lua formatter
+cargo install stylua
+
 # cargo install gitui --version 0.10.1 # build error
 # cargo install gitui --version 0.10.0 # build error
 cargo install gitui --version 0.9.1
