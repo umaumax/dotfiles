@@ -84,3 +84,46 @@ snippet result_error
 
 snippet anyhow_result_conv
 	.map_err(|e| anyhow::anyhow!(e))?${0}
+
+snippet Error
+abbr std::error::Error
+	std::error::Error${0}
+
+snippet box_error
+	Box<dyn std::error::Error>${0}
+
+snippet main_result
+	fn main() -> Result<(), Box<dyn std::error::Error>> {
+		${0}
+		Ok(())
+	}
+
+snippet From_impl
+	impl From<${1:#:src}> for ${2:#:dst} {
+			fn from(d: $1) -> Self {
+					Self {
+						${0}
+					}
+			}
+	}
+
+snippet Iterator_impl
+	impl Iterator for ${1} {
+			type Item = ${2};
+			fn next(&mut self) -> Option<Self::Item> {
+					${0}
+			}
+	}
+
+snippet filepath_arg
+	impl AsRef<Path>${0}
+
+snippet test_example
+	#[cfg(test)]
+	mod tests {
+			use super::*;
+
+			#[test]
+			fn test_${0}() {
+			}
+	}
