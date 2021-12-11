@@ -39,12 +39,12 @@ function! s:include_guard_vim()
         \ "endif",
         \ "let g:loaded_".s:var_name." = 1",
         \ "",
-        \ "let s:save_cpo = &cpo",
-        \ "set cpo&vim",
+        \ "let s:save_cpo = &cpoptions",
+        \ "set cpoptions&vim",
         \ ]
   let s:foot=[
-        \ "let &cpo = s:save_cpo",
-        \ "unlet s:save_cpo",
+        \ "let &cpoptions = s:save_cpoptions",
+        \ "unlet s:save_cpoptions",
         \ ]
   call s:include_guard(join(s:head+['',''],"\n"), join(['','']+s:foot,"\n"))
 endfunction
