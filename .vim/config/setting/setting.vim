@@ -226,20 +226,28 @@ endif
 
 " NOTE: before VimEnter event, tabpagenr('$') is always 1
 function! s:buffer_to_tab()
-  let filename = expand('%')
+  let filename = expand('%:t')
   let full_path = expand('%:p')
+
   " skip tmp file
   for pattern in ['^/tmp/.*$', '^/var/.*$', '^/private/.*$']
     if full_path =~ pattern
       return
     endif
   endfor
+
   " NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade makes new buffer which name is '[Plugins]'
-  if filename !=# '' && filename !=# '[Plugins]' && bufnr('$') >= 2
-    tab sball
-    " NOTE: to kick autocmd
-    call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
+  if filename ==# '' || filename ==# '[Plugins]' || filename ==# 'COMMIT_EDITMSG'
+    return
   endif
+
+  if bufnr('$') <= 1
+    return
+  endif
+
+  tab sball
+  " NOTE: to kick autocmd
+  call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
 endfunction
 
 augroup buffer_to_tab_group
