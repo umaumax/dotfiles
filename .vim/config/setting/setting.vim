@@ -235,7 +235,7 @@ function! s:buffer_to_tab()
     endif
   endfor
   " NOTE: :PlugInstall or :PlugUpdate or :PlugUpgrade makes new buffer which name is '[Plugins]'
-  if filename != '' && filename != '[Plugins]' && winnr('$') == 1 && bufnr('$') >= 2
+  if filename !=# '' && filename !=# '[Plugins]' && bufnr('$') >= 2
     tab sball
     " NOTE: to kick autocmd
     call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
