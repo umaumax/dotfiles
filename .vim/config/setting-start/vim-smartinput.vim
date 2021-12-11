@@ -662,6 +662,7 @@ function! s:smartinput_define()
         \ ['+>', '=>'],
         \ ['iflet', 'if let'],
         \ ['vec', 'Vec'],
+        \ ['to_string', 'to_string'],
         \ ['string', 'String'],
         \ ['some', 'Some'],
         \ ['none', 'None'],
