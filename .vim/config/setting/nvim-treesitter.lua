@@ -35,7 +35,3 @@ require("spellsitter").setup({
 	--   internal spell_check() function
 	spellchecker = "vimfn",
 })
-
-require("lspconfig").vimls.setup({
-	on_attach = aerial.on_attach,
-})
