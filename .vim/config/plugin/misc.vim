@@ -485,6 +485,9 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'VonHeikemen/fine-cmdline.nvim'
 nnoremap <C-p> :lua require('fine-cmdline').open()<CR>
 
+Plug 'stevearc/aerial.nvim'
+command ListFunctions :AerialToggle left
+
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " else
