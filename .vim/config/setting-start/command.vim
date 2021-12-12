@@ -489,3 +489,6 @@ function! PrefixSuffixInsert(pre, suf)
   let tmp = substitute(getline("."), '\(.*\)', a:pre . '\1' . a:suf, 'g')
   call setline('.', tmp)
 endfunction
+
+" change line max characters behavior
+command! WrapToggle if &wrap==0 | set wrap | else | set nowrap | endif

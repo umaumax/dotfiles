@@ -275,3 +275,18 @@ if index(valid_colorscheme, colorscheme) < 0
   let g:colorscheme = g:default_colorscheme
 endif
 execute 'colorscheme '. g:colorscheme
+
+" NOTE: ignore yank blank string
+nnoremap <silent> dd "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+vnoremap <silent> d  "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+
+" how to use
+" 1. yank something
+" 2. store yank text by m1
+" 3. do something
+" 4. load yank text by y1
+" 5. paste yanked text
+for i in range(0,9)
+  execute "nnoremap y".i." :let @+=@".i."\<CR>:echo '[copyed to clipboard]:'.split(@+, \"\\n\")[0]\<CR>"
+  execute "nnoremap m".i." :let @".i."=@+\<CR>:echo '[copyed to @".i."]:'.split(@+, \"\\n\")[0]\<CR>"
+endfor
