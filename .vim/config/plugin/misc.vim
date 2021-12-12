@@ -67,11 +67,6 @@ Plug 'umaumax/vim-auto-fix'
 imap <C-x><C-x> <Plug>(vim-auto-fix:fix)
 nnoremap <silent> <C-x><C-x> :call vim_auto_fix#auto_fix()<CR>
 
-" Required: ctags
-" :Tlist
-Plug 'vim-scripts/taglist.vim', {'for':['c','cpp']}
-nnoremap <Space>T :Tlist<CR>
-
 " gtags
 Plug 'lighttiger2505/gtags.vim', {'for':['c','cpp']}
 " Options
@@ -97,9 +92,8 @@ endfunction
 noremap <silent> _ :call LanguageClient_textDocument_typeDefinition({'gotoCmd': 'tabnew'})<CR>
 noremap <silent> K :call DefinitionFunc()<CR>
 noremap <silent> R :call ReferencesFunc()<CR>
-" NORT: goto current file symbols
+" NOTE: goto current file symbols
 " :Gtags -f %
-" :Tlist
 noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<CR>
 command! RenameRefactor :call LanguageClient#textDocument_rename()<CR>
 
