@@ -146,24 +146,53 @@ endif
 " auto chmod +x
 Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats','javascript','ruby','perl','php']}
 
-" file manager
-" Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree', {'on':['NERDTreeToggle','NERDTree']}
-let g:NERDTreeShowHidden = 1
-" NOTE: NERDTreeでルートを変更したらchdirする
-let g:NERDTreeChDirMode = 2
-let g:NERDTreeIgnore = ['.[oa]$', '.cm[aiox]$', '.cmxa$', '.(aux|bbl|blg|dvi|log)$', '.(tgz|gz|zip)$', 'Icon' ]
-Plug 'Xuyuanp/nerdtree-git-plugin', {'on':['NERDTreeToggle','NERDTree']}
-" Require: fontforge
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" let g:NERDTreeLimitedSyntax = 1
+" Filer
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'yuki-yano/fern-preview.vim'
+let g:fern#mark_symbol                       = '.'
+let g:fern#renderer#default#collapsed_symbol = '>'
+let g:fern#renderer#default#expanded_symbol  = '+'
+let g:fern#renderer#default#leading          = ' '
+let g:fern#renderer#default#leaf_symbol      = ' '
+let g:fern#renderer#default#root_symbol      = '-'
+let g:fern#default_hidden                    = 1
+command FilerToggle :Fern . -drawer -toggle -reveal=%
+nnoremap <silent><C-e> :FilerToggle<CR>
 
-" :help NERDTree-t
-" CD: set root
-" u:up a dir
-" r,R: refresh
-let g:NERDTreeMapOpenSplit='h' " 'i'
-let g:NERDTreeMapOpenVSplit='v' " 's'
+function! s:fern_preview_width_func() abort
+  let width = min([float2nr(&columns * 0.8), &columns - winwidth('%') - 2])
+  return width
+endfunction
+function! s:fern_preview_left_func() abort
+  let left = (&columns - call(g:fern_preview_window_calculator.width, []))
+  return left
+endfunction
+let g:fern_preview_window_calculator=
+      \ {
+        \ 'width': function('s:fern_preview_width_func'),
+        \ 'left':  function('s:fern_preview_left_func'),
+        \ }
+
+" t: open by tab
+" y: yank file path
+function! s:fern_setup()
+  echom 'setup called'
+  nmap <buffer> b <Plug>(fern-action-leave)
+  nmap <buffer> <S-left> <Plug>(fern-action-leave)
+  execute 'nmap <buffer> < <Plug>(fern-action-leave)'
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:auto:toggle)
+  if exists(':IndentBlanklineDisable') == 2
+    :IndentBlanklineDisable
+  endif
+  nmap <buffer> y <Plug>(fern-action-yank) | :echom @+
+endfunction
+
+augroup fern_group
+  autocmd!
+  autocmd FileType fern :call s:fern_setup()
+augroup END
 
 " set lines of words on cursor
 " NOTE: don't use lazy load to avoid below error

@@ -1044,65 +1044,6 @@ function! MultipleInsersion(next_key)
   endif
 endfunction
 
-" NOTE: no arg  : just exec :NERDTreeCWD
-" NOTE: with arg: exec :NERDTreeCWD at specific wd
-function! NERDTreeCD(...)
-  let new_wd = get(a:, 1, '')
-  let cwd = getcwd()
-  if &rtp =~ 'nerdtree'
-    if exists(':NERDTreeCWD')
-      if haslocaldir()
-        execute 'lcd '.new_wd
-      else
-        execute 'cd '.new_wd
-      endif
-      :NERDTreeCWD
-    endif
-  endif
-  if haslocaldir()
-    execute 'lcd '.cwd
-  else
-    execute 'cd '.cwd
-  endif
-endfunction
-function! CD()
-  cd %:h
-  " NOTE: cd with nerdtree
-  call NERDTreeCD()
-endfunction
-function! LCD()
-  lcd %:h
-  " NOTE: cd with nerdtree
-  call NERDTreeCD()
-endfunction
-command! -nargs=0 CD :call CD()
-command! -nargs=0 LCD :call LCD()
-
-if &rtp =~ 'nerdtree'
-  function! NERDTreeToggleWrapper()
-    if exists(':NERDTreeCWD')
-      :NERDTreeToggle
-    else
-      " NOTE: 初回はそのファイルパスを基準に開く
-      let dirpath=expand('%:p:h')
-      :NERDTreeToggle
-      call NERDTreeCD(dirpath)
-    endif
-  endfunction
-  command! -nargs=0 NCD :call NERDTreeCD(expand('%:p:h'))
-  nnoremap <silent><C-e> :call NERDTreeToggleWrapper()<CR>
-endif
-
-" up dir
-command! U lcd ..
-command! Up lcd ..
-command! CDU cd ..
-command! LCDU lcd ..
-command! CDFile cd %:h
-command! LCDFile lcd %:h
-command! CDGitRoot  execute "cd  ".system("git rev-parse --show-toplevel")
-command! LCDGitRoot execute "lcd ".system("git rev-parse --show-toplevel")
-
 " auto comment off
 " augroup auto_comment_off
 " autocmd!
