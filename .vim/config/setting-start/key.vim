@@ -11,6 +11,9 @@ nnoremap <Leader>p %
 
 " disable <C-@>
 inoremap <C-@> <C-[>
+" NOTE: disable dangerous exit commands
+nnoremap ZZ <nop>
+nnoremap ZQ <nop>
 
 " NOTE: esc by jj
 " inoremap <expr> j  getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
@@ -157,10 +160,6 @@ cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
 cnoremap <C-k> <Up>
 cnoremap <C-j> <Down>
-
-" NOTE: disable dangerous exit commands
-nnoremap ZZ <nop>
-nnoremap ZQ <nop>
 
 " NOTE: dやc始まりだと，カーソル下の字が消去されない
 " mainly for cpp
@@ -333,11 +332,6 @@ nnoremap <silent> <Space>l :<C-u>setlocal relativenumber!<CR>
 " toggle AnsiView
 " nnoremap <Space>a :AnsiEsc<CR>
 
-" nnoremap { <PageUp>
-" nnoremap } <PageDown>
-" nnoremap [ <PageUp>
-" nnoremap ] <PageDown>
-
 " ##############
 " #### mark ####
 
@@ -467,10 +461,6 @@ endfunction
 vnoremap v y
 vnoremap <silent> V :<C-u>call <SID>V()<CR>
 
-" delete all lines at buffer without copy
-" don't add <silent>
-command! -nargs=0 Delete normal! ggVG"_x
-
 " NOTE: ubuntu16.04 gx binding doesn't work well with unclear reason
 function! OpenURL(...)
   let url=get(a:, 1, matchstr(getline("."), '\(http\(s\)\?://[^ ]\+\)', 0))
@@ -494,27 +484,7 @@ endfunction
 " autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
 " augroup END
 nnoremap <silent> gx :call OpenURL()<CR>
-
-function! s:yank_pwd()
-  let @+ = '.' " default value
-  let @+ = expand('%:p:h')
-endfunction
-" nnoremap wd :call <SID>yank_pwd()<CR>
-command! WorkingDirectory call <SID>yank_pwd()
 " ##############
-
-" vim tab control
-" nnoremap ? :tabnew<CR>
-" nnoremap > :tabn<CR>
-" nnoremap < :tabp<CR>
-
-" vim window control
-" :sp 水平分割
-" :vs 垂直分割
-" :e <tab>
-
-" copy current buffer lines
-command! -nargs=0 CopyAll :%y
 
 " <Nul> means <C-Space>
 " [vim のkeymapでCtrl-Spaceが設定できなかったので調べてみた。 - dgdgの日記]( http://d.hatena.ne.jp/dgdg/20080109/1199891258 )
@@ -582,7 +552,6 @@ endfunction
 
 " for auto quit vimconsole
 " function! s:get_window_n()
-  " let wn=0
   " let save_winnr = winnr()
   " windo let wn+=1
   " exe save_winnr. 'wincmd w'
@@ -926,6 +895,11 @@ command! CopyFilePathNR :FilePathNR
 command! CopyFilePathGit :FilePathGit
 command! CopyDirPath    :DirPath
 command! CopyDirName    :DirName
+" copy current buffer lines
+command! -nargs=0 CopyAll :%y
+" delete all lines at buffer without copy
+" don't add <silent>
+command! -nargs=0 Delete normal! ggVG"_x
 
 " 左回り
 vnoremap <silent> <C-g> o<Right>"zd<Left>"zPgvo<Left>o
@@ -1128,3 +1102,4 @@ nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
 " nnoremap <silent> p p`]
 
 nnoremap ; :
+vnoremap ; :
