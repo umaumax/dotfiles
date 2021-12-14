@@ -270,7 +270,8 @@ Plug 'dhruvasagar/vim-table-mode', {'for': 'markdown'}
 " For Markdown-compatible tables use
 let g:table_mode_corner="|"
 
-Plug 'elzr/vim-json', {'for': 'json'}
+" Plug 'elzr/vim-json', {'for': 'json'}
+" let g:vim_json_syntax_conceal = 0
 
 let g:airline_extensions = []
 LazyPlug 'vim-airline/vim-airline'
