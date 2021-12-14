@@ -140,6 +140,7 @@ brew install --cask google-japanese-ime
 brew install --cask karabiner-elements
 brew install --cask sublime-text
 brew install --cask hammerspoon
+brew install --cask rectangle
 brew install --cask xquartz
 brew install --cask ip-in-menu-bar
 brew install --cask alt-tab
