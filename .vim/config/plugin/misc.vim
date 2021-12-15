@@ -256,6 +256,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'godlygeek/tabular', {'for': 'markdown', 'on':['TableFormat']} " The tabular plugin must come before vim-markdown.
 command! -nargs=0 TF :TableFormat
 
+" By using tree-sitter, the code block syntax highlight does not work well.
 " NOTE: indentがたまにおかしい
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 " FYI: https://github.com/plasticboy/vim-markdown/blob/be5e60fa2d85fec3b585411844846678a775a5d3/ftplugin/markdown.vim#L663
@@ -277,7 +278,7 @@ let g:airline_extensions = []
 LazyPlug 'vim-airline/vim-airline'
 " NOTE: default settings
 " [vim\-airline/init\.vim at 59f3669a42728406da6d1b948608cae120d1453f · vim\-airline/vim\-airline · GitHub]( https://github.com/vim-airline/vim-airline/blob/59f3669a42728406da6d1b948608cae120d1453f/autoload/airline/init.vim#L165 )
-function! AirlineInit()
+function! s:airlineInit()
   let spc = g:airline_symbols.space
   " NOTE: condition: $HOME doesn't include regex
   let g:airline_section_c = airline#section#create(["%{substitute(getcwd(),$HOME,'~','')}", ' ', 'file', spc, 'readonly'])
@@ -289,7 +290,7 @@ function! AirlineInit()
 endfunction
 augroup vim-airline_group
   autocmd!
-  autocmd User AirlineAfterInit call AirlineInit()
+  autocmd User AirlineAfterInit call s:airlineInit()
 augroup END
 
 " required nvim-treesitter
@@ -376,13 +377,11 @@ let g:easy_align_delimiters = {
 " NOTE: nvim-treesitter can not highlight log file
 Plug 'mtdl9/vim-log-highlighting', {'for':'log'}
 
-" NOTE: vim-open-googletranslate requires open-browser
-Plug 'tyru/open-browser.vim', {'on':'OpenGoogleTranslate'}
-Plug 'umaumax/vim-open-googletranslate', {'on':'OpenGoogleTranslate'}
-
-" only for :PlugInstall
+" Since below plugins are used only git commit time, I listed them so that they can be installed with :PlugInstall.
 Plug 'rhysd/committia.vim', {'on':[]}
 Plug 'hotwatermorning/auto-git-diff', {'on':[]}
+" NOTE: for install only (below libraries are enable other script)
+Plug 'umaumax/neoman.vim', {'on':[]}
 
 " NOTE: sudo write for Neovim
 " :w suda://%
@@ -400,9 +399,6 @@ let g:DiffColors = 100 " all colors defined in highlight option in dynamic rando
 
 " run :RainbowDelim command when the cursor is just on delim char
 Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
-
-" NOTE: for install only (below libraries are enable other script)
-Plug 'umaumax/neoman.vim', {'on':[]}
 
 " NOTE: interactive renamer at directory
 Plug 'qpkorr/vim-renamer', {'on':'Renamer'}
