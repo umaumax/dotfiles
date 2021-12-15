@@ -211,6 +211,7 @@
 # FYI: [git stash \- Stashing only staged changes in git \- is it possible? \- Stack Overflow]( https://stackoverflow.com/questions/14759748/stashing-only-staged-changes-in-git-is-it-possible )
 [git stash staged] git-stash-staged
 [git stash not staged(unstaged)] git-stash-unstaged
+[git stash without user infomation] git -c user.name=test -c user.email=test@example.com stash
 [git clear staged file change] git -C $(git rev-parse --show-toplevel) apply <(git diff --staged -R) && git reset HEAD
 [git clear unstaged file change] git -C $(git rev-parse --show-toplevel) apply <(git diff -R)
 [git stash with name] git stash save "\%#"
