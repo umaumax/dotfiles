@@ -390,8 +390,6 @@ command! EnableDeoplete :call deoplete#enable()
 
 function! s:git_url(...)
   let opt_arg = get(a:, 1, {})
-  " TODO: add arg to select target
-  " TODO: enable this function even if current working directory is out of git repo dir
   let opt_cmd=''
   if has_key(opt_arg, 'branch')
     let opt_cmd='--branch ' . opt_arg['branch']
@@ -400,8 +398,8 @@ function! s:git_url(...)
   let url=system(cmd)
   return url
 endfunction
-command! GitURL :let @+ = s:git_url() | echo '[COPY!]: ' . @+
-command! GitURLMaster :let @+ = s:git_url({'branch':'master'}) | echo '[COPY!]: ' . @+
+command! -nargs=* GitURL :let @+ = s:git_url({'branch': <q-args>}) | echo '[COPY!]: ' . @+
+command!    GitURLMaster :let @+ = s:git_url({'branch': 'master'}) | echo '[COPY!]: ' . @+
 
 function! s:git_open()
   call OpenURL(s:git_url())
