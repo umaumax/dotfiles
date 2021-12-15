@@ -84,6 +84,9 @@ end
 # NOTE: load $PWD/.gdbinit
 set auto-load local-gdbinit
 
+# for Max OS 10.12 (Sierra) or later with SIP
+# set startup-with-shell off
+
 # WARN: ./stdlib is extra directory (no existence)
 # I don't know why libc6-dbg has extra `../` (e.g. ../sysdeps/posix/signal.c)
 # maybe for `apt-get source libc6`
