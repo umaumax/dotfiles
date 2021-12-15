@@ -480,6 +480,8 @@ let g:vsession_use_fzf = 1
 let g:splitjoin_join_mapping = ''
 LazyPlug 'AndrewRadev/splitjoin.vim'
 
+Plug 'rbtnn/vim-vimscript_indentexpr'
+
 " select line by visual mode twice by :Linediff
 Plug 'AndrewRadev/linediff.vim', {'on':['Linediff','LinediffReset']}
 
