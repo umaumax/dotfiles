@@ -518,54 +518,54 @@ function! s:close(force)
     " NOTE: auto close LC popup window
     let save_winnr = winnr()
     windo if l:flag=='' && (@% == '__LanguageClient__') | let l:flag=&bt | let l:w=winnr() | endif
-  exe save_winnr. 'wincmd w'
+    exe save_winnr. 'wincmd w'
+    if l:flag!=''
+      exe l:w.'wincmd c'
+    endif
+    let l:flag=''
+    let save_winnr = winnr()
+    windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile' || (&bt == 'terminal' && &ft == 'deol'))  | let l:flag=&bt | let l:w=winnr() | endif
+    exe save_winnr. 'wincmd w'
+  endif
   if l:flag!=''
-    exe l:w.'wincmd c'
-  endif
-  let l:flag=''
-  let save_winnr = winnr()
-  windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile' || (&bt == 'terminal' && &ft == 'deol'))  | let l:flag=&bt | let l:w=winnr() | endif
-exe save_winnr. 'wincmd w'
-endif
-if l:flag!=''
-  if l:flag=='quickfix'
-    ccl
-  elseif l:flag=='nofile' || l:flag == 'terminal'
-    exe l:w.'wincmd c'
+    if l:flag=='quickfix'
+      ccl
+    elseif l:flag=='nofile' || l:flag == 'terminal'
+      exe l:w.'wincmd c'
+    else
+      echom 'unknown flag: "'.l:flag.'"'
+    endif
   else
-    echom 'unknown flag: "'.l:flag.'"'
+    if a:force
+      q!
+    else
+      try
+        q
+      catch
+        echohl ErrorMsg
+        echomsg v:exception
+        echohl None
+      endtry
+    endif
   endif
-else
-  if a:force
-    q!
-  else
-    try
-      q
-    catch
-      echohl ErrorMsg
-      echomsg v:exception
-      echohl None
-    endtry
-  endif
-endif
 endfunction
 
 " for auto quit vimconsole
 " function! s:get_window_n()
-  " let save_winnr = winnr()
-  " windo let wn+=1
-  " exe save_winnr. 'wincmd w'
-  " return wn
+" let save_winnr = winnr()
+" windo let wn+=1
+" exe save_winnr. 'wincmd w'
+" return wn
 " endfunction
 " function! s:last_window_event()
-  " if &ft == 'vimconsole'
-    " q
-  " endif
+" if &ft == 'vimconsole'
+" q
+" endif
 " endfunction
 " augroup auto_window_quit
-  " autocmd!
-  " " NOTE: below silent! is for 'Not allowed to edit another buffer now'
-  " autocmd WinEnter,BufWinEnter,BufEnter * silent! if s:get_window_n() == 1 | call s:last_window_event() | endif
+" autocmd!
+" " NOTE: below silent! is for 'Not allowed to edit another buffer now'
+" autocmd WinEnter,BufWinEnter,BufEnter * silent! if s:get_window_n() == 1 | call s:last_window_event() | endif
 " augroup END
 
 " save and quit

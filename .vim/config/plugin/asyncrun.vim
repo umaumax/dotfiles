@@ -4,7 +4,7 @@ function! s:goto_quickfix_top()
   let save_winnr = winnr()
   " `normal gg`は`|`で使用不可?
   windo if &bt=='quickfix' | call cursor(1,1) | endif
-exe save_winnr. 'wincmd w'
+  exe save_winnr. 'wincmd w'
 endfunction
 augroup auto_async_quickfix_open
   autocmd!

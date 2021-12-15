@@ -65,7 +65,7 @@ syntax on
 runtime! config/setting-end/*.vim
 
 " if isdirectory(s:cwd)
-  " execute('lcd ' . s:cwd)
+" execute('lcd ' . s:cwd)
 " endif
 
 function! s:filepathjoin(a,b)
