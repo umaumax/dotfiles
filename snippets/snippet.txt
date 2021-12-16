@@ -336,6 +336,7 @@
 [git patch] cd $(git rev-parse --show-toplevel) && patch -p1
 [git diff for patch command] git diff $FILE\%# > p1.patch # cat p1.patch | patch -p1
 
+[git merge dry-run] git merge --no-commit --no-ff 
 [git search commit from derived branch] git show-branch --merge-base master\%# HEAD
 [git branch diff from derived branch] git diff $(git show-branch --merge-base master\%# HEAD) HEAD
 
