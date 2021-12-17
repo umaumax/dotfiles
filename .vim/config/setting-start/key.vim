@@ -15,9 +15,6 @@ inoremap <C-@> <C-[>
 nnoremap ZZ <nop>
 nnoremap ZQ <nop>
 
-" NOTE: esc by jj
-" inoremap <expr> j  getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
-
 nnoremap <leader>r :redraw!<CR>
 command! -nargs=0 Redraw :redraw!
 
@@ -298,28 +295,27 @@ nnoremap <C-j> <Down>
 nnoremap <C-k> <Up>
 nnoremap <C-l> <Right>
 
-" undo: カーソル位置調整
-function! s:U()
+function! s:undo()
   let view = winsaveview()
   normal! u
-  " NOTE: カーソルが先頭まで飛ぶ場合のほとんどはauto formatによるもの
+  " NOTE: restore cursor jump automatically
   if col('.')==1 && line('.')==1
     silent call winrestview(view)
   endif
 endfunction
-nnoremap <silent> u :call <SID>U()<CR>
-inoremap <silent> <C-u> <C-o>:call <SID>U()<CR>
-" redo: カーソル位置調整
-function! s:C_R()
+nnoremap <silent> u :call <SID>undo()<CR>
+inoremap <silent> <C-u> <C-o>:call <SID>undo()<CR>
+
+function! s:redo()
   let view = winsaveview()
   execute "normal! \<C-r>"
-  " NOTE: カーソルが先頭まで飛ぶ場合のほとんどはauto formatによるもの
+  " NOTE: restore cursor jump automatically
   if col('.')==1 && line('.')==1
     silent call winrestview(view)
   endif
 endfunction
-nnoremap <silent> <C-r> :call <SID>C_R()<CR>
-inoremap <silent> <C-r> <C-o>:call <SID>C_R()<CR>
+nnoremap <silent> <C-r> :call <SID>redo()<CR>
+inoremap <silent> <C-r> <C-o>:call <SID>redo()<CR>
 
 inoremap <C-x>e <ESC>
 inoremap <C-x><C-e> <ESC>
@@ -331,9 +327,6 @@ inoremap <C-z> <ESC><C-z>
 nnoremap <silent> <Space>l :<C-u>setlocal relativenumber!<CR>
 " toggle AnsiView
 " nnoremap <Space>a :AnsiEsc<CR>
-
-" ##############
-" #### mark ####
 
 " define shortcut key of going to mark position
 for key in split("^(){}[]<>.'\"", '\zs')
@@ -353,8 +346,6 @@ nnoremap mc d's
 nnoremap MM M
 " goto any marks[a~zA~Z]
 nnoremap M '
-" #### mark ####
-" ##############
 
 " no yank by x or s
 nnoremap x "_x
@@ -484,7 +475,6 @@ endfunction
 " autocmd BufReadPost * nnoremap <buffer> gx :call OpenURL()<CR>
 " augroup END
 nnoremap <silent> gx :call OpenURL()<CR>
-" ##############
 
 " <Nul> means <C-Space>
 " [vim のkeymapでCtrl-Spaceが設定できなかったので調べてみた。 - dgdgの日記]( http://d.hatena.ne.jp/dgdg/20080109/1199891258 )
@@ -997,9 +987,7 @@ function! EndMacro()
 endfunction
 nnoremap <silent> q q<Esc>:call EndMacro()<CR>
 
-command! Wcmd                call feedkeys("q:", "n")
 command! CmdlineWindow       call feedkeys("q:", "n")
-command! Wsearch             call feedkeys("q/", "n")
 command! SearchCmdlineWindow call feedkeys("q/", "n")
 " FYI: open cmdline window
 cnoremap <silent> <C-g> <C-f>
@@ -1103,3 +1091,18 @@ nnoremap <silent> t<Down> :call IndentSensitiveNext()<CR>
 
 nnoremap ; :
 vnoremap ; :
+
+" NOTE: ignore yank blank string
+nnoremap <silent> dd "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+vnoremap <silent> d  "zdd:if split(@z,"\n")!=[] \| let @+=@z \| endif<CR>
+
+" how to use
+" 1. yank something
+" 2. store yank text by m1
+" 3. do something
+" 4. load yank text by y1
+" 5. paste yanked text
+for i in range(0,9)
+  execute "nnoremap y".i." :let @+=@".i."\<CR>:echo '[copyed to clipboard]:'.split(@+, \"\\n\")[0]\<CR>"
+  execute "nnoremap m".i." :let @".i."=@+\<CR>:echo '[copyed to @".i."]:'.split(@+, \"\\n\")[0]\<CR>"
+endfor
