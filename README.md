@@ -12,6 +12,7 @@ git clone --recursive https://github.com/umaumax/dotfiles.git "$HOME/dotfiles"
 git submodule update -i
 
 # for the first time
+# NOTE: create ~/.gitconfig before run below command if you want to own git config setting
 ./deploy.sh
 
 # after setup
