@@ -123,6 +123,7 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf "$DOTPATH"/.config/Code/User/snippets/* "$HOME/Library/Application Support/Code - Insiders/User/snippets/"
   if [[ -d ~/.vscode-insiders/extensions ]] && [[ ! -L ~/.vscode-insiders/extensions ]]; then
     echo 1>&2 $'\e[93m'"[!] ~/.vscode-insiders/extensions is not symbolic link"$'\e[m'
+    echo 1>&2 $'\e[93m'"I recommend that you run the following commans."$'\e[m'
     echo 1>&2 $'\e[93m'"rm -rf ~/.vscode-insiders/extensions"$'\e[m'
     echo 1>&2 $'\e[93m'"ln -s ~/.vscode/extensions ~/.vscode-insiders/extensions"$'\e[m'
   fi
