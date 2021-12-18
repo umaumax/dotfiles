@@ -28,6 +28,11 @@ let g:shebang#shebangs = {
 " NOTE: get function name by cfi#get_func_name()
 Plug 'tyru/current-func-info.vim', {'for':['c','go','vim','python','vim','sh','zsh']}
 
+" NOTE: below plugins are only for python package import command
+" NOTE: 'davidhalter/jedi-vim' has 'Pyimport',
+" but this command open module source and this plugin is incompatible with pyls completion
+Plug 'umaumax/python-imports.vim', {'for':['python'], 'on': ['PyImport']}
+
 " vim lint
 if Doctor('vint', 'Kuniwak/vint')
   Plug 'Kuniwak/vint', {'do': 'pip install vim-vint', 'for':'vim'}
@@ -79,14 +84,14 @@ function! DefinitionFunc()
     return
   endif
   " Show definetion of function cousor word on quickfix
-  exe("Gtags ".expand('<cword>'))
+  exe('Gtags '.expand('<cword>'))
 endfunction
 function! ReferencesFunc()
   if &rtp =~ 'LanguageClient-neovim' && !empty(LanguageClient_runSync('LanguageClient#textDocument_references', {'handle': v:true,'gotoCmd': 'tabnew'}))
     return
   endif
   " Show reference of cousor word on quickfix
-  exe("Gtags -r ".expand('<cword>'))
+  exe('Gtags -r '.expand('<cword>'))
 endfunction
 
 noremap <silent> _ :call LanguageClient_textDocument_typeDefinition({'gotoCmd': 'tabnew'})<CR>
@@ -109,7 +114,46 @@ Plug 'lyuts/vim-rtags', {'for':['c','cpp']}
 " Vista!!
 " LazyPlug 'liuchengxu/vista.vim'
 
-" ---- tags ----
+if Doctor('clang-rename', 'uplus/vim-clang-rename')
+  " WARN: 実際に使用する場合には，対象ファイルをopenしてから編集してはならない
+  " WARN: errorが発生してもlogにはでてこない
+  "
+  " NOTE: you can use below commands
+  " :ClangRename
+  " :ClangRenameCurrent, :ClangRenameQualifiedName
+  Plug 'uplus/vim-clang-rename', {'for':['c','cpp']}
+  augroup clang_rename_group
+    autocmd!
+    autocmd FileType c,cpp nmap <buffer><silent>,lr <Plug>(clang_rename-current)
+  augroup END
+endif
+
+if Doctor('clang-format', 'rhysd/vim-clang-format')
+  " NOTE: search .clang-format or _clang-format option ON
+  let g:clang_format#detect_style_file=1
+  Plug 'rhysd/vim-clang-format', {'for': ['c','cpp']}
+  " NOTE: below style is used when no .clang-format
+  let g:clang_format#code_style = 'Google'
+  let g:clang_format#style_options = {
+        \ 'AccessModifierOffset' : -4,
+        \ 'AllowShortIfStatementsOnASingleLine' : 'true',
+        \ 'AlignConsecutiveAssignments' : 'true',
+        \ 'AlignTrailingComments' : 'true',
+        \ 'AlwaysBreakTemplateDeclarations' : 'true',
+        \ 'Standard' : 'Cpp11',
+        \ 'BreakBeforeBraces' : 'Stroustrup',
+        \ 'ColumnLimit' : 320,
+        \ 'CommentPragmas' : '^',
+        \ 'IndentWidth' : 4,
+        \ 'TabWidth' : 4,
+        \ 'ConstructorInitializerIndentWidth' : 2,
+        \ 'BreakConstructorInitializersBeforeComma' : 'true',
+        \ 'ContinuationIndentWidth' : 2,
+        \ }
+endif
+
+" complete #include header filenames
+Plug 'Shougo/neoinclude.vim', {'for': ['c','cpp']}
 
 " mark viewer
 Plug 'jeetsukumaran/vim-markology'
@@ -123,21 +167,21 @@ endif
 
 " color sheme
 " NOTE: if文を使用していると，Plugで一括installができない
-if g:colorscheme == 'molokai'
+if g:colorscheme ==# 'molokai'
   LazyPlug 'tomasr/molokai'
   if !isdirectory(expand('~/.vim/colors'))
-    call mkdir(expand('~/.vim/colors'), "p")
+    call mkdir(expand('~/.vim/colors'), 'p')
   endif
   if !filereadable(expand('~/.vim/colors/molokai.vim'))
     call system('ln -s ~/.vim/plugged/molokai/colors/molokai.vim ~/.vim/colors/molokai.vim')
   endif
-elseif g:colorscheme == 'moonfly'
+elseif g:colorscheme ==# 'moonfly'
   LazyPlug 'bluz71/vim-moonfly-colors'
-elseif g:colorscheme == 'tender'
+elseif g:colorscheme ==# 'tender'
   LazyPlug 'jacoborus/tender.vim'
 endif
 
-" auto chmod +x
+" run chmod +x current file automatically
 Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats','javascript','ruby','perl','php']}
 
 " Filer
@@ -165,9 +209,9 @@ function! s:fern_preview_left_func() abort
 endfunction
 let g:fern_preview_window_calculator=
       \ {
-        \ 'width': function('s:fern_preview_width_func'),
-        \ 'left':  function('s:fern_preview_left_func'),
-        \ }
+      \ 'width': function('s:fern_preview_width_func'),
+      \ 'left':  function('s:fern_preview_left_func'),
+      \ }
 
 " t: open by tab
 " y: yank file path

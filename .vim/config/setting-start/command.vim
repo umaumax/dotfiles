@@ -490,3 +490,29 @@ endfunction
 
 " change line max characters behavior
 command! WrapToggle if &wrap==0 | set wrap | else | set nowrap | endif
+
+" Ctrl-X,Ctrl-U
+set completefunc=GoogleComplete
+function! GoogleComplete(findstart, base)
+  if a:findstart
+    let line = getline('.')
+    let start = col('.') - 1
+    while start > 0 && line[start - 1] =~# '\S'
+      let start -= 1
+    endwhile
+    return start
+  endif
+
+  let query=a:base
+  let result=['']
+  if empty(query)
+    let query=expand('<cword>')
+  endif
+
+  if !empty(query)
+    let result_lines = system('curl -s -G --data-urlencode "q=' . query . '" "http://suggestqueries.google.com/complete/search?&client=firefox&hl=en&ie=utf8&oe=utf8" | jq -r ".[1][]"')
+    let result = split(result_lines, "\n")
+  endif
+  return result
+endfunction
+command! -nargs=? GoogleComplete echo GoogleComplete(0, <q-args>)

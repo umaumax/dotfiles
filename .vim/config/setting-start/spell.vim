@@ -1,4 +1,3 @@
-" #### spell check ####
 " [Vim のスペルチェッカ早わかり - Alone Like a Rhinoceros Horn]( http://d.hatena.ne.jp/h1mesuke/20100803/p1 )
 " ]s : next (zn)
 " [s : back (zN)
@@ -9,7 +8,7 @@
 " f:fix
 nnoremap zf z=
 set spelllang=en,cjk
-" set spell
+
 " [Vimのスペルチェックのハイライトを止めて下線だけにする方法 - ジャバ・ザ・ハットリの日記]( http://tango-ruby.hatenablog.com/entry/2015/09/04/175729 )
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=9

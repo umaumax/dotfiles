@@ -15,7 +15,8 @@ let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 
-let g:ale_linters = {
+let g:ale_linters =
+      \ {
       \   'awk': ['gawk'],
       \   'python': ['pylint', 'autopep8', 'flake8'],
       \   'json': ['jsonlint'],
@@ -29,7 +30,7 @@ let g:ale_linters = {
       \   'make': ['checkmake'],
       \   'docker': ['hadolint'],
       \   'yaml': [],
-      \}
+      \ }
 " NOTE: doesn't fit for me
 " 'yaml': ['yamllint'],
 " NOTE: maybe cause little spped down
