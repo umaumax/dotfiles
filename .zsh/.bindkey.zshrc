@@ -107,11 +107,17 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
     for hist_no in $(printf '%s' "$output" | grep -o '^[ 0-9]*' | grep -o '[0-9]*'); do
       _AUTO_PROMPT_LIST_RAW_CMD=($_AUTO_PROMPT_LIST_RAW_CMD "${history[$hist_no]}")
     done
+
+    get_cursor_pos | read -r rows cols
+    local lbuffer_length=${#LBUFFER}
+    local comp_list_indent=$((cols - lbuffer_length - 3))
+
     export _AUTO_PROMPT_LIST_WITH_COLOR=$(
       {
-        echo -e "${GRAY}[history]${DEFAULT}"
+        # echo -e "${GRAY}[history]${DEFAULT}"
         # NOTE: grep is to late, ag is faster than grep
-        printf '%s' "$output" | sed -E 's/^[ 0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" green | command cat -n
+        printf '%s' "$output" | sed -E 's/^[ 0-9]+[\* ][ ]//' | cgrep '(^.*$)' 8 | cgrep -F "$keyword" 'magenta+hu' \
+          | awk '{printf "%'"${comp_list_indent}"'d: %s\n", NR, $0}'
       }
     )
   }

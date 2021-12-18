@@ -1826,6 +1826,16 @@ function remove_terminal_extra_string_from_clipboard() {
   p | remove_terminal_extra_string | p2c
 }
 
+# e.g. get_cursor_pos | read -r cols rows
+function get_cursor_pos() {
+  echo -ne "\033[6n" >/dev/tty
+  read -t 1 -s -d 'R' line </dev/tty
+  local rows="${line##*\[}"
+  local rows="${rows%;*}"
+  local cols="${line##*;}"
+  echo "$rows" "$cols"
+}
+
 function set-dirname-title() {
   local title=$(echo $PWD | sed -E "s:^.+/::g")
   echo -en '\e]0;'"$title"'\a'
