@@ -49,9 +49,6 @@ alias oldls='lsold'
 alias new='lsnew'
 alias old='lsold'
 
-alias 2l='tree -L 2'
-alias l2='tree -L 2'
-
 # NOTE: ls abspath
 # -d: only directory
 # -f: only file
@@ -158,52 +155,10 @@ cmdcheck 'cmake' && function cmake-clean() {
 
 alias basedirname='basename $PWD'
 
-alias find-time-sort='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -altr'
-alias find-time-sortr='find . -not -iwholename "*/.git/*" -type f -print0 | xargs -0 ls -alt'
-alias find-dotfiles='find . -name ".*" -not -name ".git" | sed "s:\./\|^\.$::g" | grep .'
-
-alias find-orig-files="find . -name '*.orig'"
-alias find-orig-files-and-delete="find . -name '*.orig' -delete"
-
-function find-rename-pipe() {
-  # if ! type >/dev/null 2>&1 rename; then
-  # echo 1>&2 'Not found rename command!'
-  # return 1
-  # fi
-  # if ! type >/dev/null 2>&1 tac; then
-  # echo 1>&2 'Not found tac command!'
-  # return 1
-  # fi
-  if [[ $# -lt 1 ]]; then
-    echo "
-$(basename $0) <rename sed pattern>
-# e.g.
-find . | $(basename $0) 's///g'
-{ git ls-files | sed -e '/^[^\/]*$/d' -e 's/\/[^\/]*$//g' | sort | uniq; git ls-files } | $(basename $0) 's///g'
-"
-    return 1
-  fi
-  local rename_pattern="$1"
-  local mv_cmds=(mv)
-  [[ -n $FIND_RENAME_GIT_MV_CMD ]] && mv_cmds=(git mv)
-  # NOTE: rename command version: find . -name "*test*" | tac | xargs -L 1 -I{} rename -v 's:^(.*/)test([^/]*)$:$1XXXXXXXX$2:' '{}'
-  # NOTE: tacを噛ませる意味として，先に深い階層のファイルのbasenameを置換する，その後，ディレクトリのbasenameを置換するということをファイルのリストアップを終了してから行うため
-  # NOTE: findの代わりに幅優先探索のbfsでも特に問題ない
-  LANG=C sort -r | uniq | while IFS= read -r target_path || [[ -n "$target_path" ]]; do
-    local dirpath=$(dirname "$target_path")
-    local target_name=$(basename "$target_path")
-    local new_target_name=$(printf '%s' "$target_name" | sed -E "$rename_pattern")
-    if [[ "$target_name" != "$new_target_name" ]]; then
-      "${mv_cmds[@]}" -v "$dirpath/$target_name" "$dirpath/$new_target_name" || return
-    fi
-  done
-}
-
 alias uniq-without-sort='awk "!a[\$0]++"'
 
 alias vars='typeset'
 
-# cd
 alias home='cd ~'
 alias dl='cd ~/Downloads/'
 alias downloads='cd ~/Downloads/'
@@ -275,7 +230,6 @@ fi
 cmdcheck tig && alias t='tig'
 
 alias mk='mkcd'
-alias mkdircd='mkcd'
 function mkcd() {
   if [[ $# -le 0 ]]; then
     echo "${RED} $0 [directory path]${DEFAULT}" 1>&2
@@ -303,7 +257,6 @@ alias 2u='uu'
 alias 3u='uuu'
 alias 4u='uuuu'
 alias 5u='uuuuu'
-
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
@@ -320,6 +273,7 @@ alias envgrep='env | grep'
 # 年号コマンド
 alias era='echo H$(($(date +"%y") + 12)); echo R$(($(date +"%y") - 18))'
 
+# for vim typo
 alias q!='exit'
 alias qq='exit'
 alias :q='exit'
@@ -334,55 +288,6 @@ function crontab() {
   [[ $@ =~ -[iel]*r ]] && echo "${RED}'r' NOT ALLOWED!${DEFAULT}" && return 1
   command crontab "$@"
 }
-
-# NOTE: for disable copyright output
-cmdcheck gdb && alias gdb='gdb -q' && alias sudo-gdb='sudo env PATH="$PATH" gdb -q'
-cmdcheck gdb-multiarch && alias gdb='gdb-multiarch -q' && alias sudo-gdb='sudo env PATH="$PATH" gdb-multiarch -q'
-cmdcheck rust-gdb && function rust-gdb() {
-  # FYI: [rustのgdbでのdebugでsourceを出力したかった \- 雑なメモ書き]( https://hiroyukim.hatenablog.com/entry/2019/11/29/190235 )
-  # auto apply rust substitute-path
-  local debug_src_opt=()
-  for arg in "$@"; do
-    # search target exec filepath
-    if [[ -x "$arg" ]]; then
-      local debug_src=$(strings $arg | grep -o '^/rustc/[^/]\+/' | uniq)
-      if [[ -n "$debug_src" ]]; then
-        debug_src_opt=("${debug_src_opt[@]}" --eval-command "set substitute-path $debug_src $(rustc --print=sysroot)/lib/rustlib/src/rust/")
-        break
-      fi
-    fi
-  done
-
-  local gdb_cmd="$(\where -p gdb | head -n1)"
-  cmdcheck gdb-multiarch && gdb_cmd="$(\where -p gdb-multiarch | head -n1)"
-  if [[ -z "$SUDO_GDB" ]]; then
-    # NOTE: if RUST_GDB=gdb use /usr/bin/gdb, if you want to use e.g. ~/local/bin/gdb set full path of it
-    RUST_GDB="${RUST_GDB:-$gdb_cmd}" command rust-gdb -q "$@" "${debug_src_opt[@]}"
-  else
-    sudo env PATH="$PATH" RUST_GDB="${RUST_GDB:-$gdb_cmd}" rust-gdb -q "$@" "${debug_src_opt[@]}"
-  fi
-} && alias sudo-rust-gdb='SUDO_GDB=1 rust-gdb'
-
-function go-gdb() {
-  local gdb_cmd="gdb"
-  cmdcheck gdb-multiarch && gdb_cmd='gdb-multiarch'
-
-  local GOROOT=$(go env GOROOT)
-  local GO_GDB="${GO_GDB:-$gdb_cmd}"
-
-  # NOTE: load automatically by .debug_gdb_script section
-  if [[ -z "$SUDO_GDB" ]]; then
-    ${GO_GDB} -q \
-      --directory="$GOROOT" \
-      -iex "add-auto-load-safe-path $GOROOT/src/runtime/runtime-gdb.py" \
-      "$@"
-  else
-    sudo env PATH="$PATH" ${GO_GDB} -q \
-      --directory="$GOROOT" \
-      -iex "add-auto-load-safe-path $GOROOT/src/runtime/runtime-gdb.py" \
-      "$@"
-  fi
-} && alias sudo-go-gdb='SUDO_GDB=1 go-gdb'
 
 ################
 ####  Mac   ####
@@ -620,23 +525,18 @@ function mancat() {
 }
 
 alias ascii='man ascii'
-# http servers
-alias httpserver='httpserver.python2'
-alias httpserver.python2='python -m SimpleHTTPServer'
-alias httpserver.python3='python3 -m http.server'
-alias httpserver.ruby='ruby -run -e httpd . -p 8000'
-alias httpserver.php='php -S localhost:3000'
 
-function filter_test() {
+function _filter_test() {
   [[ $# -lt 1 ]] && echo "$(basename $0) [test flag]" && return 1
   local test_flag=$1
   while read line; do
     test $test_flag $line && echo $line
   done
 }
-function filter_executable() { filter_test '-x'; }
-function filter_readable() { filter_test '-r'; }
-function filter_writable() { filter_test '-w'; }
+# e.g. ls | filter_executable
+function filter_executable() { _filter_test '-x'; }
+function filter_readable() { _filter_test '-r'; }
+function filter_writable() { _filter_test '-w'; }
 
 if cmdcheck pandoc; then
   function html2md-pandoc() {
@@ -787,220 +687,6 @@ fi
 
 # rtags daemon start
 cmdcheck rdm && alias rdmd='pgrep rdm || rdm --daemon'
-
-if cmdcheck docker; then
-  alias docker-remove-all-container='docker rm $(docker ps -aq)'
-  alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 docker rmi'
-  alias docker-stop='docker ps | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker stop'
-  alias docker-stop-all='docker stop $(docker ps -aq)'
-  alias docker-start='docker ps -a | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker start'
-  # to avoid 'the input device is not a TTY'
-  function docker-attach() {
-    local container_id=$(docker ps | peco | awk '{print $1}')
-    [[ -n $container_id ]] && docker attach $container_id
-  }
-  function docker-inspect() {
-    local container_id=$(docker ps | peco | awk '{print $1}')
-    [[ -n $container_id ]] && docker inspect $container_id
-  }
-  function docker-exec() {
-    # NOTE: sudo su with '-' cause "Session terminated, terminating shell..." message when C-c is pressed ... why?
-    # local login_shell="env zsh || env bash"
-    # NOTE: sudo suを行わない場合と比較してLANGの設定が変化する(sudo suのみでは~/.zprofileは実行されていないっぽい)
-    # local login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
-    local login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
-    [[ $1 == '--bash' ]] && local login_shell='exec bash -l'
-
-    local container_id=$(docker ps | peco | awk '{print $1}')
-    local val=$(stty size)
-    local rows=$(echo $val | cut -d ' ' -f 1)
-    local cols=$(echo $val | cut -d ' ' -f 2)
-    [[ -z $container_id ]] && return
-
-    echo "${YELLOW}[HINT]${DEFAULT}[relogin command]:"' sudo su $(whoami)'
-    docker exec -it $container_id /bin/bash -c "stty rows $rows cols $cols; eval '$login_shell'"
-  }
-  function docker-start-and-attach() {
-    local container_id=$(docker ps -a | peco | awk '{print $1}')
-    [[ -n $container_id ]] && docker start $container_id && docker attach $container_id
-  }
-  function docker-remove-container() {
-    local container_id=$(docker ps -a | peco | awk '{print $1}')
-    [[ -n $container_id ]] && { echo "$container_id" | xargs -L1 docker rm; }
-  }
-  function docker-container-id() {
-    local ret=$(docker ps | peco | awk '{print $1}')
-    [[ -n $ret ]] && CONTAINER_ID="$ret" && echo "\$CONTAINER_ID=$CONTAINER_ID"
-  }
-  alias de='docker-exec'
-  alias dexec='docker-exec'
-  alias da='docker-attach'
-  alias dattach='docker-attach'
-  alias ds='docker-start'
-  alias dsa='docker-start-and-attach'
-  alias dls='docker ps'
-  alias dlsa='docker ps -a'
-  alias did='docker-container-id'
-
-  function docker-mount() {
-    if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# -lt 3 ]]; then
-      command cat <<EOF 1>&2
-usage:
-$(basename "$0") <container_id> <host_path> <container_path>
-
-lazy mount volume to docker container
-
-e.g.
-$(basename "$0") xxxxxxxx ./ws ~/ws
-$(basename "$0") xxxxxxxx ./ws/hoge ~/ws/hoge
-EOF
-      return 1
-    fi
-
-    if ! type >/dev/null 2>&1 docker-enter; then
-      echo 1>&2 "not found docker-enter"
-      return 1
-    fi
-
-    local CONTAINER="$1"
-    local HOST_PATH="$2"
-    local CONTAINER_PATH="$3"
-
-    local RED=$'\e[31m'
-    local GREEN=$'\e[32m'
-    local YELLOW=$'\e[33m'
-    local BLUE=$'\e[34m'
-    local DEFAULT=$'\e[0m'
-    (
-      set -e
-
-      REALPATH=$(readlink --canonicalize $HOST_PATH)
-      # e.g. FILESYS=/
-      FILESYS=$(df -P $REALPATH | tail -n 1 | awk '{print $6}')
-      # below command is also ok
-      # FILESYS=$(stat --printf '%m' $REALPATH)
-
-      # for getting DEV_HOST_ROOT (e.g. /dev/sda2)
-      while read DEV_HOST_ROOT MOUNT _JUNK; do
-        [[ $MOUNT == $FILESYS ]] && break
-      done </proc/mounts
-      [[ $MOUNT == $FILESYS ]] # sanity check
-
-      # for getting SUBROOT which is mount point of $DEV_HOST_ROOT (e.g. /)
-      while read _MOUNT_ID _PARENT_MOUNT_ID _DEV_MAJOR_MINOR_NUMBER SUBROOT MOUNT _JUNK; do
-        [[ $MOUNT == $FILESYS ]] && break
-      done </proc/self/mountinfo
-      [[ $MOUNT == $FILESYS ]] # sanity check
-
-      SUBPATH=$(perl -MCwd -le '$target=shift; $prefix=shift; if ((rindex $target, $prefix, 0) == 0) { $target=substr($target, length($prefix)); } print $target' "$REALPATH" "$FILESYS")
-      # e.g. "18 12" decimal number of major device and minor device pair
-      DEVDEC=$(printf "%d %d" $(stat --format "0x%t 0x%T" $DEV_HOST_ROOT))
-
-      # use sh for no bash docker container
-      # WARN: busybox mdnod has no long option --mode
-      docker-enter $CONTAINER sh -c "[ -b $DEV_HOST_ROOT ] || mknod -m 0600 $DEV_HOST_ROOT b $DEVDEC"
-      docker-enter $CONTAINER mkdir -p /tmpmnt
-      docker-enter $CONTAINER sh -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
-      docker-enter $CONTAINER mkdir -p "$CONTAINER_PATH"
-      docker-enter $CONTAINER mount -o bind "/tmpmnt/$SUBROOT/$SUBPATH" "$CONTAINER_PATH"
-      docker-enter $CONTAINER umount /tmpmnt
-      docker-enter $CONTAINER rmdir /tmpmnt
-
-      echo "$BLUE""[✔] mount success""$DEFAULT"
-      echo "$YELLOW""HOST:""$GREEN""$HOST_PATH""$DEFAULT"" to 🐳""$YELLOW""$CONTAINER:""$GREEN""$CONTAINER_PATH""$DEFAULT"
-    ) || {
-      echo "$RED""[✗] mount failure""$DEFAULT"
-      return 1
-    }
-  }
-
-  type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
-    local container="$1"
-    if [ -z "$container" ]; then
-      echo "Usage: $0 CONTAINER [COMMAND ARGS...]"
-      echo
-      docker ps
-      return 1
-    fi
-    shift
-    if [[ $# == 0 ]]; then
-      set -- "/bin/bash"
-    fi
-    sudo nsenter -m -u -i -n -p -t "$(docker inspect --format {{.State.Pid}} "$container")" "$@"
-  }
-fi
-
-if cmdcheck tmux; then
-  alias tmux-name="tmux display-message -p '#S'"
-  alias tmux-reload-config='tmux source ~/.tmux.conf'
-  function is_in_tmux_with_message() {
-    if [[ -n "$TMUX" ]]; then
-      echo "${RED}Do not use this command in a tmux session.${DEFAULT}" 1>&2
-      return 1
-    fi
-  }
-  function is_not_in_tmux_with_message() {
-    if [[ ! -n "$TMUX" ]]; then
-      echo "${RED}Do not use this command outside of a tmux session.${DEFAULT}" 1>&2
-      return 1
-    fi
-  }
-  function tmux-resurrect-restore() {
-    tmux new-session -s '____tmux-resurrect____' \; detach-client >/dev/null 2>&1
-    # restore is ongoing at background
-  }
-  alias ta='tmux-attach'
-  alias tmuxa='tmux-attach'
-  function tmux-attach() {
-    is_in_tmux_with_message || return
-    local query=$(printf '%s' "${1:-}")
-    local output
-    output=$(tmux-ls-format) || return
-    if [[ -z $output ]]; then
-      # auto restore
-      tmux-resurrect-restore
-      echo "${PURPLE}tmux restore is ongoing at background${DEFAULT}"
-      echo "${YELLOW}retry a little later!${DEFAULT}"
-      echo "${YELLOW}maybe window name is fixed, run below command!${DEFAULT}"
-      echo "${PURPLE}tmux set automatic-rename on${DEFAULT}"
-      return 1
-    fi
-    local tag_id=$(echo $output | fzf --query=$query | cut -d : -f 1 | sed 's/ *$//')
-    [[ -n $tag_id ]] && tmux a -t $tag_id
-  }
-  alias tmuxrename='tmux-rename-session'
-  function tmux-rename-session() {
-    is_not_in_tmux_with_message || return
-    local name
-    local base_dirpath
-    name=${1:-}
-    if [[ -z $name ]]; then
-      if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        base_dirpath="$(git rev-parse --show-toplevel)"
-      else
-        base_dirpath="$(pwd)"
-      fi
-      # NOTE: /xxx/yyy/zzz -> yyy/zzz
-      name="$(basename $(dirname $base_dirpath))/$(basename $base_dirpath)"
-    fi
-    # NOTE: using '.' is forbidden at tmux session name
-    tmux rename-session "${name//./_}"
-  }
-  # FYI: [tmux のアウトプットを適当なエディタで開く \- Qiita]( https://qiita.com/acro5piano/items/0563ab6ce432dbd76e50 )
-  alias tmuxe='tmux-edit-pane'
-  function tmux-edit-pane() {
-    local tmpfile="$(mktemp "$(basename $0).$$.tmp.XXXXXX").log"
-    tmux capture-pane -pS -32768 >$tmpfile
-    tmux new-window -n:mywindow "vim $tmpfile"
-  }
-  # NOTE: return tmux pain id which has running process of given name
-  # e.g. tmux send-keys -t $(tgrep gdb) 'info' C-m
-  alias tmux-grep='tgrep'
-  function tgrep() {
-    local process_name="${1:-.}"
-    tmux list-panes -a -F '#D #{pane_pid}' | xargs -L1 bash -c '{ pgrep -l -P "$2" | grep -q '"$process_name"'; } && echo "$1"' --
-  }
-fi
 
 # NOTE: to avoid xargs no args error on ubuntu
 # [xargs で標準入力が空だったら何もしない \- Qiita]( https://qiita.com/m_doi/items/432b9145b69a0ba3132d )
@@ -1533,10 +1219,6 @@ cmdcheck tac && function clean-cdinfo() {
 alias memo='touch README.md'
 alias tmp='cd ~/tmp/'
 
-function cat-find() {
-  [[ $1 == "" ]] && echo "set file reg? e.g.) $0 '*.txt'" && return
-  find . -name "$1" -exec awk '{ if (FNR==1) print "####################\n",FILENAME,"\n####################"; print $0}' {} +
-}
 function cat-all() {
   [[ $# == 0 ]] && echo "$0 <files...>" && return
   for filepath in "$@"; do
@@ -1548,138 +1230,6 @@ function cat-all() {
     cat $filepath
   done
 }
-
-# NOTE: grepに対して任意のオプションを渡せる状態?
-function xargs-grep-0() {
-  [[ $# == 0 ]] && echo 'grep_keyword' && return
-  local keyword=(${@:1})
-  local grep_cmd='grep'
-  local color_opt='--color=auto'
-  cmdcheck fzf && color_opt='--color=always'
-  cmdcheck ggrep && local grep_cmd='ggrep'
-  # NOTE: to prevent xargs from quitting on error
-  # NOTE: e.g. symbolic link no exist error
-  xargs -0 -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -H -n \"${keyword[@]}\" {} +" '' XXX
-}
-function xargs-grep() {
-  [[ $# == 0 ]] && echo 'grep_keyword' && return
-  local keyword=(${@:1})
-  local grep_cmd='grep'
-  local color_opt='--color=auto'
-  cmdcheck fzf && color_opt='--color=always'
-  cmdcheck ggrep && local grep_cmd='ggrep'
-  # NOTE: to prevent xargs from quitting on error
-  xargs -L 1 -IXXX sh -c "find "'"$@"'" -exec $grep_cmd $color_opt -I -H -n \"${keyword[@]}\" {} +" '' XXX
-}
-# そもそもfindとgrepの引数を同時に指定すること自体がおかしいので，仕様を見直すべき
-function fgrep() {
-  [[ $# == 1 ]] && echo '[root_dir_path] grep_keyword' && return
-  local find_name="$1"
-  local root='.'
-  local keyword=(${@:2})
-  if [[ $# -ge 3 ]]; then
-    local root="$2"
-    local keyword=(${@:3})
-  fi
-  find $root -type f -name $find_name -print0 | xargs-grep-0 ${keyword[@]}
-}
-# FIX: merge below and above function
-function fgrep2() {
-  [[ $# == 2 ]] && echo '[root_dir_path] grep_keyword' && return
-  local find_name1="$1"
-  local find_name2="$2"
-  local root='.'
-  local keyword=(${@:3})
-  if [[ $# -ge 4 ]]; then
-    local root="$3"
-    local keyword=(${@:4})
-  fi
-  find $root -type f \( -name $find_name1 -o -name $find_name2 \) -print0 | xargs-grep-0 ${keyword[@]}
-}
-function findgrep() {
-  local filter_option=''
-  local default_argn="$#"
-  local end_offset=0
-  local grep_args=()
-  for arg in "$@"; do
-    if [[ $arg == "--" ]]; then
-      grep_args=(${@:1:$end_offset})
-      shift $(($end_offset + 1))
-      break
-    fi
-    ((end_offset++))
-  done
-  if [[ "$end_offset" == "$default_argn" ]]; then
-    echo 2>&1 '<find args> -- <grep args>'
-    return 1
-  fi
-  # NOTE: "$@" is args of find command
-
-  local grep_cmd='grep'
-  local color_opt='--color=auto'
-  cmdcheck fzf && color_opt='--color=always'
-  cmdcheck ggrep && local grep_cmd='ggrep'
-  find . "$@" -type f -exec $grep_cmd $color_opt -I -H -n "${grep_args[@]}" {} +
-}
-
-alias fg.vim='fgrep "*.vim"'
-[[ $(uname) == "Darwin" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc" "$HOME/vim/" \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
-[[ $(uname) == "Linux" ]] && alias fg.my.vim='find "$HOME/.vim/config/" "$HOME/.vimrc" "$HOME/.local.vimrc"              \( -type f -o -type l \) \( -name "*.vim" -o -name "*.vimrc" \) -print0 | xargs-grep-0'
-alias fg.3rd.vim='find "$HOME/.vim/plugged/" -type f -name "*.vim" -print0 | xargs-grep-0'
-alias fg.go='find "." \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
-alias fg.my.go='find $( echo $GOPATH | cut -d":" -f2) \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
-alias fg.3rd.go='find $( echo $GOPATH | cut -d":" -f1) \( -not -name "bindata_assetfs.go" -not -iwholename "*/vendor/*" \) -type f -name "*.go" -print0 | xargs-grep-0'
-alias fg.py='fgrep "*.py"'
-alias fg.sh='fgrep "*.sh"'
-alias fg.cpp='fgrep "*.c[cpx][px]"'
-alias fg.hpp='fgrep2 "*.h" "*.hpp"'
-alias fg.c='fgrep "*.c"'
-alias fg.h='fgrep "*.h"'
-alias fg.ch='fgrep "*.[ch]"'
-alias fg.cpp='fgrep2 "*.[ch][cpx][px]" "*.[ch]"'
-alias fg.md='fgrep "*.md"'
-alias fg.my.md='find "$HOME/md" -name "*.md" -print0 | xargs-grep-0'
-alias f.make='find . \( -name "[mM]akefile" -o -name "*.mk" \)'
-alias fg.make='f.make -print0 | xargs-grep-0'
-alias f.cmake='find . \( \( -name "CMakeLists.txt" -o -name "*.cmake" \) -not -iwholename "*build*" \)'
-alias fg.cmake='f.cmake -print0 | xargs-grep-0'
-alias f.readme='find . \( \( -iname readme*.txt -o -iname readme*.md -o -iname readme*.mkd \) -not -iwholename "*build*" \)'
-alias fg.readme='f.readme -print0 | xargs-grep-0'
-
-alias rf='sudo find / \( -not -iwholename "$HOME/*" -not -iwholename "/var/lib/docker/*" \)'
-alias hf='find ~'
-
-function fg.vim.pv() { local _=$(fg.vim "$@" | pecovim); }
-function fg.my.vim.pv() { local _=$(fg.my.vim "$@" | pecovim); }
-function fg.3rd.vim.pv() { local _=$(fg.3rd.vim "$@" | pecovim); }
-function fg.go.pv() { local _=$(fg.go "$@" | pecovim); }
-function fg.my.go.pv() { local _=$(fg.my.go "$@" | pecovim); }
-function fg.3rd.go.pv() { local _=$(fg.3rd.go "$@" | pecovim); }
-function fg.py.pv() { local _=$(fg.py "$@" | pecovim); }
-function fg.sh.pv() { local _=$(fg.sh "$@" | pecovim); }
-function fg.cpp.pv() { local _=$(fg.cpp "$@" | pecovim); }
-function fg.hpp.pv() { local _=$(fg.hpp "$@" | pecovim); }
-function fg.c.pv() { local _=$(fg.c "$@" | pecovim); }
-function fg.h.pv() { local _=$(fg.h "$@" | pecovim); }
-function fg.ch.pv() { local _=$(fg.ch "$@" | pecovim); }
-function fg.cpp.pv() { local _=$(fg.cpp "$@" | pecovim); }
-function fg.md.pv() { local _=$(fg.md "$@" | pecovim); }
-function fg.my.md.pv() { local _=$(fg.my.md "$@" | pecovim); }
-function f.make.pv() { local _=$(f.make "$@" | pecovim); }
-function fg.make.pv() { local _=$(fg.make "$@" | pecovim); }
-function f.cmake.pv() { local _=$(f.cmake "$@" | pecovim); }
-function fg.cmake.pv() { local _=$(fg.cmake "$@" | pecovim); }
-function f.readme.pv() { local _=$(f.readme "$@" | pecovim); }
-function fg.readme.pv() { local _=$(fg.readme "$@" | pecovim); }
-
-alias md.pv='fg.md.pv'
-alias md.my.pv='fg.my.md.pv'
-alias vim.pv='fg.vim.pv'
-alias vim.my.pv='fg.my.vim.pv'
-alias cpp.pv='fg.cpp.pv'
-alias make.pv='fg.make.pv'
-alias cmake.pv='fg.cmake.pv'
-alias readme.pv='fg.readme.pv'
 
 alias ctest='safe-colorize ctest'
 function cmake() {
@@ -1766,57 +1316,6 @@ function make() {
   fi
   return "$exit_code"
 }
-
-cmdcheck semgrep && function semgrep() {
-  local args=(${@})
-  local lang_flag=0
-  for arg in "${args[@]}"; do
-    if [[ "$arg" =~ ^(-l|--lang) ]]; then
-      lang_flag=1
-    fi
-  done
-  # auto lang detection
-  if [[ $lang_flag == 0 ]]; then
-    local lang=$(git-lang-detection)
-    args=("${args[@]}" "--lang=$lang")
-  fi
-
-  command semgrep "${args[@]}"
-}
-
-alias rvgrep="rgrep"
-function rgrep() {
-  [[ $# -lt 1 ]] && echo "$(basename $0) keyword" && return 1
-  # to expand alias
-  local _=$(viminfo-ls | sed "s:^~:$HOME:g" | xargs-grep $@ | pecovim)
-}
-
-# FYI: [find で指定のフォルダを除外するには \- それマグで！]( http://takuya-1st.hatenablog.jp/entry/2015/12/16/213246 )
-# WARN: ただの検索では除外されるが，特殊なオプションを使用する場合には無効になるので，注意
-# OK: find . -not -iwholename '*/.git/*' -ls
-# NG: find . -ls -not -iwholename '*/.git/*'
-function find() {
-  if [[ $# == 0 ]]; then
-    set -- '.'
-  fi
-  # NOTE: target is for rust
-  command find "$@" -not -iwholename '*/.git/*' -not -iwholename '*/target/rls/*' -not -iwholename '*/target/debug/*' -not -iwholename '*/target/arm-*/*'
-}
-
-# NOTE: A breadth-first version of the UNIX find command
-# FYI: [tavianator/bfs: A breadth\-first version of the UNIX find command]( https://github.com/tavianator/bfs )
-if cmdcheck bfs; then
-  alias f='bfs'
-  function bfs() {
-    # NOTE: bfsはoptionの順番は問わないので，こちらのほうが都合が良い
-    command bfs -not -iwholename '*/.git/*' "$@"
-  }
-fi
-
-alias jagrep="grep -P '\p{Hiragana}'"
-
-alias grep-camelcase="grep -E '([a-z]{1,}[A-Z][a-z]{0,}){1,}'"
-alias grep-camelcase-filter="grep -E '([a-z]{1,}[A-Z][a-z]{0,}){1,}' -o"
 
 # swap file
 function swap() {
@@ -3189,117 +2688,6 @@ EOS
   </script>
 EOS
   } | sed -i '/^ viewBox=/r /dev/stdin' "$svg_filepath"
-}
-
-if cmdcheck cargo; then
-  function cargo() {
-    local cmd="cargo-$1"
-    if ! cmdcheck "$cmd"; then
-      command cargo "$@"
-      return
-    fi
-    # don't run below command
-    # We need to pass the same command.
-    # shift 1
-    # cargo hoge arg1 => cargo-hoge hoge arg1
-    "$cmd" "$@"
-  }
-  function cargo-tmp() {
-    if [[ $# -lt 1 ]]; then
-      command cat <<EOF 1>&2
-usage: $(basename "$0") tmp [OPTIONS] <path>
-EOF
-      return 1
-    fi
-    if [[ $# -lt 2 ]]; then
-      cargo new --help
-      return 1
-    fi
-    # drop 1st arg(tmp)
-    shift 1
-    tmpd
-    cargo new "$@"
-    local exit_code="$?"
-    if [[ "$exit_code" == 0 ]]; then
-      for arg in "$@"; do
-        if [[ -d "$arg" ]]; then
-          cd "$arg"
-          break
-        fi
-      done
-    fi
-    return "$exit_code"
-  }
-  function cargo-decl() {
-    if [[ $# -lt 1 ]]; then
-      command cat <<EOF 1>&2
-usage: $(basename "$0") <source code>
-
-e.g.
-cargo decl 'use ecat::config; config::Config'
-EOF
-      return 1
-    fi
-    if [[ $# -lt 2 ]]; then
-      cargo new --help
-      return 1
-    fi
-    # drop 1st arg
-    shift 1
-
-    local SRC_CODE="$1"
-    racer find-definition 1 "${#SRC_CODE}" "$(\pwd | sed -E 's:/[^/]+:../:g')" <(printf '%s' "${SRC_CODE}")
-  }
-fi
-
-function cargo-package-name() {
-  shift 1
-  cargo metadata --format-version=1 --no-deps | jq '.packages[].name' -r | sed 's/-/_/g'
-}
-function cargo-func-graph() {
-  shift 1
-  local pkgname="$(cargo package-name)"
-  RUSTFLAGS="--emit=llvm-bc" cargo build
-
-  LLVM_LINK="llvm-link-12"
-  local out="./target/debug/deps/${pkgname}.bc"
-  if $LLVM_LINK "./target/debug/deps/${pkgname}"-*.bc -o "$out"; then
-    rust-llvm-bc-to-graph "$out" "func-graph.svg"
-  else
-    return 1
-  fi
-}
-
-function rust-llvm-bc-to-graph() {
-  # e.g. ./deps/x2trace-628954abd329ae66.bc
-  local target="$1"
-  local output="$2"
-
-  if [[ $# -lt 2 ]]; then
-    command cat <<EOF 1>&2
-description: generate LLVM IR(bitcode) file to graphviz svg file
-usage: $(basename "$0") <target_bitcode_filepath> <output_svg_filepath>
-EOF
-    return 1
-  fi
-
-  OPT="opt-12"
-  # if you use --callgraph-dot-filename-prefix=raw, raw.callgraph.dot is created at current directory
-  $OPT -dot-callgraph "$target" -analyze
-  local tmpfile="${target}.callgraph.dot.tmp"
-  cat "${target}.callgraph.dot" | rustfilt \
-    | sed -E 's/"\{/"/; s/}"/"/' \
-    | sed -E '/label/ s/\{/\\{/g; /label/ s/\}/\\}/g; /label/ s/</\\</g; /label/ s/>/\\>/g' \
-    | sed '/digraph "Call graph/a rankdir=LR;' \
-      >"$tmpfile"
-
-  prune "$tmpfile" $(
-    cat "$tmpfile" \
-      | awk '/label=/{if (match($0, /label=".*"/)) {m=substr($0, RSTART+length("label=\""), RLENGTH-length("label=\"")-length("\"")); if (match(m, /^std::|^core::| as |^llvm|^cpp_demangle|^alloc|^__rust/)){print $1}}}' \
-      | awk '{printf "-n '%s' ", $0 }'
-  ) -N style=invisible 2> >(grep -v Warning) \
-    | gvpr -c 'N[$.degree==0]{delete(root, $)} N[$!=NULL]{ if(hasAttr($, "style")&&aget($, "style")=="invisible"){ delete(root, $); }}' \
-    | dot -Tsvg -o "$output"
 }
 
 function pack() {

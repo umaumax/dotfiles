@@ -500,6 +500,11 @@ function source_if_exist() {
 }
 
 source_if_exist ~/.zsh/.function.zshrc
+source_if_exist ~/.zsh/.docker.zshrc
+source_if_exist ~/.zsh/.tmux.zshrc
+source_if_exist ~/.zsh/.find.zshrc
+source_if_exist ~/.zsh/.rust.zshrc
+source_if_exist ~/.zsh/.gdb.zshrc
 
 source_if_exist ~/.fzf.zsh
 # NOTE: run after source .fzf.zsh to avoid overwrite ^R zsh keybind
