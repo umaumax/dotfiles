@@ -1830,13 +1830,15 @@ function set-dirname-title() {
   local title=$(echo $PWD | sed -E "s:^.+/::g")
   echo -en '\e]0;'"$title"'\a'
 }
-# when cd
+# event based function which called at cd (maybe run by subshell)
 function chpwd() {
+  if type >/dev/null 2>&1 tmux; then
+    tmux set automatic-rename on
+  fi
+
   ls_abbrev
   printf '%s\n' "$PWD" >>"$HOME/.cdinfo"
   set-dirname-title
-
-  type >/dev/null 2>&1 tmux && tmux set automatic-rename on
 
   # NOTE: auto python venv activate and deactivate
   function lambda() {

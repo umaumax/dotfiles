@@ -337,9 +337,6 @@ augroup vim-airline_group
   autocmd User AirlineAfterInit call s:airlineInit()
 augroup END
 
-" required nvim-treesitter
-LazyPlug 'p00f/nvim-ts-rainbow'
-
 " NOTE: highlight () pair
 " disable default matchparen plugin
 let g:loaded_matchparen = 1
@@ -542,8 +539,13 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'mhartington/oceanic-next'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" required nvim-treesitter
+LazyPlug 'p00f/nvim-ts-rainbow'
+
 " A Vim plugin that shows the context of the currently visible buffer contents.
 Plug 'romgrk/nvim-treesitter-context'
+
 " WARN: I don't know this plugin works well or not.
 Plug 'lewis6991/spellsitter.nvim'
 
@@ -551,8 +553,12 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'VonHeikemen/fine-cmdline.nvim'
 nnoremap <C-p> :lua require('fine-cmdline').open()<CR>
 
-Plug 'stevearc/aerial.nvim'
+" This plugin takes a lot of time to start and save files (e.g. .zshrc)
+LazyPlug 'stevearc/aerial.nvim', {'on':['AerialToggle']}
 command ListFunctions :AerialToggle left
+let g:aerial={
+      \ 'backends': [ "treesitter" ],
+      \ }
 
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }

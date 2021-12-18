@@ -29,8 +29,6 @@ bindkey "^G" zce
 # NOTE: register vicmd 'space' as prefix of vi-easy-motion plugin
 bindkey -M vicmd 'h' vi-easy-motion
 
-#--------------------------------
-
 function _set_buffer() {
   local cmd=${1:-}
   # NOTE: to avoid show unnecessary completion
@@ -46,13 +44,6 @@ function _set_only_LBUFFER() {
     LBUFFER="$1"
   fi
 }
-
-#--------------------------------
-
-# ----
-# ----
-# ----
-# ----
 
 function gen_PROMPT_2_text() {
   local PROMPT_texts=("$@")
@@ -255,11 +246,6 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
   zle -N _pecocmdstack_apply
   bindkey '^X^P' _pecocmdstack_apply
 fi
-
-# ----
-# ----
-# ----
-# ----
 
 function _edit_splitted_command_line() {
   eval 'words=("${(z)BUFFER}")'
