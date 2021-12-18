@@ -622,6 +622,8 @@
 # http server
 [python2 http server] python -m SimpleHTTPServer
 [python3 http server] python3 -m http.server $PORT
+[ruby http server] ruby -run -e httpd . -p 8000
+[php http server] php -S localhost:3000
 
 # log
 [realtime log viewer] tail -f
