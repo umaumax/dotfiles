@@ -603,10 +603,6 @@ alias desktop='cd ~/Desktop/'
 [[ -f ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
 [[ -f ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
 
-[[ -f ~/dotfiles/.git.zshrc ]] && alias vigitrc='vim ~/dotfiles/.git.zshrc' && alias vimgitrc='vigitrc'
-[[ -f ~/dotfiles/.zplug.zshrc ]] && alias vizplugrc='vim ~/dotfiles/.zplug.zshrc' && alias vimzplugrc='vizplugrc'
-[[ -f ~/dotfiles/.zbindkey.zshrc ]] && alias vizbindkeyrc='vim ~/dotfiles/.zbindkey.zshrc' && alias vimzbindkeyrc='vizbindkeyrc'
-
 [[ -f ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
 [[ -f ~/.gitignore ]] && alias vimgi='vim ~/.gitignore'
 

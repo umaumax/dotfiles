@@ -50,22 +50,9 @@ for filepath in "${dotfiles[@]}"; do
   ln -sf "$DOTPATH/$filepath" "$target_dirpath"
 done
 
-zsh_dotfiles=(
-  .git.zshrc
-  .peco.zshrc
-  .zplug.zshrc
-  .abbrev.zshrc
-  .comp.zshrc
-  .bindkey.zshrc
-  .windows.zshrc
-  .wsl.zshrc
-  .nugget.zshrc
-  .ros.zshrc
-  .prezto.git.init.zshrc
-)
 [[ ! -d ~/.zsh/ ]] && mkdir -p ~/.zsh
-for filepath in "${zsh_dotfiles[@]}"; do
-  ln -sf "$DOTPATH/$filepath" ~/.zsh/
+find "$DOTPATH/.zsh" -type f -print0 -name '*.zshrc' | while IFS= read -r -d $'\0' filepath; do
+  ln -sf "$filepath" ~/.zsh/
 done
 
 # cp not ln -f
