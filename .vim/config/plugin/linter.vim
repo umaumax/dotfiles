@@ -57,6 +57,14 @@ let g:ale_python_flake8_options = '--ignore=E501' " E501:line too long
 let g:ale_rust_rls_toolchain = 'nightly'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
+let g:ale_set_highlights = 1
+
+augroup ale_init_group
+  autocmd!
+  autocmd VimEnter,SourcePost * :highlight! ALEError    guifg=#C30500 guibg=#151515
+  autocmd VimEnter,SourcePost * :highlight! ALEWarning  guifg=#ffd300 guibg=#333333
+augroup END
+
 nmap [ale] <Nop>
 map <C-k> [ale]
 
