@@ -99,10 +99,6 @@ if [[ -d "/snap/bin" ]]; then
   append_path /snap/bin
 fi
 
-# for node
-export N_PREFIX=$HOME/.n
-export PATH=$N_PREFIX/bin:$PATH
-
 # c++
 mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
 if [[ -d ~/cpp ]]; then
@@ -145,6 +141,11 @@ if [[ -e /opt/homebrew ]]; then
 
   export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
 fi
+
+# set a higher priority compared to one which installed by brew
+# for node version management 'n' command
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
 
 # python
 ## pyenv
