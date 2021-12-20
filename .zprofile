@@ -270,6 +270,13 @@ append_path ~/dotfiles/local/bin
 
 export NEXTWORD_DATA_PATH=$HOME/.cache/nextword/nextword-data-large
 
+function source_if_exist() {
+  local target="$1"
+  [[ -f "$target" ]] && source "$target"
+}
+
+source_if_exist ~/.fzf.zsh
+
 # ----
 
 [[ -n $BASH ]] && export HISTFILESIZE=100000
