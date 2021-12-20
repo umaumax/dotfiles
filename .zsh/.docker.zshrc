@@ -111,6 +111,7 @@ EOF
 
     # use sh for no bash docker container
     # WARN: busybox mdnod has no long option --mode
+    docker-enter $CONTAINER true || return 1
     docker-enter $CONTAINER sh -c "[ -b $DEV_HOST_ROOT ] || mknod -m 0600 $DEV_HOST_ROOT b $DEVDEC"
     docker-enter $CONTAINER mkdir -p /tmpmnt
     docker-enter $CONTAINER sh -c "mountpoint -q /tmpmnt/ || mount '$DEV_HOST_ROOT' /tmpmnt"
