@@ -125,6 +125,7 @@
 [docker mount dirpath] docker ps --format "{{.Names}}" | xargs -L 1 -I{} bash -c "echo {}; docker inspect -f '{{ .Mounts }}' {}"
 [docker login] docker exec -it \%# bash
 [docker login with root] docker exec -u root -it \%# bash
+[docker get container id from docker container] basename $(egrep ':/docker/[0-9a-f]+$' /proc/self/cgroup | head -1) | cut -c1-8
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
