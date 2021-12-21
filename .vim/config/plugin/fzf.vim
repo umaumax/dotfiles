@@ -503,7 +503,7 @@ function! FZF_rust_module_header_reducer(outputs)
     let line = s:search_rust_use_insert_line()
   endif
 
-  call append(line, ret)
+  call append(line-1, ret)
   " show popup if the insertion point is far from the current line
   if line('.') > line + 20
     let content = getline(1, line + len(ret) + 4)
