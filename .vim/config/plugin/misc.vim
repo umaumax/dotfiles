@@ -380,6 +380,7 @@ vmap <S-Right> <Plug>(textmanip-move-right)
 " add [+] mark, if the current buffer has been modified for tabline
 " NOTE: This repository has been archived.
 LazyPlug 'mkitt/tabline.vim'
+" The alternative of this plugin is [noib3/nvim-cokeline: A Neovim bufferline for people with addictive personalities]( https://github.com/noib3/nvim-cokeline ).
 
 LazyPlug 'junegunn/vim-easy-align'
 xmap e<Space> <Plug>(EasyAlign)*<Space>
