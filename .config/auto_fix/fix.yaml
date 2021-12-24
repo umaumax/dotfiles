@@ -1,209 +1,210 @@
 _:
-- - architecture
-- - behavior
-- - boundary
-- - challenge
-- - change
-- - channel
-- - check
-- - checkout
-- - close
-- - closure
-- - command
-- - compile
-- - completion
-- - complex
-- - condition
-- - conf
-- - config
-- - confirm
-- - confirmation
-- - connect
-- - connection
-- - constructor
-- - content
-- - context
-- - custom
-- - customer
-- - cursor
-- - declaration
-- - default
-  - defualt
-- - definition
-- - deprecate
-- - deprecated
-- - destination
-- - destructor
-- - directive
-- - dirpath
-- - enumerate
-- - environment
-- - example
-- - fail
-- - failed
-- - failure
-- - file
-- - filepath
-- - filetype
-- - focus
-- - forbidden
-- - heuristic
-- - install
-- - lambda
-- - line
-- - link
-- - links
-- - linker
-- - lint
-- - linter
-- - maintenance
-- - maintenance
-- - multi
-- - night
-- - nightly
-- - official
-- - parallel
-- - path
-- - pattern
-- - property
-- - pseudo
-- - python
-- - raspberry
-- - receive
-- - recursive
-- - recursively
-- - related
-- - relative
-- - same
-- - sample
-- - search
-- - security
-- - setting
-- - some
-- - source
-- - specific
-- - specification
-- - sudo
-- - substitution
-- - tutorials
-- - unique
-- - variable
-- - which
-- - wide
-- - widget
-- - width
-- - with
+  - - architecture
+  - - behavior
+  - - boundary
+  - - challenge
+  - - change
+  - - channel
+  - - check
+  - - checkout
+  - - close
+  - - closure
+  - - command
+  - - compile
+  - - completion
+  - - complex
+  - - condition
+  - - conf
+  - - config
+  - - confirm
+  - - confirmation
+  - - connect
+  - - connection
+  - - constructor
+  - - content
+  - - context
+  - - custom
+  - - customer
+  - - cursor
+  - - declaration
+  - - default
+    - defualt
+  - - definition
+  - - deprecate
+  - - deprecated
+  - - destination
+  - - destructor
+  - - directive
+  - - dirpath
+  - - enumerate
+  - - environment
+  - - example
+  - - fail
+  - - failed
+  - - failure
+  - - file
+  - - filepath
+  - - filetype
+  - - focus
+  - - forbidden
+  - - heuristic
+  - - install
+  - - information
+  - - lambda
+  - - line
+  - - link
+  - - links
+  - - linker
+  - - lint
+  - - linter
+  - - maintenance
+  - - maintenance
+  - - multi
+  - - night
+  - - nightly
+  - - official
+  - - parallel
+  - - path
+  - - pattern
+  - - property
+  - - pseudo
+  - - python
+  - - raspberry
+  - - receive
+  - - recursive
+  - - recursively
+  - - related
+  - - relative
+  - - same
+  - - sample
+  - - search
+  - - security
+  - - setting
+  - - some
+  - - source
+  - - specific
+  - - specification
+  - - sudo
+  - - substitution
+  - - tutorials
+  - - unique
+  - - variable
+  - - which
+  - - wide
+  - - widget
+  - - width
+  - - with
 
-- - description
-  - discription
-- - flag
-  - falg
-- - return
-  - reuturn
-- - temporary
-  - tmporary
-- - type
-  - tpe
-- - without
-  - wihtout
+  - - description
+    - discription
+  - - flag
+    - falg
+  - - return
+    - reuturn
+  - - temporary
+    - tmporary
+  - - type
+    - tpe
+  - - without
+    - wihtout
 cpp:
-- - 'std::'
-  - std;;
-- - '::'
-  - ;;
-- - argc
-- - argv
-- - args
-- - array
-- - char
-- - class
-- - cstdio
-- - cstdlib
-- - define
-- - enum
-- - float
-  - flato
-- - include
-- - iostream
-- - namespace
-- - return
-- - shared_ptr
-- - std::cerr
-  - std::err
-  - serr
-- - std::clog
-  - std::log
-  - slog
-- - std::cout
-  - std::out
-  - sout
-- - string
-- - stringstream
-- - struct
-- - template
-- - uintptr_t
-- - unique_ptr
-- - vector
+  - - "std::"
+    - std;;
+  - - "::"
+    - ;;
+  - - argc
+  - - argv
+  - - args
+  - - array
+  - - char
+  - - class
+  - - cstdio
+  - - cstdlib
+  - - define
+  - - enum
+  - - float
+    - flato
+  - - include
+  - - iostream
+  - - namespace
+  - - return
+  - - shared_ptr
+  - - std::cerr
+    - std::err
+    - serr
+  - - std::clog
+    - std::log
+    - slog
+  - - std::cout
+    - std::out
+    - sout
+  - - string
+  - - stringstream
+  - - struct
+  - - template
+  - - uintptr_t
+  - - unique_ptr
+  - - vector
 go:
-- - byte
-- - case
-- - chan
-- - continue
-- - fallthrough
-- - 'false'
-- - flag
-- - float32
-- - float64
-- - for
-- - func
-- - image
-- - import
-- - index
-- - len
-- - length
-- - make
-- - package
-- - range
-  - ragne
-- - regexp
-- - return
-- - run
-- - rune
-- - string
-- - struct
-- - switch
-- - 'true'
-- - type
-- - var
+  - - byte
+  - - case
+  - - chan
+  - - continue
+  - - fallthrough
+  - - "false"
+  - - flag
+  - - float32
+  - - float64
+  - - for
+  - - func
+  - - image
+  - - import
+  - - index
+  - - len
+  - - length
+  - - make
+  - - package
+  - - range
+    - ragne
+  - - regexp
+  - - return
+  - - run
+  - - rune
+  - - string
+  - - struct
+  - - switch
+  - - "true"
+  - - type
+  - - var
 neosnippet:
-- - snippet
-- - abbr
+  - - snippet
+  - - abbr
 python:
-- - import
+  - - import
 vim:
-- - augroup
-- - autocmd
-- - endfunction
-- - function
-- - Plug
-  - PLug
-- - elseif
-  - elif
-- - substitute
-- - endfor
-- - range
-- - pumvisible
-- - empty
+  - - augroup
+  - - autocmd
+  - - endfunction
+  - - function
+  - - Plug
+    - PLug
+  - - elseif
+    - elif
+  - - substitute
+  - - endfor
+  - - range
+  - - pumvisible
+  - - empty
 gitcommit:
-- - Update
-- - snippet
-- - setup
-- - script
+  - - Update
+  - - snippet
+  - - setup
+  - - script
 rust:
-- - extern
-- - crate
-- - super
-- - trait
-- - Iterator
-- - unsafe
-- - prelude
+  - - extern
+  - - crate
+  - - super
+  - - trait
+  - - Iterator
+  - - unsafe
+  - - prelude
