@@ -1,9 +1,0 @@
-auto {{_input_:nic name}}
-	iface {{_input_:nic name}} inet static
-	address {{_cursor_}}
-	network
-	netmask
-	broadcast
-	gateway
-	dns-nameservers
-

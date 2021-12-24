@@ -1,3 +1,0 @@
-auto {{_input_:nic name}}
-iface {{_input_:nic name}} inet dhcp
-{{_cursor_}}
