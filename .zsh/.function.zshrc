@@ -2660,7 +2660,7 @@ EOF
 
 alias help='run-help'
 
-function svg-extention() {
+function svg-extension() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
 usage: $0 <svg filepath>
@@ -2681,7 +2681,7 @@ EOF
   <script><![CDATA[
 EOS
 
-    cat ~/dotfiles/scripts/svg-extention.js
+    cat ~/dotfiles/scripts/svg-extension.js
 
     cat <<'EOS'
   ]]>
