@@ -854,3 +854,44 @@ abbr valid only no command exec before, try at the top of shell
 snippet color_default
 alias color_reset
 	$'\e[m'${0}
+
+snippet color
+	BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'${0}
+
+snippet cmd_option
+	VERSION='0.1'
+	for OPT in "$@"; do
+		case "$OPT" in
+			'-h' | '-help' | '--help')
+				echo "help"
+				exit 1
+				;;
+			'-version' | '--version')
+				echo "version: $VERSION"
+				exit 1
+				;;
+			'-option')
+				# do something
+				shift 1
+				;;
+			'--' | '-')
+				shift 1
+				param=("$@")
+				break
+				;;
+			-*)
+				echo "\$0: 「$(echo \$1 | sed 's/^-*//')」no options: confirm by '\$0 -h'" 1>&2
+				exit 1
+				;;
+			*)
+				if [[ ! -z "\$1" ]] && [[ ! "\$1" =~ ^-+ ]]; then
+					param=("${param[@]}" "\$1")
+					shift 1
+				fi
+				;;
+		esac
+	done
+
+	for e in "${param[@]}"; do
+		echo $e
+	done${0}
