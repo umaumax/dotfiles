@@ -18,7 +18,7 @@ nnoremap ZQ <nop>
 nnoremap <leader>r :redraw!<CR>
 command! -nargs=0 Redraw :redraw!
 
-" keep undo infomation
+" keep undo information
 inoremap <Left> <C-g>U<Left>
 
 " cursor movement in insert mode
