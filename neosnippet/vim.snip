@@ -159,6 +159,21 @@ snippet redirect_command
 	${0:#:silent! exe "ls"}
 	redir END
 
+snippet redirect_file
+	redir > ${0:#:file}
+	silent XXX
+	redir END
+
+snippet redirect_register
+	redir @${0:#:register}
+	silent XXX
+	redir END
+
+snippet save_view
+	let view = winsaveview()
+	${0}
+	silent call winrestview(view)
+
 snippet has_key_list
 	len(filter(${1:#:list}, { index, val -> ${2:#:condition} }) >= 1${0}
 
