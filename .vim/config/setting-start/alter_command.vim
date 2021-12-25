@@ -45,7 +45,6 @@ AlterCommand f[ilepath] FilePath
 AlterCommand ca CopyAll
 AlterCommand c[opy]a CopyAll
 AlterCommand c[opyall] CopyAll
-AlterCommand t[emplate] T
 AlterCommand r[eplace] R
 AlterCommand cgl CtrlPGitLog
 AlterCommand cr CtrlPRegister

@@ -29,9 +29,3 @@ endif
 
 let g:ale_cmake_cmakelint_options = '--filter=-linelength'
 let g:ale_python_pylint_options = '--disable=C0111,C0301' " C0111:missing-docstring C0301:max-line-length
-
-if exists('g:sonictemplate_vim_template_dir')
-	if isdirectory(expand('~/template'))
-		let g:sonictemplate_vim_template_dir += ['~/template']
-	endif
-endif
