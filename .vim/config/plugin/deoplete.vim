@@ -122,7 +122,7 @@ if v:version >= 800 && has('python3')
 
   LazyPlug 'Shougo/neosnippet'
   LazyPlug 'Shougo/neosnippet-snippets' " default snippets
-  let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
+  let g:neosnippet#snippets_directory=expand('~/.vim/config/neosnippet/')
 
   " if Doctor('pyls','python lsp')
   " else

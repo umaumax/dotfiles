@@ -178,7 +178,7 @@ function rvim() {
 alias rgvim='rdvim $(git rev-parse --show-toplevel | homedir_normalization)'
 alias grvim='rgvim'
 alias rcvim='rdvim'
-[[ -d ~/dotfiles/neosnippet/ ]] && alias neopeco='lsabs -f ~/dotfiles/neosnippet | pecovim'
+[[ -d ~/dotfiles/.vim/config/neosnippet ]] && alias neopeco='lsabs -f ~/dotfiles/.vim/config/neosnippet | pecovim'
 
 function rdvim() {
   local wd=${1:-$(pwd)}

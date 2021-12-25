@@ -42,7 +42,7 @@ let g:deoplete#enable_at_startup = 1
 " WARN: next commit 381bc21 has bug, be careful!
 Plug 'Shougo/neosnippet', {'commit': 'a943f93'}
 Plug 'Shougo/neosnippet-snippets' " default snippets
-let g:neosnippet#snippets_directory=expand('~/dotfiles/neosnippet/')
+let g:neosnippet#snippets_directory=expand('~/.vim/config/neosnippet/')
 
 " not essential
 let g:deoplete#enable_camel_case = 0

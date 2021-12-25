@@ -62,5 +62,5 @@ Invoke-WebRequest https://raw.githubusercontent.com/umaumax/dotfiles/master/.con
 ### how to test
 #### neosnippet
 ``` bash
-./neosnippet/neosnippet_lint.sh
+.vim/config/neosnippet/neosnippet_lint.sh
 ```

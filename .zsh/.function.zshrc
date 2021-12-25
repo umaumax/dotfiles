@@ -175,7 +175,7 @@ alias desktop='cd ~/Desktop/'
 
 [[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
 [[ -d ~/dotfiles/.git_template/hooks ]] && alias githooks='cd ~/dotfiles/.git_template/hooks'
-[[ -d ~/dotfiles/neosnippet ]] && alias neosnippet='cd ~/dotfiles/neosnippet'
+[[ -d ~/dotfiles/.vim/config/neosnippet ]] && alias neosnippet='cd ~/dotfiles/.vim/config/neosnippet'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 
