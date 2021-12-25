@@ -94,6 +94,7 @@ snippet box_error
 
 snippet main_result
 	fn main() -> Result<(), Box<dyn std::error::Error>> {
+		println!("Hello World!");
 		${0}
 		Ok(())
 	}
