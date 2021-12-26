@@ -6,7 +6,7 @@
 ```
 # git clone https://github.com/umaumax/dotfiles.git
 # NOTE: 途中でexecが入るため，この方法は不可
-# cat ~/dotfiles/docker/ubuntu1604/README.md | grep -v "^#" | grep -v "^\`" | bash
+# cat ~/dotfiles/local/docker/ubuntu1604/README.md | grep -v "^#" | grep -v "^\`" | bash
 ```
 
 ## init script
