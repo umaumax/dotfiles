@@ -2681,7 +2681,7 @@ EOF
   <script><![CDATA[
 EOS
 
-    cat ~/dotfiles/scripts/svg-extension.js
+    cat ~/dotfiles/local/scripts/svg-extension.js
 
     cat <<'EOS'
   ]]>

@@ -19,13 +19,13 @@ source ~/.zshrc
 
 ## packages
 ```
-~/dotfiles/scripts/setup/apt-get.sh
-~/dotfiles/scripts/setup/apt-get-ppa.sh
-~/dotfiles/scripts/setup/pip.sh
-~/dotfiles/scripts/setup/npm.sh
+./local/scripts/setup/apt-get.sh
+./local/scripts/setup/apt-get-ppa.sh
+./local/scripts/setup/pip.sh
+./local/scripts/setup/npm.sh
 # NOTE: run after npm.sh
-~/dotfiles/scripts/setup/yarn.sh
-~/dotfiles/scripts/setup/go.sh
+./local/scripts/setup/yarn.sh
+./local/scripts/setup/go.sh
 
 nugget tig
 nugget tmux
@@ -40,7 +40,7 @@ nugget rust
 nugget rust-analyzer
 nugget git-webui
 
-~/dotfiles/scripts/setup/cargo.sh
+./local/scripts/setup/cargo.sh
 
 nugget nvim
 nugget nvim_deoplete

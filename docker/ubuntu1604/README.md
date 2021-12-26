@@ -29,17 +29,17 @@ source ~/.zshrc
 
 ## packages
 ```
-~/dotfiles/scripts/setup/apt-get.sh
-~/dotfiles/scripts/setup/apt-get-ppa.sh
-~/dotfiles/scripts/setup/pip.sh
-~/dotfiles/scripts/setup/npm.sh
+./local/scripts/setup/apt-get.sh
+./local/scripts/setup/apt-get-ppa.sh
+./local/scripts/setup/pip.sh
+./local/scripts/setup/npm.sh
 # NOTE: run after npm.sh
-~/dotfiles/scripts/setup/yarn.sh
-~/dotfiles/scripts/setup/go.sh
+./local/scripts/setup/yarn.sh
+./local/scripts/setup/go.sh
 
-# ~/dotfiles/scripts/setup/cpanm.sh
-# ~/dotfiles/scripts/setup/gem.sh
-# ~/dotfiles/scripts/setup/linuxbrew.sh
+# ./local/scripts/setup/cpanm.sh
+# ./local/scripts/setup/gem.sh
+# ./local/scripts/setup/linuxbrew.sh
 
 # nugget peco
 nugget tig
@@ -57,7 +57,7 @@ nugget ctop
 nugget rust
 nugget git-webui
 
-~/dotfiles/scripts/setup/cargo.sh
+./local/scripts/setup/cargo.sh
 
 # NOTE: DISPLAY env?
 # nvimの画面が起動しないときにはsshで接続し直すと解決した
