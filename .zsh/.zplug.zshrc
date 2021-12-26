@@ -80,7 +80,7 @@ if [[ $USE_ZPLUG == 0 ]]; then
     enable_zsh_plugin "https://github.com/IngoHeimbach/zsh-easy-motion" "easy_motion.plugin.zsh"
 
     # NOTE: set variable before source
-    EASY_ONE_REFFILE=~/dotfiles/snippets/snippet.txt
+    EASY_ONE_REFFILE=~/dotfiles/local/snippets/snippet.txt
     EASY_ONE_KEYBIND='^x^x' # default "^x^x"
     # NOTE: for fzy(文字列の色が途中で変化するとその文字の色が初期化されてしまう)
     # EASY_ONE_FILTER_COMMAND="fzy"

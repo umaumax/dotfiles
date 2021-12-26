@@ -1,7 +1,7 @@
 function! s:fzf_vim_commands_snippet() range
   let lines = []
 
-  let g:vim_cmd_snippet_filepath='~/dotfiles/snippets/vim_cmd_snippet.txt'
+  let g:vim_cmd_snippet_filepath='~/dotfiles/local/snippets/vim_cmd_snippet.txt'
   let l:snippet_filepath=expand(g:vim_cmd_snippet_filepath)
   if filereadable(l:snippet_filepath)
     let lines = readfile(l:snippet_filepath)

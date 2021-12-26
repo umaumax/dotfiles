@@ -179,7 +179,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/dotfiles/snippets ]] && alias snippetes='cd ~/dotfiles/snippets'
 [[ -d ~/dotfiles/template ]] && alias template='cd ~/dotfiles/template'
 
-[[ -f ~/dotfiles/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/snippets/snippet.txt'
+[[ -f ~/dotfiles/local/snippets/snippet.txt ]] && alias visnippetes='vim ~/dotfiles/local/snippets/snippet.txt'
 [[ -f ~/dotfiles/.gitconfig ]] && alias vigc='vim ~/dotfiles/.gitconfig' && alias vimgc='vigc'
 
 [[ -f ~/.gitignore ]] && alias vigi='vim ~/.gitignore'
