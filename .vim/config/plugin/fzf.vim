@@ -479,7 +479,7 @@ endfunction
 " 無理やり，--preview optionを追加して利用
 function! fzf#cpp_include_header()
   return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/cpp/headers/c++11-headers.txt',
+        \ 'source':  'cat ~/dotfiles/local/dict/cpp/headers/c++11-headers.txt',
         \ 'reducer': function('FZF_include_header_reducer'),
         \ 'options': '--multi --reverse '."--query=\"'\""." --preview 'echo {}' --preview-window 'right:20%'",
         \ 'up':    '50%'})
@@ -544,7 +544,7 @@ function! fzf#rust_module_header(...)
   let query="'" . substitute(query_arg, '[^a-zA-Z_]', '', 'g')
 
   silent! call fzf#run({
-        \ 'source': 'cat ~/dotfiles/dict/rust/rust_modules.txt',
+        \ 'source': 'cat ~/dotfiles/local/dict/rust/rust_modules.txt',
         \ 'sink*': function('FZF_rust_module_header_reducer'),
         \ 'options': '--multi --reverse '.printf('--query="%s"', query)." --preview 'echo {}' --preview-window 'right:20%'",
         \ 'up':    '50%'})
@@ -584,28 +584,28 @@ function! FZF_hex_color()
 endfunction
 function! fzf#ansi_color()
   return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/color/ansi_color.txt',
+        \ 'source':  'cat ~/dotfiles/local/dict/color/ansi_color.txt',
         \ 'reducer': function('FZF_ansi_color_reducer'),
         \ 'options': '--ansi --multi --reverse '."--query=\"'\"",
         \ 'up':    '50%'})
 endfunction
 function! fzf#ansi_color_256()
   return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/color/ansi_color_256.txt',
+        \ 'source':  'cat ~/dotfiles/local/dict/color/ansi_color_256.txt',
         \ 'reducer': function('FZF_ansi_color_reducer'),
         \ 'options': '--ansi --multi --reverse '."--query=\"'\"",
         \ 'up':    '50%'})
 endfunction
 function! fzf#hex_color_256()
   return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/color/ansi_color_256.txt',
+        \ 'source':  'cat ~/dotfiles/local/dict/color/ansi_color_256.txt',
         \ 'reducer': function('FZF_hex_color_reducer'),
         \ 'options': '--ansi --multi --reverse '."--query=\"'\"",
         \ 'up':    '50%'})
 endfunction
 function! fzf#hex_color()
   return fzf#vim#complete({
-        \ 'source':  'cat ~/dotfiles/dict/color/color_full.txt',
+        \ 'source':  'cat ~/dotfiles/local/dict/color/color_full.txt',
         \ 'reducer': function('FZF_hex_color_reducer'),
         \ 'options': '--ansi --multi --reverse '."--query=\"'\"",
         \ 'up':    '50%'})

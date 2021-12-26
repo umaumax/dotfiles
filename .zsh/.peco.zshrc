@@ -943,16 +943,16 @@ alias color_peco_ansi256='ansi_color_256_peco'
 alias color_peco_hex256='hex_color_256_peco'
 alias color_peco_hexfull='hex_color_full_peco'
 function ansi_color_peco() {
-  cat ~/dotfiles/dict/color/ansi_color.txt | fzf --no-sort | cut -d':' -f2
+  cat ~/dotfiles/local/dict/color/ansi_color.txt | fzf --no-sort | cut -d':' -f2
 }
 function ansi_color_256_peco() {
-  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f2
+  cat ~/dotfiles/local/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f2
 }
 function hex_color_256_peco() {
-  cat ~/dotfiles/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f3
+  cat ~/dotfiles/local/dict/color/ansi_color_256.txt | fzf --no-sort | cut -d':' -f3
 }
 function hex_color_full_peco() {
-  cat ~/dotfiles/dict/color/color_full.txt | fzf --no-sort | cut -d':' -f3
+  cat ~/dotfiles/local/dict/color/color_full.txt | fzf --no-sort | cut -d':' -f3
 }
 
 alias vimbackuppeco='vim-backup-peco'
@@ -1017,7 +1017,7 @@ function cdcmake() {
 alias errno='errnopeco'
 alias pecoerrno='errnopeco'
 function errnopeco() {
-  bat --color=always -p ~/dotfiles/dict/cpp/errno.hpp | fzf
+  bat --color=always -p ~/dotfiles/local/dict/cpp/errno.hpp | fzf
 }
 
 function cmake-find-modules() {
