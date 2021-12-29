@@ -232,13 +232,12 @@ augroup fern_group
   autocmd FileType fern :call s:fern_setup()
 augroup END
 
-" set lines of words on cursor
-" NOTE: don't use lazy load to avoid below error
-" Error detected while processing function cursorword#timer_callback[1]..cursorword#matchadd:
-" line   14:
-" E28: No such highlight group name: CursorWord0
-Plug 'itchyny/vim-cursorword', {'do': 'git checkout . && git apply ~/.vim/patch/vim-cursorword.patch'}
-" PlugUpdate vim-cursorword
+" set underlines at words on cursor
+Plug 'RRethy/vim-illuminate'
+augroup illuminate_augroup
+  autocmd!
+  autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
 
 " Doxygen
 " :Dox
