@@ -514,7 +514,8 @@ function! s:close(force)
     endif
     let l:flag=''
     let save_winnr = winnr()
-    windo if l:flag=='' && (&bt=='quickfix' || &bt=='nofile' || (&bt == 'terminal' && &ft == 'deol'))  | let l:flag=&bt | let l:w=winnr() | endif
+    " deol: Shougo/deol.nvim
+    windo if l:flag=='' && (&bt=='quickfix' || (&bt=='nofile' && &ft != 'scrollview') || (&bt == 'terminal' && &ft == 'deol'))  | let l:flag=&bt | let l:w=winnr() | endif
     exe save_winnr. 'wincmd w'
   endif
   if l:flag!=''

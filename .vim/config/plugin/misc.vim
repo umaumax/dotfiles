@@ -349,6 +349,12 @@ let g:hlparen_highlight_style = 'expression'
 " NOTE: don't use lazy
 Plug 'tyru/vim-altercmd'
 
+Plug 'dstein64/nvim-scrollview'
+augroup nvim-scrollview_group
+  autocmd!
+  autocmd User VimEnterDrawPost highlight ScrollView ctermbg=159 guibg=LightCyan
+augroup END
+
 " NOTE: This plugin makes scrolling nice and smooth.
 LazyPlug 'psliwka/vim-smoothie'
 silent! map <PageDown> <Plug>(SmoothieForwards)
