@@ -514,6 +514,7 @@ function! s:close(force)
     endif
     let l:flag=''
     let save_winnr = winnr()
+    " scrollview: dstein64/nvim-scrollview
     " deol: Shougo/deol.nvim
     windo if l:flag=='' && (&bt=='quickfix' || (&bt=='nofile' && &ft != 'scrollview') || (&bt == 'terminal' && &ft == 'deol'))  | let l:flag=&bt | let l:w=winnr() | endif
     exe save_winnr. 'wincmd w'
