@@ -2049,6 +2049,8 @@
 # golang
 [golang debug build for gdb] go build -gcflags "-N -l" \%#
 [golang core dump generation enable] GOTRACEBACK=crash \%#
+[golang module init] go mod init
+[golang go get local modules] go get .
 
 # sudo
 [sudo with current PATH] sudo env PATH="$PATH" \%#
