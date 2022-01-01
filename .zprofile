@@ -147,6 +147,8 @@ fi
 export N_PREFIX=$HOME/.n
 export PATH=$N_PREFIX/bin:$PATH
 
+export PATH=$HOME/.yarn/bin:$PATH
+
 # python
 ## pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
