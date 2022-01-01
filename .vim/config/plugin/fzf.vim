@@ -770,7 +770,7 @@ function! LC_FZFSelectionUI(source, sink) abort
   call fzf#run({
         \ 'sink*': function('s:callback'),
         \ 'source': a:source,
-        \ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind." --preview '~/dotfiles/scripts/fzf-file-preview.sh {}' --preview-window 'up:80%'",
+        \ 'options': '-m -x +s --expect=ctrl-c '.g:fzf_my_bind." --preview '~/dotfiles/local/scripts/fzf-file-preview.sh {}' --preview-window 'up:80%'",
         \ 'down':    '100%'
         \ })
 endfunction
