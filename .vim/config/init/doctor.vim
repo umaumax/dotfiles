@@ -4,7 +4,7 @@
 " NOTE: temporarily comment out
 let s:doctor_map={
       \'ag':           'brew install ag || sudo apt install silversearcher-ag',
-      \'algin':        'npm install -g align-yaml',
+      \'align':        'npm install -g align-yaml',
       \'autopep8':     'pip install autopep8',
       \'bash-language-server': 'npm i -g bash-language-server',
       \'clang':        'sudo apt-get install clang',
@@ -37,6 +37,7 @@ let s:doctor_map={
       \'racer':        'cargo +nightly install racer',
       \'rls':          'rustup component add rls rust-analysis rust-src',
       \'s':            'brew install s-search',
+      \'stylua':       'cargo install stylua',
       \'tig':          'brew install tig || build tig your self ( https://github.com/jonas/tig/releases )',
       \'trans':        'brew install translate-shell || sudo apt-get install translate-shell',
       \'textlint':     'npm install -g textlint',
@@ -44,6 +45,7 @@ let s:doctor_map={
       \'shfmt':        'go get -u mvdan.cc/sh/cmd/shfmt',
       \'vim-language-server': 'npm install -g yarn && yarn global add vim-language-server',
       \'vint':         'pip install vim-vint',
+      \'xmllint':      'sudo apt-get install libxml2-utils',
       \}
 let s:doctor_logs=[]
 let s:no_cmd_map={}
