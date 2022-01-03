@@ -99,17 +99,6 @@ if [[ -d "/snap/bin" ]]; then
   append_path /snap/bin
 fi
 
-# c++
-mkdir -p ~/cpp/{3rd,orig}/{include,lib,src}
-if [[ -d ~/cpp ]]; then
-  CPPROOT=~/cpp
-  append_path $CPPROOT/orig/bin
-  append_path $CPPROOT/3rd/bin
-  export CPATH=$CPPROOT/orig/include:$CPPROOT/3rd/include
-  export LIBRARY_PATH=$CPPROOT/orig/lib:$CPPROOT/3rd/lib
-  unset CPPROOT
-fi
-
 # for mac
 if [[ -e /usr/local/share/git-core/contrib/diff-highlight/diff-highlight ]]; then
   export GIT_DIFF_HIGHLIGHT='/usr/local/share/git-core/contrib/diff-highlight/diff-highlight'
