@@ -1535,6 +1535,7 @@
 [elf: elf header] readelf -h \%#
 [elf: program header] readelf -l \%#
 [elf: section header] readelf -S \%#
+[readelf show section] readelf -p .comment \%#
 [mach-o: section/segment header] llvm-readelf -S \%#
 [elf: elf/program/section header] readlef -e \%#
 [read section] readelf -x\%# # -x25 # FYI: readelf -S
