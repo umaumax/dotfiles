@@ -2,8 +2,10 @@ if &rtp !~ 'nvim-treesitter'
   finish
 endif
 
+let s:current_filepath=expand('<sfile>:p:h')
+
 function! s:luafile_load(filename)
-  execute 'luafile ' .expand('~/dotfiles/.vim/config/setting-end/').a:filename
+  execute 'luafile '.s:current_filepath.'/'.a:filename
 endfunction
 
 call s:luafile_load('setting.lua')
