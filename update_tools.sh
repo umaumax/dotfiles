@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 if ! type git-wget >/dev/null 2>&1; then
   echo "Please install 'https://github.com/umaumax/git-wget'"
   cat <<'EOF'
@@ -11,15 +12,15 @@ fi
 
 BLACK=$'\e[30m' RED=$'\e[31m' GREEN=$'\e[32m' YELLOW=$'\e[33m' BLUE=$'\e[34m' PURPLE=$'\e[35m' LIGHT_BLUE=$'\e[36m' WHITE=$'\e[37m' GRAY=$'\e[90m' DEFAULT=$'\e[0m'
 
-echo_log() {
+function echo_log() {
   echo "${GREEN}$*${DEFAULT}" 1>&2
 }
 
 target=${1:-''}
 
-download() {
+function download() {
   local url="$1"
-  if [[ -n "$target" ]] && [[ $(basename $url) != "$target" ]]; then
+  if [[ -n "$target" ]] && [[ "$(basename "$url")" != "$target" ]]; then
     echo_log "${YELLOW}[LOG] skip download $url"
     return
   fi
@@ -102,5 +103,5 @@ download https://github.com/umaumax/git-wget/blob/master/_git_wget -O "$zsh_comp
 
 # ----
 
-echo_log "[LOG] update download command ifself"
+echo_log "[LOG] update download command itself"
 download https://github.com/umaumax/git-wget/blob/master/git-wget
