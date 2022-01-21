@@ -317,6 +317,7 @@
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
 [git log with marge commit diff] git log -p -m
 [git log of specific function] git log -L :$FUNC_NAME\%#:$FILEPATH
+[git log graph] git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [git relative modified files] git status -s | cut -c4-
 [git status without untracked-files] git status --untracked-files=no
 [git without cd] REPO_DIRPATH=$(realpath \%#) && git --git-dir "$REPO_DIRPATH/.git" -C "$REPO_DIRPATH" 
