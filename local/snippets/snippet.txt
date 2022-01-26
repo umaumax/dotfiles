@@ -15,6 +15,7 @@
 [find depth(common)] find . -mindepth 1 -maxdepth 1 -type f
 [find size] find .\%# -size +1G -print
 [find size] find .\%# -size +1G -exec ls -lh {} \;
+[find files that were modified in last 1 day] find . -type f -mtime -1 -ls
 
 [find remove empty directory] find . -type d -empty -delete
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
@@ -1218,6 +1219,7 @@
 
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
+[mac address to ip address] sudo arp-scan --interface eno1 -l | grep $MAC_ADDRESS # sudo apt-get install -y arp-scan
 [realtime network conmmunication] sudo env PATH="$PATH" bandwhich # cargo install bandwhich
 [port bind address/port check] ss -antu
 
