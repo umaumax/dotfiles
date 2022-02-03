@@ -100,6 +100,7 @@
 [confirm only root filesystem disk usage] df -h /
 [disk size (only local mounted file)] df -hl
 
+[root device filesystem] df -hT | grep '/$' | cut -d' ' -f1
 [list blocks with filesystem] lsblk -f
 [check filesystem] dh -Th
 
@@ -1260,6 +1261,7 @@
 [linux cat log] cat /var/log/messages
 [show syslog] cat /var/log/syslog
 [syslog force rotate manually] sudo logrotate -f /etc/logrotate.conf
+[echo to syslog] logger -is -p user.info -t my_process_name "message to you"
 
 [ubuntu mother board info (hint for machine model or maker)] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
