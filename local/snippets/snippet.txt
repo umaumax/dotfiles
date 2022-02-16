@@ -936,6 +936,8 @@
 [apt-get under proxy env] sudo -E apt-get install \%#
 [apt-get under proxy env] sudo apt-get -o Acquire::http::proxy="${HTTP_PROXY:-$http_proxy}" install \%# # http_proxyがセットしてあればsudo -EでOK
 
+[install ifconfig at docker] sudo apt install -y net-tools
+
 [apt official repo source list file] /etc/apt/sources.list
 [apt unofficial repo source list directory] /etc/apt/sources.list.d/
 
@@ -1262,6 +1264,7 @@
 [show syslog] cat /var/log/syslog
 [syslog force rotate manually] sudo logrotate -f /etc/logrotate.conf
 [echo to syslog] logger -is -p user.info -t my_process_name "message to you"
+[check smartd logs] { sudo cat /var/log/syslog*; sudo gzip -dc /var/log/syslog*.gz; } | grep -a "smartd"
 
 [ubuntu mother board info (hint for machine model or maker)] sudo dmidecode -t baseboard
 [ubuntu memory info] sudo dmidecode -t memory
