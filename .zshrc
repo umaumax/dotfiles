@@ -240,8 +240,8 @@ function share_history() {
   history -r # .bash_historyから履歴を読み込み直す
 }
 if [[ -n $BASH ]]; then
-  PROMPT_COMMAND='share_history' # 上記関数をプロンプト毎に自動実施
-  shopt -u histappend            # .bash_history追記モードは不要なのでOFFに
+  PROMPT_COMMAND='share_history'
+  shopt -u histappend
 fi
 if [[ $ZSH_NAME == zsh ]]; then
   # NOTE: how to check
@@ -378,7 +378,6 @@ SAVEHIST=100000
 [[ -x $(which direnv) ]] && eval "$(direnv hook zsh)"
 
 if [[ $ZSH_NAME == zsh ]]; then
-  # [zshの個人的に便利だと思った機能（suffix alias、略語展開） - Qiita]( http://qiita.com/matsu_chara/items/8372616f52934c657214 )
   alias -s txt='cat'
   alias -s log='cat'
   alias -s rb='ruby'
@@ -406,8 +405,7 @@ if [[ $ZSH_NAME == zsh ]]; then
   setopt NO_BEEP
 fi
 
-# 実行したプロセスの消費時間がn秒以上かかったら
-# 自動的に消費時間の統計情報をstderrに出力する。
+# show statistcal time log when the command takes this value [sec]
 REPORTTIME=10
 
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )
@@ -481,11 +479,6 @@ if [[ $(uname) == "Darwin" ]]; then
   ln -sf /usr/bin/ar ~/local/bin/ar
   ln -sf /usr/bin/ranlib ~/local/bin/ranlib
 fi
-
-# NOTE: for ruby
-# FYI: [MacでRubyの起動が遅すぎたのを修正した話 \- Qiita]( https://qiita.com/teradonburi/items/d92005aed28e9d0439de )
-# WARN: rubyコマンドの起動が遅いための，暫定処置
-[[ -f ~/.rbenv/versions/2.3.7/bin/ruby ]] && alias ruby="~/.rbenv/versions/2.3.7/bin/ruby"
 
 # NOTE: default key modeを変更するときには，一番最初に行う必要があるので注意
 # NOTE: default emacs mode
