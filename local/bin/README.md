@@ -1,11 +1,11 @@
-# dotfiles cmds
+# dotfiles embedded commands
 
 ## cpp_dump_gen
 * c++の`class`や構造体のソースコードをpipeで流して，dump用のコードを生成する
 * `private`なmemberを排除したい場合には`grep -v private`
 * `class`や`struct`内の定義や，複雑な定義などには対応していない
 
-```
+``` bash
 $ cat <<EOF | cpp_dump_gen
 class ABC {
  public:
@@ -23,7 +23,7 @@ std::cout << "fuga = "<< dump_tmp.fuga << std::endl; // public: int
 ```
 
 ### `awk`ではなく`clang++`を利用する方法の候補
-```
+``` cpp
 #include <string>
 
 class ABC {
@@ -42,7 +42,7 @@ void dummy() {
 }
 ```
 
-```
+``` bash
 clang++ -fsyntax-only -Xclang -code-completion-at=struct.cpp:35:5 -std=c++11 cpp_dump_gen.cpp
 ```
 
