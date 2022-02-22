@@ -1105,6 +1105,7 @@
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
+[local gitignore] touch .git/info/exclude
 [git repo local gitignore open] vim $(git rev-parse --show-toplevel)/.git/info/exclude !
 
 [hex on bash command] $((0x\%#))
