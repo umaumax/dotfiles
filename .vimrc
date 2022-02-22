@@ -23,6 +23,10 @@ let g:skip_loading_mswin        = 1
 let g:did_install_default_menus = 1
 let g:did_install_syntax_menu   = 1
 
+" enable filetype.lua
+let g:do_filetype_lua = 1
+let g:did_load_filetypes = 0
+
 if has('nvim')
   set runtimepath+=~/.vim
 else
