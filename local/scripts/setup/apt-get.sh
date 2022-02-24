@@ -185,6 +185,8 @@ sudo apt install -y g++-arm-linux-gnueabihf
 ## 64bit(arm64)
 sudo apt install -y g++-aarch64-linux-gnu
 
+sudo apt-get install -y pv
+
 # NOTE: ubuntu 18.04 has no pkg of colorgcc
 # sudo apt-get install -y colorgcc
 # if which colorgcc >/dev/null 2>&1; then

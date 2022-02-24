@@ -48,6 +48,7 @@ brew_install_formula_list=(
   opencv
   peco
   pstree
+  pv
   pyenv
   python3
   qt
