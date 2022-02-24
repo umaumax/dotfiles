@@ -103,7 +103,6 @@ function pecogrep() {
   xargs "$GREP_CMD" -s -n --color=always "$@" '' | pecocat
 }
 
-alias pv='pecovim'
 alias pvim='pecovim'
 alias cpeco='command peco'
 function pecovim() {
