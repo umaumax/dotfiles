@@ -1217,6 +1217,24 @@ if cmdcheck cargo-add; then
     fi
     cargo add "$(printf '%s' "$ret" | xargs)"
   }
+  function cargo-add-features() {
+    local ret
+    ret=$(cargo metadata --format-version=1 --no-deps | jq '.packages[].dependencies[] | { name:.name, features:.features }' -r -c -C | fzf)
+    if [[ -z $ret ]]; then
+      return
+    fi
+    local crate_name=$(printf '%s' "$ret" | jq '.name' -r)
+    if type >/dev/null 2>&1 cargo-feature; then
+      cargo feature "$crate_name"
+      echo '^hoge: remove hoge feature'
+      print -z "cargo feature $crate_name "
+    else
+      local crate_features=$(printf '%s' "$ret" | jq '.features | @tsv' -r)
+      local crate_features_flag_text=$(printf '%s' "$crate_features" | sed -E 's/^|\t|$/ --features=/g')
+
+      print -z "cargo add ${crate_name}${crate_features_flag_text}"
+    fi
+  }
 
   function cargo-rm-fzf() {
     local ret
