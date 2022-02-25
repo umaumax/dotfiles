@@ -1689,6 +1689,7 @@
 # FYI: [linux \- How to view raw binary data as an image with given width and height? \- Super User]( https://superuser.com/questions/294270/how-to-view-raw-binary-data-as-an-image-with-given-width-and-height )
 [image convert raw to png] find . -name "*\%#.raw" | xargs -L 1 -I{} convert -depth 8 -size 1024x1024+0 gray:{} {}.png
 [image convert raw to png] find . -name "*\%#.raw" | parallel --no-notice -a - convert -depth 8 -size 1024x1024+0 gray:{} {}.png
+[image convert xxx to raw] find . -name "*" | parallel --no-notice -a - convert {} rgb:{}.raw
 [image convert png to raw] convert white.png -depth 8 -size 1000x1000 gray:white.raw
 [image gen gif] convert -fuzz 10% -delay 1x8 *.png animation.gif
 [image convert gif to png] convert -verbose -coalesce $IN.gif\%# $OUT.png
