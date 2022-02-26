@@ -36,15 +36,15 @@ cargo install gitui --version 0.9.1
 cargo install typos-cli
 
 # NOTE: for adding lib dependency
-cargo install cargo-edit
-cargo install cargo-license
-cargo install cargo-tree
-cargo install cargo-fix
-cargo install cargo-tomlfmt
-cargo install cargo-expand
 cargo install cargo-binutils
 cargo install cargo-docserver
+cargo install cargo-edit
+cargo install cargo-expand
 cargo install cargo-feature
+cargo install cargo-fix
+cargo install cargo-license
+cargo install cargo-tomlfmt
+cargo install cargo-tree
 
 # any text to tree style converter
 cargo install --git https://github.com/KoharaKazuya/forest
