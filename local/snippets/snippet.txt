@@ -93,6 +93,7 @@
 ## h: human readable
 [file size(GUI)] ncdu # sudo apt-get install -y ncdu
 [file size(CUI)] du -sh $(find . -maxdepth 1 -not -name '.')
+[check file size] du -sh 
 # [file size] du -sh * # for zsh (setopt GLOB_DOTS)
 # [file size for bash] du -sh *
 # [file size for bash] du -sh .[^.]* * # both
@@ -628,6 +629,7 @@
 [python3 http server] python3 -m http.server $PORT
 [ruby http server] ruby -run -e httpd . -p 8000
 [php http server] php -S localhost:3000
+[echo server one liner] ncat -l 12345\%# -k -c 'xargs -n1 echo'
 
 # log
 [realtime log viewer] tail -f
