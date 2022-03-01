@@ -33,7 +33,7 @@ set diff-highlight = true
 # NOTE: 以下を有効にすると`u`でstage-updateするときにviewが閉じてしまう可能性があるので，注意
 # set refresh-mode = auto
 # set refresh-mode = periodic
-#   set refresh-interval = 1
+# set refresh-interval = 1
 
 ########################
 # color
