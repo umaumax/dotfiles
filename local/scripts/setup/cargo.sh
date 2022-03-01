@@ -30,9 +30,7 @@ cargo install stylua
 # NOTE: for toml formatter
 cargo install taplo-cli
 
-# cargo install gitui --version 0.10.1 # build error
-# cargo install gitui --version 0.10.0 # build error
-cargo install gitui --version 0.9.1
+cargo install gitui
 
 # typo check command: typos
 cargo install typos-cli
@@ -52,6 +50,7 @@ cargo install cargo-tree
 cargo install --git https://github.com/KoharaKazuya/forest
 
 cargo install --git https://github.com/umaumax/ecat
+cargo install --git https://github.com/umaumax/netlim
 
 # NOTE: for Rust Language Server
 rustup component add rls rust-analysis rust-src
