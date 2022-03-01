@@ -1705,7 +1705,7 @@
 [image convert 角丸] convert -size 512x512 xc:none -draw "roundrectangle 0,0 512,512 32,32" src.png\%# -resize 512x512 -compose src-in -composite -unsharp 0x1 dst.png
 [image convert transparent] convert src.png\%# -fuzz 10% -transparent white transparent.png
 [image convert font] convert -list font | grep "Font:"
-
+[image blur] convert -blur 10x10 in.jpg\%# out.jpg
 
 [getconf 32 bits or 64 bits] getconf LONG_BIT
 
