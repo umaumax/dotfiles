@@ -27,6 +27,8 @@ cargo install bandwhich
 
 # NOTE: for lua formatter
 cargo install stylua
+# NOTE: for toml formatter
+cargo install taplo-cli
 
 # cargo install gitui --version 0.10.1 # build error
 # cargo install gitui --version 0.10.0 # build error
