@@ -1107,8 +1107,8 @@
 # gitignore
 # FYI: [gitignore\.ioのススメ \- Qiita]( https://qiita.com/dhun/items/adcae139b5ba1da56c81 )
 [ros gitignore] curl -L http://www.gitignore.io/api/ros
-[local gitignore] touch .git/info/exclude
-[git repo local gitignore open] vim $(git rev-parse --show-toplevel)/.git/info/exclude !
+[local gitignore] mkdir -p $(git rev-parse --show-toplevel)/.git/info/ && touch $(git rev-parse --show-toplevel)/.git/info/exclude
+[git repo local gitignore open] mkdir -p $(git rev-parse --show-toplevel)/.git/info/ && vim $(git rev-parse --show-toplevel)/.git/info/exclude !
 
 [hex on bash command] $((0x\%#))
 [10base to 16base] printf "%x" \%#
@@ -1508,6 +1508,7 @@
 [tmux get current session name] tmux display-message -p '#S'
 [tmux dump variables] tmux display-message -a
 [tmux show variable] tmux display-message -p '#{pane_current_path\%#}'
+[tmux rename current window(pane)] tmux rename-window "\%#"
 
 [modern watch command] viddy -n \%# # go get github.com/sachaos/viddy
 [repeat command] watch -n $SEC "$CMD"
