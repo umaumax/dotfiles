@@ -1146,7 +1146,9 @@ EOF
   } | {
     # -r: Backslash  does not act as an escape character.  The backslash is considered to be part of the line. In particular, a backslash-newline pair can not be used as a line continuation.
     while IFS= read -r repo_dirpath || [[ -n "$repo_dirpath" ]]; do
-      git -C "$repo_dirpath" grep --color=always "$@" | awk -v prefix="$repo_dirpath" '{printf "%s/%s\n", prefix, $0; }'
+      if [[ -e "$repo_dirpath/.git" ]]; then
+        git -C "$repo_dirpath" grep --color=always "$@" | awk -v prefix="$repo_dirpath" '{printf "%s/%s\n", prefix, $0; }'
+      fi
     done
   }
 }
