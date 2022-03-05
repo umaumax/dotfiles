@@ -45,6 +45,7 @@ cargo install cargo-fix
 cargo install cargo-license
 cargo install cargo-tomlfmt
 cargo install cargo-tree
+cargo install cargo-audit
 
 # any text to tree style converter
 cargo install --git https://github.com/KoharaKazuya/forest
