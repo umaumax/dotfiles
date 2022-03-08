@@ -767,6 +767,7 @@
 [nmcli dump connection setting] sudo nmcli connection show "Wired connection \%#"
 [nmcli dump full settings] nmcli c show --active | awk 'NR>1' | sed -E 's/ *[A-Fa-f0-9]{8}-([A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}  .*$//' | xargs -L 1 -I{} bash -c 'nmcli c show "{}"; echo'
 [nmcli gui like terminal user interface] nmtui
+[nmcli add connection from device] sudo nmcli connection add con-name $CON_NAME\%# ifname $DEV_NAME type ethernet
 
 [ifconfig set ip address(temporary)] sudo ifconfig ethX\%# 192.168.1.100 netmask 255.255.255.0
 
@@ -1225,7 +1226,7 @@
 
 # network
 [show arp table] arp -a # same network? ip addr and MAC address pair list
-[mac address to ip address] sudo arp-scan --interface eno1 -l | grep $MAC_ADDRESS # sudo apt-get install -y arp-scan
+[mac address to ip address] sudo arp-scan --interface eno1 -l | grep -i $MAC_ADDRESS # sudo apt-get install -y arp-scan
 [realtime network conmmunication] sudo env PATH="$PATH" bandwhich # cargo install bandwhich
 [port bind address/port check] ss -antu
 
