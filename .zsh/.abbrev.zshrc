@@ -7,7 +7,7 @@ fi
 ZSH_ABBREV_ALIAS_NO_LAST_SPACE=1
 
 # As specifications, if the alias ends with a space, the next command will also be checked whether aliases or not.
-alias sudo='sudo '
+# alias sudo='sudo '
 
 # abbrev-alias -g A="| awk '{\%#}'"
 # abbrev-alias -g S="| sed -E 's/\%#//g'"
