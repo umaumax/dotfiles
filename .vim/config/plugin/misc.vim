@@ -560,11 +560,12 @@ Plug 'VonHeikemen/fine-cmdline.nvim'
 nnoremap <C-p> :lua require('fine-cmdline').open()<CR>
 
 " This plugin takes a lot of time to start and save files (e.g. .zshrc)
-LazyPlug 'stevearc/aerial.nvim', {'on':['AerialToggle']}
+LazyPlug 'stevearc/aerial.nvim', {'on':['AerialToggle', 'AerialOpen']}
 command ListFunctions :AerialToggle left
 let g:aerial={
       \ 'backends': [ "treesitter" ],
       \ }
+nnoremap <Leader>A :AerialOpen<CR>
 
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
