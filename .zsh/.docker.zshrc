@@ -128,6 +128,46 @@ EOF
   }
 }
 
+function docker-umount() {
+  if [[ $1 =~ ^(-h|-{1,2}help)$ ]] || [[ $# -lt 1 ]]; then
+    command cat <<EOF 1>&2
+usage:
+$(basename "$0") <container_id> <container_path>
+
+umount volume at docker container
+
+e.g.
+$(basename "$0") xxxxxxxx ~/ws
+$(basename "$0") xxxxxxxx ~/ws/hoge
+EOF
+    return 1
+  fi
+
+  if ! type >/dev/null 2>&1 docker-enter; then
+    echo 1>&2 "not found docker-enter"
+    return 1
+  fi
+
+  local CONTAINER="$1"
+  local CONTAINER_PATH="$2"
+
+  (
+    set -e
+    if [[ -z "$CONTAINER_PATH" ]]; then
+      # list up
+      echo "$BLUE""[ext4 mount list]""$DEFAULT"
+      docker-enter $CONTAINER mount -t ext4
+    else
+      docker-enter $CONTAINER umount "$CONTAINER_PATH"
+      echo "$BLUE""[✔] umount success""$DEFAULT"
+    fi
+  )
+  if [[ $? != 0 ]]; then
+    echo "$RED""[✗] umount failure""$DEFAULT"
+    return 1
+  fi
+}
+
 type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
   local container="$1"
   if [ -z "$container" ]; then
