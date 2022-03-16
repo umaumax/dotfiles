@@ -122,6 +122,7 @@ EOF
 
     echo "$BLUE""[✔] mount success""$DEFAULT"
     echo "$YELLOW""HOST:""$GREEN""$HOST_PATH""$DEFAULT"" to 🐳""$YELLOW""$CONTAINER:""$GREEN""$CONTAINER_PATH""$DEFAULT"
+    echo "$YELLOW""unmount command:""$GREEN"" docker-enter $CONTAINER umount $CONTAINER_PATH""$DEFAULT"
   ) || {
     echo "$RED""[✗] mount failure""$DEFAULT"
     return 1
