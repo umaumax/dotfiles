@@ -71,3 +71,49 @@ function tgrep() {
   local process_name="${1:-.}"
   tmux list-panes -a -F '#D #{pane_pid}' | xargs -L1 bash -c '{ pgrep -l -P "$2" | grep -q '"$process_name"'; } && echo "$1"' --
 }
+
+if [[ -n "$TMUX" ]]; then
+  function ssh() {
+    tmux rename-window "ssh:${*//-/_}"
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  }
+
+  function oressh() {
+    tmux rename-window "ssh:${*//-/_}"
+    command oressh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  }
+
+  function docker() {
+    local title=""
+    local exec_flag=0
+    for arg in "$@"; do
+      if [[ $arg == "exec" ]]; then
+        exec_flag=1
+      fi
+      if [[ ${arg} =~ ^[0-9a-f]{12}$ ]]; then
+        container_id="${arg}"
+      fi
+    done
+
+    if [[ $exec_flag == 1 ]]; then
+      if [[ -z "$container_id" ]]; then
+        for arg in "$@"; do
+          if ! [[ $arg =~ ^- ]]; then
+            title=$(command docker ps --filter "name=^${arg}\$" --format="{{.Names}}({{.ID}})")
+            if [[ -n "$title" ]]; then
+              break
+            fi
+          fi
+        done
+      else
+        title=$(command docker ps --filter "id=${container_id}" --format="{{.Names}}({{.ID}})")
+      fi
+    fi
+
+    tmux rename-window "docker:${title}"
+    command docker "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  }
+fi
