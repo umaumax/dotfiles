@@ -53,6 +53,7 @@ cargo install --git https://github.com/KoharaKazuya/forest
 cargo install --git https://github.com/umaumax/ecat
 cargo install --git https://github.com/umaumax/netlim
 cargo install --git https://github.com/umaumax/hexgrep
+cargo install --git https://github.com/umaumax/echoes
 
 # NOTE: for Rust Language Server
 rustup component add rls rust-analysis rust-src
