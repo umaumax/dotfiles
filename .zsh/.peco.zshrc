@@ -1209,13 +1209,62 @@ function cargo-crate-local() {
 }
 
 if cmdcheck cargo-add; then
+  function cargo-adds() {
+    cargo-add-fzf "$@"
+  }
   function cargo-add-fzf() {
     local ret
-    ret=$(cargo-crate-local-history | fzf)
+    ret=$({
+      cat <<EOF
+tokio --features full
+serde --features derive
+serde_json
+serde_yaml
+serde_derive
+
+ansi_term
+anyhow
+atty
+byteorder
+bytes
+clap
+cpp_demangle
+crossbeam
+crossbeam-channel
+csv
+derive_builder
+dirs
+env_logger
+image
+log
+num
+num-derive
+num-traits
+opencv
+parse-size
+prost
+prost-derive
+regex
+snap
+structopt
+strum
+strum_macros
+thiserror
+webp
+
+tonic --features compression
+tonic-build --features compression
+redis --features tokio-comp --features streams
+EOF
+      cargo-crate-local-history
+    } | fzf)
     if [[ -z $ret ]]; then
       return
     fi
-    cargo add "$(printf '%s' "$ret" | xargs)"
+
+    while IFS= read -r line || [[ -n "$line" ]]; do
+      bash -c "cargo add $line"
+    done < <(printf '%s' "$ret")
   }
   function cargo-add-features() {
     local ret
