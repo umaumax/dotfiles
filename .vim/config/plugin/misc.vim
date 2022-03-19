@@ -247,7 +247,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 
 " NOTE: vim-abolish
 " :S/{pattern}/{string}/[flags]
-" crs "SnakeCase" -> "snake_case"
+" crs "SnakeCase"  -> "snake_case"
 " crm "mixed_case" -> "MixedCase"
 " crc "camel_case" -> "camelCase"
 " cru "upper_case" -> "UPPER_CASE"
