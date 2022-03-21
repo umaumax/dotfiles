@@ -4,7 +4,6 @@ local USE_ZPLUG=0
 if [[ $USE_ZPLUG == 0 ]]; then
   # NOTE: this redundant lambda function expression is for shfmt
   function lambda() {
-    # git://の方ではproxyの設定が反映されないので，https://形式の方が無難
     local zshdir=~/.zsh
     [[ ! -e $zshdir ]] && mkdir -p $zshdir
 
@@ -190,7 +189,7 @@ if [[ -e ~/.zplug ]]; then
 
   # TODO: add cd-bookmark setting
 
-  # install conrifmation
+  # install confirmation
   if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -199,8 +198,6 @@ if [[ -e ~/.zplug ]]; then
     fi
   fi
 
-  # コマンドをリンクして、PATH に追加し、プラグインは読み込む
-  #   zplug load --verbose
   zplug load
 
   autoload -Uz compinit && compinit -i
