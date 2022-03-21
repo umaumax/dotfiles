@@ -200,10 +200,9 @@
 [rerere]
   enabled = true
 [url "https://"]
-  insteadOf = git://
-[url "github:"]
-  # cannot through proxy
-  # InsteadOf = https://github.com/
+  insteadOf = git:// # Because this protocol is deprecated.
+# This is used to pass through the proxy by connect-proxy command.
+[url "github:"] # The definition of this domain is written in `~/.ssh/config`.
   InsteadOf = git@github.com:
 [include]
   path = ~/dotfiles/.dummy_alias.gitconfig
