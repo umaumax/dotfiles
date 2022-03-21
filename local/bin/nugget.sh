@@ -153,7 +153,7 @@ function nugget_ubuntu_tig() {
   sudo apt-get install -y libncurses5-dev
   # for Japanese language
   sudo apt-get install -y libncursesw5-dev
-  git clone git://github.com/jonas/tig.git
+  git clone https://github.com/jonas/tig.git
   pushd "$tmpdir/tig"
   ./autogen.sh
   # for Japanese language
