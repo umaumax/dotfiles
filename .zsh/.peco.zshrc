@@ -1257,7 +1257,7 @@ tonic-build --features compression
 redis --features tokio-comp --features streams
 EOF
       cargo-crate-local-history
-    } | fzf)
+    } | awk '!a[$0]++' | fzf)
     if [[ -z $ret ]]; then
       return
     fi
