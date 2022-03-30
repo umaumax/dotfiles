@@ -71,9 +71,8 @@ endfunction
 function! s:init_syntax_highlighting(ext) abort
   call s:reset_syntax_highlighting()
 
-  " cpp
-  highlight NoColor guibg=NONE ctermbg=Red
-  highlight ReservedIdentifiers term=underline guibg=#ff0000 ctermbg=Red
+  highlight NoColor guibg=none ctermbg=none
+  highlight ReservedIdentifiers term=underline guibg=#b22222 ctermbg=red
 
   let rules = {
         \ "cpp":[
