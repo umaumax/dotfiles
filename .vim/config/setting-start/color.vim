@@ -75,9 +75,12 @@ function! s:init_syntax_highlighting(ext) abort
   highlight ReservedIdentifiers term=underline guibg=#b22222 ctermbg=red
 
   let rules = {
-        \ "cpp":[
-        \   {"group":'ReservedIdentifiers', 'pattern': '\([^[:alnum:]]\zs_\w\+\)\|\(\w*__\w*\)'},
-        \   {"group":'NoColor', 'pattern': '__asm__\|__restrict'},
+        \ 'cpp': [
+        \   { 'group':'ReservedIdentifiers', 'pattern': '\([^[:alnum:]]\zs_\w\+\)\|\(\w*__\w*\)' },
+        \   { 'group':'NoColor', 'pattern': '__asm__\|__restrict' },
+        \ ],
+        \ 'rust':[
+        \   { 'group':'ReservedIdentifiers', 'pattern': '\.\zs\(expect\|unwrap\)\ze(' },
         \ ],
         \ }
   for rule in rules[a:ext]
@@ -89,4 +92,5 @@ endfunction
 augroup syntax_highlighting_group
   autocmd!
   autocmd FileType c,cpp call s:init_syntax_highlighting("cpp")
+  autocmd FileType rust call s:init_syntax_highlighting("rust")
 augroup END
