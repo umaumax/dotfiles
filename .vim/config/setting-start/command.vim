@@ -392,7 +392,10 @@ function! s:git_url(...)
   let opt_arg = get(a:, 1, {})
   let opt_cmd=''
   if has_key(opt_arg, 'branch')
-    let opt_cmd='--branch ' . opt_arg['branch']
+    let branch = opt_arg['branch']
+    if !empty(branch)
+      let opt_cmd='--branch ' . opt_arg['branch']
+    endif
   endif
   let cmd='git url '.opt_cmd.' '.expand('%').' '.line('.')." | tr -d '\n'"
   let url=system(cmd)
