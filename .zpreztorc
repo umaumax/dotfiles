@@ -192,7 +192,11 @@ function prompt-pwd() {
         printf ""
       fi
       if [[ $(uname) == "Darwin" ]]; then
-        printf "📁/"
+        if [[ -n "$TMUX" ]]; then
+          printf "■ /"
+        else
+          printf "📁 /"
+        fi
       else
         printf "■/"
       fi
