@@ -520,6 +520,7 @@
 [ol awk unbuffer] '{fflush()}'
 [ol each N lines to one line] awk -v N=\%# '{printf "%s", $0; } (NR%N==0){print ""}'
 [ol remove last blank line] perl -pe "chomp if eof"
+[remove last new line] perl -pi -e 'chomp if eof' $FILE_NAME
 [ol repeat text] printf '$TEXT\%#%.0s' {1..$N}
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+\%#[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
