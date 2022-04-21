@@ -1260,6 +1260,7 @@
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
 [date for log] date +'%Y-%m-%d-%H-%M-%S'
+[show date with time zone] TZ=Asia/Tokyo date
 
 [mac logger] logger 'hello world'
 [mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
@@ -2045,6 +2046,8 @@
 [service dump setting variable] systemctl show $SERVICE_NAME
 [service time] systemd-analyze
 [service time plot] systemd-analyze plot > plot.svg
+[check systemd setting filepath] systemctl show -p FragmentPath $SERVICE_NAME
+[check systemd setting filepath] systemctl cat FragmentPath $SERVICE_NAME
 
 # journalctl
 [journalctl unit filter] journalctl -u $UNIT_NAME # systemctl list-unit-files --all
