@@ -117,7 +117,14 @@ snippet Iterator_impl
 	}
 
 snippet filepath_arg
+alias arg_filepath
 	impl AsRef<Path>${0}
+
+snippet arg_string
+	impl Into<String>${0}
+
+snippet arg_option
+	impl Into<Option<${0}>>
 
 snippet test_example
 	#[cfg(test)]
