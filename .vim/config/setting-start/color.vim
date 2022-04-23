@@ -62,8 +62,14 @@ endfunction
 
 function! s:reset_syntax_highlighting() abort
   " clear all matching patterns
+  let current_match_map={}
+  for m in getmatches()
+    let current_match_map[m.id] = v:true
+  endfor
   for m in s:get_syntax_highlighting_list()
-    call matchdelete(m)
+    if has_key(current_match_map, m)
+      call matchdelete(m)
+    endif
   endfor
   call s:unlet_syntax_highlighting_list()
 endfunction
