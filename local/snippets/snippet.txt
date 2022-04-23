@@ -792,6 +792,7 @@
 [curl with user-agent] curl -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.62 Safari/537.36' \%#
 [curl json example] curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"nameuser","age":"10"}'\%# $URL
 [curl dump response header] curl --dump-header - $URL
+[curl show only header] curl -s -D - -o /dev/null $URL
 [curl check SSL expire date] curl --verbose \%# 2>&1 | grep 'expire date'
 [curl sh with arg] curl \%# | sh -s -- # args
 [curl bash with arg] curl \%# | bash -s -- # args
