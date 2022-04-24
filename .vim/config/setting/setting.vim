@@ -103,7 +103,7 @@ endfunction
 function! s:Sleuth_wrapper(n)
   call s:set_tab(2)
   if &rtp =~ 'vim-sleuth'
-    Sleuth
+    silent! Sleuth
   endif
   " NOTE: force tab fix
   if &expandtab==0 && &tabstop==8 && (&shiftwidth!=&tabstop || &softtabstop!=&tabstop)
@@ -201,6 +201,8 @@ function! s:buffer_to_tab()
   endif
 
   tab sball
+
+  tabdo e!
 
   " move active tab to a first tab from a last tab
   tabfirst
