@@ -201,8 +201,9 @@ function! s:buffer_to_tab()
   endif
 
   tab sball
-  " NOTE: to kick autocmd
-  call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
+  " NOTE: use feedkeys function to kick autocmd
+  " If you just use 'tabdo e!' and 'tabfirst', autocmd events do not work.
+  " silent! call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
 endfunction
 
 augroup buffer_to_tab_group
