@@ -201,14 +201,14 @@ function! s:buffer_to_tab()
   endif
 
   tab sball
-  " NOTE: use feedkeys function to kick autocmd
-  " If you just use 'tabdo e!' and 'tabfirst', autocmd events do not work.
-  " silent! call feedkeys(":tabdo e!\<CR>:tabfirst\<CR>", 'n')
+
+  " move active tab to a first tab from a last tab
+  tabfirst
 endfunction
 
 augroup buffer_to_tab_group
   autocmd!
-  autocmd User VimEnterDrawPost call <SID>buffer_to_tab()
+  autocmd User VimEnterDrawPost ++nested call <SID>buffer_to_tab()
 augroup END
 
 " set shell=bash\ -i
