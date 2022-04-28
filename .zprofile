@@ -69,7 +69,7 @@ export VISUAL=$VIM
 export PAGER='less'
 # [manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
 # NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
-export MANPAGER="/bin/sh -c \"col -b -x| VIM_MAN_FLAG=1 vim -R -c 'set ft=man nolist nonu noma' -\""
+export MANPAGER="/bin/sh -c \"col -b -x| VIM_MAN_FLAG=1 VIM_FAST_MODE='on' vim -R -c 'set ft=man nolist nonu noma' -\""
 
 export LC_CTYPE="ja_JP.UTF-8" # mac default is "UTF-8"
 export LC_TIME="en_US.UTF-8"
