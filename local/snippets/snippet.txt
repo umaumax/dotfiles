@@ -526,6 +526,7 @@
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
 [ol word count ranking] sort | uniq -c | sort -nr # this includes spaces
 [ol remove prefix] perl -MCwd -le '$target=shift; $prefix=shift; if ((rindex $target, $prefix, 0) == 0) { $target=substr($target, length($prefix)); } print $target' /home/hoge /home
+[print up to the first N characters of each line] ls  | cut -c1-\%#
 
 # random
 [ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
@@ -1605,6 +1606,7 @@
 # man
 [man ld] man ld.so!
 [man ascii] man ascii!
+[generate ascii char list] printf '%02x' {0..255} | xxd -r -p | hexdump -C
 [ascii table(ubuntu)] printf "$(printf '\\x%x' {0..255})" | od -Ax -tx1z
 [ascii table(   mac)] printf "$(printf '\\x%x' {0..255})" | god -Ax -tx1z
 [man search] man -k \%#
