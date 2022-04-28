@@ -529,6 +529,9 @@ LazyPlug 'AndrewRadev/splitjoin.vim'
 
 Plug 'rbtnn/vim-vimscript_indentexpr'
 
+" highlight urls everywhere
+Plug 'itchyny/vim-highlighturl'
+
 " select line by visual mode twice by :Linediff
 Plug 'AndrewRadev/linediff.vim', {'on':['Linediff','LinediffReset']}
 
