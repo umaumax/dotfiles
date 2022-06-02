@@ -206,6 +206,8 @@ function! s:buffer_to_tab()
 
   " move active tab to a first tab from a last tab
   tabfirst
+
+  call GotolineStartup()
 endfunction
 
 augroup buffer_to_tab_group

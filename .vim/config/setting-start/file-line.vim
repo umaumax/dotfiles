@@ -125,9 +125,12 @@ function! s:handle_arg()
   endif
 endfunction
 
-function! s:startup()
-  autocmd BufNewFile * nested call s:gotoline()
-  autocmd BufRead * nested call s:gotoline()
+function! GotolineStartup()
+  autocmd BufNewFile * ++nested call s:gotoline()
+  autocmd BufRead * ++nested call s:gotoline()
+
+  tabdo e!
+  tabfirst
 
   if argc() > 0
     let argidx=argidx()
@@ -139,6 +142,6 @@ function! s:startup()
   endif
 endfunction
 
-if !isdirectory(expand("%:p"))
-  autocmd User VimEnterDrawPost call s:startup()
-endif
+" if !isdirectory(expand("%:p"))
+" autocmd User VimEnter ++nested call GotolineStartup()
+" endif
