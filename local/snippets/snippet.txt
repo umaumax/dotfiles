@@ -656,6 +656,7 @@
 [brew list upgradable formulas] brew outdated
 [brew check unused forlumras] brew autoremove --dry-run
 [brew installed formula version list] brew list --versions 
+[mac restart sound process daemon] sudo pkill coreaudiod
 
 # linux
 [ubuntu version] lsb_release -r -s
