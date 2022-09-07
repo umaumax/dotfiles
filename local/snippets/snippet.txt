@@ -1836,7 +1836,7 @@
 [cargo install] cargo install --path .
 [cargo create new lib crate] cargo new --lib \%#
 [cargo create new bin crate] cargo new --bin \%#
-[cargo test show println output] cargo test -- --nocapture \%#
+[cargo test with println output(stdout logs)] cargo test -- --nocapture \%#
 [cargo open doc] cargo doc --open
 [cargo doc: run server] cargo docserver -p 12345 # cargo install cargo-docserver
 [cargo doc: run server] ( cd target/doc && python3 -m http.server 12345 )
