@@ -657,6 +657,7 @@
 [brew check unused forlumras] brew autoremove --dry-run
 [brew installed formula version list] brew list --versions 
 [mac restart sound process daemon] sudo pkill coreaudiod
+[mac restart bluetooth process daemon] sudo pkill bluetoothd
 
 # linux
 [ubuntu version] lsb_release -r -s
