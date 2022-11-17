@@ -1339,6 +1339,8 @@
 [python base64 encode] python -c "import base64; import sys; x = base64.b64encode(sys.stdin.read() if sys.version_info[0] < 3 else sys.stdin.buffer.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 [python base64 decode] python -c "import base64; import sys; x = base64.b64decode(sys.stdin.read()); sys.stdout.write(x) if sys.version_info[0] < 3 else sys.stdout.buffer.write(x)"
 
+[web url decode] \%# | urldecode
+
 [python binary stdin.read()] sys.stdin.read() if sys.version_info[0]<3 else sys.stdin.buffer.read()
 [python version branch ? :] $PY2 if sys.version_info[0]<3 else $PY3
 
