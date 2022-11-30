@@ -135,3 +135,22 @@ snippet test_example
 			fn test_${0}() {
 			}
 	}
+
+snippet structopt_main
+	use structopt::StructOpt;
+
+	#[derive(StructOpt)]
+	struct Cli {
+			#[structopt(
+					long = "verbose",
+					help = "verbose output log"
+			)]
+			verbose: bool,
+	}
+
+	fn main() -> anyhow::Result<()> {
+			let cli = Cli::from_args();
+			if cli.verbose {
+					println!("start main function");
+			}
+	}${0}
