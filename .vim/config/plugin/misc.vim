@@ -185,7 +185,7 @@ endif
 Plug 'tyru/autochmodx.vim', {'for':['sh','zsh','python','awk','bats','javascript','ruby','perl','php']}
 
 " Filer
-Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern.vim', { 'branch': 'main' }
 Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'yuki-yano/fern-preview.vim'
@@ -550,7 +550,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " required nvim-treesitter
-LazyPlug 'p00f/nvim-ts-rainbow'
+LazyPlug 'p00f/nvim-ts-rainbow', { 'commit': '5513a9c'} " temporally for avoiding errors
 
 " A Vim plugin that shows the context of the currently visible buffer contents.
 Plug 'romgrk/nvim-treesitter-context'
