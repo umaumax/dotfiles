@@ -129,6 +129,8 @@
 [docker login] docker exec -it \%# bash
 [docker login with root] docker exec -u root -it \%# bash
 [docker get container id from docker container] basename $(egrep ':/docker/[0-9a-f]+$' /proc/self/cgroup | head -1) | cut -c1-8
+[restart docker daemon] sudo systemctl start docker
+[restart docker daemon] sudo service docker start
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -879,6 +881,7 @@
 [apt-cache check dependency] apt-cache depends \%#
 [apt-cache check dependency(detail)] apt-cache show \%# # with version
 [dpkg check dependency] dpkg -I \%#
+[list up deb file contents] dpkg -c # hoge.deb
 
 [ubuntu code name] lsb_release -cs # 16.04: xenial
 
