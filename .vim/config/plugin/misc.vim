@@ -550,7 +550,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " required nvim-treesitter
-LazyPlug 'p00f/nvim-ts-rainbow', { 'commit': '5513a9c'} " temporally for avoiding errors
+LazyPlug 'p00f/nvim-ts-rainbow'
 
 " A Vim plugin that shows the context of the currently visible buffer contents.
 Plug 'romgrk/nvim-treesitter-context'
