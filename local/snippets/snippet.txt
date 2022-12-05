@@ -972,6 +972,7 @@
 [sed delete end of line] sed -i '$d' $FILEPATH # for gsed
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
+[sed add characters under conditions] sed -i -e '/\%#/s/^//' # '/archive.ubuntu.com/s/^/#/' /etc/apt/sources.list
 [fixed string replace (linux)] replace
 [sed fixed string replace] rpl \%# # $OLD $NEW $FILE # sudo apt-get install rpl || brew install rpl
 [sed fixed string replace] perl -ne 'BEGIN { $src = quotemeta(shift), $dst = shift } s/$src/$dst/; print $_' # $SRC $DST
@@ -1873,6 +1874,7 @@
 [rust llvm version] rustc --version --verbose
 [cargo get bin target name] cargo metadata --format-version=1 --no-deps | jq -r '.packages[].targets[] | select(.kind[0]=="bin") | .name'
 [cargo clippy for test codes] cargo clippy --tests
+[cargo add] cargo add tokio --features full
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
