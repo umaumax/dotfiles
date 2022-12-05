@@ -154,3 +154,6 @@ snippet structopt_main
 					println!("start main function");
 			}
 	}${0}
+
+snippet tokio_sleep
+	tokio::time::sleep(tokio::time::Duration::from_millis(${0})).await;
