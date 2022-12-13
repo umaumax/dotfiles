@@ -264,7 +264,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 "       \ 't': Abolish.titlecase,
 "       \ "function missing": s:function("s:unknown_coercion")
 "       \}, "keep")
-LazyPlug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 
 Plug 'lervag/vimtex', {'for': 'tex'}
 
