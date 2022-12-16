@@ -1875,6 +1875,7 @@
 [cargo get bin target name] cargo metadata --format-version=1 --no-deps | jq -r '.packages[].targets[] | select(.kind[0]=="bin") | .name'
 [cargo clippy for test codes] cargo clippy --tests
 [cargo add] cargo add tokio --features full
+[cargo add] cargo add serde --features derive
 
 [shared library search path] ldconfig -v 2>/dev/null | grep -v $'\t' | cut -d: -f1 | tr '\n' ':'
 
