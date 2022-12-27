@@ -1,7 +1,10 @@
 augroup set_filetype
   autocmd!
-  autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
-  autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
+  " autocmd BufRead,BufNewFile *.{c,cpp,cxx,h,hpp}                      setlocal ft=cpp
+  " autocmd BufRead,BufNewFile *.go                                     setlocal ft=go
+  " autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
+  " autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
+
   autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal ft=gnuplot
   autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript
   autocmd BufRead,BufNewFile *.vue                                    setlocal ft=vue.html.javascript.css

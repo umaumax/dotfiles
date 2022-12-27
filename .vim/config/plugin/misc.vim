@@ -511,6 +511,8 @@ Plug 'rhysd/vim-llvm'", {'for':'llvm'}
 
 Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
 
+Plug 'nathom/filetype.nvim'
+
 " if has('nvim')
 " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 " endif
