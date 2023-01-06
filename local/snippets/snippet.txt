@@ -763,6 +763,7 @@
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes                 ipv4.dns ""
 [nmcli modify ipv4] sudo nmcli connection modify "Wired connection \%#" ipv4.method manual ipv4.addresses x.x.x.x/24 connection.autoconnect yes ipv4.gateway "" ipv4.dns ""
+[nmcli modify static ipv6] sudo nmcli connection modify "Wired connection \%#" ipv6.method manual connection.autoconnect yes ipv6.addresses "" ipv6.gateway ""
 [nmcli add device ] sudo nmcli connection add type ethernet ifname "$DEVICE_NAME" con-name "$CONNECTION_NAME"
 [nmcli list unmanaged interfaces] nmcli d
 [nmcli add gateway] sudo nmcli connection modify "Wired connection \%#" ipv4.gateway ""
@@ -777,7 +778,7 @@
 
 [ifconfig set ip address(temporary)] sudo ifconfig ethX\%# 192.168.1.100 netmask 255.255.255.0
 
-[global ip] curl ifconfig.moe || curl ifconfig.io
+[global ip] curl ifconfig.io
 [search 1000 ports(tcp)] nmap $IP_ADDRESS
 [search port range(tcp)] nmap -p\%# $IP_ADDRESS # -p1-1024
 [nmap ping scan (search ip address range)] nmap -sP 192.168.1.0/24
