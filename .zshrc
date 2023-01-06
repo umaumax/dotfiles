@@ -323,6 +323,13 @@ fi
 
 cmdcheck unbuffer || alias unbuffer='command'
 
+local emsdk_dir="$HOME/local/emsdk"
+if [[ -d "$emsdk_dir" ]]; then
+  function emsdk-enable() {
+    source "$emsdk_dir/emsdk_env.sh"
+  }
+fi
+
 function safe-colorize() {
   if [[ $# -lt 1 ]]; then
     command cat <<EOF 1>&2
