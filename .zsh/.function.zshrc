@@ -48,6 +48,7 @@ alias newls='lsneww'
 alias oldls='lsold'
 alias new='lsnew'
 alias old='lsold'
+unalias lt
 
 # NOTE: ls abspath
 # -d: only directory
