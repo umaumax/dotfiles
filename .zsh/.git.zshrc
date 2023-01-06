@@ -291,7 +291,10 @@ function git-log-grep() {
 }
 
 # FYI: [unicode \- grep: Find all lines that contain Japanese kanjis \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65715/grep-find-all-lines-that-contain-japanese-kanjis )
-alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
+function gg-japanese() {
+  git grep -E --not -e '^(['"'"'{}()!@#$%^&*+=:;\\<>_,."/?[ a-zA-Z0-9-]|])*$'
+}
+# alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggc-japanese='ggc -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 function git-grep-japanese() { gg-japanese; }
@@ -628,7 +631,7 @@ function git-comments() {
   # NOTE: man 7 gitglossary
   #   git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- . ':!*.md' ':!*.txt' ':!*.log'
   #   git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO' -e '(^|\s+)#' --and --not -e 'NOTE|TODO' -- ':CMakeLists.txt'
-  git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' '*.cc' ':*.c' ':*.h' ':*.go'
+  git grep -E -e '(^|\s+)//' --and --not -e 'NOTE|TODO|FYI|namespace|[Cc]opyright' -- ':*.cpp' ':*.hpp' ':*.cxx' ':*.cc' ':*.c' ':*.h' ':*.go' ':*.rs'
   git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':*.python' ':*.sh' ':*rc' ':*.zsh' ':*.ninja'
   #   git grep -E -e '(^|\s+)#' --and --not -e 'NOTE|TODO|FYI' -- ':CMakeLists.txt'
 }
