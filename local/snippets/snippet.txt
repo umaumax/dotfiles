@@ -449,6 +449,8 @@
 [git list branch includes specific commit] git branch --contains 
 [git list tag includes specific commit] git tag --contains 
 
+[git pre first commit hash] 4b825dc642cb6eb9a060e54bf8d69288fbee4904
+
 # hub
 [show pull request] hub pr list
 [create pull request with reviewer] hub pull-request --reviewer $USER_NAME1,$USER_NAME2 # WARN: don't use mail address
@@ -1290,6 +1292,7 @@
 [ubuntu buddy memory info] awk 'BEGIN{printf "%21s",""; v=4; for(i=0;i<15;i++) {if(v<1024){printf "%5dKB",v}else{printf "%5dMB",v/1024}; v*=2}; printf"\n"}'; cat /proc/buddyinfo
 [ubuntu cpu info] cat /proc/cpuinfo
 [ubuntu gpu info] lspci | grep VGA
+[ubuntu how to check what kind of gpu] lspci | grep -i nvidia
 [ubuntu nvidia gpu info] nvidia-smi
 [ubuntu partition info] sudo parted -l
 [ubuntu block device info] lsblk # you can use without sudo
