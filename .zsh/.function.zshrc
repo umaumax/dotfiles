@@ -946,7 +946,7 @@ else
 fi
 # brew install bat or access [sharkdp/bat: A cat\(1\) clone with wings\.]( https://github.com/sharkdp/bat )
 if cmdcheck bat; then
-  alias cat='bat --style=plain'
+  alias cat='bat --style=plain --paging=never'
   # NOTE: you can use with grep e.g. git diff | grep include | diffbat
   alias diffbat='bat -l diff'
   alias vimbat='bat -l vim'
