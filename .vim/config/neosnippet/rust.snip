@@ -99,6 +99,14 @@ snippet main_result
 		Ok(())
 	}
 
+snippet main_tokio_result
+#[tokio::main]
+	async fn main() -> Result<(), Box<dyn std::error::Error>> {
+			println!("Hello, world!");
+			${0}
+			Ok(())
+	}
+
 snippet From_impl
 	impl From<${1:#:src}> for ${2:#:dst} {
 			fn from(d: $1) -> Self {
@@ -156,4 +164,13 @@ snippet structopt_main
 	}${0}
 
 snippet tokio_sleep
+alias sleep_tokio
 	tokio::time::sleep(tokio::time::Duration::from_millis(${0})).await;
+
+snippet hashmap
+	use std::collections::HashMap;
+
+	let mut scores = HashMap::new();
+
+	${0}
+	scores.insert(String::from("Blue"), 10);
