@@ -567,7 +567,7 @@ function _copy_command() {
     {
       echo "# [clipboard]"
       printf '%s' "$(p)"
-    } | bat --color=auto -l=bash --plain
+    } | bat --color=auto -l=bash --plain --paging=never
   else
     echo "# [clipboard]"
     printf '%s\n' "$(p)"
