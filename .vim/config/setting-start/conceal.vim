@@ -2,6 +2,11 @@ set conceallevel=2
 " NOTE: enable conceal which vim mode?
 set concealcursor=nvic
 
+augroup json_group_for_conceallevel_setting
+  autocmd!
+  autocmd FileType json setlocal conceallevel=0
+augroup END
+
 augroup full_width_char_conceal_group
   autocmd!
   autocmd WinEnter,WinLeave,BufRead,BufNew,BufEnter,Syntax,ColorScheme * call FullwidthConceal()
