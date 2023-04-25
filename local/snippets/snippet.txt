@@ -684,7 +684,7 @@
 [count line] grep -c '^'
 
 # ssh key
-[ssh id_rsa] ssh-keygen -C "" -t rsa -f \%#_id_rsa # -C: omit hostname comment
+[ssh id_rsa] ssh-keygen -C "" -t ecdsa -b 521 -f \%#_id_ecdsa # -C: omit hostname comment
 [ssh delete finger print] ssh-keygen -R $IP_ADDRESS
 [ssh local port forwarding] ssh -N -f -L $local_port\%#:$dst_ip:$dst_port $host
 [ssh remote port forwarding] ssh -N -f $from_remote_host -R $from_remote_port:$to_remote_ip:$to_remote_port
