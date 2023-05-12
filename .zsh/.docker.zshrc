@@ -2,6 +2,21 @@ if ! cmdcheck docker; then
   return
 fi
 
+function ex-docker() {
+  cat <<EOF
+🍉[examples]
+docker run -it --rm ubuntu /bin/bash
+docker run -p 8080:80 -it --rm ubuntu /bin/bash
+docker run --mount type=volume, src=$PWD/src, dst=/dst ubuntu:latest
+docker run -v $PWD/src:/dst ubuntu:latest
+docker exec -it ubuntu /bin/bash
+docker commit ubuntu ubuntu:tmp
+
+🍺[original commands]
+docker-mount
+EOF
+}
+
 alias docker-remove-all-container='docker rm $(docker ps -aq)'
 alias docker-remove-image='docker images | peco | awk "{print \$3}" | pipecheck xargs -L 1 docker rmi'
 alias docker-stop='docker ps | peco | awk "{print \$1}" | pipecheck xargs -L 1 docker stop'
