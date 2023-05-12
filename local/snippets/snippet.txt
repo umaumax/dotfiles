@@ -16,6 +16,7 @@
 [find size] find .\%# -size +1G -print
 [find size] find .\%# -size +1G -exec ls -lh {} \;
 [find files that were modified in last 1 day] find . -type f -mtime -1 -ls
+[find search files changed within 5min] find . -type f -mmin -5 -ls
 
 [find remove empty directory] find . -type d -empty -delete
 [find remove tu] find . \( -name "*.tu" -o -name "*.tu-[0-9a-zA-Z]*" \) -type f -ls -delete
@@ -119,6 +120,7 @@
 [remote host docker exec list] docker ps; docker ps --format "{{.Names}}" | xargs -L1 -I{} echo docker exec -it {} bash
 [docker ps format] docker ps --format "{{.Names}}"
 [docker compose update(rebuild)] docker-compose build && docker-compose stop && docker-compose up # you can build at running containers
+[docker compose build with stdout log] docker compose build --progress=plain
 [docker info] docker inspect \%#
 [docker root login option] -u root
 [docker disk usage] sudo docker ps --format '{{.Names}}' | sudo xargs -L 1 -I{} docker exec {} bash -c "cd /home; echo {}; du -sh *"
@@ -318,7 +320,7 @@
 [git remove untracked files and dirs] git clean -d --dry-run
 [git remove untracked and ignored files and dirs] git clean -x -d --dry-run
 [git remove only ignored files and dirs] git clean -X -d --dry-run
-[git pull rebase master] git pull --rebase origin master
+[git pull rebase main] git pull --rebase origin main
 [git log without modified files] git log --stat --name-status | grep -v "^M" | less
 [git log with marge commit diff] git log -p -m
 [git log of specific function] git log -L :$FUNC_NAME\%#:$FILEPATH
@@ -524,7 +526,7 @@
 [ol awk unbuffer] '{fflush()}'
 [ol each N lines to one line] awk -v N=\%# '{printf "%s", $0; } (NR%N==0){print ""}'
 [ol remove last blank line] perl -pe "chomp if eof"
-[remove last new line] perl -pi -e 'chomp if eof' $FILE_NAME
+[ol remove last new line of file] perl -pi -e 'chomp if eof' $FILE
 [ol repeat text] printf '$TEXT\%#%.0s' {1..$N}
 [ol grep mail address] grep -o -E "[-_a-zA-Z0-9\.+]+\%#[-a-zA-Z0-9\.]+"
 [ol word count ranking] awk 'map[$0]++{} END{for(k in map){print map[k],k;}}' | sort -nr
@@ -920,6 +922,8 @@
 [lsof process name to ports] pgrep \%# | xargs -L 1 lsof -Pan -i tcp -i udp -p | grep -v NAME | awk '{print $9;}' | cut -d':' -f2
 [lsof open files by process] sudo lsof -p $PID
 [fuser kill process from port] fuser -k 8000/tcp
+
+[show listening ports] sudo netstat -tulpn | grep LISTEN
 
 [netstat process name to ports] netstat -anp | grep \%#
 
