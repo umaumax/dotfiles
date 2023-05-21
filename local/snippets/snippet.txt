@@ -133,6 +133,8 @@
 [docker get container id from docker container] basename $(egrep ':/docker/[0-9a-f]+$' /proc/self/cgroup | head -1) | cut -c1-8
 [restart docker daemon] sudo systemctl start docker
 [restart docker daemon] sudo service docker start
+[docker disable restart status] docker update --restart=no $container_name
+[docker find always restart docker containers] docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq) | grep always
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -699,7 +701,7 @@
 [ssh key finger print] ssh-keygen -E md5 -l -f \%#
 [list ssh public key fingerprint] ls *.pub | xargs -L1 -I{} bash -c "printf '{} ' ; ssh-keygen -l -E md5 -f {} | awk 'NR>=2 {printf \"└──────────────────── \"} {print \$0}'" | column -t
 [ssh run multi line command with arg] cat <<'EOF' | ssh localhost bash -s -- \%#\%$echo "$@"\%$EOF
-[ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa
+[ssh permission] cd ~/.ssh; chmod 0700 .; chmod 0644 *.pub; chmod 0600 authorized_keys *id_rsa # authorized_keys is public key list
 [ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
 [get public key from private key] ssh-keygen -y -f $ID_RSA # chmod 0600 $ID_RSA
 [remove key from ssh-agent] ssh-add -d <(ssh-add -L | cut -d" " -f1,2 | awk 'NR==\%#') # line:N?
@@ -925,7 +927,7 @@
 
 [show listening ports] sudo netstat -tulpn | grep LISTEN
 
-[netstat process name to ports] netstat -anp | grep \%#
+[netstat process name to ports] netstat -anp | grep \%# # WARN: short exec-command, lsof is recommended
 
 # proxy
 [proxy npm] sudo -E npm install -g \%#
@@ -2213,3 +2215,5 @@
 [list namespace] lsns
 
 [easy to see output] \%#| pr -t -w $COLUMNS --columns=4
+
+[replace some unicode spaces to simple space] sed -E "s/[$(echo -ne '\u202f') ]+/ /g"
