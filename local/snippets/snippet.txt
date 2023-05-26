@@ -135,6 +135,7 @@
 [restart docker daemon] sudo service docker start
 [docker disable restart status] docker update --restart=no $container_name
 [docker find always restart docker containers] docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq) | grep always
+[docker stop all containers] docker stop $(docker ps -q)
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
