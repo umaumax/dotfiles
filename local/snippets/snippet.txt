@@ -2224,3 +2224,7 @@
 [easy to see output] \%#| pr -t -w $COLUMNS --columns=4
 
 [replace some unicode spaces to simple space] sed -E "s/[$(echo -ne '\u202f') ]+/ /g"
+
+# k8s
+[kubernetes list all running pods name] kubectl get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
+[kubernetes list all running pods name] kubectl get pods --no-headers -o custom-columns=":metadata.name"
