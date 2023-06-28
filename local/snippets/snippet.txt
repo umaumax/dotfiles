@@ -36,6 +36,9 @@
 
 [find only directory symbolic link at ubuntu] find . -type l -xtype d -ls
 
+# misc
+[get latest dir/file path] ls -At | head -n 1
+
 # grep
 [grep for ps or with header output] { head -n 1; grep \%#; }
 [color grep] grep -e '^' -e '\%#'
@@ -83,6 +86,8 @@
 [tar find print0 pipe to file] tar -cvz -T - --null -f \%#.tar.gz # use with find -print0 command for stdin
 [tar find print0 pipe to pipe] tar -cvz -T - --null | \%# # use with find -print0 command for stdin
 [tar find ssh] find \%# -print0 | tar -c -T - --null | ssh $host "tar -C $DIR -xv -"
+
+[extract 7z file] 7za x \%#.7z # sudo apt install -y p7zip-full
 
 [zip compress] zip -r \%# # [.zip] [dir]
 [unzip at dir] unzip \%# -d $DIR
@@ -1564,6 +1569,8 @@
 # route
 [route add default gateway] sudo route add default gw \%# # FYI: for permanent setting, /etc/network/interfaces or /etc/network/if-up.d/static-routes or /etc/rc.local
 [add gateway to specific addr] sudo route add -net $TARGET_ADDR gw $GW_ADDR netmask 255.255.255.0 $NIC
+[mac default gateway] netstat -rnf inet
+[mac default gateway] route -n get default
 
 # lib
 [nm: with object filename] nm -A \%#
@@ -2228,3 +2235,6 @@
 # k8s
 [kubernetes list all running pods name] kubectl get pods --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'
 [kubernetes list all running pods name] kubectl get pods --no-headers -o custom-columns=":metadata.name"
+[kubernetes delete pod] kubectl delete --namespace default pod \%# # pod_name
+[kubectl enter container] kubectl exec -it pod/hoge -c hoge-container -n hoge-namespace -- bash
+[kubernetes create Web UI dashboard service account token without expiration] kubectl -n kubernetes-dashboard create token admin-user --duration=87600h
