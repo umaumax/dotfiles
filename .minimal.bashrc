@@ -61,3 +61,9 @@ alias type='type -a'
 alias qq='exit'
 alias qqq='exit'
 alias qqqq='exit'
+
+alias k='kubectl'
+
+# When the space key is entered, expand alias if it is expandable.
+bind '"\C-xa": alias-expand-line'
+bind '" ": "\C-xa\C-v "'
