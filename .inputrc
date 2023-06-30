@@ -18,10 +18,6 @@ $if Bash
   # this command is valid only bash
   "\C-x\C-f": edit-and-execute-command
 
-  # When the space key is entered, expand alias if it is expandable.
-  "\C-xa": alias-expand-line
-  " ": "\C-xa\C-v "
-
   # NOTE: to avoid running command when paste by clipboard with new lines
   set enable-bracketed-paste on
 
