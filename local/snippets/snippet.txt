@@ -2238,3 +2238,7 @@
 [kubernetes delete pod] kubectl delete --namespace default pod \%# # pod_name
 [kubectl enter container] kubectl exec -it pod/hoge -c hoge-container -n hoge-namespace -- bash
 [kubernetes create Web UI dashboard service account token without expiration] kubectl -n kubernetes-dashboard create token admin-user --duration=87600h
+
+# nerdctl
+[backup k8s image] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
+[list k8s images] sudo nerdctl images --namespace k8s.io
