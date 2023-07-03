@@ -42,7 +42,6 @@
 # grep
 [grep for ps or with header output] { head -n 1; grep \%#; }
 [color grep] grep -e '^' -e '\%#'
-[grep unbuffer option] --line-buffered
 
 # fg
 [vim git modified] vim -p `git status -s | awk '{print $2}'`
@@ -1506,6 +1505,8 @@
 # [shell \- Turn off buffering in pipe \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/25372/turn-off-buffering-in-pipe )
 [unbuffer command] unbuffer \%#
 [unbuffer command] script -c "$COMMAND\%#" /dev/null # |& tee $FILEPATH
+[grep unbuffer option] --line-buffered
+[sed unbuffer option] --unbuffered # -u
 
 # gdb
 [gdb bind process] gdb -p $PID # bt detach quit
@@ -1695,7 +1696,8 @@
 [kill process tree for ubuntu] kill -TERM -- $PID # how to find process: ps x -o "%p %r %y %x %c"
 [kill process tree for mac] kill -TERM -- -$PID
 [list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
-[show  process environment] ps e -ww -p $PID
+[show process environment] ps e -ww -p $PID
+[show process environment] cat /proc/$PID\%#/environ | tr '\0' '\n' # grep -E '^PATH'
 [ubuntu show process environment(pgrep)] strings /proc/$(pgrep \%#)/environ
 [ubuntu show process environment(pid)] strings /proc/\%#/environ
 [pgrep with user info] ps wup $(pgrep -f \%#)
@@ -1922,6 +1924,7 @@
 # ansi color
 [ansi color awk print] awk '{ printf "\\033[38;2;87;199;255m%s\n",$0; }'
 [ansi color awk match] awk '/.\[38;2;87;199;255m.*/ { printf "%s\n",$0; }'
+[remove ansi code] perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip($_)'
 
 # pawk
 [pawk install] pip3 install pawk
@@ -1947,6 +1950,7 @@
 [add path env at the beginning] export PATH="\%#:$PATH"
 [add path env at the end] export PATH="$PATH:\%#"
 [filter current shell PATH env] export PATH_BK="$PATH"; export PATH=$(t1=$(mktemp); t2=$(mktemp); echo -n $PATH | tr ':' '\n' | tee $t1 | { { grep -v \%# } || { echo -n "$PATH" | tr ':' '\n' } } | tee $t2 | tr '\n' ':' | sed 's/:*$//'; diff -U 999 $t1 $t2 1>&2)
+[export .env command] export $(cat .env | grep -v '^#')
 
 # filename
 [generate continuous filename] ruby -e '(0..9\%#).each{|i|printf"%04d_right.png\n",i}'
@@ -2242,3 +2246,7 @@
 # nerdctl
 [backup k8s image] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
 [list k8s images] sudo nerdctl images --namespace k8s.io
+
+# ipv6
+[ipv6 ssh] ssh \%# # $USER@$IP_ADDR
+[ipv6 scp] scp "@[\%#]:" # "$USER@[$IPv6]:$REMOTE_FILEPATH" $LOCAL_FILEPATH
