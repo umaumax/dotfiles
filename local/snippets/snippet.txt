@@ -38,6 +38,7 @@
 
 # misc
 [get latest dir/file path] ls -At | head -n 1
+[ls number order] ls -v
 
 # grep
 [grep for ps or with header output] { head -n 1; grep \%#; }
@@ -2217,8 +2218,6 @@
 
 # chrt
 [change SCHED_FIFO priority] chrt -f -p 99 $PID # 1 is lowest, 99 is highest
-
-[show inode] ls -i
 
 [print irq count log] cat /proc/interrupts
 
