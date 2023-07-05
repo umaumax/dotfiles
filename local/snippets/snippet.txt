@@ -98,8 +98,9 @@
 # size
 ## h: human readable
 [file size(GUI)] ncdu # sudo apt-get install -y ncdu
-[file size(CUI)] du -sh $(find . -maxdepth 1 -not -name '.')
-[check file size] du -sh 
+[file size(CUI)] du -shx $(find . -maxdepth 1 -not -name '.')
+[check file size] du -shx 
+[check file size] du -shx --exclude='mnt' *
 # [file size] du -sh * # for zsh (setopt GLOB_DOTS)
 # [file size for bash] du -sh *
 # [file size for bash] du -sh .[^.]* * # both
@@ -711,6 +712,7 @@
 [ssh search known_hosts] ssh-keygen -H -F $HOSTNAME
 [get public key from private key] ssh-keygen -y -f $ID_RSA # chmod 0600 $ID_RSA
 [remove key from ssh-agent] ssh-add -d <(ssh-add -L | cut -d" " -f1,2 | awk 'NR==\%#') # line:N?
+[confirm ssh agent list] ssh-add -L
 
 [scp dir] command tar -C $SRC_DIR\%# -cf - . | ssh $HOST tar -C "$REMOTE_DST_DIR" -xvf - # SRC_DIR/* to REMOTE_DST_DIR/*
 [scp between two remote hosts] scp -3 $SRC $DST # hoge:~/src.txt fuga:~/dst.txt
@@ -2165,6 +2167,7 @@
 
 # fold
 [split string to n chars] fold -w2 # default is 2
+[line to lines ] fold -w $COLUMNS
 
 # arch
 [display the machine's arch type] arch # uname -p [macos \ Why does arch output i386?]( https://apple.stackexchange.com/questions/140651/why-does-arch-output-i386 )
@@ -2249,3 +2252,6 @@
 # ipv6
 [ipv6 ssh] ssh \%# # $USER@$IP_ADDR
 [ipv6 scp] scp "@[\%#]:" # "$USER@[$IPv6]:$REMOTE_FILEPATH" $LOCAL_FILEPATH
+
+# msgpack
+[msgpack unpack one linker] cat hoge.mgpack\%# | python3 -c 'import sys; import msgpack; print(msgpack.unpack(sys.stdin.buffer, strict_map_key=False))' | fold -w $COLUMNS | less
