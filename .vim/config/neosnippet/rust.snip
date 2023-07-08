@@ -85,6 +85,12 @@ snippet result_error
 snippet anyhow_result_conv
 	.map_err(|e| anyhow::anyhow!(e))?${0}
 
+snippet anyhow_err
+  Err(anyhow::anyhow!("$0"))
+
+snippet anyhow_ok
+	Ok::<(), anyhow::Error>(()){$0}
+
 snippet Error
 abbr std::error::Error
 	std::error::Error${0}
@@ -166,6 +172,12 @@ snippet structopt_main
 snippet tokio_sleep
 alias sleep_tokio
 	tokio::time::sleep(tokio::time::Duration::from_millis(${0})).await;
+
+snippet tokio_spwan
+	tokio::spawn(async move {
+			${0}
+			Ok::<(), anyhow::Error>(())
+	});
 
 snippet hashmap
 	use std::collections::HashMap;
