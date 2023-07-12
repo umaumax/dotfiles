@@ -113,6 +113,7 @@
 [check filesystem] dh -Th
 
 # docker
+[docker run with port and volume setting] docker run --rm -p 10022:22 -v $PWD:/home/user/ws/ -it image_tag\%# /bin/bash
 [docker build] docker build -t $tag\%# .
 [docker run] docker run --rm -it $tag\%# /bin/bash
 [docker stty size] stty rows $(stty size | awk '{print $1}') cols $(stty size | awk '{print $2}') # run command at docker shell
