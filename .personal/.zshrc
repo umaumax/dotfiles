@@ -153,3 +153,12 @@ alias cpeco='command peco'
 function pecovim() {
   pecocat "$@" | expand_home | tee /dev/tty | xargs-vim
 }
+
+if cmdcheck tig; then
+  function tig() {
+    if [[ $# == 0 ]]; then
+      set -- status '+5'
+    fi
+    command tig "$@"
+  }
+fi

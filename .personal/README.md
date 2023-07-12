@@ -10,6 +10,6 @@ This dotfiles is intended to be used in an environment where new users cannot be
 * [x] doctor command
 * [x] vim
 * [ ] git(created file, but I have not confirm the behavior)
-* [ ] tig(created file, but I have not confirm the behavior) not working...
+* [x] tig(created file, but I have not confirm the behavior)
 * [ ] tmux(created file, but I have not confirm the behavior)
   * NOTE: The tmux server runs per user. (So, common settings will be used.)
