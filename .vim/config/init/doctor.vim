@@ -29,6 +29,7 @@ let s:doctor_map={
       \'javascript-typescript-stdio': 'javascript-typescript-langserver',
       \'jsonlint':     'npm install -g jsonlint',
       \'jq':           'brew install jq || sudo apt -y install jq',
+      \'kotlin-language-server': 'brew install kotlin-language-server',
       \'look':         'maybe default command',
       \'nextword':     'go get -u github.com/high-moctane/nextword; nugget nextword-data',
       \'npm':          'install node',

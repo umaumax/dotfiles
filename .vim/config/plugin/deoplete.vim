@@ -60,6 +60,9 @@ if v:version >= 800 && has('python3')
   if Doctor('javascript-typescript-stdio', 'javascript lsp')
     let g:LanguageClient_serverCommands['javascript']=['javascript-typescript-stdio']
   endif
+  if Doctor('kotlin-language-server', 'kotlin lsp')
+    let g:LanguageClient_serverCommands['kotlin']=['kotlin-language-server']
+  endif
 
   " FYI: [automatic calls to textDocument\_documentHighlight based on cursor position · Issue \#618 · autozimu/LanguageClient\-neovim]( https://github.com/autozimu/LanguageClient-neovim/issues/618 )
   " Automatic Hover
