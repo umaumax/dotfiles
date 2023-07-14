@@ -76,10 +76,10 @@ download https://github.com/paulirish/git-recent/blob/master/git-recent
 download https://github.com/stedolan/git-ls/blob/master/git-ls
 download https://github.com/dmnd/git-diff-blame/blob/master/git-diff-blame
 download https://github.com/nornagon/git-rebase-all/blob/master/git-rebase-all
-download https://github.com/unixorn/git-extra-commands/blob/master/bin/git-pylint
-download https://github.com/unixorn/git-extra-commands/blob/master/bin/git-rename-branches
+download https://github.com/unixorn/git-extra-commands/blob/main/bin/git-pylint
+download https://github.com/unixorn/git-extra-commands/blob/main/bin/git-rename-branches
 download https://github.com/tj/git-extras/blob/master/bin/git-touch
-download https://github.com/so-fancy/diff-so-fancy/blob/master/third_party/build_fatpack/diff-so-fancy
+download https://github.com/so-fancy/diff-so-fancy/blob/master//diff-so-fancy
 
 download https://github.com/jantman/misc-scripts/blob/master/dot_find_cycles.py
 # NOTE: for wrap script by python3
