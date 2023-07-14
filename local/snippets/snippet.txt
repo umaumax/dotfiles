@@ -219,6 +219,8 @@
 [git split old commit message with rebase] git-split-commit-rebase-peco # original command
 [git merge all conflict(adopt upper one)] git checkout --ours .
 [git merge all conflict(adopt lower one)] git checkout --theirs .
+[git list not merged branches] git branch -r --list --no-merged
+[git list not merged branches with log] git branch -r --list --no-merged | grep -v '*' | xargs -Ibranch git log -1 branch
 [git merge retry all conflict] git checkout -m .
 [git stash pop reset] git checkout --ours . && git reset && git checkout . # NOTE: git stash pop で content が起きたときにはstashはdropしない
 [git stash list] git stash list
