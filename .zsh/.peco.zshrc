@@ -439,15 +439,15 @@ function git-reset-soft-peco() {
   git reset --soft "$commit"
 }
 
-CHEATSHEAT_ROOT="$HOME/dotfiles/cheatsheets/"
-if [[ -d $CHEATSHEAT_ROOT ]]; then
-  function cheat() {
-    local _=$(
-      export VIM_FAST_MODE='on'
-      grep -rns -v -e '^$' -e '^----' -e '```' $CHEATSHEAT_ROOT --color=always | sed 's:'$CHEATSHEAT_ROOT'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$CHEATSHEAT_ROOT'\1!g' | xargs-vim
-    )
-  }
-fi
+# CHEATSHEAT_ROOT="$HOME/dotfiles/cheatsheets/"
+# if [[ -d $CHEATSHEAT_ROOT ]]; then
+# function cheat() {
+# local _=$(
+# export VIM_FAST_MODE='on'
+# grep -rns -v -e '^$' -e '^----' -e '```' $CHEATSHEAT_ROOT --color=always | sed 's:'$CHEATSHEAT_ROOT'::g' | peco | sed -r 's!^([^:]*:[^:]*):.*$!'$CHEATSHEAT_ROOT'\1!g' | xargs-vim
+# )
+# }
+# fi
 
 # copy example file peco
 function pecoexamples() {

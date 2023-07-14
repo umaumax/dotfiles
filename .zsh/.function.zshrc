@@ -1872,6 +1872,17 @@ elif [[ $(uname) == "Darwin" ]]; then
   alias ps-cpu='ps aux -r'
   alias ps-mem='ps aux -m'
 fi
+
+function cheatsheet() {
+  local target=$(
+    cd ~/dotfiles/local/cheatsheets >/dev/null
+    ls | pecocat
+  )
+  [[ -z $target ]] && return
+  echo $target
+  cat ~/dotfiles/local/cheatsheets/$target
+}
+
 # FYI: [文字を中央寄せで表示するスクリプト \- Qiita]( https://qiita.com/april418/items/1c44d3bd13647183deae )
 function text_center() {
   local columns=$(tput cols)
