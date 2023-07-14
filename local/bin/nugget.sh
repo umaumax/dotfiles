@@ -34,7 +34,7 @@ function nugget() {
   function debug() { echo -e "\033[0;35m[log]\033[0m \033[0;33m$@\033[0m" && "$@"; }
 
   # NOTE: WIP
-  local brew_list=(aha autossh bash bat boost ccat clang-format cliclick cmake coreutils datamash direnv ffmpeg figlet freetype gcc gdrive git gnu-sed go grep htop icdiff imagemagick jid jq libpng micro ninja node pstree pyenv python3 qt rlwrap screen shellcheck terminal-notifier tig tmux translate-shell unrar vim watch zsh zsh-autosuggestions zsh-completions zsh-git-prompt zsh-history-substring-search)
+  local brew_list=(aha autossh bash bat boost ccat clang-format cliclick cmake coreutils datamash direnv ffmpeg figlet freetype gcc gdrive git gnu-sed go grep htop icdiff imagemagick jid jq kotlin-language-server libpng micro ninja node pstree pyenv python3 qt rlwrap screen shellcheck terminal-notifier tig tmux translate-shell unrar vim watch zsh zsh-autosuggestions zsh-completions zsh-git-prompt zsh-history-substring-search)
   # NOTE: WIP
   local apt_get_list=()
 
@@ -505,6 +505,20 @@ function nugget_ubuntu_go() {
   tar -C "$NUGGET_INSTALL_PREIFX" -xzf go1.14.4.linux-amd64.tar.gz
   popd
   rm -rf "$tmpdir"
+}
+# ################################
+
+# ################################
+function nugget_ubuntu_kotlin-language-server() {
+  cmdcheck kotlin-language-server && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  git clone https://github.com/fwcd/kotlin-language-server.git
+  pushd kotlin-language-server
+  ./gradlew build
+  mv ./server/build/install/server/bin/kotlin-language-server "$NUGGET_INSTALL_BIN_PREIFX/"
+  popd
+  popd
 }
 # ################################
 
