@@ -107,6 +107,7 @@
 [disk size] df -h
 [confirm only root filesystem disk usage] df -h /
 [disk size (only local mounted file)] df -hl
+[tree with size] tree --si
 
 [root device filesystem] df -hT | grep '/$' | cut -d' ' -f1
 [list blocks with filesystem] lsblk -f
@@ -2259,3 +2260,8 @@
 
 # msgpack
 [msgpack unpack one linker] cat hoge.mgpack\%# | python3 -c 'import sys; import msgpack; print(msgpack.unpack(sys.stdin.buffer, strict_map_key=False))' | fold -w $COLUMNS | less
+
+# java
+[list class of jar file] jar tf # app.jar
+[run jar file] java -jar # app.jar
+[run jar file with entry class] java -cp # app.jar com.example.sample.AppKt
