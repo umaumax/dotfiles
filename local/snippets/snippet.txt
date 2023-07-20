@@ -764,6 +764,7 @@
 [pip install from ithub subdir] pip install "git+ssh://git@github.com/$USER_NAME\%#/${REPO_NAME}.git#egg=$PACKAGE_NAME&subdirectory=$DIR_NAME"
 [python dump sys path] python -c "import sys,pprint; pprint.pprint(sys.path)"
 [remove pyenv form $PATH] export PATH=$(echo "$PATH" | python -c "import sys, re; print(':'.join(x for x in sys.stdin.read().strip().split(':') if not 'pyenv' in x))")
+[not found python at ubuntu] sudo apt install -y python-is-python3
 
 # network manager
 [nmcli config files dir] /etc/NetworkManager/system-connections/
