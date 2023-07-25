@@ -2253,8 +2253,9 @@
 [kubernetes list ingress] kubectl get ingress
 
 # nerdctl
-[backup k8s image] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
 [list k8s images] sudo nerdctl images --namespace k8s.io
+[nerdctl pull image for k8s] sudo nerdctl image --namespace k8s.io pull --insecure-registry $HOST/$IMAGE_NAME:$TAG
+[nerdctl change tag for k8s] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
 
 # ipv6
 [ipv6 ssh] ssh \%# # $USER@$IP_ADDR
