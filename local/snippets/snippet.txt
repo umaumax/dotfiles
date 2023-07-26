@@ -2268,3 +2268,8 @@
 [list class of jar file] jar tf # app.jar
 [run jar file] java -jar # app.jar
 [run jar file with entry class] java -cp # app.jar com.example.sample.AppKt
+
+# gradle
+[gradlew build linux x64] ./gradlew linuxX64Binaries
+[gradlew build linux arm64] ./gradlew linuxArm64Binaries
+[gradlew tasks] ./gradlew tasks
