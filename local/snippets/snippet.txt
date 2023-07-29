@@ -2251,6 +2251,8 @@
 [kubectl enter container] kubectl exec -it pod/hoge -c hoge-container -n hoge-namespace -- bash
 [kubernetes create Web UI dashboard service account token without expiration] kubectl -n kubernetes-dashboard create token admin-user --duration=87600h
 [kubernetes list ingress] kubectl get ingress
+[kubectl show pod labels ] kubectl get pods --show-labels
+[kubectl get pod by label ] kubectl get pods -l $label_key=$label_value -o name
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
