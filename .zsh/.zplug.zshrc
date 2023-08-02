@@ -139,6 +139,8 @@ if [[ $USE_ZPLUG == 0 ]]; then
     cmdcheck rustup && [[ ! -e $zsh_completion_dir/_rustup ]] && rustup completions zsh >$zsh_completion_dir/_rustup
     cmdcheck cargo && cmdcheck rustc && fpath=($(rustc --print sysroot)/share/zsh/site-functions $fpath)
 
+    cmdcheck gh && gh completion -s zsh >$zsh_completion_dir/_gh
+
     # NOTE: enbale zsh completion
     # [zshの起動が遅いのでなんとかしたい 2 \- Qiita]( https://qiita.com/vintersnow/items/c29086790222608b28cf )
     # NOTE: slow with security check
