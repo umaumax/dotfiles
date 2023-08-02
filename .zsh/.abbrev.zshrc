@@ -151,3 +151,5 @@ abbrev-alias -g 'HEAD^^^^'='HEAD\^\^\^'
 abbrev-alias -f BRANCH="git symbolic-ref --short HEAD"
 abbrev-alias -f BASEDIR='basename $PWD'
 abbrev-alias -f LSPECO='ls | fzf'
+
+abbrev-alias -g gw='./gradlew '
