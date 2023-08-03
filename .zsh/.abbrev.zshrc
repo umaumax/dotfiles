@@ -117,6 +117,19 @@ abbrev-alias -c fgcmake="findgrep '\%#' -- -type f \( -name 'CMakeLists.txt' -o 
 abbrev-alias -c fgconfig="findgrep '\%#' -- -type f \( -name '.*' -o -name '*.config' -o -path '*/config/*' \)"
 abbrev-alias -c fgtest="findgrep '\%#' -- -type f \( -name '*test*' \)"
 abbrev-alias -c fglaunch="findgrep '\%#' -- -type f \( -name '*.launch' \)"
+abbrev-alias -c fgkt="findgrep '\%#' -- -type f \( -name '*.kt' \)"
+
+abbrev-alias -c sn='sudo nerdctl '
+abbrev-alias -c n='nerdctl '
+abbrev-alias -c k='kubectl '
+abbrev-alias -c kl='kubectl logs '
+abbrev-alias -c kg='kubectl get '
+abbrev-alias -c kd='kubectl describe '
+abbrev-alias -c kgp='kubectl get pods '
+abbrev-alias -c kdp='kubectl describe pods '
+abbrev-alias -c ke='kubectl exec -it '
+
+abbrev-alias -c gw='./gradlew '
 
 abbrev-alias -c ctk='catkin_'
 abbrev-alias -c ctkm='catkin_make '
@@ -151,5 +164,3 @@ abbrev-alias -g 'HEAD^^^^'='HEAD\^\^\^'
 abbrev-alias -f BRANCH="git symbolic-ref --short HEAD"
 abbrev-alias -f BASEDIR='basename $PWD'
 abbrev-alias -f LSPECO='ls | fzf'
-
-abbrev-alias -g gw='./gradlew '
