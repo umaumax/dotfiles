@@ -2253,6 +2253,8 @@
 [kubernetes list ingress] kubectl get ingress
 [kubectl show pod labels ] kubectl get pods --show-labels
 [kubectl get pod by label ] kubectl get pods -l $label_key=$label_value -o name
+[kubectl create nginx] kubectl create deploy nginx --image=nginx --replicas=3
+[kubectl dry-run] --dry-run=client -o yaml
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
