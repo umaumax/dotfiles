@@ -83,7 +83,7 @@ function show_PROMPT_2_text_by_array() {
   local PROMPT_texts=("$@")
   local PROMPT_2=$(gen_PROMPT_2_text "${PROMPT_texts[@]}")
   # cmdcheck terminal-truncate && PROMPT_2=$(printf '%s' "$PROMPT_2" | terminal-truncate -max=$(tput cols) -tab=8)
-  _PROMPT=$PROMPT
+  local _PROMPT=$PROMPT
   PROMPT="${PROMPT_2}$PROMPT"
   zle reset-prompt
   PROMPT=$_PROMPT
@@ -129,11 +129,12 @@ if cmdcheck fzf && cmdcheck bat && cmdcheck cgrep && cmdcheck fixedgrep && cmdch
       # local arg_max=4
       # local keyword=$(echo -n ${LBUFFER} | cut -d' ' -f -$arg_max | sed -E 's/[|;&].*$//' | sed -E 's/ *$//')
       local keyword=$(echo -n ${LBUFFER} | sed -E 's/ *$//')
+      # NOTE: if the first keyword is updated
       if [[ $_auto_show_prompt_pre_keyword != $keyword ]] && [[ -n $keyword ]]; then
         _AUTO_PROMPT_LIST_SETUP "$keyword"
         _auto_show_prompt_pre_keyword=$keyword
       fi
-      printf '%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" "$p_buffer_stack" | cat_PROMPT_2_text
+      printf '%s%s' "$_AUTO_PROMPT_LIST_WITH_COLOR" "$p_buffer_stack" | cat_PROMPT_2_text
     fi
 
     if cmdcheck abbrev-alias; then
