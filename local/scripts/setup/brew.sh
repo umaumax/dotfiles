@@ -32,6 +32,7 @@ brew_install_formula_list=(
   gist
   gnu-sed
   go
+  gradle
   grep
   htop
   hub
@@ -39,6 +40,7 @@ brew_install_formula_list=(
   imagemagick
   jid
   jq
+  kotlin-language-server
   libpng
   lcov
   micro
