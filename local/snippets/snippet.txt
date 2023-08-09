@@ -2277,3 +2277,5 @@
 [gradlew build linux x64] ./gradlew linuxX64Binaries
 [gradlew build linux arm64] ./gradlew linuxArm64Binaries
 [gradlew tasks] ./gradlew tasks
+[gradlew test on linux] ./gradlew linuxX64Test
+[gradlew test on mac] ./gradlew iosSimulatorArm64Test
