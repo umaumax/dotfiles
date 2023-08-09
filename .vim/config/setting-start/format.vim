@@ -175,6 +175,12 @@ augroup vim_group
   autocmd FileType vim ++once autocmd BufWritePre *vimrc if IsAutoFormat() | call <SID>format_file() | endif
 augroup END
 
+augroup kotlin_group
+  autocmd!
+  autocmd FileType kotlin ++once autocmd BufWinEnter *.{kt,kts} command! -bar Format :KtFormat
+  autocmd FileType kotlin ++once autocmd BufWritePre *.{kt,kts} if IsAutoFormat() | :KtFormat | endif
+augroup END
+
 augroup tex_group
   autocmd!
   autocmd FileType plaintex ++once autocmd BufWritePre *.tex  if IsAutoFormat() | call <SID>format_file() | endif
