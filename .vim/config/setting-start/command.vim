@@ -449,11 +449,11 @@ command! -range DeleteSpace :<line1>,<line2>s/\s\+//g | :noh
 if Doctor('code', 'vscode')
   function! s:vscode_open(files)
     for file in a:files
-      call system('code '.shellescape(fnamemodify(file, ":p")))
+      call system('code --goto '.shellescape(fnamemodify(file, ":p")))
     endfor
   endfunction
-  command! Code          call s:vscode_open([expand('%')])
-  command! VSCodeOpen    call s:vscode_open([expand('%')])
+  command! Code          call s:vscode_open([expand('%').':'.line(".")])
+  command! VSCodeOpen    call s:vscode_open([expand('%').':'.line(".")])
   command! VSCodeOpenAll call s:vscode_open(s:get_active_buffers())
 endif
 
