@@ -60,7 +60,7 @@
   },
   "rust-analyzer.checkOnSave.command": "clippy",
   "rust-analyzer.server.extraEnv": {
-      "CARGO_TARGET_DIR": "target/rust-analyzer"
+    "CARGO_TARGET_DIR": "target/rust-analyzer"
   },
   "[ahk]": {
     "files.encoding": "utf8bom",
@@ -95,7 +95,7 @@
   "omnisharp.useGlobalMono": "always",
   "omnisharp.monoPath": "/opt/homebrew/opt/mono/",
   "gitlens.hovers.changesDiff": "hunk",
- "gitlens.codeLens.enabled": false,
+  "gitlens.codeLens.enabled": false,
   "autofix.dictionary": [
     {
       "languages": ["*"],
@@ -104,13 +104,13 @@
       }
     },
     {
-      "languages": ["c","cpp"],
+      "languages": ["c", "cpp"],
       "words": {
         ";;": "::",
         "; ": ": ",
         "\\.\\.": "->"
       }
-    }
+    },
     {
       "languages": ["rust"],
       "words": {
@@ -156,6 +156,5 @@
   "python.languageServer": "Pylance",
   "plantuml.commandArgs": [],
   "git.ignoreMissingGitWarning": true,
-  "remote.SSH.remotePlatform": {
-  }
+  "remote.SSH.remotePlatform": {}
 }
