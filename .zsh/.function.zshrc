@@ -752,11 +752,19 @@ function _xargs-vim() {
       # NOTE: open each file
       # vim "$file_path" $@ </dev/tty >/dev/tty
     done
-    # NOTE: my vim setting (buffers -> tab)
-    [[ ${#files[@]} -gt 0 ]] && vim "${files[@]}" $@ </dev/tty >/dev/tty
+    if [[ -n "$VSCODE_REMOTE" ]]; then
+      code --goto "${files[@]}" $@
+    else
+      # NOTE: my vim setting (buffers -> tab)
+      [[ ${#files[@]} -gt 0 ]] && vim "${files[@]}" $@ </dev/tty >/dev/tty
+    fi
     return
   fi
-  vim $@
+  if [[ -n "$VSCODE_REMOTE" ]]; then
+    code --goto $@
+  else
+    vim $@
+  fi
 }
 cmdcheck nvim && cmdcheck vimdiff && alias vimdiff='nvim -d '
 
