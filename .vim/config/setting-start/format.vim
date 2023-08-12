@@ -178,7 +178,8 @@ augroup END
 augroup kotlin_group
   autocmd!
   autocmd FileType kotlin ++once autocmd BufWinEnter *.{kt,kts} command! -bar Format :KtFormat
-  autocmd FileType kotlin ++once autocmd BufWritePre *.{kt,kts} if IsAutoFormat() | :KtFormat | endif
+  " NOTE: I would like to fomrat a kotlin file at my own pace.
+  " autocmd FileType kotlin ++once autocmd BufWritePre *.{kt,kts} if IsAutoFormat() | :KtFormat | endif
 augroup END
 
 augroup tex_group
