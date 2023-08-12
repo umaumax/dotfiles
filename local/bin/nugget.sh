@@ -523,6 +523,24 @@ function nugget_ubuntu_kotlin-language-server() {
 # ################################
 
 # ################################
+function nugget_ubuntu_ktlint() {
+  cmdcheck ktlint && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.50.0/ktlint
+  chmod a+x ktlint
+  mv ktlint "$NUGGET_INSTALL_BIN_PREIFX/"
+  popd
+}
+# ################################
+
+# ################################
+function nugget_mac_ktlint() {
+  nugget_ubuntu_ktlint "$@"
+}
+# ################################
+
+# ################################
 function nugget_mac_git-webui() {
   cmdcheck git-webui && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
 
