@@ -3,7 +3,7 @@
 # 0: no
 # 1: std::xxx
 # if -1: all
-TRAVERSE_MAX_LEVEL=-1
+TRAVERSE_MAX_LEVEL=${TRAVERSE_MAX_LEVEL:-"-1"}
 
 function get_list() {
   local code="use $1::"
@@ -46,6 +46,6 @@ function traverse_modules() {
 }
 
 function main() {
-  traverse_modules 'std'
+  traverse_modules "$1"
 }
-main
+main "$@"
