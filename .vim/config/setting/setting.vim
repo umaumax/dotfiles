@@ -179,8 +179,18 @@ if exists('$TMUX')
   augroup END
 endif
 
+function! s:is_git_mergetool_file()
+  return expand('%:t') =~ '^.*_LOCAL_.*$'
+endfunction
+
 " NOTE: before VimEnter event, tabpagenr('$') is always 1
 function! s:buffer_to_tab()
+  " NOTE: for git mergetool
+  if s:is_git_mergetool_file()
+    execute '3 wincmd w'
+    return
+  endif
+
   let filename = expand('%:t')
   let full_path = expand('%:p')
 
