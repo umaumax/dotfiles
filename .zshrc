@@ -459,7 +459,7 @@ function precmd_hook() {
   # local cmd="$history[$((HISTCMD - 1))]"
   # NOTE: macのiTermでは必要ない(vimに関しては)
   # to prevent `Vimを使ってくれてありがとう` at tab
-  set-dirname-title
+  type >/dev/null 2>&1 set-dirname-title && set-dirname-title
 }
 function preexec_hook() {
 }
@@ -493,6 +493,12 @@ fi
 # NOTE: set current mode as viins
 # NOTE: ESC -> vicmd
 bindkey -v
+
+# for VSCode terminal
+function source_if_exist() {
+  local target="$1"
+  [[ -f "$target" ]] && source "$target"
+}
 
 source_if_exist ~/.zsh/.function.zshrc
 source_if_exist ~/.zsh/.docker.zshrc

@@ -137,6 +137,16 @@ abbrev-alias -c ctmk='catkin_make '
 abbrev-alias -c ctt='catkin_test_results '
 abbrev-alias -c ctkt='catkin_test_results '
 
+abbrev-alias -c sn='sudo nerdctl '
+abbrev-alias -c n='nerdctl '
+abbrev-alias -c k='kubectl '
+abbrev-alias -c kl='kubectl logs '
+abbrev-alias -c kg='kubectl get '
+abbrev-alias -c kd='kubectl describe '
+abbrev-alias -c kgp='kubectl get pods '
+abbrev-alias -c kdp='kubectl describe pods '
+abbrev-alias -c ke='kubectl exec -it '
+
 # abbrev-alias -c b='brew '
 # abbrev-alias -g tst='tig stash'
 # abbrev-alias -g gcm='git commit '
@@ -164,3 +174,5 @@ abbrev-alias -g 'HEAD^^^^'='HEAD\^\^\^'
 abbrev-alias -f BRANCH="git symbolic-ref --short HEAD"
 abbrev-alias -f BASEDIR='basename $PWD'
 abbrev-alias -f LSPECO='ls | fzf'
+
+abbrev-alias -g gw='./gradlew '

@@ -237,6 +237,8 @@ alias qq='exit'
 alias qqq='exit'
 alias qqqq='exit'
 
+alias gl='git log --oneline --decorate --graph --branches --tags --remotes'
+
 abbrev-alias -c g='git'
 abbrev-alias -c s='sudo'
 abbrev-alias -c sn='sudo nerdctl'
