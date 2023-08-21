@@ -1174,6 +1174,7 @@
 [add group to user adduser(ubuntu)] sudo adduser $USER $GROUP\%#
 [create new group (ubuntu)] sudo addgroup $GROUP\%#
 [group list] cat /etc/group
+[add docker group to user] sudo gpasswd -a $USER docker
 
 [list users with ldap user] getent passwd
 
@@ -1342,6 +1343,7 @@
 
 [how to know image size] file
 [how to know image size] identify
+[check image exif infomation] identify -verbose 
 
 # [bash \- Removing a newline character at the end of a file \- Stack Overflow]( https://stackoverflow.com/questions/16365155/removing-a-newline-character-at-the-end-of-a-file )
 [removing a newline character at the end of a file] perl -0pe 's/\n\Z//'
@@ -1471,6 +1473,7 @@
 [source code to  svg] bat --color=always \%# | ansitoimg code.svg
 [source code to  png] bat --color=always \%# | ansitoimg -p raster code.png
 [source code to html] bat --color=always \%# | ansitoimg -p html code.html
+[with pager] |& ecat --color=always | bat --paging=always --style=plain
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
@@ -2280,3 +2283,4 @@
 [gradlew tasks] ./gradlew tasks
 [gradlew test on linux] ./gradlew linuxX64Test
 [gradlew test on mac] ./gradlew iosSimulatorArm64Test
+[gradle test with pager] ./gradlew linuxX64Test |& ecat --color=always | bat --paging=always --style=plain
