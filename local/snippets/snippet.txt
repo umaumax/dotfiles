@@ -1645,6 +1645,7 @@
 [patchelf overwrite rpath] patchelf --set-rpath $SO_PATH1:$SO_PATH2 $TARGET
 [patchelf add so] patchelf --add-needed $SO_PATH $TARGET # any filepath ok but recommend relative filepath not absolute filepath
 [patchelf add so] patchelf --remove-needed $SO_PATH $TARGET
+[chrpath set rpath] chrpath -r '$ORIGIN' $TARGET # sudo apt install -y chrpath
 
 # root
 [fakeroot] fakeroot
