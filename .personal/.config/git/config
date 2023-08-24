@@ -1,7 +1,9 @@
 [user]
-	name = "your name"
-	email = "your mail address"
+  name = "your name"
+  email = "your mail address"
 [push]
   default = current
 [init]
   defaultBranch = main
+[grep]
+  lineNumber = true

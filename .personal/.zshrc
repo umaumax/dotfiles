@@ -83,6 +83,11 @@ function ggpv_current() {
 function git_grep_root() { is_git_repo_with_message && git grep "$@" -- $(git rev-parse --show-toplevel); }
 function git_grep_current() { is_git_repo_with_message && git grep "$@"; }
 
+alias gcb='git checkout -b '
+alias gp='git push '
+alias gpc='git push origin $(git symbolic-ref --short HEAD)'
+alias gpullc='git pull origin $(git symbolic-ref --short HEAD)'
+
 # NOTE: input lines
 # e.g.
 # README.md                            : filename
