@@ -962,7 +962,7 @@ function vim-backup-peco() {
   local filename="$(basename "$filepath")"
   local dirpath="$(dirname "$absfilepath")"
   local vim_backup_tmpdir="$HOME/.vim/tmp/"
-  find "$vim_backup_tmpdir/$dirpath" -name "[0-9][0-9][0-9][0-9].${filename}" -maxdepth 1 | LANG=C sort -r | pecodiff "$filepath" | xargs-vim
+  find "$vim_backup_tmpdir/$dirpath" -name "[0-9][0-9][0-9][0-9]*.${filename}" -maxdepth 1 | LANG=C sort -r | pecodiff "$filepath" | xargs-vim
 }
 
 function pecodiff() {
