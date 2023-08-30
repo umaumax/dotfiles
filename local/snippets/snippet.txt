@@ -2290,3 +2290,4 @@
 # aws
 [aws eks describe-cluster ] aws eks describe-cluster --name $CLUSTER_NAME --profile $AWS_IAM_USER
 [aws eks list-nodegroups ] aws eks list-nodegroups --cluster-name $CLUSTER_NAME --profile $AWS_IAM_USER
+[aws profile] --profile $AWS_IAM_USER
