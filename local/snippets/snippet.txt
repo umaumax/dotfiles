@@ -2261,6 +2261,8 @@
 [kubectl create nginx] kubectl create deploy nginx --image=nginx --replicas=3
 [kubectl dry-run] --dry-run=client -o yaml
 [kubernetes restart pod] kubectl get pod/hoge\%# -o yaml | kubectl replace --force -f -
+[switch cluster context] kubectl ctx # kubectl krew install ctx
+[switch namespace context] kubectl ns # kubectl krew install ns
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
