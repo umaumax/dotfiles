@@ -1332,3 +1332,14 @@ function act-job() {
   fi
   printf '%s' "act -j $job_name" | to_prompt
 }
+
+function ssh-aws-eks() {
+  local target
+  target=$(kubectl get nodes -o custom-columns="NAME:.metadata.name,NODE_GROUP:.metadata.labels['alpha\.eksctl\.io/nodegroup-name']" | fzf | awk '{ print $1 }')
+  if [[ -z $target ]]; then
+    return
+  fi
+  AWS_EKS_PRIVATE_KEY=${AWS_EKS_PRIVATE_KEY:-$HOME/.ssh/aws_eks_id_ed25519}
+  echo "kubectl ssh-jump -u ec2-user -i "$AWS_EKS_PRIVATE_KEY" "$target""
+  kubectl ssh-jump -u ec2-user -i "$AWS_EKS_PRIVATE_KEY" "$target"
+}
