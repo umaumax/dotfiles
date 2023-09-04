@@ -131,6 +131,8 @@ abbrev-alias -c kgn='kubectl get nodes'
 abbrev-alias -c kgs='kubectl get svc'
 abbrev-alias -c kgi='kubectl get ingress'
 abbrev-alias -c kdp='kubectl describe pods '
+abbrev-alias -c kctx='kubectl ctx'
+abbrev-alias -c kns='kubectl ns'
 abbrev-alias -c ke='kubectl exec -it '
 
 abbrev-alias -c gw='./gradlew '
