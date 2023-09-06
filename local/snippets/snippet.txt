@@ -2295,3 +2295,4 @@
 [aws eks list-nodegroups ] aws eks list-nodegroups --cluster-name $CLUSTER_NAME --profile $AWS_IAM_USER
 [aws eks clusters] aws eks list-clusters
 [aws profile] --profile $AWS_IAM_USER
+[check aws alb logs] kubectl logs -n kube-system deployments/aws-load-balancer-controller
