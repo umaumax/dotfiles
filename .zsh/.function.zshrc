@@ -124,6 +124,7 @@ seq 1 9 | sed -n '4p; 3p; 1p;'
 EOF
     return 1
   fi
+  local filter_file="$1"
   perl -e 'my %hash; open(my $fh, "<", @ARGV[0]); while (my $line = <$fh>) { $hash{$line} += 1; }; close $fh; while (<STDIN>) { print $_ if exists($hash{$_}); }' "$filter_file"
 }
 
