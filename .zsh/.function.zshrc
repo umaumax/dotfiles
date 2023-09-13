@@ -722,7 +722,6 @@ cmdcheck 'go' && function got() {
   go get ${args}
 }
 
-# cmd alias
 cmdcheck vim && alias vi='vim'
 cmdcheck nvim && alias vterminal="command nvim -c terminal -c \"call feedkeys('i','n')\""
 cmdcheck nvim && alias vt='vterminal'
@@ -834,7 +833,6 @@ alias autofixvim='vim ~/.config/auto_fix/fix.yaml'
 
 alias vimemo='vim README.md'
 alias vmemo='vim README.md'
-alias vm='vim README.md'
 
 alias allow='direnv allow'
 
@@ -861,7 +859,7 @@ function ssh-register_id_rsa.pub() {
 }
 
 alias path='echo -e ${PATH//:/\\n}'
-# NOTE: for cpp
+# NOTE: for c,cpp
 alias cpath='echo -e ${CPATH//:/\\n}'
 # NOTE: zsh var
 alias fpath='tr " " "\n" <<<$fpath'
@@ -876,7 +874,6 @@ function cmds() {
 alias lscmds='allcmds'
 function pathcmds() {
   for name in $(echo $PATH | sed "s/:/\n/g"); do
-    # echo $name
     find $name -maxdepth 1 -type f -follow -perm -=+x 2>/dev/null
   done
 }
@@ -894,29 +891,13 @@ cmdcheck mdt || function mdt() {
 }
 
 # NOTE: for line message app(drop time and username)
-alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ //g"'
+alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ \\w+ //g"'
 
 alias pwd='pwd | homedir_normalization'
 
-# [bash で ファイルの絶対パスを得る - Qiita](http://qiita.com/katoy/items/c0d9ff8aff59efa8fcbb)
 function abspath_raw() {
   perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } }' "$@"
 }
-# function abspath_raw() {
-# local target=${1:-.}
-# if [[ $(uname) == "Darwin" ]]; then
-# # local abspathdir=$( (cd $(dirname $target) >/dev/null 2>&1 && command pwd))
-# # local ret=$(echo ${abspathdir%/}/$(basename $target))
-# # [[ -f $ret || -d $ret ]] && echo $ret
-# if [[ $target =~ ^/.* ]]; then
-# printf '%s' "$target"
-# else
-# printf '%s' "$PWD/${target#./}"
-# fi
-# else
-# readlink -f $target
-# fi
-# }
 function abspath() {
   abspath_raw $(printf '%s' "$1" | expand_home) | homedir_normalization
 }
