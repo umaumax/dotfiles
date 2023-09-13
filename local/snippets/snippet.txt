@@ -985,6 +985,7 @@
 [add update-alternatives   ] sudo update-alternatives --install $LINK_PATH $CONFIG_NAME $REAL_CMD_PATH $PRIORITY
 [switch update-alternatives] sudo update-alternatives --config $CMD
 
+[How to list files of a Debian package without install( dpkg -l without install)] apt-file list # sudo apt install -y apt-file; sudo apt-file update
 [apt search specific file from remote apt-get packages] apt-file search # sudo apt-get install -y apt-file
 [apt search specific file from local apt-get packages] dpkg-query --search "*/\%#"
 [apt check dependency] apt-cache rdepends --installed $package
@@ -1014,6 +1015,7 @@
 [json format] cat \%# | jq .
 [json format] cat \%# | python -m json.tool
 [gron json grep] gron --colorize \%# | fzf
+[minify JSON] jq -r tostring
 
 # jq
 [jq slice at 1st] jq '.[:\%#]'
