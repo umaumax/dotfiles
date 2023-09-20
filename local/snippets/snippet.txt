@@ -976,6 +976,7 @@
 
 [apt official repo source list file] /etc/apt/sources.list
 [apt unofficial repo source list directory] /etc/apt/sources.list.d/
+[grep apt source list files] grep --color=always -r . /etc/apt/sources.list /etc/apt/sources.list.d | grep -v ':.*#'
 
 [apt-get remove ppa repo] sudo add-apt-repository --remove ppa:\%# # xxx/yyy
 [apt-get installed ppa list] dpkg -l | grep -E "ppa[0-9]+"
@@ -1347,6 +1348,7 @@
 [how to know image size] file
 [how to know image size] identify
 [check image exif infomation] identify -verbose 
+[check image exif infomation] exif # sudo apt install -y exif
 
 # [bash \- Removing a newline character at the end of a file \- Stack Overflow]( https://stackoverflow.com/questions/16365155/removing-a-newline-character-at-the-end-of-a-file )
 [removing a newline character at the end of a file] perl -0pe 's/\n\Z//'
@@ -1486,6 +1488,7 @@
 [heredoc to filename] cat > $FILEPATH\%# << 'EOF'
 [heredoc to filename] cat << 'EOF' > $FILEPATH\%#
 [heredoc to pipe] cat << 'EOF' | \%#
+[heredoc to tee command] cat << 'EOF' | sudo tee -a 
 [heredoc with git diff apply] cat << 'EOF' | git -C $(git rev-parse --show-toplevel) apply # paste git diff result and type EOR and enter
 [string to pipe input] <<<"\%#"
 
@@ -2270,6 +2273,7 @@
 [list k8s images] sudo nerdctl images --namespace k8s.io
 [nerdctl pull image for k8s] sudo nerdctl image --namespace k8s.io pull --insecure-registry $HOST/$IMAGE_NAME:$TAG
 [nerdctl change tag for k8s] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
+[check image entry point] sudo nerdctl inspect --namespace k8s.io --format='{{.Config.Entrypoint}}' # $IMAGE_NAME:$TAG
 
 # ipv6
 [ipv6 ssh] ssh \%# # $USER@$IP_ADDR
@@ -2290,7 +2294,8 @@
 [gradlew test on linux] ./gradlew linuxX64Test
 [gradlew test on linux with log] ./gradlew linuxX64Test --info
 [gradlew test on mac] ./gradlew iosSimulatorArm64Test
-[gradle test with pager] ./gradlew linuxX64Test |& ecat --color=always | bat --paging=always --style=plain
+[gradlew test with pager] ./gradlew linuxX64Test |& ecat --color=always | bat --paging=always --style=plain
+[gradlew list dependencies]./gradlew dependencies --configuration compileClasspath
 
 # aws
 [aws eks describe-cluster ] aws eks describe-cluster --name $CLUSTER_NAME --profile $AWS_IAM_USER
