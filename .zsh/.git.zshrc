@@ -292,7 +292,7 @@ function git-log-grep() {
 
 # FYI: [unicode \- grep: Find all lines that contain Japanese kanjis \- Unix & Linux Stack Exchange]( https://unix.stackexchange.com/questions/65715/grep-find-all-lines-that-contain-japanese-kanjis )
 function gg-japanese() {
-  git grep -E --not -e '^(['"'"'{}()!@#$%^&*+=:;\\<>_,."/?[ a-zA-Z0-9-]|])*$'
+  git grep -E --not -e '^(['"'"'`~{}()!@#$%^&*+=:;\\<>_,."/?[ a-zA-Z0-9-]|]|\|)*$'
 }
 # alias gg-japanese='gg -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
 alias ggr-japanese='ggr -P "[\xe4-\xe9][\x80-\xbf][\x80-\xbf]|\xe3[\x81-\x83][\x80-\xbf]"'
