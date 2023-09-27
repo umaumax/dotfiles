@@ -1615,6 +1615,7 @@
 [objdump dump .plt] objdump -d -j .plt 
 [objdump dump .plt.got] objdump -d -j .plt.got 
 [readelf show rpath] readelf -d \%# | egrep 'R(UN)?PATH'
+[g++ rpath option] -Wl,-rpath,'$ORIGIN/'
 
 [strings? by readelf] target=\%#;readelf -S "$target" | grep "\[.*]" | awk '{print $2}' | grep '^\.' | xargs -L1 -I{} bash -c "echo {}1>&2; readelf -x {} '$target'" | grep -C 3 "$keyword"
 
