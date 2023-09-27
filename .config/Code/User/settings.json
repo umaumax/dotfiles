@@ -21,7 +21,12 @@
     "editor.findMatchBorder": "#FDFF0CCC"
   },
   "workbench.startupEditor": "none",
-  "editor.rulers": [80, 160, 240, 320],
+  "editor.rulers": [
+    80,
+    160,
+    240,
+    320
+  ],
   "files.insertFinalNewline": true,
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.showExitAlert": false,
@@ -29,7 +34,7 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.bracketPairColorization.enabled": true,
   "editor.suggestSelection": "recentlyUsedByPrefix",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   // for windows
   // "editor.mouseWheelScrollSensitivity": 15,
   // for Mac OS X
@@ -98,13 +103,18 @@
   "gitlens.codeLens.enabled": false,
   "autofix.dictionary": [
     {
-      "languages": ["*"],
+      "languages": [
+        "*"
+      ],
       "words": {
         "forcus": "focus"
       }
     },
     {
-      "languages": ["c", "cpp"],
+      "languages": [
+        "c",
+        "cpp"
+      ],
       "words": {
         ";;": "::",
         "; ": ": ",
@@ -112,7 +122,9 @@
       }
     },
     {
-      "languages": ["rust"],
+      "languages": [
+        "rust"
+      ],
       "words": {
         ";;": "::",
         "; ": ": ",
@@ -122,7 +134,9 @@
   ],
   "auto-correct.dictionary": [
     {
-      "languages": ["*"],
+      "languages": [
+        "*"
+      ],
       "words": {
         "warn": "WARN:",
         "todo": "TODO:",
@@ -147,8 +161,16 @@
     "param-case",
     "CONST_CASE"
   ],
-  "cSpell.ignoreRegExpList": ["０-９Ａ-Ｚａ-ｚ[亜-熙纊-黑ぁ-んァ-ヶ]+"],
-  "cSpell.words": ["hoge", "fuga", "piyo", "infile", "outfile"],
+  "cSpell.ignoreRegExpList": [
+    "０-９Ａ-Ｚａ-ｚ[亜-熙纊-黑ぁ-んァ-ヶ]+"
+  ],
+  "cSpell.words": [
+    "hoge",
+    "fuga",
+    "piyo",
+    "infile",
+    "outfile"
+  ],
   // disable to auto complete Japanese
   "AllAutocomplete.whitespace": "[^\\w\\-_\\$\\u0080-\\uFFFF]+|[\"']+|[亜-熙ぁ-んァ-ヶ]+",
   "plantuml.render": "PlantUMLServer",
@@ -156,5 +178,6 @@
   "python.languageServer": "Pylance",
   "plantuml.commandArgs": [],
   "git.ignoreMissingGitWarning": true,
-  "remote.SSH.remotePlatform": {}
+  "remote.SSH.remotePlatform": {},
+  "security.workspace.trust.untrustedFiles": "open"
 }
