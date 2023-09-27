@@ -2269,6 +2269,7 @@
 [kubernetes restart pod] kubectl get pod/hoge\%# -o yaml | kubectl replace --force -f -
 [switch cluster context] kubectl ctx # kubectl krew install ctx
 [switch namespace context] kubectl ns # kubectl krew install ns
+[kubernetes run hello-world pod] kubectl run hello-world --image=hello-world --restart=Never
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
