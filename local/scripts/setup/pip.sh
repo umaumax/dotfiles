@@ -39,6 +39,8 @@ pip3 install thefuck
 
 pip3 install compdb
 
+pip3 install httpie
+
 pip install neovim
 pip3 install neovim
 pip install pynvim
