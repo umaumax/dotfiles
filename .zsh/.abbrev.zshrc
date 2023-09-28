@@ -88,6 +88,9 @@ abbrev-alias -c ggjs="ggpvc -E -e '^.{,500}$' --and -e '\%#' -- '*.js' '*.ts'"
 abbrev-alias -c ggcs="ggpvc '\%#' -- '*.cs'"
 abbrev-alias -c ggpy="ggpvc '\%#' -- '*.py'"
 
+abbrev-alias -c ggkt="ggpvc '\%#' -- '*.kt'"
+abbrev-alias -c ggkts="ggpvc '\%#' -- '*.kts'"
+
 abbrev-alias -c ggmake="ggpvc '\%#' -- '*[M|m]akefile'"
 abbrev-alias -c ggcmake="ggpvc '\%#' -- '*CMakeLists.txt' '*.cmake'"
 
