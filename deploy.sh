@@ -158,7 +158,7 @@ safe_ln "$DOTPATH"/.minimal.vimrc ~/.config/oressh/default/.vimrc
 safe_ln "$DOTPATH"/.inputrc ~/.config/oressh/default/.inputrc
 
 if [[ -d ~/.config/karabiner/assets/complex_modifications ]]; then
-  ls "$DOTPATH"/.config/karabiner/assets/complex_modifications/ | while read -r filepath || [ -n "${filepath}" ]; do
+  ls "$DOTPATH"/.config/karabiner/assets/complex_modifications/"*.json" | while read -r filepath || [ -n "${filepath}" ]; do
     karabiner_name=${filepath#*.}
     ln -sf "$DOTPATH"/.config/karabiner/assets/complex_modifications/$filepath ~/.config/karabiner/assets/complex_modifications/$karabiner_name
   done
