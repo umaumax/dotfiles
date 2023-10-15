@@ -659,8 +659,14 @@ cmdcheck ninja && alias ncn='ninja -t clean && ninja'
 cmdcheck ipython && function python() {
   if [[ $# == 0 ]]; then
     ipython
-  else
+  elif type >/dev/null 2>&1 python3; then
+    command python3 "$@"
+  elif type >/dev/null 2>&1 python; then
     command python "$@"
+  elif type >/dev/null 2>&1 python2; then
+    command python2 "$@"
+  else
+    echo 1>&2 'There is no python command in this environment!'
   fi
 }
 
