@@ -800,7 +800,9 @@
 
 [ifconfig set ip address(temporary)] sudo ifconfig ethX\%# 192.168.1.100 netmask 255.255.255.0
 
-[global ip] curl ifconfig.io
+[global ip address] curl ifconfig.io
+[local ip address] python -c 'import socket; s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM); s.connect(("8.8.8.8", 80)); print(s.getsockname()[0])'
+[local ip(ubuntu)] hostname -I
 [search 1000 ports(tcp)] nmap $IP_ADDRESS
 [search port range(tcp)] nmap -p\%# $IP_ADDRESS # -p1-1024
 [nmap ping scan (search ip address range)] nmap -sP 192.168.1.0/24
@@ -2271,6 +2273,7 @@
 [switch cluster context] kubectl ctx # kubectl krew install ctx
 [switch namespace context] kubectl ns # kubectl krew install ns
 [kubernetes run hello-world pod] kubectl run hello-world --image=hello-world --restart=Never
+[kubernetes images at node] kubectl get nodes -o=json | jq ".items[].status.images[].names"
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
