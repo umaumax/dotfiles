@@ -739,6 +739,7 @@
 [pip by python] python -m pip
 [pip by python3] python3 -m pip
 [pip upgrade] pip install --upgrade \%#
+[pip install libs] pip install -r requirements.txt
 [pip list] pip freeze
 [pip filelist] pip show -f \%#
 [pip exec command filelist] pip show -f \%# | grep bin
@@ -2280,6 +2281,7 @@
 [nerdctl pull image for k8s] sudo nerdctl image --namespace k8s.io pull --insecure-registry $HOST/$IMAGE_NAME:$TAG
 [nerdctl change tag for k8s] sudo nerdctl tag --namespace k8s.io \%# # hoge:base hoge:new
 [check image entry point] sudo nerdctl inspect --namespace k8s.io --format='{{.Config.Entrypoint}}' # $IMAGE_NAME:$TAG
+[list images which is same one of latest image] { echo 'REPOSITORY  TAG  IMAGE  ID  CREATED  PLATFORM  SIZE  BLOB  SIZE'; sudo nerdctl images --namespace k8s.io | grep -E "$(sudo nerdctl images --namespace k8s.io | awk '$2=="latest" {print($3)}' | paste -sd "|" -)" | grep -v "latest" | grep -v "<none>"; } | column -t
 
 # ipv6
 [ipv6 ssh] ssh \%# # $USER@$IP_ADDR
