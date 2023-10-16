@@ -48,9 +48,8 @@ local function switchInputSourceEvent(event)
         if not isCmd then
             if isCmdAsModifier == false then
                 if keyCode == map['cmd'] then
-                    keyStroke({"shift"}, ESCAPE, 0) -- Replase to half ascii (Google Japanese Input at Compositio mode)
-                    keyStroke({"ctrl"}, ESCAPE, 0) --  Commit (Google Japanese Input at Compositio mode)
-                    -- keyStroke({}, ESCAPE, 0)
+                    keyStroke({"alt"}, ']', 0)         -- Replase to half ascii (Google Japanese Input at Composition and Conversion mode)
+                    keyStroke({"alt", "ctrl"}, ']', 0) -- Commit (Google Japanese Input at Composition and Conversion mode)
                     keyStroke({}, 0x66, 0) -- 英数キー
                 elseif keyCode == map['rightcmd'] then
                     keyStroke({}, 0x68, 0) -- かなキー
