@@ -960,6 +960,10 @@ nnoremap q: <Nop>
 " NOTE: for alternate for q
 nnoremap Q q
 
+" disable F13
+map <S-F1> <Nop>
+map! <S-F1> <Nop>
+
 let b:macro_key=''
 function! StartMacro(char)
   let b:macro_key=a:char
