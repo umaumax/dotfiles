@@ -2275,6 +2275,7 @@
 [switch namespace context] kubectl ns # kubectl krew install ns
 [kubernetes run hello-world pod] kubectl run hello-world --image=hello-world --restart=Never
 [kubernetes images at node] kubectl get nodes -o=json | jq ".items[].status.images[].names"
+[kubectl force delete pods] --grace-period=0 --force # kubectl delete pods {$pod_name} --grace-period=0 --force
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
