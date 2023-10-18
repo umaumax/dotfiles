@@ -1726,6 +1726,7 @@
 [pgrep with user info] ps wup $(pgrep -f \%#)
 [pgrep with user info] ps aux | grep -v grep | grep -i \%#
 [ps thread at mac(but no tid)] ps aux -M $PID
+[ps visualize] ps aux | ov --header 1 --column-width --column-rainbow
 
 # performance
 [gprof: gmon.out call graph] gprof $EXEC_FILE_PATH\%# | gprof2dot | dot -Tsvg -o output.svg
