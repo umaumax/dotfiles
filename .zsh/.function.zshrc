@@ -512,6 +512,11 @@ alias gopher='echo "ʕ ◔ ϖ ◔ ʔ"'
 alias w2upath='sed "s:\\\:/:g"'
 alias w2p='p|w2upath|p2c'
 
+function u2wpath() {
+  local DRIVE="${1:-C:}"
+  sed 's/\//\\/g' | sed "s/^/$DRIVE/g"
+}
+
 alias relogin='exec ${SHELL:-$0} -l'
 alias clean-login-zsh='ZDOTDIR= zsh -l'
 alias clean-login-bash='bash --rcfile <(:)'

@@ -46,6 +46,9 @@ function cpwd() {
   echo -n $(pwd)/$1 | tee $(tty) | c
 }
 compdef cpwd=ls
+function cpwdwinpath() {
+  echo -n $(pwd)/$1 | sed 's/^~//g' | u2wpath 'Z:' | tee $(tty) | c
+}
 function cbasedirname() {
   basedirname | tee $(tty) | c
 }
