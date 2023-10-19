@@ -341,13 +341,11 @@ if [[ $(uname) == "Darwin" ]]; then
 
   # FYI: [macos \- Command\-line alias for Visual Studio Code on OS X with CSH? \- Stack Overflow]( https://stackoverflow.com/questions/31178895/command-line-alias-for-visual-studio-code-on-os-x-with-csh )
   function vscode() {
-    VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $*
+    VSCODE_CWD="$PWD" open -b "com.microsoft.VSCode" --args $*
   }
 
   function open() {
-    # -n: for avoiding below message
-    # The application cannot be opened for an unexpected reason, error=Error Domain=NSOSStatusErrorDomain Code=-600 "procNotFound: no eligible process with specified descriptor" UserInfo={_LSLine=379, _LSFunction=_LSAnnotateAndSendAppleEventWithOptions}
-    command open -n "$@"
+    command open "$@"
   }
 fi
 
