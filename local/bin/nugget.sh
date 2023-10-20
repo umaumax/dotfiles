@@ -171,6 +171,20 @@ function nugget_ubuntu_tig() {
 # ################################
 
 # ################################
+# tig for mac
+function nugget_mac_tig() {
+  cmdcheck tig && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  wget https://github.com/jonas/tig/releases/download/tig-2.5.8/tig-2.5.8.tar.gz
+  tar xvf tig-2.5.8.tar.gz -C .
+  pushd tig-2.5.8/
+  make install prefix=$HOME/local
+  popd
+}
+# ################################
+
+# ################################
 # tmux for linux
 function nugget_ubuntu_tmux() {
   # NOTE: There is tmux at ubutnu by apt-get? /usr/bin/tmux (2.1)
