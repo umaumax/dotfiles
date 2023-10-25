@@ -523,6 +523,9 @@ source_if_exist ~/.zsh/.git.zshrc
 
 source_if_exist "${ZDOTDIR:-$HOME}/.local.zshrc"
 
+if cmdcheck ssh-add; then
+  ssh-add -l >&/dev/null || eval $(ssh-agent) >/dev/null 2>&1
+fi
 # ---------------------
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
 # ---- don't add code here by your hand
