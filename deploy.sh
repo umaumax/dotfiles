@@ -24,6 +24,8 @@ dotfiles=(
   .config/xkeysnail/config.py
   .config/gitui/key_config.ron
   .config/ecat/config.yaml
+  .config/espanso/config/default.yml
+  .config/espanso/match/base.yml
   .gdbinit
   .hammerspoon/init.lua
   .inputrc
@@ -71,6 +73,7 @@ find .git_template/hooks -type l -not -name '.*' -print0 | xargs -0 -L 1 -IXXX c
 # NOTE: windows ln behave like cp (to avoid 'cannot overwrite directory')
 if [[ $OS =~ Windows ]]; then
   [[ -e ~/.vim/config ]] && rm -rf ~/.vim/config
+  # TODO: set espanso setting file
 fi
 ln -fs "$DOTPATH"/.vim/config ~/.vim/
 ln -fs "$DOTPATH"/.vim/patch ~/.vim/

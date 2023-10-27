@@ -147,6 +147,7 @@ brew install --cask rectangle
 brew install --cask xquartz
 brew install --cask ip-in-menu-bar
 brew install --cask alt-tab
+brew install --cask espanso
 # WARN: do not brew install docker
 brew install --cask docker
 brew install --cask adobe-acrobat-reader
