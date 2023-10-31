@@ -36,6 +36,8 @@
 
 [find only directory symbolic link at ubuntu] find . -type l -xtype d -ls
 
+[find like tree -L] find . -maxdepth 2
+
 # misc
 [get latest dir/file path] ls -At | head -n 1
 [ls number order] ls -v
@@ -829,6 +831,7 @@
 [curl check SSL expire date] curl --verbose \%# 2>&1 | grep 'expire date'
 [curl sh with arg] curl \%# | sh -s -- # args
 [curl bash with arg] curl \%# | bash -s -- # args
+[curl check ip addre from hostname] curl -4 --verbose 
 
 # FYI: [ちょっとだけ便利なワンライナー集 \| bacchi\.me]( https://bacchi.me/linux/bash-oneliner/ )
 [ssl check date] : | openssl s_client -connect \%#:443 2>/dev/null | openssl x509 -dates -noout
@@ -2279,6 +2282,7 @@
 [kubernetes run hello-world pod] kubectl run hello-world --image=hello-world --restart=Never
 [kubernetes images at node] kubectl get nodes -o=json | jq ".items[].status.images[].names"
 [kubectl force delete pods] --grace-period=0 --force # kubectl delete pods {$pod_name} --grace-period=0 --force
+[kubectl get latest pod with grep] kubectl get pods --no-headers -o custom-columns=":metadata.name" --sort-by=.status.startTime | tac | grep \%# | head -n1
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
