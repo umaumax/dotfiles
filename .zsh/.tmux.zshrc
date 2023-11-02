@@ -72,6 +72,12 @@ function tgrep() {
   tmux list-panes -a -F '#D #{pane_pid}' | xargs -L1 bash -c '{ pgrep -l -P "$2" | grep -q '"$process_name"'; } && echo "$1"' --
 }
 
+alias tc='tmux-context; echo "[copied]"; tmux-context| c'
+function tmux-context() {
+  echo "tmux pain:" $(tmux-name)
+  echo "dir:" $PWD
+}
+
 if [[ -n "$TMUX" ]]; then
   function ssh() {
     tmux rename-window "ssh:${*//-/_}"
