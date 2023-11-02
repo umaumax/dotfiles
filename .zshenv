@@ -11,8 +11,6 @@ cmdcheck() { type >/dev/null 2>&1 "$1"; }
 # alias lsal='ls -alG'
 # alias lat='ls -altrG'
 alias history='history 1'
-alias h='history'
-alias hgrep='h | grep'
 
 ################
 #### Ubuntu ####

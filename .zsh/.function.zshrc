@@ -268,8 +268,6 @@ alias history='history 1'
 function history_ranking() {
   builtin history -n 1 | grep -e "^[^#]" | awk '{ print $1 }' | LANG=C sort | uniq -c | LANG=C sort
 }
-alias h='history'
-alias hgrep='h | grep'
 alias envgrep='env | grep'
 
 # 年号コマンド
