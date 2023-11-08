@@ -164,8 +164,11 @@
   function = green
 [push]
   default = current
+  autoSetupRemote = true
 [pull]
   rebase = false
+[rebase]
+  autoStash = true
 [diff]
   compactionHeuristic = true
   colorMoved = dimmed-zebra
