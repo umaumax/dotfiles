@@ -146,7 +146,7 @@
 [docker disable restart status] docker update --restart=no $container_name
 [docker find always restart docker containers] docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq) | grep always
 [docker stop all containers] docker stop $(docker ps -q)
-[move docker image to nerdctl namespace] sudo nerdctl --namespace k8s.io load -i <(docker save \%# | gzip) # image tag
+[move docker image to nerdctl namespace] IMAGE_NAME=\%#; docker save "$IMAGE_NAME" | gzip > "${IMAGE_NAME}.tar.gz"; sudo nerdctl --namespace k8s.io load -i "${IMAGE_NAME}.tar.gz"
 
 # cmake
 [cmake with clang-tidy] cmake -DCMAKE_CXX_CLANG_TIDY="clang-tidy;-checks=*" ..
@@ -1890,6 +1890,7 @@
 [bash seq mkdir] for i in $DIR\%#_{00..9}; do mkdir ./$i; done # no zsh
 
 # rust
+[update rustc] rustup update
 [rust install nightly] rustup install nightly
 [rust switch to nightly] rustup default $(rustup toolchain list | grep -o '^nightly-[^ ]*' | head -n 1)
 [rust add cross build target] rustup target add \%#
@@ -2319,3 +2320,8 @@
 [aws eks clusters] aws eks list-clusters
 [aws profile] --profile $AWS_IAM_USER
 [check aws alb logs] kubectl logs -n kube-system deployments/aws-load-balancer-controller
+
+# tools
+[alternative watch command] hwatch # cargo install hwatch
+[json viewer TUI] jless # cargo install jless
+[enhanced better grep command] git grep $KEYWORD | hgrep # cargo install hgrep
