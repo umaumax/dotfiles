@@ -2793,3 +2793,5 @@ EOF
   printf '(16) %#8X MB\n' $ret
 FUNC_EOF
 }
+
+cmdcheck hwatch && alias watch=hwatch

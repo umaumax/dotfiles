@@ -32,6 +32,8 @@ cargo install taplo-cli
 
 cargo install gitui
 
+
+cargo install hwatch
 # typo check command: typos
 cargo install typos-cli
 
