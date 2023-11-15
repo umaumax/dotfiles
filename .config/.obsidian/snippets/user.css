@@ -10,3 +10,15 @@
     color: var(--code-comment) !important;
 }
 
+/* max width of notes */
+
+body {
+    --file-line-width: 1600px !important;
+}
+
+/* margin of notes */
+
+.markdown-source-view .cm-sizer {
+    margin-left: 0% !important;
+    margin-right: 0% !important;
+}
