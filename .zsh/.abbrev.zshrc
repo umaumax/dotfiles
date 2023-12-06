@@ -130,6 +130,7 @@ abbrev-alias -c kl='kubectl logs '
 abbrev-alias -c kg='kubectl get '
 abbrev-alias -c kd='kubectl describe '
 abbrev-alias -c kgp='kubectl get pods '
+abbrev-alias -c kid='kubectl idescribe' # my function
 abbrev-alias -c kgn='kubectl get nodes '
 abbrev-alias -c kgs='kubectl get svc '
 abbrev-alias -c kgi='kubectl get ingress '
