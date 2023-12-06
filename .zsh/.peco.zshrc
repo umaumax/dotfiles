@@ -1343,3 +1343,22 @@ function ssh-aws-eks() {
   echo "kubectl ssh-jump -u ec2-user -i "$AWS_EKS_PRIVATE_KEY" "$target""
   kubectl ssh-jump -u ec2-user -i "$AWS_EKS_PRIVATE_KEY" "$target"
 }
+
+function kubectl() {
+  local cmd="kubectl-$1"
+  if type >/dev/null 2>&1 "$cmd"; then
+    shift
+    $cmd "$@"
+    return
+  fi
+
+  command kubectl "$@"
+}
+
+function kubectl-idescribe() {
+  local line
+  line=$(kubectl get pods | fzf --query="$1")
+  [[ -z $line ]] && return
+  local target=$(printf '%s' "$line" | awk '{print $1}')
+  kubectl describe "pods/${target}"
+}
