@@ -2284,6 +2284,7 @@
 [kubernetes images at node] kubectl get nodes -o=json | jq ".items[].status.images[].names"
 [kubectl force delete pods] --grace-period=0 --force # kubectl delete pods {$pod_name} --grace-period=0 --force
 [kubectl get latest pod with grep] kubectl get pods --no-headers -o custom-columns=":metadata.name" --sort-by=.status.startTime | tac | grep \%# | head -n1
+[kubectl delete terminating pods] kubectl delete $(kubectl get pods | awk '$3=="Terminating" {print "pods/"$1}') --grace-period=0 --force
 
 # nerdctl
 [list k8s images] sudo nerdctl images --namespace k8s.io
