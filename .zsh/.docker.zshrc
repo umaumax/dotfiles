@@ -198,3 +198,7 @@ type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
   fi
   sudo nsenter -m -u -i -n -p -t "$(docker inspect --format {{.State.Pid}} "$container")" "$@"
 }
+
+function nerdctl-remove-image() {
+  sudo nerdctl images --namespace k8s.io | peco | awk '{printf "%s:%s\n", $1, $2}' | pipecheck xargs -L 1 sudo nerdctl rmi --namespace k8s.io
+}
