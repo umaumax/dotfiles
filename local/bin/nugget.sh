@@ -204,6 +204,19 @@ function nugget_ubuntu_tmux() {
 # ################################
 
 # ################################
+# kubecolor for linux
+function nugget_ubuntu_kubecolor() {
+  cmdcheck kubecolor && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED
+
+  pushd "$tmpdir"
+  wget https://github.com/kubecolor/kubecolor/releases/download/v0.2.2/kubecolor_0.2.2_linux_amd64.tar.gz
+  tar xvf ./kubecolor_0.2.2_linux_amd64.tar.gz
+  mv kubecolor "$NUGGET_INSTALL_BIN_PREIFX"
+  popd
+}
+# ################################
+
+# ################################
 # rtags for linux
 function nugget_ubuntu_rtags() {
   cmdcheck rdm && [[ -z $NUGGET_UPGRADE_FLAG ]] && return $NUGGET_ALREADY_INSTALLED

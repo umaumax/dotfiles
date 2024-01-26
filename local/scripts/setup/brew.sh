@@ -122,6 +122,9 @@ brew install plantuml
 # for perl
 brew install cpanminus
 
+# for kubernetes
+brew install kubecolor/tap/kubecolor
+
 # for dump struct
 # NOTE: this requires brew cask install adoptopenjdk
 # brew install kaitai-struct-compiler
