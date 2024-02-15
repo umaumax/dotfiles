@@ -394,15 +394,21 @@ function! s:git_url(...)
   if has_key(opt_arg, 'branch')
     let branch = opt_arg['branch']
     if !empty(branch)
-      let opt_cmd='--branch ' . opt_arg['branch']
+      let opt_cmd=opt_cmd.' --branch ' . opt_arg['branch']
     endif
   endif
-  let cmd='git url '.opt_cmd.' '.expand('%').' '.line('.')." | tr -d '\n'"
+  let line_arg=''
+  if has_key(opt_arg, 'line')
+    let line_arg = opt_arg['line']
+  endif
+  let cmd='git url '.opt_cmd.' '.expand('%').' '.line_arg." | tr -d '\n'"
   let url=system(cmd)
   return url
 endfunction
 command! -nargs=* GitURL :let @+ = s:git_url({'branch': <q-args>}) | echo '[COPY!]: ' . @+
 command!    GitURLMaster :let @+ = s:git_url({'branch': 'master'}) | echo '[COPY!]: ' . @+
+command! -nargs=* GitURLLine :let @+ = s:git_url({'branch': <q-args>, 'line': line('.')}) | echo '[COPY!]: ' . @+
+command!    GitURLMasterLine :let @+ = s:git_url({'branch': 'master', 'line': line('.')}) | echo '[COPY!]: ' . @+
 
 function! s:git_open()
   call OpenURL(s:git_url())
