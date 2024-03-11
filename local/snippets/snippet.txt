@@ -1725,7 +1725,7 @@
 [kill process tree for mac] kill -TERM -- -$PID
 [list process which use some lib for linux] ps $(sudo grep \%# /proc/*/maps | cut -d / -f 3 | sort -n | uniq | grep -v self)
 [show process environment] ps e -ww -p $PID
-[show process environment] cat /proc/$PID\%#/environ | tr '\0' '\n' # grep -E '^PATH'
+[show process environment] cat /proc/$PID\%#/environ | tr '\\0' '\n' # grep -E '^PATH'
 [ubuntu show process environment(pgrep)] strings /proc/$(pgrep \%#)/environ
 [ubuntu show process environment(pid)] strings /proc/\%#/environ
 [pgrep with user info] ps wup $(pgrep -f \%#)
