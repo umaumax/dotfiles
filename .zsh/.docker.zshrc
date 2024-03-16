@@ -200,5 +200,5 @@ type >/dev/null 2>&1 nsenter && function docker-simple-enter() {
 }
 
 function nerdctl-remove-image() {
-  sudo nerdctl images --namespace k8s.io | peco | awk '{printf "%s:%s\n", $1, $2}' | pipecheck xargs -L 1 sudo nerdctl rmi --namespace k8s.io
+  sudo nerdctl images --namespace k8s.io | fzf | awk '{printf "%s:%s\n", $1, $2}' | pipecheck xargs -L 1 sudo nerdctl rmi --namespace k8s.io
 }
