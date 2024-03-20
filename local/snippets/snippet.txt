@@ -653,6 +653,7 @@
 # http server
 [python2 http server] python -m SimpleHTTPServer
 [python3 http server] python3 -m http.server $PORT
+[python3 http server] python3 -c "import http.server; http.server.HTTPServer(('localhost', 8080\%#), http.server.SimpleHTTPRequestHandler).serve_forever()"
 [ruby http server] ruby -run -e httpd . -p 8000
 [php http server] php -S localhost:3000
 [echo server one liner] ncat -l 12345\%# -k -c 'xargs -n1 echo'
