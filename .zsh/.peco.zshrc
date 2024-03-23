@@ -1352,7 +1352,11 @@ function kubectl() {
     return
   fi
 
-  command kubectl "$@"
+  if cmdcheck kubecolor; then
+    command kubecolor "$@"
+  else
+    command kubectl "$@"
+  fi
 }
 
 function kubectl-idescribe() {
@@ -1362,3 +1366,19 @@ function kubectl-idescribe() {
   local target=$(printf '%s' "$line" | awk '{print $1}')
   kubectl describe "pods/${target}"
 }
+
+function kubectl-ctx() {
+  command kubectl-ctx "$@"
+  update-kubectl-current-ctx-env
+  echo "⚙export CLUSTER_NAME=$CLUSTER_NAME updated"
+}
+
+function update-kubectl-current-ctx-env() {
+  export CLUSTER_NAME=$(kubectl config current-context | sed -E 's:^.*/([^.]*).*$:\1:')
+  PS1='%F{1}['"$CLUSTER_NAME"']%F{3}[SSH] %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+  _PS1="$PS1"
+}
+
+if cmdcheck kubectl-ctx; then
+  update-kubectl-current-ctx-env
+fi
