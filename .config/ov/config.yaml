@@ -1,0 +1,10 @@
+General:
+  WrapMode: false
+
+KeyBind:
+  left:
+  right:
+  half_left:
+    - "left"
+  half_right:
+    - "right"

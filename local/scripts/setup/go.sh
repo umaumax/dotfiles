@@ -71,6 +71,9 @@ go get -u github.com/high-moctane/nextword
 # modern watch command
 go get -u github.com/sachaos/viddy
 
+# enhanced less command
+go install github.com/noborus/ov@latest
+
 # my tools
 go get -u github.com/umaumax/gechota
 go get -u github.com/umaumax/gms

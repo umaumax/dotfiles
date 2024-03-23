@@ -67,6 +67,9 @@ export EDITOR=$VIM
 export GIT_EDITOR=$VIM
 export VISUAL=$VIM
 export PAGER='less'
+if type >/dev/null 2>&1 ov; then
+  export PAGER='ov --multi-color "ERROR,WARN,INFO,DEBUG,not"'
+fi
 # [manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
 # NOTE: both vim and nvim is available, but maybe vim is better (because of no readonly warning message)
 export MANPAGER="/bin/sh -c \"col -b -x| VIM_MAN_FLAG=1 VIM_FAST_MODE='on' vim -R -c 'set ft=man nolist nonu noma' -\""

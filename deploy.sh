@@ -26,6 +26,7 @@ dotfiles=(
   .config/ecat/config.yaml
   .config/espanso/config/default.yml
   .config/espanso/match/base.yml
+  .config/ov/config.yml
   .gdbinit
   .hammerspoon/init.lua
   .inputrc
