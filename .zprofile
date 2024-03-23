@@ -68,6 +68,7 @@ export GIT_EDITOR=$VIM
 export VISUAL=$VIM
 export PAGER='less'
 if type >/dev/null 2>&1 ov; then
+  alias ov='ov --config ~/dotfiles/.config/ov/config.yaml'
   export PAGER='ov --multi-color "ERROR,WARN,INFO,DEBUG,not"'
 fi
 # [manをVimで見る]( https://rcmdnk.com/blog/2014/07/20/computer-vim/ )
