@@ -22,3 +22,16 @@ body {
     margin-left: 0% !important;
     margin-right: 0% !important;
 }
+
+.workspace-split.mod-root .workspace-leaf.mod-active::after {
+    content: "";
+    position: absolute;
+    background-repeat: no-repeat;
+    background-image: url("https://stickershop.line-scdn.net/stickershop/v1/sticker/16587446/android/sticker.png?v=1");
+    background-size: 100px;
+    filter: opacity(0.75);
+    top: 50px;
+    left: calc(100% - 150px);
+    width: 50%;
+    height: 50%;
+}
