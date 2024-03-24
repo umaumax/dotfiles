@@ -122,7 +122,7 @@ function! CommitMessageHelper(findstart, base)
   endfor
   return list
 endfunction
-setlocal omnifunc=CommitMessageHelper
+set omnifunc=CommitMessageHelper
 
 " augroup committia_hooks_group
 "   autocmd!
