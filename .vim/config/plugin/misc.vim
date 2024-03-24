@@ -572,6 +572,8 @@ let g:aerial={
       \ }
 nnoremap <Leader>A :AerialOpen<CR>
 
+Plug 'm-demare/hlargs.nvim'
+
 " if has('nvim')
 " Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 " else

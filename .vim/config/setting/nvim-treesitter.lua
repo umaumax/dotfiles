@@ -35,3 +35,5 @@ require("spellsitter").setup({
 	--   internal spell_check() function
 	spellchecker = "vimfn",
 })
+
+require("hlargs").setup()
