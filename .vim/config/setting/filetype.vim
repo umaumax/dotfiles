@@ -1,11 +1,12 @@
 augroup set_filetype
   autocmd!
+  autocmd BufRead,BufNewFile * FiletypeDetect
+
   " autocmd BufRead,BufNewFile *.{c,cpp,cxx,h,hpp}                      setlocal ft=cpp
   " autocmd BufRead,BufNewFile *.go                                     setlocal ft=go
-  " autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
+  " default FiletypeDetect detects as python3
+  autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
   " autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
-
-  autocmd BufRead,BufNewFile * FiletypeDetect
 
   autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal ft=gnuplot
   autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript
