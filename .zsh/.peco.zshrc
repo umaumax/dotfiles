@@ -1344,20 +1344,22 @@ function ssh-aws-eks() {
   kubectl ssh-jump -u ec2-user -i "$AWS_EKS_PRIVATE_KEY" "$target"
 }
 
-function kubectl() {
-  local cmd="kubectl-$1"
-  if type >/dev/null 2>&1 "$cmd"; then
-    shift
-    $cmd "$@"
-    return
-  fi
+if cmdcheck kubectl; then
+  function kubectl() {
+    local cmd="kubectl-$1"
+    if type >/dev/null 2>&1 "$cmd"; then
+      shift
+      $cmd "$@"
+      return
+    fi
 
-  if cmdcheck kubecolor; then
-    command kubecolor "$@"
-  else
-    command kubectl "$@"
-  fi
-}
+    if cmdcheck kubecolor; then
+      command kubecolor "$@"
+    else
+      command kubectl "$@"
+    fi
+  }
+fi
 
 function kubectl-idescribe() {
   local line
@@ -1367,18 +1369,18 @@ function kubectl-idescribe() {
   kubectl describe "pods/${target}"
 }
 
-function kubectl-ctx() {
-  command kubectl-ctx "$@"
-  update-kubectl-current-ctx-env
-  echo "⚙export CLUSTER_NAME=$CLUSTER_NAME updated"
-}
-
-function update-kubectl-current-ctx-env() {
-  export CLUSTER_NAME=$(kubectl config current-context | sed -E 's:^.*/([^.]*).*$:\1:')
-  PS1='%F{1}['"$CLUSTER_NAME"']%F{3}[SSH] %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
-  _PS1="$PS1"
-}
-
 if cmdcheck kubectl-ctx; then
+  function kubectl-ctx() {
+    command kubectl-ctx "$@"
+    update-kubectl-current-ctx-env
+    echo "⚙export CLUSTER_NAME=$CLUSTER_NAME updated"
+  }
+
+  function update-kubectl-current-ctx-env() {
+    export CLUSTER_NAME=$(kubectl config current-context | sed -E 's:^.*/([^.]*).*$:\1:')
+    PS1='%F{1}['"$CLUSTER_NAME"']%F{3}[SSH] %F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+    _PS1="$PS1"
+  }
+
   update-kubectl-current-ctx-env
 fi
