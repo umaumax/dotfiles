@@ -7,7 +7,7 @@ function! PipeCommandResultToNewTab(cmd)
   " redir END
   " tabnew | exe "normal! \"zp" | setlocal buftype=nofile | setlocal ft=vim
 
-  tabnew | setlocal buftype=nofile | setlocal ft=vim
+  tabnew | setlocal buftype=nofile | setlocal ft=log
   " put = execute(a:cmd)
   " or
   call append(0, split(execute(a:cmd),"\n"))
