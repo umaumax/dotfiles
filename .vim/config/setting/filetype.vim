@@ -23,7 +23,7 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.csv                                    setlocal ft=csv
   " NOTE: for ros
   autocmd BufRead,BufNewFile *.{launch}                               setlocal ft=xml
-  autocmd BufRead,BufNewFile README                                   setlocal ft=markdown
+  autocmd BufRead,BufNewFile README,*.md                              setlocal ft=markdown
   " NOTE: for nex [blynn/nex: Lexer for Go]( https://github.com/blynn/nex )
   autocmd BufRead,BufNewFile *.nex                                    setlocal ft=log
   " NOTE: for goyacc
