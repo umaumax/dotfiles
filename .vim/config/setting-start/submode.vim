@@ -37,10 +37,14 @@ if &rtp =~ 'vim-submode'
   call s:easy_submode_set('goto_buffer', 'n', '', 'go', ':bN<CR>')
 
   " NOTE: <C-i>はtabになるため，直接取得不可能
-  call submode#enter_with('jump-motions', 'n', '', '<C-o>', '<C-o>')
-  call submode#map('jump-motions', 'n', '', '<C-o>', '<C-o>')
-  call submode#map('jump-motions', 'n', '', 'o', '<C-o>')
-  call submode#map('jump-motions', 'n', '', 'i', '<C-i>')
+  " Below codes cause a below error.
+  " Error detected while processing ~/.config/nvim/init.vim[64]..~/dotfiles/.vim/config/setting-start/submode.vim[40]..function submode#enter_with[3]..<SNR>48_define_entering_mapping:
+  " line   16:
+  " E474: Invalid argument
+  " call submode#enter_with('jump-motions', 'n', '', '<C-o>', '<C-o>')
+  " call submode#map('jump-motions', 'n', '', '<C-o>', '<C-o>')
+  " call submode#map('jump-motions', 'n', '', 'o', '<C-o>')
+  " call submode#map('jump-motions', 'n', '', 'i', '<C-i>')
 
   " 画面中心移動(1行ごと)
   nnoremap zj jzz
