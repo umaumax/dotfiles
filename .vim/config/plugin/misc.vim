@@ -550,7 +550,7 @@ Plug 'mhartington/oceanic-next'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " required nvim-treesitter
-LazyPlug 'p00f/nvim-ts-rainbow'
+LazyPlug 'hiphish/rainbow-delimiters.nvim'
 
 " A Vim plugin that shows the context of the currently visible buffer contents.
 Plug 'romgrk/nvim-treesitter-context'
