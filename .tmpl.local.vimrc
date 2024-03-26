@@ -20,8 +20,9 @@ if has('mac')
 	let g:deoplete#sources#clang_with_pch#pch_pathes     = []
 else
 	" WIP ubuntu
-	let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-5.0/lib/libclang.so'
-	let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-5.0/include/clang'
+	let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so.1'
+	let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-8/include/llvm'
+
 	if !exists("g:deoplete#sources#clang#flags")
 		let g:deoplete#sources#clang#flags = []
 	endif
