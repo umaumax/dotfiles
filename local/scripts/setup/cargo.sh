@@ -34,6 +34,10 @@ cargo install gitui
 
 
 cargo install hwatch
+
+# jnv is designed for navigating JSON, offering an interactive JSON viewer and jq filter editor.
+cargo install jnv
+
 # typo check command: typos
 cargo install typos-cli
 
