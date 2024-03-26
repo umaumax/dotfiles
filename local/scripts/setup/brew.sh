@@ -73,6 +73,9 @@ brew_install_formula_list=(
   zsh-completions
   zsh-git-prompt
   zsh-history-substring-search
+  # tap
+  ynqa/tap/jnv
+  kubecolor/tap/kubecolor
 )
 for formula in "${brew_install_formula_list[@]}"; do
   brew install "$formula"
@@ -122,16 +125,9 @@ brew install plantuml
 # for perl
 brew install cpanminus
 
-# for kubernetes
-brew install kubecolor/tap/kubecolor
-
 # for dump struct
 # NOTE: this requires brew cask install adoptopenjdk
 # brew install kaitai-struct-compiler
-
-# brew tap
-# brew tap aki017/sixel
-# brew install libsixel
 
 # brew cask
 ## WARN: don't install by your self (by GUI)
