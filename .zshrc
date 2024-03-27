@@ -500,9 +500,9 @@ function source_if_exist() {
   [[ -f "$target" ]] && source "$target"
 }
 
-if cmdcheck kubecolor; then
-  alias kubectl="kubecolor"
-fi
+# if cmdcheck kubecolor; then
+# alias kubectl="kubecolor"
+# fi
 
 source_if_exist ~/.zsh/.function.zshrc
 source_if_exist ~/.zsh/.docker.zshrc
