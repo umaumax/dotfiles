@@ -8,6 +8,9 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
   autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
 
+  autocmd BufRead,BufNewFile *.toml                                   setlocal ft=toml
+  autocmd BufRead,BufNewFile *.{yml,yaml}                             setlocal ft=yaml
+  autocmd BufRead,BufNewFile *.json                                   setlocal ft=json
   autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal ft=gnuplot
   autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript
   autocmd BufRead,BufNewFile *.vue                                    setlocal ft=vue.html.javascript.css
@@ -31,6 +34,7 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.y                                      setlocal ft=goyacc
   " NOTE: for vscode snipept
   autocmd BufRead,BufNewFile *.code-snippets                          setlocal ft=json
+  autocmd BufRead,BufNewFile *.kt                                     setlocal ft=kotlin
 
   " NOTE: for cpp library header files which has no ext (e.g. cstdio)
   autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
