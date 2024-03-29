@@ -45,6 +45,11 @@ mkdir -p "$zsh_completion_dirpath"
 
 echo_log "[LOG] start download"
 
+if [[ ! -e git-clang-format ]]; then
+  wget https://raw.githubusercontent.com/llvm/llvm-project/main/clang/tools/clang-format/git-clang-format
+  chmod u+x git-clang-format
+fi
+
 download https://github.com/umaumax/oressh/blob/master/oressh
 download https://github.com/umaumax/diff-filter/blob/master/diff-filter
 download https://github.com/umaumax/git-sed/blob/master/git-sed
