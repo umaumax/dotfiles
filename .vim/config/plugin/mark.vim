@@ -9,7 +9,7 @@
 " mark auto registration
 " http://saihoooooooo.hatenablog.com/entry/2013/04/30/001908
 if !exists('g:markrement_char')
-  " ignore 'm', 's', 't' becase these are used other settings
+  " ignore 'm', 's', 't' because these are used other settings
   let g:markrement_char = [
         \     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
         \     'n', 'o', 'p', 'q', 'r', 'u', 'v', 'w', 'x', 'y', 'z'

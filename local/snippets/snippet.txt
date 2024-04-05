@@ -1357,8 +1357,8 @@
 
 [how to know image size] file
 [how to know image size] identify
-[check image exif infomation] identify -verbose 
-[check image exif infomation] exif # sudo apt install -y exif
+[check image exif information] identify -verbose 
+[check image exif information] exif # sudo apt install -y exif
 
 # [bash \- Removing a newline character at the end of a file \- Stack Overflow]( https://stackoverflow.com/questions/16365155/removing-a-newline-character-at-the-end-of-a-file )
 [removing a newline character at the end of a file] perl -0pe 's/\n\Z//'

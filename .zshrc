@@ -412,7 +412,7 @@ if [[ $ZSH_NAME == zsh ]]; then
   setopt NO_BEEP
 fi
 
-# show statistcal time log when the command takes this value [sec]
+# show statistical time log when the command takes this value [sec]
 REPORTTIME=10
 
 ## [[zsh]改行のない行が無視されてしまうのはzshの仕様だった件 · DQNEO起業日記]( http://dqn.sakusakutto.jp/2012/08/zsh_unsetopt_promptcr_zshrc.html )

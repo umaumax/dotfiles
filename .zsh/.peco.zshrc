@@ -80,7 +80,7 @@ function pecocat() {
       if cmdcheck wcat; then
         local CAT='wcat'
         local range=$(echo "$(tput lines) * 6 / 10 / 2 - 1" | bc)
-        # NOTE: Don't use `` in fzf --preview, becase parse will be fault when using ``. So, use $()
+        # NOTE: Don't use `` in fzf --preview, because parse will be fault when using ``. So, use $()
         # NOTE: 行数指定の場合で最初または最後の行の場合，指定のrangeだと表示が途切れて見えてしまう
         # NOTE: awk '%s:%s': 2番目を'%d'とすると明示的に0指定となるので，'%s'で空白となるように
         fzf --multi --ansi --reverse --preview 'F="$(printf '"'"'%s'"'"' {} | cut -d":" -f1)"; L="$(printf '"'"'%s'"'"' {} | awk -F":" "{print \$2}")"; [[ -d "$F" ]] && '"$ls_force_color"' "$F"; [[ -f "$F" ]] && '"$CAT"' "$F:$L":'"$range"';' --preview-window 'down:60%' --query=$query
