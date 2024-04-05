@@ -166,7 +166,7 @@ if Doctor('npm', 'maksimr/vim-jsbeautify')
 endif
 
 " color sheme
-" NOTE: if文を使用していると，Plugで一括installができない
+" WARN: if文を使用していると，実行されない分岐があるため、Plugで一括installができない
 if g:colorscheme ==# 'molokai'
   LazyPlug 'tomasr/molokai'
   if !isdirectory(expand('~/.vim/colors'))
@@ -238,10 +238,6 @@ augroup illuminate_augroup
   autocmd!
   autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
 augroup END
-
-" Doxygen
-" :Dox
-Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
 
 " Plug 'tpope/vim-surround'
 
@@ -364,12 +360,12 @@ silent! map <PageUp>   <Plug>(SmoothieBackwards)
 " send page down and page up
 " NOTE: move visual selection itself
 LazyPlug 't9md/vim-textmanip'
-vmap <S-Down>  <Plug>(textmanip-move-down)
-vmap <S-Up>    <Plug>(textmanip-move-up)
-vmap <PageDown>  <Plug>(textmanip-move-down)
-vmap <PageUp>    <Plug>(textmanip-move-up)
-vmap <S-Left>  <Plug>(textmanip-move-left)
-vmap <S-Right> <Plug>(textmanip-move-right)
+vmap <S-Down>   <Plug>(textmanip-move-down)
+vmap <S-Up>     <Plug>(textmanip-move-up)
+vmap <PageDown> <Plug>(textmanip-move-down)
+vmap <PageUp>   <Plug>(textmanip-move-up)
+vmap <S-Left>   <Plug>(textmanip-move-left)
+vmap <S-Right>  <Plug>(textmanip-move-right)
 
 " NOTE: this plugin is newer than above
 " MoveBlockRight -> MoveBlockLeft create extra space at the end of line
@@ -451,11 +447,6 @@ Plug 'mechatroner/rainbow_csv', {'for':'csv', 'on':['RainbowDelim']}
 Plug 'qpkorr/vim-renamer', {'on':'Renamer'}
 let g:RenamerWildIgnoreSetting=''
 
-Plug 'umaumax/bats.vim', {'for':'bats'}
-
-" NOTE: for goyacc
-Plug 'rhysd/vim-goyacc', {'for':'goyacc'}
-
 " NOTE: for remote file editing
 " e.g. :VimFiler ssh://localhost/$HOME/tmp/README.md
 " To open absolute path, you must use "ssh://HOSTNAME//" instead of "ssh://HOSTNAME/".
@@ -471,49 +462,40 @@ LazyPlug 'blueyed/vim-diminactive'
 " gs: interactive mode
 LazyPlug 'machakann/vim-swap'
 
-if has('nvim-0.3.8')
-  Plug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
+Plug 'willelz/badapple.nvim', {'on':['BadAppleNvim']}
 
-  " FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
-  LazyPlug 'ncm2/float-preview.nvim'
-  let g:float_preview#docked = 1
-  let g:float_preview#auto_close = 0
-  " NOTE: call float_preview#close() to close preview
+" FYI: [float\-preview\.nvimで画面がリサイズされたときにいい感じに設定を切り替える \- Qiita]( https://qiita.com/htlsne/items/44acbef80c70f0a161e5 )
+LazyPlug 'ncm2/float-preview.nvim'
+let g:float_preview#docked = 1
+let g:float_preview#auto_close = 0
+" NOTE: call float_preview#close() to close preview
 
-  " FYI: [deol\.nvim で簡単にターミナルを使う \- KUTSUZAWA Ryo \- Medium]( https://medium.com/@bookun/vim-advent-calendar-2019-12-20-63a12396211f )
-  Plug 'Shougo/deol.nvim',{'on':['Deol']}
+" FYI: [deol\.nvim で簡単にターミナルを使う \- KUTSUZAWA Ryo \- Medium]( https://medium.com/@bookun/vim-advent-calendar-2019-12-20-63a12396211f )
+Plug 'Shougo/deol.nvim',{'on':['Deol']}
 
-  function! DeolTerminal(w,h)
-    " NOTE: 横幅を大きく指定する分にはエラーにはならず，resize後の挙動も想定通りになる
-    execute printf(':Deol -split=floating -winwidth=%s -winheight=%s',a:w,a:h)
-  endfunction
-  command! FloatingTerm :call DeolTerminal()
-  function! Nnoremap_deol_terminal(w,h)
-    if &ft!='deol'
-      call DeolTerminal(a:w,a:h)
-    else
-      :q
-    endif
-  endfunction
-  inoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
-  cnoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
-  nnoremap <silent><C-x>t :call Nnoremap_deol_terminal(256,25)<CR>
-  tnoremap <silent><C-x>t <C-\><C-n>:q<CR>
+function! DeolTerminal(w,h)
+  " NOTE: 横幅を大きく指定する分にはエラーにはならず，resize後の挙動も想定通りになる
+  execute printf(':Deol -split=floating -winwidth=%s -winheight=%s',a:w,a:h)
+endfunction
+command! FloatingTerm :call DeolTerminal()
+function! Nnoremap_deol_terminal(w,h)
+  if &ft!='deol'
+    call DeolTerminal(a:w,a:h)
+  else
+    :q
+  endif
+endfunction
+inoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
+cnoremap <silent><C-x>t <ESC>:call DeolTerminal(256,25)<CR>
+nnoremap <silent><C-x>t :call Nnoremap_deol_terminal(256,25)<CR>
+tnoremap <silent><C-x>t <C-\><C-n>:q<CR>
 
-  nnoremap <silent>dt :call Nnoremap_deol_terminal(256,25)<CR>
-  nnoremap <silent>df :call Nnoremap_deol_terminal(256,40)<CR>
-  nnoremap <silent>dv :Deol -split=vertical<CR>
-  nnoremap <silent>ds :Deol -split=horizontal<CR>
-endif
-
-" NOTE: filetype support for LLVM IR
-Plug 'rhysd/vim-llvm'", {'for':'llvm'}
+nnoremap <silent>dt :call Nnoremap_deol_terminal(256,25)<CR>
+nnoremap <silent>df :call Nnoremap_deol_terminal(256,40)<CR>
+nnoremap <silent>dv :Deol -split=vertical<CR>
+nnoremap <silent>ds :Deol -split=horizontal<CR>
 
 Plug 'umaumax/vim-lcov', {'for': ['c', 'cpp']}
-
-" if has('nvim')
-" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-" endif
 
 " :SaveSession
 " :LoadSession
@@ -571,3 +553,13 @@ let g:aerial={
 nnoremap <Leader>A :AerialOpen<CR>
 
 Plug 'm-demare/hlargs.nvim'
+
+" 🐿🐯 lists
+" NOTE: filetype support for LLVM IR
+Plug 'rhysd/vim-llvm'", {'for':'llvm'}
+" NOTE: for goyacc
+Plug 'rhysd/vim-goyacc', {'for':'goyacc'}
+Plug 'umaumax/bats.vim', {'for':'bats'}
+" Doxygen
+" :Dox
+Plug 'vim-scripts/DoxygenToolkit.vim', {'on': ['Dox']}
