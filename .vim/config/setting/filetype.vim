@@ -8,6 +8,8 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
   autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
 
+  autocmd BufRead,BufNewFile *.awk                                    setlocal ft=awk
+  autocmd BufRead,BufNewFile *.lua                                    setlocal ft=lua
   autocmd BufRead,BufNewFile *.toml                                   setlocal ft=toml
   autocmd BufRead,BufNewFile *.{yml,yaml}                             setlocal ft=yaml
   autocmd BufRead,BufNewFile *.json                                   setlocal ft=json
