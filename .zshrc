@@ -97,10 +97,9 @@ if cmdcheck tmux; then
   }
 fi
 
-# ---- WARN ---- print current status for pseudo ealry startup ----
+# ---- WARN ---- print current status for pseudo early startup ----
 # FYI: [~/.bashrcは何も出力してはいけない（するならエラー出力に） - None is None is None]( http://doloopwhile.hatenablog.com/entry/2014/11/04/124725 )
 function login_init() {
-  # cd .
   ls_abbrev
   if [[ ! -n "$TMUX" ]] && [[ -n $SSH_TTY ]] && cmdcheck tmux; then
     local tmux_ls
@@ -112,7 +111,7 @@ function login_init() {
 if [[ $ZSH_NAME == zsh ]]; then
   login_init
 fi
-# ---- WARN ---- print current status for pseudo ealry startup ----
+# ---- WARN ---- print current status for pseudo early startup ----
 
 # NOTE: 現在のwindowsのmy setting(MSYS2)ではログインシェルの変更に不具合があるため(bash経由でzshを呼び出しているため，zshrcからzprofileを呼ぶ必要がある)
 if [[ $OS == Windows_NT ]]; then
@@ -500,10 +499,6 @@ function source_if_exist() {
   [[ -f "$target" ]] && source "$target"
 }
 
-# if cmdcheck kubecolor; then
-# alias kubectl="kubecolor"
-# fi
-
 source_if_exist ~/.zsh/.function.zshrc
 source_if_exist ~/.zsh/.docker.zshrc
 source_if_exist ~/.zsh/.tmux.zshrc
@@ -530,6 +525,7 @@ source_if_exist "${ZDOTDIR:-$HOME}/.local.zshrc"
 if cmdcheck ssh-add; then
   ssh-add -l >&/dev/null || eval $(ssh-agent) >/dev/null 2>&1
 fi
+
 # ---------------------
 [[ -n $DEBUG_MODE ]] && (which zprof >/dev/null 2>&1) && zprof
 # ---- don't add code here by your hand
