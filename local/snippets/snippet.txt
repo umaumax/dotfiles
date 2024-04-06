@@ -1490,6 +1490,7 @@
 [source code to  png] bat --color=always \%# | ansitoimg -p raster code.png
 [source code to html] bat --color=always \%# | ansitoimg -p html code.html
 [with pager] |& ecat --color=always | bat --paging=always --style=plain
+[with pager] |& ecat --color=always | less
 
 # mac
 [mac sshpass install] brew install http://git.io/sshpass.rb
