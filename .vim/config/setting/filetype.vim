@@ -36,7 +36,7 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.y                                      setlocal ft=goyacc
   " NOTE: for vscode snipept
   autocmd BufRead,BufNewFile *.code-snippets                          setlocal ft=json
-  autocmd BufRead,BufNewFile *.kt                                     setlocal ft=kotlin
+  autocmd BufRead,BufNewFile *.{kt,kts}                               setlocal ft=kotlin
 
   " NOTE: for cpp library header files which has no ext (e.g. cstdio)
   autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
