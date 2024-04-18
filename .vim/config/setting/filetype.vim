@@ -37,6 +37,7 @@ augroup set_filetype
   " NOTE: for vscode snipept
   autocmd BufRead,BufNewFile *.code-snippets                          setlocal ft=json
   autocmd BufRead,BufNewFile *.{kt,kts}                               setlocal ft=kotlin
+  autocmd BufRead,BufNewFile *.swift                                  setlocal ft=swift
 
   " NOTE: for cpp library header files which has no ext (e.g. cstdio)
   autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
