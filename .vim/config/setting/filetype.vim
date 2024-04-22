@@ -38,6 +38,7 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.code-snippets                          setlocal ft=json
   autocmd BufRead,BufNewFile *.{kt,kts}                               setlocal ft=kotlin
   autocmd BufRead,BufNewFile *.swift                                  setlocal ft=swift
+  autocmd BufRead,BufNewFile *.groovy                                  setlocal ft=groovy
 
   " NOTE: for cpp library header files which has no ext (e.g. cstdio)
   autocmd BufRead,BufNewFile * if expand('%:p:e') == '' && expand('%:p:e') =~ 'include' | setlocal ft=cpp | endif
