@@ -364,6 +364,8 @@ bindkey '^M' _accept_line && zle -N _accept_line && function _accept_line() {
     return
   fi
   local ret
+  CMD=${REPL_CMD%% *}
+  ! type >/dev/null 2>&1 $CMD && echo "❌ not found '$CMD'"$'\a' && zle reset-prompt && return
   ret="$(eval "$REPL_CMD")"
   # NOTE: my not found handler return code
   if [[ $? == $((404 - 256)) ]]; then
@@ -566,12 +568,12 @@ function _copy_command() {
   echo ''
   if cmdcheck bat; then
     {
-      echo "# [clipboard]"
-      printf '%s' "$(p)"
+      echo "📋[clipboard]"
+      printf '%s\n' "$(p)"
     } | bat --color=auto -l=bash --plain --paging=never
   else
-    echo "# [clipboard]"
-    printf '%s\n' "$(p)"
+    echo "📋[clipboard]"
+    printf '%s\n\n' "$(p)"
   fi
   zle reset-prompt
 }
