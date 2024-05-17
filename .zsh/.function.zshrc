@@ -898,7 +898,8 @@ cmdcheck mdt || function mdt() {
 }
 
 # NOTE: for line message app(drop time and username)
-alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \\w+ \\w+ //g"'
+alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \w+ \w+𓃡 //g"'
+alias linecopy='p | line-sed | p2c; p'
 
 alias pwd='pwd | homedir_normalization'
 
