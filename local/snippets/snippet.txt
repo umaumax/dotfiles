@@ -1040,8 +1040,9 @@
 [unix timestamp with millsec(ubuntu)] date +%s%3N
 [unix timestamp with millsec(mac)] gdate +%s%3N
 [ubuntu date after or ago] date -d "+90\%# days"
-[unixtime stamp to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
-[unixtime stamp to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
+[unixtime stamp(sec) to formatted date(ubuntu)] date --date "@\%#" '+%Y/%m/%d %H:%M:%S' # @ is needed
+[unixtime stamp(sec) to formatted date(mac)] date -r "\%#" '+%Y/%m/%d %H:%M:%S' # with @ and without @ is ok
+[unixtime stamp(milli)] perl -MTime::HiRes -e 'printf("%.0f\n",Time::HiRes::time()*1000)' # WARN: Be careful about startup time.
 [mac date x hour ago] date -v -1H
 
 # vagrant
@@ -1311,7 +1312,7 @@
 # date
 [mac date] date +'%Y-%m-%d %H:%M:%S'
 [date for log] date +'%Y-%m-%d-%H-%M-%S'
-[show date with time zone] TZ=Asia/Tokyo date
+[show date with local japan time zone] TZ=Asia/Tokyo date
 
 [mac logger] logger 'hello world'
 [mac cat log] log show --style syslog --predicate 'processImagePath endswith "logger"' --start $(date +"%Y-%m-%d")
