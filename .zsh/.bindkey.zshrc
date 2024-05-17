@@ -358,7 +358,7 @@ bindkey '^|' _nothing_to_do && zle -N _nothing_to_do && function _nothing_to_do(
 # NOTE: cat $| ls -a | grep zsh [enter]
 bindkey '^M' _accept_line && zle -N _accept_line && function _accept_line() {
   local BUFFER_="$BUFFER"
-  local REPL_CMD="${BUFFER##*$|}"
+  local REPL_CMD="${BUFFER##* $| }"
   if [[ "$REPL_CMD" == "$BUFFER" ]]; then
     zle accept-line
     return
