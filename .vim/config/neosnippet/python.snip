@@ -48,19 +48,31 @@ snippet read_file
 snippet argparse_example
 alias cmdparse_example
 	import argparse
+	import sys
 
-	parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-	parser.add_argument('-o', '--output-filepath', default='')
-	parser.add_argument('-v', '--verbose', action='store_true')
-	parser.add_argument('required-arg')
-	parser.add_argument('args', nargs='*') # any length of args is ok
+	global args
 
-	args, extra_args = parser.parse_known_args()
-	# args.output_filepath
-	# args.verbose
-	# args.required_arg
-	# args.args
-	${0}
+	def main():
+		parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+		parser.add_argument('-in', '--input-filepath', type=argparse.FileType(), default=sys.stdin)
+		parser.add_argument('-o', '--output-filepath', default='')
+		parser.add_argument('-v', '--verbose', action='store_true')
+		parser.add_argument('required-arg')
+		parser.add_argument('args', nargs='*') # any length of args is ok
+
+		global args
+		args, extra_args = parser.parse_known_args()
+		# args.output_filepath
+		# args.verbose
+		# args.required_arg
+		# args.args
+
+		with args.input_filepath as f:
+			print(f.readlines())
+			${0}
+
+	if __name__ == '__main__':
+		main()
 
 snippet self
 	self.${0}
