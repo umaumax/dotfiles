@@ -1027,6 +1027,7 @@
 [gron json grep] gron --colorize \%# | fzf
 [json jq interactive filter] jnv # cargo install jnv
 [minify JSON] jq -r tostring
+[json lines lint] python3 -m json.tool --json-lines > /dev/null \%#
 
 # jq
 [jq slice at 1st] jq '.[:\%#]'
