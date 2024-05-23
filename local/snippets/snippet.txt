@@ -1725,7 +1725,7 @@
 [pstree with args ubuntu] ps -e f
 [pstree of current shell] ps -e f ww | grep -C 10 $$
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree # pstree -p $PID $PID
-[decl ppid like reverse pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); [[ -z "$pid" ]] && return 1; recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t }
+[decl ppid like reverse pstree] recv_ppid() { ps u $1 | tail -n 1; [[ "$1" == "1" ]] && return; pid=$(ps -o ppid= -p $1 | tr -d ' '); [[ -z "$pid" ]] && return 1; recv_ppid $pid; }; ppid() { recv_ppid $1 | column -t; }
 [send signal to process] kill -SIG\%# $PID # e.g. SIGCONT
 [signal list of manual(ubuntu)] man 7 signal | grep -A 31 'Standard signals'
 [signal list of manual(mac)] MANPAGER=cat man 3 signal | grep -A 40 'SIGHUP'
