@@ -1721,6 +1721,7 @@
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [ps list priority and nice value] ps -p $(pgrep \%#) -o pid,tid,policy,pri,ni,rtprio,comm
 [pstree on ubuntu] ps -e f ww
+[pstree on ubuntu with pid] ps -e f ww | grep -A 10 "^ *$PID\%#" | grep -C 999 -E '\||\\_'
 [pstree with args ubuntu] ps -e f
 [pstree of current shell] ps -e f ww | grep -C 10 $$
 [pstree on mac] pstree -p $(pgrep \%#) # with parent # brew install pstree # pstree -p $PID $PID
