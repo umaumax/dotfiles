@@ -68,6 +68,7 @@ brew_install_formula_list=(
   vim
   watch
   wget
+  yq
   zsh
   zsh-autosuggestions
   zsh-completions
