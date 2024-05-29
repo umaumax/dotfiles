@@ -658,6 +658,8 @@
 [ruby http server] ruby -run -e httpd . -p 8000
 [php http server] php -S localhost:3000
 [echo server one liner] ncat -l 12345\%# -k -c 'xargs -n1 echo'
+[socat echo server] socat TCP4-LISTEN:8080,reuseaddr,fork exec:"cat"
+[socat http server] BODY='Hello world!' && socat TCP4-LISTEN:8080,reuseaddr,fork exec:"echo 'HTTP/1.1 200 OK\nContent-Length: ${#BODY}\nContent-Type: text/html\n\n${BODY}'"
 
 # log
 [realtime log viewer] tail -f
@@ -1720,7 +1722,7 @@
 [ps list threads ubuntu] ps -Lfl -p $PID
 [process tree hint for linux] ps x -o  "%p %r %y %x %c"
 [ps list priority and nice value] ps -p $(pgrep \%#) -o pid,tid,policy,pri,ni,rtprio,comm
-[pstree on ubuntu] ps -e f ww
+[pstree on ubuntu] ps -e f ww | less -S -# 8
 [pstree on ubuntu with pid] ps -e f ww | grep -A 10 "^ *$PID\%#" | grep -C 999 -E '\||\\_'
 [pstree with args ubuntu] ps -e f
 [pstree of current shell] ps -e f ww | grep -C 10 $$
