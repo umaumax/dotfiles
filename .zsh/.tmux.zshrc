@@ -79,16 +79,34 @@ function tmux-context() {
 }
 
 if [[ -n "$TMUX" ]]; then
-  function ssh() {
-    tmux rename-window "ssh:${*//-/_}"
-    command ssh "$@"
+  function _pre-ssh-setting() {
+    DEFAULT_BACKGROUND_COLOR=$(tmux display -p "#{pane_bg}")
+    BACKGROUND_COLOR=${BACKGROUND_COLOR:-#000000}
+    tmux select-pane -P "bg=${BACKGROUND_COLOR}"
+    tmux rename-window "📡ssh:${*//-/_}"
+  }
+
+  function _post-ssh-setting() {
     tmux set-window-option automatic-rename "on" 1>/dev/null
+    tmux select-pane -P "bg=${DEFAULT_BACKGROUND_COLOR}"
+  }
+
+  function ssh() {
+    BACKGROUND_COLOR="#440044" _pre-ssh-setting "$@"
+    command ssh "$@"
+    _post-ssh-setting "$@"
   }
 
   function oressh() {
-    tmux rename-window "ssh:${*//-/_}"
+    BACKGROUND_COLOR="#660033" _pre-ssh-setting "$@"
     command oressh "$@"
-    tmux set-window-option automatic-rename "on" 1>/dev/null
+    _post-ssh-setting "$@"
+  }
+
+  function kubectl-ssh-jump() {
+    BACKGROUND_COLOR="#554400" _pre-ssh-setting "$@"
+    command kubectl ssh-jump "$@"
+    _post-ssh-setting "$@"
   }
 
   function docker() {
@@ -118,7 +136,7 @@ if [[ -n "$TMUX" ]]; then
       fi
     fi
 
-    tmux rename-window "docker:${title}"
+    tmux rename-window "🐳docker:${title}"
     command docker "$@"
     tmux set-window-option automatic-rename "on" 1>/dev/null
   }
