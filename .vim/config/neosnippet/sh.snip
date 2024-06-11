@@ -749,6 +749,9 @@ snippet is_number_if
 		${0}
 	fi
 
+snippet is_var_check
+	[[ -v ${0:#:VAR without $} ]]
+
 snippet length_of_var
 abbr depend LANG env var
 	${#${1:#:var}}${0}
