@@ -12,7 +12,7 @@ matches:
     replace: "Hi there!"
 
   # Dates
-  - trigger: ":date"
+  - regex: "(:|;)date"
     replace: "{{mydate}}"
     vars:
       - name: mydate
@@ -48,11 +48,23 @@ matches:
       ``` bash
       $|$
       ```
-  - trigger: ":f"
+  - trigger: ":fi"
     replace: "🔥"
-  - trigger: ";f"
+  - trigger: ";fi"
     replace: "🔥"
-  - trigger: ":s"
+  - trigger: ":st"
     replace: "🌟"
-  - trigger: ";s"
+  - trigger: ";st"
     replace: "🌟"
+  - trigger: ":lb"
+    replace: "💡"
+  - trigger: ";lb"
+    replace: "💡"
+  - trigger: ":ok"
+    replace: "🆗"
+  - trigger: ";ok"
+    replace: "🆗"
+  - trigger: ":ch"
+    replace: "✅"
+  - trigger: ";ch"
+    replace: "✅"
