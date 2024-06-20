@@ -842,6 +842,7 @@
 
 # dmesg
 [dmesg with human readable time] dmesg -T \%#
+[dmesg with log level] dmesg -Tx \%#
 
 # ufw
 [ufw status] sudo ufw status verbose
