@@ -2002,6 +2002,7 @@
 [ol perl source code comfirm] perl -MO=Deparse # -le 'print "Hello, World!"'
 [ol compare version] perl -e 'eval "exit ((version->parse(@ARGV[0]) @ARGV[1] version->parse(@ARGV[2])) ? 0 : 1)"' # v2.0 '<' v2.1
 [ol perl glob] perl -e 'print join("\n", glob(@ARGV[0]))' '\%#'
+[ol drop 0] perl -pe 's/^0*(\d+)$/$1/; s/^$/0/'
 
 # expand
 [tab to space] expand -t 2 # pipe or filename
