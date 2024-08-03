@@ -1363,8 +1363,8 @@
 [update fonts at ubuntu] fc-cache -f -v
 
 [how to know image size] file
-[how to know image size] identify
-[check image exif information] identify -verbose 
+[how to know image size] identify # sudo apt install -y imagemagick
+[check image exif information] identify -verbose # sudo apt install -y imagemagick
 [check image exif information] exif # sudo apt install -y exif
 
 # [bash \- Removing a newline character at the end of a file \- Stack Overflow]( https://stackoverflow.com/questions/16365155/removing-a-newline-character-at-the-end-of-a-file )
