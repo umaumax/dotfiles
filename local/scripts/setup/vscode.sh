@@ -46,6 +46,8 @@ extensions=(
   ms-python.python
   ms-python.vscode-pylance
   ms-vscode.cpptools
+  # NOTE: this includes ms-vscode-remote.remote-containers
+  ms-vscode-remote.vscode-remote-extensionpack
   oderwat.indent-rainbow
   rust-lang.rust
   ryu1kn.text-marker
@@ -74,7 +76,6 @@ fi
 
 if [[ $(uname) == "Darwin" ]]; then
   extensions=("${extensions[@]}"
-    ms-vscode-remote.vscode-remote-extensionpack
     praveencrony.total-lines
 
     # for unity
