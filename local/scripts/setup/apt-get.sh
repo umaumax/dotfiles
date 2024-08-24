@@ -212,6 +212,7 @@ sudo apt-get install -y librsvg2-bin
 
 # for perl
 sudo apt-get install -y cpanminus
+sudo apt-get install -y perltidy
 
 # for sql
 sudo apt-get install -y sqlite3 libsqlite3-dev

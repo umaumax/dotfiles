@@ -49,6 +49,7 @@ brew_install_formula_list=(
   node
   opencv
   peco
+  perltidy
   pstree
   pv
   pyenv
