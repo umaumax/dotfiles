@@ -36,7 +36,7 @@ function docker-exec() {
   # local login_shell="env zsh || env bash"
   # NOTE: sudo suを行わない場合と比較してLANGの設定が変化する(sudo suのみでは~/.zprofileは実行されていないっぽい)
   # local login_shell='type sudo >/dev/null 2>&1 && exec sudo su $(whoami) || type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
-  local login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l'
+  local login_shell='type zsh >/dev/null 2>&1 && exec zsh -l || type bash >/dev/null 2>&1 && exec bash -l || type sh >/dev/null 2>&1 && exec sh -l'
   [[ $1 == '--bash' ]] && local login_shell='exec bash -l'
 
   local container_id=$(docker ps | peco | awk '{print $1}')
