@@ -2022,6 +2022,7 @@
 
 # download
 [download install editor tmp] mkdir -p ~/.local/bin; pushd ~/.local/bin; [[ ! -e ./micro ]] && curl https://getmic.ro | bash; export PATH="$PWD:$PATH"; popd
+[download/install helix cli editor for aarch64 linux] type xz && wget https://github.com/helix-editor/helix/releases/download/24.07/helix-24.07-x86_64-linux.tar.xz && tar xf helix-*.tar.xz && ( cp helix-*/hx /usr/local/bin || cp helix-*/hx ~/local/bin/hx || cp helix-*/hx ~/.local/bin/hx ) # apt-get install -y xz-utils
 [download fzf arm7 binary] tar xvzf <(curl --output - -L https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz) -C .
 [download fzf arm7 binary url] https://github.com/junegunn/fzf-bin/releases/download/0.20.0/fzf-0.20.0-linux_arm7.tgz
 [download linux static binary] wget https://raw.githubusercontent.com/andrew-d/static-binaries/master/binaries/linux/x86_64/socat
