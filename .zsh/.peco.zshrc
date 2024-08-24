@@ -1369,6 +1369,28 @@ function kubectl-idescribe() {
   kubectl describe "pods/${target}"
 }
 
+function kubectl-config-merge() {
+  [[ $# == 0 ]] && echo "$0 [config filepath ...]" && return 1
+
+  TMP_KUBECONFIG=${KUBECONFIG:-$HOME/.kube/config}
+  for arg in "$@"; do
+    if [[ ! -f "$arg" ]]; then
+      echo 1>&2 "❌️not found $arg"
+      return 1
+    fi
+    echo 1>&2 "✅️ found $arg"
+    TMP_KUBECONFIG="${TMP_KUBECONFIG}:$arg"
+  done
+
+  echo 1>&2 "KUBECONFIG=$TMP_KUBECONFIG kubectl config view --flatten"
+  MAIN_KUBECONFIG="$(echo "$TMP_KUBECONFIG" | cut -f1 -d:)"
+
+  command cp "$MAIN_KUBECONFIG" "${MAIN_KUBECONFIG}.old"
+  KUBECONFIG="$TMP_KUBECONFIG" kubectl config view --flatten | tee "${MAIN_KUBECONFIG}-merged"
+  command mv "${MAIN_KUBECONFIG}-merged" "$MAIN_KUBECONFIG"
+  diff "${MAIN_KUBECONFIG}.old" "$MAIN_KUBECONFIG"
+}
+
 if cmdcheck kubectl-ctx; then
   function kubectl-ctx() {
     command kubectl-ctx "$@"
