@@ -91,6 +91,8 @@
 
 [extract 7z file] 7za x \%#.7z # sudo apt install -y p7zip-full
 
+[stream output to zip] | zip \%#.zip -
+[stream output to gzip] | gzip -c > \%#.gz
 [zip compress] zip -r \%# # [.zip] [dir]
 [unzip at dir] unzip \%# -d $DIR
 [zip unzip broken file] zip -FF $SRC\%# --output $DST
