@@ -84,29 +84,31 @@ if [[ -n "$TMUX" ]]; then
     BACKGROUND_COLOR=${BACKGROUND_COLOR:-#000000}
     tmux select-pane -P "bg=${BACKGROUND_COLOR}"
     tmux rename-window "📡ssh:${*//-/_}"
+    trap '_post-ssh-setting' SIGINT
   }
 
   function _post-ssh-setting() {
     tmux set-window-option automatic-rename "on" 1>/dev/null
     tmux select-pane -P "bg=${DEFAULT_BACKGROUND_COLOR}"
+    trap - SIGINT
   }
 
   function ssh() {
-    BACKGROUND_COLOR="#440044" _pre-ssh-setting "$@"
+    BACKGROUND_COLOR="#440044" _pre-ssh-setting
     command ssh "$@"
-    _post-ssh-setting "$@"
+    _post-ssh-setting
   }
 
   function oressh() {
-    BACKGROUND_COLOR="#660033" _pre-ssh-setting "$@"
+    BACKGROUND_COLOR="#660033" _pre-ssh-setting
     command oressh "$@"
-    _post-ssh-setting "$@"
+    _post-ssh-setting
   }
 
   function kubectl-ssh-jump() {
-    BACKGROUND_COLOR="#554400" _pre-ssh-setting "$@"
+    BACKGROUND_COLOR="#554400" _pre-ssh-setting
     command kubectl ssh-jump "$@"
-    _post-ssh-setting "$@"
+    _post-ssh-setting
   }
 
   function docker() {
