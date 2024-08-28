@@ -8,6 +8,7 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.py                                     setlocal ft=python
   autocmd BufRead,BufNewFile *.{vim,vimrc}                            setlocal ft=vim
 
+  autocmd BufRead,BufNewFile *.pl                                     setlocal ft=perl
   autocmd BufRead,BufNewFile *.awk                                    setlocal ft=awk
   autocmd BufRead,BufNewFile *.lua                                    setlocal ft=lua
   autocmd BufRead,BufNewFile *.toml                                   setlocal ft=toml
@@ -15,6 +16,8 @@ augroup set_filetype
   autocmd BufRead,BufNewFile *.json                                   setlocal ft=json
   autocmd BufRead,BufNewFile *.{gp,gnu,plt,gnuplot}                   setlocal ft=gnuplot
   autocmd BufRead,BufNewFile *.js                                     setlocal ft=javascript
+  autocmd BufRead,BufNewFile *.html                                   setlocal ft=html
+  autocmd BufRead,BufNewFile *.css                                    setlocal ft=css
   autocmd BufRead,BufNewFile *.vue                                    setlocal ft=vue.html.javascript.css
   autocmd BufRead,BufNewFile *.{sh,bashrc,bashenv,bash_profile,envrc} setlocal ft=sh
   autocmd BufRead,BufNewFile *.{zsh,zshrc,zshenv,zprofile}            setlocal ft=zsh
