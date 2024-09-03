@@ -513,7 +513,7 @@ function u2wpath() {
   sed 's/\//\\/g' | sed "s/^/$DRIVE/g"
 }
 
-alias relogin='exec ${SHELL:-$0} -l'
+alias relogin='exec ${SHELL:-$0} -l' # reuse same environment variable
 alias clean-login-zsh='ZDOTDIR= zsh -l'
 alias clean-login-bash='bash --rcfile <(:)'
 
