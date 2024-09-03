@@ -60,6 +60,7 @@ brew_install_formula_list=(
   screen
   semgrep
   shellcheck
+  tailspin
   terminal-notifier
   tig
   tmux

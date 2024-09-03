@@ -35,6 +35,9 @@ cargo install gitui
 
 cargo install hwatch
 
+# enhanced less command
+type >/dev/null 2>&1 tspin || cargo install tailspin
+
 # jnv is designed for navigating JSON, offering an interactive JSON viewer and jq filter editor.
 cargo install jnv
 
