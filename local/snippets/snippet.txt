@@ -554,6 +554,7 @@
 [print up to the first N characters of each line] ls  | cut -c1-\%#
 [ol cat files with filename] tail -n+1 
 [ol 1 line 1 sleep wait] awk '{print; fflush(); system("sleep 1");}'
+[launch a lot of processes] trap 'kill $(jobs -p) 2>/dev/null; wait; echo "All processes terminated."' INT; for i in {1..100}; do (while true; do echo "Process $i running"; sleep 1; done) & done; echo "All processes started. Press Ctrl-C to terminate."; wait
 
 # random
 [ol random texts ruby] ruby -e 'puts ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample((ARGV[0].nil?)?8:ARGV[0].to_i).join' # length
