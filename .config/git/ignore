@@ -75,6 +75,7 @@ bin/
 # for python
 __pycache__
 htmlcov
+*.egg-info/
 
 # ====
 # ====
