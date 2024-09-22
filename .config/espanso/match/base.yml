@@ -68,3 +68,7 @@ matches:
     replace: "✅"
   - trigger: ";ch"
     replace: "✅"
+  - trigger: ":good"
+    replace: "👍"
+  - trigger: ";good"
+    replace: "👍"
