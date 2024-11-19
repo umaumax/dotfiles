@@ -172,7 +172,7 @@ alias desktop='cd ~/Desktop/'
 [[ -d ~/gitlab.com ]] && alias gitlab='cd ~/gitlab.com'
 [[ -d ~/github.com/cpp-examples ]] && alias cpp-examples='cd ~/github.com/cpp-examples'
 [[ -d ~/chrome-extension ]] && alias chrome-extension='cd ~/chrome-extension'
-[[ -d ~/gshare ]] && alias gshare='cd ~/gshare' && alias vigshare='tabvim ~/gshare/*.md' && alias vimshare='vishare'
+[[ -d ~/dotfiles/local/share/gdrive/ ]] && alias cd-gdrive='cd ~/dotfiles/local/share/gdrive/' && alias vignote='vim ~/dotfiles/local/share/gdrive/note.md'
 [[ -d ~/.config ]] && alias config='cd ~/.config'
 
 [[ -d ~/dotfiles/.config/gofix ]] && alias gofixdict='cd ~/dotfiles/.config/gofix'
@@ -1705,12 +1705,53 @@ function google_web_url_to_wget_url() {
 # required: gdrive
 if cmdcheck gdrive; then
   function memosync() {
-    local n=${1:-30}
-    for ((i = 0; i < $n; i++)); do
-      gsync-gshare && break
-      sleep 10
-    done
+    (
+      pushd ~/dotfiles/local/share/gdrive/ >/dev/null 2>&1
+      local target_file_id='1qE8oioT715AKAYL38LgMr-D6VxDXrAWi'
+      local target_file_name='note.md'
+      # e.g. Modified: 2024-11-19 18:16:33
+      local gdrive_result=$(gdrive files info "$target_file_id")
+      local gdrive_md5=$(printf '%s' "$gdrive_result" | grep MD5 | grep -E -o '[0-9a-zA-Z]+$')
+
+      if [[ -z "$gdrive_md5" ]]; then
+        echo "❌️"
+        return 1
+      fi
+
+      if echo "$gdrive_md5 $target_file_name" | md5sum -c; then
+        echo "✅️Latest"
+        return
+      fi
+
+      local gdrive_mod_time_text=$(printf '%s' "$gdrive_result" | grep Modified)
+
+      if [[ $(uname) == "Darwin" ]]; then
+        # mac
+        local local_mod_time_text=$(echo "Modified: $(stat -f "%m" "$target_file_name" | xargs -I{} date -r {} "+%Y-%m-%d %H:%M:%S")")
+      else
+        # linux
+        local local_mod_time_text=$(echo "Modified: $(stat --format="%Y" "$target_file_name" | xargs -I{} date --date @{} "+%Y-%m-%d %H:%M:%S")")
+      fi
+
+      if [[ "$gdrive_mod_time_text" < "$local_mod_time_text" ]]; then
+        echo "✅️uploading..."
+        gdrive files update "$target_file_id" "$target_file_name"
+      fi
+      if [[ "$gdrive_mod_time_text" > "$local_mod_time_text" ]]; then
+        echo "✅️downloading..."
+        gdrive files download --overwrite "$target_file_id"
+      fi
+    )
   }
+
+  # old gdrive implemntation
+  # function memosync() {
+  # local n=${1:-30}
+  # for ((i = 0; i < $n; i++)); do
+  # gsync-gshare && break
+  # sleep 10
+  # done
+  # }
   function gsync-gshare() {
     # NOTE: zsh cd message stdout
     # NOTE: gsync  message stderr
