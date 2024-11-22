@@ -1,3 +1,4 @@
 # NOTE: this .gitignore file is only for this repo
 !*
 .DS_Store
+local/share/gdrive/*
