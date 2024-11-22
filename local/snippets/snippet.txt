@@ -501,6 +501,7 @@
 
 # shell one liner
 [tab] $'\\t'
+[ol random number] echo $((RANDOM % 10)) # 0-9
 [ol get line number of pattern] awk '/\%#/{ print NR; exit }'
 [ol tac] perl -e 'print reverse<>'
 [ol cr2lf] sed "s/\r/\n/g"
@@ -1013,6 +1014,7 @@
 [install proxy connect tool] sudo apt install -y connect-proxy
 
 # sed
+[sed delete nth line] sed -i '1d' $FILEPATH # for gsed
 [sed delete end of line] sed -i '$d' $FILEPATH # for gsed
 [sed add next line of regexp] sed -i -e '/$REGEX/a $ADD_LINE_STR' $FILAPTH
 [sed add  pre line of regexp] sed -i -e '/$REGEX/i $ADD_LINE_STR' $FILAPTH
@@ -2348,3 +2350,7 @@
 [alternative watch command] hwatch # cargo install hwatch
 [json viewer TUI] jless # cargo install jless
 [enhanced better grep command] git grep $KEYWORD | hgrep # cargo install hgrep
+[install column] sudo apt install -y bsdmainutils
+
+# webdav
+[launch webdav server to upload files] wsgidav --host=0.0.0.0 --port=80 --root=./ --auth=anonymous # pip3 install wsgidav cheroot
