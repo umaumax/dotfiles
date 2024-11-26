@@ -1184,6 +1184,7 @@
 [file to c++ array] od -A n -v -t x1 \%# | awk -v var_name=data 'BEGIN{ printf("const unsigned char %s[] = {\n", var_name); } { for (i=1;i<NF;i++) printf("0x%s,", $i); print ""; } END{ print "};"; }'
 [binary diff] cmp -l $FILE1\%# $FILE2 | gawk '{printf "%08X %02X %02X\n", $1, strtonum(0$2), strtonum(0$3)}'
 [binary overwrite] printf '\\x31\\xc0\\xc3'\%# | dd of=$BIN_FILE bs=1 seek=$START count=$LENGTH conv=notrunc
+[decimal(10) to hex to bin] perl -ne 'printf "%02x ", $_' | xxd -r -p # echo -e "127\n255" | perl -ne 'printf "%02x ", $_' | xxd -r -p | hexdump -C
 
 [replace c2a0 to space (e.g. for tree)] sed "s/$(echo -e "\\xc2\\xa0")/ /g"
 
@@ -2354,3 +2355,5 @@
 
 # webdav
 [launch webdav server to upload files] wsgidav --host=0.0.0.0 --port=80 --root=./ --auth=anonymous # pip3 install wsgidav cheroot
+
+[qrcode] qr # pip3 install qrcode
