@@ -898,14 +898,16 @@ cmdcheck mdt || function mdt() {
 }
 
 # NOTE: for line message app(drop time and username)
-alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \w+ \w+𓃡 //g"'
+alias line-sed='sed -E "s/^[0-9]+:[0-9]+ \w+\.\w+𓃡 //g"'
 alias linecopy='p | line-sed | p2c; p'
 
 function date-header() {
   ~/dotfiles/local/scripts/date-header.py "$@"
 }
 
-alias pwd='pwd | homedir_normalization'
+function pwd() {
+  command pwd "$@" | homedir_normalization
+}
 
 function abspath_raw() {
   perl -MCwd -le 'for (@ARGV) { if ($p = Cwd::abs_path $_) { print $p; } }' "$@"
