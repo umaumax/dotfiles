@@ -74,7 +74,7 @@ augroup vim_gitgutter_group
 augroup END
 
 " NOTE: for .gitignore color highlighting
-Plug 'fszymanski/fzf-gitignore', {'for': 'gitignore'}
+Plug 'theniceboy/fzf-gitignore', {'for': 'gitignore'}
 
 " NOTE: reveal the commit messages under the cursor like git blame
 Plug 'rhysd/git-messenger.vim', {'on': 'GitMessenger'}
