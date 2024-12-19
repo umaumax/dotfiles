@@ -36,6 +36,7 @@ extensions=(
   bwildeman.tabulous
   christian-kohler.path-intellisense
   eamodio.gitlens
+  GitHub.copilot
   # high-moctane.nextword # this conflict Atishay-Jain.All-Autocomplete
   ionutvmi.path-autocomplete
   jebbs.plantuml
@@ -68,7 +69,7 @@ extensions_vsix_url=($(for e in ${extensions_url[@]}; do echo "$e"; done | grep 
 
 if [[ "$(uname)" =~ Windows ]]; then
   extensions=("${extensions[@]}"
-    cweijan.vscode-autohotkey-plus
+    mark-wiemer.vscode-autohotkey-plus-plus
     ms-vscode.powershell
     slevesque.vscode-autohotkey
   )
