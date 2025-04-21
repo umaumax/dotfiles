@@ -583,6 +583,7 @@
 [clean file non-exist filepath ok] ruby -e 'require "pathname"; puts Pathname.new(ARGV[0]).cleanpath.to_s' $ANY_FILEPATH
 # NOTE: eval echo $filepath: extract ~ to $HOME
 [ol expand $HOME] perl -pe 's/(^~\/+)|(^~$)/$ENV{HOME}\/'
+[binary grep] bgrep 68656c6c6f yourfile.bin # sudo apt install -y bgrep or brew install bgrep
 
 [time bomb at mac] sleep $(( $(gdate -d "\%#" "+%s") - $(gdate "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
 [time bomb at ubuntu] sleep $(( $(date -d "\%#" "+%s") - $(date "+%s") )) && echo BOMB # 12:34, 01/23 12:34, 1 min, 1 day
@@ -1175,6 +1176,7 @@
 [hex on bash command] $((0x\%#))
 [10base to 16base] printf "%x" \%#
 [show char code] hexdump -C \%#
+[show 2base binary data] xxd -g 1 -b
 [hexdump -C] od -t x1z -A x
 [hexdump -C] hexly
 [hexdump range] hexdump -C -s $((0x\%#)) -n $((0x100)) # -s:start, -n:length
@@ -1701,10 +1703,11 @@
 [grep without message] grep -sq \%#
 [grep fixed string] grep -F \%# # no regex '$' -> '\$', '\' -> '\\'
 [grep japanese (gnu grep)] grep -n -P '[\p{Hiragana}\p{Katakana}\p{Han}]'
-[binary grep] bingrep \%# # cargo install bingrep
+[binary exe file grep] bingrep \%# # cargo install bingrep
 [grep force even if binary] grep -a \%#
 [grep only highlight] grep -e '$' -e '\%#' # or use '|' or use '-C 99999'
 [grep line length limit (for min.js)] grep -E -e '^.{,500}$' --and -e \%#
+[binary grep] bgrp # bgrep 68656c6c6f yourfile.bin # sudo apt install -y bgrep or brew install bgrep
 
 # linux
 [segmentation backtrace] catchsegv \%# # command
@@ -2353,7 +2356,8 @@
 [enhanced better grep command] git grep $KEYWORD | hgrep # cargo install hgrep
 [install column] sudo apt install -y bsdmainutils
 
-# webdav
+# upload server
 [launch webdav server to upload files] wsgidav --host=0.0.0.0 --port=80 --root=./ --auth=anonymous # pip3 install wsgidav cheroot
+[file upload server] filebrowser -r . -a 0.0.0.0 -p 8080
 
 [qrcode] qr # pip3 install qrcode
