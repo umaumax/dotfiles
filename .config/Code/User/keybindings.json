@@ -71,6 +71,12 @@
     "command": "editor.action.smartSelect.shrink",
     "when": "editorTextFocus && editorHasSelection"
   },
+  // for GitHub copilot
+  {
+    "key": "cmd+enter",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "isMac && editorTextFocus && suggestWidgetVisible"
+  },
   {
     "key": "ctrl+e",
     "command": "cursorLineEnd",
