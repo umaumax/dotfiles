@@ -1222,6 +1222,7 @@ cmdcheck tac && function clean-cdinfo() {
 }
 
 alias memo='touch README.md'
+alias AGENTS.md='cp ~/dotfiles/local/share/agents/AGENTS.md .'
 alias tmp='cd ~/tmp/'
 
 function cat-all() {
