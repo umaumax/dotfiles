@@ -48,8 +48,14 @@ local function switchInputSourceEvent(event)
         if not isCmd then
             if isCmdAsModifier == false then
                 if keyCode == map['cmd'] then
-                    keyStroke({}, 0x69, 0) -- F13      -- Replace to half ascii (Google Japanese Input at Composition and Conversion mode)
-                    keyStroke({"alt", "ctrl"}, ']', 0) -- Commit (Google Japanese Input at Composition and Conversion mode)
+                    -- Google日本語入力にてカスタム設定済み: Replace to half ascii (Google Japanese Input at Composition and Conversion mode)
+                    keyStroke({}, 0x69, 0) -- F13
+                    -- Google日本語入力にてカスタム設定済み: Commit (Google Japanese Input at Composition and Conversion mode)
+                    hs.eventtap.keyStroke({}, "F16") -- F16
+                    -- 次のキー送信ではterminalの文字入力中に「1;10P」という不可視な文字が混入する問題が発生してしまうことに注意
+                    -- hs.eventtap.keyStroke({"alt"}, "F13") -- Option + F13
+                    -- 次のキー送信ではmacのFinderでファイル名を変更する際に「\u{1d}\u{1d}」という不可視な文字が混入する問題が発生してしまうことに注意
+                    -- keyStroke({"alt", "ctrl"}, ']', 0) -- Commit (Google Japanese Input at Composition and Conversion mode)
                     keyStroke({}, 0x66, 0) -- 英数キー
                 elseif keyCode == map['rightcmd'] then
                     keyStroke({}, 0x68, 0) -- かなキー
